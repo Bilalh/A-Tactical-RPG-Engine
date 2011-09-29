@@ -48,7 +48,7 @@ public class Map extends Observable {
 	}
 
 	public void start() {
-		Notification n =  new ChooseUnitsNotifications(player.getUnits());
+		Notification n =  new ChooseUnitsNotifications(player.getUnits(), ai.getUnits());
 		setChanged();
 		notifyObservers(n);
 	}

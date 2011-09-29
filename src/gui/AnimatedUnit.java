@@ -26,7 +26,7 @@ public class AnimatedUnit extends GuiUnit {
 	private long frameDuration = 100 *1000000; 
 	
 	public AnimatedUnit(String ref, int gridX, int gridY) {
-		super("assets/gui/alien.gif",gridX,gridY);
+		super(ref,gridX,gridY);
 		
 		// setup the animatin frames
 		frames[0] = sprite;

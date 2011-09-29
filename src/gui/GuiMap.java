@@ -35,10 +35,11 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
     private int fieldWidth, fieldHeight;
     
     private AnimatedUnit[] units;
+    private AnimatedUnit[] aiUnits;
 
     private Map map;
     
-	/** @category Constructor */
+	/** @category old Constructor */
 	public GuiMap(int width, int height) {
 		this.fieldWidth = width;
 		this.fieldHeight = height;
@@ -64,7 +65,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 	}
 
     
-	/** @category Generated Constructor */
+	/** @category Constructor */
 	public GuiMap(Map map) {
 		
 		final Tile grid[][] = map.getField();
@@ -94,13 +95,14 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 	public void update(Observable map, Object notification) {
 		
 		if (notification instanceof ChooseUnitsNotifications){
-			chooseUnits(((ChooseUnitsNotifications) notification).getUnits());
+			chooseUnits(((ChooseUnitsNotifications) notification).getUnits(), 
+					((ChooseUnitsNotifications) notification).getAiUnits());
 		}
 		
 	}
 
 	
-	private void chooseUnits(ArrayList<Unit> allUnits) {
+	private void chooseUnits(ArrayList<Unit> allUnits, ArrayList<Unit> aiUnits) {
 		
 		AnimatedUnit[] newUnits = new AnimatedUnit[allUnits.size()];
 		ArrayList<Unit> unitsList = new ArrayList<Unit>();
@@ -113,6 +115,15 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 		}
 		map.setUsersUnits(unitsList);
 		this.units = newUnits;
+		
+		AnimatedUnit[] newAiUnits = new AnimatedUnit[aiUnits.size()];
+		for (int i = 0; i < newAiUnits.length; i++) {
+			//FIXME indies
+			aiUnits.get(i).setGridX(fieldWidth-1);
+			aiUnits.get(i).setGridY(i);
+			newAiUnits[i] = new AnimatedUnit("assets/gui/alien.gif", fieldWidth-1, i);
+		}
+		this.aiUnits = newAiUnits;
 	}
 
 
@@ -149,20 +160,38 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
         }
         
         // Draw Units
-        if (units == null) return;
-        for (int i = 0; i < units.length; i++) {
-        	int xPos =drawX, yPos = drawY;
+        if (units != null){
+            for (int i = 0; i < units.length; i++) {
+            	int xPos =drawX, yPos = drawY;
 
-        	// height
-        	xPos -= (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * ((fieldHeight - 1 -  units[i].gridY) ));
-        	yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * ((fieldHeight - 1 -  units[i].gridY)) );
+            	// height
+            	xPos -= (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * ((fieldHeight - 1 -  units[i].gridY) ));
+            	yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * ((fieldHeight - 1 -  units[i].gridY)) );
 
-        	// width
-        	xPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * (units[i].gridX);
-        	yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom) * (units[i].gridX);				
+            	// width
+            	xPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * (units[i].gridX);
+            	yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom) * (units[i].gridX);				
 
-        	units[i].draw(g,field,  xPos, yPos, timeDiff);
-		}
+            	units[i].draw(g,field,  xPos, yPos, timeDiff);
+    		}
+        }
+
+        if (aiUnits != null){
+            for (int i = 0; i < aiUnits.length; i++) {
+            	int xPos =drawX, yPos = drawY;
+
+            	// height
+            	xPos -= (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * ((fieldHeight - 1 -  aiUnits[i].gridY) ));
+            	yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * ((fieldHeight - 1 -  aiUnits[i].gridY)) );
+
+            	// width
+            	xPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * (aiUnits[i].gridX);
+            	yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom) * (aiUnits[i].gridX);				
+
+            	aiUnits[i].draw(g,field,  xPos, yPos, timeDiff);
+    		}
+        }
+        
         
     }
     
