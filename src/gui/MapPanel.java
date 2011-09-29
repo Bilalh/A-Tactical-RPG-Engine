@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
@@ -63,6 +65,15 @@ public class MapPanel extends JPanel implements Runnable {
 		this.map  = new GuiMap(grid);
 		this.addMouseListener(map);
 		this.addMouseMotionListener(map);
+		this.addComponentListener(new ComponentAdapter() {
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+				dbImage = null;
+				System.out.println("sdd");
+			}
+			
+		});
 	}
 
 	/* The frames of the animation are drawn inside the while loop. */
@@ -163,14 +174,14 @@ public class MapPanel extends JPanel implements Runnable {
 
 	private void gameRender(long timeDiff) {
 		// TODO check for resize
-//		if (dbImage == null) {
+		if (dbImage == null) {
 			dbImage = createImage(getWidth(), getHeight());
 			if (dbImage == null) {
 				System.out.println("dbImage is null");
 				return;
 			} else
 				dbg = dbImage.getGraphics();
-//		}
+		}
 
 		if (bgImage == null) {
 			dbg.setColor(Color.GRAY);

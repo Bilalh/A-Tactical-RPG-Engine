@@ -5,6 +5,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
 
 import javax.swing.JFrame;
 
@@ -66,5 +67,5 @@ public class Gui {
         
 		frame.add(mapPanel);
 	}
-
+	
 }
