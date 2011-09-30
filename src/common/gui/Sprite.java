@@ -29,6 +29,11 @@ public class Sprite {
 	public int getHeight() {
 		return image.getHeight(null);
 	}
+
+	/** @category Generated Getter */
+	public Image getImage() {
+		return image;
+	}
 	
 	
 }

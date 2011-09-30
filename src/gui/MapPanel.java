@@ -70,7 +70,7 @@ public class MapPanel extends JPanel implements Runnable {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				dbImage = null;
-				System.out.println("sdd");
+				System.out.println("resized");
 			}
 			
 		});
@@ -139,15 +139,13 @@ public class MapPanel extends JPanel implements Runnable {
 
 	
 	// initialise and start the thread
-	private void startGame()
-	{
+	private void startGame(){
 		if (animator == null || !running) {
 			animator = new Thread(this);
 			animator.start();
 		}
 	}
 
-	// ------------- game life cycle methods ------------
 	// called by the JFrame's window listener methods
 
 	// called when the JFrame is activated / deiconified
@@ -167,8 +165,6 @@ public class MapPanel extends JPanel implements Runnable {
 
 	private void gameUpdate() {
 		if (!isPaused && !gameOver) {
-			// ball.updateSprite();
-			// bat.updateSprite();
 		}
 	}
 

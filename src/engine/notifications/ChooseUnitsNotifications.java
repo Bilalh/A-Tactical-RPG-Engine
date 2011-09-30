@@ -32,5 +32,13 @@ public class ChooseUnitsNotifications implements Notification {
 	public ArrayList<Unit> getAiUnits() {
 		return aiUnits;
 	}
+
+	@Override
+	public String toString() {
+		final int maxLen = 10;
+		return String.format("ChooseUnitsNotifications [units=%s, aiUnits=%s]",
+				units != null ? units.subList(0, Math.min(units.size(), maxLen)) : null,
+				aiUnits != null ? aiUnits.subList(0, Math.min(aiUnits.size(), maxLen)) : null);
+	}
 	
 }

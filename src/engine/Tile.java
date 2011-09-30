@@ -9,27 +9,33 @@ import java.awt.Point;
 public class Tile {
 
 	private Unit current = null;
-	private int height;
-    private Point fieldLocation;
-	
+	private int startHeight;
+	private int endHeight;
+
 	/** @category Generated Constructor */
-	public Tile(int height) {
-		this.height = height;
+	public Tile(int startHeight, int endHeight) {
+		this.startHeight = startHeight;
+		this.endHeight = endHeight;
 	}
-	
-	
 	
 	/** @category Generated Getter */
 	public Unit getCurrent() {
 		return current;
 	}
+
+
 	/** @category Generated Setter */
 	public void setCurrent(Unit current) {
 		this.current = current;
 	}
 	/** @category Generated Getter */
-	public int getHeight() {
-		return height;
+	public int getStartHeight() {
+		return startHeight;
+	}
+
+	/** @category Generated Getter */
+	public int getEndHeight() {
+		return endHeight;
 	} 
 	
 	

@@ -76,7 +76,9 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
         //FIXME 
         for (int i = 0; i < fieldWidth; i++) { 
             for (int j = 0; j < fieldHeight; j++) {
-            	field[i][j] = new MapTile(MapTile.Orientation.NORMAL, 1.0f, 1.0f);
+            	field[i][j] = new MapTile(MapTile.Orientation.UP_TO_EAST,
+            			grid[i][j].getStartHeight(),
+            			grid[i][j].getEndHeight());
             	field[i][j].setFieldLocation(new Point(i, j));
             }
         }
@@ -93,7 +95,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 	
 	@Override
 	public void update(Observable map, Object notification) {
-		
+		System.out.println(notification);
 		if (notification instanceof ChooseUnitsNotifications){
 			chooseUnits(((ChooseUnitsNotifications) notification).getUnits(), 
 					((ChooseUnitsNotifications) notification).getAiUnits());
@@ -151,13 +153,14 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
         		g.setColor(Color.RED);
         		g.drawString(String.format("(%d,%d)", j,i), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
         		g.setColor(old);
-        		        		
+//        		        		
         		x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
         		y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
         	}
         	x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
         	y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (fieldHeight - i));
         }
+      
         
         // Draw Units
         if (units != null){
@@ -269,6 +272,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
         }
         selectedTile = field[x][y];
         selectedTile.setSelected(true);
+        
     }
 
     /** @category Generated Getter */

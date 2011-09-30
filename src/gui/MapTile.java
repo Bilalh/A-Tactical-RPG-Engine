@@ -1,10 +1,11 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Point;
-import java.awt.Graphics;
-import java.awt.Polygon;
+import java.awt.*;
 import java.util.Arrays;
+
+import common.gui.Sprite;
+import common.gui.SpriteManager;
+
 import static gui.MapTile.Orientation.*;
 
 public class MapTile {
@@ -29,6 +30,10 @@ public class MapTile {
     private Polygon top;
     private Point fieldLocation;
 
+    
+    static Sprite image = SpriteManager.instance().getSprite("assets/gui/DesertTile1.png");
+    
+    
     /**
      * Constructor
      * @param orientation The orientation of this tile
@@ -127,6 +132,8 @@ public class MapTile {
         }
     }
 
+   
+    
     /**
      * Draw a Standard Tile.  Standard Tiles do not have a slant to them.
      * Note that the drawing begins at (x,y - MapSettings.tileHeight*height).
@@ -157,8 +164,21 @@ public class MapTile {
         		y + vertical - finalHeight, 
         		y + vertical / 2 - finalHeight}
         , 4));
-        //System.out.println("x:" +Arrays.toString(top.xpoints));
-        //System.out.println("y:" + Arrays.toString(top.ypoints));
+        
+        Image i = image.getImage();
+        
+//        g.drawImage(i, 
+//        		x, 
+//        		y, 
+//        		x+MapSettings.tileDiagonal, 
+//        		y+MapSettings.tileHeight, 
+//        		0, 
+//        		0, 
+//        		i.getWidth(null), 
+//        		i.getHeight(null), 
+//        		null);
+//        System.out.println("x:" +Arrays.toString(top.xpoints));
+//        System.out.println("y:" + Arrays.toString(top.ypoints));
 
         g.setColor(RIGHT_COLOR); // Draw the right side
         g.fillPolygon(new Polygon(new int[]{

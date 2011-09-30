@@ -1,10 +1,13 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Observable;
+import java.util.Random;
 
 import engine.notifications.ChooseUnitsNotifications;
 import engine.notifications.Notification;
+import engine.notifications.PlayersTurnNotification;
 
 /**
  * @author bilalh
@@ -16,14 +19,14 @@ public class Map extends Observable {
 	Player player;
 	ArrayList<Unit> selectedUnits;
 	
-	boolean turn; // false player
+	boolean playersTurn; // false player
 
 	/** @category Constructor */
 	public Map(String name, Player player) {
 		this.player = player;
 		loadSettings(name);
 		setUpAI();
-		turn = false;
+		playersTurn = false;
 	}
 
 	private void setUpAI() {
@@ -35,11 +38,21 @@ public class Map extends Observable {
 
 	public void setUsersUnits(ArrayList<Unit> units){
 		selectedUnits= units;
+		Notification n =  new PlayersTurnNotification();
+		setChanged();
+		notifyObservers(n);
 	}
 
 	private void loadSettings(String name) {
 		field = new Tile[5][5];
-		
+		Random r = new Random();
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				int first = r.nextInt(3)+1;
+				field[i][j] = new Tile(first, first + r.nextInt(2));
+//				field[i][j] = new Tile(1,1);
+			}
+		}
 	}
 
 	/** @category Generated Getter */
