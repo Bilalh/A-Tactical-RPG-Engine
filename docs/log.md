@@ -19,7 +19,7 @@ Wed 28 Sep 2011 - Thu 29 Sep 2011
 
 Fri 30 Sep 2011
 ---------------
-* Meeting at 11m Friday.
+* Meeting at 11am Friday.
 	* Talked about project description.
 		* Fine but needs rewording.
 		* Audio in java not to hard.
@@ -27,10 +27,14 @@ Fri 30 Sep 2011
 		* Might to user testing, questioners, etc.
 		* Needs to fill in Ethics Form.
 	* Basic isometric graphic render is good enough.
-	* Talked about 
+	* Talked about Project.
+* Started this log.
 
 Sat 01 Oct 2011
 ---------------
 * Research graphics libraries for java.
 	* `libgdx` or `slick` might be useful for texture rending of tiles.
+* Decided to use a FSM to model the game state.
 
+
+sdasd

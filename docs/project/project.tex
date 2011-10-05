@@ -1,0 +1,165 @@
+\documentclass[11pt]{article}
+
+% Use utf-8 encoding for foreign characters
+\usepackage[utf8]{inputenc}
+% Package for including code in the document
+\usepackage{listings}
+
+\usepackage[pdftex]{graphicx}
+
+\usepackage{geometry}
+\geometry{bottom=2.5cm, top = 2.5cm}
+
+
+\def\mytitle{A Tactical RPG Engine}
+\title{\mytitle}
+\author{Bilal Hussain}
+
+\usepackage{fancyhdr} 
+\pagestyle{fancy}
+\fancyhf{} % removes all headers
+\fancyhead[CEO]{\hspace{10pt} Bilal Hussain  \hspace{5pt}-- \mytitle}
+\fancyfoot[CEO]{\thepage}
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction}
+\label{introduction}
+
+A Tactical RPG is a grid based game (like chess) where each player has a number of units(pieces). The players taken turns to moves their units. Each unit has attributes associated with it such as strength, and hit points that affect all the actions in the game. Like chess there are different kinds of units which affects how the unit moves and what action they can perform. A unit can attack other player's units, the goal of the game is usually to defeat all the opponents units. 
+
+The aim of this project is to create a engine which will take resources such as graphics, sound and rules of the game to create a runnable Tactical RPG.
+
+\section{Objectives}
+\label{objectives}
+
+\subsection{Primary}
+\label{primary}
+
+\begin{itemize}
+\item A engine which take
+
+\begin{itemize}
+\item The definition of character attributes and a magic\slash combat system.
+
+\item The definition of a world broken up into the smaller environments.
+
+\item The definition of simple story as a wrapper for the whole game and to
+manage the movement between environments from the start to the
+conclusion of the game
+
+\end{itemize}
+
+\end{itemize}
+
+and create a playable tactic RPG. 
+
+\begin{itemize}
+\item The engine will support:
+
+\begin{itemize}
+\item \texttt{units} with associated attributes including.
+
+\begin{itemize}
+\item Hit-points (which represent the health of the unit).
+
+\item Strength.
+
+\item Defence.
+
+\item Move (The number of tiles the unit can move each turn).
+
+\end{itemize}
+
+\item \texttt{battles} which take place on grid and include:
+
+\begin{itemize}
+\item A set number of \texttt{units} for each player.
+
+\item \texttt{combat} between adjacent units.
+
+\begin{itemize}
+\item When the unit hit-points are reduced to zero they are \texttt{defeated} and are removed from the map.
+
+\end{itemize}
+
+\item A Winning \texttt{condition} such as defeat all of the other players units.
+
+\item Battles are \texttt{turn based} meaning that each player moves all their units (once) before the next player turn.
+
+\end{itemize}
+
+\item A set of behaviours for how the non-player characters should behave.
+
+\begin{itemize}
+\item Including pathfinding
+
+\end{itemize}
+
+\item A graphical representation of of the game.
+
+\end{itemize}
+
+\end{itemize}
+
+\subsection{Secondary}
+\label{secondary}
+
+\begin{itemize}
+\item Tile \texttt{height}, where units can only move to tiles of a smilier height.
+
+\item Tiles that are not passable such as sea, lava, etc.
+
+\item Tiles have different movement costs associated with them.
+
+\item Isometric graphics view of the game.
+
+\item Long distance weapons\slash magic for player.
+
+\item Direction and height of the character's tile affects attack.
+
+\item Sound effects.
+
+\item Music.
+
+\item Saving and loading games.
+
+\end{itemize}
+
+\subsection{Tertiary}
+\label{tertiary}
+
+\begin{itemize}
+\item Scripting support e.g to allow the user to defined winning conditions.
+
+\item AI support for Long distance weapons\slash magic.
+
+\item \texttt{classes} of units which the AI supports.
+
+\item A graphical editor for making custom maps and events.
+
+\item Animations for units, combat and movement.
+
+\item Creation of custom units and shops.
+
+\end{itemize}
+
+\subsection{Ethical Considerations}
+\label{ethicalconsiderations}
+
+\begin{itemize}
+\item form by 28th October
+
+\item Collection of data from questionnaire.
+
+\begin{itemize}
+\item Just result of questionnaire, no personal data
+
+\end{itemize}
+
+\item Asking user to play the created game.
+
+\end{itemize}
+\end{document}
