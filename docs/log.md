@@ -37,4 +37,12 @@ Sat 01 Oct 2011
 * Decided to use a FSM to model the game state.
 
 
-sdasd
+Fri 07 Oct 2011
+---------------
+* Meeting at 11am Friday.
+	* Talked about project description.
+		* Make most things fixed in Primary
+		* Allow the user to specify such of the AI behaviour in Secondary
+		* Make a gui for editor
+	*  Include references and screen shots in Introduction of key TRPGs.   
+

@@ -1,0 +1,118 @@
+\documentclass[11pt]{article}
+\bibliographystyle{IEEEtran}
+\usepackage[bookmarks=false]{hyperref}
+% Listing (fold)
+\usepackage{listings} 
+\usepackage{textcomp} %for upquotes 
+                           
+\lstset{
+	tabsize=4,
+	mathescape=true, 
+	escapechar=§,
+	upquote=true,
+	basicstyle=\ttfamily,
+} %(end)
+
+% Pictures (fold)
+\usepackage[pdftex]{graphicx}
+\usepackage{subfigure}
+\usepackage{wrapfig} % (end)
+
+% Geometry (fold)
+\usepackage[pdftex]{graphicx}
+\usepackage{geometry}
+\geometry{bottom=2.4cm, top = 2.4cm}
+\renewcommand{\topfraction}{0.97}	% max fraction of floats at top
+\renewcommand{\bottomfraction}{0.97}	% max fraction of floats at bottom
+\renewcommand{\textfraction}{0.01}
+
+% Very small margins
+% \geometry{left=1.5cm, right=1.5cm, bottom=1.9cm, top = 1.9cm}
+% (end)
+
+% Maths (fold)
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ wasysym } %Bowtie for na join (end)             
+
+% Other Packages (fold)
+% Makes small lists
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+%(end)
+
+% Not on Packages/Settings (fold)
+%small sections
+ % \usepackage[small,compact]{titlesec}
+% Small text nicer
+ % \usepackage{microtype}
+
+% \usepackage{alltt}
+% \renewcommand{\ttdefault}{txtt}
+
+% \usepackage[bookmarks=true]{hyperref}
+% \setcounter{secnumdepth}{5}
+% \setcounter{tocdepth}{5}
+
+% (end)
+
+% shortcuts (fold)
+\def\studentID{080008164}
+\def\fullName{Bilal Hussain}
+\newcommand{\picwidth}{6.3in}
+
+\def\*{\ensuremath{\times}}
+\def\<={\ensuremath{\leqslant}}
+\def\>={\ensuremath{\geqslant}}
+\def\={\ensuremath{\neq}}
+\def\~{\ensuremath{\approx}}
+
+\def\s{\textsuperscript{* }}
+\def\ts{\textsuperscript}
+\def\-{\subscript}
+\def\_{\textunderscore}
+\def\set#1{\{ #1 \}}
+\def\t#1{\text{#1}}
+
+\def\abs#1{\mathopen| #1 \mathclose|}
+\def\Integer{\mathsf{Z\hspace{-0.4em}Z}}
+\def\Natural{\mathrm{I\!N}}
+\def\Real{\mathrm{I\!R}}
+%(end)
+
+%p code	(fold)
+\def\And{\ensuremath{\textbf{ and }}}
+\def\Not{\ensuremath{\textbf{ not }}}
+\def\Xor{\ensuremath{\textbf{ xor }}}
+\def\Or{\ensuremath{\textbf{ or }}}
+
+\def\If{\ensuremath{\textbf{if }}}	
+\def\For{\ensuremath{\textbf{for }}}	
+\def\While{\ensuremath{\textbf{while }}}
+\def\Else{\ensuremath{\textbf{else }}}
+\def\Do{\ensuremath{\textbf{ do}}}
+\def\To{\ensuremath{\textbf{ to }}}
+\def\Then{\ensuremath{\textbf{ then}}}
+\def\Until{\ensuremath{\textbf{ until }}}
+\def\End{\ensuremath{\textbf{end}}}
+\def\Downto{\ensuremath{\textbf{ downto }}}
+
+\def\Swap{\ensuremath{\textbf{swap }}}
+%(end)
+
+% Metadata
+\newcommand{\theTitle}{}
+\title{\theTitle}
+\author{\studentID}
+
+% Headers footers (fold)             
+
+%	default Headers
+% \pagestyle{headings}
+
+\usepackage{fancyhdr} 
+\pagestyle{fancy}
+\fancyhf{} % removes all headers
+\fancyhead[CEO]{\hspace{10pt} \theAuthor \hspace{5pt}-- \theTitle}
+\fancyfoot[CEO]{\thepage} % (end)      
