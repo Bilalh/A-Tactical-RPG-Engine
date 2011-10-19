@@ -53,6 +53,7 @@ Fri 14 Oct 2011
 
 Tue 18 Oct 2011
 ---------------
-* Dialog box 
-* Refracting
-* Misc
+* Dialog box.
+* Refracting.
+* Console.   
+* Misc.
