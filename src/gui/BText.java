@@ -22,13 +22,14 @@ public class BText {
 	private int width;
 	private int height;
 	
+	private String name;
+	
 	// stores the fonts settings
 	private Hashtable<TextAttribute, Object> map =new Hashtable<TextAttribute, Object>();
 
 
 	// The LineBreakMeasurer used to line-break the paragraph.
 	private LineBreakMeasurer lineMeasurer;
-
 	private AttributedString text;
 	
 	// The start postion
@@ -43,48 +44,58 @@ public class BText {
 	private AttributedCharacterIterator paragraph;
 	
 	// the diff btween width and textWidth 
-	private int diff;
+	private int xdiff;
 	private Sprite pic;
 	private int hgt;
 	private int yOffset;
 	
-	public void setText(String s) {
-		text = new AttributedString(s,map);
-		paragraph = text.getIterator();
-		paragraphEnd = paragraph.getEndIndex();
-		lineMeasurer = null;
-	}
-
+	private Font f = new Font("Serif", Font.PLAIN, 18);
+	private FontMetrics metrics;
 	
-	public BText(int width, int height, Sprite pic) {
+	public BText(int width, int height){
+		this(width, height, null, null);
+	}
+	
+	/** @category Constructor  **/
+	public BText(int width, int height, String name, Sprite pic) {
 		this.width = width;
-		this.diff = 75;
-		this.textWidth = width-diff;
-		
+		this.pic = pic;
+		this.xdiff =  pic != null ? 75 : 5;
+		this.textWidth = width-xdiff;
+		this.name = name;
+
 		yOffset = 25;
 		this.height = height - yOffset;
 		map.put(TextAttribute.FAMILY, "Serif");
-		map.put(TextAttribute.SIZE, new Float(24));
+		map.put(TextAttribute.SIZE, new Float(18));
 		setText("Many people believe that Vincent van Gogh painted his best works " +
-			"during the two-year period he spent in Provence. ");
-//			+ "Here is where he " +
-//			"painted The Starry Night--which some consider to be his greatest " +
-//			"work of all. However, as his artistic brilliance reached new " +
-//			"heights in Provence, his physical and mental health plummeted. ");
+			"during the two-year period he spent in Provence. Here is where he " +
+			"painted The Starry Night--which some consider to be his greatest " +
+			"work of all. However, as his artistic brilliance reached new " +
+			"heights in Provence, his physical and mental health plummeted. ");
 		
-		this.pic = pic;
 		
 	}
 
-	
+	//TODO
 	public void nextPage(){
 		index = temp;
 //		GameEngine.debugConsole().printf("New Page %d", index);
 	}
 
-	private Font f = new Font("Serif", Font.PLAIN, 24);
-	private FontMetrics metrics;
-	private String name = "Rebel Mage";
+	/** @category Setter */
+	public void setText(String s) {
+		text         = new AttributedString(s,map);
+		paragraph    = text.getIterator();
+		paragraphEnd = paragraph.getEndIndex();
+		lineMeasurer = null;
+	}
+	
+	/** @category Setter */
+	public void setPic(Sprite pic) {
+		this.pic   = pic;
+		this.xdiff = pic != null ? 75 : 5;
+	}
 	
 	public void draw(Graphics2D g,  int drawX, int drawY){
 		Color originalColour = g.getColor();
@@ -95,7 +106,7 @@ public class BText {
 		
 		// draw the face
 		if (pic != null) {
-			g.drawImage(pic.getImage(), drawX, drawY, diff, height + yOffset, null);
+			g.drawImage(pic.getImage(), drawX, drawY, xdiff, height + yOffset, null);
 		}
 		
 		
@@ -107,29 +118,30 @@ public class BText {
 		    hgt = metrics.getHeight();
 		}
 		
-		// draw name
-		
 		g.setFont(f);
-	    int length = metrics.stringWidth(name);
-	    g.setColor(new Color(185,186,113));
-	    g.fillRect(drawX + diff, drawY, length+10, yOffset);
+	    
+		// draw name
+		if (name != null){
+		    g.setColor(new Color(185,186,113));
+		    int length = metrics.stringWidth(name);
+		    g.fillRect(drawX + xdiff, drawY, length+10, yOffset);
+		    g.setColor(new Color(0,0,0));
+			g.drawString(name, drawX + xdiff + 5 , drawY + hgt );	
+		}
 	    g.setColor(new Color(0,0,0));
-		g.drawString(name, drawX + diff + 5 , drawY + hgt );
-
 		
 		// index of the first character in the paragraph.
 		int paragraphStart = index + paragraph.getBeginIndex();
 
-		float drawPosX = drawX + diff;
+		float drawPosX = drawX + xdiff;
 		float drawPosY = drawY + yOffset;
 		final float breakWidth = textWidth -10;
 		lineMeasurer.setPosition(paragraphStart);
 
-		
 		// Get lines until the entire paragraph has been displayed.
 		while (lineMeasurer.getPosition() < paragraphEnd) {
-			System.out.printf("%s %s\n", drawPosY, height+yOffset);
 			// Retrieve next layout. A cleverer program would also cache these layouts until the component is re-sized.
+//			System.out.println(drawPosY+  " " + height+ " " + yOffset+ " " + drawY + " " + (height + drawY) );
 			TextLayout layout = lineMeasurer.nextLayout(breakWidth);
 
 			// Move y-coordinate by the ascent of the layout.
@@ -139,7 +151,7 @@ public class BText {
 			layout.draw(g, drawPosX, drawPosY);
 
 			
-			if (drawPosY > height+yOffset+ drawY ){
+			if (drawPosY > height+ drawY ){
 				temp = lineMeasurer.getPosition();
 				break;
 			}
@@ -152,18 +164,29 @@ public class BText {
 		g.setFont(originalFont);
 	}
 
-
-
-
-
+	/** @category Getter */
+	public int getHeight() {
+		return height + yOffset;
+	}
+	
+	/** @category Generated Getter */
 	public int getWidth() {
 		return textWidth;
 	}
 
-
-	public int getHeight() {
-		return height;
+	/** @category Generated Getter */
+	public String getName() {
+		return name;
 	}
-	
+
+	/** @category Generated Setter */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/** @category Generated Getter */
+	public Sprite getPic() {
+		return pic;
+	}
 	
 }

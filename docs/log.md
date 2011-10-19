@@ -46,3 +46,13 @@ Fri 07 Oct 2011
 		* Make a gui for editor
 	*  Include references and screen shots in Introduction of key TRPGs.   
 
+Fri 14 Oct 2011
+---------------
+* Meeting at 11am Friday.
+	* 
+
+Tue 18 Oct 2011
+---------------
+* Dialog box 
+* Refracting
+* Misc

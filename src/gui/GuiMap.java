@@ -66,7 +66,8 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
         drawY = (int) MapSettings.drawStart.getY();
         selectedTile = null;
         
-        text = new BText(400, 120, SpriteManager.instance().getSprite("assets/gui/mage.png"));
+        text = new BText(665, 100, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
+//        text = new BText(665, 100);
         
         this.map = map;
         map.addObserver(this);
@@ -176,7 +177,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
     		}
         }
         
-        text.draw((Graphics2D) g, 0, 100);
+        text.draw((Graphics2D) g, 5, height - text.getHeight() - 5);
     }
     
     /**
