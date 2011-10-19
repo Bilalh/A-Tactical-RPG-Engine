@@ -77,7 +77,8 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 	
 	@Override
 	public void update(Observable map, Object notification) {
-		System.out.println(notification);
+//		System.out.println(notification);
+		Gui.debugConsole().println(notification);
 		if (notification instanceof ChooseUnitsNotifications){
 			chooseUnits(((ChooseUnitsNotifications) notification).getUnits(), 
 					((ChooseUnitsNotifications) notification).getAiUnits());

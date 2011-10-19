@@ -22,6 +22,8 @@ public class Gui {
 	private GuiMap map;
 	private Engine engine;
 	
+	private static BTextArea debugConsole = new BTextArea();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -64,7 +66,21 @@ public class Gui {
 		
 		mapPanel = new MapPanel(map, period * 1000000L);
         
+		
 		frame.add(mapPanel);
+	}
+	
+	public static BTextArea debugConsole() {
+		return debugConsole;
+	}
+
+	private static boolean showDebugConsole = false;
+	public static boolean showDebugConsole() {
+		return showDebugConsole;
+	}    
+	
+	public static void toggleDebugConsole(){
+		showDebugConsole = !showDebugConsole;
 	}
 	
 }

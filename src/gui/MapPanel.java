@@ -3,6 +3,8 @@ package gui;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
@@ -66,7 +68,6 @@ public class MapPanel extends JPanel implements Runnable {
 		this.addMouseListener(map);
 		this.addMouseMotionListener(map);
 		this.addComponentListener(new ComponentAdapter() {
-
 			@Override
 			public void componentResized(ComponentEvent e) {
 				dbImage = null;
@@ -74,6 +75,45 @@ public class MapPanel extends JPanel implements Runnable {
 			}
 			
 		});
+		
+		this.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+//				if (inputEvent.keyPressed(shortcutKey)){					
+//					if      (e.getKeyCode() == KeyEvent.VK_D))  drawGameDebug = !drawGameDebug;
+//					else if (e.getKeyCode() == KeyEvent.VK_I))  drawGameStatistics = !drawGameStatistics;
+//					else if (e.getKeyCode() == KeyEvent.VK_T))  Tile.negateDebug();
+//				}
+
+//				if (e.getKeyCode() == KeyEvent.VK_N)  Gui.debugConsole().nextPage();
+				
+				if (e.isMetaDown()){
+					if (e.getKeyCode() == KeyEvent.VK_D)   Gui.toggleDebugConsole();
+				}
+				
+				if (e.isShiftDown()){
+					if      (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET)   Gui.debugConsole().pageUp();
+					else if (e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET)  Gui.debugConsole().pageDown();
+					
+				}else if (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET) {
+					Gui.debugConsole().scrollUp();
+				}else if (e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET ){
+					Gui.debugConsole().scrollDown();
+				}                                    
+				
+			}
+		});
+		
 	}
 
 	/* The frames of the animation are drawn inside the while loop. */
@@ -168,6 +208,7 @@ public class MapPanel extends JPanel implements Runnable {
 		}
 	}
 
+	
 	private void gameRender(long timeDiff) {
 		if (dbImage == null) {
 			dbImage = createImage(getWidth(), getHeight());
@@ -186,6 +227,10 @@ public class MapPanel extends JPanel implements Runnable {
 
 		// draw game elements
 		map.draw(dbg, timeDiff, getWidth(), getHeight());
+		
+		if (Gui.showDebugConsole()) {
+			Gui.debugConsole().paint((Graphics2D) dbg, 0, getHeight() - Gui.debugConsole().getHeight()  , getWidth());
+		}         
 		
 		if (gameOver)
 			gameOverMessage(dbg);
