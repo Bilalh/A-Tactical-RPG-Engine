@@ -108,7 +108,7 @@ public class MapPanel extends JPanel implements Runnable {
 				}else if (e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET ){
 					Gui.console().scrollDown();
 				}if (e.getKeyCode() == KeyEvent.VK_X ){
-					map.comfirm();
+					map.keyComfirm();
 				}
 				
 			}

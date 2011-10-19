@@ -21,13 +21,14 @@ import engine.Map;
 import engine.Tile;
 import engine.Unit;
 import engine.notifications.ChooseUnitsNotifications;
+import gui.interfaces.IActions;
 import gui.ui.Dialog;
 
 
 /**
  * @author bilalh
  */
-public class GuiMap implements MouseListener, MouseMotionListener, Observer {
+public class GuiMap implements MouseListener, MouseMotionListener, Observer, IActions {
 
     private int drawX;
     private int drawY;
@@ -75,8 +76,77 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
         map.addObserver(this);
         map.start();
 	}
-	
-	
+		
+	// draws the map to the screen 
+	public void draw(Graphics g, long timeDiff, int width, int height) {
+		int x = drawX;
+		int y = drawY;
+
+		// Draw map
+		for (int i = fieldHeight - 1; i >= 0; i--) {
+			for (int j = 0; j < fieldWidth; j++) {
+				int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+				int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+				if (x - horizontal  <= width 
+						&& y -vertical  <= height 
+						&& x + horizontal >= 0 
+						&& y + vertical>= 0 ){
+					field[j][i].draw(x, y, g);
+				}else{
+					//            		System.out.printf("(%d, %d) at (%d, %d) not drawn dim:(%d, %d)  \n",j,i, x,y, width, height);
+				}
+
+				//System.out.printf("cell (%d, %d)\n", j,i);
+				Color old = g.getColor();
+				g.setColor(Color.RED);
+				g.drawString(String.format("(%d,%d)", j,i), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
+				g.setColor(old);
+				//        		        		
+				x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
+				y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
+			}
+			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
+			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (fieldHeight - i));
+		}
+
+
+		// Draw Units
+		if (units != null){
+			for (int i = 0; i < units.length; i++) {
+				int xPos =drawX, yPos = drawY;
+
+				// height
+				xPos -= (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * ((fieldHeight - 1 -  units[i].gridY) ));
+				yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * ((fieldHeight - 1 -  units[i].gridY)) );
+
+				// width
+				xPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * (units[i].gridX);
+				yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom) * (units[i].gridX);				
+
+				units[i].draw(g,field,  xPos, yPos, timeDiff);
+			}
+		}
+
+		if (aiUnits != null){
+			for (int i = 0; i < aiUnits.length; i++) {
+				int xPos =drawX, yPos = drawY;
+
+				// height
+				xPos -= (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * ((fieldHeight - 1 -  aiUnits[i].gridY) ));
+				yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * ((fieldHeight - 1 -  aiUnits[i].gridY)) );
+
+				// width
+				xPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * (aiUnits[i].gridX);
+				yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom) * (aiUnits[i].gridX);				
+
+				aiUnits[i].draw(g,field,  xPos, yPos, timeDiff);
+			}
+		}
+
+		if (showDialog) dialog.draw((Graphics2D) g, 5, height - dialog.getHeight() - 5);
+	}
+
+
 	@Override
 	public void update(Observable map, Object notification) {
 //		System.out.println(notification);
@@ -113,84 +183,46 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 		this.aiUnits = newAiUnits;
 	}
 
-	public void comfirm() {
+	@Override
+	public void keyComfirm() {
 		if (!dialog.nextPage()){
 			showDialog = false;
-		}
+		}		
+	}
+
+	@Override
+	public void keyCancel() {
+		// TODO keyCancel method
+		
+	}
+
+	@Override
+	public void keyUp() {
+		// TODO keyUp method
+		
+	}
+
+	@Override
+	public void keyDown() {
+		// TODO keyDown method
+		
+	}
+
+	@Override
+	public void keyLeft() {
+		// TODO keyLeft method
+		
+	}
+
+	@Override
+	public void keyRight() {
+		// TODO keyRight method
+		
 	}
 	
 /* * Drawing and selecting * */
 	
-	// draws the map to the screen 
-    public void draw(Graphics g, long timeDiff, int width, int height) {
-        int x = drawX;
-        int y = drawY;
-        
-        // Draw map
-        for (int i = fieldHeight - 1; i >= 0; i--) {
-        	for (int j = 0; j < fieldWidth; j++) {
-                int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-                int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-        		if (x - horizontal  <= width 
-        				&& y -vertical  <= height 
-        				&& x + horizontal >= 0 
-        				&& y + vertical>= 0 ){
-            		field[j][i].draw(x, y, g);
-        		}else{
-//            		System.out.printf("(%d, %d) at (%d, %d) not drawn dim:(%d, %d)  \n",j,i, x,y, width, height);
-        		}
-        		
-        		//System.out.printf("cell (%d, %d)\n", j,i);
-        		Color old = g.getColor();
-        		g.setColor(Color.RED);
-        		g.drawString(String.format("(%d,%d)", j,i), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
-        		g.setColor(old);
-//        		        		
-        		x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
-        		y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
-        	}
-        	x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
-        	y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (fieldHeight - i));
-        }
-      
-        
-        // Draw Units
-        if (units != null){
-            for (int i = 0; i < units.length; i++) {
-            	int xPos =drawX, yPos = drawY;
-
-            	// height
-            	xPos -= (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * ((fieldHeight - 1 -  units[i].gridY) ));
-            	yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * ((fieldHeight - 1 -  units[i].gridY)) );
-
-            	// width
-            	xPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * (units[i].gridX);
-            	yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom) * (units[i].gridX);				
-
-            	units[i].draw(g,field,  xPos, yPos, timeDiff);
-    		}
-        }
-
-        if (aiUnits != null){
-            for (int i = 0; i < aiUnits.length; i++) {
-            	int xPos =drawX, yPos = drawY;
-
-            	// height
-            	xPos -= (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * ((fieldHeight - 1 -  aiUnits[i].gridY) ));
-            	yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * ((fieldHeight - 1 -  aiUnits[i].gridY)) );
-
-            	// width
-            	xPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * (aiUnits[i].gridX);
-            	yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom) * (aiUnits[i].gridX);				
-
-            	aiUnits[i].draw(g,field,  xPos, yPos, timeDiff);
-    		}
-        }
-        
-        if (showDialog) dialog.draw((Graphics2D) g, 5, height - dialog.getHeight() - 5);
-    }
-    
-    /**
+	/**
      * Select the file that is under the mouse click
      * @param x X position of the mouse click
      * @param y Y position of the mouse click
