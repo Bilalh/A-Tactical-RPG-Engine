@@ -22,7 +22,7 @@ public class Gui {
 	private GuiMap map;
 	private Engine engine;
 	
-	private static BTextArea debugConsole = new BTextArea();
+	private static Console debugConsole = new Console();
 	
 	/**
 	 * Launch the application.
@@ -70,7 +70,7 @@ public class Gui {
 		frame.add(mapPanel);
 	}
 	
-	public static BTextArea debugConsole() {
+	public static Console console() {
 		return debugConsole;
 	}
 

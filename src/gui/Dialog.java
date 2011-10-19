@@ -16,7 +16,7 @@ import java.util.Hashtable;
 import common.gui.Sprite;
 
 
-public class BText {
+public class Dialog {
 
 	private int textWidth;
 	private int width;
@@ -52,12 +52,12 @@ public class BText {
 	private Font f = new Font("Serif", Font.PLAIN, 18);
 	private FontMetrics metrics;
 	
-	public BText(int width, int height){
+	public Dialog(int width, int height){
 		this(width, height, null, null);
 	}
 	
 	/** @category Constructor  **/
-	public BText(int width, int height, String name, Sprite pic) {
+	public Dialog(int width, int height, String name, Sprite pic) {
 		this.width = width;
 		this.pic = pic;
 		this.xdiff =  pic != null ? 75 : 5;
@@ -68,6 +68,7 @@ public class BText {
 		this.height = height - yOffset;
 		map.put(TextAttribute.FAMILY, "Serif");
 		map.put(TextAttribute.SIZE, new Float(18));
+		// TODO testing test.
 		setText("Many people believe that Vincent van Gogh painted his best works " +
 			"during the two-year period he spent in Provence. Here is where he " +
 			"painted The Starry Night--which some consider to be his greatest " +
@@ -77,10 +78,13 @@ public class BText {
 		
 	}
 
-	//TODO
-	public void nextPage(){
+	// Returns false if there is no more text 
+	public boolean nextPage(){
+		
+		if (index == temp) return false;
 		index = temp;
-//		GameEngine.debugConsole().printf("New Page %d", index);
+//		Gui.console().printf("index:%s text:%s", index, paragraphEnd);
+		return (index < paragraphEnd);
 	}
 
 	/** @category Setter */
@@ -95,6 +99,11 @@ public class BText {
 	public void setPic(Sprite pic) {
 		this.pic   = pic;
 		this.xdiff = pic != null ? 75 : 5;
+	}
+	
+	/** @category Setter */
+	public void setHeight(int height){
+		this.height = height - yOffset;
 	}
 	
 	public void draw(Graphics2D g,  int drawX, int drawY){

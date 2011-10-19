@@ -42,7 +42,8 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 
     private Map map;
     
-    private BText text;
+    private Dialog dialog;
+    private boolean showDialog = true;
     
 	/** @category Constructor */
 	public GuiMap(Map map) {
@@ -66,7 +67,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
         drawY = (int) MapSettings.drawStart.getY();
         selectedTile = null;
         
-        text = new BText(665, 100, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
+        dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
 //        text = new BText(665, 100);
         
         this.map = map;
@@ -78,12 +79,11 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 	@Override
 	public void update(Observable map, Object notification) {
 //		System.out.println(notification);
-		Gui.debugConsole().println(notification);
+		Gui.console().println(notification);
 		if (notification instanceof ChooseUnitsNotifications){
 			chooseUnits(((ChooseUnitsNotifications) notification).getUnits(), 
 					((ChooseUnitsNotifications) notification).getAiUnits());
 		}
-		
 	}
 
 	
@@ -111,7 +111,14 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 		this.aiUnits = newAiUnits;
 	}
 
-
+	public void comfirm() {
+		if (!dialog.nextPage()){
+			showDialog = false;
+		}
+	}
+	
+/* * Drawing and selecting * */
+	
 	// draws the map to the screen 
     public void draw(Graphics g, long timeDiff, int width, int height) {
         int x = drawX;
@@ -178,7 +185,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
     		}
         }
         
-        text.draw((Graphics2D) g, 5, height - text.getHeight() - 5);
+        if (showDialog) dialog.draw((Graphics2D) g, 5, height - dialog.getHeight() - 5);
     }
     
     /**
@@ -275,4 +282,16 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 		return field;
 	}
 
+
+	/** @category Generated Getter */
+	public boolean isShowDialog() {
+		return showDialog;
+	}
+
+
+	/** @category Generated Setter */
+	public void setShowDialog(boolean showDialog) {
+		this.showDialog = showDialog;
+	}
+	
 }

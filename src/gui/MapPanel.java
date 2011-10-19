@@ -99,17 +99,17 @@ public class MapPanel extends JPanel implements Runnable {
 				
 				if (e.isMetaDown()){
 					if (e.getKeyCode() == KeyEvent.VK_D)   Gui.toggleDebugConsole();
-				}
-				
-				if (e.isShiftDown()){
-					if      (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET)   Gui.debugConsole().pageUp();
-					else if (e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET)  Gui.debugConsole().pageDown();
+				}else if (e.isShiftDown()){
+					if      (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET)   Gui.console().pageUp();
+					else if (e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET)  Gui.console().pageDown();
 					
 				}else if (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET) {
-					Gui.debugConsole().scrollUp();
+					Gui.console().scrollUp();
 				}else if (e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET ){
-					Gui.debugConsole().scrollDown();
-				}                                    
+					Gui.console().scrollDown();
+				}if (e.getKeyCode() == KeyEvent.VK_X ){
+					map.comfirm();
+				}
 				
 			}
 		});
@@ -229,7 +229,7 @@ public class MapPanel extends JPanel implements Runnable {
 		map.draw(dbg, timeDiff, getWidth(), getHeight());
 		
 		if (Gui.showDebugConsole()) {
-			Gui.debugConsole().paint((Graphics2D) dbg, 0, getHeight() - Gui.debugConsole().getHeight()  , getWidth());
+			Gui.console().paint((Graphics2D) dbg, 0, getHeight() - Gui.console().getHeight()  , getWidth());
 		}         
 		
 		if (gameOver)

@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
  * at creation and the resulting height of the textarea can be found using getHeight
  * @author Bilal Hussain
  */
-public class BTextArea {
+public class Console {
 
 	// lines is a circular list 
 	private String[] lines;
@@ -31,8 +31,8 @@ public class BTextArea {
 	
 	private boolean printToSysout;
 	
-	public BTextArea(){this(1000,7,true);}
-	public BTextArea(int history, int linesToShow, boolean numberLines){
+	public Console(){this(1000,7,true);}
+	public Console(int history, int linesToShow, boolean numberLines){
 		
 		if (linesToShow <= 0 ||  linesToShow > history || history <=0 ) throw new IllegalArgumentException("Invaild Arguments");
 		lines  = new String[history];
@@ -70,13 +70,10 @@ public class BTextArea {
 	// Note: Escape sequences such as \n are not honoured. 
 	public void printf(String format, Object... args){
 		println(String.format(format, args));
-		if (printToSysout) System.out.printf(format, args); //TODO check?
 	}
 	
 	// Draw the text area at the specifed point, with the specifed width.
 	public void paint(Graphics2D graphics2D, int drawX, int drawY, int width) {
-		System.out.printf("\n", graphics2D);
-		// Store the graphics2D settings so we can restore them
 		Color originalColour = graphics2D.getColor();
 		Font originalFont = graphics2D.getFont();
 
