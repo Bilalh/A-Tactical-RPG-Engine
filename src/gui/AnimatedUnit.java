@@ -15,7 +15,7 @@ import common.gui.SpriteManager;
 public class AnimatedUnit extends GuiUnit {
 
 	/** The animation frames */
-	private Sprite[] frames = new Sprite[4];
+	private Sprite[] frames;
 	/** The time since the last frame change took place */
 	private long lastFrameChange;
 	/** The current frame of animation being displayed */
@@ -25,16 +25,26 @@ public class AnimatedUnit extends GuiUnit {
 	// 50 millisecond frames
 	private long frameDuration = 100 *1000000; 
 	
-	public AnimatedUnit(String ref, int gridX, int gridY) {
-		super(ref,gridX,gridY);
+	public AnimatedUnit(int gridX, int gridY, String ref) {
+		super(gridX,gridY,ref);
 		
 		// setup the animatin frames
+		frames= new Sprite[4];
 		frames[0] = sprite;
 		frames[1] = SpriteManager.instance().getSprite("assets/gui/alien2.gif");
 		frames[2] = sprite;
-		frames[3] = SpriteManager.instance().getSprite("assets/gui/alien3.gif");		
+		frames[3] = SpriteManager.instance().getSprite("assets/gui/alien3.gif");	
 	}
 
+	public AnimatedUnit(int gridX, int gridY, String[] refs) {
+		super(gridX,gridY,refs[0]);
+		frames = new Sprite[refs.length]; 
+		frames[0] = sprite;
+		for (int i = 1; i < refs.length; i++) {
+			frames[i] = SpriteManager.instance().getSprite(refs[i]);
+		}
+	}
+	
 	public void draw(Graphics g, final MapTile[][] tiles, int x, int y, long timeDiff){
 		lastFrameChange += timeDiff;
 		

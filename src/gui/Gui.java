@@ -10,6 +10,7 @@ import java.awt.event.WindowAdapter;
 import javax.swing.JFrame;
 
 import engine.Engine;
+import gui.ui.Console;
 
 
 /**

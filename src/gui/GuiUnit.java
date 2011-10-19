@@ -14,7 +14,7 @@ public class GuiUnit {
 	protected int gridY;
 	protected Sprite sprite;
 	
-	public GuiUnit(String ref,int gridX,int gridY) {
+	public GuiUnit(int gridX,int gridY,String ref) {
 		this.sprite = SpriteManager.instance().getSprite(ref);
 		this.gridX = gridX;
 		this.gridY = gridY;

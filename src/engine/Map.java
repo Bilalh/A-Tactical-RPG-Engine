@@ -19,14 +19,14 @@ public class Map extends Observable {
 	Player player;
 	ArrayList<Unit> selectedUnits;
 	
-	boolean playersTurn; // false player
+	boolean playersTurn; // false aiplayer
 
 	/** @category Constructor */
 	public Map(String name, Player player) {
 		this.player = player;
 		loadSettings(name);
 		setUpAI();
-		playersTurn = false;
+		playersTurn = true;
 	}
 
 	private void setUpAI() {

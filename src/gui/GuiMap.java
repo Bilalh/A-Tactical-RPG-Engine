@@ -21,6 +21,7 @@ import engine.Map;
 import engine.Tile;
 import engine.Unit;
 import engine.notifications.ChooseUnitsNotifications;
+import gui.ui.Dialog;
 
 
 /**
@@ -95,7 +96,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 			//FIXME indies
 			allUnits.get(i).setGridX(0);
 			allUnits.get(i).setGridY(i);
-			newUnits[i] = new AnimatedUnit("assets/gui/alien.gif", 0, i);
+			newUnits[i] = new AnimatedUnit(0, i, new String[]{"assets/gui/Archer.png"});
 			unitsList.add(allUnits.get(i));
 		}
 		map.setUsersUnits(unitsList);
@@ -106,7 +107,8 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 			//FIXME indies
 			aiUnits.get(i).setGridX(fieldWidth-1);
 			aiUnits.get(i).setGridY(i);
-			newAiUnits[i] = new AnimatedUnit("assets/gui/alien.gif", fieldWidth-1, i);
+			newAiUnits[i] = new AnimatedUnit(fieldWidth-1, i, 
+					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"});
 		}
 		this.aiUnits = newAiUnits;
 	}
@@ -266,7 +268,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
     }
 
     /** @category Generated Getter */
-	public static MapTile getSelectedTile() {
+	public MapTile getSelectedTile() {
 		return selectedTile;
 	}
     

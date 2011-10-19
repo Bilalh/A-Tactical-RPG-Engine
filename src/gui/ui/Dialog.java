@@ -1,4 +1,4 @@
-package gui;
+package gui.ui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -45,9 +45,10 @@ public class Dialog {
 	
 	// the diff btween width and textWidth 
 	private int xdiff;
-	private Sprite pic;
-	private int hgt;
 	private int yOffset;
+	private int lineHeight;
+	
+	private Sprite pic;
 	
 	private Font f = new Font("Serif", Font.PLAIN, 18);
 	private FontMetrics metrics;
@@ -124,7 +125,7 @@ public class Dialog {
 			lineMeasurer = new LineBreakMeasurer(paragraph, frc);
 			 metrics = g.getFontMetrics(f);
 		    // get the height of a line of text in this font and render context
-		    hgt = metrics.getHeight();
+		    lineHeight = metrics.getHeight();
 		}
 		
 		g.setFont(f);
@@ -135,7 +136,7 @@ public class Dialog {
 		    int length = metrics.stringWidth(name);
 		    g.fillRect(drawX + xdiff, drawY, length+10, yOffset);
 		    g.setColor(new Color(0,0,0));
-			g.drawString(name, drawX + xdiff + 5 , drawY + hgt );	
+			g.drawString(name, drawX + xdiff + 5 , drawY + lineHeight );	
 		}
 	    g.setColor(new Color(0,0,0));
 		
