@@ -13,7 +13,6 @@ import engine.Unit;
 public class ChooseUnitsNotifications implements Notification {
 
 	private ArrayList<Unit> units = new ArrayList<Unit>();
-
 	private ArrayList<Unit> aiUnits = new ArrayList<Unit>();
 
 	

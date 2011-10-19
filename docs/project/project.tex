@@ -1,11 +1,14 @@
-\input{setting} 
+\input{setting}
 \renewcommand{\theTitle}{A Tactical RPG Engine}
 \renewcommand{\theAuthor}{\fullName}
 
 \begin{document} 
 \maketitle
 
-\section{Introduction} \label{introduction}
+
+\section{Introduction} 
+\label{introduction}
+
 
 A RPG (Role Playing Game) is game where player assumes the role of on the character. A RPG is usually story driven and the character usually has quest to complete. In the course of the game the player will go to different environments such as town and dungeons. In they these environments the player will have to battle opponents in battles. Combat in RPGs is normally a simple turn based system where player and the opponents take turns attacks each other using various skills. 
 
@@ -14,7 +17,7 @@ A Tactical RPG is sub-genre of an RPG that focuses on the combat side of the gen
 Each \texttt{battle} is grid based (like chess) where each player has a number of units(pieces). 
 \begin{figure}
 	[htbp] \centering 
-	\includegraphics[height=3in]{figures/TRPG.png} \caption{\textbf{Tactical Ogre}\cite{to} a classic Tactical RPG } \label{fig:figures_TRPG} 
+	\includegraphics[height=3in]{figures/TRPG.png} \caption{\textbf{Tactics Ogre}\cite{to} a classic Tactical RPG } \label{fig:figures_TRPG} 
 \end{figure}
 The players taken turns to moves their units. Each unit has attributes associated with it such as strength, and hit points that affect all the actions in the game. Like chess there are different kinds of units which affects how the unit moves and what action they can perform. A unit can attack other player's units, the goal of the battle is usually to defeat all the opponents units.
 
@@ -22,52 +25,56 @@ The aim of this project is to create a engine which will take resources such as 
 
 \section{Objectives}
 
-\subsection{Primary} \label{primary}
+\subsection{Primary}
+ \label{primary}
 \begin{itemize}
 \item To develop an engine that takes:
 \begin{itemize}
-	\item The definition of character attributes and a combat system.
-	
+
+ \item The definition of character attributes and a combat system.
 	\item The definition of a world broken up into the smaller environments.
 	\begin{itemize}
 		\item The rules of the game.
 		\item The kinds of enemies.
 	\end{itemize}
 	
-	\item The definition of simple story as a wrapper for the whole game, from\\
-	the start to the conclusion of the game
+	\item The definition of simple story as a wrapper for the whole game, from the start to the conclusion of the game
 	\begin{itemize}
-		\item Which is told between the movement between different environments.\\
-		and create a playable tactic RPG.
+		\item Which is told between the movement between different environments.
 	\end{itemize}
+	                        
+	\item The set of selected character attributes.
+	
 \end{itemize}
+and create a playable tactic RPG.
 
 \item To include in the engine support for the following:
 \begin{itemize}
 	\item \texttt{units} with a fixed set of associated attributes such as:
 	\begin{itemize}
 		\item Hit-points (which represent the health of the unit).
-		
 		\item Strength.
-		
 		\item Defence.
-		
 		\item Move (The number of tiles the unit can move each turn).
 	\end{itemize}
 	
 	\item \texttt{battles} which take place on grid and include:
 	\begin{itemize}
 		\item A set number of \texttt{units} for each player.
-		
-		\item \texttt{combat} between adjacent units.
-		\begin{itemize}
-			\item When the unit hit-points are reduced to zero they are \texttt{defeated} and are removed from the map.
-		\end{itemize}
-		
 		\item A Winning \texttt{condition} such as defeat all of the other players units.
-		
-		\item Battles are \texttt{turn based} meaning that each player moves all their units (once) before the next player turn.
+		\item Battles are \texttt{turn based} meaning that each player moves all their units (once) before the next player turn.   
+		\item A combat system.
 	\end{itemize}
+	
+	\item A combat system that includes
+		\begin{itemize}
+			\item \texttt{combat} between adjacent units.
+			\begin{itemize}
+				\item When the unit hit-points are reduced to zero they are \texttt{defeated} and are removed from the map
+			\item A set of rules that govern the combat.
+			\end{itemize}
+			
+		\end{itemize}
 	
 	\item A predefined set of behaviours for how the non-player characters should behave.
 	\begin{itemize}
@@ -85,7 +92,8 @@ The aim of this project is to create a engine which will take resources such as 
 \end{itemize}
 \end{itemize}
 
-\subsection{Secondary} \label{secondary}
+\subsection{Secondary} 
+\label{secondary}
 \begin{itemize}
 	\item Tile \texttt{height}, where units can only move to tiles of a smilier height.
 	
@@ -113,7 +121,8 @@ The aim of this project is to create a engine which will take resources such as 
 	\item A graphical view to allow user specify the input to the engine.
 \end{itemize}
 
-\subsection{Tertiary} \label{tertiary}
+\subsection{Tertiary} 
+\label{tertiary}
 \begin{itemize}
 	\item Custom events
 	\begin{itemize}
@@ -134,9 +143,10 @@ The aim of this project is to create a engine which will take resources such as 
 	\item Animations for units, combat and movement.
 \end{itemize}
 
-\subsection{Ethical Considerations} \label{ethicalconsiderations}
+\subsection{Ethical Considerations} 
+\label{ethicalconsiderations}
 \begin{itemize}
-	\item Form by 28th October.
+	%\item Form by 28th October.
 	
 	\item Collection of data from questionnaire.
 	\begin{itemize}
@@ -148,7 +158,8 @@ The aim of this project is to create a engine which will take resources such as 
 	\item Asking users to play the created game.
 \end{itemize}
 
-\subsection{Resources} \label{resources}
+\subsection{Resources} 
+\label{resources}
 \begin{itemize}
 	\item None.
 \end{itemize}

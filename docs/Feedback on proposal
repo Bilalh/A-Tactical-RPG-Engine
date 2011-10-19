@@ -1,0 +1,44 @@
+The introduction is certainly an improvement over your previous draft, but if we view it as a prototype of the first chapter of your dissertation it will eventually need lots more detail. You might, for example, describe the "management" aspect of many RPGs in which the player must put together a balanced party to complete a quest successfully, and the process of "levelling" characters as the game progresses. It is good to see a canonical example of a tactical RPG (NB The game is called "Tactics Ogre" :) ), but similarly you should add an example or examples of classical RPGs for comparison (e.g. Ultima, Final Fantasy, …). In the description of the battles in TRPGs, you might also mention the importance of terrain and the different kinds of attacks usually allowed: melee, ranged and magic.
+
+
+I can see that you have updated the objectives following our conversation, but it strikes me that, as written, there is a conflict between the first two bullets of the primary requirements. If, in the primary requirements, the set of attributes is to be fixed, then the input to the engine won't be the *definition* of the character attributes so much as a set of switches defining which of the fixed set supported are to be used for this particular game.
+
+As we discussed, it seems sensible to me to divide up the input to your engine as follows:
+
+1) All the different *classes* (including attribute ranges) of enemies, player characters, objects, terrain etc that the game supports.
+2) The *instances* (including attribute values) of these classes in terms of the particular enemies, objects and environments the player will encounter.
+3) The story and rules for how the player progresses through these environments.
+
+Combat rules could be included in this list, or could be fixed for primary requirements.
+
+In general, the primary requirements should be for an engine that allows a user to specify a fairly complex TRPG, but with limited customisation. The secondary and tertiary requirements should allow further complexity and customisation.
+
+We spoke about adding the ability to your engine to take in rules/scripts in order to allow much greater customisation of the game, and I can see some of that in the penultimate bullet point of the Secondary requirements, but this doesn't come across clearly yet. I think you want to specify some kind of simple rule language with conditions on the attributes of the players, NPCs, terrain and game state and which is allowed to set new values for these attributes. The example you give of a certain NPC type whose focus in combat is always the strongest player character is an example of this. You are going to have to specify this language very carefully to avoid making it too complex for your engine to deal with easily and efficiently, while ensuring that it is powerful enough for a user to do what he/she wants. This rule language could also be extended to
+support the custom events in your tertiary requirements.
+
+You could expand the "graphical view" bullet in secondary requirements to make clear how exactly this view will support input (e.g. buttons and menus to build the rules mentioned above), and what relationship it will have to the (presumably textual) input format in your Primary requirements.
+
+I'm not sure why healing items are in your tertiary requirements - it seems very specific. Surely your engine should be able to cope with healing items in a general way: they are items with a special property that affects a character's health over time, specified perhaps in the rule language.
+
+==== Feedback on draft, for posterity ====
+The introduction could be fleshed out more. I see the chess analogy, but I think the way you've presented TRPGs makes them seem more limited than they are. What about the fact that there is usually an over-arching story and that you move through different environments (and so have different arenas to fight in)?
+
+I think a better approach is to start by defining an RPG: story, character attributes and development, combat system, items, magic system. Then you can explain that TRPGs are a specialised form of these in which the emphasis is no detailed control of the combat. After that you can make your analogy to chess and describe how the combat works.
+
+The objectives should be expressed as tasks. "An engine" is a deliverable rather than an objective. So "an engine which take" would be come "To develop an engine that takes", and "The engine will support" might become "To include in the engine support for the following:"...
+
+Are you sure magic and combat are both going to be primary objectives. I thought we talked about splitting it up into melee combat, ranged combat and magic. Then you could make one of these primary and the others secondary, for example.
+
+I wonder if it might be better to separate the story from the rules for travelling between environments. Sometimes, you might have quite a lot of freedom to move about without the story advancing much.
+
+I'm not sure why you've been so specific with the attributes. What if I wanted to write a game with different attributes, e.g. if I wanted to add "agility" to the list? Shouldn't these definitions be part of the input. So, you might say that "the engine will support the definition of character attributes, such as…".
+
+Similarly, are the supported behaviours built in or defined by the input?
+
+I think you should be more specific about the graphical representation that you plan as a primary objective.
+
+Not sure what you mean by scripting support in Tertiary - isn't the whole input essentially one big script? It also seems weird to allow the player to have long distance weapons but not the AI. It seems more natural to decide, say, long-distance is secondary for both player and AI. Then magic is tertiary for both. Really, both of these things are sufficiently central to a TRPG that I would say that they should both be secondary.
+
+What does "create custom units" mean? Surely the whole point is that the unit types are defined by the input to your engine?
+
+Ethics could be more fleshed out. Are you really going to ask the users to play a created game? That doesn't seem to test much of your engine. I think it is sensible as one of the tests, but a more robust test is to ask them to *create* a game with your engine, then either get them or another set of people to play it.

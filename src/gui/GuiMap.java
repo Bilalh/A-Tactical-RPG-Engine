@@ -5,6 +5,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
+
+import common.gui.SpriteManager;
 
 import engine.Map;
 import engine.Tile;
@@ -39,31 +42,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 
     private Map map;
     
-	/** @category old Constructor */
-	public GuiMap(int width, int height) {
-		this.fieldWidth = width;
-		this.fieldHeight = height;
-		
-        field = new MapTile[width][height];
-        
-        for (int i = 0; i < width; i++) { 
-            for (int j = 0; j < height; j++) {
-            	field[i][j] = new MapTile(MapTile.Orientation.NORMAL, 1.0f, 1.0f);
-            	field[i][j].setFieldLocation(new Point(i, j));
-            }
-        }
-        
-        drawX = (int) MapSettings.drawStart.getX();
-        drawY = (int) MapSettings.drawStart.getY();
-        selectedTile = null;
-        
-        units = new AnimatedUnit[2];
-        for (int i = 0; i < units.length; i++) { 
-        	units[i] = new AnimatedUnit("", 0,i);
-        }
-        
-	}
-
+    private BText text;
     
 	/** @category Constructor */
 	public GuiMap(Map map) {
@@ -86,6 +65,8 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
         drawX = (int) MapSettings.drawStart.getX();
         drawY = (int) MapSettings.drawStart.getY();
         selectedTile = null;
+        
+        text = new BText(400, 120, SpriteManager.instance().getSprite("assets/gui/mage.png"));
         
         this.map = map;
         map.addObserver(this);
@@ -195,7 +176,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
     		}
         }
         
-        
+        text.draw((Graphics2D) g, 0, 100);
     }
     
     /**

@@ -45,12 +45,12 @@ public class Map extends Observable {
 
 	private void loadSettings(String name) {
 		field = new Tile[5][5];
-		Random r = new Random();
+//		Random r = new Random();
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
-				int first = r.nextInt(3)+1;
-				field[i][j] = new Tile(first, first + r.nextInt(2));
-//				field[i][j] = new Tile(1,1);
+//				int first = r.nextInt(3)+1;
+//				field[i][j] = new Tile(first, first + r.nextInt(2));
+				field[i][j] = new Tile(1,1);
 			}
 		}
 	}

@@ -70,7 +70,7 @@ public class MapPanel extends JPanel implements Runnable {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				dbImage = null;
-				System.out.println("resized");
+//				System.out.println("resized");
 			}
 			
 		});
@@ -169,7 +169,6 @@ public class MapPanel extends JPanel implements Runnable {
 	}
 
 	private void gameRender(long timeDiff) {
-		// TODO check for resize
 		if (dbImage == null) {
 			dbImage = createImage(getWidth(), getHeight());
 			if (dbImage == null) {
