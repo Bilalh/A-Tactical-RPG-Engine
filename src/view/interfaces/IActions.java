@@ -1,4 +1,4 @@
-package gui.interfaces;
+package view.interfaces;
 
 /**
  * A set of action that view must implement.

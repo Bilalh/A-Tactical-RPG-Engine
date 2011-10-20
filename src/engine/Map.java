@@ -5,9 +5,12 @@ import java.util.Arrays;
 import java.util.Observable;
 import java.util.Random;
 
-import engine.notifications.ChooseUnitsNotifications;
-import engine.notifications.Notification;
-import engine.notifications.PlayersTurnNotification;
+import view.notifications.ChooseUnitsNotifications;
+import view.notifications.PlayersTurnNotification;
+
+import common.interfaces.INotification;
+
+
 
 /**
  * @author bilalh
@@ -38,7 +41,7 @@ public class Map extends Observable {
 
 	public void setUsersUnits(ArrayList<Unit> units){
 		selectedUnits= units;
-		Notification n =  new PlayersTurnNotification();
+		INotification n =  new PlayersTurnNotification();
 		setChanged();
 		notifyObservers(n);
 	}
@@ -61,7 +64,7 @@ public class Map extends Observable {
 	}
 
 	public void start() {
-		Notification n =  new ChooseUnitsNotifications(player.getUnits(), ai.getUnits());
+		INotification n =  new ChooseUnitsNotifications(player.getUnits(), ai.getUnits());
 		setChanged();
 		notifyObservers(n);
 	}

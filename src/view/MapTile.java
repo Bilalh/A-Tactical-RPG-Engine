@@ -1,4 +1,4 @@
-package gui;
+package view;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.Arrays;
 import common.gui.Sprite;
 import common.gui.SpriteManager;
 
-import static gui.MapTile.Orientation.*;
+import static view.MapTile.Orientation.*;
 
 public class MapTile {
     		

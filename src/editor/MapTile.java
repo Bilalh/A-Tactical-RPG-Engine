@@ -1,12 +1,13 @@
 package editor;
 
-import gui.MapSettings;
 
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Arrays;
+
+import view.MapSettings;
 import static editor.MapTile.Orientation.*;
 
 public class MapTile {

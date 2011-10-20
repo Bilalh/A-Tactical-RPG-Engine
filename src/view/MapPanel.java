@@ -1,4 +1,4 @@
-package gui;
+package view;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -18,14 +18,14 @@ public class MapPanel extends JPanel implements Runnable {
 
 	//
 	private static final int NO_DELAYS_PER_YIELD = 16;
-	
+
 	// no. of frames that can be skipped in any one animation loop
 	// i.e the games state is updated but not rendered
 	private static int MAX_FRAME_SKIPS = 5;
 
 
 	private long gameStartTime;
-	
+
 	private Thread animator; // the thread that performs the animation
 	private volatile boolean running = false; // used to stop the animation thread
 	private volatile boolean isPaused = false;
@@ -48,10 +48,10 @@ public class MapPanel extends JPanel implements Runnable {
 	private BufferedImage bgImage = null;
 
 	private GuiMap map;
-	
+
 	public MapPanel(Map grid, long period) {
 		this.period = period;
-		
+
 		setDoubleBuffered(false);
 		setBackground(Color.black);
 		setSize(300, 300);
@@ -59,11 +59,11 @@ public class MapPanel extends JPanel implements Runnable {
 		setIgnoreRepaint(true);
 		setFocusable(true);
 		requestFocus(); // the JPanel now has focus, so receives key events
-		
+
 		// set up message font
 		msgsFont = new Font("SansSerif", Font.BOLD, 24);
 		metrics = this.getFontMetrics(msgsFont);
-		
+
 		this.map  = new GuiMap(grid);
 		this.addMouseListener(map);
 		this.addMouseMotionListener(map);
@@ -71,49 +71,50 @@ public class MapPanel extends JPanel implements Runnable {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				dbImage = null;
-//				System.out.println("resized");
+				//				System.out.println("resized");
 			}
-			
+
 		});
-		
+
 		this.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
-				
-//				if (inputEvent.keyPressed(shortcutKey)){					
-//					if      (e.getKeyCode() == KeyEvent.VK_D))  drawGameDebug = !drawGameDebug;
-//					else if (e.getKeyCode() == KeyEvent.VK_I))  drawGameStatistics = !drawGameStatistics;
-//					else if (e.getKeyCode() == KeyEvent.VK_T))  Tile.negateDebug();
-//				}
 
-//				if (e.getKeyCode() == KeyEvent.VK_N)  Gui.debugConsole().nextPage();
-				
 				if (e.isMetaDown()){
 					if (e.getKeyCode() == KeyEvent.VK_D)   Gui.toggleDebugConsole();
+					return;
 				}else if (e.isShiftDown()){
 					if      (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET)   Gui.console().pageUp();
 					else if (e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET)  Gui.console().pageDown();
-					
-				}else if (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET) {
-					Gui.console().scrollUp();
-				}else if (e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET ){
-					Gui.console().scrollDown();
-				}if (e.getKeyCode() == KeyEvent.VK_X ){
-					map.keyComfirm();
+					return;
 				}
-				
+
+				switch (e.getKeyCode()) {					
+					case KeyEvent.VK_OPEN_BRACKET:
+						Gui.console().scrollUp();
+						break;
+					case KeyEvent.VK_CLOSE_BRACKET:
+						Gui.console().scrollDown();
+						break;
+					case KeyEvent.VK_X:
+						map.keyComfirm();
+					default:
+						map.otherKeys(e);
+						break;
+				}
+
 			}
 		});
-		
+
 	}
 
 	/* The frames of the animation are drawn inside the while loop. */
@@ -177,7 +178,7 @@ public class MapPanel extends JPanel implements Runnable {
 		startGame(); // start the thread
 	}
 
-	
+
 	// initialise and start the thread
 	private void startGame(){
 		if (animator == null || !running) {
@@ -208,7 +209,7 @@ public class MapPanel extends JPanel implements Runnable {
 		}
 	}
 
-	
+
 	private void gameRender(long timeDiff) {
 		if (dbImage == null) {
 			dbImage = createImage(getWidth(), getHeight());
@@ -227,11 +228,11 @@ public class MapPanel extends JPanel implements Runnable {
 
 		// draw game elements
 		map.draw(dbg, timeDiff, getWidth(), getHeight());
-		
+
 		if (Gui.showDebugConsole()) {
 			Gui.console().paint((Graphics2D) dbg, 0, getHeight() - Gui.console().getHeight()  , getWidth());
 		}         
-		
+
 		if (gameOver)
 			gameOverMessage(dbg);
 	}

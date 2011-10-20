@@ -1,16 +1,21 @@
 /**
  * 
  */
-package engine.notifications;
+package view.notifications;
 
 import java.util.ArrayList;
+
+import common.interfaces.IMapNotification;
+import common.interfaces.INotification;
+
+import view.GuiMap;
 
 import engine.Unit;
 
 /**
  * @author bilalh
  */
-public class ChooseUnitsNotifications implements Notification {
+public class ChooseUnitsNotifications implements IMapNotification {
 
 	private ArrayList<Unit> units = new ArrayList<Unit>();
 	private ArrayList<Unit> aiUnits = new ArrayList<Unit>();
@@ -22,16 +27,12 @@ public class ChooseUnitsNotifications implements Notification {
 		this.aiUnits = aiUnits;
 	}
 
-	/** @category Generated Getter */
-	public ArrayList<Unit> getUnits() {
-		return units;
+	@Override
+	public void process(GuiMap map) {
+		map.chooseUnits(units, aiUnits);
 	}
 
-	/** @category Generated Getter */
-	public ArrayList<Unit> getAiUnits() {
-		return aiUnits;
-	}
-
+	/** @category Generated */
 	@Override
 	public String toString() {
 		final int maxLen = 10;

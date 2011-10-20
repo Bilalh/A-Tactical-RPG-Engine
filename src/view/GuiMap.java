@@ -1,12 +1,13 @@
 /**
  * 
  */
-package gui;
+package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -15,14 +16,17 @@ import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
+import view.interfaces.IActions;
+import view.notifications.ChooseUnitsNotifications;
+import view.ui.Dialog;
+
 import common.gui.SpriteManager;
+import common.interfaces.IMapNotification;
+import common.interfaces.INotification;
 
 import engine.Map;
 import engine.Tile;
 import engine.Unit;
-import engine.notifications.ChooseUnitsNotifications;
-import gui.interfaces.IActions;
-import gui.ui.Dialog;
 
 
 /**
@@ -149,25 +153,21 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 
 	@Override
 	public void update(Observable map, Object notification) {
-//		System.out.println(notification);
 		Gui.console().println(notification);
-		if (notification instanceof ChooseUnitsNotifications){
-			chooseUnits(((ChooseUnitsNotifications) notification).getUnits(), 
-					((ChooseUnitsNotifications) notification).getAiUnits());
-		}
+		((IMapNotification) notification).process(this);
 	}
 
 	
-	private void chooseUnits(ArrayList<Unit> allUnits, ArrayList<Unit> aiUnits) {
+	public void chooseUnits(ArrayList<Unit> allPlayerUnits, ArrayList<Unit> aiUnits) {
 		
-		AnimatedUnit[] newUnits = new AnimatedUnit[allUnits.size()];
+		AnimatedUnit[] newUnits = new AnimatedUnit[allPlayerUnits.size()];
 		ArrayList<Unit> unitsList = new ArrayList<Unit>();
 		for (int i = 0; i < newUnits.length; i++) {
 			//FIXME indies
-			allUnits.get(i).setGridX(0);
-			allUnits.get(i).setGridY(i);
+			allPlayerUnits.get(i).setGridX(0);
+			allPlayerUnits.get(i).setGridY(i);
 			newUnits[i] = new AnimatedUnit(0, i, new String[]{"assets/gui/Archer.png"});
-			unitsList.add(allUnits.get(i));
+			unitsList.add(allPlayerUnits.get(i));
 		}
 		map.setUsersUnits(unitsList);
 		this.units = newUnits;
@@ -217,6 +217,10 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 	@Override
 	public void keyRight() {
 		// TODO keyRight method
+		
+	}
+	
+	public void otherKeys(KeyEvent e){
 		
 	}
 	

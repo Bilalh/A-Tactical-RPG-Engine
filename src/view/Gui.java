@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gui;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -9,8 +9,9 @@ import java.awt.event.WindowAdapter;
 
 import javax.swing.JFrame;
 
+import view.ui.Console;
+
 import engine.Engine;
-import gui.ui.Console;
 
 
 /**
