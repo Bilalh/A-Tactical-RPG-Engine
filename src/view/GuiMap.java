@@ -46,11 +46,11 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
     private AnimatedUnit[] units;
     private AnimatedUnit[] aiUnits;
 
-    private Map map;
+    private Map map; // Model
     
     private Dialog dialog;
     private boolean showDialog = true;
-    
+      
 	/** @category Constructor */
 	public GuiMap(Map map) {
 		
@@ -183,6 +183,17 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 		this.aiUnits = newAiUnits;
 	}
 
+	public void playersTurn(){
+		displayMessage("Player's Turn");
+	}
+	
+	private void displayMessage(String text){
+		dialog.setPicture(null);
+		dialog.setName(null);
+		dialog.setText(text);
+		showDialog = true;
+	}
+	
 	@Override
 	public void keyComfirm() {
 		if (!dialog.nextPage()){
@@ -221,7 +232,19 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 	}
 	
 	public void otherKeys(KeyEvent e){
-		
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_T:
+				dialog.setPicture(SpriteManager.instance().getSprite("assets/gui/mage.png"));
+				dialog.setName("Mage");
+				dialog.setText(
+						"Many people believe that Vincent van Gogh painted his best works " +
+						"during the two-year period he spent in Provence. Here is where he " +
+						"painted The Starry Night--which some consider to be his greatest " +
+						"work of all. However, as his artistic brilliance reached new " +
+						"heights in Provence, his physical and mental health plummeted. ");
+				showDialog = true;
+				break;
+		}
 	}
 	
 /* * Drawing and selecting * */

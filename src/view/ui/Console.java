@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
  * at creation and the resulting height of the textarea can be found using getHeight
  * @author Bilal Hussain
  */
-public class Console {
+public class Console implements IConsole {
 
 	// lines is a circular list 
 	private String[] lines;
@@ -45,6 +45,7 @@ public class Console {
 	
 	// Adds a string to the Text area, the string will be printed on a new line
 	// Note: Escape sequences such as \n are not honoured. 
+	@Override
 	public void println(Object newObj) {
 		if (newObj ==null) throw new IllegalArgumentException("String can not be null");
 		
@@ -68,11 +69,13 @@ public class Console {
 
 	// Adds a string to the Text area, the string will be printed on a new line
 	// Note: Escape sequences such as \n are not honoured. 
+	@Override
 	public void printf(String format, Object... args){
 		println(String.format(format, args));
 	}
 	
 	// Draw the text area at the specifed point, with the specifed width.
+	@Override
 	public void paint(Graphics2D graphics2D, int drawX, int drawY, int width) {
 		Color originalColour = graphics2D.getColor();
 		Font originalFont = graphics2D.getFont();
@@ -95,15 +98,10 @@ public class Console {
 		graphics2D.setFont(originalFont);
 	}
 
-	// Return the height in pixel of the text area
-	public int getHeight(){
-		
-		return height;
-	}
-	
 	// Scroll backwards by one line
 	// Note: since the list is circular the list will wrap around if the start is reached.
 	// Note: the text area is scrolled to the end on reciving new input.
+	@Override
 	public void scrollUp(){
 		head = (head-1 + lines.length) % lines.length;
 	}
@@ -111,6 +109,7 @@ public class Console {
 	// Scroll forwards by one line
 	// Note: since the list is circular the list will wrap around if the end is reached.
 	// Note: the text area is scrolled to the end on reciving new input.
+	@Override
 	public void scrollDown(){
 		head = (head +1 ) % lines.length;
 	}
@@ -118,15 +117,23 @@ public class Console {
 	// Scroll backwards by one page
 	// Note: since the list is circular the list will wrap around if the end is reached.
 	// Note: the text area is scrolled to the end on reciving new input.
+	@Override
 	public void pageUp(){
 		head = (head-numberOfLinesToShow + lines.length) % lines.length;
 	}
 	
-	// Scroll forwards by one page
 	// Note: since the list is circular the list will wrap around if the end is reached.
 	// Note: the text area is scrolled to the end on reciving new input.
+	@Override
 	public void pageDown(){
 		head = (head +numberOfLinesToShow ) % lines.length;
+	}
+	
+	// Return the height in pixel of the text area
+	@Override
+	public int getHeight(){
+		
+		return height;
 	}
 	
 }

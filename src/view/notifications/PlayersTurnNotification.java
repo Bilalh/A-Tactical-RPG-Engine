@@ -15,8 +15,7 @@ public class PlayersTurnNotification implements IMapNotification {
 
 	@Override
 	public void process(GuiMap map) {
-		// TODO process method
-		
+		map.playersTurn();
 	}
 	
 	@Override

@@ -10,6 +10,7 @@ import java.awt.event.WindowAdapter;
 import javax.swing.JFrame;
 
 import view.ui.Console;
+import view.ui.IConsole;
 
 import engine.Engine;
 
@@ -24,7 +25,7 @@ public class Gui {
 	private GuiMap map;
 	private Engine engine;
 	
-	private static Console debugConsole = new Console();
+	private static IConsole debugConsole = new Console();
 	
 	/**
 	 * Launch the application.
@@ -72,7 +73,7 @@ public class Gui {
 		frame.add(mapPanel);
 	}
 	
-	public static Console console() {
+	public static IConsole console() {
 		return debugConsole;
 	}
 

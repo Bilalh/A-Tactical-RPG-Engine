@@ -69,4 +69,9 @@ public class Map extends Observable {
 		notifyObservers(n);
 	}
 
+	/** @category Generated Getter */
+	public boolean isPlayersTurn() {
+		return playersTurn;
+	}
+
 }

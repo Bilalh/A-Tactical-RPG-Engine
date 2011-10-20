@@ -25,7 +25,7 @@ public class Dialog {
 	private String name;
 	
 	// stores the fonts settings
-	private Hashtable<TextAttribute, Object> map =new Hashtable<TextAttribute, Object>();
+	private Hashtable<TextAttribute, Object> map = new Hashtable<TextAttribute, Object>();
 
 
 	// The LineBreakMeasurer used to line-break the paragraph.
@@ -97,7 +97,7 @@ public class Dialog {
 	}
 	
 	/** @category Setter */
-	public void setPic(Sprite pic) {
+	public void setPicture(Sprite pic) {
 		this.pic   = pic;
 		this.xdiff = pic != null ? 75 : 5;
 	}
