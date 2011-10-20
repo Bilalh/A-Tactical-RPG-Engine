@@ -77,6 +77,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 //        text = new BText(665, 100);
         
         this.map = map;
+        setSelectedTile(0, 0);
         map.addObserver(this);
         map.start();
 	}
@@ -209,26 +210,22 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 
 	@Override
 	public void keyUp() {
-		// TODO keyUp method
-		
+		setSelectedTile(selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y+1);
 	}
 
 	@Override
 	public void keyDown() {
-		// TODO keyDown method
-		
+		setSelectedTile(selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y-1);
 	}
 
 	@Override
 	public void keyLeft() {
-		// TODO keyLeft method
-		
+		setSelectedTile(selectedTile.getFieldLocation().x-1, selectedTile.getFieldLocation().y);
 	}
 
 	@Override
 	public void keyRight() {
-		// TODO keyRight method
-		
+		setSelectedTile(selectedTile.getFieldLocation().x+1, selectedTile.getFieldLocation().y);
 	}
 	
 	public void otherKeys(KeyEvent e){
@@ -293,14 +290,12 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
         } else {
             this.findAndSelectTile(e.getX(), e.getY());
         }
-//        e.getComponent().repaint();
     }
 
     @Override
 	public void mouseDragged(MouseEvent e) {
         Point current = e.getPoint();
         this.setDrawLocation(e.getX() - offsetX, e.getY() - offsetY);
-//        e.getComponent().repaint();
     }
 
     /** @category Generated */ @Override
@@ -314,9 +309,10 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 
    
 	public void setSelectedTile(int x, int y) {
-        if (x == -1 && y == -1) {
-            selectedTile = null;
-            return;
+        if (x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight ) {
+        	throw new IllegalArgumentException("Bad index " +x +  "," +y);
+//            selectedTile = null;
+//            return;
         }
         if (selectedTile != null) {
             selectedTile.setSelected(false);

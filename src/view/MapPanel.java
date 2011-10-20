@@ -105,8 +105,21 @@ public class MapPanel extends JPanel implements Runnable {
 					case KeyEvent.VK_CLOSE_BRACKET:
 						Gui.console().scrollDown();
 						break;
+					case KeyEvent.VK_UP:
+						map.keyUp();
+						break;
+					case KeyEvent.VK_DOWN:
+						map.keyDown();
+						break;
+					case KeyEvent.VK_LEFT:
+						map.keyLeft();
+						break;
+					case KeyEvent.VK_RIGHT:
+						map.keyRight();
+						break;
 					case KeyEvent.VK_X:
 						map.keyComfirm();
+						break;
 					default:
 						map.otherKeys(e);
 						break;
