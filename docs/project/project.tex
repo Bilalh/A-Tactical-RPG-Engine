@@ -8,8 +8,7 @@
 
 \section{Introduction} 
 \label{introduction}
-
-
+       
 A RPG (Role Playing Game) is game where player assumes the role of on the character. A RPG is usually story driven and the character usually has quest to complete. In the course of the game the player will go to different environments such as town and dungeons. In they these environments the player will have to battle opponents in battles. Combat in RPGs is normally a simple turn based system where player and the opponents take turns attacks each other using various skills. 
 
 A Tactical RPG is sub-genre of an RPG that focuses on the combat side of the genre. A Tactical RPG is series of \texttt{battles}, which take place in various environments intertwined with an over-aching story.
@@ -24,9 +23,9 @@ The players taken turns to moves their units. Each unit has attributes associate
 The aim of this project is to create a engine which will take resources such as graphics, sound and rules of the game to create a runnable Tactical RPG.
 
 \section{Objectives}
-
 \subsection{Primary}
- \label{primary}
+\label{primary}
+The main goal of the primary objectives is allow the user to create a complex Tactical RPG, with limited customisability.  
 \begin{itemize}
 \item To develop an engine that takes:
 \begin{itemize}
@@ -84,16 +83,16 @@ and create a playable tactic RPG.
 	\item A simple graphical representation of of the game.
 	\begin{itemize}
 		\item Which is show the grid with all the units.
-		
 		\item Allow the user to move their units and see the opponents moves.
-		
 		\item Allows the user to attack the opponents units.
+		\item Text will be to describe the more complex actions such magic.
 	\end{itemize}
 \end{itemize}
 \end{itemize}
 
-\subsection{Secondary} 
+\subsection{Secondary}
 \label{secondary}
+The main goal of the secondary objectives is allow the user more customisability. 
 \begin{itemize}
 	\item Tile \texttt{height}, where units can only move to tiles of a smilier height.
 	
@@ -115,7 +114,8 @@ and create a playable tactic RPG.
 	
 	\item Allow the user to specify some of behaviour of non-player characters
 	\begin{itemize}
-		\item Such as always attack a certain kind of unit or always attack the unit with the most Hit Points.
+		\item Through the use of scripting.
+		\item An example: always attack a certain kind of unit or always attack the unit with the least Hit Points.
 	\end{itemize}
 	
 	\item A graphical view to allow user specify the input to the engine.
@@ -123,6 +123,8 @@ and create a playable tactic RPG.
 
 \subsection{Tertiary} 
 \label{tertiary}
+The goal of the Tertiary objectives are provide the user with more customisability and to provide a GUI for creating  a game. 
+
 \begin{itemize}
 	\item Custom events
 	\begin{itemize}
@@ -136,11 +138,11 @@ and create a playable tactic RPG.
 		\end{itemize}
 	\end{itemize}
 	
-	\item A graphical editor for making custom maps and events.
-	
-	\item Healing item\slash skills.
-	
-	\item Animations for units, combat and movement.
+	\item A graphical editor for making custom maps, events and specifying the input to the engine.
+	\begin{itemize}
+		\item The gui would also be able to create the scripts for simple event such as `Defeat the leader' as a winning condition.
+	\end{itemize}
+	\item Animations for units and movement.
 \end{itemize}
 
 \subsection{Ethical Considerations} 

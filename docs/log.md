@@ -1,6 +1,5 @@
 Log
 ===
-
 Mon 26 Sep 2011 - Tue 27 Oct 2011 
 ---------------------------------
 * Wrote most of the  objectives of the project description.  
@@ -36,6 +35,11 @@ Sat 01 Oct 2011
 	* `libgdx` or `slick` might be useful for texture rending of tiles.
 * Decided to use a FSM to model the game state.
 
+Mon 03 Oct 2011 - Thu 06 Oct 2011
+---------------------------------
+* Interfaces.
+* Set MVC.
+* Research scripting.
 
 Fri 07 Oct 2011
 ---------------
@@ -45,6 +49,10 @@ Fri 07 Oct 2011
 		* Allow the user to specify such of the AI behaviour in Secondary
 		* Make a gui for editor
 	*  Include references and screen shots in Introduction of key TRPGs.   
+
+Sun 09 Oct 2011 - Thu 13 Oct 2011
+---------------------------------
+* Research about AI  and FSM
 
 Fri 14 Oct 2011
 ---------------
@@ -57,3 +65,10 @@ Tue 18 Oct 2011
 * Refracting.
 * Console.   
 * Misc.
+
+Wed 19 Oct 2011 - Thu 20 Oct 2011
+---------------------------------
+* Model.
+* Structure.
+* Misc.
+   

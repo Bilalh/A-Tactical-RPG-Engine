@@ -7,6 +7,7 @@ import java.util.Random;
 
 import view.notifications.ChooseUnitsNotifications;
 import view.notifications.PlayersTurnNotification;
+import view.notifications.UserMovedNotification;
 
 import common.interfaces.INotification;
 
@@ -74,4 +75,14 @@ public class Map extends Observable {
 		return playersTurn;
 	}
 
+	public void moveUnit(Unit u, int gridX, int gridY){
+		u = selectedUnits.get(0);
+		u.setGridX(gridX);
+		u.setGridY(gridY);
+		setChanged();
+		INotification n =  new UserMovedNotification(u);
+		setChanged();
+		notifyObservers(n);
+	}
+	
 }

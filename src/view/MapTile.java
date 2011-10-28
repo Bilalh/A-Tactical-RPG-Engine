@@ -149,7 +149,7 @@ public class MapTile {
         int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
         int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
         int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-        //System.out.printf("(%d,%d) finalHeight:%3d hoz:%3d vet:%3d\n",x,y,  finalHeight, horizontal, vertical);
+//        System.out.printf("(%d,%d) finalHeight:%3d hoz:%3d vet:%3d\n",x,y,  finalHeight, horizontal, vertical);
         
         Color oldColor = g.getColor();
         g.setColor(myColor); // Draw the top of the tile

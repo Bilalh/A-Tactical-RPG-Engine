@@ -1,6 +1,14 @@
 \documentclass[11pt]{article}
+\usepackage{UKenglish}                           
 \bibliographystyle{IEEEtran}
 \usepackage[bookmarks=false]{hyperref}
+
+\usepackage{setspace}
+%\singlespacing
+\onehalfspacing
+%\doublespacing
+%\setstretch{1.1}
+
 % Listing (fold)
 \usepackage{listings} 
 \usepackage{textcomp} %for upquotes 
@@ -18,7 +26,6 @@
 \usepackage{subfigure}
 \usepackage{wrapfig} % (end)
 
-% Geometry (fold)
 \usepackage[pdftex]{graphicx}
 \usepackage{geometry}
 \geometry{bottom=2.4cm, top = 2.4cm}
@@ -102,10 +109,10 @@
 %(end)
 
 % Metadata
-\newcommand{\theTitle}{\theAuthor}
+\newcommand{\theTitle}{}
 \newcommand{\theAuthor}{}
 \title{\theTitle}
-\author{\studentID}
+\author{\theAuthor}
 
 % Headers footers (fold)             
 
@@ -114,6 +121,7 @@
 
 \usepackage{fancyhdr} 
 \pagestyle{fancy}
-\fancyhf{} % removes all headers
+\fancyhf{} % removes all headers   
+\renewcommand{\headrulewidth}{0pt} % remove lines as well
 \fancyhead[CEO]{\hspace{10pt} \theAuthor \hspace{5pt}-- \theTitle}
 \fancyfoot[CEO]{\thepage} % (end)      

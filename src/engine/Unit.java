@@ -1,5 +1,7 @@
 package engine;
 
+import java.util.UUID;
+
 /**
  * @author bilalh
  */
@@ -16,6 +18,8 @@ public class Unit {
 	private int gridX;
 	private int gridY;
 	
+	final private Long uuid;
+	
 	/** @category Generated Constructor */
 	public Unit(String name, int maxHp, int move, int strength) {
 		this.name = name;
@@ -23,6 +27,7 @@ public class Unit {
 		this.currentHp = maxHp;
 		this.move = move;
 		this.strength = strength;
+		uuid = UUID.randomUUID().getMostSignificantBits();
 	}
 	
 	/** @category Generated Getter */
@@ -82,4 +87,9 @@ public class Unit {
 		this.gridY = gridY;
 	}
 
+	/** @category Generated Getter */
+	public Long getUuid() {
+		return uuid;
+	}
+	
 }

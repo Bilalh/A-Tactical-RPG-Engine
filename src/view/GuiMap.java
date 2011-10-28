@@ -183,7 +183,12 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 		}
 		this.aiUnits = newAiUnits;
 	}
-
+	
+	public void unitMoved(Unit u){
+		units[0].setGridX(u.getGridX());
+		units[0].setGridY(u.getGridY());
+	}
+	
 	public void playersTurn(){
 		displayMessage("Player's Turn");
 	}
@@ -197,9 +202,10 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 	
 	@Override
 	public void keyComfirm() {
-		if (!dialog.nextPage()){
-			showDialog = false;
-		}		
+		map.moveUnit(null, 2, 3);
+//		if (!dialog.nextPage()){
+//			showDialog = false;
+//		}
 	}
 
 	@Override
