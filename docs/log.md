@@ -71,4 +71,19 @@ Wed 19 Oct 2011 - Thu 20 Oct 2011
 * Model.
 * Structure.
 * Misc.
-   
+
+Tue 24 Oct 2011 - Wed 25 Oct 2011
+---------------------------------
+* AI reading
+* docs
+* Read some research papers.
+
+Thu 27 Oct 2011   
+---------------
+* Unit movement.
+* Refracting. 
+
+Fri 28 Oct 2011
+---------------
+* Meeting at 11am Friday.
+	*
