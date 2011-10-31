@@ -1,7 +1,11 @@
 \documentclass[11pt]{article}
-\usepackage{UKenglish}                           
+% \usepackage{UKenglish}                           
 \bibliographystyle{IEEEtran}
 \usepackage[bookmarks=false]{hyperref}
+\usepackage{pdfpages} %inculde pdfs
+
+\usepackage{textcomp,longtable}
+\usepackage{latexsym}
 
 \usepackage{setspace}
 %\singlespacing
@@ -22,11 +26,9 @@
 } %(end)
 
 % Pictures (fold)
-\usepackage[pdftex]{graphicx}
+\usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{wrapfig} % (end)
-
-\usepackage[pdftex]{graphicx}
 \usepackage{geometry}
 \geometry{bottom=2.4cm, top = 2.4cm}
 \renewcommand{\topfraction}{0.97}	% max fraction of floats at top
@@ -43,9 +45,8 @@
 \usepackage{amsthm}
 \usepackage{ wasysym } %Bowtie for na join (end)             
 
-% Other Packages (fold)
-% Makes small lists
-\usepackage{enumitem}
+% Makes small lists  (fold)
+\usepackage{enumitem} 
 \usepackage[utf8]{inputenc}
 %(end)
 
@@ -86,26 +87,6 @@
 \def\Integer{\mathsf{Z\hspace{-0.4em}Z}}
 \def\Natural{\mathrm{I\!N}}
 \def\Real{\mathrm{I\!R}}
-%(end)
-
-%p code	(fold)
-\def\And{\ensuremath{\textbf{ and }}}
-\def\Not{\ensuremath{\textbf{ not }}}
-\def\Xor{\ensuremath{\textbf{ xor }}}
-\def\Or{\ensuremath{\textbf{ or }}}
-
-\def\If{\ensuremath{\textbf{if }}}	
-\def\For{\ensuremath{\textbf{for }}}	
-\def\While{\ensuremath{\textbf{while }}}
-\def\Else{\ensuremath{\textbf{else }}}
-\def\Do{\ensuremath{\textbf{ do}}}
-\def\To{\ensuremath{\textbf{ to }}}
-\def\Then{\ensuremath{\textbf{ then}}}
-\def\Until{\ensuremath{\textbf{ until }}}
-\def\End{\ensuremath{\textbf{end}}}
-\def\Downto{\ensuremath{\textbf{ downto }}}
-
-\def\Swap{\ensuremath{\textbf{swap }}}
 %(end)
 
 % Metadata

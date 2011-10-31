@@ -30,6 +30,7 @@ Week 6
 	* other 
 * Attributes for units.
 * Units can be defeated.
+* Make the game runnable.
 
 Week 7
 ------
