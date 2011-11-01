@@ -1,0 +1,36 @@
+%!TEX root = ../Project.tex
+\section{Scripting}
+\label{sec:Scripting}
+\begin{itemize}
+
+
+\item Attached events to units, titles etc.
+
+\item Events get passed a \texttt{mapinfo} object containing.
+\begin{itemize}
+	\item a hashtable of the players unit and a hashtable of the enemies units..
+	\item The leader of each side if there is one.
+	\item The number of turns taken.
+\end{itemize}
+
+\item \texttt{mapinfo} also contains methods such as \texttt{Win} and \texttt{Lose} to allow custom victory conditions.
+
+\item \texttt{dialog} method to make unit talk.
+\begin{itemize}
+	\item Either on unit or not.
+\end{itemize}
+
+\item Unit events get passed the specified unit. Executed when:
+\begin{enumerate}
+	\item the units finishes it turn.
+	\item is affected by magic.
+	\item attacked.
+\end{enumerate}
+
+\item Tiles get passes the specified tile. Executed when:
+\begin{itemize}
+	\item A unit moves onto the tile.
+\end{itemize}
+
+\end{itemize}
+
