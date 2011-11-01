@@ -9,7 +9,7 @@ Scripting
 	* a hash of the players unit and a hash of the enemies units..
 	* The leader of each side if there is one.
 	* The number of turns taken.
-* Contains methods some as `Win` and `Lose` to allow custom victory conditions. 
+* Contains methods such as `Win` and `Lose` to allow custom victory conditions. 
 * `dialog` method to make unit talk. 
 	*  Either on unit or not.
 * Unit events get passed the specified unit. 
