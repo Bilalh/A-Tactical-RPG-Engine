@@ -34,3 +34,29 @@
 
 \end{itemize}
 
+\subsection{Rules}
+\subsubsection{AI}
+\begin{itemize}
+	\item Attack the player's unit with  highest/lowest hp.
+	\item Attack the player's leader unit (if there is one).
+	\item If opponent's leader's hp $< 20\%$ \texttt{heal(leader)}.
+	\item Attack player's characters of class <class>.
+\end{itemize}
+
+\subsubsection{Events}
+\paragraph{Character}
+\begin{itemize}
+	\item If opponent's leader's hp $< 50\%$ then \texttt{win()}.
+	\item If <character> dies then \texttt{lose()}.
+\end{itemize}
+
+\paragraph{World}
+\begin{itemize}
+	\item If \texttt{number\_of\_turns} $> 20$ then \texttt{lose()} 
+\end{itemize}
+
+\paragraph{Tile}
+\begin{itemize}
+	\item If <character> enters then \texttt{event(id)} 
+\end{itemize}
+
