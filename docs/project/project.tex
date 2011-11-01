@@ -1,10 +1,15 @@
-\input{Setting}
+\input{settings/Setting}
+\renewcommand{\setflag}{\newif \ifwhole \wholetrue}
 \renewcommand{\theTitle}{A Tactical RPG Engine}
 \renewcommand{\theAuthor}{\fullName}
 
-\includeonly{tex/Scripting}
+\sectionfont{
+	\sectionrule{0pt}{0pt}{-10pt}{0.8pt}
+}
+
+% \includeonly{tex/Scripting}
 \begin{document} 
-\maketitle
+\include{settings/Title}
 
 
 \include{tex/Introduction}
@@ -12,6 +17,8 @@
 \include{tex/Ethical_Considerations}
 \include{tex/Questionnaire}
 \include{tex/Scripting}
+
+
 \clearpage
-\bibliography{Citations}
+% \bibliography{Citations}
 \end{document}
