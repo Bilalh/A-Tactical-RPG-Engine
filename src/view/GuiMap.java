@@ -47,7 +47,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
     private AnimatedUnit[] units;
     private AnimatedUnit[] aiUnits;
 
-    private MapController map; // Model
+    private MapController mapController; 
     
     private Dialog dialog;
     private boolean showDialog = true;
@@ -75,9 +75,8 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
         selectedTile = null;
         
         dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
-//        text = new BText(665, 100);
         
-        this.map = mapController;
+        this.mapController = mapController;
         setSelectedTile(0, 0);
         mapController.addMapObserver(this);
         mapController.startMap();
@@ -167,12 +166,12 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 		for (int i = 0; i < newUnits.length; i++) {
 			//FIXME indies
 			final Unit u = allPlayerUnits.get(i);
-			u.setGridX(0);
+			u.setGridX(2);
 			u.setGridY(i);
-			newUnits[i] = new AnimatedUnit(0, i, new String[]{"assets/gui/Archer.png"},u.getUuid() );
+			newUnits[i] = new AnimatedUnit(2, i, new String[]{"assets/gui/Archer.png"},u.getUuid() );
 			unitsList.add(allPlayerUnits.get(i));
 		}
-		map.setUsersUnits(unitsList);
+		mapController.setUsersUnits(unitsList);
 		this.units = newUnits;
 		
 		AnimatedUnit[] newAiUnits = new AnimatedUnit[aiUnits.size()];
@@ -206,7 +205,12 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 	
 	@Override
 	public void keyComfirm() {
-		map.moveUnit(null, 2, 3);
+	
+		for (Point p : units[0].getVaildTiles()) {
+			 field[p.x][p.y].setSelected(true);
+		}
+		
+//		mapController.moveUnit(null, 2, 3);
 //		if (!dialog.nextPage()){
 //			showDialog = false;
 //		}
@@ -341,12 +345,6 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
         drawX = x;
         drawY = y;
     }
-
-
-	/** @category Generated Getter */
-	public MapTile[][] getField() {
-		return field;
-	}
 
 
 	/** @category Generated Getter */
