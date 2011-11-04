@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.UUID;
 
 import common.gui.Sprite;
 import common.gui.SpriteManager;
@@ -13,11 +14,13 @@ public class GuiUnit {
 	protected int gridX;
 	protected int gridY;
 	protected Sprite sprite;
+	private UUID uuid; 
 	
-	public GuiUnit(int gridX,int gridY,String ref) {
+	public GuiUnit(int gridX,int gridY,String ref, UUID uuid) {
 		this.sprite = SpriteManager.instance().getSprite(ref);
 		this.gridX = gridX;
 		this.gridY = gridY;
+		this.uuid = uuid;
 	} 
 	
 	public void draw(Graphics g, final MapTile[][] tiles, int x, int y) {

@@ -23,6 +23,7 @@ import view.ui.Dialog;
 import common.gui.SpriteManager;
 import common.interfaces.IMapNotification;
 import common.interfaces.INotification;
+import controller.MapController;
 
 import engine.Map;
 import engine.Tile;
@@ -46,15 +47,15 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
     private AnimatedUnit[] units;
     private AnimatedUnit[] aiUnits;
 
-    private Map map; // Model
+    private MapController map; // Model
     
     private Dialog dialog;
     private boolean showDialog = true;
       
 	/** @category Constructor */
-	public GuiMap(Map map) {
+	public GuiMap(MapController mapController) {
 		
-		final Tile grid[][] = map.getField();
+		final Tile grid[][] = mapController.getGrid();
 		this.fieldWidth = grid.length;
 		this.fieldHeight = grid[0].length;
         field = new MapTile[fieldWidth][fieldHeight];
@@ -76,10 +77,10 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
         dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
 //        text = new BText(665, 100);
         
-        this.map = map;
+        this.map = mapController;
         setSelectedTile(0, 0);
-        map.addObserver(this);
-        map.start();
+        mapController.addMapObserver(this);
+        mapController.startMap();
 	}
 		
 	// draws the map to the screen 
@@ -165,9 +166,10 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 		ArrayList<Unit> unitsList = new ArrayList<Unit>();
 		for (int i = 0; i < newUnits.length; i++) {
 			//FIXME indies
-			allPlayerUnits.get(i).setGridX(0);
-			allPlayerUnits.get(i).setGridY(i);
-			newUnits[i] = new AnimatedUnit(0, i, new String[]{"assets/gui/Archer.png"});
+			final Unit u = allPlayerUnits.get(i);
+			u.setGridX(0);
+			u.setGridY(i);
+			newUnits[i] = new AnimatedUnit(0, i, new String[]{"assets/gui/Archer.png"},u.getUuid() );
 			unitsList.add(allPlayerUnits.get(i));
 		}
 		map.setUsersUnits(unitsList);
@@ -178,8 +180,10 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 			//FIXME indies
 			aiUnits.get(i).setGridX(fieldWidth-1);
 			aiUnits.get(i).setGridY(i);
+			final Unit u = aiUnits.get(i);
 			newAiUnits[i] = new AnimatedUnit(fieldWidth-1, i, 
-					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"});
+					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"}, 
+					u.getUuid() );
 		}
 		this.aiUnits = newAiUnits;
 	}
@@ -251,7 +255,6 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 	}
 	
 /* * Drawing and selecting * */
-	
 	/**
      * Select the file that is under the mouse click
      * @param x X position of the mouse click

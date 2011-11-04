@@ -11,6 +11,8 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import controller.MapController;
+
 import engine.Map;
 
 
@@ -49,7 +51,7 @@ public class MapPanel extends JPanel implements Runnable {
 
 	private GuiMap map;
 
-	public MapPanel(Map grid, long period) {
+	public MapPanel(MapController mapController, long period) {
 		this.period = period;
 
 		setDoubleBuffered(false);
@@ -64,7 +66,7 @@ public class MapPanel extends JPanel implements Runnable {
 		msgsFont = new Font("SansSerif", Font.BOLD, 24);
 		metrics = this.getFontMetrics(msgsFont);
 
-		this.map  = new GuiMap(grid);
+		this.map  = new GuiMap(mapController);
 		this.addMouseListener(map);
 		this.addMouseMotionListener(map);
 		this.addComponentListener(new ComponentAdapter() {

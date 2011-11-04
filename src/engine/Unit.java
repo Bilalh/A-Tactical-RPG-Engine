@@ -18,7 +18,7 @@ public class Unit {
 	private int gridX;
 	private int gridY;
 	
-	final private Long uuid;
+	final private UUID uuid;
 	
 	/** @category Generated Constructor */
 	public Unit(String name, int maxHp, int move, int strength) {
@@ -27,7 +27,7 @@ public class Unit {
 		this.currentHp = maxHp;
 		this.move = move;
 		this.strength = strength;
-		uuid = UUID.randomUUID().getMostSignificantBits();
+		uuid = UUID.randomUUID();
 	}
 	
 	/** @category Generated Getter */
@@ -88,7 +88,7 @@ public class Unit {
 	}
 
 	/** @category Generated Getter */
-	public Long getUuid() {
+	public UUID getUuid() {
 		return uuid;
 	}
 	

@@ -4,6 +4,7 @@
 package view;
 
 import java.awt.Graphics;
+import java.util.UUID;
 
 import common.gui.Sprite;
 import common.gui.SpriteManager;
@@ -25,8 +26,8 @@ public class AnimatedUnit extends GuiUnit {
 	// 50 millisecond frames
 	private long frameDuration = 100 *1000000; 
 	
-	public AnimatedUnit(int gridX, int gridY, String ref) {
-		super(gridX,gridY,ref);
+	public AnimatedUnit(int gridX, int gridY, String ref, UUID uuid) {
+		super(gridX,gridY,ref,uuid);
 		
 		// setup the animatin frames
 		frames= new Sprite[4];
@@ -36,8 +37,8 @@ public class AnimatedUnit extends GuiUnit {
 		frames[3] = SpriteManager.instance().getSprite("assets/gui/alien3.gif");	
 	}
 
-	public AnimatedUnit(int gridX, int gridY, String[] refs) {
-		super(gridX,gridY,refs[0]);
+	public AnimatedUnit(int gridX, int gridY, String[] refs, UUID uuid) {
+		super(gridX,gridY,refs[0], uuid);
 		frames = new Sprite[refs.length]; 
 		frames[0] = sprite;
 		for (int i = 1; i < refs.length; i++) {

@@ -6,8 +6,12 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
+import java.util.Observable;
 
 import javax.swing.JFrame;
+
+import controller.MainController;
+import controller.MapController;
 
 import view.ui.Console;
 import view.ui.IConsole;
@@ -18,43 +22,26 @@ import engine.Engine;
 /**
  * @author bilalh
  */
-public class Gui {
+public class Gui extends Observable {
 
+	private MainController mainController;
+	
 	private JFrame frame;
 	private MapPanel mapPanel;
-	private GuiMap map;
-	private Engine engine;
+	
+	private int DEFAULT_FPS = 50;
 	
 	private static IConsole debugConsole = new Console();
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					Gui window = new Gui();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
-	public Gui() {
+	public Gui(MainController mainController) {
+		this.mainController = mainController;
 		initialize();
 	}
 
-	private int DEFAULT_FPS = 50;
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
+	
+	// Initialize the contents of the frame.
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 675, 450);
@@ -63,14 +50,14 @@ public class Gui {
 		
 		long period = (long) 1000.0 / DEFAULT_FPS;
 		// System.out.println("fps: " + DEFAULT_FPS + "; period: " + period + " ms");
-        
-		engine = new Engine();
-		engine.Map map =  engine.startMap("test");
-		
-		mapPanel = new MapPanel(map, period * 1000000L);
-        
-		
+        		
+		MapController mapController =  mainController.startMap("test");
+		mapPanel = new MapPanel(mapController, period * 1000000L);
 		frame.add(mapPanel);
+	}
+	
+	public void setVisible(boolean b){
+		frame.setVisible(b);
 	}
 	
 	public static IConsole console() {
