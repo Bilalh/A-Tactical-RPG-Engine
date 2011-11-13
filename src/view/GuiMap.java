@@ -16,6 +16,7 @@ import java.util.*;
 import view.interfaces.IActions;
 import view.notifications.ChooseUnitsNotifications;
 import view.ui.Dialog;
+import view.util.ActionsAdapter;
 
 import common.gui.SpriteManager;
 import common.interfaces.IMapNotification;
@@ -32,7 +33,7 @@ import engine.interfaces.IModelUnit;
 /**
  * @author bilalh
  */
-public class GuiMap implements MouseListener, MouseMotionListener, Observer, IActions {
+public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 
     private int drawX;
     private int drawY;
@@ -51,13 +52,23 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
     private Dialog dialog;
     private boolean showDialog = true;
       
+    // The Class that with handed the input 
+    private IActions current;
+    
+    final private IActions[] actions = {new Movement(), new DialogHandler()};
+    enum ActionsEnum {
+    	MOVEMENT, DIALOG,
+    }
+    
 	/** @category Constructor */
 	public GuiMap(MapController mapController) {
+		assert actions.length == ActionsEnum.values().length;
 		
 		final Tile grid[][] = mapController.getGrid();
 		this.fieldWidth = grid.length;
 		this.fieldHeight = grid[0].length;
         field = new MapTile[fieldWidth][fieldHeight];
+        setActionHandler(ActionsEnum.MOVEMENT);
 		
         //FIXME 
         for (int i = 0; i < fieldWidth; i++) { 
@@ -196,50 +207,79 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 		dialog.setName(null);
 		dialog.setText(text);
 		showDialog = true;
+		setActionHandler(ActionsEnum.DIALOG);
 	}
 	
-	@Override
-	public void keyComfirm() {
+//	@Override
+//	public void keyComfirm() {
+//	
+//		for (Point p : units[0].getVaildTiles()) {
+//			 field[p.x][p.y].setSelected(true);
+//		}
+//		
+////		mapController.moveUnit(null, 2, 3);
+////		if (!dialog.nextPage()){
+////			showDialog = false;
+////		}
+//	}
 	
-		for (Point p : units[0].getVaildTiles()) {
-			 field[p.x][p.y].setSelected(true);
+	private void setActionHandler(ActionsEnum num){
+		current = actions[num.ordinal()];
+	}
+	
+	public IActions getActionHandler() {
+		return current;
+	}
+
+	private class DialogHandler extends ActionsAdapter{
+
+		@Override
+		public void keyComfirm() {
+			if (!dialog.nextPage()){
+				showDialog = false;
+				setActionHandler(ActionsEnum.MOVEMENT);
+			}
+		}
+	}
+
+	private class Movement implements IActions{
+
+		@Override
+		public void keyCancel() {
+			// TODO keyCancel method
+
+		}
+		@Override
+		public void keyUp() {
+			setSelectedTile(selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y+1);
+		}
+
+		@Override
+		public void keyDown() {
+			setSelectedTile(selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y-1);
+		}
+
+		@Override
+		public void keyLeft() {
+			setSelectedTile(selectedTile.getFieldLocation().x-1, selectedTile.getFieldLocation().y);
+		}
+
+		@Override
+		public void keyRight() {
+			setSelectedTile(selectedTile.getFieldLocation().x+1, selectedTile.getFieldLocation().y);
 		}
 		
-//		mapController.moveUnit(null, 2, 3);
-//		if (!dialog.nextPage()){
-//			showDialog = false;
-//		}
-	}
+		@Override
+		public void keyComfirm() {
+			// TODO keyComfirm method
 
-	@Override
-	public void keyCancel() {
-		// TODO keyCancel method
-		
-	}
-
-	@Override
-	public void keyUp() {
-		setSelectedTile(selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y+1);
-	}
-
-	@Override
-	public void keyDown() {
-		setSelectedTile(selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y-1);
-	}
-
-	@Override
-	public void keyLeft() {
-		setSelectedTile(selectedTile.getFieldLocation().x-1, selectedTile.getFieldLocation().y);
-	}
-
-	@Override
-	public void keyRight() {
-		setSelectedTile(selectedTile.getFieldLocation().x+1, selectedTile.getFieldLocation().y);
+		}
 	}
 	
 	public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_T:
+				setActionHandler(ActionsEnum.DIALOG);
 				dialog.setPicture(SpriteManager.instance().getSprite("assets/gui/mage.png"));
 				dialog.setName("Mage");
 				dialog.setText(
@@ -352,5 +392,6 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
+
 	
 }

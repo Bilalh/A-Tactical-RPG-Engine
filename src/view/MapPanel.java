@@ -11,6 +11,8 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import view.interfaces.IActions;
+
 import controller.MapController;
 
 import engine.Map;
@@ -90,7 +92,7 @@ public class MapPanel extends JPanel implements Runnable {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-
+				
 				if (e.isMetaDown()){
 					if (e.getKeyCode() == KeyEvent.VK_D)   Gui.toggleDebugConsole();
 					return;
@@ -100,6 +102,8 @@ public class MapPanel extends JPanel implements Runnable {
 					return;
 				}
 
+				final IActions handler = map.getActionHandler();
+				
 				switch (e.getKeyCode()) {					
 					case KeyEvent.VK_OPEN_BRACKET:
 						Gui.console().scrollUp();
@@ -108,19 +112,19 @@ public class MapPanel extends JPanel implements Runnable {
 						Gui.console().scrollDown();
 						break;
 					case KeyEvent.VK_UP:
-						map.keyUp();
+						handler.keyUp();
 						break;
 					case KeyEvent.VK_DOWN:
-						map.keyDown();
+						handler.keyDown();
 						break;
 					case KeyEvent.VK_LEFT:
-						map.keyLeft();
+						handler.keyLeft();
 						break;
 					case KeyEvent.VK_RIGHT:
-						map.keyRight();
+						handler.keyRight();
 						break;
 					case KeyEvent.VK_X:
-						map.keyComfirm();
+						handler.keyComfirm();
 						break;
 					default:
 						map.otherKeys(e);
