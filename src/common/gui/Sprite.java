@@ -10,7 +10,7 @@ public class Sprite {
 
 	private Image image;
 
-	/** @category Generated Constructor */
+	/** @category Generated */
 	public Sprite(Image image) {
 		this.image = image;
 	}
@@ -30,7 +30,7 @@ public class Sprite {
 		return image.getHeight(null);
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public Image getImage() {
 		return image;
 	}

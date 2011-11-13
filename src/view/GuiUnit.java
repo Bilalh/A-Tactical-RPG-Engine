@@ -32,22 +32,22 @@ public class GuiUnit {
 		sprite.draw(g,xPos,yPos);
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public int getGridX() {
 		return gridX;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	public void setGridX(int gridX) {
 		this.gridX = gridX;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public int getGridY() {
 		return gridY;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	public void setGridY(int gridY) {
 		this.gridY = gridY;
 	}

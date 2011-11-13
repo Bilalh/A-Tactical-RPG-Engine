@@ -452,62 +452,62 @@ public class MapTile {
         //System.out.println(this.startHeight + ", " + this.endHeight + ", " + this.height);
     }
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public Orientation getOrientation() {
 		return orientation;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	public void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public float getHeight() {
 		return height;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	public void setHeight(float height) {
 		this.height = height;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public boolean isSelected() {
 		return selected;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public Color getColor() {
 		return myColor;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	public void setColor(Color myColor) {
 		this.myColor = myColor;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public Point getFieldLocation() {
 		return fieldLocation;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	public void setFieldLocation(Point fieldLocation) {
 		this.fieldLocation = fieldLocation;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public float getStartHeight() {
 		return startHeight;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public float getEndHeight() {
 		return endHeight;
 	}

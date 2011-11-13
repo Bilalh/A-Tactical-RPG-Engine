@@ -32,7 +32,7 @@ public class MainController extends Controller implements Observer {
 		
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	public void setGui(Gui gui) {
 		this.gui = gui;
 	}	

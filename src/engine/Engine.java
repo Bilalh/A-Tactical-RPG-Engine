@@ -24,7 +24,7 @@ public class Engine {
 		return currentMap;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public Map getCurrentMap() {
 		return currentMap;
 	}

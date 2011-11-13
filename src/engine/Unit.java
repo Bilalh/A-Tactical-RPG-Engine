@@ -5,10 +5,12 @@ import java.util.*;
 
 import javax.vecmath.Point2d;
 
+import engine.interfaces.IModelUnit;
+
 /**
  * @author bilalh
  */
-public class Unit {
+public class Unit implements IModelUnit {
 
 	private String name;
 
@@ -23,7 +25,7 @@ public class Unit {
 
 	final private UUID uuid;
 
-	/** @category Generated Constructor */
+	/** @category Generated */
 	public Unit(String name, int maxHp, int move, int strength) {
 		this.name = name;
 		this.maxHp = maxHp;
@@ -33,68 +35,88 @@ public class Unit {
 		uuid = UUID.randomUUID();
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
+	@Override
 	public int getMaxHp() {
 		return maxHp;
 	}
-	/** @category Generated Setter */
+	/** @category Generated */
+	@Override
 	public void setMaxHp(int maxHp) {
 		this.maxHp = maxHp;
 	}
-	/** @category Generated Getter */
+	/** @category Generated */
+	@Override
 	public int getCurrentHp() {
 		return currentHp;
 	}
-	/** @category Generated Setter */
+	/** @category Generated */
+	@Override
 	public void setCurrentHp(int currentHp) {
 		this.currentHp = currentHp;
 	}
-	/** @category Generated Getter */
+	/** @category Generated */
+	@Override
 	public int getMove() {
 		return move;
 	}
-	/** @category Generated Setter */
+	/** @category Generated */
+	@Override
 	public void setMove(int move) {
 		this.move = move;
 	}
-	/** @category Generated Getter */
+	/** @category Generated */
+	@Override
 	public int getStrength() {
 		return strength;
 	}
-	/** @category Generated Setter */
+	/** @category Generated */
+	@Override
 	public void setStrength(int strength) {
 		this.strength = strength;
 	}
-	/** @category Generated Getter */
+	/** @category Generated */
+	@Override
 	public String getName() {
 		return name;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
+	@Override
 	public int getGridX() {
 		return gridX;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
+	@Override
 	public void setGridX(int gridX) {
 		this.gridX = gridX;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
+	@Override
 	public int getGridY() {
 		return gridY;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
+	@Override
 	public void setGridY(int gridY) {
 		this.gridY = gridY;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
+	@Override
 	public UUID getUuid() {
 		return uuid;
 	}
 
+	public void setLocation(Point p){
+		gridX = p.x;
+		gridY = p.y;
+	}
+	
+	@Override
 	public Collection<Point> getVaildTiles(){
 		int sizeX = 5, sizeY = 5;
 
@@ -139,7 +161,7 @@ public class Unit {
 	}
 
 	public static void main(String[] args){
-		Unit u = new Unit("d", 23, 2, 3);
+		IModelUnit u = new Unit("d", 23, 2, 3);
 		u.setGridX(0);
 		u.setGridY(0);
 		Collection<Point> ps =  u.getVaildTiles();

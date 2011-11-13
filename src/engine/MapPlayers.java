@@ -3,12 +3,14 @@
  */
 package engine;
 
+import common.interfaces.IUnit;
+
 /**
  * @author bilalh
  */
 public class MapPlayers {
 	
-	protected Unit[] units;
+	protected IUnit[] units;
 	
 	public void move(){
 		

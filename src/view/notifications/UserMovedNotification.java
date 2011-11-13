@@ -2,19 +2,19 @@ package view.notifications;
 
 import view.GuiMap;
 import common.interfaces.IMapNotification;
+import common.interfaces.IUnit;
 
-import engine.Unit;
 
 /**
  * @author Bilal Hussain
  */
 public class UserMovedNotification  implements IMapNotification {
 	
-	private Unit u;
+	private IUnit u;
 	
 	
-	/** @category Generated Constructor */
-	public UserMovedNotification(Unit u) {
+	/** @category Generated */
+	public UserMovedNotification(IUnit u) {
 		this.u = u;
 	}
 

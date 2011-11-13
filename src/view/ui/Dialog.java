@@ -179,22 +179,22 @@ public class Dialog {
 		return height + yOffset;
 	}
 	
-	/** @category Generated Getter */
+	/** @category Generated */
 	public int getWidth() {
 		return textWidth;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public String getName() {
 		return name;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public Sprite getPic() {
 		return pic;
 	}

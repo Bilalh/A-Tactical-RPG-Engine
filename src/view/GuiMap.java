@@ -11,10 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 import view.interfaces.IActions;
 import view.notifications.ChooseUnitsNotifications;
@@ -23,11 +20,13 @@ import view.ui.Dialog;
 import common.gui.SpriteManager;
 import common.interfaces.IMapNotification;
 import common.interfaces.INotification;
+import common.interfaces.IUnit;
 import controller.MapController;
 
 import engine.Map;
 import engine.Tile;
 import engine.Unit;
+import engine.interfaces.IModelUnit;
 
 
 /**
@@ -159,35 +158,31 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
 	}
 
 	
-	public void chooseUnits(ArrayList<Unit> allPlayerUnits, ArrayList<Unit> aiUnits) {
+	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IUnit> aiUnits) {
 		
 		AnimatedUnit[] newUnits = new AnimatedUnit[allPlayerUnits.size()];
-		ArrayList<Unit> unitsList = new ArrayList<Unit>();
+		HashMap<UUID, Point> selectedPostions = new HashMap<UUID, Point>();
+		
 		for (int i = 0; i < newUnits.length; i++) {
 			//FIXME indies
-			final Unit u = allPlayerUnits.get(i);
-			u.setGridX(2);
-			u.setGridY(i);
+			final IUnit u = allPlayerUnits.get(i);
 			newUnits[i] = new AnimatedUnit(2, i, new String[]{"assets/gui/Archer.png"},u.getUuid() );
-			unitsList.add(allPlayerUnits.get(i));
+			selectedPostions.put(u.getUuid(), new Point(2,i));
 		}
-		mapController.setUsersUnits(unitsList);
+		mapController.setUsersUnits(selectedPostions);
 		this.units = newUnits;
 		
 		AnimatedUnit[] newAiUnits = new AnimatedUnit[aiUnits.size()];
 		for (int i = 0; i < newAiUnits.length; i++) {
-			//FIXME indies
-			aiUnits.get(i).setGridX(fieldWidth-1);
-			aiUnits.get(i).setGridY(i);
-			final Unit u = aiUnits.get(i);
-			newAiUnits[i] = new AnimatedUnit(fieldWidth-1, i, 
+			final IUnit u = aiUnits.get(i);
+			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(), 
 					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"}, 
 					u.getUuid() );
 		}
 		this.aiUnits = newAiUnits;
 	}
 	
-	public void unitMoved(Unit u){
+	public void unitMoved(IUnit u){
 		units[0].setGridX(u.getGridX());
 		units[0].setGridY(u.getGridY());
 	}
@@ -335,7 +330,7 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
         
     }
 
-    /** @category Generated Getter */
+    /** @category Generated */
 	public MapTile getSelectedTile() {
 		return selectedTile;
 	}
@@ -347,13 +342,13 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer, IAc
     }
 
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public boolean isShowDialog() {
 		return showDialog;
 	}
 
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}

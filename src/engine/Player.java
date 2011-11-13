@@ -17,7 +17,7 @@ public class Player {
 		units.add(u);
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public ArrayList<Unit> getUnits() {
 		return units;
 	}

@@ -10,6 +10,8 @@ import view.notifications.PlayersTurnNotification;
 import view.notifications.UserMovedNotification;
 
 import common.interfaces.INotification;
+import common.interfaces.IUnit;
+import engine.interfaces.IModelUnit;
 
 
 
@@ -18,10 +20,13 @@ import common.interfaces.INotification;
  */
 public class Map extends Observable {
 
-	Tile[][] field;
-	AIPlayer ai;
-	Player player;
-	ArrayList<Unit> selectedUnits;
+	private Tile[][] field;
+	private int width;
+	private int height;
+	
+	private AIPlayer ai;
+	private Player player;
+	private ArrayList<Unit> selectedUnits;
 	
 	boolean playersTurn; // false aiplayer
 
@@ -35,8 +40,15 @@ public class Map extends Observable {
 
 	private void setUpAI() {
 		AIPlayer ai = new AIPlayer();
-		ai.addUnit(new Unit("ai-1", 20, 4, 4));
-		ai.addUnit(new Unit("ai-2", 10, 2, 10));
+		Unit u = new Unit("ai-1", 20, 4, 4);
+		u.setGridX(width-1);
+		u.setGridY(0);
+		ai.addUnit(u);
+		
+		u = new Unit("ai-2", 10, 2, 10);
+		u.setGridX(width-1);
+		u.setGridY(1);
+		ai.addUnit(u);
 		this.ai = ai;
 	}
 
@@ -48,7 +60,9 @@ public class Map extends Observable {
 	}
 
 	private void loadSettings(String name) {
-		field = new Tile[5][5];
+		width = 5; 
+		height = 5;
+		field = new Tile[width][height];
 //		Random r = new Random();
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
@@ -59,10 +73,6 @@ public class Map extends Observable {
 		}
 	}
 
-	/** @category Generated Getter */
-	public Tile[][] getField() {
-		return field;
-	}
 
 	public void start() {
 		INotification n =  new ChooseUnitsNotifications(player.getUnits(), ai.getUnits());
@@ -70,12 +80,7 @@ public class Map extends Observable {
 		notifyObservers(n);
 	}
 
-	/** @category Generated Getter */
-	public boolean isPlayersTurn() {
-		return playersTurn;
-	}
-
-	public void moveUnit(Unit u, int gridX, int gridY){
+	public void moveUnit(IModelUnit u, int gridX, int gridY){
 		u = selectedUnits.get(0);
 		u.setGridX(gridX);
 		u.setGridY(gridY);
@@ -83,6 +88,20 @@ public class Map extends Observable {
 		INotification n =  new UserMovedNotification(u);
 		setChanged();
 		notifyObservers(n);
+	}
+	
+	public ArrayList<Unit> getUnits(){
+		return player.getUnits();
+	}
+
+	/** @category Generated */
+	public Tile[][] getField() {
+		return field;
+	}
+	
+	/** @category Generated */
+	public boolean isPlayersTurn() {
+		return playersTurn;
 	}
 	
 }
