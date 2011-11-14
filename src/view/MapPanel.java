@@ -69,8 +69,8 @@ public class MapPanel extends JPanel implements Runnable {
 		metrics = this.getFontMetrics(msgsFont);
 
 		this.map  = new GuiMap(mapController);
-		this.addMouseListener(map);
-		this.addMouseMotionListener(map);
+		this.addMouseListener(map.getMouseListener());
+		this.addMouseMotionListener(map.getMouseMotionListener());
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {

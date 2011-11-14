@@ -17,6 +17,7 @@ import view.interfaces.IActions;
 import view.notifications.ChooseUnitsNotifications;
 import view.ui.Dialog;
 import view.util.ActionsAdapter;
+import view.util.MousePoxy;
 
 import common.gui.SpriteManager;
 import common.interfaces.IMapNotification;
@@ -33,14 +34,12 @@ import engine.interfaces.IModelUnit;
 /**
  * @author bilalh
  */
-public class GuiMap implements MouseListener, MouseMotionListener, Observer {
+public class GuiMap implements Observer {
 
     private int drawX;
     private int drawY;
     private static MapTile selectedTile;
     private MapTile[][] field;
-    private Point mouseStart, mouseEnd;
-    private int offsetX, offsetY;
     
     private int fieldWidth, fieldHeight;
     
@@ -51,11 +50,13 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
     
     private Dialog dialog;
     private boolean showDialog = true;
-      
+        
     // The Class that with handed the input 
-    private IActions current;
+    private ActionsAdapter current;
     
-    final private IActions[] actions = {new Movement(), new DialogHandler()};
+    private MousePoxy mousePoxy;
+    
+    final private ActionsAdapter[] actions = {new Movement(), new DialogHandler()};
     enum ActionsEnum {
     	MOVEMENT, DIALOG,
     }
@@ -68,6 +69,8 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 		this.fieldWidth = grid.length;
 		this.fieldHeight = grid[0].length;
         field = new MapTile[fieldWidth][fieldHeight];
+        current = getActionHandler(ActionsEnum.MOVEMENT);
+        mousePoxy = new MousePoxy();
         setActionHandler(ActionsEnum.MOVEMENT);
 		
         //FIXME 
@@ -209,46 +212,34 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 		showDialog = true;
 		setActionHandler(ActionsEnum.DIALOG);
 	}
-	
-//	@Override
-//	public void keyComfirm() {
-//	
-//		for (Point p : units[0].getVaildTiles()) {
-//			 field[p.x][p.y].setSelected(true);
-//		}
-//		
-////		mapController.moveUnit(null, 2, 3);
-////		if (!dialog.nextPage()){
-////			showDialog = false;
-////		}
-//	}
-	
-	private void setActionHandler(ActionsEnum num){
-		current = actions[num.ordinal()];
-	}
-	
-	public IActions getActionHandler() {
-		return current;
-	}
-
+		
 	private class DialogHandler extends ActionsAdapter{
 
 		@Override
 		public void keyComfirm() {
+			nextPage();
+		}
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+	    	System.out.println("s");
+			nextPage();
+		}
+		
+		private void nextPage(){
 			if (!dialog.nextPage()){
 				showDialog = false;
 				setActionHandler(ActionsEnum.MOVEMENT);
 			}
 		}
+		
 	}
 
-	private class Movement implements IActions{
-
-		@Override
-		public void keyCancel() {
-			// TODO keyCancel method
-
-		}
+	private class Movement extends ActionsAdapter{
+		
+	    private Point mouseStart, mouseEnd;
+	    private int offsetX, offsetY;
+		
 		@Override
 		public void keyUp() {
 			setSelectedTile(selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y+1);
@@ -274,6 +265,41 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 			// TODO keyComfirm method
 
 		}
+		
+		@Override
+		public void keyCancel() {
+			// TODO keyCancel method
+
+		}
+		
+	    @Override
+		public void mousePressed(MouseEvent e) {
+	    	System.out.println("s");
+	        mouseStart = e.getPoint();
+
+	        offsetX = e.getX() - drawX;
+	        offsetY = e.getY() - drawY;
+	    }
+
+	    @Override
+		public void mouseReleased(MouseEvent e) {
+	        mouseEnd = e.getPoint();
+	        int a = Math.abs((int) (mouseEnd.getX() - mouseStart.getX()));
+	        int b = Math.abs((int) (mouseEnd.getY() - mouseStart.getY()));
+
+	        if (Math.sqrt(a * a + b * b) > 3) {
+//	            this.setDrawLocation(mouseEnd);
+	        } else {
+	            findAndSelectTile(e.getX(), e.getY());
+	        }
+	    }
+
+	    @Override
+		public void mouseDragged(MouseEvent e) {
+	        Point current = e.getPoint();
+	        setDrawLocation(e.getX() - offsetX, e.getY() - offsetY);
+	    }
+		
 	}
 	
 	public void otherKeys(KeyEvent e){
@@ -293,7 +319,6 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
 		}
 	}
 	
-/* * Drawing and selecting * */
 	/**
      * Select the file that is under the mouse click
      * @param x X position of the mouse click
@@ -319,43 +344,6 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
         }
     }
     
-    @Override
-	public void mousePressed(MouseEvent e) {
-        mouseStart = e.getPoint();
-
-        offsetX = e.getX() - drawX;
-        offsetY = e.getY() - drawY;
-    }
-
-    @Override
-	public void mouseReleased(MouseEvent e) {
-        mouseEnd = e.getPoint();
-        int a = Math.abs((int) (mouseEnd.getX() - mouseStart.getX()));
-        int b = Math.abs((int) (mouseEnd.getY() - mouseStart.getY()));
-
-        if (Math.sqrt(a * a + b * b) > 3) {
-//            this.setDrawLocation(mouseEnd);
-        } else {
-            this.findAndSelectTile(e.getX(), e.getY());
-        }
-    }
-
-    @Override
-	public void mouseDragged(MouseEvent e) {
-        Point current = e.getPoint();
-        this.setDrawLocation(e.getX() - offsetX, e.getY() - offsetY);
-    }
-
-    /** @category Generated */ @Override
-	public void mouseMoved(MouseEvent e) {}
-    /** @category Generated */ @Override
-	public void mouseClicked(MouseEvent e) {}
-    /** @category Generated */ @Override
-	public void mouseEntered(MouseEvent e) {}
-    /** @category Generated */ @Override
-	public void mouseExited(MouseEvent e) {}
-
-   
 	public void setSelectedTile(int x, int y) {
         if (x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight ) {
         	throw new IllegalArgumentException("Bad index " +x +  "," +y);
@@ -381,17 +369,37 @@ public class GuiMap implements MouseListener, MouseMotionListener, Observer {
         drawY = y;
     }
 
-
 	/** @category Generated */
 	public boolean isShowDialog() {
 		return showDialog;
 	}
-
 
 	/** @category Generated */
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
 
+	public IActions getActionHandler() {
+		return current;
+	}
+	
+	public MouseListener getMouseListener(){
+		return mousePoxy;
+	}
+	
+	public MouseMotionListener getMouseMotionListener(){
+		return mousePoxy;
+	}
+	
+	private ActionsAdapter getActionHandler(ActionsEnum num){
+		return actions[num.ordinal()];
+	}
+	
+	private void setActionHandler(ActionsEnum num){
+		final ActionsAdapter aa = actions[num.ordinal()];
+		current = aa;
+		mousePoxy.setMouseListener(aa);
+		mousePoxy.setMouseMotionListener(aa);
+	}
 	
 }
