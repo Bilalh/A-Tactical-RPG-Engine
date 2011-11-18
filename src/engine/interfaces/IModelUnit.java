@@ -1,5 +1,7 @@
 package engine.interfaces;
 
+import java.awt.Point;
+
 import common.interfaces.IUnit;
 
 
@@ -19,5 +21,9 @@ public interface IModelUnit extends IUnit {
 	void setGridX(int gridX);
 
 	void setGridY(int gridY);
+
+	void setLocation(Point p);
+
+	Point getLocation();
 
 }

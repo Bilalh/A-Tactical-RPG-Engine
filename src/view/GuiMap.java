@@ -181,7 +181,7 @@ public class GuiMap implements Observer {
 			//FIXME indies
 			final IUnit u = allPlayerUnits.get(i);
 			Point p = new Point(2,i+5); 
-			newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u.getUuid() );
+			newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
 			selectedPostions.put(u.getUuid(), p);
 		}
 		mapController.setUsersUnits(selectedPostions);
@@ -192,7 +192,7 @@ public class GuiMap implements Observer {
 			final IUnit u = aiUnits.get(i);
 			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(), 
 					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"}, 
-					u.getUuid() );
+					u);
 		}
 		this.aiUnits = newAiUnits;
 	}
@@ -262,9 +262,9 @@ public class GuiMap implements Observer {
 		
 		@Override
 		public void keyComfirm() {
-			Collection<Point> points =  units[0].getVaildTiles();
+			Collection<Point> points =  mapController.getMovementRange(units[0].unit.getUuid());
 			for (Point p : points) {
-				field[p.x][p.y].setSelected(true);
+				field[p.x][p.y].setInRange(true);
 				System.out.println(p);
 			}
 			

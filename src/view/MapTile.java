@@ -3,6 +3,8 @@ package view;
 import java.awt.*;
 import java.util.Arrays;
 
+import view.MapTile.TileState;
+
 import common.gui.Sprite;
 import common.gui.SpriteManager;
 
@@ -14,6 +16,15 @@ public class MapTile {
     	NORMAL, UP_TO_NORTH, UP_TO_EAST, UP_TO_SOUTH, UP_TO_WEST, EMPTY
     }
     		
+    static enum TileState{
+    	SELECTED(Color.GREEN) , MOVEMENT_RANGE(Color.BLUE), NONE(Color.DARK_GRAY);
+    	private final Color colour;
+    	
+    	TileState(Color c){
+    		this.colour = c;
+    	}
+    }
+    
     // Colors for drawing tiles
     private static final Color TOP_COLOR = Color.DARK_GRAY;
     private static final Color RIGHT_COLOR = Color.LIGHT_GRAY;
@@ -26,13 +37,12 @@ public class MapTile {
     private float startHeight;
     private float endHeight;
     private boolean selected;
+    private boolean inRange;
     private Color myColor;
     private Polygon top;
     private Point fieldLocation;
-
-    
+	private TileState state;
     static Sprite image = SpriteManager.instance().getSprite("assets/gui/DesertTile1.png");
-    
     
     /**
      * Constructor
@@ -60,24 +70,18 @@ public class MapTile {
         this.selected = tile.selected;
         this.fieldLocation = tile.fieldLocation;
         this.myColor = tile.myColor;
+        this.state   = TileState.NONE;
     }
 
-    /**Check to see if this tile was clicked on.
-     * This method does not set the selected tile. That is handled in the Map class
-     * @param click Location of the mouse click
-     */
     public boolean wasClickedOn(Point click) {
         return top.contains(click);
     }
 
-    /**
-     * Decide what color to paint the top of this tile
-     * (Called from Map class)
-     */
     public void determineColor() {
         if (isSelected()) {
-            setColor(MapTile.SELECTED_COLOR);
-            return;
+            setColor(TileState.SELECTED.colour);
+        } else if (isInRange()){
+            setColor(TileState.MOVEMENT_RANGE.colour);
         } else {
             setColor(MapTile.TOP_COLOR);
         }
@@ -473,16 +477,6 @@ public class MapTile {
 	}
 
 	/** @category Generated */
-	public boolean isSelected() {
-		return selected;
-	}
-
-	/** @category Generated */
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
-
-	/** @category Generated */
 	public Color getColor() {
 		return myColor;
 	}
@@ -511,7 +505,35 @@ public class MapTile {
 	public float getEndHeight() {
 		return endHeight;
 	}
+
+	/** @category Generated Getter */
+	public TileState getState() {
+		return state;
+	}
+
+	/** @category Generated Setter */
+	public void setState(TileState state) {
+		this.state = state;
+	}
+
+	/** @category Generated Getter */
+	public boolean isSelected() {
+		return selected;
+	}
+
+	/** @category Generated Setter */
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
+	/** @category Generated Getter */
+	public boolean isInRange() {
+		return inRange;
+	}
+
+	/** @category Generated Setter */
+	public void setInRange(boolean inRange) {
+		this.inRange = inRange;
+	}
 	
 }
-
-

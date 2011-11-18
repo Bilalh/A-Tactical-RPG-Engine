@@ -25,6 +25,4 @@ public interface IUnit {
 
 	UUID getUuid();
 
-	Collection<Point> getVaildTiles();
-
 }

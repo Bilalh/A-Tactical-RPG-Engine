@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import common.gui.Sprite;
 import common.gui.SpriteManager;
+import common.interfaces.IUnit;
 
 /**
  * @author bilalh
@@ -16,13 +17,13 @@ public class GuiUnit {
 	protected int gridX;
 	protected int gridY;
 	protected Sprite sprite;
-	private UUID uuid; 
+	protected IUnit unit;
 	
-	public GuiUnit(int gridX,int gridY,String ref, UUID uuid) {
+	public GuiUnit(int gridX,int gridY,String ref, IUnit unit) {
 		this.sprite = SpriteManager.instance().getSprite(ref);
 		this.gridX = gridX;
 		this.gridY = gridY;
-		this.uuid = uuid;
+		this.unit = unit;
 	} 
 	
 	public void draw(Graphics g, final MapTile[][] tiles, int x, int y) {
@@ -76,13 +77,6 @@ public class GuiUnit {
 			}
 		}
 		
-	}
-	
-	public Collection<Point> getVaildTiles(){
-
-		points.clear();
-		checkAround(new Point(gridX, gridY),movement+1);
-		return points;
 	}
 	
 }

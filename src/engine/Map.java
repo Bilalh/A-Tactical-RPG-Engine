@@ -1,9 +1,7 @@
 package engine;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Observable;
-import java.util.Random;
+import java.awt.Point;
+import java.util.*;
 
 import view.notifications.ChooseUnitsNotifications;
 import view.notifications.PlayersTurnNotification;
@@ -102,6 +100,35 @@ public class Map extends Observable {
 	/** @category Generated */
 	public boolean isPlayersTurn() {
 		return playersTurn;
+	}
+
+	HashSet<Point> points  = new HashSet<Point>();
+	final int[][] dirs = {
+			{0,1},  // up 
+			{0,-1},  // down
+			{-1,0}, // left
+			{1,0},   // right
+	};		
+	
+	private void checkAround(Point p, int movmentLeft){
+		if ( movmentLeft - field[p.x][p.y].getCost()  < 1 ) return; 
+		System.out.println(p);
+		points.add(p);
+		
+		for (int[] is : dirs) { 
+			Point pp = new Point(p);
+			pp.translate(is[0], is[1]);
+			if (pp.x  >= 0 &&  pp.x < width && pp.y >= 0 &&  pp.y < height ){
+				checkAround(pp, movmentLeft-1);
+			}
+		}
+		
+	}
+	
+	public Collection<Point> getMovementRange(IModelUnit u) {
+		points.clear();
+		checkAround(u.getLocation(), u.getMove()+1);
+		return points;
 	}
 	
 }
