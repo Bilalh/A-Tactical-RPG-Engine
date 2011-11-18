@@ -78,10 +78,8 @@ public class Map extends Observable {
 		notifyObservers(n);
 	}
 
-	public void moveUnit(IModelUnit u, int gridX, int gridY){
-		u = selectedUnits.get(0);
-		u.setGridX(gridX);
-		u.setGridY(gridY);
+	public void moveUnit(IModelUnit u, Point p){
+		u.setLocation(p);
 		setChanged();
 		INotification n =  new UserMovedNotification(u);
 		setChanged();

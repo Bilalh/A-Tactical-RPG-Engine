@@ -80,6 +80,7 @@ public class GuiMap implements Observer {
             			grid[i][j].getStartHeight(),
             			grid[i][j].getEndHeight());
             	field[i][j].setFieldLocation(new Point(i, j));
+            	field[i][j].setCost(grid[i][j].getCost());
             }
         }
         
@@ -114,10 +115,9 @@ public class GuiMap implements Observer {
 					//            		System.out.printf("(%d, %d) at (%d, %d) not drawn dim:(%d, %d)  \n",j,i, x,y, width, height);
 				}
 
-				//System.out.printf("cell (%d, %d)\n", j,i);
 				Color old = g.getColor();
 				g.setColor(Color.RED);
-				g.drawString(String.format("(%d,%d)", j,i), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
+				g.drawString(String.format("(%d,%d) %d", j,i,field[j][i].getCost() ), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
 				g.setColor(old);
 				//        		        		
 				x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
@@ -260,14 +260,28 @@ public class GuiMap implements Observer {
 			setSelectedTile(selectedTile.getFieldLocation().x+1, selectedTile.getFieldLocation().y);
 		}
 		
+		boolean b = false;
+		
+		Collection<Point> inRange; 
+		
 		@Override
 		public void keyComfirm() {
-			Collection<Point> points =  mapController.getMovementRange(units[0].unit.getUuid());
-			for (Point p : points) {
+			if (b){
+				getSelectedTile().isInRange();
+				mapController.moveUnit(units[0].unit.getUuid(), getSelectedTile().getFieldLocation());
+				b = false;
+				for (Point p : inRange) {
+					field[p.x][p.y].setInRange(false);
+				}
+				inRange = null;
+			}
+			
+			inRange =  mapController.getMovementRange(units[0].unit.getUuid());
+			for (Point p : inRange) {
 				field[p.x][p.y].setInRange(true);
 				System.out.println(p);
 			}
-			
+			b = true;
 		}
 		
 		@Override

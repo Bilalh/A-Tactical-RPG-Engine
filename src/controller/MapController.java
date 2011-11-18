@@ -29,10 +29,10 @@ public class MapController extends Controller{
 		
 	}
 
-	public void moveUnit(UUID uuid, int gridX, int gridY){
-		map.moveUnit(mapping.get(uuid), gridX, gridY);
+	public void moveUnit(UUID uuid, Point fieldLocation) {
+		map.moveUnit(mapping.get(uuid),fieldLocation);
 	}
-	
+
 	public void setUsersUnits(java.util.Map<UUID, Point> selectedPostions){
 		
 		ArrayList<Unit> selected = new ArrayList<Unit>();

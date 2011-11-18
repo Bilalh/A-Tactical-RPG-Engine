@@ -44,6 +44,9 @@ public class MapTile {
 	private TileState state;
     static Sprite image = SpriteManager.instance().getSprite("assets/gui/DesertTile1.png");
     
+//    debuging
+    private int cost;
+    
     /**
      * Constructor
      * @param orientation The orientation of this tile
@@ -534,6 +537,16 @@ public class MapTile {
 	/** @category Generated Setter */
 	public void setInRange(boolean inRange) {
 		this.inRange = inRange;
+	}
+
+	/** @category Generated Getter */
+	public int getCost() {
+		return cost;
+	}
+
+	/** @category Generated Setter */
+	public void setCost(int cost) {
+		this.cost = cost;
 	}
 	
 }
