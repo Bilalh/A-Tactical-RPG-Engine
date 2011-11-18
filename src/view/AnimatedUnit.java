@@ -4,6 +4,7 @@
 package view;
 
 import java.awt.Graphics;
+import java.util.UUID;
 
 import common.gui.Sprite;
 import common.gui.SpriteManager;
@@ -69,7 +70,7 @@ public class AnimatedUnit extends GuiUnit {
 
 	@Override
 	public String toString() {
-		return String.format("AnimatedUnit [gridX=%s, gridY=%s, sprite=%s]", gridX, gridY, sprite);
+		return String.format("AnimatedUnit [gridX=%s, gridY=%s, id=%s]", gridX, gridY, unit.getName());
 	}
 	
 	

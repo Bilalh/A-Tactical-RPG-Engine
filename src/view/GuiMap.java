@@ -56,6 +56,9 @@ public class GuiMap implements Observer {
     
     private MousePoxy mousePoxy;
     
+    // bad idea allready in unit?
+    private HashMap<UUID,AnimatedUnit> unitMapping;
+    
     final private ActionsAdapter[] actions = {new Movement(), new DialogHandler()};
     enum ActionsEnum {
     	MOVEMENT, DIALOG,
@@ -86,6 +89,7 @@ public class GuiMap implements Observer {
         
         drawX = (int) MapSettings.drawStart.getX();
         drawY = (int) MapSettings.drawStart.getY();
+        unitMapping = new HashMap<UUID, AnimatedUnit>();
         selectedTile = null;
         
         dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
@@ -176,13 +180,13 @@ public class GuiMap implements Observer {
 		
 		AnimatedUnit[] newUnits = new AnimatedUnit[allPlayerUnits.size()];
 		HashMap<UUID, Point> selectedPostions = new HashMap<UUID, Point>();
-		
 		for (int i = 0; i < newUnits.length; i++) {
 			//FIXME indies
 			final IUnit u = allPlayerUnits.get(i);
 			Point p = new Point(2,i+5); 
 			newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
 			selectedPostions.put(u.getUuid(), p);
+			unitMapping.put(u.getUuid(), newUnits[i]);
 		}
 		mapController.setUsersUnits(selectedPostions);
 		this.units = newUnits;
@@ -198,8 +202,9 @@ public class GuiMap implements Observer {
 	}
 	
 	public void unitMoved(IUnit u){
-		units[0].setGridX(u.getGridX());
-		units[0].setGridY(u.getGridY());
+		AnimatedUnit au =  unitMapping.get(u.getUuid());
+		au.setGridX(u.getGridX());
+		au.setGridY(u.getGridY());
 	}
 	
 	public void playersTurn(){
@@ -260,34 +265,62 @@ public class GuiMap implements Observer {
 			setSelectedTile(selectedTile.getFieldLocation().x+1, selectedTile.getFieldLocation().y);
 		}
 		
-		boolean b = false;
-		
-		Collection<Point> inRange; 
-		
+		AnimatedUnit selected = null;
+		Collection<Point> inRange = new HashSet<Point>();
 		@Override
 		public void keyComfirm() {
-			if (b){
-				getSelectedTile().isInRange();
-				mapController.moveUnit(units[0].unit.getUuid(), getSelectedTile().getFieldLocation());
-				b = false;
+			selectMoveUnit();
+		}
+
+		private void selectMoveUnit() {
+			if (selected != null){
+				System.out.println(selected);
+				if ( !getSelectedTile().isInRange() ) return;
+				mapController.moveUnit(selected.unit.getUuid(), getSelectedTile().getFieldLocation());
+				for (Point p : inRange) {
+					field[p.x][p.y].setInRange(false);
+				}
+				selected = null;
+				inRange = null;
+			}
+
+			AnimatedUnit unitS = null;
+			MapTile t = getSelectedTile();
+			
+			for (AnimatedUnit u : units) {
+				if (u.getGridX() == t.getFieldLocation().x && u.getGridY() == t.getFieldLocation().y){
+					unitS = u;
+					break;
+				}
+			}
+			
+			if(unitS == null) return; 
+			
+			if (unitS != selected){
+				if (inRange != null){
+					for (Point p : inRange) {
+						field[p.x][p.y].setInRange(false);
+					}	
+				}
+				inRange = null;
+				selected = unitS;
+			}
+			
+			inRange =  mapController.getMovementRange(unitS.unit.getUuid());
+			for (Point p : inRange) {
+				field[p.x][p.y].setInRange(true);
+			}
+		}
+		
+		@Override
+		public void keyCancel() {
+			selected = null;
+			if (inRange != null){
 				for (Point p : inRange) {
 					field[p.x][p.y].setInRange(false);
 				}
 				inRange = null;
 			}
-			
-			inRange =  mapController.getMovementRange(units[0].unit.getUuid());
-			for (Point p : inRange) {
-				field[p.x][p.y].setInRange(true);
-				System.out.println(p);
-			}
-			b = true;
-		}
-		
-		@Override
-		public void keyCancel() {
-			// TODO keyCancel method
-
 		}
 		
 	    @Override
@@ -308,6 +341,7 @@ public class GuiMap implements Observer {
 //	            this.setDrawLocation(mouseEnd);
 	        } else {
 	            findAndSelectTile(e.getX(), e.getY());
+	            selectMoveUnit();
 	        }
 	    }
 

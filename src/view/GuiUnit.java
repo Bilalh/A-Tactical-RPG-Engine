@@ -66,7 +66,6 @@ public class GuiUnit {
 	HashSet<Point> points  = new HashSet<Point>();
 	private void checkAround(Point p, int movmentLeft){
 		if ( movmentLeft < 1 ) return; 
-		System.out.println(p);
 		points.add(p);
 		
 		for (int[] is : dirs) { 

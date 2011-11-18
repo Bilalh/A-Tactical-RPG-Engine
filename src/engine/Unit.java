@@ -122,4 +122,11 @@ public class Unit implements IModelUnit {
 	public Point getLocation(){
 		return new Point (gridX,gridY);
 	}
+
+	@Override
+	public String toString() {
+		return String
+				.format("Unit [name=%s, maxHp=%s, currentHp=%s, move=%s, strength=%s, gridX=%s, gridY=%s, uuid=%s]",
+						name, maxHp, currentHp, move, strength, gridX, gridY, uuid);
+	}
 }

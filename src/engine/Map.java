@@ -110,7 +110,6 @@ public class Map extends Observable {
 	
 	private void checkAround(Point p, int movmentLeft){
 		if ( movmentLeft - field[p.x][p.y].getCost()  < 1 ) return; 
-		System.out.println(p);
 		points.add(p);
 		
 		for (int[] is : dirs) { 
