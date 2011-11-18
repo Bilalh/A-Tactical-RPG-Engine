@@ -180,8 +180,9 @@ public class GuiMap implements Observer {
 		for (int i = 0; i < newUnits.length; i++) {
 			//FIXME indies
 			final IUnit u = allPlayerUnits.get(i);
-			newUnits[i] = new AnimatedUnit(2, i, new String[]{"assets/gui/Archer.png"},u.getUuid() );
-			selectedPostions.put(u.getUuid(), new Point(2,i));
+			Point p = new Point(2,i+5); 
+			newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u.getUuid() );
+			selectedPostions.put(u.getUuid(), p);
 		}
 		mapController.setUsersUnits(selectedPostions);
 		this.units = newUnits;
@@ -222,7 +223,6 @@ public class GuiMap implements Observer {
 		
 		@Override
 		public void mouseReleased(MouseEvent e) {
-	    	System.out.println("s");
 			nextPage();
 		}
 		
@@ -262,8 +262,12 @@ public class GuiMap implements Observer {
 		
 		@Override
 		public void keyComfirm() {
-			// TODO keyComfirm method
-
+			Collection<Point> points =  units[0].getVaildTiles();
+			for (Point p : points) {
+				field[p.x][p.y].setSelected(true);
+				System.out.println(p);
+			}
+			
 		}
 		
 		@Override
@@ -274,7 +278,6 @@ public class GuiMap implements Observer {
 		
 	    @Override
 		public void mousePressed(MouseEvent e) {
-	    	System.out.println("s");
 	        mouseStart = e.getPoint();
 
 	        offsetX = e.getX() - drawX;
@@ -347,8 +350,6 @@ public class GuiMap implements Observer {
 	public void setSelectedTile(int x, int y) {
         if (x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight ) {
         	throw new IllegalArgumentException("Bad index " +x +  "," +y);
-//            selectedTile = null;
-//            return;
         }
         if (selectedTile != null) {
             selectedTile.setSelected(false);

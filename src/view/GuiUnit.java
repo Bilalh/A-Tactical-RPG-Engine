@@ -52,46 +52,36 @@ public class GuiUnit {
 		this.gridY = gridY;
 	}
 	
-	public Collection<Point> getVaildTiles(){
-		int sizeX = 5, sizeY = 5;
+	int movement = 2;
+	int sizeX = 10, sizeY = 10;
 
-		Point pos = new Point(gridX, gridY);
-		Collection<Point> points = new HashSet<Point>();		
+	final int[][] dirs = {
+			{0,1},  // up 
+			{0,-1},  // down
+			{-1,0}, // left
+			{1,0},   // right
+	};		
 
-		points.add(pos);
-		final int[][] dirs = {
-				{0,1},  // up 
-				{0,-1},  // down
-				{-1,0}, // left
-				{1,0},   // right
-		};		
-
-		final int[][] dirs2 = {
-				{1,1},   
-				{1,-1}, 
-				{-1,1}, 
-				{-1,-1},
-		};	
+	HashSet<Point> points  = new HashSet<Point>();
+	private void checkAround(Point p, int movmentLeft){
+		if ( movmentLeft < 1 ) return; 
+		System.out.println(p);
+		points.add(p);
 		
-		for (int i = 1; i <= 2; i++) {
-			for (int[] is : dirs) {
-				final int nx = pos.x +is[0] *i;
-				final int ny = pos.y +is[1] *i;
-				if (nx  >= 0 &&  nx < sizeX && ny >= 0 &&  ny < sizeY ){
-					points.add(new Point(nx,ny));
-				}
+		for (int[] is : dirs) { 
+			if (p.x  >= 0 &&  p.x < sizeX && p.y >= 0 &&  p.y < sizeY ){
+				Point pp = new Point(p);
+				pp.translate(is[0], is[1]);
+				checkAround(pp, movmentLeft-1);
 			}
-			for (int[] is : dirs2) {
-				final int nx = pos.x +is[0] *(i-1);
-				final int ny = pos.y +is[1] *(i-1);
-				if (nx  >= 0 &&  nx < sizeX && ny >= 0 &&  ny < sizeY ){
-					points.add(new Point(nx,ny));
-				}
-			}
-			
-			System.out.println();
 		}
+		
+	}
+	
+	public Collection<Point> getVaildTiles(){
 
+		points.clear();
+		checkAround(new Point(gridX, gridY),movement+1);
 		return points;
 	}
 	

@@ -6,23 +6,29 @@
 \documentclass[11pt]{article}
 \def\studentID{080008164}
 \def\fullName{Bilal Hussain}
-\usepackage{ifthen}
+\newcommand{\theTitle}{}
+\newcommand{\theAuthor}{\studentID}
 
+\renewcommand{\theTitle}{A Tactical RPG Engine}
+\renewcommand{\theAuthor}{\fullName}
+
+
+\usepackage{ifthen}
 % \usepackage{UKenglish}                           
 \bibliographystyle{IEEEtran}
 \usepackage{color}
 \usepackage[bookmarks=true,pagebackref=true]{hyperref}
 \usepackage{pdfpages} %inculde pdfs
 \hypersetup{
-    pdftitle={My title},    % title
-    pdfauthor={Author},     % author
-    pdfsubject={Subject},   % subject of the document
-    pdfcreator={Creator},   % creator of the document
-    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
-    colorlinks=true,          % false: boxed links; true: colored links
-    linkcolor=blue ,        % color of internal links
-    citecolor=red,        % color of links to bibliography
-    filecolor=red,      % color of file links
+    pdftitle={\theTitle},    
+    pdfauthor={Bilal Hussain},
+    pdfsubject={Tactical RRG engine},   
+    pdfcreator={Bilal Hussain},   
+    pdfkeywords={Tactical RRG} {AI} {Game engine},, % list of keywords
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue ,       % color of internal links
+    citecolor=red,         % color of links to bibliography
+    filecolor=red,         % color of file links
     urlcolor=red           % color of external links
 }
 
@@ -132,8 +138,6 @@
 %(end)
 
 % Metadata
-\newcommand{\theTitle}{}
-\newcommand{\theAuthor}{\studentID}
 \title{\theTitle}
 \author{\theAuthor}
 
@@ -151,10 +155,12 @@
 \newcommand{\currentSection}{
 \ifthenelse{\equal{\rightmark}{}}{\leftmark}{\rightmark}
 }
-
+% 
 \fancyhead[LO,RE]{\slshape \nouppercase{\currentSection}} 
 \fancyhead[LE,RO]{\thepage} 
-\fancyhead[CEO]{\hspace{30pt} \theAuthor  \hspace{5pt}-- \theTitle}
+\fancyhead[CO]{\hspace{30pt} \theAuthor  \hspace{5pt}-- \theTitle}
+\fancyhead[CE]{\hspace{-50pt} \theAuthor  \hspace{5pt}-- \theTitle}
+
 % (end)      
 
 

@@ -60,8 +60,8 @@ public class Map extends Observable {
 	}
 
 	private void loadSettings(String name) {
-		width = 5; 
-		height = 5;
+		width = 10; 
+		height = 10;
 		field = new Tile[width][height];
 //		Random r = new Random();
 		for (int i = 0; i < field.length; i++) {

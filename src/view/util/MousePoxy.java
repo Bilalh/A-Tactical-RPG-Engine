@@ -44,8 +44,6 @@ public class MousePoxy implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		System.out.println(ml);
-		System.out.println("sss");
 		ml.mouseReleased(e);
 	}
 

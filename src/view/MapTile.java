@@ -84,18 +84,18 @@ public class MapTile {
     }
 
     public Point calculateCentrePoint(Point p){
-//      final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-       final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
-   	return new Point(
-   			p.x, 
-   			p.y + vertical/2 - finalHeight );
-   }
-    
+    	//      final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+    	final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+    	int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
+    	return new Point(
+    			p.x, 
+    			p.y + vertical/2 - finalHeight );
+    }
+
     public Point calculateCentrePoint(int x, int y){
-//       final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-        final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
+    	//       final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+    	final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+    	int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
     	return new Point(
     			x, 
     			y + vertical/2 - finalHeight );

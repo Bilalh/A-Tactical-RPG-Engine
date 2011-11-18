@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>settings/Setting.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -16,13 +18,106 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>151</integer>
+	<integer>196</integer>
 	<key>metaData</key>
-	<dict/>
+	<dict>
+		<key>Project.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>2</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>settings/Setting.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>19</integer>
+				<key>line</key>
+				<integer>5</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>tex/Ethical_Considerations.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>16</integer>
+				<key>line</key>
+				<integer>2</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>tex/Introduction.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>114</integer>
+				<key>line</key>
+				<integer>20</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>tex/Objectives.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>20</integer>
+				<key>line</key>
+				<integer>108</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>tex/Questionnaire.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>26</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>Project.tex</string>
+		<string>settings/Setting.tex</string>
+		<string>tex/Ethical_Considerations.tex</string>
+		<string>tex/Objectives.tex</string>
+		<string>tex/Introduction.tex</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>showFileHierarchyPanel</key>
-	<true/>
+	<false/>
 	<key>treeState</key>
 	<dict>
 		<key>Dissertation</key>
@@ -30,10 +125,18 @@
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict/>
+			<dict>
+				<key>tex</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+			</dict>
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{469, 91}, {808, 787}}</string>
+	<string>{{408, 107}, {1025, 771}}</string>
 </dict>
 </plist>
