@@ -157,6 +157,10 @@
 
 \ifthenelse{\boolean{@twoside}{false}}
 {
+	\let\tmp\oddsidemargin
+	\let\oddsidemargin\evensidemargin
+	\let\evensidemargin\tmp
+	\reversemarginpar
 	\fancyhead[LO,RE]{\slshape \nouppercase{\currentSection}} 
 	\fancyhead[LE,RO]{\thepage} 
 	\fancyhead[CO]{\hspace{30pt}  \theTitle}

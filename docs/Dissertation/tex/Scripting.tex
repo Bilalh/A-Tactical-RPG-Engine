@@ -39,7 +39,7 @@ which would not be possible to implement for the new language within the time co
 
 \subsection{Data Exposed}
 	Events can be attached to \texttt{units}, \texttt{tiles} in a battle, globally in a battle and to the AI.
-sAll events are passed a \texttt{mapinfo} object which contains the following as read only data:
+All events are passed a \texttt{mapinfo} object which contains the following as read only data:
 \begin{itemize}
 	\item A hashtable of the players unit and a hashtable of the enemies units. For each unit this includes 
 		\begin{itemize}
@@ -56,6 +56,8 @@ The \texttt{mapinfo}  object contains the following methods:
 	\item[\texttt{dialog}]  The player is shown the specified dialog (to show the user some the plot). Can be directed from a specify unit, or a global message.
 	\item[\texttt{action}]   Executes the specified action.
 \end{itemize}
+
+This allows the user to make complex events without them changing the model to much.
 
 \subsection{Action}
 A \texttt{action} is a set of unit defined actions. For example a poison action could reduces the a units `hit points' by 10\% 
@@ -109,7 +111,7 @@ The AI events \texttt{mapinfo} has addition methods including:
 	\item[\texttt{wait}]    Do nothing this turn
 \end{itemize}   
 
-\clearpage
+% \clearpage
 The \texttt{commands} themselves can be conditional, as example 
 \begin{lstlisting}[caption=Conditional AI Event ]
 If opponent's leader's hp $< 20\%$ then
