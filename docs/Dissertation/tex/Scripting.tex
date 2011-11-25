@@ -1,9 +1,47 @@
 %!TEX root = ../Project.tex
 \section{Scripting}
 \label{sec:Scripting}
+
+Scripting allows the user to customise aspects of the game. This includes customising the opponent's AI, custom winning conditions and user defined events. 
+
+\subsection{Language Choice}
+
+There were three main choices using Javascript, using JRuby\footnote{A Ruby implementation written in java}, or building a `domain specific language'.
+
+Creating a `domain specific language' was considered initially, this would have the following advantages:
 \begin{itemize}
+	\item Provides more abstraction, and allow the complex details to be hidden.
+	\item Easier to validate since the languages contains a very few constructs.  
+\end{itemize}
+
+\noindent but was rejected because:
+
+\begin{itemize}
+	\item of the time to create and test the new language.
+	\item of the cost of create tools for the new language, there are already source code highlighter and debugger for java.
+	\item of the loss of efficiency, the Javascript parser in the JDK as well as JRuby is very efficient and provides advance features such as `just in time compilation' 
+	\footnote{A method to improve the runtime performance, by translating the interpreted code into lower level form, while the code is be run
+	}  
+which would not be possible to implement for the new language within the time constraint of the project.
+\end{itemize}
+
+\noindent JRuby has the following advantage:
+\begin{itemize}
+	\item Easier syntax for interacting with Java then javascript.
+	\item Easy to use with the embedding API in the JDK.
+\end{itemize}
+
+\noindent Javascript was chosen over Ruby as a scripting language for the following reasons:
+\begin{itemize}
+	\item Javascript embedding is build into the JDK, so the user does not have install anything extra. It also has the advantage of being cross platform  
+	\item Javascript is easy to learn, and average user is more likely to have used it before as compared to Ruby.
+\end{itemize}
 
 
+
+\subsection{General}
+
+\begin{itemize}
 
 \item Attached events to units, titles etc.
 
