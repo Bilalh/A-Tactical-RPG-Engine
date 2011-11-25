@@ -3,7 +3,7 @@
 \setflag
 \ifwhole\else
 
-\documentclass[11pt]{article}
+\documentclass[11pt,a4paper]{article}
 \def\studentID{080008164}
 \def\fullName{Bilal Hussain}
 \newcommand{\theTitle}{}
@@ -53,8 +53,7 @@
 	upquote=true,
 	basicstyle=\ttfamily,
 }
-
-\lstset{basicstyle=\footnotesize\ttfamily,numberstyle=\tiny,numbersep=5pt,extendedchars=true,breaklines=true}
+\lstset{basicstyle=\small\ttfamily,numberstyle=\tiny,numbersep=5pt,extendedchars=true,breaklines=true}
 
 %\lstset{frame=b}
 %\lstset{xleftmargin=17pt, framexleftmargin=17pt,framexrightmargin=5pt,framexbottommargin=4pt}
@@ -153,13 +152,21 @@
 
 
 \newcommand{\currentSection}{
-\ifthenelse{\equal{\rightmark}{}}{\leftmark}{\rightmark}
+	\ifthenelse{\equal{\rightmark}{}}{\leftmark}{\rightmark}
 }
-% 
-\fancyhead[LO,RE]{\slshape \nouppercase{\currentSection}} 
-\fancyhead[LE,RO]{\thepage} 
-\fancyhead[CO]{\hspace{30pt} \theAuthor  \hspace{5pt}-- \theTitle}
-\fancyhead[CE]{\hspace{-50pt} \theAuthor  \hspace{5pt}-- \theTitle}
+
+\ifthenelse{\boolean{@twoside}{false}}
+{
+	\fancyhead[LO,RE]{\slshape \nouppercase{\currentSection}} 
+	\fancyhead[LE,RO]{\thepage} 
+	\fancyhead[CO]{\hspace{30pt}  \theTitle}
+	\fancyhead[CE]{\hspace{-30pt} \theAuthor}
+}{
+	\fancyhead[LO,RE]{\slshape \nouppercase{\currentSection}} 
+	\fancyhead[LE,RO]{\thepage} 
+	\fancyhead[CO]{\hspace{30pt}  \theAuthor  \hspace{5pt}-- \theTitle}
+	\fancyhead[CE]{\hspace{-50pt} \theAuthor  \hspace{5pt}-- \theTitle}
+}
 
 % (end)      
 

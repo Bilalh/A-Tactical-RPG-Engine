@@ -18,7 +18,7 @@ Creating a `domain specific language' was considered initially, this would have 
 
 \begin{itemize}
 	\item of the time to create and test the new language.
-	\item of the cost of create tools for the new language, there are already source code highlighter and debugger for java.
+	\item of the cost of creating tools for the new language, there are already source code highlighters and debuggers for Javascript and Ruby.
 	\item of the loss of efficiency, the Javascript parser in the JDK as well as JRuby is very efficient and provides advance features such as `just in time compilation' 
 	\footnote{A method to improve the runtime performance, by translating the interpreted code into lower level form, while the code is be run
 	}  
@@ -37,65 +37,91 @@ which would not be possible to implement for the new language within the time co
 	\item Javascript is easy to learn, and average user is more likely to have used it before as compared to Ruby.
 \end{itemize}
 
-
-
-\subsection{General}
-
+\subsection{Data Exposed}
+	Events can be attached to \texttt{units}, \texttt{tiles} in a battle, globally in a battle and to the AI.
+sAll events are passed a \texttt{mapinfo} object which contains the following as read only data:
 \begin{itemize}
-
-\item Attached events to units, titles etc.
-
-\item Events get passed a \texttt{mapinfo} object containing.
-\begin{itemize}
-	\item a hashtable of the players unit and a hashtable of the enemies units..
-	\item The leader of each side if there is one.
+	\item A hashtable of the players unit and a hashtable of the enemies units. For each unit this includes 
+		\begin{itemize}
+			\item all the unit's attributes such as the location, and \texttt{hit points}. 
+			\item if the unit has been defeated. 
+		\end{itemize}
+	\item The \texttt{leader} unit of each side if there is one.
 	\item The number of turns taken.
 \end{itemize}
-
-\item \texttt{mapinfo} also contains methods such as \texttt{Win} and \texttt{Lose} to allow custom victory conditions.
-
-\item \texttt{dialog} method to make unit talk.
+The \texttt{mapinfo}  object contains the following methods:
 \begin{itemize}
-	\item Either on unit or not.
+	\item[\texttt{win}]     The player wins the battle.
+	\item[\texttt{lose}]    The player loses the battle.
+	\item[\texttt{dialog}]  The player is shown the specified dialog (to show the user some the plot). Can be directed from a specify unit, or a global message.
+	\item[\texttt{action}]   Executes the specified action.
 \end{itemize}
 
-\item Unit events get passed the specified unit. Executed when:
+\subsection{Action}
+A \texttt{action} is a set of unit defined actions. For example a poison action could reduces the a units `hit points' by 10\% 
+
+\subsection{Winning Conditions}
+The user can specify the winning conditions based on what occurring in the battle, examples include
+\begin{itemize}
+	\item If opponent's leader's hp $< 50\%$ then \texttt{win()}.
+	\item If <character> dies then lose().
+	\item If number of turns > 20 then lose()
+\end{itemize} 
+
+\subsection{Unit Events}
+
+Unit events get passed the specified unit as well as the \texttt{mapinfo}. the event can be specified to execute when:
 \begin{enumerate}
-	\item the units finishes it turn.
-	\item is affected by magic.
-	\item attacked.
+	\item The unit finishes its turn.
+	\item The unit is affected by magic.
+	\item The unit is attacked.
+	\item The unit attacks.
 \end{enumerate}
+Example: When <unit> attacked counter attack.
 
-\item Tiles get passes the specified tile. Executed when:
+
+\subsection{Tiles Events}
+
+Tiles get passes the specified tile as well as the Unit. The event can be specified to execute when
 \begin{itemize}
-	\item A unit moves onto the tile.
+	\item A unit moves to a tile.
+	\item A unit moves though a tile.
 \end{itemize}
 
-\end{itemize}
+Example: On unit moving though \texttt{action(posion)}
 
-\subsection{Rules}
-\subsubsection{AI}
+\subsection{AI Events}
+
+The behaviour of AI can be customised, with \texttt{commands} such as:
 \begin{itemize}
 	\item Attack the player's unit with  highest/lowest hp.
-	\item Attack the player's leader unit (if there is one).
-	\item If opponent's leader's hp $< 20\%$ \texttt{heal(leader)}.
+	\item Attack the player's leader unit.
+	\item If player's leader's hp $< 20\%$ \texttt{heal(leader)}.
 	\item Attack player's characters of class <class>.
 \end{itemize}
 
-\subsubsection{Events}
-\paragraph{Character}
+The AI events \texttt{mapinfo} has addition methods including:
 \begin{itemize}
-	\item If opponent's leader's hp $< 50\%$ then \texttt{win()}.
-	\item If <character> dies then \texttt{lose()}.
-\end{itemize}
+	\item[\texttt{attack}]  Attack the specified unit.
+	\item[\texttt{follow}]  Move as close as possible to the specified unit.
+	\item[\texttt{heal}]    Heal the specified unit.
+	\item[\texttt{move}]    Move to the specified location.
+	\item[\texttt{wait}]    Do nothing this turn
+\end{itemize}   
 
-\paragraph{World}
-\begin{itemize}
-	\item If \texttt{number\_of\_turns} $> 20$ then \texttt{lose()} 
-\end{itemize}
-
-\paragraph{Tile}
-\begin{itemize}
-	\item If <character> enters then \texttt{event(id)} 
-\end{itemize}
+\clearpage
+The \texttt{commands} themselves can be conditional, as example 
+\begin{lstlisting}[caption=Conditional AI Event ]
+If opponent's leader's hp $< 20\%$ then
+	heal(leader).
+else If player has a leader unit then
+	If player's leader's hp $< 20\%$  then
+	 	Attack the player's leader unit
+	else
+		Attack the player's closet unit with the lowest hp.
+	end
+else
+	wait
+end	
+\end{lstlisting}
 
