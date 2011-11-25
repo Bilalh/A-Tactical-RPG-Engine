@@ -58,6 +58,8 @@ public class GuiMap implements Observer {
     
     // bad idea allready in unit?
     private HashMap<UUID,AnimatedUnit> unitMapping;
+    private HashMap<MapTile,AnimatedUnit> tileMapping; 
+    
     
     final private ActionsAdapter[] actions = {new Movement(), new DialogHandler()};
     enum ActionsEnum {
@@ -90,6 +92,7 @@ public class GuiMap implements Observer {
         drawX = (int) MapSettings.drawStart.getX();
         drawY = (int) MapSettings.drawStart.getY();
         unitMapping = new HashMap<UUID, AnimatedUnit>();
+        tileMapping = new HashMap<MapTile, AnimatedUnit>();
         selectedTile = null;
         
         dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
@@ -115,6 +118,12 @@ public class GuiMap implements Observer {
 						&& x + horizontal >= 0 
 						&& y + vertical>= 0 ){
 					field[j][i].draw(x, y, g);
+					
+					AnimatedUnit au = tileMapping.get(field[j][i]);
+					if (au != null){
+						au.draw(g,field,  x, y, timeDiff);
+					}
+					
 				}else{
 					//            		System.out.printf("(%d, %d) at (%d, %d) not drawn dim:(%d, %d)  \n",j,i, x,y, width, height);
 				}
@@ -123,46 +132,12 @@ public class GuiMap implements Observer {
 				g.setColor(Color.RED);
 				g.drawString(String.format("(%d,%d) %d", j,i,field[j][i].getCost() ), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
 				g.setColor(old);
-				//        		        		
+								
 				x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
 				y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
 			}
 			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
 			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (fieldHeight - i));
-		}
-
-
-		// Draw Units
-		if (units != null){
-			for (int i = 0; i < units.length; i++) {
-				int xPos =drawX, yPos = drawY;
-
-				// height
-				xPos -= (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * ((fieldHeight - 1 -  units[i].gridY) ));
-				yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * ((fieldHeight - 1 -  units[i].gridY)) );
-
-				// width
-				xPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * (units[i].gridX);
-				yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom) * (units[i].gridX);				
-
-				units[i].draw(g,field,  xPos, yPos, timeDiff);
-			}
-		}
-
-		if (aiUnits != null){
-			for (int i = 0; i < aiUnits.length; i++) {
-				int xPos =drawX, yPos = drawY;
-
-				// height
-				xPos -= (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * ((fieldHeight - 1 -  aiUnits[i].gridY) ));
-				yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * ((fieldHeight - 1 -  aiUnits[i].gridY)) );
-
-				// width
-				xPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * (aiUnits[i].gridX);
-				yPos += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom) * (aiUnits[i].gridX);				
-
-				aiUnits[i].draw(g,field,  xPos, yPos, timeDiff);
-			}
 		}
 
 		if (showDialog) dialog.draw((Graphics2D) g, 5, height - dialog.getHeight() - 5);
@@ -187,6 +162,7 @@ public class GuiMap implements Observer {
 			newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
 			selectedPostions.put(u.getUuid(), p);
 			unitMapping.put(u.getUuid(), newUnits[i]);
+			tileMapping.put(field[p.x][p.y], newUnits[i]);
 		}
 		mapController.setUsersUnits(selectedPostions);
 		this.units = newUnits;
@@ -197,14 +173,17 @@ public class GuiMap implements Observer {
 			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(), 
 					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"}, 
 					u);
+			tileMapping.put(field[u.getGridX()][u.getGridY()], newAiUnits[i]);
 		}
 		this.aiUnits = newAiUnits;
 	}
 	
 	public void unitMoved(IUnit u){
 		AnimatedUnit au =  unitMapping.get(u.getUuid());
+		tileMapping.remove(field[au.gridX][au.gridY]);
 		au.setGridX(u.getGridX());
 		au.setGridY(u.getGridY());
+		tileMapping.put(field[au.gridX][au.gridY],au);
 	}
 	
 	public void playersTurn(){
