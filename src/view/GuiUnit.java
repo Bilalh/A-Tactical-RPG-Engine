@@ -13,7 +13,7 @@ import common.interfaces.IUnit;
 /**
  * @author bilalh
  */
-public class GuiUnit {
+public class GuiUnit implements IUnit {
 	protected int gridX;
 	protected int gridY;
 	protected Sprite sprite;
@@ -34,6 +34,7 @@ public class GuiUnit {
 	}
 
 	/** @category Generated */
+	@Override
 	public int getGridX() {
 		return gridX;
 	}
@@ -44,6 +45,7 @@ public class GuiUnit {
 	}
 
 	/** @category Generated */
+	@Override
 	public int getGridY() {
 		return gridY;
 	}
@@ -76,6 +78,36 @@ public class GuiUnit {
 			}
 		}
 		
+	}
+
+	@Override
+	public int getMaxHp() {
+		return unit.getMaxHp();
+	}
+
+	@Override
+	public int getCurrentHp() {
+		return unit.getCurrentHp();
+	}
+
+	@Override
+	public int getMove() {
+		return unit.getCurrentHp();
+	}
+
+	@Override
+	public int getStrength() {
+		return unit.getStrength();
+	}
+
+	@Override
+	public String getName() {
+		return unit.getName();
+	}
+
+	@Override
+	public UUID getUuid() {
+		return unit.getUuid();
 	}
 	
 }
