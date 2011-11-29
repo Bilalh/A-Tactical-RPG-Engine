@@ -24,7 +24,7 @@ public class Map extends Observable {
 	
 	private AIPlayer ai;
 	private Player player;
-	private ArrayList<Unit> selectedUnits;
+	private ArrayList<IModelUnit> selectedUnits;
 	
 	boolean playersTurn; // false aiplayer
 
@@ -38,14 +38,14 @@ public class Map extends Observable {
 
 	private void setUpAI() {
 		AIPlayer ai = new AIPlayer();
-		Unit u = new Unit("ai-1", 20, 4, 4);
+		AIUnit u = new AIUnit("ai-1", 20, 4, 4);
 		u.setGridX(width-1);
 		u.setGridY(0);
 		ai.addUnit(u);
 		field[width-1][0].setCurrentUnit(u);
 		
 		
-		u = new Unit("ai-2", 10, 3, 10);
+		u = new AIUnit("ai-2", 10, 3, 10);
 		u.setGridX(width-1);
 		u.setGridY(1);
 		ai.addUnit(u);
@@ -55,9 +55,10 @@ public class Map extends Observable {
 		this.ai = ai;
 	}
 
-	public void setUsersUnits(ArrayList<Unit> units){
-		selectedUnits= units;
-		for (Unit u: units) {
+	public void setUsersUnits(ArrayList<IModelUnit> selected){
+		selectedUnits= selected;
+		System.out.println(selected);
+		for (IModelUnit u: selected) {
 			field[u.getGridX()][u.getGridY()].setCurrentUnit(u);
 		}
 		
@@ -120,10 +121,14 @@ public class Map extends Observable {
 	};		
 	
 	private void checkAround(Point p, int movmentLeft){
-		System.out.println(p + " l:"+ movmentLeft + " c:" + field[p.x][p.y].getCost()  + " r:" +  ( field[p.x][p.y].getCost() - movmentLeft) +  "\t" + points );
+//		System.out.println(p + " l:"+ movmentLeft + " c:" + field[p.x][p.y].getCost()  + " r:" +  ( field[p.x][p.y].getCost() - movmentLeft) +  "\t" + points );
 
-		if (field[p.x][p.y].getCost() - movmentLeft >0  ) return;
-		points.add(p);
+		if (field[p.x][p.y].getCost() - movmentLeft >0 || field[p.x][p.y].getCurrentUnit() instanceof AIUnit) return;
+		if (!(field[p.x][p.y].getCurrentUnit() instanceof IModelUnit)){
+			points.add(p);
+		}
+		
+		
 		movmentLeft -=field[p.x][p.y].getCost(); 
 		
 		for (final int[] is : dirs) { 
@@ -136,9 +141,11 @@ public class Map extends Observable {
 		
 	}
 	
-	public Collection<Point> getMovementRange(IModelUnit u) {
+	public synchronized Collection<Point> getMovementRange(IModelUnit u) {
 		points.clear();
+		System.out.println("Finding moves for " + u);
 		checkAround(u.getLocation(), u.getMove()+ field[u.getGridX()][u.getGridY()].getCost() );
+		System.out.println("Found moves for " + u +  " " + points);
 		return points;
 	}
 	

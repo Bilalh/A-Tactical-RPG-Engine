@@ -260,16 +260,18 @@ public class GuiMap implements Observer {
 			setSelectedTile(selectedTile.getFieldLocation().x+1, selectedTile.getFieldLocation().y);
 		}
 		
-		AnimatedUnit selected = null;
-		Collection<Point> inRange = new HashSet<Point>();
 		@Override
 		public void keyComfirm() {
 			selectMoveUnit();
 		}
+		
+		AnimatedUnit selected = null;
+		Collection<Point> inRange = null;
+
 
 		private void selectMoveUnit() {
 			if (selected != null){
-				System.out.println(selected);
+				System.out.println("selected " + selected);
 				if ( !getSelectedTile().isInRange() ) return;
 				mapController.moveUnit(selected.unit.getUuid(), getSelectedTile().getFieldLocation());
 				for (Point p : inRange) {
@@ -277,6 +279,8 @@ public class GuiMap implements Observer {
 				}
 				selected = null;
 				inRange = null;
+				System.out.println("move finished");
+				return;
 			}
 
 			AnimatedUnit unitS = null;
@@ -316,6 +320,7 @@ public class GuiMap implements Observer {
 				}
 				inRange = null;
 			}
+			
 		}
 		
 	    @Override

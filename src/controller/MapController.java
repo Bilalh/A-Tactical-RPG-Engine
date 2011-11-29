@@ -35,13 +35,14 @@ public class MapController extends Controller{
 
 	public void setUsersUnits(java.util.Map<UUID, Point> selectedPostions){
 		
-		ArrayList<Unit> selected = new ArrayList<Unit>();
+		ArrayList<IModelUnit> selected = new ArrayList<IModelUnit>();
 		
 		for(java.util.Map.Entry<UUID, Point> e: selectedPostions.entrySet()){
 			IModelUnit u = mapping.get(e.getKey());
 			u.setLocation(e.getValue());
+			selected.add(u);
 		}
-		
+
 		map.setUsersUnits(selected);
 	}
 	

@@ -11,7 +11,7 @@ import common.interfaces.IUnit;
  */
 public class Tile {
 
-	private IUnit current = null;
+	private IUnit current ;
 	private int startHeight;
 	private int endHeight;
 	private int cost;
@@ -46,6 +46,12 @@ public class Tile {
 	/** @category Generated Getter */
 	public int getCost() {
 		return cost;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Tile [current=%s, startHeight=%s, endHeight=%s, cost=%s]", current,
+				startHeight, endHeight, cost);
 	} 
 	
 	
