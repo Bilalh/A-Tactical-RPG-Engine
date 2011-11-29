@@ -142,8 +142,8 @@ public class MapTile {
        int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
        int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
        int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-       int HEIGHT1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
-       int HEIGHT2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
+       int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
+       int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
 
        Color oldColor = g.getColor();
        g.setColor(myColor); 
@@ -154,10 +154,10 @@ public class MapTile {
        		x, 
        		x - horizontal / 2},
                new int[]{
-       		y - HEIGHT1, 
-       		y - HEIGHT2 + vertical / 2, 
-       		y - HEIGHT2 + vertical,
-       		y - HEIGHT1 + vertical / 2}, 4);
+       		y - h1, 
+       		y - h2 + vertical / 2, 
+       		y - h2 + vertical,
+       		y - h1 + vertical / 2}, 4);
 
        Paint old =  g.getPaint();
        if (!selected && !inRange ) g.setPaint(tGrass);
@@ -172,8 +172,8 @@ public class MapTile {
            		x + horizontal / 2, 
            		x},
                    new int[]{
-           		y - HEIGHT2 + vertical, 
-           		y - HEIGHT2 + vertical / 2,
+           		y - h2 + vertical, 
+           		y - h2 + vertical / 2,
            		y + vertical / 2, 
            		y + vertical}
            , 4);
@@ -191,8 +191,8 @@ public class MapTile {
            		x + horizontal / 2, 
            		x},
                    new int[]{
-           		y - HEIGHT2 + vertical,
-           		y - HEIGHT2 + vertical / 2, 
+           		y - h2 + vertical,
+           		y - h2 + vertical / 2, 
            		y + vertical / 2, 
            		y + vertical}
            , 4));
@@ -206,8 +206,8 @@ public class MapTile {
            		x - horizontal / 2,
            		x},
                    new int[]{
-           		y - HEIGHT2 + vertical,
-           		y - HEIGHT1 + vertical / 2,
+           		y - h2 + vertical,
+           		y - h1 + vertical / 2,
            		y + vertical / 2,
            		y + vertical}
            , 4);
@@ -223,8 +223,8 @@ public class MapTile {
                    x - horizontal / 2,
                    x},
                    new int[]{
-                   y - HEIGHT2 + vertical, 
-                   y - HEIGHT1 + vertical / 2,
+                   y - h2 + vertical, 
+                   y - h1 + vertical / 2,
                    y + vertical / 2, 
                    y + vertical}
            , 4));
@@ -238,10 +238,10 @@ public class MapTile {
        		x, 
        		x - horizontal / 2},
                new int[]{
-       		y - HEIGHT1, 
-       		y - HEIGHT2 + vertical / 2, 
-       		y - HEIGHT2 + vertical, 
-       		y - HEIGHT1 + vertical / 2}
+       		y - h1, 
+       		y - h2 + vertical / 2, 
+       		y - h2 + vertical, 
+       		y - h1 + vertical / 2}
        , 4));
 
        g.setColor(oldColor);
