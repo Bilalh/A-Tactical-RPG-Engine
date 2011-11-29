@@ -2,16 +2,17 @@ package common.gui;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 /**
  * @author bilalh
  */
 public class Sprite {
 
-	private Image image;
+	private BufferedImage  image;
 
 	/** @category Generated */
-	public Sprite(Image image) {
+	public Sprite(BufferedImage image) {
 		this.image = image;
 	}
 	
@@ -31,7 +32,7 @@ public class Sprite {
 	}
 
 	/** @category Generated */
-	public Image getImage() {
+	public BufferedImage getImage() {
 		return image;
 	}
 	

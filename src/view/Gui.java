@@ -29,7 +29,7 @@ public class Gui extends Observable {
 	private JFrame frame;
 	private MapPanel mapPanel;
 	
-	private int DEFAULT_FPS = 50;
+	private int DEFAULT_FPS = 30;
 	
 	private static IConsole debugConsole = new Console();
 	

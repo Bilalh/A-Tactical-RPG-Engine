@@ -86,4 +86,20 @@ Thu 27 Oct 2011
 Fri 28 Oct 2011
 ---------------
 * Meeting at 11am Friday.
-	*
+
+
+Untracked
+
+
+Sun 27 Nov 2011
+---------------
+* drawing order
+* maps section in report
+
+Mon 28 Nov 2011
+---------------
+* texture mapping
+* more efficient drawing 
+
+
+

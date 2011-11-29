@@ -113,25 +113,41 @@ public class GuiMap implements Observer {
 			for (int j = 0; j < fieldWidth; j++) {
 				int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
 				int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-				if (x - horizontal  <= width 
-						&& y -vertical  <= height 
+				
+				// Only draw the the tiles if they in the viewport 
+				if (x - horizontal        <= width 
+						&& y - vertical   <= height 
 						&& x + horizontal >= 0 
-						&& y + vertical>= 0 ){
-					field[j][i].draw(x, y, g);
+						&& y + vertical   >= 0 ){
+					
+					boolean drawLeft = true, drawRight = true;
+					
+					if (i > 0 && field[j][i-1].getHeight() >= field[j][i].getHeight()){
+//						System.out.printf("(%d,%d) not drawn left side not drawn\n", j,i);
+						drawLeft = false;
+					}
+
+					if (j+1 < fieldWidth && field[j+1][i].getStartHeight() >= field[j][i].getEndHeight()){
+//						System.out.printf("(%d,%d) not drawn right side not drawn\n", j,i);
+						drawRight = false;
+					}
+					
+					
+					field[j][i].draw(x, y, g, drawLeft, drawRight);
 					
 					AnimatedUnit au = tileMapping.get(field[j][i]);
 					if (au != null){
 						au.draw(g,field,  x, y, timeDiff);
 					}
 					
-				}else{
-					//            		System.out.printf("(%d, %d) at (%d, %d) not drawn dim:(%d, %d)  \n",j,i, x,y, width, height);
+
+					Color old = g.getColor();
+					g.setColor(Color.RED);
+					g.drawString(String.format("(%d,%d) %d", j,i,field[j][i].getCost() ), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
+					g.setColor(old);
+					
 				}
 
-				Color old = g.getColor();
-				g.setColor(Color.RED);
-				g.drawString(String.format("(%d,%d) %d", j,i,field[j][i].getCost() ), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
-				g.setColor(old);
 								
 				x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
 				y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);

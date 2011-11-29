@@ -1,14 +1,19 @@
 package view;
 
-import java.awt.*;
-import java.util.Arrays;
+import static view.MapTile.Orientation.UP_TO_EAST;
+import static view.MapTile.Orientation.UP_TO_NORTH;
 
-import view.MapTile.TileState;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
 import common.gui.Sprite;
 import common.gui.SpriteManager;
 
-import static view.MapTile.Orientation.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.*;
+
 
 public class MapTile {
     		
@@ -27,8 +32,8 @@ public class MapTile {
     
     // Colors for drawing tiles
     private static final Color TOP_COLOR = Color.DARK_GRAY;
-    private static final Color RIGHT_COLOR = Color.LIGHT_GRAY;
-    private static final Color LEFT_COLOR = Color.GRAY;
+    private static final Color RIGHT_COLOR = Color.CYAN;
+    private static final Color LEFT_COLOR = Color.RED;
     private static final Color SELECTED_COLOR = Color.BLUE;
     
     // Tile Variables
@@ -42,10 +47,19 @@ public class MapTile {
     private Polygon top;
     private Point fieldLocation;
 	private TileState state;
-    static Sprite image = SpriteManager.instance().getSprite("assets/gui/DesertTile1.png");
     
 //    debuging
     private int cost;
+
+
+    static BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass16.jpg").getImage();
+    static Rectangle2D rGrass = new Rectangle2D.Double(0, 0,iGrass.getWidth(null),iGrass.getHeight(null));
+    static TexturePaint tGrass = new TexturePaint(iGrass, rGrass);    
+    
+    static Image iWall = SpriteManager.instance().getSprite("assets/gui/wallb16.jpg").getImage();
+    static Rectangle2D rWall = new Rectangle2D.Double(0, 0,iWall.getWidth(null),iWall.getHeight(null));
+    static TexturePaint tWall = new TexturePaint((BufferedImage) iWall, rWall);
+
     
     /**
      * Constructor
@@ -63,7 +77,7 @@ public class MapTile {
         this.fieldLocation = new Point();
         this.myColor = TOP_COLOR;
     }
-
+    
     /** @category Constructor */
     public MapTile(MapTile tile) {
         this.orientation = tile.orientation;
@@ -113,9 +127,11 @@ public class MapTile {
      * @param x x-Location to draw tile
      * @param y y-Location to draw tile
      * @param g Graphics object to draw with
+     * @param drawLeftSide TODO
+     * @param drawRightSide TODO
      * @category drawing
      */
-    public void draw(int x, int y, Graphics g) {
+    public void draw(int x, int y, Graphics g, boolean drawLeftSide, boolean drawRightSide) {
         switch (orientation) {
             // Drawing the standard tile (Not Slanted)
             case NORMAL:
@@ -129,7 +145,7 @@ public class MapTile {
             // Use the same drawing method for the East/West slants
             case UP_TO_EAST:
             case UP_TO_WEST:
-                drawEastWest(x, y, g);
+                drawEastWest(x, y, g, drawLeftSide, drawRightSide);
                 break;
             // Ignore Empty tiles
             case EMPTY:
@@ -171,21 +187,6 @@ public class MapTile {
         		y + vertical - finalHeight, 
         		y + vertical / 2 - finalHeight}
         , 4));
-        
-        Image i = image.getImage();
-        
-//        g.drawImage(i, 
-//        		x, 
-//        		y, 
-//        		x+MapSettings.tileDiagonal, 
-//        		y+MapSettings.tileHeight, 
-//        		0, 
-//        		0, 
-//        		i.getWidth(null), 
-//        		i.getHeight(null), 
-//        		null);
-//        System.out.println("x:" +Arrays.toString(top.xpoints));
-//        System.out.println("y:" + Arrays.toString(top.ypoints));
 
         g.setColor(RIGHT_COLOR); // Draw the right side
         g.fillPolygon(new Polygon(new int[]{
@@ -343,19 +344,22 @@ public class MapTile {
         , 4));
         g.setColor(oldColor);
     }
-
+    
     /**
      * Draw a tile that slants to the east or west.  The methods for drawing
      * are very similar, so they can be merged into one method.
      * Note that the drawing begins at (x,y - MapSettings.tileHeight*height).
      * @param x X-location of the tile.
      * @param y Y-location of the tile.
+     * @param drawLeftSide TODO
+     * @param drawRightSide TODO
      * @param g The Graphcis object with which to draw.
      * @category drawing
      */
-    public void drawEastWest(int x, int y, Graphics g) {
+    public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide) {
+    	Graphics2D g = (Graphics2D) _g;
+    	
         determineColor();
-
         int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
         int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
         int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
@@ -363,8 +367,9 @@ public class MapTile {
         int HEIGHT2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
 
         Color oldColor = g.getColor();
-        g.setColor(myColor); // Draw the top of the tile
-        g.fillPolygon(top = new Polygon(new int[]{
+        g.setColor(myColor); 
+        // Draw the top of the tile
+        top = new Polygon(new int[]{
         		x, 
         		x + horizontal / 2, 
         		x, 
@@ -373,33 +378,80 @@ public class MapTile {
         		y - HEIGHT1, 
         		y - HEIGHT2 + vertical / 2, 
         		y - HEIGHT2 + vertical,
-        		y - HEIGHT1 + vertical / 2}
-        , 4));
-        g.setColor(RIGHT_COLOR); // Draw the right side
-        g.fillPolygon(new Polygon(new int[]{
-        		x, 
-        		x + horizontal / 2, 
-        		x + horizontal / 2, 
-        		x},
-                new int[]{
-        		y - HEIGHT2 + vertical, 
-        		y - HEIGHT2 + vertical / 2,
-        		y + vertical / 2, 
-        		y + vertical}
-        , 4));
-        g.setColor(LEFT_COLOR); // Draw the left side
-        g.fillPolygon(new Polygon(new int[]{
-        		x,
-        		x - horizontal / 2,
-        		x - horizontal / 2,
-        		x},
-                new int[]{
-        		y - HEIGHT2 + vertical,
-        		y - HEIGHT1 + vertical / 2,
-        		y + vertical / 2,
-        		y + vertical}
-        , 4));
+        		y - HEIGHT1 + vertical / 2}, 4);
 
+        Paint old =  g.getPaint();
+        if (!selected && !inRange ) g.setPaint(tGrass);
+        g.fillPolygon(top);
+        g.setPaint(old);
+        
+        if (drawRightSide){
+            g.setColor(RIGHT_COLOR); // Draw the right side
+            Polygon poly = new Polygon(new int[]{
+            		x, 
+            		x + horizontal / 2, 
+            		x + horizontal / 2, 
+            		x},
+                    new int[]{
+            		y - HEIGHT2 + vertical, 
+            		y - HEIGHT2 + vertical / 2,
+            		y + vertical / 2, 
+            		y + vertical}
+            , 4);
+            
+            old =  g.getPaint();
+            g.setPaint(tWall);
+            g.fillPolygon(poly);
+            g.setPaint(old);
+            
+            
+            g.setColor(Color.BLACK); // Outline 
+            g.drawPolygon(new Polygon(new int[]{
+            		x, 
+            		x + horizontal / 2, 
+            		x + horizontal / 2, 
+            		x},
+                    new int[]{
+            		y - HEIGHT2 + vertical,
+            		y - HEIGHT2 + vertical / 2, 
+            		y + vertical / 2, 
+            		y + vertical}
+            , 4));
+        }
+        
+        if (drawLeftSide){
+            g.setColor(LEFT_COLOR); // Draw the left side
+            Polygon poly = new Polygon(new int[]{
+            		x,
+            		x - horizontal / 2,
+            		x - horizontal / 2,
+            		x},
+                    new int[]{
+            		y - HEIGHT2 + vertical,
+            		y - HEIGHT1 + vertical / 2,
+            		y + vertical / 2,
+            		y + vertical}
+            , 4);
+            old =  g.getPaint();
+            g.setPaint(tWall);
+            g.fillPolygon(poly);
+            g.setPaint(old);
+            
+            g.setColor(Color.BLACK); // Outline 
+            g.drawPolygon(new Polygon(new int[]{
+                    x, 
+                    x - horizontal / 2, 
+                    x - horizontal / 2,
+                    x},
+                    new int[]{
+                    y - HEIGHT2 + vertical, 
+                    y - HEIGHT1 + vertical / 2,
+                    y + vertical / 2, 
+                    y + vertical}
+            , 4));
+            
+        }
+        
         g.setColor(Color.BLACK); // Outline the top of the tile
         g.drawPolygon(new Polygon(new int[]{
         		x, 
@@ -412,30 +464,7 @@ public class MapTile {
         		y - HEIGHT2 + vertical, 
         		y - HEIGHT1 + vertical / 2}
         , 4));
-        // Outline the right side
-        g.drawPolygon(new Polygon(new int[]{
-        		x, 
-        		x + horizontal / 2, 
-        		x + horizontal / 2, 
-        		x},
-                new int[]{
-        		y - HEIGHT2 + vertical,
-        		y - HEIGHT2 + vertical / 2, 
-        		y + vertical / 2, 
-        		y + vertical}
-        , 4));
-        // Outline the left side
-        g.drawPolygon(new Polygon(new int[]{
-        		x, 
-        		x - horizontal / 2, 
-        		x - horizontal / 2,
-        		x},
-                new int[]{
-        		y - HEIGHT2 + vertical, 
-        		y - HEIGHT1 + vertical / 2,
-        		y + vertical / 2, 
-        		y + vertical}
-        , 4));
+
         g.setColor(oldColor);
     }
 
