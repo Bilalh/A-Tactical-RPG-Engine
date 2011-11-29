@@ -24,13 +24,13 @@ public class Tile {
 	}
 	
 	/** @category Generated */
-	public IUnit getCurrent() {
+	public IUnit getCurrentUnit() {
 		return current;
 	}
 
 
 	/** @category Generated */
-	public void setCurrent(IUnit current) {
+	public void setCurrentUnit(IUnit current) {
 		this.current = current;
 	}
 	/** @category Generated */

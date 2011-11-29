@@ -42,16 +42,25 @@ public class Map extends Observable {
 		u.setGridX(width-1);
 		u.setGridY(0);
 		ai.addUnit(u);
+		field[width-1][0].setCurrentUnit(u);
 		
-		u = new Unit("ai-2", 10, 2, 10);
+		
+		u = new Unit("ai-2", 10, 3, 10);
 		u.setGridX(width-1);
 		u.setGridY(1);
 		ai.addUnit(u);
+		field[width-1][1].setCurrentUnit(u);
+		
+		
 		this.ai = ai;
 	}
 
 	public void setUsersUnits(ArrayList<Unit> units){
 		selectedUnits= units;
+		for (Unit u: units) {
+			field[u.getGridX()][u.getGridY()].setCurrentUnit(u);
+		}
+		
 		INotification n =  new PlayersTurnNotification();
 		setChanged();
 		notifyObservers(n);
@@ -61,12 +70,12 @@ public class Map extends Observable {
 		width = 10; 
 		height = 10;
 		field = new Tile[width][height];
-		Random r = new Random();
+//		Random r = new Random();
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
-				int first = r.nextInt(3)+1;
-				field[i][j] = new Tile(first, first + r.nextInt(2));
-//				field[i][j] = new Tile(1,1);
+//				int first = r.nextInt(3)+1;
+//				field[i][j] = new Tile(first, first + r.nextInt(2));
+				field[i][j] = new Tile(1,1);
 			}
 		}
 	}
@@ -79,7 +88,9 @@ public class Map extends Observable {
 	}
 
 	public void moveUnit(IModelUnit u, Point p){
+		field[u.getGridX()][u.getGridY()].setCurrentUnit(null);
 		u.setLocation(p);
+		field[p.x][p.y].setCurrentUnit(u);
 		setChanged();
 		INotification n =  new UserMovedNotification(u);
 		setChanged();
@@ -101,22 +112,25 @@ public class Map extends Observable {
 	}
 
 	HashSet<Point> points  = new HashSet<Point>();
-	final int[][] dirs = {
-			{0,1},  // up 
+	static final int[][] dirs = {
+			{0,1},   // up 
 			{0,-1},  // down
-			{-1,0}, // left
+			{-1,0},  // left
 			{1,0},   // right
 	};		
 	
 	private void checkAround(Point p, int movmentLeft){
-		if ( movmentLeft - field[p.x][p.y].getCost()  < 1 ) return; 
+		System.out.println(p + " l:"+ movmentLeft + " c:" + field[p.x][p.y].getCost()  + " r:" +  ( field[p.x][p.y].getCost() - movmentLeft) +  "\t" + points );
+
+		if (field[p.x][p.y].getCost() - movmentLeft >0  ) return;
 		points.add(p);
+		movmentLeft -=field[p.x][p.y].getCost(); 
 		
-		for (int[] is : dirs) { 
+		for (final int[] is : dirs) { 
 			Point pp = new Point(p);
 			pp.translate(is[0], is[1]);
 			if (pp.x  >= 0 &&  pp.x < width && pp.y >= 0 &&  pp.y < height ){
-				checkAround(pp, movmentLeft-1);
+				checkAround(pp, movmentLeft);
 			}
 		}
 		
@@ -124,8 +138,9 @@ public class Map extends Observable {
 	
 	public Collection<Point> getMovementRange(IModelUnit u) {
 		points.clear();
-		checkAround(u.getLocation(), u.getMove()+1);
+		checkAround(u.getLocation(), u.getMove()+ field[u.getGridX()][u.getGridY()].getCost() );
 		return points;
 	}
 	
 }
+

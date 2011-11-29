@@ -14,8 +14,8 @@ public class Engine {
 	
 	private void loadSettings() {
 		player = new Player();
-		player.addUnit(new Unit("unitA", 33, 4, 5));
-		player.addUnit(new Unit("unitB", 66, 3, 3));
+		player.addUnit(new Unit("unitA", 33, 4, 50));
+		player.addUnit(new Unit("unitB", 66, 3, 30));
 	}
 
 

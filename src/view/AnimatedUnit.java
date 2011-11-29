@@ -70,7 +70,8 @@ public class AnimatedUnit extends GuiUnit {
 
 	@Override
 	public String toString() {
-		return String.format("AnimatedUnit [gridX=%s, gridY=%s, id=%s]", gridX, gridY, unit.getName());
+		return String.format("AnimatedUnit [gridX=%s, gridY=%s, getMove()=%s]", gridX, gridY,
+				getMove());
 	}
 	
 	

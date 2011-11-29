@@ -92,7 +92,7 @@ public class GuiUnit implements IUnit {
 
 	@Override
 	public int getMove() {
-		return unit.getCurrentHp();
+		return unit.getMove();
 	}
 
 	@Override
