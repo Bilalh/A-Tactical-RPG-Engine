@@ -128,7 +128,6 @@ public class Map extends Observable {
 			points.add(p);
 		}
 		
-		
 		movmentLeft -=field[p.x][p.y].getCost(); 
 		
 		for (final int[] is : dirs) { 

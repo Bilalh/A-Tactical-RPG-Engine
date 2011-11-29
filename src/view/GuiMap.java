@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
 import java.util.*;
 
 import view.interfaces.IActions;
@@ -62,6 +63,7 @@ public class GuiMap implements Observer {
     
     
     final private ActionsAdapter[] actions = {new Movement(), new DialogHandler()};
+	private boolean showNumbering = false;
     enum ActionsEnum {
     	MOVEMENT, DIALOG,
     }
@@ -108,9 +110,12 @@ public class GuiMap implements Observer {
 		int x = drawX;
 		int y = drawY;
 
-		// Draw map
+		//TODO rotates works!
+		
 		for (int i = fieldHeight - 1; i >= 0; i--) {
+//		for (int i = 0 ; i < fieldHeight; i++) {
 			for (int j = 0; j < fieldWidth; j++) {
+//			for (int j = fieldWidth - 1; j >= 0; j--) {
 				int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
 				int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
 				
@@ -119,6 +124,7 @@ public class GuiMap implements Observer {
 						&& y - vertical   <= height 
 						&& x + horizontal >= 0 
 						&& y + vertical   >= 0 ){
+					
 					
 					boolean drawLeft = true, drawRight = true;
 					
@@ -143,7 +149,7 @@ public class GuiMap implements Observer {
 
 					Color old = g.getColor();
 					g.setColor(Color.RED);
-					g.drawString(String.format("(%d,%d) %d", j,i,field[j][i].getCost() ), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
+					if (showNumbering) g.drawString(String.format("(%d,%d) %d", j,i,field[j][i].getCost() ), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
 					g.setColor(old);
 					
 				}
@@ -154,6 +160,8 @@ public class GuiMap implements Observer {
 			}
 			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
 			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (fieldHeight - i));
+//			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (i+1));
+//			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1));
 		}
 
 		if (showDialog) dialog.draw((Graphics2D) g, 5, height - dialog.getHeight() - 5);
@@ -367,7 +375,35 @@ public class GuiMap implements Observer {
 						"heights in Provence, his physical and mental health plummeted. ");
 				showDialog = true;
 				break;
+			case KeyEvent.VK_0:
+				showNumbering  = !showNumbering;
+				break;
+			case KeyEvent.VK_MINUS:
+				MapSettings.zoom *= 0.8;
+				if ( MapSettings.zoom <0.6) MapSettings.zoom = 0.6f;
+				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
+				System.out.println(MapSettings.zoom);
+				break;
+			case KeyEvent.VK_EQUALS:
+				MapSettings.zoom *= 1.2;
+				if ( MapSettings.zoom >1.2) MapSettings.zoom = 1.2f;
+				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
+				System.out.println(MapSettings.zoom);
+				break;
+			case KeyEvent.VK_COMMA:
+				MapSettings.pitch *= 0.8;
+				if ( MapSettings.pitch <0.3) MapSettings.pitch = 0.3f;
+				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
+				System.out.println(MapSettings.pitch);
+				break;
+			case KeyEvent.VK_PERIOD:
+				MapSettings.pitch *= 1.2;
+				if ( MapSettings.pitch >0.8) MapSettings.pitch = 0.8f;
+				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
+				System.out.println(MapSettings.pitch);
+				break;
 		}
+		
 	}
 	
 	/**

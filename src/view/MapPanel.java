@@ -1,14 +1,21 @@
 package view;
 
 import java.awt.*;
+import java.awt.color.ColorSpace;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import view.interfaces.IActions;
@@ -92,7 +99,7 @@ public class MapPanel extends JPanel implements Runnable {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				
+
 				if (e.isMetaDown()){
 					if (e.getKeyCode() == KeyEvent.VK_D)   Gui.toggleDebugConsole();
 					return;
@@ -103,7 +110,7 @@ public class MapPanel extends JPanel implements Runnable {
 				}
 
 				final IActions handler = map.getActionHandler();
-				
+
 				switch (e.getKeyCode()) {					
 					case KeyEvent.VK_OPEN_BRACKET:
 						Gui.console().scrollUp();
@@ -233,41 +240,28 @@ public class MapPanel extends JPanel implements Runnable {
 
 
 	private void gameRender(long timeDiff) {
+		dbImage = createImage(getWidth(), getHeight());
 		if (dbImage == null) {
-			dbImage = createImage(getWidth(), getHeight());
-			if (dbImage == null) {
-				System.out.println("dbImage is null");
-				return;
-			} else
-				dbg = dbImage.getGraphics();
+			System.out.println("dbImage is null");
+			System.exit(1);
+		} else{
+			dbg = dbImage.getGraphics();
 		}
+		
+		dbg.setColor(Color.GRAY);
+		dbg.fillRect(0, 0, getWidth(), getHeight());
 
-		if (bgImage == null) {
-			dbg.setColor(Color.GRAY);
-			dbg.fillRect(0, 0, getWidth(), getHeight());
-		} else
-			dbg.drawImage(bgImage, 0, 0, this);
+		
 
 		// draw game elements
-		map.draw(dbg, timeDiff, getWidth(), getHeight());
+		map.draw(dbImage.getGraphics(), timeDiff, getWidth(), getHeight());
+
 
 		if (Gui.showDebugConsole()) {
 			Gui.console().paint((Graphics2D) dbg, 0, getHeight() - Gui.console().getHeight()  , getWidth());
 		}         
 
-		if (gameOver)
-			gameOverMessage(dbg);
-	}
 
-	// center the game-over message in the panel
-	private void gameOverMessage(Graphics g) {
-		String msg = "Game Over. Your score: ";
-
-		int x = (getWidth() - metrics.stringWidth(msg)) / 2;
-		int y = (getHeight() - metrics.getHeight()) / 2;
-		g.setColor(Color.red);
-		g.setFont(msgsFont);
-		g.drawString(msg, x, y);
 	}
 
 	// use active rendering to put the buffered image on-screen
@@ -275,8 +269,11 @@ public class MapPanel extends JPanel implements Runnable {
 		Graphics g;
 		try {
 			g = this.getGraphics();
-			if ((g != null) && (dbImage != null))
-				g.drawImage(dbImage, 0, 0, null);
+			if ((g != null) && (dbImage != null)){
+
+				g.drawImage(dbImage, 0,0, null);
+			}
+				
 			// Sync the display on some systems.
 			// (on Linux, this fixes event queue problems)
 			Toolkit.getDefaultToolkit().sync();
@@ -288,5 +285,5 @@ public class MapPanel extends JPanel implements Runnable {
 	}
 
 
-
 }
+

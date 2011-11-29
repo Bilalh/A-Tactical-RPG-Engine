@@ -100,6 +100,6 @@ Mon 28 Nov 2011
 ---------------
 * texture mapping
 * more efficient drawing 
-
-
+* Unit moving
+* rotates works
 
