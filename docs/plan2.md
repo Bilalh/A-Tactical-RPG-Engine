@@ -1,17 +1,24 @@
-Week 10 
--------
-* Battles winnable
-* Start of scripting
 
 Week 11
 -------
-* Customisable AI + scripting
-* Story
+* Scripting ?
 
 
-Holidays
---------
+Holidays Week 1 
+---------------
 * Saving.
 * Lots of Ai.
-* Editor.
 * Other Objectives 
+* Story/Battle 
+
+Holidays Week 2
+---------------
+* editor
+* Long distance weapons
+* everything else
+
+
+S2 Week 1
+---------
+* Use Sasha's maps 
+* Custom events

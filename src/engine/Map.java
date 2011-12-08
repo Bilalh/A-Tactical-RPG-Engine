@@ -68,8 +68,8 @@ public class Map extends Observable {
 	}
 
 	private void loadSettings(String name) {
-		width = 10; 
-		height = 10;
+		width = 20; 
+		height = 20;
 		field = new Tile[width][height];
 		Random r = new Random();
 		for (int i = 0; i < field.length; i++) {
@@ -91,7 +91,7 @@ public class Map extends Observable {
 	public void moveUnit(IModelUnit u, Point p){
 		field[u.getGridX()][u.getGridY()].setCurrentUnit(null);
 		u.setLocation(p);
-		field[p.x][p.y].setCurrentUnit(u);
+		field[x][y].setCurrentUnit(u);
 		setChanged();
 		INotification n =  new UserMovedNotification(u);
 		setChanged();
@@ -121,19 +121,19 @@ public class Map extends Observable {
 	};		
 	
 	private void checkAround(Point p, int movmentLeft){
-//		System.out.println(p + " l:"+ movmentLeft + " c:" + field[p.x][p.y].getCost()  + " r:" +  ( field[p.x][p.y].getCost() - movmentLeft) +  "\t" + points );
+//		System.out.println(p + " l:"+ movmentLeft + " c:" + field[x][y].getCost()  + " r:" +  ( field[x][y].getCost() - movmentLeft) +  "\t" + points );
 
-		if (field[p.x][p.y].getCost() - movmentLeft >0 || field[p.x][p.y].getCurrentUnit() instanceof AIUnit) return;
-		if (!(field[p.x][p.y].getCurrentUnit() instanceof IModelUnit)){
+		if (field[x][y].getCost() - movmentLeft >0 || field[x][y].getCurrentUnit() instanceof AIUnit) return;
+		if (!(field[x][y].getCurrentUnit() instanceof IModelUnit)){
 			points.add(p);
 		}
 		
-		movmentLeft -=field[p.x][p.y].getCost(); 
+		movmentLeft -=field[x][y].getCost(); 
 		
 		for (final int[] is : dirs) { 
 			Point pp = new Point(p);
 			pp.translate(is[0], is[1]);
-			if (pp.x  >= 0 &&  pp.x < width && pp.y >= 0 &&  pp.y < height ){
+			if (px  >= 0 &&  px < width && py >= 0 &&  py < height ){
 				checkAround(pp, movmentLeft);
 			}
 		}

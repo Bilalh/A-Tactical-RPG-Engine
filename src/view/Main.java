@@ -13,6 +13,7 @@ public class Main {
 	private MainController mainController;
 	
 	public Main(){
+		System.setProperty("sun.java2d.opengl","True");
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {

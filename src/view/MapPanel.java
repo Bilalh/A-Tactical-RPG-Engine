@@ -55,9 +55,6 @@ public class MapPanel extends JPanel implements Runnable {
 	private Graphics dbg;
 	private Image dbImage = null;
 
-	// holds the background image
-	private BufferedImage bgImage = null;
-
 	private GuiMap map;
 
 	public MapPanel(MapController mapController, long period) {

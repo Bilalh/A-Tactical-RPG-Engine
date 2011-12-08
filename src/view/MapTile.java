@@ -18,7 +18,7 @@ import java.awt.image.*;
 public class MapTile {
     		
     static enum Orientation{
-    	NORMAL, UP_TO_NORTH, UP_TO_EAST, UP_TO_SOUTH, UP_TO_WEST, EMPTY
+    	NORMAL, UP_TO_NORTH, UP_TO_EAST, UP_TO_SOUTH, UP_TO_WEST, EMY
     }
     		
     static enum TileState{
@@ -98,8 +98,8 @@ public class MapTile {
     	final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
     	int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
     	return new Point(
-    			p.x, 
-    			p.y + vertical/2 - finalHeight );
+    			x, 
+    			y + vertical/2 - finalHeight );
     }
 
     public Point calculateCentrePoint(int x, int y){
@@ -127,8 +127,8 @@ public class MapTile {
             case UP_TO_WEST:
                 drawEastWest(x, y, g, drawLeftSide, drawRightSide);
                 break;
-            // Ignore Empty tiles
-            case EMPTY:
+            // Ignore Emy tiles
+            case EMY:
                 break;
             default:
                 //System.out.println("That orientation doesn't exist!");
@@ -244,6 +244,7 @@ public class MapTile {
        		y - h1 + vertical / 2}
        , 4));
 
+       
        g.setColor(oldColor);
    }
 

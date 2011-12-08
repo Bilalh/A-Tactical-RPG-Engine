@@ -21,7 +21,7 @@ public class Console implements IConsole {
 	private int head;
 	// Number of lines to show
 	private final int  numberOfLinesToShow;
-	// Height in pixels
+	// Height in xels
 	private final int height;
 	// To make sure only the last n lines are shown
 	private boolean around;
@@ -129,7 +129,7 @@ public class Console implements IConsole {
 		head = (head +numberOfLinesToShow ) % lines.length;
 	}
 	
-	// Return the height in pixel of the text area
+	// Return the height in xel of the text area
 	@Override
 	public int getHeight(){
 		

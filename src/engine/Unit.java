@@ -113,8 +113,8 @@ public class Unit implements IModelUnit {
 
 	@Override
 	public void setLocation(Point p){
-		gridX = p.x;
-		gridY = p.y;
+		gridX = x;
+		gridY = y;
 	}
 	
 

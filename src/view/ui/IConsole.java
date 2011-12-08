@@ -28,7 +28,7 @@ public interface IConsole {
 	// Scroll forwards by one page
 	void pageDown();
 
-	// Return the height in pixel of the text area
+	// Return the height in xel of the text area
 	int getHeight();
 
 }
