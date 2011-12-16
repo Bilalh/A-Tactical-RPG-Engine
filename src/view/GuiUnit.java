@@ -71,7 +71,7 @@ public class GuiUnit implements IUnit {
 		points.add(p);
 		
 		for (int[] is : dirs) { 
-			if (x  >= 0 &&  x < sizeX && y >= 0 &&  y < sizeY ){
+			if (p.x  >= 0 &&  p.x < sizeX && p.y >= 0 &&  p.y < sizeY ){
 				Point pp = new Point(p);
 				pp.translate(is[0], is[1]);
 				checkAround(pp, movmentLeft-1);

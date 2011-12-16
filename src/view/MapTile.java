@@ -98,8 +98,8 @@ public class MapTile {
     	final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
     	int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
     	return new Point(
-    			x, 
-    			y + vertical/2 - finalHeight );
+    			p.x, 
+    			p.y + vertical/2 - finalHeight );
     }
 
     public Point calculateCentrePoint(int x, int y){

@@ -19,7 +19,7 @@ import view.interfaces.IActions;
 import view.notifications.ChooseUnitsNotifications;
 import view.ui.Dialog;
 import view.util.ActionsAdapter;
-import view.util.Mousexy;
+import view.util.MousePoxy;
 
 import common.gui.SpriteManager;
 import common.interfaces.IMapNotification;
@@ -56,7 +56,7 @@ public class GuiMap implements Observer {
     // The Class that with handed the input 
     private ActionsAdapter current;
     
-    private Mousexy mousexy;
+    private MousePoxy MousePoxy;
     
     // bad idea allready in unit?
     private HashMap<UUID,AnimatedUnit> unitMapping;
@@ -78,7 +78,7 @@ public class GuiMap implements Observer {
 		this.fieldHeight = grid[0].length;
         field = new MapTile[fieldWidth][fieldHeight];
         current = getActionHandler(ActionsEnum.MOVEMENT);
-        mousexy = new Mousexy();
+        MousePoxy = new MousePoxy();
         setActionHandler(ActionsEnum.MOVEMENT);
 		
         //FIXME 
@@ -185,10 +185,10 @@ public class GuiMap implements Observer {
 			//FIXME indies
 			final IUnit u = allPlayerUnits.get(i);
 			Point p = new Point(2,i+5); 
-			newUnits[i] = new AnimatedUnit(x, y, new String[]{"assets/gui/Archer.png"},u );
+			newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
 			selectedPostions.put(u.getUuid(), p);
 			unitMapping.put(u.getUuid(), newUnits[i]);
-			tileMapping.put(field[x][y], newUnits[i]);
+			tileMapping.put(field[p.x][p.y], newUnits[i]);
 		}
 		mapController.setUsersUnits(selectedPostions);
 		this.units = newUnits;
@@ -285,7 +285,7 @@ public class GuiMap implements Observer {
 				if ( !getSelectedTile().isInRange() ) return;
 				mapController.moveUnit(selected.unit.getUuid(), getSelectedTile().getFieldLocation());
 				for (Point p : inRange) {
-					field[x][y].setInRange(false);
+					field[p.x][p.y].setInRange(false);
 				}
 				selected = null;
 				inRange = null;
@@ -308,7 +308,7 @@ public class GuiMap implements Observer {
 			if (unitS != selected){
 				if (inRange != null){
 					for (Point p : inRange) {
-						field[x][y].setInRange(false);
+						field[p.x][p.y].setInRange(false);
 					}	
 				}
 				inRange = null;
@@ -317,7 +317,7 @@ public class GuiMap implements Observer {
 			
 			inRange =  mapController.getMovementRange(unitS.unit.getUuid());
 			for (Point p : inRange) {
-				field[x][y].setInRange(true);
+				field[p.x][p.y].setInRange(true);
 			}
 		}
 		
@@ -326,7 +326,7 @@ public class GuiMap implements Observer {
 			selected = null;
 			if (inRange != null){
 				for (Point p : inRange) {
-					field[x][y].setInRange(false);
+					field[p.x][p.y].setInRange(false);
 				}
 				inRange = null;
 			}
@@ -471,11 +471,11 @@ public class GuiMap implements Observer {
 	}
 	
 	public MouseListener getMouseListener(){
-		return mousexy;
+		return MousePoxy;
 	}
 	
 	public MouseMotionListener getMouseMotionListener(){
-		return mousexy;
+		return MousePoxy;
 	}
 	
 	private ActionsAdapter getActionHandler(ActionsEnum num){
@@ -485,8 +485,8 @@ public class GuiMap implements Observer {
 	private void setActionHandler(ActionsEnum num){
 		final ActionsAdapter aa = actions[num.ordinal()];
 		current = aa;
-		mousexy.setMouseListener(aa);
-		mousexy.setMouseMotionListener(aa);
+		MousePoxy.setMouseListener(aa);
+		MousePoxy.setMouseMotionListener(aa);
 	}
 	
 }

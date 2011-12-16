@@ -7,7 +7,7 @@ import java.awt.event.MouseMotionListener;
 /**
  * @author Bilal Hussain
  */
-public class Mousexy implements MouseListener, MouseMotionListener {
+public class MousePoxy implements MouseListener, MouseMotionListener {
 
 	private MouseListener ml;
 	private MouseMotionListener mml;
