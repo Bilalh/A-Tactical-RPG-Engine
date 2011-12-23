@@ -139,11 +139,11 @@ public class MapTile {
    	Graphics2D g = (Graphics2D) _g;
    	
        determineColor();
-       int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
-       int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-       int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-       int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
-       int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
+       final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
+       final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+       final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+       final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
+       final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
 
        Color oldColor = g.getColor();
        g.setColor(myColor); 

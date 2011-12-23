@@ -106,7 +106,6 @@ public class GuiMap implements Observer {
         mapController.startMap();
 	}
 
-	
 	// draws the map to the screen 
 	public void draw(Graphics g, long timeDiff, int width, int height) {
 		int x = drawX;
@@ -114,12 +113,13 @@ public class GuiMap implements Observer {
 
 		//TODO rotates works!
 		
+		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+		
 		for (int i = fieldHeight - 1; i >= 0; i--) {
-//		for (int i = 0 ; i < fieldHeight; i++) {
+//		for (int i = 0 ; i < fieldHeight; i++) { //  for rotate
 			for (int j = 0; j < fieldWidth; j++) {
-//			for (int j = fieldWidth - 1; j >= 0; j--) {
-				int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-				int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+//			for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
 				
 				// Only draw the the tiles if they in the viewport 
 				if (x - horizontal        <= width 
@@ -162,8 +162,8 @@ public class GuiMap implements Observer {
 			}
 			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
 			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (fieldHeight - i));
-//			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (i+1));
-//			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1));
+//			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (i+1)); // for rotate
+//			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1)); // for rotate
 		}
 
 		if (showDialog) dialog.draw((Graphics2D) g, 5, height - dialog.getHeight() - 5);
