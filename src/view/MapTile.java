@@ -145,92 +145,109 @@ public class MapTile {
        final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
        final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
 
+       
+       Polygon p = new Polygon();
+       
        Color oldColor = g.getColor();
        g.setColor(myColor); 
        // Draw the top of the tile
+       
        top = new Polygon(new int[]{
-       		x, 
-       		x + horizontal / 2, 
-       		x, 
-       		x - horizontal / 2},
-               new int[]{
-       		y - h1, 
-       		y - h2 + vertical / 2, 
-       		y - h2 + vertical,
-       		y - h1 + vertical / 2}, 4);
+          		0, 
+          		horizontal / 2, 
+          		0, 
+          		0 - horizontal / 2},
+                  new int[]{
+          		0 - h1, 
+          		0 - h2 + vertical / 2, 
+          		0 - h2 + vertical,
+          		0 - h1 + vertical / 2}, 4); 
+       top.translate(x, y);
+       
+//       
+//       top = new Polygon(new int[]{
+//       		x, 
+//       		x + horizontal / 2, 
+//       		x, 
+//       		x - horizontal / 2},
+//               new int[]{
+//       		y - h1, 
+//       		y - h2 + vertical / 2, 
+//       		y - h2 + vertical,
+//       		y - h1 + vertical / 2}, 4);
 
        Paint old =  g.getPaint();
        if (!selected && !inRange ) g.setPaint(tGrass);
        g.fillPolygon(top);
        g.setPaint(old);
-       
-       if (drawRightSide){
-           g.setColor(RIGHT_COLOR); // Draw the right side
-           Polygon poly = new Polygon(new int[]{
-           		x, 
-           		x + horizontal / 2, 
-           		x + horizontal / 2, 
-           		x},
-                   new int[]{
-           		y - h2 + vertical, 
-           		y - h2 + vertical / 2,
-           		y + vertical / 2, 
-           		y + vertical}
-           , 4);
-           
-           old =  g.getPaint();
-           g.setPaint(tWall);
-           g.fillPolygon(poly);
-           g.setPaint(old);
-           
-           
-           g.setColor(Color.BLACK); // Outline 
-           g.drawPolygon(new Polygon(new int[]{
-           		x, 
-           		x + horizontal / 2, 
-           		x + horizontal / 2, 
-           		x},
-                   new int[]{
-           		y - h2 + vertical,
-           		y - h2 + vertical / 2, 
-           		y + vertical / 2, 
-           		y + vertical}
-           , 4));
-       }
-       
-       if (drawLeftSide){
-           g.setColor(LEFT_COLOR); // Draw the left side
-           Polygon poly = new Polygon(new int[]{
-           		x,
-           		x - horizontal / 2,
-           		x - horizontal / 2,
-           		x},
-                   new int[]{
-           		y - h2 + vertical,
-           		y - h1 + vertical / 2,
-           		y + vertical / 2,
-           		y + vertical}
-           , 4);
-           old =  g.getPaint();
-           g.setPaint(tWall);
-           g.fillPolygon(poly);
-           g.setPaint(old);
-           
-           g.setColor(Color.BLACK); // Outline 
-           g.drawPolygon(new Polygon(new int[]{
-                   x, 
-                   x - horizontal / 2, 
-                   x - horizontal / 2,
-                   x},
-                   new int[]{
-                   y - h2 + vertical, 
-                   y - h1 + vertical / 2,
-                   y + vertical / 2, 
-                   y + vertical}
-           , 4));
-           
-       }
-       
+//       
+//       if (drawRightSide){
+//           g.setColor(RIGHT_COLOR); // Draw the right side
+//           Polygon poly = new Polygon(new int[]{
+//           		x, 
+//           		x + horizontal / 2, 
+//           		x + horizontal / 2, 
+//           		x},
+//                   new int[]{
+//           		y - h2 + vertical, 
+//           		y - h2 + vertical / 2,
+//           		y + vertical / 2, 
+//           		y + vertical}
+//           , 4);
+//           
+//           old =  g.getPaint();
+//           g.setPaint(tWall);
+//           g.fillPolygon(poly);
+//           g.setPaint(old);
+//           
+//           
+//           g.setColor(Color.BLACK); // Outline 
+//           g.drawPolygon(new Polygon(new int[]{
+//           		x, 
+//           		x + horizontal / 2, 
+//           		x + horizontal / 2, 
+//           		x},
+//                   new int[]{
+//           		y - h2 + vertical,
+//           		y - h2 + vertical / 2, 
+//           		y + vertical / 2, 
+//           		y + vertical}
+//           , 4));
+//       }
+//       
+//       if (drawLeftSide){
+//           g.setColor(LEFT_COLOR); // Draw the left side
+//           Polygon poly = new Polygon(new int[]{
+//           		x,
+//           		x - horizontal / 2,
+//           		x - horizontal / 2,
+//           		x},
+//                   new int[]{
+//           		y - h2 + vertical,
+//           		y - h1 + vertical / 2,
+//           		y + vertical / 2,
+//           		y + vertical}
+//           , 4);
+//           old =  g.getPaint();
+//           g.setPaint(tWall);
+//           g.fillPolygon(poly);
+//           g.setPaint(old);
+//           
+//           g.setColor(Color.BLACK); // Outline 
+//           g.drawPolygon(new Polygon(new int[]{
+//                   x, 
+//                   x - horizontal / 2, 
+//                   x - horizontal / 2,
+//                   x},
+//                   new int[]{
+//                   y - h2 + vertical, 
+//                   y - h1 + vertical / 2,
+//                   y + vertical / 2, 
+//                   y + vertical}
+//           , 4));
+//           
+//       }
+//       
        g.setColor(Color.BLACK); // Outline the top of the tile
        g.drawPolygon(new Polygon(new int[]{
        		x, 

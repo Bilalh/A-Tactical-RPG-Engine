@@ -129,16 +129,16 @@ public class GuiMap implements Observer {
 					
 					
 					boolean drawLeft = true, drawRight = true;
-					
-					if (i > 0 && field[j][i-1].getHeight() >= field[j][i].getHeight()){
-//						System.out.printf("(%d,%d) not drawn left side not drawn\n", j,i);
-						drawLeft = false;
-					}
-
-					if (j+1 < fieldWidth && field[j+1][i].getStartHeight() >= field[j][i].getEndHeight()){
-//						System.out.printf("(%d,%d) not drawn right side not drawn\n", j,i);
-						drawRight = false;
-					}
+//					Casues flickering 
+//					if (i > 0 && field[j][i-1].getHeight() >= field[j][i].getHeight()){
+////						System.out.printf("(%d,%d) not drawn left side not drawn\n", j,i);
+//						drawLeft = false;
+//					}
+//
+//					if (j+1 < fieldWidth && field[j+1][i].getStartHeight() >= field[j][i].getEndHeight()){
+////						System.out.printf("(%d,%d) not drawn right side not drawn\n", j,i);
+//						drawRight = false;
+//					}
 					
 					
 					field[j][i].draw(x, y, g, drawLeft, drawRight);
@@ -149,10 +149,13 @@ public class GuiMap implements Observer {
 					}
 					
 
-					Color old = g.getColor();
-					g.setColor(Color.RED);
-					if (showNumbering) g.drawString(String.format("(%d,%d) %d", j,i,field[j][i].getCost() ), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
-					g.setColor(old);
+
+					if (showNumbering){
+						Color old = g.getColor();
+						g.setColor(Color.RED);
+						g.drawString(String.format("(%d,%d) %d", j,i,field[j][i].getCost() ), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
+						g.setColor(old);
+					}
 					
 				}
 

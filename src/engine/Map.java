@@ -75,8 +75,8 @@ public class Map extends Observable {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				int first = r.nextInt(3)+1;
-				field[i][j] = new Tile(first, first + r.nextInt(2));
-//				field[i][j] = new Tile(1,1);
+//				field[i][j] = new Tile(first, first + r.nextInt(2));
+				field[i][j] = new Tile(1,1);
 			}
 		}
 	}

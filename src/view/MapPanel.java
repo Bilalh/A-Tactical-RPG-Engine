@@ -246,9 +246,7 @@ public class MapPanel extends JPanel implements Runnable {
 		}
 		
 		dbg.setColor(Color.GRAY);
-		dbg.fillRect(0, 0, getWidth(), getHeight());
-		
-
+		dbg.fillRect(0, 0, getWidth(), getHeight());		
 		// draw game elements
 		map.draw(dbImage.getGraphics(), timeDiff, getWidth(), getHeight());
 
