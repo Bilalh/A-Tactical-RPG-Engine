@@ -50,8 +50,6 @@ public class MapTile {
     
 //    debuging
     private int cost;
-
-
     static BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass16.jpg").getImage();
     static Rectangle2D rGrass = new Rectangle2D.Double(0, 0,iGrass.getWidth(null),iGrass.getHeight(null));
     static TexturePaint tGrass = new TexturePaint(iGrass, rGrass);    
@@ -75,20 +73,28 @@ public class MapTile {
         this.selected = false;
         this.fieldLocation = new Point();
         this.myColor = TOP_COLOR;
+        
+        final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
+        final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+        final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+        final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
+        final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
+        
+        Polygon p = new Polygon();
+        Polygon basic = 
+        top = new Polygon(new int[]{
+           		0, 
+           		horizontal / 2, 
+           		0, 
+           		0 - horizontal / 2},
+                   new int[]{
+           		0 - h1, 
+           		0 - h2 + vertical / 2, 
+           		0 - h2 + vertical,
+           		0 - h1 + vertical / 2}, 4); 
+        
     }
     
-    /** @category Constructor */
-    public MapTile(MapTile tile) {
-        this.orientation = tile.orientation;
-        this.startHeight = tile.startHeight;
-        this.endHeight = tile.endHeight;
-        this.height = tile.height;
-        this.selected = tile.selected;
-        this.fieldLocation = tile.fieldLocation;
-        this.myColor = tile.myColor;
-        this.state   = TileState.NONE;
-    }
-
     public boolean wasClickedOn(Point click) {
         return top.contains(click);
     }
@@ -135,34 +141,27 @@ public class MapTile {
         }
     }
 
+   boolean filled = false;
+   boolean moved  = true; 
+   int xdiff =0, ydiff =0;
    public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide) {
    	Graphics2D g = (Graphics2D) _g;
    	
        determineColor();
-       final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
-       final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-       final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-       final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
-       final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
-
-       
-       Polygon p = new Polygon();
+//       final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
+//       final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+//       final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+//       final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
+//       final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
        
        Color oldColor = g.getColor();
        g.setColor(myColor); 
-       // Draw the top of the tile
-       
-       top = new Polygon(new int[]{
-          		0, 
-          		horizontal / 2, 
-          		0, 
-          		0 - horizontal / 2},
-                  new int[]{
-          		0 - h1, 
-          		0 - h2 + vertical / 2, 
-          		0 - h2 + vertical,
-          		0 - h1 + vertical / 2}, 4); 
-       top.translate(x, y);
+       if (!moved){
+    	   top.translate(x, y);
+    	   xdiff = x;
+    	   ydiff = y;
+    	   moved = true;
+       }
        
 //       
 //       top = new Polygon(new int[]{
@@ -176,10 +175,16 @@ public class MapTile {
 //       		y - h2 + vertical,
 //       		y - h1 + vertical / 2}, 4);
 
-       Paint old =  g.getPaint();
-       if (!selected && !inRange ) g.setPaint(tGrass);
-       g.fillPolygon(top);
-       g.setPaint(old);
+
+//       if (!filled){
+           Paint old =  g.getPaint();
+           if (!selected && !inRange ) g.setPaint(tGrass);
+           g.fillPolygon(top);
+           g.setPaint(old);
+//           filled = true;
+//       }
+       
+       
 //       
 //       if (drawRightSide){
 //           g.setColor(RIGHT_COLOR); // Draw the right side
@@ -248,21 +253,21 @@ public class MapTile {
 //           
 //       }
 //       
-       g.setColor(Color.BLACK); // Outline the top of the tile
-       g.drawPolygon(new Polygon(new int[]{
-       		x, 
-       		x + horizontal / 2, 
-       		x, 
-       		x - horizontal / 2},
-               new int[]{
-       		y - h1, 
-       		y - h2 + vertical / 2, 
-       		y - h2 + vertical, 
-       		y - h1 + vertical / 2}
-       , 4));
-
-       
-       g.setColor(oldColor);
+//       g.setColor(Color.BLACK); // Outline the top of the tile
+//       g.drawPolygon(new Polygon(new int[]{
+//       		x, 
+//       		x + horizontal / 2, 
+//       		x, 
+//       		x - horizontal / 2},
+//               new int[]{
+//       		y - h1, 
+//       		y - h2 + vertical / 2, 
+//       		y - h2 + vertical, 
+//       		y - h1 + vertical / 2}
+//       , 4));
+//
+//       
+//       g.setColor(oldColor);
    }
 
     
@@ -568,6 +573,14 @@ public class MapTile {
 	/** @category Generated */
 	public void setCost(int cost) {
 		this.cost = cost;
+	}
+
+	/** @category Generated Setter */
+	public void invaildate() {
+		System.out.println("invaildated");
+		top.translate(-xdiff, -ydiff);
+		xdiff = ydiff = 0;
+		moved = false;
 	}
 	
 }

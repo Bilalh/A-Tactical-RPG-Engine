@@ -140,7 +140,9 @@ public class GuiMap implements Observer {
 //						drawRight = false;
 //					}
 					
-					
+					if (tilesInvaild){
+						field[j][i].invaildate();
+					}
 					field[j][i].draw(x, y, g, drawLeft, drawRight);
 					
 					AnimatedUnit au = tileMapping.get(field[j][i]);
@@ -170,6 +172,7 @@ public class GuiMap implements Observer {
 		}
 
 		if (showDialog) dialog.draw((Graphics2D) g, 5, height - dialog.getHeight() - 5);
+		tilesInvaild = false;
 	}
 
 
@@ -453,10 +456,12 @@ public class GuiMap implements Observer {
 		return selectedTile;
 	}
     
+	boolean tilesInvaild = false; 
     /** Setter **/
     public void setDrawLocation(int x, int y) {
         drawX = x;
         drawY = y;
+        tilesInvaild  = true;
     }
 
 	/** @category Generated */
