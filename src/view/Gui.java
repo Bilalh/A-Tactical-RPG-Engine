@@ -26,6 +26,9 @@ public class Gui extends Observable {
 
 	private MainController mainController;
 	
+	public static int WIDTH = 675;
+	public static int HEIGHT = 450;
+	
 	private JFrame frame;
 	private MapPanel mapPanel;
 	
@@ -44,7 +47,7 @@ public class Gui extends Observable {
 	// Initialize the contents of the frame.
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 675, 450);
+		frame.setBounds(100, 100, WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		

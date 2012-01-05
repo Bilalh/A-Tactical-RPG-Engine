@@ -18,6 +18,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.sun.tools.example.debug.gui.GUI;
+
 import view.interfaces.IActions;
 
 import controller.MapController;
@@ -78,7 +80,7 @@ public class MapPanel extends JPanel implements Runnable {
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
-				dbImage = null;
+//				dbImage = null;
 				//				System.out.println("resized");
 			}
 
@@ -139,8 +141,7 @@ public class MapPanel extends JPanel implements Runnable {
 				}
 
 			}
-		});
-
+		});		
 	}
 
 	/* The frames of the animation are drawn inside the while loop. */
@@ -154,6 +155,9 @@ public class MapPanel extends JPanel implements Runnable {
 		gameStartTime = System.nanoTime();
 		beforeTime = gameStartTime;
 
+		dbImage = createImage(Gui.WIDTH, Gui.HEIGHT);
+//		 plus the side on the bottom
+		map.setImg(createImage(MapSettings.tileDiagonal*20+5, MapSettings.tileDiagonal/2*20 +23));
 		running = true;
 
 		while (running) {
@@ -237,13 +241,13 @@ public class MapPanel extends JPanel implements Runnable {
 
 
 	private void gameRender(long timeDiff) {
-		dbImage = createImage(getWidth(), getHeight());
+//		dbImage = createImage(getWidth(), getHeight());
 		if (dbImage == null) {
 			System.out.println("dbImage is null");
 			System.exit(1);
-		} else{
-			dbg = dbImage.getGraphics();
 		}
+		dbg = dbImage.getGraphics();
+		
 		
 		dbg.setColor(Color.GRAY);
 		dbg.fillRect(0, 0, getWidth(), getHeight());		

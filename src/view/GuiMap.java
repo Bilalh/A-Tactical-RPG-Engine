@@ -3,10 +3,7 @@
  */
 package view;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -64,10 +61,12 @@ public class GuiMap implements Observer {
     
     
     final private ActionsAdapter[] actions = {new Movement(), new DialogHandler()};
-	private boolean showNumbering = false;
+	private boolean showNumbering = true;
     enum ActionsEnum {
     	MOVEMENT, DIALOG,
     }
+    
+    private Image img;
     
 	/** @category Constructor */
 	public GuiMap(MapController mapController) {
@@ -106,72 +105,91 @@ public class GuiMap implements Observer {
         mapController.startMap();
 	}
 
-	// draws the map to the screen 
-	public void draw(Graphics g, long timeDiff, int width, int height) {
-		int x = drawX;
-		int y = drawY;
-
+	private boolean drawn = false;
+	// draws the map to the screen
+	
+	int imgWidth = MapSettings.tileDiagonal*20+5,  imgHeight = MapSettings.tileDiagonal/2*20 +23;
+	
+	public void draw(Graphics _g, long timeDiff, int width, int height) {
+		
+		Graphics g = img.getGraphics();
 		//TODO rotates works!
 		
-		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+		int startX = imgWidth/2;
+		int startY = 21;
 		
-		for (int i = fieldHeight - 1; i >= 0; i--) {
-//		for (int i = 0 ; i < fieldHeight; i++) { //  for rotate
-			for (int j = 0; j < fieldWidth; j++) {
-//			for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
-				
-				// Only draw the the tiles if they in the viewport 
-				if (x - horizontal        <= width 
-						&& y - vertical   <= height 
-						&& x + horizontal >= 0 
-						&& y + vertical   >= 0 ){
-					
-					
-					boolean drawLeft = true, drawRight = true;
-//					Casues flickering 
-//					if (i > 0 && field[j][i-1].getHeight() >= field[j][i].getHeight()){
-////						System.out.printf("(%d,%d) not drawn left side not drawn\n", j,i);
-//						drawLeft = false;
-//					}
-//
-//					if (j+1 < fieldWidth && field[j+1][i].getStartHeight() >= field[j][i].getEndHeight()){
-////						System.out.printf("(%d,%d) not drawn right side not drawn\n", j,i);
-//						drawRight = false;
-//					}
-					
-					if (tilesInvaild){
-						field[j][i].invaildate();
-					}
-					field[j][i].draw(x, y, g, drawLeft, drawRight);
-					
-					AnimatedUnit au = tileMapping.get(field[j][i]);
-					if (au != null){
-						au.draw(g,field,  x, y, timeDiff);
-					}
-					
+		if (!drawn) {
+			int x = startX;
+			int y = startY;
+			final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+			final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+			for (int i = fieldHeight - 1; i >= 0; i--) {
+				//		for (int i = 0 ; i < fieldHeight; i++) { //  for rotate
+				for (int j = 0; j < fieldWidth; j++) {
+					//			for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
 
+					// Only draw the the tiles if they in the viewport 
+//					if (x - horizontal <= width
+//							&& y - vertical <= height
+//							&& x + horizontal >= 0
+//							&& y + vertical >= 0) {
 
-					if (showNumbering){
-						Color old = g.getColor();
-						g.setColor(Color.RED);
-						g.drawString(String.format("(%d,%d) %d", j,i,field[j][i].getCost() ), (int) (x-(MapSettings.tileDiagonal * MapSettings.zoom)/2 +20), y +10);
-						g.setColor(old);
-					}
-					
+						boolean drawLeft = true, drawRight = true;
+						//					Casues flickering 
+						//					if (i > 0 && field[j][i-1].getHeight() >= field[j][i].getHeight()){
+						////						System.out.printf("(%d,%d) not drawn left side not drawn\n", j,i);
+						//						drawLeft = false;
+						//					}
+						//
+						//					if (j+1 < fieldWidth && field[j+1][i].getStartHeight() >= field[j][i].getEndHeight()){
+						////						System.out.printf("(%d,%d) not drawn right side not drawn\n", j,i);
+						//						drawRight = false;
+						//					}
+
+						//					if (tilesInvaild){
+						//						field[j][i].invaildate();
+						//					}
+						field[j][i].draw(x, y, g, drawLeft, drawRight);
+
+						AnimatedUnit au = tileMapping.get(field[j][i]);
+						if (au != null) {
+							au.draw(g, field, x, y, timeDiff);
+						}
+
+						if (showNumbering) {
+							Color old = g.getColor();
+							g.setColor(Color.RED);
+							g.drawString(
+									String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
+									(int) (x - (MapSettings.tileDiagonal * MapSettings.zoom) / 2 + 20),
+									y + 10);
+							g.setColor(old);
+						}
+
+//					}
+
+					x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
+					y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
 				}
-
-								
-				x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
-				y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
+				x = startX- (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
+				y = startY+ (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch
+								* MapSettings.zoom * (fieldHeight - i));
+				//			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (i+1)); // for rotate
+				//			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1)); // for rotate
 			}
-			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
-			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (fieldHeight - i));
-//			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (i+1)); // for rotate
-//			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1)); // for rotate
+			drawn = true;
 		}
-
-		if (showDialog) dialog.draw((Graphics2D) g, 5, height - dialog.getHeight() - 5);
+		
+		_g.drawImage(img, drawX,drawY, null);
+//		_g.drawImage(img, drawX, drawY, width, height,null);
+//		_g.drawImage(img,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
+		
+//		Shape oldClip = g.getClip ();
+//		g.setClip (dr, y, width, height);
+//		g.drawImage (img, sx, sy, x - sx, y - sy, null );
+//		g.setClip (oldClip);
+//		
+		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 		tilesInvaild = false;
 	}
 
@@ -495,6 +513,11 @@ public class GuiMap implements Observer {
 		current = aa;
 		MousePoxy.setMouseListener(aa);
 		MousePoxy.setMouseMotionListener(aa);
+	}
+
+	/** @category Generated Setter */
+	public void setImg(Image img) {
+		this.img = img;
 	}
 	
 }
