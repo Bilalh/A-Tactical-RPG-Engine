@@ -119,6 +119,7 @@ public class GuiMap implements Observer {
 		int startY = 21;
 		
 		if (!drawn) {
+			g.fillRect(0, 0, imgWidth, imgHeight);
 			int x = startX;
 			int y = startY;
 			final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -180,15 +181,8 @@ public class GuiMap implements Observer {
 			drawn = true;
 		}
 		
-		_g.drawImage(img, drawX,drawY, null);
-//		_g.drawImage(img, drawX, drawY, width, height,null);
-//		_g.drawImage(img,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
+		_g.drawImage(img,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
 		
-//		Shape oldClip = g.getClip ();
-//		g.setClip (dr, y, width, height);
-//		g.drawImage (img, sx, sy, x - sx, y - sy, null );
-//		g.setClip (oldClip);
-//		
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 		tilesInvaild = false;
 	}
