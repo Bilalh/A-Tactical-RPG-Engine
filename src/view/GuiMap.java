@@ -183,6 +183,19 @@ public class GuiMap implements Observer {
 		}
 
 
+//		setSelectedTile(5, 5);
+		Point drawLocation = getDrawLocation(startX, startY, 5, 5);
+//		field[5][5].draw(drawLocation.x, drawLocation.y, g, true,true);
+		
+		_g.drawImage(img,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
+		Color oldColor = _g.getColor();
+		_g.setColor(MapTile.TileState.SELECTED.colour);
+		Polygon p = field[5][5].getpoly();
+		p.translate(drawX, drawY);
+//		System.out.println(Arrays.toString(p.xpoints));
+//		System.out.println(Arrays.toString(p.ypoints));
+		_g.fillPolygon(p);
+		_g.setColor(oldColor);
 		
 //		for (AnimatedUnit au : units) {
 //			Point drawLocation = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
@@ -194,7 +207,7 @@ public class GuiMap implements Observer {
 		
 //		System.out.printf("(%s,%s,%s,%s) (%s.%s,%s,%s)\n", 
 //				0, 0, width, height, drawX, drawY, drawX+width, drawY+height);
-		_g.drawImage(img,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
+//		_g.drawImage(img,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
 
 //		Point p = getDrawLocation(startX, startY, 2, 5);
 //		System.out.printf("(%s,%s,%s,%s) (%s.%s,%s,%s)\n\n", 
@@ -495,11 +508,15 @@ public class GuiMap implements Observer {
         if (x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight ) {
         	throw new IllegalArgumentException("Bad index " +x +  "," +y);
         }
+        
         if (selectedTile != null) {
             selectedTile.setSelected(false);
         }
+        
         selectedTile = field[x][y];
         selectedTile.setSelected(true);
+        
+        System.out.printf("(%d,%d) selected\n", y, y);
         
     }
 

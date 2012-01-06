@@ -23,7 +23,7 @@ public class MapTile {
     		
     static enum TileState{
     	SELECTED(Color.GREEN) , MOVEMENT_RANGE(Color.BLUE), NONE(Color.DARK_GRAY);
-    	private final Color colour;
+    	public final Color colour;
     	
     	TileState(Color c){
     		this.colour = c;
@@ -34,7 +34,6 @@ public class MapTile {
     private static final Color TOP_COLOR = Color.DARK_GRAY;
     private static final Color RIGHT_COLOR = Color.CYAN;
     private static final Color LEFT_COLOR = Color.RED;
-    private static final Color SELECTED_COLOR = Color.BLUE;
     
     // Tile Variables
     private Orientation orientation;
@@ -141,6 +140,24 @@ public class MapTile {
         }
     }
 
+   Polygon getpoly(){
+       final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
+       final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+       final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+       final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
+       final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
+	   return new Polygon(new int[]{
+	       		0, 
+	       		0 + horizontal / 2, 
+	       		0, 
+	       		0 - horizontal / 2},
+	               new int[]{
+	       		0 - h1, 
+	       		0 - h2 + vertical / 2, 
+	       		0 - h2 + vertical,
+	       		0 - h1 + vertical / 2}, 4);
+   }
+    
    boolean filled = false;
    boolean moved  = true; 
    int xdiff =0, ydiff =0;
@@ -156,12 +173,12 @@ public class MapTile {
        
        Color oldColor = g.getColor();
        g.setColor(myColor); 
-       if (!moved){
-    	   top.translate(x, y);
-    	   xdiff = x;
-    	   ydiff = y;
-    	   moved = true;
-       }
+//       if (!moved){
+//    	   top.translate(x, y);
+//    	   xdiff = x;
+//    	   ydiff = y;
+//    	   moved = true;
+//       }
        
        
        top = new Polygon(new int[]{
