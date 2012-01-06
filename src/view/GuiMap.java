@@ -181,13 +181,12 @@ public class GuiMap implements Observer {
 		}
 		
 		for (AnimatedUnit au : units) {
-			int x = startX- (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - au.gridY-1));
-			int y = startY+ (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch* MapSettings.zoom * (fieldHeight - au.gridY-1));
-			
-			x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * au.gridX;
-			y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom)* au.gridX;	
-			
-			au.draw(g, field, x, y, timeDiff);
+			Point drawLocation = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
+			au.draw(g, field, drawLocation.x, drawLocation.y, timeDiff);
+		}
+		for (AnimatedUnit au : aiUnits) {
+			Point drawLocation = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
+			au.draw(g, field, drawLocation.x, drawLocation.y, timeDiff);
 		}
 		
 		
@@ -197,7 +196,15 @@ public class GuiMap implements Observer {
 		tilesInvaild = false;
 	}
 
-
+	Point getDrawLocation(int startX, int startY, int gridX, int gridY){
+		int x = startX- (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - gridY-1));
+		int y = startY+ (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch* MapSettings.zoom * (fieldHeight - gridY-1));
+		x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * gridX;
+		y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom)* gridX;
+		return new Point(x,y);
+	}
+	
+	
 	@Override
 	public void update(Observable map, Object notification) {
 		Gui.console().println(notification);
