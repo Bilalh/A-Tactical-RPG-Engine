@@ -152,10 +152,10 @@ public class GuiMap implements Observer {
 						//					}
 						field[j][i].draw(x, y, g, drawLeft, drawRight);
 
-						AnimatedUnit au = tileMapping.get(field[j][i]);
-						if (au != null) {
-							au.draw(g, field, x, y, timeDiff);
-						}
+//						AnimatedUnit au = tileMapping.get(field[j][i]);
+//						if (au != null) {
+//							au.draw(g, field, x, y, timeDiff);
+//						}
 
 						if (showNumbering) {
 							Color old = g.getColor();
@@ -173,13 +173,23 @@ public class GuiMap implements Observer {
 					y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
 				}
 				x = startX- (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
-				y = startY+ (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch
-								* MapSettings.zoom * (fieldHeight - i));
+				y = startY+ (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch* MapSettings.zoom * (fieldHeight - i));
 				//			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (i+1)); // for rotate
 				//			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1)); // for rotate
 			}
 			drawn = true;
 		}
+		
+		for (AnimatedUnit au : units) {
+			int x = startX- (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - au.gridY-1));
+			int y = startY+ (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch* MapSettings.zoom * (fieldHeight - au.gridY-1));
+			
+			x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * au.gridX;
+			y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom)* au.gridX;	
+			
+			au.draw(g, field, x, y, timeDiff);
+		}
+		
 		
 		_g.drawImage(img,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
 		
