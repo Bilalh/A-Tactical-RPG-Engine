@@ -3,6 +3,8 @@
  */
 package view;
 
+import static view.MapTile.Orientation.UP_TO_EAST;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -152,10 +154,10 @@ public class GuiMap implements Observer {
 						//					}
 						field[j][i].draw(x, y, g, drawLeft, drawRight);
 
-//						AnimatedUnit au = tileMapping.get(field[j][i]);
-//						if (au != null) {
-//							au.draw(g, field, x, y, timeDiff);
-//						}
+						AnimatedUnit au = tileMapping.get(field[j][i]);
+						if (au != null) {
+							au.draw(g, field, x, y, timeDiff);
+						}
 
 						if (showNumbering) {
 							Color old = g.getColor();
@@ -179,28 +181,44 @@ public class GuiMap implements Observer {
 			}
 			drawn = true;
 		}
+
+
 		
-		for (AnimatedUnit au : units) {
-			Point drawLocation = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
-			au.draw(g, field, drawLocation.x, drawLocation.y, timeDiff);
-		}
-		for (AnimatedUnit au : aiUnits) {
-			Point drawLocation = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
-			au.draw(g, field, drawLocation.x, drawLocation.y, timeDiff);
-		}
+//		for (AnimatedUnit au : units) {
+//			Point drawLocation = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
+//			au.draw(g, field, drawLocation.x, drawLocation.y, timeDiff);
+//		}
+
+//		Point drawLocation = getDrawLocation(startX, startY, 3, 5);
+//		field[3][5].draw(drawLocation.x, drawLocation.y, g, true,true);
 		
-		
+//		System.out.printf("(%s,%s,%s,%s) (%s.%s,%s,%s)\n", 
+//				0, 0, width, height, drawX, drawY, drawX+width, drawY+height);
 		_g.drawImage(img,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
+
+//		Point p = getDrawLocation(startX, startY, 2, 5);
+//		System.out.printf("(%s,%s,%s,%s) (%s.%s,%s,%s)\n\n", 
+//				p.x, p.y, MapSettings.tileDiagonal, MapSettings.tileDiagonal/2, 
+//				drawX+p.x, drawY+p.y, drawX+MapSettings.tileDiagonal, drawY+MapSettings.tileDiagonal/2);
+//		_g.drawImage(img,p.x, p.y, MapSettings.tileDiagonal, MapSettings.tileDiagonal/2, 
+//				drawX+p.x, drawY+p.y, drawX+MapSettings.tileDiagonal, drawY+MapSettings.tileDiagonal/2, null);
+	
+//		System.out.printf("(%s,%s,%s,%s) (%s.%s,%s,%s)\n\n", 
+//				380, 230, MapSettings.tileDiagonal, MapSettings.tileDiagonal/2, 
+//				p.x, p.y, p.x+MapSettings.tileDiagonal, p.y+MapSettings.tileDiagonal/2);
+//		_g.drawImage(img,380, 230-15, 380+MapSettings.tileDiagonal, 230+MapSettings.tileDiagonal/2, 
+//				p.x, p.y-15, p.x+MapSettings.tileDiagonal, p.y+MapSettings.tileDiagonal/2, null);
+		
 		
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 		tilesInvaild = false;
 	}
 
 	Point getDrawLocation(int startX, int startY, int gridX, int gridY){
-		int x = startX- (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - gridY-1));
-		int y = startY+ (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch* MapSettings.zoom * (fieldHeight - gridY-1));
-		x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom) * gridX;
-		y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom)* gridX;
+		int x = startX- (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - gridY-1f));
+		int y = startY+ (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch* MapSettings.zoom * (fieldHeight - gridY-1));
+		x += (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom) * gridX;
+		y += (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom)* gridX;
 		return new Point(x,y);
 	}
 	
@@ -245,6 +263,7 @@ public class GuiMap implements Observer {
 		au.setGridX(u.getGridX());
 		au.setGridY(u.getGridY());
 		tileMapping.put(field[au.gridX][au.gridY],au);
+		drawn = false;
 	}
 	
 	public void playersTurn(){
@@ -438,6 +457,10 @@ public class GuiMap implements Observer {
 				if ( MapSettings.pitch >0.8) MapSettings.pitch = 0.8f;
 				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
 				System.out.println(MapSettings.pitch);
+				break;
+			case KeyEvent.VK_U:
+				Point newP = new Point(units[0].getGridX()+1, units[0].getGridY());
+				mapController.moveUnit(units[0].getUuid(), newP);
 				break;
 		}
 		

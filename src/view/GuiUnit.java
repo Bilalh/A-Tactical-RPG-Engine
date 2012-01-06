@@ -110,4 +110,8 @@ public class GuiUnit implements IUnit {
 		return unit.getUuid();
 	}
 	
+	public Point getPostion(){
+		return new Point(gridX,gridY);
+	}
+	
 }

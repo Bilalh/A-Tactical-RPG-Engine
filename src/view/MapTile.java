@@ -44,7 +44,7 @@ public class MapTile {
     private boolean selected;
     private boolean inRange;
     private Color myColor;
-    private Polygon top;
+    Polygon top;
     private Point fieldLocation;
 	private TileState state;
     
