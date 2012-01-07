@@ -117,7 +117,6 @@ public class GuiMap implements Observer {
         dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
         
         selectedTile = field[0][0];
-        selectedTile.setSelected(true);
         
         mapController.addMapObserver(this);
         mapController.startMap();
@@ -137,6 +136,7 @@ public class GuiMap implements Observer {
 		
 		if (!drawn) {
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
+			selectedTile.setSelected(false);
 			int x = startX;
 			int y = startY;
 			final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -182,6 +182,7 @@ public class GuiMap implements Observer {
 //			Point p = getDrawLocation(startX, startY, selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y);
 //			selectedTile.draw(p.x, p.y, g, false,false);
 			drawn = true;
+			selectedTile.setSelected(true);
 		}
 
 //		drawOnScreen();
@@ -212,7 +213,7 @@ public class GuiMap implements Observer {
 		
 
 		_g.drawImage(mapBuffer,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
-		setSelectedTile(20, 20);
+//		setSelectedTile(3, 1);
 		
 		float ratioX, ratioY;
 		ratioX = (float) drawX/(float)bufferWidth;
@@ -221,11 +222,19 @@ public class GuiMap implements Observer {
 		int px = startX- (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - selectedTile.getFieldLocation().y-1f));
 		int py = startY+ (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch* MapSettings.zoom * (fieldHeight - selectedTile.getFieldLocation().y-1));
 		px += (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom) * selectedTile.getFieldLocation().x;
-		py += (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom)* selectedTile.getFieldLocation().y;
+		py += (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom)* selectedTile.getFieldLocation().x;
 		
 		py -= drawY;
 		px -= drawX;
+		
+//		System.out.printf("grid (%d,%d)\n", fieldWidth, fieldHeight);
+//		System.out.printf("buff (%d,%d)\n", bufferWidth, bufferHeight);
+//		System.out.printf("start(%d,%d)\n", startX, startY);
+//		System.out.printf("draw (%d,%d)\n", drawX, drawY);
+//		System.out.printf("p    (%d,%d)\n", px, py);
+//		System.out.println();
 		selectedTile.draw(px, py, _g, false,false);
+//		_g.drawImage(mapBuffer,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
 
 		
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
