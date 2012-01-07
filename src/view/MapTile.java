@@ -201,9 +201,6 @@ public class MapTile {
        
    }
    
-   boolean filled = false;
-   boolean moved  = true; 
-   int xdiff =0, ydiff =0;
    public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide) {
    	Graphics2D g = (Graphics2D) _g;
    	
@@ -216,14 +213,7 @@ public class MapTile {
        
        Color oldColor = g.getColor();
        g.setColor(myColor); 
-//       if (!moved){
-//    	   top.translate(x, y);
-//    	   xdiff = x;
-//    	   ydiff = y;
-//    	   moved = true;
-//       }
-       
-       
+
        top = new Polygon(new int[]{
        		x, 
        		x + horizontal / 2, 
@@ -236,15 +226,10 @@ public class MapTile {
        		y - h1 + vertical / 2}, 4);
 
 
-////       if (!filled){
            Paint old =  g.getPaint();
            if (!selected && !inRange ) g.setPaint(tGrass);
            g.fillPolygon(top);
            g.setPaint(old);
-//           filled = true;
-////       }
-       
-       
        
        if (drawRightSide){
            g.setColor(RIGHT_COLOR); // Draw the right side
@@ -634,10 +619,4 @@ public class MapTile {
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
-
-	/** @category Generated Setter */
-	public void setMoved(boolean moved) {
-		this.moved = moved;
-	}
-	
 }

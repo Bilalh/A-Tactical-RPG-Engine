@@ -19,6 +19,7 @@ public class GuiUnit implements IUnit {
 	protected Sprite sprite;
 	protected IUnit unit;
 	
+	
 	public GuiUnit(int gridX,int gridY,String ref, IUnit unit) {
 		this.sprite = SpriteManager.instance().getSprite(ref);
 		this.gridX = gridX;
@@ -33,6 +34,12 @@ public class GuiUnit implements IUnit {
 		sprite.draw(g,xPos,yPos);
 	}
 
+	public Point topLeftPoint(MapTile[][] tiles, int x, int y){
+		final Point result =  tiles[gridX][gridY].calculateCentrePoint(x,y);
+		result.translate(-sprite.getWidth()/2, (int) (-sprite.getHeight()/1.5));
+		return result;
+	}
+	
 	/** @category Generated */
 	@Override
 	public int getGridX() {
@@ -53,31 +60,6 @@ public class GuiUnit implements IUnit {
 	/** @category Generated */
 	public void setGridY(int gridY) {
 		this.gridY = gridY;
-	}
-	
-	int movement = 2;
-	int sizeX = 10, sizeY = 10;
-
-	final int[][] dirs = {
-			{0,1},  // up 
-			{0,-1},  // down
-			{-1,0}, // left
-			{1,0},   // right
-	};		
-
-	HashSet<Point> points  = new HashSet<Point>();
-	private void checkAround(Point p, int movmentLeft){
-		if ( movmentLeft < 1 ) return; 
-		points.add(p);
-		
-		for (int[] is : dirs) { 
-			if (p.x  >= 0 &&  p.x < sizeX && p.y >= 0 &&  p.y < sizeY ){
-				Point pp = new Point(p);
-				pp.translate(is[0], is[1]);
-				checkAround(pp, movmentLeft-1);
-			}
-		}
-		
 	}
 
 	@Override
@@ -112,6 +94,16 @@ public class GuiUnit implements IUnit {
 	
 	public Point getPostion(){
 		return new Point(gridX,gridY);
+	}
+
+	/** @category Generated Getter */
+	public int getWidth() {
+		return sprite.getWidth();
+	}
+
+	/** @category Generated Getter */
+	public int getHeight() {
+		return sprite.getHeight();
 	}
 	
 }

@@ -136,8 +136,8 @@ public class GuiMap implements Observer {
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		
 		Graphics g = mapBuffer.getGraphics();
-		//TODO rotates works!
 		
+		//TODO rotates workss!
 		if (!drawn) {
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			selectedTile.setSelected(false);
@@ -151,19 +151,19 @@ public class GuiMap implements Observer {
 	//			for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
 
 						field[j][i].draw(x, y, g, true,true);
-//
+
 //						AnimatedUnit au = tileMapping.get(field[j][i]);
 //						if (au != null) {
 //							au.draw(g, field, x, y, timeDiff);
 //						}
 
 //						if (showNumbering) {
-							Color old = g.getColor();
-							g.setColor(Color.RED);
-							g.drawString(String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
-									(int) (x - (MapSettings.tileDiagonal * MapSettings.zoom) / 2 + 20),
-									y + 10);
-							g.setColor(old);
+//							Color old = g.getColor();
+//							g.setColor(Color.RED);
+//							g.drawString(String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
+//									(int) (x - (MapSettings.tileDiagonal * MapSettings.zoom) / 2 + 20),
+//									y + 10);
+//							g.setColor(old);
 //						}
 
 					x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
@@ -178,23 +178,11 @@ public class GuiMap implements Observer {
 			selectedTile.setSelected(true);
 		}
 		
-//		for (AnimatedUnit au : units) {
-//			Point p = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
-//			au.draw(g, field, p.x, p.y, timeDiff);
-//		}
-		
 		_g.drawImage(mapBuffer,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
 		drawSelectTile(_g);
+		drawUnits(_g,timeDiff);
 		
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
-	}
-	
-	private BufferedImage subtractImage(BufferedImage img1, BufferedImage img2) {
-
-		BufferedImage imageOut;
-		RenderedOp op = SubtractDescriptor.create(img1, img2, null);
-		imageOut = op.getAsBufferedImage();
-		return imageOut;
 	}
 	
 	void drawViewable(Graphics g){
@@ -228,6 +216,71 @@ public class GuiMap implements Observer {
 		p.translate(-drawX, -drawY);
 	}
 	
+	void drawUnits(Graphics g, long timeDiff){
+		Graphics2D g2 = (Graphics2D) g;
+		for (AnimatedUnit au : units) {
+			Point l = au.getPostion();
+			Point p = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
+			mapToWorld(p);
+//			au.draw(g, field, p.x, p.y, timeDiff);
+			Rectangle r = new Rectangle(au.topLeftPoint(field, p.x, p.y));
+			r.width = au.getWidth();
+			r.height = au.getHeight();
+		    Area resultingArea = new Area(r);
+
+//		    Paint old = g2.getPaint();
+//		    g2.setPaint(Color.orange);
+//		    g2.draw(resultingArea);
+			au.draw(g2, field, p.x, p.y, timeDiff);
+		    
+		    MapTile m;
+		    if (l.x+1 < fieldWidth && (m =  field[l.x+1][l.y]).getHeight() > selectedTile.getHeight() ){
+		    	makePolygons(m);
+			    Area a= new Area(m.top);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tGrass);
+			    g2.fill(a);
+			    
+			    a= new Area(m.left);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tWall);
+			    g2.fill(a);
+		    }
+
+		    if (l.y -1 > 0 && (m =  field[l.x][l.y-1]).getHeight() > selectedTile.getHeight() ){	    	
+		    	makePolygons(m);
+			    Area a= new Area(m.top);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tGrass);
+			    g2.fill(a);
+			    
+			    a= new Area(m.left);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tWall);
+			    g2.fill(a);
+		    }
+		    
+		    if (l.x +1 < fieldWidth && l.y - 1 > 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > selectedTile.getHeight()){	    	
+		    	makePolygons(m);
+			    Area a= new Area(m.top);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tGrass);
+			    g2.fill(a);
+			    
+			    a= new Area(m.left);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tWall);
+			    g2.fill(a);
+			    
+			    a= new Area(m.right);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tWall);
+			    g2.fill(a);
+		    }
+		    
+		}		
+	}
+
 	private  void drawSelectTile(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -258,7 +311,7 @@ public class GuiMap implements Observer {
 	    
 	    Paint old = g2.getPaint();
 	    g2.setPaint(Color.orange);
-	    g2.fill(resultingArea);
+	    g2.draw(resultingArea);
 		g2.setPaint(old);
 	    
 	}
@@ -319,7 +372,7 @@ public class GuiMap implements Observer {
 		au.setGridX(u.getGridX());
 		au.setGridY(u.getGridY());
 		tileMapping.put(field[au.gridX][au.gridY],au);
-		drawn = false;
+//		drawn = false;
 	}
 	
 	public void playersTurn(){
