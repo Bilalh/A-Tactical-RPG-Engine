@@ -151,12 +151,6 @@ public class GuiMap implements Observer {
 	//			for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
 
 						field[j][i].draw(x, y, g, true,true);
-
-//						AnimatedUnit au = tileMapping.get(field[j][i]);
-//						if (au != null) {
-//							au.draw(g, field, x, y, timeDiff);
-//						}
-
 //						if (showNumbering) {
 //							Color old = g.getColor();
 //							g.setColor(Color.RED);
@@ -179,7 +173,14 @@ public class GuiMap implements Observer {
 		}
 		
 		_g.drawImage(mapBuffer,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
-		overlayTile(_g,selectedTile);
+		
+		if (inRange != null){
+			for (Point p :inRange) {
+				overlayTile(_g, field[p.x][p.y],Color.BLUE,0);
+			}	
+		}
+		
+		overlayTile(_g,selectedTile,Color.ORANGE, 2);
 		drawUnits(_g,timeDiff);
 		
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
@@ -281,7 +282,7 @@ public class GuiMap implements Observer {
 		}		
 	}
 
-	private  void overlayTile(Graphics g, MapTile t){
+	private  void overlayTile(Graphics g, MapTile t, Paint paint, int limit){
 		Graphics2D g2 = (Graphics2D) g;
 		
 		Point l  = t.getFieldLocation();
@@ -302,7 +303,7 @@ public class GuiMap implements Observer {
 	    }
 	    
 	    if (l.x +1 < fieldWidth && l.y - 1 > 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > t.getHeight() 
-	    		&& m.getHeight() - t.getHeight()  <=2 ){	    	
+	    		&& m.getHeight() - t.getHeight()  <=limit ){	    	
 		    makePolygons(m);
 		    resultingArea.subtract(new Area(m.top));
 		    resultingArea.subtract(new Area(m.right));
@@ -310,7 +311,7 @@ public class GuiMap implements Observer {
 	    
 	    
 	    Paint old = g2.getPaint();
-	    g2.setPaint(Color.orange);
+	    g2.setPaint(paint);
 	    g2.draw(resultingArea);
 		g2.setPaint(old);
 	    
@@ -408,6 +409,9 @@ public class GuiMap implements Observer {
 		
 	}
 
+	
+	
+	Collection<Point> inRange = null;
 	private class Movement extends ActionsAdapter{
 		
 	    private Point mouseStart, mouseEnd;
@@ -440,9 +444,6 @@ public class GuiMap implements Observer {
 		}
 		
 		AnimatedUnit selected = null;
-		Collection<Point> inRange = null;
-
-
 		private void selectMoveUnit() {
 			if (selected != null){
 				System.out.println("selected " + selected);
