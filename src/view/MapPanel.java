@@ -29,7 +29,6 @@ import engine.Map;
 
 public class MapPanel extends JPanel implements Runnable {
 
-	//
 	private static final int NO_DELAYS_PER_YIELD = 16;
 
 	// no. of frames that can be skipped in any one animation loop
@@ -81,7 +80,7 @@ public class MapPanel extends JPanel implements Runnable {
 			@Override
 			public void componentResized(ComponentEvent e) {
 //				dbImage = null;
-				//				System.out.println("resized");
+//				System.out.println("resized");
 			}
 
 		});
@@ -156,8 +155,8 @@ public class MapPanel extends JPanel implements Runnable {
 		beforeTime = gameStartTime;
 
 		dbImage = createImage(Gui.WIDTH, Gui.HEIGHT);
-//		 plus the side on the bottom
-		map.setImg(createImage(MapSettings.tileDiagonal*20+5, MapSettings.tileDiagonal/2*20 +23));
+		map.makeImageBuffer(this);
+		
 		running = true;
 
 		while (running) {

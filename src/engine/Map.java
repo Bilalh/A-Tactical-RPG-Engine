@@ -68,9 +68,10 @@ public class Map extends Observable {
 	}
 
 	private void loadSettings(String name) {
-		width = 20; 
-		height = 20;
+		width = 50; 
+		height = 50;
 		field = new Tile[width][height];
+		
 		Random r = new Random();
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
@@ -80,12 +81,18 @@ public class Map extends Observable {
 			}
 		}
 		field[2][6] = new Tile(3, 3);
+		
 		field[2][7] = new Tile(2, 2);
 		field[1][4] = new Tile(2, 2);
-		field[3][5] = new Tile(3, 3);
+		
+		
+		field[3][5] = new Tile(2, 2);
 		field[2][4] = new Tile(2, 2);
-		field[1][6] = new Tile(5, 5);
+		
+		field[1][6] = new Tile(2, 2);
+		field[10][5] = new Tile(7, 7);
 
+		
 	}
 
 
