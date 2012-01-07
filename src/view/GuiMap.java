@@ -66,6 +66,9 @@ public class GuiMap implements Observer {
 	private final int bufferHeight;
     private Image mapBuffer;
 	
+    final int startX;
+    final int startY;
+    
     final private ActionsAdapter[] actions = {new Movement(), new DialogHandler()};
 	private boolean showNumbering = true;
     enum ActionsEnum {
@@ -105,11 +108,16 @@ public class GuiMap implements Observer {
         drawX = 0;
         drawY = bufferHeight/2 - Gui.HEIGHT/2;
 
+        startX = bufferWidth/2;
+        startY = 21;
+        
         unitMapping = new HashMap<UUID, AnimatedUnit>();
         tileMapping = new HashMap<MapTile, AnimatedUnit>();
-        setSelectedTile(0, 0);
         
         dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
+        
+        selectedTile = field[0][0];
+        selectedTile.setSelected(true);
         
         mapController.addMapObserver(this);
         mapController.startMap();
@@ -120,16 +128,12 @@ public class GuiMap implements Observer {
 		mapBuffer = parent.createImage(bufferWidth,bufferHeight);
 	}
 
-	
 	// draws the map to the screen
 	private boolean drawn = false;
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		
 		Graphics g = mapBuffer.getGraphics();
 		//TODO rotates works!
-		
-		final int startX = bufferWidth/2;
-		final int startY = 21;
 		
 		if (!drawn) {
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
@@ -148,23 +152,21 @@ public class GuiMap implements Observer {
 //							&& x + horizontal >= 0
 //							&& y + vertical >= 0) {
 
-						boolean drawLeft = true, drawRight = true;
-						field[j][i].draw(x, y, g, drawLeft, drawRight);
-
+						field[j][i].draw(x, y, g, true,true);
+//
 //						AnimatedUnit au = tileMapping.get(field[j][i]);
 //						if (au != null) {
 //							au.draw(g, field, x, y, timeDiff);
 //						}
 
-						if (showNumbering) {
+//						if (showNumbering) {
 							Color old = g.getColor();
 							g.setColor(Color.RED);
-							g.drawString(
-									String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
+							g.drawString(String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
 									(int) (x - (MapSettings.tileDiagonal * MapSettings.zoom) / 2 + 20),
 									y + 10);
 							g.setColor(old);
-						}
+//						}
 
 //					}
 
@@ -176,36 +178,21 @@ public class GuiMap implements Observer {
 				//			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (i+1)); // for rotate
 				//			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1)); // for rotate
 			}
+			
+//			Point p = getDrawLocation(startX, startY, selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y);
+//			selectedTile.draw(p.x, p.y, g, false,false);
 			drawn = true;
 		}
 
-		for (AnimatedUnit au : units) {
-			Point p = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
-			au.draw(g, field, p.x, p.y, timeDiff);
-		}
+//		drawOnScreen();
+		
+//		for (AnimatedUnit au : units) {
+//			Point p = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
+//			au.draw(g, field, p.x, p.y, timeDiff);
+//		}
 
-		
-		 
-		Point u = (Point) units[0].getPostion().clone();  // 2, 5
-		
-		
-//		Draw down (0, -1) and right (1,0)
-		Point p = getDrawLocation(startX, startY, u.x+1, u.y);
-		field[u.x+1][u.y].draw(p.x, p.y, g, true, true);
-
-		u.y--;
-		p = getDrawLocation(startX, startY, u.x, u.y);
-		field[u.x][u.y].draw(p.x, p.y, g, true, true);
-		u.y--;
-		
-		// Zigzag draw the 4 tiles down from u    		
-		for (int i =0; i<=4;++i){
-//			System.out.printf("drawing (%d,%d)\n", u.x, u.y);
-			Point draw = getDrawLocation(startX, startY, u.x, u.y);
-			field[u.x][u.y].draw(draw.x, draw.y, g, false, false);
-			if (i % 2 == 0) u.x += 1;
-			else            u.y += 1;
-		}
+//		Point u = (Point) units[0].getPostion().clone();  // 2, 5
+//		redrawSection(g,(Point) units[0].getPostion().clone());
 		
 		
 //		System.out.printf("(%s,%s,%s,%s) (%s.%s,%s,%s)\n\n", 
@@ -220,21 +207,34 @@ public class GuiMap implements Observer {
 //		_g.drawImage(img,380, 230-15, 380+MapSettings.tileDiagonal, 230+MapSettings.tileDiagonal/2, 
 //				p.x, p.y-15, p.x+MapSettings.tileDiagonal, p.y+MapSettings.tileDiagonal/2, null);
 		
+//		Point selected = getDrawLocation(startX, startY, 0, 0);
+//		selectedTile.draw(selected.x, selected.y, g, false, false);
 		
-//		Drawing selected
+
 		_g.drawImage(mapBuffer,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
-//		Color oldColor = _g.getColor();
-//		_g.setColor(MapTile.TileState.SELECTED.colour);
-//		Polygon p = field[5][5].getpoly();
-//		p.translate(drawX, drawY);
-////		System.out.println(Arrays.toString(p.xpoints));
-////		System.out.println(Arrays.toString(p.ypoints));
-//		_g.fillPolygon(p);
-//		_g.setColor(oldColor);
+		setSelectedTile(20, 20);
+		
+		float ratioX, ratioY;
+		ratioX = (float) drawX/(float)bufferWidth;
+		ratioY = (float)drawY/(float)bufferWidth;
+		
+		int px = startX- (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - selectedTile.getFieldLocation().y-1f));
+		int py = startY+ (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch* MapSettings.zoom * (fieldHeight - selectedTile.getFieldLocation().y-1));
+		px += (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom) * selectedTile.getFieldLocation().x;
+		py += (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom)* selectedTile.getFieldLocation().y;
+		
+		py -= drawY;
+		px -= drawX;
+		selectedTile.draw(px, py, _g, false,false);
+
 		
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 	}
-
+	
+	void mapToWorld(Point p){
+		p.translate(-drawX, -drawY);
+	}
+	
 	Point getDrawLocation(int startX, int startY, int gridX, int gridY){
 		int x = startX- (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - gridY-1f));
 		int y = startY+ (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch* MapSettings.zoom * (fieldHeight - gridY-1));
@@ -243,6 +243,87 @@ public class GuiMap implements Observer {
 		return new Point(x,y);
 	}
 	
+
+	void drawOnScreen(){
+		Graphics g = mapBuffer.getGraphics();
+		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+//		
+//		int sY = 4, eY = 6;
+//		int sX = 1, eX = 3;
+		
+		int sY = 0, eY =fieldHeight;
+		int sX = 0, eX =fieldWidth;
+		
+		
+		int x = startX- (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - eY));
+		int y = startY+ (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch* MapSettings.zoom * (fieldHeight - eY));
+		
+		System.out.println();
+		for (int i = eY ; i >= sY; i--) {
+			for (int j = sX; j <= eX; j++) {
+				if (x - horizontal <= Gui.WIDTH
+						&& y - vertical <= Gui.HEIGHT
+						&& x + horizontal >= 0
+						&& y + vertical >= 0) {
+					System.out.printf("(%d,%d)\n", j, i);
+					field[j][i].draw(x, y, g, false,false);	
+				}	
+//				Color old = g.getColor();
+//				g.setColor(Color.RED);
+//				g.drawString(String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
+//						(int) (x - (MapSettings.tileDiagonal * MapSettings.zoom) / 2 + 20),
+//						y + 10);
+//				g.setColor(old);
+				x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
+				y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
+			}
+			x = startX- (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
+			y = startY+ (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch* MapSettings.zoom * (fieldHeight - i));
+		}
+		
+	}
+	
+	void redrawSection(Graphics g, Point u){
+//		Draw down (0, -1) and right (1,0)
+		Point p = getDrawLocation(startX, startY, u.x+1, u.y);
+		field[u.x+1][u.y].draw(p.x, p.y, g, true, true);
+
+		p = getDrawLocation(startX, startY, u.x, u.y-1);
+		field[u.x][u.y-1].draw(p.x, p.y, g, true, true);
+
+		u.y-=2;
+//		// Zigzag draw the 4 tiles down from u
+//		// wrong draw order 
+		for (int i =0; i<5;++i){
+//			System.out.printf("drawing (%d,%d)\n", u.x, u.y);
+			Point draw = getDrawLocation(startX, startY, u.x, u.y);
+			field[u.x][u.y].draw(draw.x, draw.y, g, false, false);
+			if (i % 2 == 0) u.x += 1;
+			else            u.y += 1;
+		}
+		
+//		u.x+=2;
+//		Point draw = getDrawLocation(startX, startY, u.x, u.y);
+//		field[u.x][u.y].draw(draw.x, draw.y, g, false, false);
+//		
+//		u.y-=1;
+//		u.x-=1;
+//		draw = getDrawLocation(startX, startY, u.x, u.y);
+//		field[u.x][u.y].draw(draw.x, draw.y, g, false, false);
+//		u.x++;
+//		draw = getDrawLocation(startX, startY, u.x, u.y);
+//		field[u.x][u.y].draw(draw.x, draw.y, g, false, false);
+//		
+//		u.x-=2;
+//		u.y-=1;
+//		draw = getDrawLocation(startX, startY, u.x, u.y);
+//		field[u.x][u.y].draw(draw.x, draw.y, g, false, false);
+//		u.x++;
+//		draw = getDrawLocation(startX, startY, u.x, u.y);
+//		field[u.x][u.y].draw(draw.x, draw.y, g, false, false);
+		
+	}
 	
 	@Override
 	public void update(Observable map, Object notification) {
@@ -338,6 +419,7 @@ public class GuiMap implements Observer {
 		@Override
 		public void keyLeft() {
 			setSelectedTile(selectedTile.getFieldLocation().x-1, selectedTile.getFieldLocation().y);
+			
 		}
 
 		@Override
@@ -369,7 +451,7 @@ public class GuiMap implements Observer {
 			}
 
 			AnimatedUnit unitS = null;
-			MapTile t = getSelectedTile();
+			MapTile t = selectedTile;
 			
 			for (AnimatedUnit u : units) {
 				if (u.getGridX() == t.getFieldLocation().x && u.getGridY() == t.getFieldLocation().y){
@@ -513,19 +595,28 @@ public class GuiMap implements Observer {
         }
     }
     
+    // Old and newSelected Tiles   
+    int oldX, oldY;
+    int newX, newY;
 	public void setSelectedTile(int x, int y) {
-        if (x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight ) {
-        	throw new IllegalArgumentException("Bad index " +x +  "," +y);
-        }
+        assert !(x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight); 
         
+        oldX = newX; oldY = newY;
+        newX = x;    newY = y;
+        Graphics g =mapBuffer.getGraphics();
         if (selectedTile != null) {
             selectedTile.setSelected(false);
+            Point selected = getDrawLocation(startX, startY, oldX, oldY);
+//            selectedTile.draw(selected.x, selected.y, g, false, false);
+//            System.out.printf("(%d,%d) cleared\n", oldX, oldY);
         }
         
-        selectedTile = field[x][y];
+        selectedTile = field[newX][newY];
         selectedTile.setSelected(true);
         
-        System.out.printf("(%d,%d) selected\n", y, y);
+		Point selected = getDrawLocation(startX, startY, newX, newY);
+//		selectedTile.draw(selected.x, selected.y, g, false, false);
+//        System.out.printf("(%d,%d) selected\n", newX, newY);
         
     }
 

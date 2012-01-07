@@ -91,8 +91,20 @@ public class Map extends Observable {
 		
 		field[1][6] = new Tile(2, 2);
 		field[10][5] = new Tile(7, 7);
+		field[10][4] = new Tile(7, 7);
 
+		for(int i =0; i < 8;i+=2){
+			field[6][i] = new Tile(i,i);
+		}
 		
+		
+//		for (int i = 8; i < 14; i++) {
+//			for (int j = 8; j < 14; j++) {
+//				int first = r.nextInt(5)+1;
+//				field[i][j] = new Tile(first, first);
+//			}
+//		}
+//		
 	}
 
 

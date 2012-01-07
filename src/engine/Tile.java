@@ -20,7 +20,8 @@ public class Tile {
 	public Tile(int startHeight, int endHeight) {
 		this.startHeight = startHeight;
 		this.endHeight = endHeight;
-		this.cost = (int) (Math.random() *3 + 1);
+//		this.cost = (int) (Math.random() *3 + 1);
+		this.cost = endHeight;
 	}
 	
 	/** @category Generated */
