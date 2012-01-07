@@ -43,7 +43,7 @@ public class MapTile {
     private boolean selected;
     private boolean inRange;
     private Color myColor;
-    Polygon top;
+    Polygon top, left, right;
     private Point fieldLocation;
 	private TileState state;
     
@@ -158,6 +158,49 @@ public class MapTile {
 	       		0 - h1 + vertical / 2}, 4);
    }
     
+   void makePolygons(int x, int y){
+       final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
+       final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+       final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+       final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
+       final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
+       top = new Polygon(new int[]{
+          		x, 
+          		x + horizontal / 2, 
+          		x, 
+          		x - horizontal / 2},
+                  new int[]{
+          		y - h1, 
+          		y - h2 + vertical / 2, 
+          		y - h2 + vertical,
+          		y - h1 + vertical / 2}, 4);
+       
+       right = new Polygon(new int[]{
+          		x, 
+          		x + horizontal / 2, 
+          		x + horizontal / 2, 
+          		x},
+                  new int[]{
+          		y - h2 + vertical, 
+          		y - h2 + vertical / 2,
+          		y + vertical / 2, 
+          		y + vertical}
+          , 4);
+       
+       left = new Polygon(new int[]{
+          		x,
+          		x - horizontal / 2,
+          		x - horizontal / 2,
+          		x},
+                  new int[]{
+          		y - h2 + vertical,
+          		y - h1 + vertical / 2,
+          		y + vertical / 2,
+          		y + vertical}
+          , 4);
+       
+   }
+   
    boolean filled = false;
    boolean moved  = true; 
    int xdiff =0, ydiff =0;
