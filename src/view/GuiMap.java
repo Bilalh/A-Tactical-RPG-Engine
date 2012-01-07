@@ -179,7 +179,7 @@ public class GuiMap implements Observer {
 		}
 		
 		_g.drawImage(mapBuffer,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
-		drawSelectTile(_g);
+		overlayTile(_g,selectedTile);
 		drawUnits(_g,timeDiff);
 		
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
@@ -281,28 +281,28 @@ public class GuiMap implements Observer {
 		}		
 	}
 
-	private  void drawSelectTile(Graphics g){
+	private  void overlayTile(Graphics g, MapTile t){
 		Graphics2D g2 = (Graphics2D) g;
 		
-		Point l  = selectedTile.getFieldLocation();
-		makePolygons(selectedTile);
-	    Area resultingArea = new Area(selectedTile.top);
+		Point l  = t.getFieldLocation();
+		makePolygons(t);
+	    Area resultingArea = new Area(t.top);
 	    
 	    MapTile m;
-	    if (l.x+1 < fieldWidth && (m =  field[l.x+1][l.y]).getHeight() > selectedTile.getHeight() ){
+	    if (l.x+1 < fieldWidth && (m =  field[l.x+1][l.y]).getHeight() > t.getHeight() ){
 	    	makePolygons(m);
 		    resultingArea.subtract(new Area(m.top));
 		    resultingArea.subtract(new Area(m.left));
 	    }
 
-	    if (l.y -1 > 0 && (m =  field[l.x][l.y-1]).getHeight() > selectedTile.getHeight() ){	    	
+	    if (l.y -1 > 0 && (m =  field[l.x][l.y-1]).getHeight() > t.getHeight() ){	    	
 	    	makePolygons(m);
 		    resultingArea.subtract(new Area(m.top));
 		    resultingArea.subtract(new Area(m.right));
 	    }
 	    
-	    if (l.x +1 < fieldWidth && l.y - 1 > 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > selectedTile.getHeight() 
-	    		&& m.getHeight() - selectedTile.getHeight()  <=2 ){	    	
+	    if (l.x +1 < fieldWidth && l.y - 1 > 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > t.getHeight() 
+	    		&& m.getHeight() - t.getHeight()  <=2 ){	    	
 		    makePolygons(m);
 		    resultingArea.subtract(new Area(m.top));
 		    resultingArea.subtract(new Area(m.right));
@@ -602,36 +602,25 @@ public class GuiMap implements Observer {
         }
     }
     
-    // Old and newSelected Tiles   
-    int oldX, oldY;
-    int newX, newY;
 	public void setSelectedTile(int x, int y) {
         assert !(x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight); 
         
-        oldX = newX; oldY = newY;
-        newX = x;    newY = y;
         Graphics g =mapBuffer.getGraphics();
         if (selectedTile != null) {
             selectedTile.setSelected(false);
-            Point selected = getDrawLocation(startX, startY, oldX, oldY);
-//            selectedTile.draw(selected.x, selected.y, g, false, false);
-//            System.out.printf("(%d,%d) cleared\n", oldX, oldY);
         }
         
-        selectedTile = field[newX][newY];
+        selectedTile = field[x][y];
         selectedTile.setSelected(true);
         
-		Point selected = getDrawLocation(startX, startY, newX, newY);
-//		selectedTile.draw(selected.x, selected.y, g, false, false);
-//        System.out.printf("(%d,%d) selected\n", newX, newY);
-        
+		Point selected = getDrawLocation(startX, startY, x, y);
+//        System.out.printf("(%d,%d) selected\n", newX, newY);        
     }
 
     /** @category Generated */
 	public MapTile getSelectedTile() {
 		return selectedTile;
 	}
-    
 	
     public void setDrawLocation(int x, int y) {
         drawX = x;
