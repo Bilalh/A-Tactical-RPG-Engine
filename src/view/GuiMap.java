@@ -223,7 +223,8 @@ public class GuiMap implements Observer {
 			Point l = au.getPostion();
 			Point p = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
 			mapToWorld(p);
-//			au.draw(g, field, p.x, p.y, timeDiff);
+			
+			float height  = field[l.x][l.y].getHeight();
 			Rectangle r = new Rectangle(au.topLeftPoint(field, p.x, p.y));
 			r.width = au.getWidth();
 			r.height = au.getHeight();
@@ -235,7 +236,7 @@ public class GuiMap implements Observer {
 			au.draw(g2, field, p.x, p.y, timeDiff);
 		    
 		    MapTile m;
-		    if (l.x+1 < fieldWidth && (m =  field[l.x+1][l.y]).getHeight() > selectedTile.getHeight() ){
+		    if (l.x+1 < fieldWidth && (m =  field[l.x+1][l.y]).getHeight() > height ){
 		    	makePolygons(m);
 			    Area a= new Area(m.top);
 			    a.intersect(resultingArea);
@@ -248,7 +249,7 @@ public class GuiMap implements Observer {
 			    g2.fill(a);
 		    }
 
-		    if (l.y -1 > 0 && (m =  field[l.x][l.y-1]).getHeight() > selectedTile.getHeight() ){	    	
+		    if (l.y -1 > 0 && (m =  field[l.x][l.y-1]).getHeight() > height ){	    	
 		    	makePolygons(m);
 			    Area a= new Area(m.top);
 			    a.intersect(resultingArea);
@@ -261,7 +262,7 @@ public class GuiMap implements Observer {
 			    g2.fill(a);
 		    }
 		    
-		    if (l.x +1 < fieldWidth && l.y - 1 > 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > selectedTile.getHeight()){	    	
+		    if (l.x +1 < fieldWidth && l.y - 1 > 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > height){	    	
 		    	makePolygons(m);
 			    Area a= new Area(m.top);
 			    a.intersect(resultingArea);
