@@ -95,13 +95,12 @@ public class GuiMap implements Observer {
         MousePoxy = new MousePoxy();
         setActionHandler(ActionsEnum.MOVEMENT);
 		
-        //FIXME 
+        //FIXME heights?
         for (int i = 0; i < fieldWidth; i++) { 
             for (int j = 0; j < fieldHeight; j++) {
             	field[i][j] = new MapTile(MapTile.Orientation.UP_TO_EAST,
             			grid[i][j].getStartHeight(),
-            			grid[i][j].getEndHeight());
-            	field[i][j].setFieldLocation(new Point(i, j));
+            			grid[i][j].getEndHeight(), i, j);
             	field[i][j].setCost(grid[i][j].getCost());
             }
         }
@@ -230,45 +229,32 @@ public class GuiMap implements Observer {
 			r.height = au.getHeight();
 		    Area resultingArea = new Area(r);
 
-//		    Paint old = g2.getPaint();
-//		    g2.setPaint(Color.orange);
-//		    g2.draw(resultingArea);
 			au.draw(g2, field, p.x, p.y, timeDiff);
 		    
 		    MapTile m;
 		    if (l.x+1 < fieldWidth && (m =  field[l.x+1][l.y]).getHeight() > height ){
 		    	makePolygons(m);
-			    Area a= new Area(m.top);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tGrass);
-			    g2.fill(a);
+			    Area a;
 			    
 			    a= new Area(m.left);
 			    a.intersect(resultingArea);
 			    g2.setPaint(m.tWall);
+			    g2.fill(a);
+
+			    a= new Area(m.right);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tWall);
+			    g2.fill(a);
+			    
+			    a= new Area(m.top);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tGrass);
 			    g2.fill(a);
 		    }
 
 		    if (l.y -1 > 0 && (m =  field[l.x][l.y-1]).getHeight() > height ){	    	
 		    	makePolygons(m);
-			    Area a= new Area(m.top);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tGrass);
-			    g2.fill(a);
-			    
-			    a= new Area(m.left);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tWall);
-			    g2.fill(a);
-		    }
-		    
-		    if (l.x +1 < fieldWidth && l.y - 1 > 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > height){	    	
-		    	makePolygons(m);
-			    Area a= new Area(m.top);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tGrass);
-			    g2.fill(a);
-			    
+			    Area a;
 			    a= new Area(m.left);
 			    a.intersect(resultingArea);
 			    g2.setPaint(m.tWall);
@@ -278,6 +264,32 @@ public class GuiMap implements Observer {
 			    a.intersect(resultingArea);
 			    g2.setPaint(m.tWall);
 			    g2.fill(a);
+			    
+			    a= new Area(m.top);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tGrass);
+			    g2.fill(a);
+			    
+		    }
+		    
+		    if (l.x +1 < fieldWidth && l.y - 1 > 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > height){	    	
+		    	makePolygons(m);
+		    	Area a;
+			    a= new Area(m.left);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tWall);
+			    g2.fill(a);
+			    
+			    a= new Area(m.right);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tWall);
+			    g2.fill(a);
+			    
+			    a= new Area(m.top);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tGrass);
+			    g2.fill(a);
+			    
 		    }
 		    
 		}		

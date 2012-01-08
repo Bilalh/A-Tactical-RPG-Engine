@@ -29,6 +29,8 @@ import engine.Map;
 
 public class MapPanel extends JPanel implements Runnable {
 
+	private static final long serialVersionUID = 1L;
+
 	private static final int NO_DELAYS_PER_YIELD = 16;
 
 	// no. of frames that can be skipped in any one animation loop

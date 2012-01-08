@@ -7,7 +7,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
+@SuppressWarnings("all")
 public class tess extends JPanel {
 
     public static void main(String[] args) {

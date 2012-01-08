@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import view.MapSettings;
 
+@SuppressWarnings("all")
 public class a extends JComponent {
   private Shape mShapeTwo;
   Polygon mShapeOne;

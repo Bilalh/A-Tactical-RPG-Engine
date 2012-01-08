@@ -29,12 +29,7 @@ public class MapTile {
     		this.colour = c;
     	}
     }
-    
-    // Colors for drawing tiles
-    private static final Color TOP_COLOR = Color.DARK_GRAY;
-    private static final Color RIGHT_COLOR = Color.CYAN;
-    private static final Color LEFT_COLOR = Color.RED;
-    
+
     // Tile Variables
     private Orientation orientation;
     private float height;
@@ -64,14 +59,14 @@ public class MapTile {
      * @param endHeight The upper hieght of the tile (If slanted)
      * @category Constructor
      */
-    public MapTile(Orientation orientation, float startHeight, float endHeight) {
+    public MapTile(Orientation orientation, float startHeight, float endHeight, int x, int y) {
         this.orientation = orientation;
         this.startHeight = startHeight;
         this.endHeight = endHeight;
         this.height = (startHeight + endHeight) / 2;
         this.selected = false;
         this.fieldLocation = new Point();
-        this.myColor = TOP_COLOR;
+        this.fieldLocation = new Point(x,y);
         
         final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
         final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -79,8 +74,6 @@ public class MapTile {
         final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
         final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
         
-        Polygon p = new Polygon();
-        Polygon basic = 
         top = new Polygon(new int[]{
            		0, 
            		horizontal / 2, 
@@ -99,7 +92,6 @@ public class MapTile {
     }
     
     public Point calculateCentrePoint(Point p){
-    	//      final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
     	final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
     	int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
     	return new Point(
@@ -108,7 +100,6 @@ public class MapTile {
     }
 
     public Point calculateCentrePoint(int x, int y){
-    	//       final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
     	final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
     	int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
     	return new Point(
@@ -204,7 +195,6 @@ public class MapTile {
    public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide) {
    	Graphics2D g = (Graphics2D) _g;
    	
-       determineColor();
        final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
        final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
        final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
@@ -232,7 +222,6 @@ public class MapTile {
            g.setPaint(old);
        
        if (drawRightSide){
-           g.setColor(RIGHT_COLOR); // Draw the right side
            Polygon poly = new Polygon(new int[]{
            		x, 
            		x + horizontal / 2, 
@@ -266,7 +255,6 @@ public class MapTile {
        }
        
        if (drawLeftSide){
-           g.setColor(LEFT_COLOR); // Draw the left side
            Polygon poly = new Polygon(new int[]{
            		x,
            		x - horizontal / 2,
@@ -319,15 +307,9 @@ public class MapTile {
     /**
      * Draw a Standard Tile.  Standard Tiles do not have a slant to them.
      * Note that the drawing begins at (x,y - MapSettings.tileHeight*height).
-     * @param x X-location of the tile.
-     * @param y Y-location of the tile.
-     * @param g The Graphcis object with which to draw.
      * @category drawing
      */
     public void drawNormal(int x, int y, Graphics g) {
-        determineColor();
-        
-        
         int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
         int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
         int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
@@ -347,7 +329,6 @@ public class MapTile {
         		y + vertical / 2 - finalHeight}
         , 4));
 
-        g.setColor(RIGHT_COLOR); // Draw the right side
         g.fillPolygon(new Polygon(new int[]{
         		x, 
         		x + horizontal / 2, 
@@ -359,7 +340,7 @@ public class MapTile {
         		y + vertical / 2, 
         		y + vertical}
         , 4));
-        g.setColor(LEFT_COLOR); // Draw the left side
+
         g.fillPolygon(new Polygon(new int[]{
         		x, 
         		x - horizontal / 2, 
@@ -415,16 +396,11 @@ public class MapTile {
     /**
      * Draw a tile that slants to the north or the south.  The methods for drawing
      * are very similar, so they can be merged into one method.
-     * Note that the drawing begins at (x,y - MapSettings.tileHeight*height).
-     * @param x X-location of the tile.
-     * @param y Y-location of the tile.
-     * @param g The Graphcis object with which to draw.
      * @category drawing
      */
     public void drawNorthSouth(int x, int y, Graphics g) {
-        determineColor();
 
-        int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
+    	int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
         int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
         int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
         int HEIGHT1 = orientation == Orientation.UP_TO_NORTH ? (int) (finalHeight * startHeight) : (int) (finalHeight * endHeight);
@@ -442,7 +418,7 @@ public class MapTile {
         		y - HEIGHT1 + vertical,
         		y - HEIGHT1 + vertical / 2}
         , 4));
-        g.setColor(RIGHT_COLOR); // Draw the right side
+        
         g.fillPolygon(new Polygon(new int[]{
         		x, 
         		x + horizontal / 2, 
@@ -454,7 +430,7 @@ public class MapTile {
         		y + vertical / 2, 
         		y + vertical}
         , 4));
-        g.setColor(LEFT_COLOR); // Draw the left side
+        
         g.fillPolygon(new Polygon(new int[]{
         		x, 
         		x - horizontal / 2, 
@@ -504,30 +480,14 @@ public class MapTile {
         g.setColor(oldColor);
     }
     
-
-    public void determineColor() {
-        if (isSelected()) {
-            setColor(TileState.SELECTED.colour);
-        } else if (isInRange()){
-            setColor(TileState.MOVEMENT_RANGE.colour);
-        } else {
-            setColor(MapTile.TOP_COLOR);
-        }
-    }
-
-    
     public void setEndHeight(float endHeight) {
-        //System.out.println("Setting End Height:\n" + this.startHeight + ", " + this.endHeight + ", " + this.height);
         this.endHeight = endHeight;
         this.height = (startHeight + endHeight) / 2;
-        //System.out.println(this.startHeight + ", " + this.endHeight + ", " + this.height);
     }
     
     public void setStartHeight(float startHeight) {
-        //System.out.println("Setting Start Height:\n" + this.startHeight + ", " + this.endHeight + ", " + this.height);
         this.startHeight = startHeight;
         this.height = (startHeight + endHeight) / 2;
-        //System.out.println(this.startHeight + ", " + this.endHeight + ", " + this.height);
     }
 
 	/** @category Generated */
@@ -546,28 +506,8 @@ public class MapTile {
 	}
 
 	/** @category Generated */
-	public void setHeight(float height) {
-		this.height = height;
-	}
-
-	/** @category Generated */
-	public Color getColor() {
-		return myColor;
-	}
-
-	/** @category Generated */
-	public void setColor(Color myColor) {
-		this.myColor = myColor;
-	}
-
-	/** @category Generated */
 	public Point getFieldLocation() {
 		return fieldLocation;
-	}
-
-	/** @category Generated */
-	public void setFieldLocation(Point fieldLocation) {
-		this.fieldLocation = fieldLocation;
 	}
 
 	/** @category Generated */
@@ -610,6 +550,7 @@ public class MapTile {
 		this.inRange = inRange;
 	}
 
+	// for debuging
 	/** @category Generated */
 	public int getCost() {
 		return cost;
