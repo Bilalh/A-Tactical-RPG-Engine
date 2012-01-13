@@ -180,8 +180,9 @@ public class GuiMap implements Observer {
 		}
 		
 		overlayTile(_g,selectedTile,Color.ORANGE, 2);
-		drawUnits(_g,timeDiff);
-		
+		drawUnits(units,_g,timeDiff);
+		drawUnits(aiUnits,_g,timeDiff);
+
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 	}
 	
@@ -216,7 +217,7 @@ public class GuiMap implements Observer {
 		p.translate(-drawX, -drawY);
 	}
 	
-	void drawUnits(Graphics g, long timeDiff){
+	void drawUnits(AnimatedUnit[] units, Graphics g, long timeDiff){
 		Graphics2D g2 = (Graphics2D) g;
 		for (AnimatedUnit au : units) {
 			Point l = au.getPostion();

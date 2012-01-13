@@ -107,6 +107,7 @@ public class Dialog {
 		this.height = height - yOffset;
 	}
 	
+//	FIXME cache data
 	public void draw(Graphics2D g,  int drawX, int drawY){
 		Color originalColour = g.getColor();
 		Font originalFont = g.getFont();

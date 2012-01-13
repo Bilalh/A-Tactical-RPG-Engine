@@ -49,6 +49,7 @@ public class Gui extends Observable {
 		frame = new JFrame();
 		frame.setBounds(100, 100, WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setLayout(new BorderLayout());
 		
 		long period = (long) 1000.0 / DEFAULT_FPS;
