@@ -151,12 +151,12 @@ public class GuiMap implements Observer {
 
 						field[j][i].draw(x, y, g, true,true);
 //						if (showNumbering) {
-//							Color old = g.getColor();
-//							g.setColor(Color.RED);
-//							g.drawString(String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
-//									(int) (x - (MapSettings.tileDiagonal * MapSettings.zoom) / 2 + 20),
-//									y + 10);
-//							g.setColor(old);
+							Color old = g.getColor();
+							g.setColor(Color.RED);
+							g.drawString(String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
+									(int) (x - (MapSettings.tileDiagonal * MapSettings.zoom) / 2 + 20),
+									y + 10);
+							g.setColor(old);
 //						}
 
 					x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
@@ -321,8 +321,7 @@ public class GuiMap implements Observer {
 		    resultingArea.subtract(new Area(m.top));
 		    resultingArea.subtract(new Area(m.right));
 	    }
-	    
-	    
+	   
 	    Paint old = g2.getPaint();
 	    g2.setPaint(paint);
 	    g2.draw(resultingArea);
@@ -525,12 +524,12 @@ public class GuiMap implements Observer {
 	        int a = Math.abs((int) (mouseEnd.getX() - mouseStart.getX()));
 	        int b = Math.abs((int) (mouseEnd.getY() - mouseStart.getY()));
 
-	        if (Math.sqrt(a * a + b * b) > 3) {
-//	            this.setDrawLocation(mouseEnd);
-	        } else {
+//	        if (Math.sqrt(a * a + b * b) > 3) {
+	            
+//	        } else {
 	            findAndSelectTile(e.getX(), e.getY());
 	            selectMoveUnit();
-	        }
+//	        }
 	    }
 
 	    @Override
@@ -598,20 +597,34 @@ public class GuiMap implements Observer {
 	 */
     public Point findAndSelectTile(int x, int y) {
         double highest = 0.0;
+        x += drawX;
+        y += drawY;
         int xIndex = -1, yIndex = -1;
+        
+        System.out.printf("p:(%d,%d)\n", x, y);
+        System.out.println(Arrays.toString(field[4][3].top.xpoints));
+        System.out.println(Arrays.toString(field[4][3].top.ypoints));
         for (int i = 0; i < fieldWidth; i++) {
             for (int j = 0; j < fieldHeight; j++) {
-                if (field[i][j].wasClickedOn(new Point(x, y)) && field[i][j].getHeight() > highest) {
-                    highest = field[i][j].getHeight();
-                    xIndex = i;
-                    yIndex = j;
+                if (field[i][j].wasClickedOn(new Point(x, y))) {
+                	System.out.printf("Clicked(%d,%d)\n", i, j);
+                	
+                	if (field[i][j].getHeight() > highest){
+                		System.out.println("\t highest");
+                        highest = field[i][j].getHeight();
+                        xIndex = i;
+                        yIndex = j;	
+                	}
+                    
                 }
             }
         }
         if (xIndex > -1 && yIndex > -1) {
             this.setSelectedTile(xIndex, yIndex);
+            System.out.printf("(%d,%d)\n\n", xIndex, yIndex);
             return new Point(xIndex, yIndex);
         } else {
+        	System.out.printf("(%d,%d)\n\n", xIndex, yIndex);
             return null;
         }
     }

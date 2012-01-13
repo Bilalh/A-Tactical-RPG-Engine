@@ -20,4 +20,5 @@
 	* Cache map 
 	* overall selected tile/movement range with bitwise drawing ops 
 	* for units find bounding box then use bitwise ops to redraw the area around unit
-       
+
+* don't change top postion 

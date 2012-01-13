@@ -38,10 +38,13 @@ public class MapTile {
     private boolean selected;
     private boolean inRange;
     private Color myColor;
-    Polygon top, left, right;
     private Point fieldLocation;
 	private TileState state;
-    
+	
+    private Polygon topReal;
+    Polygon top, left, right;
+
+	
 //    debuging
     private int cost;
     static BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass16.jpg").getImage();
@@ -88,7 +91,7 @@ public class MapTile {
     }
     
     public boolean wasClickedOn(Point click) {
-        return top.contains(click);
+        return topReal.contains(click);
     }
     
     public Point calculateCentrePoint(Point p){
@@ -204,7 +207,7 @@ public class MapTile {
        Color oldColor = g.getColor();
        g.setColor(myColor); 
 
-       top = new Polygon(new int[]{
+       top =topReal= new Polygon(new int[]{
        		x, 
        		x + horizontal / 2, 
        		x, 
