@@ -145,6 +145,9 @@ public class GuiMap implements Observer {
 	int frameDuration = 120 *1000000;
 	int lastFrameChange = 0;
 	
+	int animationDuration = 200 *1000000;
+	int animationFrameChange = 0;
+	
 	Queue<MapTile> toMove = new ArrayDeque<MapTile>();
 	
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
@@ -177,7 +180,7 @@ public class GuiMap implements Observer {
 						
 						AnimatedUnit u =  tileMapping.get(field[j][i]);
 						if (u != null){
-							u.draw(g, field, x, y, timeDiff);
+							u.draw(g, field, x, y, animationDuration);
 						}
 
 					x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
@@ -202,6 +205,12 @@ public class GuiMap implements Observer {
 //			}
 //			lastFrameChange=0;
 //		}
+		
+		animationFrameChange += timeDiff;
+		if (animationFrameChange > animationDuration){
+			animationFrameChange=0;
+			drawn=false;
+		}
 		
 		_g.drawImage(mapBuffer,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
 		
@@ -448,7 +457,7 @@ public class GuiMap implements Observer {
 			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(), 
 					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"}, 
 					u);
-//			tileMapping.put(field[u.getGridX()][u.getGridY()], newAiUnits[i]);
+			tileMapping.put(field[u.getGridX()][u.getGridY()], newAiUnits[i]);
 		}
 		this.aiUnits = newAiUnits;
 	}
