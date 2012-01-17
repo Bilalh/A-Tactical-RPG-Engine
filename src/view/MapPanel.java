@@ -260,7 +260,7 @@ public class MapPanel extends JPanel implements Runnable {
 			Gui.console().paint((Graphics2D) dbg, 0, getHeight() - Gui.console().getHeight()  , getWidth());
 		}         
 
-
+		dbg.dispose();
 	}
 
 	// use active rendering to put the buffered image on-screen

@@ -74,7 +74,7 @@ public class GuiMap implements Observer {
     final int startY;
     
     final private ActionsAdapter[] actions = {new Movement(), new DialogHandler()};
-	private boolean showNumbering = true;
+	private boolean showNumbering = false;
     enum ActionsEnum {
     	MOVEMENT, DIALOG,
     }
@@ -105,14 +105,15 @@ public class GuiMap implements Observer {
             }
         }
         
+        int heightOffset = (MapSettings.tileDiagonal);
         bufferWidth  =  MapSettings.tileDiagonal*fieldWidth +5;  
-		bufferHeight = (int) (MapSettings.tileDiagonal/2f*fieldHeight +23);
+		bufferHeight = (int) (MapSettings.tileDiagonal/2f*fieldHeight +heightOffset);
 		
         drawX = 0;
         drawY = bufferHeight/2 - Gui.HEIGHT/2;
 
         startX = bufferWidth/2;
-        startY = 21;
+        startY = heightOffset;
         
         unitMapping = new HashMap<UUID, AnimatedUnit>();
         tileMapping = new HashMap<MapTile, AnimatedUnit>();
@@ -150,14 +151,14 @@ public class GuiMap implements Observer {
 	//			for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
 
 						field[j][i].draw(x, y, g, true,true);
-//						if (showNumbering) {
+						if (showNumbering) {
 							Color old = g.getColor();
 							g.setColor(Color.RED);
 							g.drawString(String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
 									(int) (x - (MapSettings.tileDiagonal * MapSettings.zoom) / 2 + 20),
 									y + 10);
 							g.setColor(old);
-//						}
+						}
 
 					x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
 					y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);

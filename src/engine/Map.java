@@ -1,7 +1,10 @@
 package engine;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
+
 
 import view.notifications.ChooseUnitsNotifications;
 import view.notifications.PlayersTurnNotification;
@@ -67,39 +70,61 @@ public class Map extends Observable {
 		notifyObservers(n);
 	}
 
-	private void loadSettings(String name) {
-		width = 50; 
-		height = 50;
-		field = new Tile[width][height];
-		
-		long seed = 654645l;
-		Random r = new Random(seed);
-		System.out.println("seed" + " " + seed);
-		for (int i = 0; i < field.length; i++) {
-			for (int j = 0; j < field[i].length; j++) {
-				int first = r.nextInt(3)+1;
-				field[i][j] = new Tile(first, first + r.nextInt(2));
-//				field[i][j] = new Tile(1,1);
+	private void loadFromSpaceSepFile(String name){
+		try {
+			File f = new java.io.File(name);
+			Scanner sc = new Scanner(f);
+			width  = sc.nextInt();
+			height = sc.nextInt();
+//			width = 8; 
+//			height = 8;
+			field = new Tile[width][height];
+			for (int i = 0; i < field.length; i++) {
+				for (int j = 0; j < field[i].length; j++) {
+					int a= sc.nextInt() +2;
+					field[i][j] = new Tile(a,a);
+				}
 			}
-		}
-	//		field[2][6] = new Tile(3, 3);
-	//		
-	//		field[2][7] = new Tile(2, 2);
-	//		field[1][4] = new Tile(2, 2);
-	//		
-	//		
-	//		field[3][5] = new Tile(2, 2);
-	//		field[2][4] = new Tile(2, 2);
-	//		
-	//		field[1][6] = new Tile(2, 2);
-	//		field[10][5] = new Tile(7, 7);
-	//		field[10][4] = new Tile(7, 7);
-	//
-	//		for(int i =0; i < 8;i+=2){
-	//			field[6][i] = new Tile(i,i);
-	//		}
-		
-		
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	private void loadSettings(String name) {
+		loadFromSpaceSepFile("test.txt");
+//		width = 8; 
+//		height = 8;
+//		field = new Tile[width][height];
+//		
+//		long seed = 654645l;
+//		Random r = new Random(seed);
+//		System.out.println("seed" + " " + seed);
+//		for (int i = 0; i < field.length; i++) {
+//			for (int j = 0; j < field[i].length; j++) {
+//				int first = r.nextInt(3)+1;
+//				field[i][j] = new Tile(first, first + r.nextInt(2));
+////				field[i][j] = new Tile(1,1);
+//			}
+//		}
+//			field[2][6] = new Tile(3, 3);
+//			
+//			field[2][7] = new Tile(2, 2);
+//			field[1][4] = new Tile(2, 2);
+//			
+//			
+//			field[3][5] = new Tile(2, 2);
+//			field[2][4] = new Tile(2, 2);
+//			
+//			field[1][6] = new Tile(2, 2);
+//			field[10][5] = new Tile(7, 7);
+//			field[10][4] = new Tile(7, 7);
+//	
+//			for(int i =0; i < 8;i+=2){
+//				field[6][i] = new Tile(i,i);
+//			}
+//		
+//		
 //		for (int i = 8; i < 14; i++) {
 //			for (int j = 8; j < 14; j++) {
 //				int first = r.nextInt(5)+1;
