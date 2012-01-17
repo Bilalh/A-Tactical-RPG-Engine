@@ -24,7 +24,7 @@ public class AnimatedUnit extends GuiUnit {
 	private int frameNumber;
 	
 	/** The frame duration in milliseconds, i.e. how long any given frame of animation lasts in nanoseconds */
-	// 50 millisecond frames
+	// 100 millisecond frames
 	private long frameDuration = 100 *1000000; 
 	
 	public AnimatedUnit(int gridX, int gridY, String ref, IUnit u) {

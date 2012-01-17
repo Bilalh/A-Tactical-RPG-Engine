@@ -18,6 +18,8 @@ import java.util.*;
 import javax.media.jai.RenderedOp;
 import javax.media.jai.operator.SubtractDescriptor;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import view.interfaces.IActions;
 import view.notifications.ChooseUnitsNotifications;
 import view.ui.Dialog;
@@ -125,6 +127,13 @@ public class GuiMap implements Observer {
         mapController.addMapObserver(this);
         mapController.startMap();
         
+        toMove.add(field[2][5]);
+        toMove.add(field[3][5]);
+        toMove.add(field[4][5]);
+        toMove.add(field[4][6]);
+        toMove.add(field[5][6]);
+        toMove.add(field[6][6]);
+        toMove.add(field[6][7]);
 	}
 
 	void makeImageBuffer(Component parent){
@@ -133,6 +142,11 @@ public class GuiMap implements Observer {
 
 	// draws the map to the screen
 	private boolean drawn = false;
+	int frameDuration = 120 *1000000;
+	int lastFrameChange = 0;
+	
+	Queue<MapTile> toMove = new ArrayDeque<MapTile>();
+	
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		
 		Graphics g = mapBuffer.getGraphics();
@@ -164,9 +178,8 @@ public class GuiMap implements Observer {
 						AnimatedUnit u =  tileMapping.get(field[j][i]);
 						if (u != null){
 							u.draw(g, field, x, y, timeDiff);
-							System.out.println("Drawing " + u);
 						}
-						
+
 					x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
 					y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
 				}
@@ -178,6 +191,17 @@ public class GuiMap implements Observer {
 			drawn = true;
 			selectedTile.setSelected(true);
 		}
+		
+//		Animated movement by redrawing partical steps.
+//		lastFrameChange += timeDiff;
+//		if (lastFrameChange > frameDuration){
+//			if (toMove.size() >=2){
+//				AnimatedUnit u =  tileMapping.remove(toMove.remove());
+//				tileMapping.put(toMove.peek(),u);
+//				drawn=false;
+//			}
+//			lastFrameChange=0;
+//		}
 		
 		_g.drawImage(mapBuffer,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
 		
@@ -424,12 +448,15 @@ public class GuiMap implements Observer {
 			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(), 
 					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"}, 
 					u);
-			tileMapping.put(field[u.getGridX()][u.getGridY()], newAiUnits[i]);
+//			tileMapping.put(field[u.getGridX()][u.getGridY()], newAiUnits[i]);
 		}
 		this.aiUnits = newAiUnits;
 	}
 	
+	
+	
 	public void unitMoved(IUnit u){
+		System.out.println("Unit Moved");
 		AnimatedUnit au =  unitMapping.get(u.getUuid());
 		tileMapping.remove(field[au.gridX][au.gridY]);
 		au.setGridX(u.getGridX());
@@ -516,7 +543,7 @@ public class GuiMap implements Observer {
 				}
 				selected = null;
 				inRange = null;
-				System.out.println("move finished");
+				System.out.println("Selected unit move finished");
 				return;
 			}
 
