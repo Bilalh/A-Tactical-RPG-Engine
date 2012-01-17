@@ -563,4 +563,10 @@ public class MapTile {
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("MapTile [orientation=%s, height=%s, fieldLocation=%s, cost=%s]",
+				orientation, height, fieldLocation, cost);
+	}
 }

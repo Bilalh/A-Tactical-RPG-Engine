@@ -139,6 +139,7 @@ public class GuiMap implements Observer {
 		
 		//TODO rotates workss!
 		if (!drawn) {
+			System.out.println("Redrawing");
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			selectedTile.setSelected(false);
 			int x = startX;
@@ -159,7 +160,13 @@ public class GuiMap implements Observer {
 									y + 10);
 							g.setColor(old);
 						}
-
+						
+						AnimatedUnit u =  tileMapping.get(field[j][i]);
+						if (u != null){
+							u.draw(g, field, x, y, timeDiff);
+							System.out.println("Drawing " + u);
+						}
+						
 					x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
 					y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
 				}
@@ -181,12 +188,16 @@ public class GuiMap implements Observer {
 		}
 		
 		overlayTile(_g,selectedTile,Color.ORANGE, 2);
-		drawUnits(units,_g,timeDiff);
-		drawUnits(aiUnits,_g,timeDiff);
+//		drawUnits(units,_g,timeDiff);
+//		drawUnits(aiUnits,_g,timeDiff);
 
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 	}
 	
+	/**
+	 * Draw only Viewable tiles
+	 * @category Unused
+	 */
 	void drawViewable(Graphics g){
 //		g.fillRect(0, 0, bufferWidth, bufferHeight);
 
@@ -218,6 +229,10 @@ public class GuiMap implements Observer {
 		p.translate(-drawX, -drawY);
 	}
 	
+	/**
+	 *  Overlay units on the map.
+	 *  @category unused
+	 */
 	void drawUnits(AnimatedUnit[] units, Graphics g, long timeDiff){
 		Graphics2D g2 = (Graphics2D) g;
 		for (AnimatedUnit au : units) {
@@ -254,9 +269,35 @@ public class GuiMap implements Observer {
 			    g2.fill(a);
 		    }
 
-		    if (l.y -1 > 0 && (m =  field[l.x][l.y-1]).getHeight() > height ){	    	
+		    if (l.y -1 >= 0 && (m =  field[l.x][l.y-1]).getHeight() > height ){	    	
 		    	makePolygons(m);
 			    Area a;
+			    a= new Area(m.left);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tWall);
+			    g2.fill(a);
+			    
+			    a= new Area(m.right);
+			    a.intersect(resultingArea);
+			    
+			    MapTile mm =  field[l.x-1][l.y-2];
+			    makePolygons(mm);
+			    Area aa = new Area(mm.top);
+			    a.subtract(aa);
+			    
+			    g2.setPaint(m.tWall);
+			    g2.fill(a);
+			    
+			    a= new Area(m.top);
+			    a.intersect(resultingArea);
+			    g2.setPaint(m.tGrass);
+			    g2.fill(a);			    
+			    
+		    }
+		    
+		    if (l.x +1 < fieldWidth && l.y - 1 >= 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > height){	    	
+		    	makePolygons(m);
+		    	Area a;
 			    a= new Area(m.left);
 			    a.intersect(resultingArea);
 			    g2.setPaint(m.tWall);
@@ -269,12 +310,18 @@ public class GuiMap implements Observer {
 			    
 			    a= new Area(m.top);
 			    a.intersect(resultingArea);
+			    
+//			    MapTile mm =  field[l.x+2][l.y-1];
+//			    makePolygons(mm);
+//			    a.subtract(new Area(mm.left));
+//			    a.subtract(new Area(mm.top));
+
 			    g2.setPaint(m.tGrass);
 			    g2.fill(a);
 			    
 		    }
 		    
-		    if (l.x +1 < fieldWidth && l.y - 1 > 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > height){	    	
+		    if (l.x -1  >=0 && l.y - 1 >= 0 &&  (m =  field[l.x-1][l.y-1]).getHeight() > height){	    	
 		    	makePolygons(m);
 		    	Area a;
 			    a= new Area(m.left);
@@ -387,7 +434,7 @@ public class GuiMap implements Observer {
 		au.setGridX(u.getGridX());
 		au.setGridY(u.getGridY());
 		tileMapping.put(field[au.gridX][au.gridY],au);
-//		drawn = false;
+		drawn = false;
 	}
 	
 	public void playersTurn(){
@@ -425,7 +472,7 @@ public class GuiMap implements Observer {
 
 	
 	
-	Collection<Point> inRange = null;
+	private Collection<Point> inRange = null;
 	private class Movement extends ActionsAdapter{
 		
 	    private Point mouseStart, mouseEnd;
@@ -588,7 +635,7 @@ public class GuiMap implements Observer {
 				mapController.moveUnit(units[0].getUuid(), newP);
 				break;
 			case KeyEvent.VK_I:
-				System.out.printf("draw (%d,%d)\n", drawX, drawY);
+				System.out.printf("draw (%d,%d) selected %s\n", drawX, drawY, selectedTile);
 				break;
 		}
 		
