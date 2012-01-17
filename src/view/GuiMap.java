@@ -4,7 +4,7 @@
 package view;
 
 import static view.MapTile.Orientation.UP_TO_EAST;
-
+import static view.MapTile.TileState;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -123,6 +123,7 @@ public class GuiMap implements Observer {
         dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
         
         selectedTile = field[0][0];
+        selectedTile.setState(TileState.SELECTED);
         
         mapController.addMapObserver(this);
         mapController.startMap();
@@ -153,12 +154,10 @@ public class GuiMap implements Observer {
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		
 		Graphics g = mapBuffer.getGraphics();
-		
 		//TODO rotates workss!
 		if (!drawn) {
-			System.out.println("Redrawing");
+//			System.out.println("Redrawing");
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
-			selectedTile.setSelected(false);
 			int x = startX;
 			int y = startY;
 			final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -166,8 +165,12 @@ public class GuiMap implements Observer {
 			for (int i = fieldHeight - 1; i >= 0; i--) {
 	//		for (int i = 0 ; i < fieldHeight; i++) { //  for rotate
 				for (int j = 0; j < fieldWidth; j++) {
-	//			for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
-
+//				for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
+					if (mouseMoving ||    
+							(x - horizontal    - drawX <= Gui.WIDTH+MapSettings.tileDiagonal*2
+							&& y - vertical   - drawY <= Gui.HEIGHT+MapSettings.tileDiagonal*2
+							&& x + horizontal - drawX >= -MapSettings.tileDiagonal*2
+							&& y + vertical   - drawY >= -MapSettings.tileDiagonal*2)) {
 						field[j][i].draw(x, y, g, true,true);
 						if (showNumbering) {
 							Color old = g.getColor();
@@ -182,7 +185,7 @@ public class GuiMap implements Observer {
 						if (u != null){
 							u.draw(g, field, x, y, animationDuration);
 						}
-
+					}
 					x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
 					y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
 				}
@@ -192,7 +195,6 @@ public class GuiMap implements Observer {
 				//			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1)); // for rotate
 			}
 			drawn = true;
-			selectedTile.setSelected(true);
 		}
 		
 //		Animated movement by redrawing partical steps.
@@ -207,21 +209,21 @@ public class GuiMap implements Observer {
 //		}
 		
 		animationFrameChange += timeDiff;
-		if (animationFrameChange > animationDuration){
+		if (!mouseMoving && animationFrameChange > animationDuration){
 			animationFrameChange=0;
 			drawn=false;
 		}
 		
 		_g.drawImage(mapBuffer,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
 		
-		if (inRange != null){
-			for (Point p :inRange) {
-				overlayTile(_g, field[p.x][p.y],Color.BLUE,10);
-				Color c = new Color((int) Math.random(), (int)Math.random(), (int)Math.random());
-			}	
-		}
+//		if (inRange != null){
+//			for (Point p :inRange) {
+//				overlayTile(_g, field[p.x][p.y],Color.BLUE,10);
+//				Color c = new Color((int) Math.random(), (int)Math.random(), (int)Math.random());
+//			}	
+//		}
 		
-		overlayTile(_g,selectedTile,Color.ORANGE,10);
+//		overlayTile(_g,selectedTile,Color.ORANGE,10);
 //		drawUnits(units,_g,timeDiff);
 //		drawUnits(aiUnits,_g,timeDiff);
 
@@ -510,6 +512,7 @@ public class GuiMap implements Observer {
 	
 	
 	private Collection<Point> inRange = null;
+	private boolean mouseMoving = false;
 	private class Movement extends ActionsAdapter{
 		
 	    private Point mouseStart, mouseEnd;
@@ -545,10 +548,10 @@ public class GuiMap implements Observer {
 		private void selectMoveUnit() {
 			if (selected != null){
 				System.out.println("selected " + selected);
-				if ( !getSelectedTile().isInRange() ) return;
+				if ( getSelectedTile().getState() != TileState.SELECTED ) return;
 				mapController.moveUnit(selected.unit.getUuid(), getSelectedTile().getFieldLocation());
 				for (Point p : inRange) {
-					field[p.x][p.y].setInRange(false);
+					field[p.x][p.y].setState(TileState.NONE);
 				}
 				selected = null;
 				inRange = null;
@@ -571,7 +574,7 @@ public class GuiMap implements Observer {
 			if (unitS != selected){
 				if (inRange != null){
 					for (Point p : inRange) {
-						field[p.x][p.y].setInRange(false);
+						field[p.x][p.y].setState(TileState.NONE);
 					}	
 				}
 				inRange = null;
@@ -580,7 +583,7 @@ public class GuiMap implements Observer {
 			
 			inRange =  mapController.getMovementRange(unitS.unit.getUuid());
 			for (Point p : inRange) {
-				field[p.x][p.y].setInRange(true);
+				field[p.x][p.y].setState(TileState.MOVEMENT_RANGE);
 			}
 		}
 		
@@ -589,7 +592,7 @@ public class GuiMap implements Observer {
 			selected = null;
 			if (inRange != null){
 				for (Point p : inRange) {
-					field[p.x][p.y].setInRange(false);
+					field[p.x][p.y].setState(TileState.NONE);
 				}
 				inRange = null;
 			}
@@ -598,24 +601,29 @@ public class GuiMap implements Observer {
 		
 	    @Override
 		public void mousePressed(MouseEvent e) {
+	    	System.out.println("MousePressed");
+	    	mouseMoving =true;
+	    	drawn = false;
+	    	
 	        mouseStart = e.getPoint();
-
 	        offsetX = e.getX() - drawX;
 	        offsetY = e.getY() - drawY;
+	        System.out.println(drawn);
 	    }
 
 	    @Override
 		public void mouseReleased(MouseEvent e) {
+	    	System.out.println("MousrReleased");
+	        mouseMoving = false;
 	        mouseEnd = e.getPoint();
 	        int a = Math.abs((int) (mouseEnd.getX() - mouseStart.getX()));
 	        int b = Math.abs((int) (mouseEnd.getY() - mouseStart.getY()));
-
 //	        if (Math.sqrt(a * a + b * b) > 3) {
 	            
 //	        } else {
 	            findAndSelectTile(e.getX(), e.getY());
 	            selectMoveUnit();
-//	        }
+//	        }	            
 	    }
 
 	    @Override
@@ -724,11 +732,11 @@ public class GuiMap implements Observer {
         
         Graphics g =mapBuffer.getGraphics();
         if (selectedTile != null) {
-            selectedTile.setSelected(false);
+            selectedTile.setState(TileState.NONE);
         }
         
         selectedTile = field[x][y];
-        selectedTile.setSelected(true);
+        selectedTile.setState(TileState.SELECTED);
         
 		Point selected = getDrawLocation(startX, startY, x, y);
 //        System.out.printf("(%d,%d) selected\n", newX, newY);        

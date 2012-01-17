@@ -92,7 +92,11 @@ public class Map extends Observable {
 	}
 	
 	private void loadSettings(String name) {
-//		loadFromSpaceSepFile("test.txt");
+		loadFromSpaceSepFile("test2.txt");
+//		testing();
+	}
+
+	void testing(){
 		width = 16; 
 		height =16;
 		field = new Tile[width][height];
@@ -131,9 +135,7 @@ public class Map extends Observable {
 //				field[i][j] = new Tile(first, first);
 //			}
 //		}
-		
 	}
-
 
 	public void start() {
 		INotification n =  new ChooseUnitsNotifications(player.getUnits(), ai.getUnits());

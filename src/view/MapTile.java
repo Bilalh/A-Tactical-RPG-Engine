@@ -22,7 +22,7 @@ public class MapTile {
     }
     		
     static enum TileState{
-    	SELECTED(Color.GREEN) , MOVEMENT_RANGE(Color.BLUE), NONE(Color.DARK_GRAY);
+    	SELECTED(Color.ORANGE), MOVEMENT_RANGE(Color.BLUE), NONE(Color.GREEN);
     	public final Color colour;
     	
     	TileState(Color c){
@@ -35,9 +35,6 @@ public class MapTile {
     private float height;
     private float startHeight;
     private float endHeight;
-    private boolean selected;
-    private boolean inRange;
-    private Color myColor;
     private Point fieldLocation;
 	private TileState state;
 	
@@ -67,7 +64,6 @@ public class MapTile {
         this.startHeight = startHeight;
         this.endHeight = endHeight;
         this.height = (startHeight + endHeight) / 2;
-        this.selected = false;
         this.fieldLocation = new Point();
         this.fieldLocation = new Point(x,y);
         
@@ -87,11 +83,11 @@ public class MapTile {
            		0 - h2 + vertical / 2, 
            		0 - h2 + vertical,
            		0 - h1 + vertical / 2}, 4); 
-        
+        state = TileState.NONE;
     }
     
     public boolean wasClickedOn(Point click) {
-        return topReal.contains(click);
+        return topReal != null &&  topReal.contains(click);
     }
     
     public Point calculateCentrePoint(Point p){
@@ -134,6 +130,9 @@ public class MapTile {
         }
     }
 
+    /**
+     * @category unused
+     */
    Polygon getpoly(){
        final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
        final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -205,7 +204,6 @@ public class MapTile {
        final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
        
        Color oldColor = g.getColor();
-       g.setColor(myColor); 
 
        top =topReal= new Polygon(new int[]{
        		x, 
@@ -220,8 +218,18 @@ public class MapTile {
 
 
            Paint old =  g.getPaint();
-           if (!selected && !inRange ) g.setPaint(tGrass);
+           g.setPaint(tGrass);
            g.fillPolygon(top);
+           
+           if (state == TileState.MOVEMENT_RANGE || state == TileState.SELECTED ) {
+        	   Composite oldC = g.getComposite();
+        	   AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f);				
+        	   g.setComposite(alphaComposite);
+        	   g.setColor(state.colour);
+        	   g.fillPolygon(top);
+        	   g.setComposite(oldC);
+           }
+           
            g.setPaint(old);
        
        if (drawRightSide){
@@ -310,7 +318,7 @@ public class MapTile {
     /**
      * Draw a Standard Tile.  Standard Tiles do not have a slant to them.
      * Note that the drawing begins at (x,y - MapSettings.tileHeight*height).
-     * @category drawing
+     * @category unused
      */
     public void drawNormal(int x, int y, Graphics g) {
         int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
@@ -319,7 +327,7 @@ public class MapTile {
 //        System.out.printf("(%d,%d) finalHeight:%3d hoz:%3d vet:%3d\n",x,y,  finalHeight, horizontal, vertical);
         
         Color oldColor = g.getColor();
-        g.setColor(myColor); // Draw the top of the tile
+        g.setColor(state.colour); 
         g.fillPolygon(top = new Polygon(new int[]{
         		x, 
         		x + horizontal / 2, 
@@ -399,7 +407,7 @@ public class MapTile {
     /**
      * Draw a tile that slants to the north or the south.  The methods for drawing
      * are very similar, so they can be merged into one method.
-     * @category drawing
+     * @category unused
      */
     public void drawNorthSouth(int x, int y, Graphics g) {
 
@@ -410,7 +418,7 @@ public class MapTile {
         int HEIGHT2 = orientation == UP_TO_NORTH ? (int) (finalHeight * endHeight) : (int) (finalHeight * startHeight);
 
         Color oldColor = g.getColor();
-        g.setColor(myColor); // Draw the top of the tile
+        g.setColor(state.colour); 
         g.fillPolygon(top = new Polygon(new int[]{
         		x, 
         		x + horizontal / 2, 
@@ -483,24 +491,9 @@ public class MapTile {
         g.setColor(oldColor);
     }
     
-    public void setEndHeight(float endHeight) {
-        this.endHeight = endHeight;
-        this.height = (startHeight + endHeight) / 2;
-    }
-    
-    public void setStartHeight(float startHeight) {
-        this.startHeight = startHeight;
-        this.height = (startHeight + endHeight) / 2;
-    }
-
 	/** @category Generated */
 	public Orientation getOrientation() {
 		return orientation;
-	}
-
-	/** @category Generated */
-	public void setOrientation(Orientation orientation) {
-		this.orientation = orientation;
 	}
 
 	/** @category Generated */
@@ -528,31 +521,11 @@ public class MapTile {
 		return state;
 	}
 
-	/** @category Generated */
+	/** @category Generated*/
 	public void setState(TileState state) {
 		this.state = state;
 	}
-
-	/** @category Generated */
-	public boolean isSelected() {
-		return selected;
-	}
-
-	/** @category Generated */
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
-
-	/** @category Generated */
-	public boolean isInRange() {
-		return inRange;
-	}
-
-	/** @category Generated */
-	public void setInRange(boolean inRange) {
-		this.inRange = inRange;
-	}
-
+	
 	// for debuging
 	/** @category Generated */
 	public int getCost() {
@@ -569,4 +542,5 @@ public class MapTile {
 		return String.format("MapTile [orientation=%s, height=%s, fieldLocation=%s, cost=%s]",
 				orientation, height, fieldLocation, cost);
 	}
+
 }
