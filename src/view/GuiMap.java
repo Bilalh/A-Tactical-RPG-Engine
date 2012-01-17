@@ -183,11 +183,12 @@ public class GuiMap implements Observer {
 		
 		if (inRange != null){
 			for (Point p :inRange) {
-				overlayTile(_g, field[p.x][p.y],Color.BLUE,0);
+				overlayTile(_g, field[p.x][p.y],Color.BLUE,10);
+				Color c = new Color((int) Math.random(), (int)Math.random(), (int)Math.random());
 			}	
 		}
 		
-		overlayTile(_g,selectedTile,Color.ORANGE, 2);
+		overlayTile(_g,selectedTile,Color.ORANGE,10);
 //		drawUnits(units,_g,timeDiff);
 //		drawUnits(aiUnits,_g,timeDiff);
 
@@ -607,28 +608,32 @@ public class GuiMap implements Observer {
 				showNumbering  = !showNumbering;
 				break;
 			case KeyEvent.VK_MINUS:
+				if ( MapSettings.zoom <0.9) break;
 				MapSettings.zoom *= 0.8;
-				if ( MapSettings.zoom <0.6) MapSettings.zoom = 0.6f;
 				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
 				System.out.println(MapSettings.zoom);
+				drawn=false;
 				break;
 			case KeyEvent.VK_EQUALS:
+				if ( MapSettings.zoom >1.2) break;
 				MapSettings.zoom *= 1.2;
-				if ( MapSettings.zoom >1.2) MapSettings.zoom = 1.2f;
 				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
 				System.out.println(MapSettings.zoom);
+				drawn=false;
 				break;
 			case KeyEvent.VK_COMMA:
+				if ( MapSettings.pitch <0.6) break;
 				MapSettings.pitch *= 0.8;
-				if ( MapSettings.pitch <0.3) MapSettings.pitch = 0.3f;
 				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
 				System.out.println(MapSettings.pitch);
+				drawn=false;
 				break;
 			case KeyEvent.VK_PERIOD:
+				if ( MapSettings.pitch >0.8) break;
 				MapSettings.pitch *= 1.2;
-				if ( MapSettings.pitch >0.8) MapSettings.pitch = 0.8f;
 				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
 				System.out.println(MapSettings.pitch);
+				drawn=false;
 				break;
 			case KeyEvent.VK_U:
 				Point newP = new Point(units[0].getGridX()+1, units[0].getGridY());

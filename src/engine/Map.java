@@ -92,7 +92,7 @@ public class Map extends Observable {
 	}
 	
 	private void loadSettings(String name) {
-		loadFromSpaceSepFile("test2.txt");
+		loadFromSpaceSepFile("test.txt");
 //		width = 8; 
 //		height = 8;
 //		field = new Tile[width][height];
