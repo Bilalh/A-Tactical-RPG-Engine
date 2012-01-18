@@ -107,20 +107,21 @@ public class Map extends Observable {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				int first = r.nextInt(3)+1;
+				first=1;
 				field[i][j] = new Tile(first, first);
 //				field[i][j] = new Tile(1,1);
 			}
 		}
-			field[2][6] = new Tile(3, 3);
-			
-			field[2][7] = new Tile(2, 2);
-			field[1][4] = new Tile(2, 2);
-			
-			
-			field[3][5] = new Tile(2, 2);
-			field[2][4] = new Tile(2, 2);
-			
-			field[1][6] = new Tile(2, 2);
+//			field[2][6] = new Tile(3, 3);
+//			
+//			field[2][7] = new Tile(2, 2);
+//			field[1][4] = new Tile(2, 2);
+//			
+//			
+//			field[3][5] = new Tile(2, 2);
+//			field[2][4] = new Tile(2, 2);
+//			
+//			field[1][6] = new Tile(2, 2);
 //			field[10][5] = new Tile(7, 7);
 //			field[10][4] = new Tile(7, 7);
 //	
