@@ -151,12 +151,13 @@ public class GuiMap implements Observer {
 	
 	Queue<MapTile> toMove = new ArrayDeque<MapTile>();
 	
+	
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		
 		Graphics g = mapBuffer.getGraphics();
 		//TODO rotates workss!
 		if (!drawn) {
-//			System.out.println("Redrawing");
+			System.out.println("Redrawing " );
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			int x = startX;
 			int y = startY;
@@ -167,7 +168,7 @@ public class GuiMap implements Observer {
 				for (int j = 0; j < fieldWidth; j++) {
 //				for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
 					if (mouseMoving ||    
-							(x - horizontal    - drawX <= Gui.WIDTH+MapSettings.tileDiagonal*2
+							(x - horizontal   - drawX <= Gui.WIDTH+MapSettings.tileDiagonal*2
 							&& y - vertical   - drawY <= Gui.HEIGHT+MapSettings.tileDiagonal*2
 							&& x + horizontal - drawX >= -MapSettings.tileDiagonal*2
 							&& y + vertical   - drawY >= -MapSettings.tileDiagonal*2)) {
@@ -185,6 +186,10 @@ public class GuiMap implements Observer {
 						if (u != null){
 							u.draw(g, field, x, y, animationDuration);
 						}
+						if (mouseMoving){
+							System.out.printf("Mouse Moving(%d,%d)\n", j, i);
+						}
+						
 					}
 					x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
 					y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
@@ -618,12 +623,12 @@ public class GuiMap implements Observer {
 	        mouseEnd = e.getPoint();
 	        int a = Math.abs((int) (mouseEnd.getX() - mouseStart.getX()));
 	        int b = Math.abs((int) (mouseEnd.getY() - mouseStart.getY()));
-//	        if (Math.sqrt(a * a + b * b) > 3) {
+	        if (Math.sqrt(a * a + b * b) > 3) {
 	            
-//	        } else {
+	        } else {
 	            findAndSelectTile(e.getX(), e.getY());
 	            selectMoveUnit();
-//	        }	            
+	        }	            
 	    }
 
 	    @Override
@@ -699,16 +704,14 @@ public class GuiMap implements Observer {
         y += drawY;
         int xIndex = -1, yIndex = -1;
         
-        System.out.printf("p:(%d,%d)\n", x, y);
-        System.out.println(Arrays.toString(field[4][3].top.xpoints));
-        System.out.println(Arrays.toString(field[4][3].top.ypoints));
+//        System.out.printf("p:(%d,%d)\n", x, y);
         for (int i = 0; i < fieldWidth; i++) {
             for (int j = 0; j < fieldHeight; j++) {
                 if (field[i][j].wasClickedOn(new Point(x, y))) {
-                	System.out.printf("Clicked(%d,%d)\n", i, j);
+//                	System.out.printf("Clicked(%d,%d)\n", i, j);
                 	
                 	if (field[i][j].getHeight() > highest){
-                		System.out.println("\t highest");
+//                		System.out.println("\t highest");
                         highest = field[i][j].getHeight();
                         xIndex = i;
                         yIndex = j;	
@@ -719,10 +722,10 @@ public class GuiMap implements Observer {
         }
         if (xIndex > -1 && yIndex > -1) {
             this.setSelectedTile(xIndex, yIndex);
-            System.out.printf("(%d,%d)\n\n", xIndex, yIndex);
+//            System.out.printf("(%d,%d)\n\n", xIndex, yIndex);
             return new Point(xIndex, yIndex);
         } else {
-        	System.out.printf("(%d,%d)\n\n", xIndex, yIndex);
+//        	System.out.printf("(%d,%d)\n\n", xIndex, yIndex);
             return null;
         }
     }
