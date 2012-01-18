@@ -45,9 +45,9 @@ public class MapTile {
     
 //    debuging
     private int cost;
-    static BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass16.jpg").getImage();
-    static Rectangle2D rGrass = new Rectangle2D.Double(0, 0,iGrass.getWidth(null),iGrass.getHeight(null));
-    static TexturePaint tGrass = new TexturePaint(iGrass, rGrass);    
+    BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/metal.png").getImage();
+    Rectangle2D rGrass = new Rectangle2D.Double(0, 0,iGrass.getWidth(null),iGrass.getHeight(null));
+    TexturePaint tGrass = new TexturePaint(iGrass, rGrass);    
     
     static Image iWall = SpriteManager.instance().getSprite("assets/gui/wallb16.jpg").getImage();
     static Rectangle2D rWall = new Rectangle2D.Double(0, 0,iWall.getWidth(null),iWall.getHeight(null));

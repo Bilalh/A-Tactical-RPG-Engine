@@ -1,0 +1,1 @@
+convert  -transparent 'rgb(255,0,255)'  /Users/bilalh/Desktop/EE_Elena.png new.png
