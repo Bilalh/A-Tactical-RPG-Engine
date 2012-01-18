@@ -148,7 +148,7 @@ public class MapPanel extends JPanel implements Runnable {
 	/* The frames of the animation are drawn inside the while loop. */
 	@Override
 	public void run() {
-		long beforeTime, afterTime, timeDiff =0, sleepTime;
+		long beforeTime, afterTime, timeDiff =0, sleepTime=0;
 		long overSleepTime = 0L;
 		int noDelays = 0;
 		long excess = 0L;
@@ -161,15 +161,20 @@ public class MapPanel extends JPanel implements Runnable {
 		
 		running = true;
 
+		
+		long realOld = System.nanoTime();
 		while (running) {
 			gameUpdate();
-			gameRender(timeDiff);
+			long temp = System.nanoTime();
+//			gameRender(timeDiff);
+			gameRender(temp - realOld);
+			realOld = temp;
 			paintScreen();
 
 			afterTime = System.nanoTime();
 			timeDiff = afterTime - beforeTime;
 			sleepTime = (period - timeDiff) - overSleepTime;
-
+//			System.out.println(sleepTime + "   " + "   " + "   " + beforeTime + "   " +  afterTime + "   "+ timeDiff);
 			if (sleepTime > 0) { // some time left in this cycle
 				try {
 					Thread.sleep(sleepTime / 1000000L); // nano -> ms
@@ -197,6 +202,7 @@ public class MapPanel extends JPanel implements Runnable {
 				excess -= period;
 				gameUpdate(); // update state but don't render
 				skips++;
+//				System.out.println("Skipping " + skips);
 			}
 		}
 		System.exit(0); // so window disappears

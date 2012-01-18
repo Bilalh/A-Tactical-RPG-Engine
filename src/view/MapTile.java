@@ -41,7 +41,8 @@ public class MapTile {
     private Polygon topReal;
     Polygon top, left, right;
 
-	
+	private boolean selected = false;
+    
 //    debuging
     private int cost;
     static BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass16.jpg").getImage();
@@ -221,11 +222,11 @@ public class MapTile {
            g.setPaint(tGrass);
            g.fillPolygon(top);
            
-           if (state == TileState.MOVEMENT_RANGE || state == TileState.SELECTED ) {
+           if (state == TileState.MOVEMENT_RANGE || selected ) {
         	   Composite oldC = g.getComposite();
         	   AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f);				
         	   g.setComposite(alphaComposite);
-        	   g.setColor(state.colour);
+        	   g.setColor(selected ? TileState.SELECTED.colour : state.colour);
         	   g.fillPolygon(top);
         	   g.setComposite(oldC);
            }
@@ -541,6 +542,16 @@ public class MapTile {
 	public String toString() {
 		return String.format("MapTile [orientation=%s, height=%s, fieldLocation=%s, cost=%s]",
 				orientation, height, fieldLocation, cost);
+	}
+
+	/** @category Generated Getter */
+	public boolean isSelected() {
+		return selected;
+	}
+
+	/** @category Generated Setter */
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 }
