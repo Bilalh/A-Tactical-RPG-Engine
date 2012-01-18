@@ -54,8 +54,8 @@ public class MapTile {
 	static TexturePaint tWall = new TexturePaint((BufferedImage) iWall, rWall);
 	
 	// True if textured  otherwise a tilemap is used.
-	boolean textured = true;
-	Sprite image = SpriteManager.instance().getSprite("assets/gui/tile2.png");
+	boolean textured = false;
+	Sprite image = SpriteManager.instance().getSprite("assets/gui/rst.png");
 	
 	/**
 	 * @param orientation
