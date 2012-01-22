@@ -41,19 +41,19 @@ public class Map extends Observable {
 
 	private void setUpAI() {
 		AIPlayer ai = new AIPlayer();
-		AIUnit u = new AIUnit("ai-1", 20, 4, 4);
-		u.setGridX(width-1);
-		u.setGridY(0);
-		ai.addUnit(u);
-		field[width-1][0].setCurrentUnit(u);
-		
-		
-		u = new AIUnit("ai-2", 10, 3, 10);
-		u.setGridX(width-1);
-		u.setGridY(1);
-		ai.addUnit(u);
-		field[width-1][1].setCurrentUnit(u);
-		
+//		AIUnit u = new AIUnit("ai-1", 20, 4, 4);
+//		u.setGridX(width-1);
+//		u.setGridY(0);
+//		ai.addUnit(u);
+//		field[width-1][0].setCurrentUnit(u);
+//		
+//		
+//		u = new AIUnit("ai-2", 10, 3, 10);
+//		u.setGridX(width-1);
+//		u.setGridY(1);
+//		ai.addUnit(u);
+//		field[width-1][1].setCurrentUnit(u);
+//		
 		
 		this.ai = ai;
 	}
@@ -97,8 +97,8 @@ public class Map extends Observable {
 	}
 
 	void testing(){
-		width = 16; 
-		height =16;
+		width = 4; 
+		height =4;
 		field = new Tile[width][height];
 		
 		long seed = 654645l;

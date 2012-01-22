@@ -128,13 +128,13 @@ public class GuiMap implements Observer {
         mapController.addMapObserver(this);
         mapController.startMap();
         
-        toMove.add(field[2][5]);
-        toMove.add(field[3][5]);
-        toMove.add(field[4][5]);
-        toMove.add(field[4][6]);
-        toMove.add(field[5][6]);
-        toMove.add(field[6][6]);
-        toMove.add(field[6][7]);
+//        toMove.add(field[2][5]);
+//        toMove.add(field[3][5]);
+//        toMove.add(field[4][5]);
+//        toMove.add(field[4][6]);
+//        toMove.add(field[5][6]);
+//        toMove.add(field[6][6]);
+//        toMove.add(field[6][7]);
 	}
 
 	void makeImageBuffer(Component parent){
@@ -159,7 +159,7 @@ public class GuiMap implements Observer {
 		//TODO rotates workss!
 		if (!drawn) {
 //			System.out.println("%%%drawn is " + drawn + " mouse is " + mouseMoving);
-
+			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			int x = startX;
 			int y = startY;
@@ -168,16 +168,21 @@ public class GuiMap implements Observer {
 //			System.out.println("___drawn is " + drawn + " mouse is " + mouseMoving);
 			
 			boolean drawnEverything = true;
+			boolean tex = false;
 			for (int i = fieldHeight - 1; i >= 0; i--) {
 	//		for (int i = 0 ; i < fieldHeight; i++) { //  for rotate
+				tex = !tex;
 				for (int j = 0; j < fieldWidth; j++) {
 //				for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
+					tex = !tex;
 					if (mouseMoving ||    
 							(x - horizontal   - drawX <= Gui.WIDTH+MapSettings.tileDiagonal*2
 							&& y - vertical   - drawY <= Gui.HEIGHT+MapSettings.tileDiagonal*2
 							&& x + horizontal - drawX >= -MapSettings.tileDiagonal*2
 							&& y + vertical   - drawY >= -MapSettings.tileDiagonal*2)) {
+						field[j][i].textured = tex;
 						field[j][i].draw(x, y, g, true,true);
+						
 						if (showNumbering) {
 							Color old = g.getColor();
 							g.setColor(Color.RED);
@@ -460,13 +465,13 @@ public class GuiMap implements Observer {
 		AnimatedUnit[] newUnits = new AnimatedUnit[allPlayerUnits.size()];
 		HashMap<UUID, Point> selectedPostions = new HashMap<UUID, Point>();
 		for (int i = 0; i < newUnits.length; i++) {
-			//FIXME indies
-			final IUnit u = allPlayerUnits.get(i);
-			Point p = new Point(2,i+5); 
-			newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
-			selectedPostions.put(u.getUuid(), p);
-			unitMapping.put(u.getUuid(), newUnits[i]);
-			tileMapping.put(field[p.x][p.y], newUnits[i]);
+//			//FIXME indies
+//				final IUnit u = allPlayerUnits.get(i);
+//				Point p = new Point(2,i+5); 
+//				newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
+//				selectedPostions.put(u.getUuid(), p);
+//				unitMapping.put(u.getUuid(), newUnits[i]);
+//				tileMapping.put(field[p.x][p.y], newUnits[i]);
 		}
 		mapController.setUsersUnits(selectedPostions);
 		this.units = newUnits;

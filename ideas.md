@@ -16,9 +16,11 @@
        
        * Partial redrawing -- does not work, wrong draw order at ends  
 
-* Better way -- works
+* Better way -- 
 	* Cache map 
 	* overall selected tile/movement range with bitwise drawing ops 
 	* for units find bounding box then use bitwise ops to redraw the area around unit
 
-* don't change top postion 
+* Choosen Way
+	* Cache for a while then redraw
+
