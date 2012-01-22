@@ -6,8 +6,8 @@ import java.awt.Point;
 public final class MapSettings {
 
     // Map Settings
-    public static int tileDiagonal = 100;
-    public static int tileHeight = 20;
+    public static int tileDiagonal = 75;
+    public static int tileHeight = 15;
     public static int rotation = 0;
     public static float pitch = .5f;
     public static float zoom = 1.0f;

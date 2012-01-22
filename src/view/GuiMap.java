@@ -128,13 +128,15 @@ public class GuiMap implements Observer {
         mapController.addMapObserver(this);
         mapController.startMap();
         
-//        toMove.add(field[2][5]);
-//        toMove.add(field[3][5]);
-//        toMove.add(field[4][5]);
-//        toMove.add(field[4][6]);
+        toMove.add(field[2][5]);
+        toMove.add(field[3][5]);
+        toMove.add(field[4][5]);
+        toMove.add(field[4][6]);
 //        toMove.add(field[5][6]);
 //        toMove.add(field[6][6]);
 //        toMove.add(field[6][7]);
+//        toMove.add(field[6][8]);
+
 	}
 
 	void makeImageBuffer(Component parent){
@@ -214,11 +216,11 @@ public class GuiMap implements Observer {
 //		Animated movement by redrawing partical steps.
 //		lastFrameChange += timeDiff;
 //		if (lastFrameChange > frameDuration){
-//			if (toMove.size() >=2){
-//				AnimatedUnit u =  tileMapping.remove(toMove.remove());
-//				tileMapping.put(toMove.peek(),u);
-//				drawn=false;
-//			}
+			if (toMove.size() >=2){
+				AnimatedUnit u =  tileMapping.remove(toMove.remove());
+				tileMapping.put(toMove.peek(),u);
+				drawn=false;
+			}
 //			lastFrameChange=0;
 //		}
 		
@@ -230,6 +232,11 @@ public class GuiMap implements Observer {
 //				System.out.printf("NEXT FRAME %.5f ::: %.3f\n", animationFrameChange * .000001, total * .000000001);
 				animationFrameChange=0;
 				drawn=false;
+//				if (toMove.size() >=2){
+//					AnimatedUnit u =  tileMapping.remove(toMove.remove());
+//					tileMapping.put(toMove.peek(),u);
+//					drawn=false;
+//				}
 			}	
 		}
 		
@@ -466,12 +473,12 @@ public class GuiMap implements Observer {
 		HashMap<UUID, Point> selectedPostions = new HashMap<UUID, Point>();
 		for (int i = 0; i < newUnits.length; i++) {
 //			//FIXME indies
-//				final IUnit u = allPlayerUnits.get(i);
-//				Point p = new Point(2,i+5); 
-//				newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
-//				selectedPostions.put(u.getUuid(), p);
-//				unitMapping.put(u.getUuid(), newUnits[i]);
-//				tileMapping.put(field[p.x][p.y], newUnits[i]);
+				final IUnit u = allPlayerUnits.get(i);
+				Point p = new Point(2,i+5); 
+				newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
+				selectedPostions.put(u.getUuid(), p);
+				unitMapping.put(u.getUuid(), newUnits[i]);
+				tileMapping.put(field[p.x][p.y], newUnits[i]);
 		}
 		mapController.setUsersUnits(selectedPostions);
 		this.units = newUnits;
