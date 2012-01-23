@@ -1,7 +1,9 @@
 package engine.map;
 
+import java.util.Comparator;
+
 // Stores infomation about a tile
-public class Location implements Comparable<Location>{
+public class Location{
 	final int x;
 	final int y;
 	int minDistance;
@@ -22,15 +24,6 @@ public class Location implements Comparable<Location>{
 		this.previous = previous;
 	}
 
-
-
-	@Override
-	public int compareTo(Location o) {
-		return this.minDistance  < o.minDistance ? -1 
-				: (this.minDistance == o.minDistance ? 0 
-				: 1);  
-	}
-
 	@Override
 	public String toString() {
 		return previous != null ?
@@ -38,26 +31,6 @@ public class Location implements Comparable<Location>{
 						x, y, minDistance == Integer.MAX_VALUE ? "∞" : minDistance, previous.x, previous.y)
 				: String.format("{%s,%s} %s, null]",
 						x, y, minDistance == Integer.MAX_VALUE ? "∞" : minDistance);
-	}
-
-	/** @category Generated Getter */
-	public int getX() {
-		return x;
-	}
-
-	/** @category Generated Getter */
-	public int getY() {
-		return y;
-	}
-
-	/** @category Generated Getter */
-	public int getMinDistance() {
-		return minDistance;
-	}
-
-	/** @category Generated Getter */
-	public Location getPrevious() {
-		return previous;
 	}
 
 	@Override
@@ -88,7 +61,7 @@ public class Location implements Comparable<Location>{
 		if (y != other.y) return false;
 		return true;
 	}
-
+	
 	/** @category Generated Setter */
 	public void setMinDistance(int minDistance) {
 		this.minDistance = minDistance;
@@ -97,5 +70,25 @@ public class Location implements Comparable<Location>{
 	/** @category Generated Setter */
 	public void setPrevious(Location previous) {
 		this.previous = previous;
+	}
+
+	/** @category Generated Getter */
+	public int getX() {
+		return x;
+	}
+
+	/** @category Generated Getter */
+	public int getY() {
+		return y;
+	}
+
+	/** @category Generated Getter */
+	public int getMinDistance() {
+		return minDistance;
+	}
+
+	/** @category Generated Getter */
+	public Location getPrevious() {
+		return previous;
 	}
 }

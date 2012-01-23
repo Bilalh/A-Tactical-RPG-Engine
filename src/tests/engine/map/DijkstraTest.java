@@ -52,6 +52,10 @@ public class DijkstraTest {
 //			System.out.println();
 //		}
 		
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(Arrays.toString(arr[i]));
+		}
+		
 		// expected values
 		l(0,0,  0);       l(0,1,  2,  0,0); l(0,2,  4,  0,1); l(0,3,  5,  0,2); l(0,4,  8,  0,3); 
 		l(1,0,  3,  0,0); l(1,1,  7,  0,1); l(1,2,  7,  0,2); l(1,3,  6,  0,3); l(1,4,  8,  1,3); 
@@ -63,8 +67,15 @@ public class DijkstraTest {
 	}
 	
 	
-	// To easily set the expected values
 	
+//	@Test 
+//	public void testWithRange(){
+//		setupSimple();
+////		d.calculate(start, lowerX, upperX, lowerY, upperY)
+//		fail();
+//	}
+	
+	// To easily set the expected values
 	private void l(int x, int y, int dist, int lx, int ly){
 		exp[x][y].setMinDistance(dist);
 		exp[x][y].setPrevious(exp[x][y]);
