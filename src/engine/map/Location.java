@@ -1,6 +1,5 @@
 package engine.map;
 
-import java.util.Comparator;
 
 // Stores infomation about a tile
 public class Location{

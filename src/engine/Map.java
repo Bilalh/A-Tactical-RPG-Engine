@@ -12,6 +12,9 @@ import view.notifications.UserMovedNotification;
 
 import common.interfaces.INotification;
 import common.interfaces.IUnit;
+import engine.Pathfinding.AStarPathFinder;
+import engine.Pathfinding.Mover;
+import engine.Pathfinding.TileBasedMap;
 import engine.interfaces.IModelUnit;
 
 
@@ -19,9 +22,9 @@ import engine.interfaces.IModelUnit;
 /**
  * @author bilalh
  */
-public class Map extends Observable {
+public class Map extends Observable implements TileBasedMap {
 
-	private Tile[][] field;
+	Tile[][] field;
 	private int width;
 	private int height;
 	
@@ -37,6 +40,7 @@ public class Map extends Observable {
 		loadSettings(name);
 		setUpAI();
 		playersTurn = true;
+		finder = new AStarPathFinder(this, 100, true);
 	}
 
 	private void setUpAI() {
@@ -92,13 +96,13 @@ public class Map extends Observable {
 	}
 	
 	private void loadSettings(String name) {
-		loadFromSpaceSepFile("test.txt");
-//		testing();
+//		loadFromSpaceSepFile("test.txt");
+		testing();
 	}
 
 	void testing(){
-		width = 4; 
-		height =4;
+		width = 10; 
+		height =10;
 		field = new Tile[width][height];
 		
 		long seed = 654645l;
@@ -202,6 +206,34 @@ public class Map extends Observable {
 		checkAround(u.getLocation(), u.getMove()+ field[u.getGridX()][u.getGridY()].getCost() );
 		System.out.println("Found moves for " + u +  " " + points);
 		return points;
+	}
+
+	/** @category Generated Getter */
+	public int getFieldWidth() {
+		return width;
+	}
+
+	/** @category Generated Getter */
+	public int getFieldHeight() {
+		return height;
+	}
+
+	AStarPathFinder finder;
+
+	
+	@Override
+	public void pathFinderVisited(int x, int y) {
+		System.out.println("Visted x");
+	}
+
+	@Override
+	public boolean blocked(Mover mover, int x, int y) {
+		return false;
+	}
+
+	@Override
+	public float getCost(Mover mover, int sx, int sy, int tx, int ty) {
+		return 1;
 	}
 	
 }

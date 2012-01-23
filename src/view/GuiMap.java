@@ -129,9 +129,9 @@ public class GuiMap implements Observer {
         mapController.startMap();
         
         toMove.add(field[2][5]);
-        toMove.add(field[3][5]);
-        toMove.add(field[4][5]);
-        toMove.add(field[4][6]);
+//        toMove.add(field[3][5]);
+//        toMove.add(field[4][5]);
+//        toMove.add(field[4][6]);
 //        toMove.add(field[5][6]);
 //        toMove.add(field[6][6]);
 //        toMove.add(field[6][7]);
@@ -216,11 +216,11 @@ public class GuiMap implements Observer {
 //		Animated movement by redrawing partical steps.
 //		lastFrameChange += timeDiff;
 //		if (lastFrameChange > frameDuration){
-			if (toMove.size() >=2){
-				AnimatedUnit u =  tileMapping.remove(toMove.remove());
-				tileMapping.put(toMove.peek(),u);
-				drawn=false;
-			}
+//			if (toMove.size() >=2){
+//				AnimatedUnit u =  tileMapping.remove(toMove.remove());
+//				tileMapping.put(toMove.peek(),u);
+//				drawn=false;
+//			}
 //			lastFrameChange=0;
 //		}
 		
@@ -688,16 +688,22 @@ public class GuiMap implements Observer {
 				showNumbering  = !showNumbering;
 				break;
 			case KeyEvent.VK_MINUS:
-				if ( MapSettings.zoom <0.9) break;
-				MapSettings.zoom *= 0.8;
-				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
+				if ( MapSettings.zoom <=0.6) break;
+				MapSettings.zoom -= 0.2;
+//				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
+				System.out.println(MapSettings.zoom * MapSettings.tileDiagonal);
+				if ((MapSettings.zoom * MapSettings.tileDiagonal) % 2 !=0){
+//					System.out.println("Odd");
+				}
+				
 				System.out.println(MapSettings.zoom);
 				drawn=false;
 				break;
 			case KeyEvent.VK_EQUALS:
 				if ( MapSettings.zoom >1.2) break;
-				MapSettings.zoom *= 1.2;
-				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
+				MapSettings.zoom += 0.2;
+//				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
+				System.out.println(MapSettings.zoom * MapSettings.tileDiagonal);
 				System.out.println(MapSettings.zoom);
 				drawn=false;
 				break;
