@@ -19,23 +19,39 @@ public class DijkstraTest {
 	Location[][] exp; 
 	
 	void setupSimple() {
-		int[][] temp = {
+		int[][] cost = {
 				{ 3, 4, 3, 3, 1 },
 				{ 1, 8, 1, 3, 2 },
 				{ 1, 3, 3, 12, 9 },
 				{ 1, 1, 5, 1, 1 },
 				{ 5, 1, 1, 1, 9 }
 		};		
-		provider.setCosts(temp);
-		d = new Dijkstra(provider, temp.length, temp[0].length);
-		exp= new Location[temp.length][temp[0].length];
-		for (int i = 0; i < temp.length; i++) {
-			for (int j = 0; j < temp.length; j++) {
+		provider.setCosts(cost);
+		d = new Dijkstra(provider, cost.length, cost[0].length);
+		exp= new Location[cost.length][cost[0].length];
+		for (int i = 0; i < cost.length; i++) {
+			for (int j = 0; j < cost[0].length; j++) {
 				exp[i][j] = new Location(i,j, Integer.MAX_VALUE,null);
 			}
 		}
 	}
 
+	// Tests graphs where rows ≠ columns.	
+	void setupUnequal(){
+		int[][] costs ={
+				{5, 4, 5, 0, 3, 2},
+				{6, 5, 8, 4, 5, 4},
+				{6, 0, 7, 7, 0, 4}};
+		provider.setCosts(costs);
+		d = new Dijkstra(provider, costs.length, costs[0].length);
+		exp= new Location[costs.length][costs[0].length];
+		for (int i = 0; i < costs.length; i++) {
+			for (int j = 0; j < costs[0].length; j++) {
+				exp[i][j] = new Location(i,j, Integer.MAX_VALUE,null);
+			}
+		}
+	}
+	
 	@Test
 	public void testSimple() {
 		setupSimple();
@@ -87,7 +103,27 @@ public class DijkstraTest {
 		assertArrayEquals("Results", exp, arr);
 	}
 	
+	// Tests a graph where rows ≠ columns.
+	// Tests have 0 cost.
+	// Tests multiple shortest paths
+	@Test
+	public void testWitUnequal(){
+		setupUnequal();
+		Location[][] arr = d.calculate(new Point(2,2));
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(Arrays.toString(arr[i]));
+		}		
+		
+		l(0,0, 10,  0,1); l(0,1,  8,  0,2); l(0,2,  6,  1,2); l(0,3, 10,  1,3); l(0,4, 10,  1,4); l(0,5, 12,  1,5); 
+		l(1,0,  8,  1,1); l(1,1,  6,  1,2); l(1,2,  2,  2,2); l(1,3,  5,  2,3); l(1,4,  7,  1,3); l(1,5,  9,  1,4); 
+		l(2,0,  9,  1,0); l(2,1,  8,  2,2); l(2,2,  0);       l(2,3,  1,  2,2); l(2,4,  9,  2,3); l(2,5, 10,  1,5); 
+		
+		assertArrayEquals("Results", exp, arr);
+	}
+	
+	
 	// To easily set the expected values
+	
 	private void l(int x, int y, int dist, int lx, int ly){
 		exp[x][y].setMinDistance(dist);
 		exp[x][y].setPrevious(exp[x][y]);
