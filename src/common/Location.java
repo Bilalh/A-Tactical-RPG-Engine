@@ -39,6 +39,16 @@ public class Location implements Serializable, ILocation {
 	/**
 	 * @return This Point for chaining.
 	 */
+	public Location translate(int d) {
+		this.x += d;
+		this.y += d;
+		return this;
+	}
+
+	
+	/**
+	 * @return This Point for chaining.
+	 */
 	public Location limitLower(int limitX, int limitY){
 		if (x < limitX) x = limitX;
 		if (y < limitY) y = limitY;
@@ -86,7 +96,7 @@ public class Location implements Serializable, ILocation {
 
 	@Override
 	public String toString() {
-		return getClass().getName() + "[x=" + x + ",y=" + y + "]";
+		return String.format("L(%s,%s)",x, y);
 	}
 
 	@Override

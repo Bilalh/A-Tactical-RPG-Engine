@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.LogMF;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import config.Config;
+import config.LogF;
 
 
 public class T {
@@ -20,6 +22,8 @@ public class T {
 		
 		Config.loadLoggingProperties();
 		log.trace("Trace Message!");
+		LogF.trace(log, "%s", "F Trace");
+		LogMF.trace(log, "{0}", "MF Trace");
 		log.debug("Debug Message!");
 		log.info("Info Message!");
 		log.warn("Warn Message!");
