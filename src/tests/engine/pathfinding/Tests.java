@@ -18,7 +18,7 @@ public class Tests {
 
 	@BeforeClass
 	public static void loadLogging(){
-		PropertyConfigurator.configure(Config.defaultLoggingProperties());
+		Config.loadLoggingloadLoggingProperties("log4j-test.properties");
 	}
 	
 }

@@ -14,8 +14,8 @@ import config.Config;
 public class T {
 	private static final String LOG_PROPERTIES_FILE = "log4j.properties";
 
-	private static org.apache.log4j.Logger log = Logger.getLogger(T.class);
-
+	private static final org.apache.log4j.Logger log = Logger.getLogger(T.class);
+	
 	public static void main(String[] args) {
 		
 		Config.loadLoggingProperties();

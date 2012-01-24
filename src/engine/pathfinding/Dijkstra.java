@@ -3,11 +3,16 @@ package engine.pathfinding;
 import common.Location;
 import java.util.*;
 
+import org.apache.log4j.LogMF;
+import org.apache.log4j.Logger;
+
 /**
  * @author Bilal Hussain
  */
 public class Dijkstra {
 
+	private static final Logger log = Logger.getLogger(Dijkstra.class);
+	
 	// Map size 
 	private int rows, cols;
 	// Gives the cost between two points. 
@@ -58,7 +63,7 @@ public class Dijkstra {
 
 		while (!pq.isEmpty()) {
 			LocationInfo u = pq.poll();
-			System.out.println("Processing " + u);
+			log.trace("Processing " + u);
 			
 			settler.add(u);
 			
@@ -69,22 +74,22 @@ public class Dijkstra {
 				if (ny < lowerY || ny >= upperY) continue;
 
 				LocationInfo v = locations[nx][ny];
-				System.out.printf("    {%s,%s}\n", nx, ny);
+				LogMF.trace(log,"    {%s,%s}", nx, ny);
 				if (settler.contains(v) && v.previous != null){
-					System.out.printf("      Skipped\n", nx,ny);
+					LogMF.trace(log,"      Skipped", nx,ny);
 					continue;
 				}
 				
 				long newCost = u.minDistance; // To stop overflow (e.g Integer.MAX_VALUE + 10)
 				newCost += costProvider.getMovementCost(u.x, u.y, nx, ny);
 
-				System.out.printf("\tnewcost:%s\n",newCost);
-				System.out.println("\tv:" + v);
-
+				LogMF.trace(log,"\tnewcost:%s",newCost);
+				log.trace("\tv:" + v);
+				
 				if (newCost < v.minDistance) {
 					v.minDistance = (int) newCost; // safe since less then Integer.MAX_VALUE
 					v.previous = u;
-					System.out.println("      Updated");
+					log.trace("      Updated");
 					pq.add(v);
 				}
 			}

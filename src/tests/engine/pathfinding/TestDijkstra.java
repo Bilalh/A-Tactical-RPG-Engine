@@ -67,11 +67,11 @@ public class TestDijkstra extends Tests {
 //			}
 //			System.out.println();
 //		}
-		
-		for (int i = 0; i < arr.length; i++) {
-			System.out.println(Arrays.toString(arr[i]));
-		}
-		
+//		
+//		for (int i = 0; i < arr.length; i++) {
+//			System.out.println(Arrays.toString(arr[i]));
+//		}
+//		
 		// expected values
 		l(0,0,  0);       l(0,1,  2,  0,0); l(0,2,  4,  0,1); l(0,3,  5,  0,2); l(0,4,  8,  0,3); 
 		l(1,0,  3,  0,0); l(1,1,  7,  0,1); l(1,2,  7,  0,2); l(1,3,  6,  0,3); l(1,4,  8,  1,3); 
@@ -88,9 +88,9 @@ public class TestDijkstra extends Tests {
 	public void testWithRange(){
 		setupSimple();
 		LocationInfo[][] arr =  d.calculate(new Location(0,0), 0, 3, 0, 3);
-		for (int i = 0; i < arr.length; i++) {
-			System.out.println(Arrays.toString(arr[i]));
-		}
+//		for (int i = 0; i < arr.length; i++) {
+//			System.out.println(Arrays.toString(arr[i]));
+//		}
 		
 		// expected values
 		l(0,0,  0);       l(0,1,  2,  0,0); l(0,2,  4,  0,1); l(0,3); l(0,4); 
@@ -110,9 +110,9 @@ public class TestDijkstra extends Tests {
 	public void testWitUnequal(){
 		setupUnequal();
 		LocationInfo[][] arr = d.calculate(new Location(2,2));
-		for (int i = 0; i < arr.length; i++) {
-			System.out.println(Arrays.toString(arr[i]));
-		}		
+//		for (int i = 0; i < arr.length; i++) {
+//			System.out.println(Arrays.toString(arr[i]));
+//		}		
 		
 		l(0,0, 10,  0,1); l(0,1,  8,  0,2); l(0,2,  6,  1,2); l(0,3, 10,  1,3); l(0,4, 10,  1,4); l(0,5, 12,  1,5); 
 		l(1,0,  8,  1,1); l(1,1,  6,  1,2); l(1,2,  2,  2,2); l(1,3,  5,  2,3); l(1,4,  7,  1,3); l(1,5,  9,  1,4); 

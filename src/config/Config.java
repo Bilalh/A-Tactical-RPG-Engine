@@ -33,20 +33,23 @@ public class Config {
 	}
 
 	public static void loadLoggingProperties() {
+		loadLoggingloadLoggingProperties(LOG_PROPERTIES_FILE);
+	}
+	
+	public static void loadLoggingloadLoggingProperties(String filename){
 		Properties p = new Properties(Config.defaultLoggingProperties());
 		String error = null;
 		try {
-			p.load(new FileInputStream(new File(LOG_PROPERTIES_FILE)));
+			p.load(new FileInputStream(new File(filename)));
 		} catch (IOException e) {
 			error = e.getLocalizedMessage();
 		}
 		PropertyConfigurator.configure(p);
 		if (error != null) {
-			log.warn("{}");
+			log.warn("Log4J using defaults " + error);
 		}else{
-			log.info("Log4J loaded");
-		}
+			log.info("Log4J loaded using " + filename);
+		}		
 	}
-	
 	
 }
