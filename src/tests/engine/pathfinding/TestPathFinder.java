@@ -5,6 +5,7 @@ import common.Location;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import engine.map.IMap;
@@ -18,7 +19,7 @@ import static org.junit.Assert.*;
  * @author Bilal Hussain
  */
 public class TestPathFinder extends Tests {
-
+	
 	PathFinder pf;
 	MockMap map = new MockMap();
 	IModelUnit unit = new Unit("dd", 3, 3, 4);

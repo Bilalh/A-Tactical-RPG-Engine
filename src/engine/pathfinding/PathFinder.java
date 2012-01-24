@@ -2,15 +2,13 @@ package engine.pathfinding;
 
 import java.util.ArrayList;
 
-import common.ILocation;
+import org.apache.log4j.Logger;
+
 import common.Location;
 
-import common.interfaces.IUnit;
-import engine.PathfindingEx.TileBasedMap;
+import config.LogF;
 import engine.map.IMap;
 import engine.map.IModelUnit;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 
 /**
@@ -31,14 +29,14 @@ public class PathFinder implements IMovementCostProvider {
 	private ArrayList<LocationInfo> inRange;
 	
 	public PathFinder(IModelUnit u, IMap map) {
-		log.info("d");
 		this.unit = u;
 		this.map = map;
 		d = new Dijkstra(this, map.getFieldWidth(), map.getFieldHeight());
 		Location p = unit.getLocation();
-		start = p.copy().limitLower(0, 0);
-		end   = p.copy().limitUpper(map.getFieldWidth(), map.getFieldHeight());
-		locations = d.calculate(start, start.x, end.x, end.x, end.y);
+		start = p.copy().translate(-unit.getMove()).limitLower(0, 0);
+		end   = p.copy().translate(unit.getMove()).limitUpper(map.getFieldWidth(), map.getFieldHeight());
+		LogF.trace(log, "start:%s, start.x:%s, end.x:%s, start.x:%s, end.y:%s",start, start.x, end.x, end.x, end.y);
+		locations = d.calculate(start, start.x, end.x, start.x, end.y);
 	}
 	
 	public ArrayList<LocationInfo> getMovementRange(){

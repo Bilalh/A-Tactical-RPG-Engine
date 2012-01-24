@@ -6,6 +6,8 @@ import java.util.*;
 import org.apache.log4j.LogMF;
 import org.apache.log4j.Logger;
 
+import config.LogF;
+
 /**
  * @author Bilal Hussain
  */
@@ -39,6 +41,8 @@ public class Dijkstra {
 	}
 	
 	public LocationInfo[][] calculate(Location start, int lowerX, int upperX, int lowerY, int upperY) {
+		if (upperX <= lowerX || upperY <= lowerY || start == null ) throw new IllegalArgumentException("");
+		
 		LocationInfo[][] locations = new LocationInfo[rows][cols];
 		HashSet<LocationInfo> settler = new HashSet<LocationInfo>();
 		
@@ -74,7 +78,7 @@ public class Dijkstra {
 				if (ny < lowerY || ny >= upperY) continue;
 
 				LocationInfo v = locations[nx][ny];
-				LogMF.trace(log,"    {%s,%s}", nx, ny);
+				LogMF.trace(log,"    <{0},{1}>", nx, ny);
 				if (settler.contains(v) && v.previous != null){
 					LogMF.trace(log,"      Skipped", nx,ny);
 					continue;
@@ -83,7 +87,7 @@ public class Dijkstra {
 				long newCost = u.minDistance; // To stop overflow (e.g Integer.MAX_VALUE + 10)
 				newCost += costProvider.getMovementCost(u.x, u.y, nx, ny);
 
-				LogMF.trace(log,"\tnewcost:%s",newCost);
+				LogMF.trace(log,"\tnewcost:{0}",newCost);
 				log.trace("\tv:" + v);
 				
 				if (newCost < v.minDistance) {
