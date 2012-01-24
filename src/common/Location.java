@@ -7,7 +7,7 @@ import java.io.Serializable;
  * java.awt.Point was not used so that the model does not have dependency on awt.
  * @author Bilal Hussain
  */
-public class Location implements Serializable {
+public class Location implements Serializable, ILocation {
 
 	public int x;
 	public int y;
@@ -58,12 +58,13 @@ public class Location implements Serializable {
 		return new Location(this);
 	}
 	
-	
-	public double getX() {
+	@Override
+	public int getX() {
 		return x;
 	}
 
-	public double getY() {
+	@Override
+	public int getY() {
 		return y;
 	}
 

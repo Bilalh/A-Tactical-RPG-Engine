@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 /**
  * @author Bilal Hussain
  */
-public class DijkstraTest {
+public class TestDijkstra extends Tests {
 
 	Dijkstra d;
 	MockMovementCostProvider provider = new MockMovementCostProvider();

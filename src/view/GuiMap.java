@@ -37,6 +37,7 @@ import engine.map.Map;
 import engine.map.Tile;
 import engine.map.Unit;
 
+import common.ILocation;
 import common.Location;
 
 /**
@@ -736,7 +737,7 @@ public class GuiMap implements Observer {
 	/**
      * Select the file that is under the mouse click
 	 */
-    public Location findAndSelectTile(int x, int y) {
+    public ILocation findAndSelectTile(int x, int y) {
         double highest = 0.0;
         x += drawX;
         y += drawY;
@@ -779,7 +780,7 @@ public class GuiMap implements Observer {
         selectedTile = field[x][y];
         selectedTile.setSelected(true);
         
-		Location selected = getDrawLocation(startX, startY, x, y);
+		ILocation selected = getDrawLocation(startX, startY, x, y);
 //        System.out.printf("(%d,%d) selected\n", newX, newY);        
     }
 

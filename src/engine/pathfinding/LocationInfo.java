@@ -1,8 +1,10 @@
 package engine.pathfinding;
 
+import common.ILocation;
+
 
 // Stores infomation about a tile
-public class LocationInfo{
+public class LocationInfo implements ILocation {
 	final int x;
 	final int y;
 	int minDistance;
@@ -72,11 +74,13 @@ public class LocationInfo{
 	}
 
 	/** @category Generated Getter */
+	@Override
 	public int getX() {
 		return x;
 	}
 
 	/** @category Generated Getter */
+	@Override
 	public int getY() {
 		return y;
 	}
@@ -90,4 +94,5 @@ public class LocationInfo{
 	public LocationInfo getPrevious() {
 		return previous;
 	}
+
 }

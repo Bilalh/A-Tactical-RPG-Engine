@@ -1,5 +1,6 @@
 package view;
 
+import common.ILocation;
 import common.Location;
 
 
@@ -14,7 +15,7 @@ public final class MapSettings {
     public static int rotation = 0;
     public static float pitch = .5f;
     public static float zoom = 1.0f;
-    public static Location drawStart = new Location(100, 100);
+    public static ILocation drawStart = new Location(100, 100);
 
     public static void restoreDefaults() {
         tileDiagonal = 80;
