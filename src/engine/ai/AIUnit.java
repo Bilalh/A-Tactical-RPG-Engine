@@ -1,4 +1,6 @@
-package engine;
+package engine.ai;
+
+import engine.map.Unit;
 
 /**
  * @author Bilal Hussain

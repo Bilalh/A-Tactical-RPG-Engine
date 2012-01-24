@@ -11,7 +11,7 @@ import common.interfaces.IUnit;
 
 import view.GuiMap;
 
-import engine.Unit;
+import engine.map.Unit;
 
 /**
  * @author bilalh

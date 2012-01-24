@@ -1,4 +1,4 @@
-package tests.engine.map;
+package tests.engine.pathfinding;
 
 import engine.pathfinding.IMovementCostProvider;
 

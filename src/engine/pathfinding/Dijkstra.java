@@ -1,6 +1,6 @@
 package engine.pathfinding;
 
-import java.awt.Point;
+import common.Location;
 import java.util.*;
 
 /**
@@ -29,18 +29,18 @@ public class Dijkstra {
 	};
 
 	// Retuens the min cost to all connected nodes	
-	public Location[][] calculate(Point start) {
+	public LocationInfo[][] calculate(Location start) {
 		return calculate(start, 0, rows, 0, cols);
 	}
 	
-	public Location[][] calculate(Point start, int lowerX, int upperX, int lowerY, int upperY) {
-		Location[][] locations = new Location[rows][cols];
-		HashSet<Location> settler = new HashSet<Location>();
+	public LocationInfo[][] calculate(Location start, int lowerX, int upperX, int lowerY, int upperY) {
+		LocationInfo[][] locations = new LocationInfo[rows][cols];
+		HashSet<LocationInfo> settler = new HashSet<LocationInfo>();
 		
-		PriorityQueue<Location> pq = new PriorityQueue<Location>(upperX - lowerX * upperY - lowerY,
-			new Comparator<Location>() {
+		PriorityQueue<LocationInfo> pq = new PriorityQueue<LocationInfo>(upperX - lowerX * upperY - lowerY,
+			new Comparator<LocationInfo>() {
 				@Override
-				public int compare(Location o1, Location o2) {
+				public int compare(LocationInfo o1, LocationInfo o2) {
 					return o1.minDistance < o2.minDistance ? -1
 							: (o1.minDistance == o2.minDistance ? 0
 							: 1);
@@ -49,7 +49,7 @@ public class Dijkstra {
 
 		for (int i = lowerX; i < upperX; i++) {
 			for (int j = lowerY; j < upperY; j++) {
-				locations[i][j] = new Location(i, j, Integer.MAX_VALUE);
+				locations[i][j] = new LocationInfo(i, j, Integer.MAX_VALUE);
 				pq.add(locations[i][j]);
 			}
 		}
@@ -57,7 +57,7 @@ public class Dijkstra {
 		locations[start.x][start.y].minDistance = 0;
 
 		while (!pq.isEmpty()) {
-			Location u = pq.poll();
+			LocationInfo u = pq.poll();
 			System.out.println("Processing " + u);
 			
 			settler.add(u);
@@ -68,7 +68,7 @@ public class Dijkstra {
 				int ny = pp[1] + u.y;
 				if (ny < lowerY || ny >= upperY) continue;
 
-				Location v = locations[nx][ny];
+				LocationInfo v = locations[nx][ny];
 				System.out.printf("    {%s,%s}\n", nx, ny);
 				if (settler.contains(v) && v.previous != null){
 					System.out.printf("      Skipped\n", nx,ny);

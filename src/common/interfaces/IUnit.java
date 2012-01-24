@@ -1,6 +1,6 @@
 package common.interfaces;
 
-import java.awt.Point;
+import common.Location;
 import java.util.Collection;
 import java.util.UUID;
 

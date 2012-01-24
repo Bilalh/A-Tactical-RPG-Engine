@@ -1,6 +1,6 @@
-package engine.interfaces;
+package engine.map;
 
-import java.awt.Point;
+import common.Location;
 
 import common.interfaces.IUnit;
 
@@ -22,8 +22,10 @@ public interface IModelUnit extends IUnit {
 
 	void setGridY(int gridY);
 
-	void setLocation(Point p);
+	void setLocation(Location p);
 
-	Point getLocation();
+	Location getLocation();
 
+	int getCost(Tile old, Tile New);
+	
 }

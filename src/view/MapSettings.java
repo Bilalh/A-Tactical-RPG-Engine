@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Point;
+import common.Location;
 
 
 public final class MapSettings {
@@ -14,7 +14,7 @@ public final class MapSettings {
     public static int rotation = 0;
     public static float pitch = .5f;
     public static float zoom = 1.0f;
-    public static Point drawStart = new Point(100, 100);
+    public static Location drawStart = new Location(100, 100);
 
     public static void restoreDefaults() {
         tileDiagonal = 80;
@@ -22,6 +22,6 @@ public final class MapSettings {
         rotation = 0;
         pitch = .5f;
         zoom = 1.0f;
-        drawStart = new Point(300, 100);
+        drawStart = new Location(300, 100);
     }
 }

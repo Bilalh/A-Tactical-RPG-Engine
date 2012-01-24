@@ -1,7 +1,7 @@
 /**
  * 
  */
-package engine;
+package engine.map;
 
 import common.interfaces.IUnit;
 

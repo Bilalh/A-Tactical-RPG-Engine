@@ -2,21 +2,21 @@ package engine.pathfinding;
 
 
 // Stores infomation about a tile
-public class Location{
+public class LocationInfo{
 	final int x;
 	final int y;
 	int minDistance;
-	Location previous;
+	LocationInfo previous;
 	
 	/** @category Generated Constructor */
-	public Location(int x, int y, int minDistance) {
+	public LocationInfo(int x, int y, int minDistance) {
 		this.x = x;
 		this.y = y;
 		this.minDistance = minDistance;
 	}
 
 	/** @category Generated Constructor */
-	public Location(int x, int y, int minDistance, Location previous) {
+	public LocationInfo(int x, int y, int minDistance, LocationInfo previous) {
 		this.x = x;
 		this.y = y;
 		this.minDistance = minDistance;
@@ -48,8 +48,8 @@ public class Location{
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null) return false;
-		if (!(obj instanceof Location)) return false;
-		Location other = (Location) obj;
+		if (!(obj instanceof LocationInfo)) return false;
+		LocationInfo other = (LocationInfo) obj;
 		if (minDistance != other.minDistance) return false;
 		if (previous == null) {
 			if (other.previous != null) return false;
@@ -67,7 +67,7 @@ public class Location{
 	}
 
 	/** @category Generated Setter */
-	public void setPrevious(Location previous) {
+	public void setPrevious(LocationInfo previous) {
 		this.previous = previous;
 	}
 
@@ -87,7 +87,7 @@ public class Location{
 	}
 
 	/** @category Generated Getter */
-	public Location getPrevious() {
+	public LocationInfo getPrevious() {
 		return previous;
 	}
 }

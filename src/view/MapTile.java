@@ -14,6 +14,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
 
+import common.Location;
+import common.Location;
+import common.Location;
+
+import common.Location;
+
 public class MapTile {
 
 	static enum Orientation {
@@ -34,7 +40,7 @@ public class MapTile {
 	private float height;
 	private float startHeight;
 	private float endHeight;
-	private Point fieldLocation;
+	private Location fieldLocation;
 	private TileState state;
 
 	private Polygon topReal;
@@ -70,8 +76,8 @@ public class MapTile {
 		this.startHeight = startHeight;
 		this.endHeight = endHeight;
 		this.height = (startHeight + endHeight) / 2;
-		this.fieldLocation = new Point();
-		this.fieldLocation = new Point(x, y);
+		this.fieldLocation = new Location();
+		this.fieldLocation = new Location(x, y);
 
 		final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
 		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -538,7 +544,7 @@ public class MapTile {
 	}
 
 	/** @category Generated */
-	public Point getFieldLocation() {
+	public Location getFieldLocation() {
 		return fieldLocation;
 	}
 

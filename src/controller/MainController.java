@@ -5,7 +5,7 @@ import java.util.Observer;
 
 import view.Gui;
 import engine.Engine;
-import engine.Map;
+import engine.map.Map;
 
 /**
  * @author Bilal Hussain

@@ -1,6 +1,6 @@
-package tests.engine.map;
+package tests.engine.pathfinding;
 
-import java.awt.Point;
+import common.Location;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -16,7 +16,7 @@ public class DijkstraTest {
 
 	Dijkstra d;
 	MockMovementCostProvider provider = new MockMovementCostProvider();
-	Location[][] exp; 
+	LocationInfo[][] exp; 
 	
 	void setupSimple() {
 		int[][] cost = {
@@ -28,10 +28,10 @@ public class DijkstraTest {
 		};		
 		provider.setCosts(cost);
 		d = new Dijkstra(provider, cost.length, cost[0].length);
-		exp= new Location[cost.length][cost[0].length];
+		exp= new LocationInfo[cost.length][cost[0].length];
 		for (int i = 0; i < cost.length; i++) {
 			for (int j = 0; j < cost[0].length; j++) {
-				exp[i][j] = new Location(i,j, Integer.MAX_VALUE,null);
+				exp[i][j] = new LocationInfo(i,j, Integer.MAX_VALUE,null);
 			}
 		}
 	}
@@ -44,10 +44,10 @@ public class DijkstraTest {
 				{6, 0, 7, 7, 0, 4}};
 		provider.setCosts(costs);
 		d = new Dijkstra(provider, costs.length, costs[0].length);
-		exp= new Location[costs.length][costs[0].length];
+		exp= new LocationInfo[costs.length][costs[0].length];
 		for (int i = 0; i < costs.length; i++) {
 			for (int j = 0; j < costs[0].length; j++) {
-				exp[i][j] = new Location(i,j, Integer.MAX_VALUE,null);
+				exp[i][j] = new LocationInfo(i,j, Integer.MAX_VALUE,null);
 			}
 		}
 	}
@@ -55,7 +55,7 @@ public class DijkstraTest {
 	@Test
 	public void testSimple() {
 		setupSimple();
-		Location[][] arr =  d.calculate(new Point(0, 0));
+		LocationInfo[][] arr =  d.calculate(new Location(0, 0));
 //		for (int i = 0; i < arr.length; i++) {
 //			for (int j = 0; j < arr[i].length; j++) {
 //				if (arr[i][j].getPrevious() == null){
@@ -87,7 +87,7 @@ public class DijkstraTest {
 	@Test 
 	public void testWithRange(){
 		setupSimple();
-		Location[][] arr =  d.calculate(new Point(0,0), 0, 3, 0, 3);
+		LocationInfo[][] arr =  d.calculate(new Location(0,0), 0, 3, 0, 3);
 		for (int i = 0; i < arr.length; i++) {
 			System.out.println(Arrays.toString(arr[i]));
 		}
@@ -109,7 +109,7 @@ public class DijkstraTest {
 	@Test
 	public void testWitUnequal(){
 		setupUnequal();
-		Location[][] arr = d.calculate(new Point(2,2));
+		LocationInfo[][] arr = d.calculate(new Location(2,2));
 		for (int i = 0; i < arr.length; i++) {
 			System.out.println(Arrays.toString(arr[i]));
 		}		

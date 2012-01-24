@@ -1,7 +1,7 @@
 
-package engine;
+package engine.map;
 
-import java.awt.Point;
+import common.Location;
 
 import common.interfaces.IUnit;
 

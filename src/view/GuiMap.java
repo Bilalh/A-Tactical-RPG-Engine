@@ -32,11 +32,12 @@ import common.interfaces.INotification;
 import common.interfaces.IUnit;
 import controller.MapController;
 
-import engine.Map;
-import engine.Tile;
-import engine.Unit;
-import engine.interfaces.IModelUnit;
+import engine.map.IModelUnit;
+import engine.map.Map;
+import engine.map.Tile;
+import engine.map.Unit;
 
+import common.Location;
 
 /**
  * @author bilalh
@@ -287,7 +288,7 @@ public class GuiMap implements Observer {
 		}
 	}
 	
-	void mapToWorld(Point p){
+	void mapToWorld(Location p){
 		p.translate(-drawX, -drawY);
 	}
 	
@@ -298,8 +299,8 @@ public class GuiMap implements Observer {
 	void drawUnits(AnimatedUnit[] units, Graphics g, long timeDiff){
 		Graphics2D g2 = (Graphics2D) g;
 		for (AnimatedUnit au : units) {
-			Point l = au.getPostion();
-			Point p = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
+			Location l = au.getPostion();
+			Location p = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
 			mapToWorld(p);
 			
 			float height  = field[l.x][l.y].getHeight();
@@ -412,7 +413,7 @@ public class GuiMap implements Observer {
 	private  void overlayTile(Graphics g, MapTile t, Paint paint, int limit){
 		Graphics2D g2 = (Graphics2D) g;
 		
-		Point l  = t.getFieldLocation();
+		Location l  = t.getFieldLocation();
 		makePolygons(t);
 	    Area resultingArea = new Area(t.top);
 	    
@@ -445,18 +446,18 @@ public class GuiMap implements Observer {
 	
 	
 	private void makePolygons(MapTile m){
-	    Point p = getDrawLocation(startX, startY, m.getFieldLocation().x, m.getFieldLocation().y);
+	    Location p = getDrawLocation(startX, startY, m.getFieldLocation().x, m.getFieldLocation().y);
 	    p.x -= drawX;
 	    p.y -= drawY;
 	    m.makePolygons(p.x, p.y);
 	}
 	
-	Point getDrawLocation(int startX, int startY, int gridX, int gridY){
+	Location getDrawLocation(int startX, int startY, int gridX, int gridY){
 		int x = startX- (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - gridY-1f));
 		int y = startY+ (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch* MapSettings.zoom * (fieldHeight - gridY-1));
 		x += (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom) * gridX;
 		y += (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom)* gridX;
-		return new Point(x,y);
+		return new Location(x,y);
 	}
 
 	
@@ -470,11 +471,11 @@ public class GuiMap implements Observer {
 	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IUnit> aiUnits) {
 		
 		AnimatedUnit[] newUnits = new AnimatedUnit[allPlayerUnits.size()];
-		HashMap<UUID, Point> selectedPostions = new HashMap<UUID, Point>();
+		HashMap<UUID, Location> selectedPostions = new HashMap<UUID, Location>();
 		for (int i = 0; i < newUnits.length; i++) {
 //			//FIXME indies
 				final IUnit u = allPlayerUnits.get(i);
-				Point p = new Point(2,i+5); 
+				Location p = new Location(2,i+5); 
 				newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
 				selectedPostions.put(u.getUuid(), p);
 				unitMapping.put(u.getUuid(), newUnits[i]);
@@ -541,7 +542,7 @@ public class GuiMap implements Observer {
 
 	
 	
-	private Collection<Point> inRange = null;
+	private Collection<Location> inRange = null;
 	private boolean mouseMoving = false;
 	private class Movement extends ActionsAdapter{
 		
@@ -580,7 +581,7 @@ public class GuiMap implements Observer {
 				System.out.println("selected " + selected);
 				if ( !getSelectedTile().isSelected() ) return;
 				mapController.moveUnit(selected.unit.getUuid(), getSelectedTile().getFieldLocation());
-				for (Point p : inRange) {
+				for (Location p : inRange) {
 					field[p.x][p.y].setState(TileState.NONE);
 				}
 				selected = null;
@@ -603,7 +604,7 @@ public class GuiMap implements Observer {
 			
 			if (unitS != selected){
 				if (inRange != null){
-					for (Point p : inRange) {
+					for (Location p : inRange) {
 						field[p.x][p.y].setState(TileState.NONE);
 					}	
 				}
@@ -612,7 +613,7 @@ public class GuiMap implements Observer {
 			}
 			
 			inRange =  mapController.getMovementRange(unitS.unit.getUuid());
-			for (Point p : inRange) {
+			for (Location p : inRange) {
 				field[p.x][p.y].setState(TileState.MOVEMENT_RANGE);
 			}
 		}
@@ -621,7 +622,7 @@ public class GuiMap implements Observer {
 		public void keyCancel() {
 			selected = null;
 			if (inRange != null){
-				for (Point p : inRange) {
+				for (Location p : inRange) {
 					field[p.x][p.y].setState(TileState.NONE);
 				}
 				inRange = null;
@@ -722,7 +723,7 @@ public class GuiMap implements Observer {
 				drawn=false;
 				break;
 			case KeyEvent.VK_U:
-				Point newP = new Point(units[0].getGridX()+1, units[0].getGridY());
+				Location newP = new Location(units[0].getGridX()+1, units[0].getGridY());
 				mapController.moveUnit(units[0].getUuid(), newP);
 				break;
 			case KeyEvent.VK_I:
@@ -735,7 +736,7 @@ public class GuiMap implements Observer {
 	/**
      * Select the file that is under the mouse click
 	 */
-    public Point findAndSelectTile(int x, int y) {
+    public Location findAndSelectTile(int x, int y) {
         double highest = 0.0;
         x += drawX;
         y += drawY;
@@ -760,7 +761,7 @@ public class GuiMap implements Observer {
         if (xIndex > -1 && yIndex > -1) {
             this.setSelectedTile(xIndex, yIndex);
 //            System.out.printf("(%d,%d)\n\n", xIndex, yIndex);
-            return new Point(xIndex, yIndex);
+            return new Location(xIndex, yIndex);
         } else {
 //        	System.out.printf("(%d,%d)\n\n", xIndex, yIndex);
             return null;
@@ -778,7 +779,7 @@ public class GuiMap implements Observer {
         selectedTile = field[x][y];
         selectedTile.setSelected(true);
         
-		Point selected = getDrawLocation(startX, startY, x, y);
+		Location selected = getDrawLocation(startX, startY, x, y);
 //        System.out.printf("(%d,%d) selected\n", newX, newY);        
     }
 

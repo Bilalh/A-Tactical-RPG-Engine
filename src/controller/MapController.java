@@ -1,15 +1,15 @@
 package controller;
 
-import java.awt.Point;
+import common.Location;
 import java.util.*;
 
 import common.interfaces.IUnit;
 
 import view.GuiUnit;
-import engine.Map;
-import engine.Tile;
-import engine.Unit;
-import engine.interfaces.IModelUnit;
+import engine.map.IModelUnit;
+import engine.map.Map;
+import engine.map.Tile;
+import engine.map.Unit;
 
 /**
  * @author Bilal Hussain
@@ -29,15 +29,15 @@ public class MapController extends Controller{
 		
 	}
 
-	public void moveUnit(UUID uuid, Point fieldLocation) {
+	public void moveUnit(UUID uuid, Location fieldLocation) {
 		map.moveUnit(mapping.get(uuid),fieldLocation);
 	}
 
-	public void setUsersUnits(java.util.Map<UUID, Point> selectedPostions){
+	public void setUsersUnits(java.util.Map<UUID, Location> selectedPostions){
 		
 		ArrayList<IModelUnit> selected = new ArrayList<IModelUnit>();
 		
-		for(java.util.Map.Entry<UUID, Point> e: selectedPostions.entrySet()){
+		for(java.util.Map.Entry<UUID, Location> e: selectedPostions.entrySet()){
 			IModelUnit u = mapping.get(e.getKey());
 			u.setLocation(e.getValue());
 			selected.add(u);
@@ -58,7 +58,7 @@ public class MapController extends Controller{
 		map.addObserver(o);
 	}
 	
-	public Collection<Point> getMovementRange(UUID uuid){
+	public Collection<Location> getMovementRange(UUID uuid){
 		IModelUnit u = mapping.get(uuid);
 		return map.getMovementRange(u);
 	}

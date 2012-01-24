@@ -2,10 +2,9 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.UUID;
 
+import common.Location;
 import common.gui.Sprite;
 import common.gui.SpriteManager;
 import common.interfaces.IUnit;
@@ -92,8 +91,8 @@ public class GuiUnit implements IUnit {
 		return unit.getUuid();
 	}
 	
-	public Point getPostion(){
-		return new Point(gridX,gridY);
+	public Location getPostion(){
+		return new Location(gridX,gridY);
 	}
 
 	/** @category Generated Getter */

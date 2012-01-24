@@ -1,4 +1,6 @@
-package engine;
+package engine.ai;
+
+import engine.map.Player;
 
 /**
  * @author bilalh

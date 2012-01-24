@@ -24,7 +24,7 @@ import view.interfaces.IActions;
 
 import controller.MapController;
 
-import engine.Map;
+import engine.map.Map;
 
 
 public class MapPanel extends JPanel implements Runnable {

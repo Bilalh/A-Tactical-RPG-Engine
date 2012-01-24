@@ -1,16 +1,16 @@
-package engine;
+package engine.map;
 
-import java.awt.Point;
+import common.Location;
 import java.util.*;
 
 import javax.vecmath.Point2d;
 
-import engine.interfaces.IModelUnit;
+import engine.PathfindingEx.Mover;
 
 /**
  * @author bilalh
  */
-public class Unit implements IModelUnit {
+public class Unit implements IModelUnit, Mover {
 
 	private String name;
 
@@ -35,46 +35,61 @@ public class Unit implements IModelUnit {
 		uuid = UUID.randomUUID();
 	}
 
+	
+	@Override
+	public int getCost(Tile old, Tile next) {
+		return 1 + Math.abs(next.getCost() - old.getCost());
+	}
+	
+	
 	/** @category Generated */
 	@Override
 	public int getMaxHp() {
 		return maxHp;
 	}
+
 	/** @category Generated */
 	@Override
 	public void setMaxHp(int maxHp) {
 		this.maxHp = maxHp;
 	}
+
 	/** @category Generated */
 	@Override
 	public int getCurrentHp() {
 		return currentHp;
 	}
+
 	/** @category Generated */
 	@Override
 	public void setCurrentHp(int currentHp) {
 		this.currentHp = currentHp;
 	}
+
 	/** @category Generated */
 	@Override
 	public int getMove() {
 		return move;
 	}
+
 	/** @category Generated */
 	@Override
 	public void setMove(int move) {
 		this.move = move;
 	}
+
 	/** @category Generated */
 	@Override
 	public int getStrength() {
 		return strength;
 	}
+
 	/** @category Generated */
 	@Override
 	public void setStrength(int strength) {
 		this.strength = strength;
 	}
+
 	/** @category Generated */
 	@Override
 	public String getName() {
@@ -112,15 +127,14 @@ public class Unit implements IModelUnit {
 	}
 
 	@Override
-	public void setLocation(Point p){
+	public void setLocation(Location p) {
 		gridX = p.x;
 		gridY = p.y;
 	}
-	
 
 	@Override
-	public Point getLocation(){
-		return new Point (gridX,gridY);
+	public Location getLocation() {
+		return new Location(gridX, gridY);
 	}
 
 	@Override
