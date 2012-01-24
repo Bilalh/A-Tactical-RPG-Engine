@@ -44,4 +44,19 @@ public class LogF {
 		}
 	}
 
+	public static <E> String array2d(E[][] arr,int startX, int endX, int startY, int endY, boolean newline){
+		StringBuffer b = new StringBuffer(100);
+		if (newline) b.append("\n");
+		for (int i = startX; i < endX; i++) {
+			b.append("[");
+			for (int j = startX; j <endY; j++) {
+				b.append(arr[i][j]);
+				if (j != endY-1) b.append(", ");
+			}
+			b.append("]");
+			if (i != endX-1) b.append("\n");
+		}
+		return b.toString();
+	}
+	
 }

@@ -20,8 +20,8 @@ public class Unit implements IModelUnit, Mover {
 	private int move;
 	private int strength;
 
-	private int gridX;
-	private int gridY;
+	private int gridX =-1;
+	private int gridY = -1;
 
 	final private UUID uuid;
 

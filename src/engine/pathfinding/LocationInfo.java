@@ -30,7 +30,7 @@ public class LocationInfo implements ILocation {
 		return previous != null ?
 				String.format("(%s,%s) %s <%s,%s>",
 						x, y, minDistance == Integer.MAX_VALUE ? "∞" : minDistance, previous.x, previous.y)
-				: String.format("(%s,%s) %s, null",
+				: String.format("(%s,%s) %s null ",
 						x, y, minDistance == Integer.MAX_VALUE ? "∞" : minDistance);
 	}
 

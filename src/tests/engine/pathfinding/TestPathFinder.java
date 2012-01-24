@@ -4,8 +4,11 @@ import common.Location;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 
 import engine.map.IMap;
@@ -21,9 +24,18 @@ import static org.junit.Assert.*;
 public class TestPathFinder extends Tests {
 	
 	PathFinder pf;
-	MockMap map = new MockMap();
-	IModelUnit unit = new Unit("dd", 3, 3, 4);
-
+	MockMap map;
+	IModelUnit unit;
+	ArrayList<LocationInfo> exp;
+	
+	@Before
+	public void setup(){
+		exp = new ArrayList<LocationInfo>();
+		map = new MockMap();
+		unit = new Unit("dd", 31, 4, 41);
+		unit.setLocation(new Location(0,0));
+	}
+	
 	void setupSimple() {
 		int[][] costs = {
 				{ 3, 4, 3, 3, 1 },
@@ -36,10 +48,35 @@ public class TestPathFinder extends Tests {
 	}
 
 	@Test
-	public void testSimplePath() {
+	public void testSimpleRange() {
 		setupSimple();
 		pf = new PathFinder(unit, map);
-
+		ArrayList<LocationInfo> actual =  pf.getMovementRange();
+		l(0,0);
+		l(0,1);
+		l(0,2);
+		l(1,0);
+		l(2,0);
+		compare(exp,actual);
 	}
-
+	
+	
+	
+	private void compare(Collection<LocationInfo> exp, Collection<LocationInfo> act){
+		Iterator<LocationInfo> lexp  = exp.iterator();
+		Iterator<LocationInfo> lact  = act.iterator();
+		
+		while(lexp.hasNext()){
+			LocationInfo e = lexp.next();
+			LocationInfo a = lact.next();
+			assertEquals("xs" + e + " "  + a , e.getX(), a.getX());
+			assertEquals("ys" + e + " "  + a, e.getY(), a.getY());
+		}
+		
+	}
+	
+	private void l(int x, int y){
+		exp.add(new LocationInfo(x, y,-1));
+	}
+	
 }
