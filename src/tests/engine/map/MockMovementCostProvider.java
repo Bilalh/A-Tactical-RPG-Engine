@@ -1,6 +1,6 @@
 package tests.engine.map;
 
-import engine.map.IMovementCostProvider;
+import engine.pathfinding.IMovementCostProvider;
 
 /**
  * @author Bilal Hussain

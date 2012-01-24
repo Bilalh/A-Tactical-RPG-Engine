@@ -1,4 +1,4 @@
-package engine.map;
+package engine.pathfinding;
 
 import java.awt.Point;
 import java.util.*;

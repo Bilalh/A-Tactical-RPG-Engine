@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import engine.map.*;
+import engine.pathfinding.*;
 import static org.junit.Test.*;
 import static org.junit.Assert.*;
 

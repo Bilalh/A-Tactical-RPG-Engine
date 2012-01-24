@@ -1,4 +1,4 @@
-package engine.map;
+package engine.pathfinding;
 
 
 // Stores infomation about a tile
