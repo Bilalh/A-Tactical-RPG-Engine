@@ -9,7 +9,7 @@ public final class MapSettings {
 	// Example value  when using zoom 0,6 0.8 1.0 and 1.2 are
 	// 60  80 100
 	
-    public static int tileDiagonal = (int) 60;
+    public static int tileDiagonal = (int) 80;
     public static int tileHeight = (int) 20;
     public static int rotation = 0;
     public static float pitch = .5f;
