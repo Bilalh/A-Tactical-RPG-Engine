@@ -1,20 +1,23 @@
 package engine.pathfinding;
 
+import common.Direction;
 import common.ILocation;
 
 
 // Stores infomation about a tile
 public class LocationInfo implements ILocation {
-	final int x;
-	final int y;
-	int minDistance;
-	LocationInfo previous;
+	public final int x;
+	public final int y;
+	private int minDistance;
+	private LocationInfo previous;
+	private Direction nextDirection; 
 	
 	/** @category Generated Constructor */
 	public LocationInfo(int x, int y, int minDistance) {
 		this.x = x;
 		this.y = y;
 		this.minDistance = minDistance;
+		this.nextDirection = Direction.STILL;
 	}
 
 	/** @category Generated Constructor */
@@ -28,10 +31,10 @@ public class LocationInfo implements ILocation {
 	@Override
 	public String toString() {
 		return previous != null ?
-				String.format("(%s,%s) %s <%s,%s>",
-						x, y, minDistance == Integer.MAX_VALUE ? "∞" : minDistance, previous.x, previous.y)
-				: String.format("(%s,%s) %s null ",
-						x, y, minDistance == Integer.MAX_VALUE ? "∞" : minDistance);
+				String.format("(%s,%s) %2s <%s,%s> %s",
+						x, y, minDistance == Integer.MAX_VALUE ? "∞" : minDistance, previous.x, previous.y, nextDirection)
+				: String.format("(%s,%s) %2s null  %s",
+						x, y, minDistance == Integer.MAX_VALUE ? "∞" : minDistance, nextDirection);
 	}
 
 	@Override
@@ -95,4 +98,13 @@ public class LocationInfo implements ILocation {
 		return previous;
 	}
 
+	/** @category Generated Getter */
+	public Direction getNextDirection() {
+		return nextDirection;
+	}
+
+	/** @category Generated Setter */
+	public void setNextDirection(Direction nextDirection) {
+		this.nextDirection = nextDirection;
+	}
 }

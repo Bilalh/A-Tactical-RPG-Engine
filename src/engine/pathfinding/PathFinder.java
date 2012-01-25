@@ -41,7 +41,7 @@ public class PathFinder implements IMovementCostProvider {
 		start = p.copy().translate(-unit.getMove()+1).limitLower(0, 0);
 		end   = p.copy().translate(unit.getMove()+1).limitUpper(map.getFieldWidth(), map.getFieldHeight());
 		LogF.trace(log, "start:%s, start.x:%s, end.x:%s, start.y:%s, end.y:%s",start, start.x, end.x, start.y, end.y);
-		locations = d.calculate(start, start.x, end.x, start.y, end.y);
+		locations = d.calculate(u.getLocation(), start.x, end.x, start.y, end.y);
 		
 		LogF.debug(log,"locations for %s: %s\n",u, LogF.array2d(locations, start.x, end.x, start.y, end.y, true));
 		
@@ -71,8 +71,10 @@ public class PathFinder implements IMovementCostProvider {
 		Args.validateRange(p.x, start.x, end.x);
 		Args.validateRange(p.y, start.y, end.y);
 		
-		if (locations[p.x][p.y] == null || locations[p.x][p.y].minDistance > unit.getMove()){
-			return null;
+		if (locations[p.x][p.y] == null || locations[p.x][p.y].getMinDistance() > unit.getMove()){
+			ArrayList<LocationInfo> path = new ArrayList<LocationInfo>();
+			path.add(locations[unit.getGridX()][unit.getGridY()]);
+			return path;
 		}
 		
 		final LocationInfo pl= locations[p.x][p.y];
@@ -82,12 +84,11 @@ public class PathFinder implements IMovementCostProvider {
 		
 		
 		ArrayList<LocationInfo> path = new ArrayList<LocationInfo>();
-		path.add(pl);
-		for(LocationInfo l = pl; l.getPrevious() !=pl && l.getPrevious() != null; l = l.getPrevious()){
+		for (LocationInfo l = locations[unit.getGridX()][unit.getGridY()]; l != pl;) {
 			path.add(l);
+			l = locations[l.x + l.getNextDirection().x][l.y + l.getNextDirection().y];
 		}
-		
-		Collections.reverse(path);
+
 		paths.put(pl,path);
 		return path;
 		

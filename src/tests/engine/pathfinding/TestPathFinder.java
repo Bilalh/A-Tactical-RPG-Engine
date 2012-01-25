@@ -70,21 +70,27 @@ public class TestPathFinder extends Tests {
 		unit.setLocation(new Location(2,2));
 		pf = new PathFinder(unit, map);
 		ArrayList<LocationInfo> actual = pf.getMovementPath(new Location(4, 3));
-		System.out.println(actual);
-		fail();
 		
+		l(2,2);
+		l(3,2);
+		l(4,2);
+		l(4,3);
+		compare(exp, actual);
 	}
 	
 	private void compare(Collection<LocationInfo> exp, Collection<LocationInfo> act){
 		Iterator<LocationInfo> lexp  = exp.iterator();
 		Iterator<LocationInfo> lact  = act.iterator();
 		
-		while(lexp.hasNext()){
+		assertEquals("size\n" + exp + "\n" + act +"\n" , exp.size(),act.size());
+		
+		while(lexp.hasNext() && lact.hasNext()){
 			LocationInfo e = lexp.next();
 			LocationInfo a = lact.next();
 			assertEquals("xs" + e + " "  + a , e.getX(), a.getX());
 			assertEquals("ys" + e + " "  + a, e.getY(), a.getY());
 		}
+		
 		
 	}
 	

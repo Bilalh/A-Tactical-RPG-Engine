@@ -1,5 +1,6 @@
 package engine.pathfinding;
 
+import common.Direction;
 import common.Location;
 import java.util.*;
 
@@ -43,6 +44,8 @@ public class Dijkstra {
 	public LocationInfo[][] calculate(Location start, int lowerX, int upperX, int lowerY, int upperY) {
 		if (upperX <= lowerX || upperY <= lowerY || start == null ) throw new IllegalArgumentException("");
 		
+		System.out.println(start);
+		
 		LocationInfo[][] locations = new LocationInfo[rows][cols];
 		HashSet<LocationInfo> settler = new HashSet<LocationInfo>();
 		
@@ -50,8 +53,8 @@ public class Dijkstra {
 			new Comparator<LocationInfo>() {
 				@Override
 				public int compare(LocationInfo o1, LocationInfo o2) {
-					return o1.minDistance < o2.minDistance ? -1
-							: (o1.minDistance == o2.minDistance ? 0
+					return o1.getMinDistance() < o2.getMinDistance() ? -1
+							: (o1.getMinDistance() == o2.getMinDistance() ? 0
 							: 1);
 				}
 			});
@@ -63,7 +66,7 @@ public class Dijkstra {
 			}
 		}
 
-		locations[start.x][start.y].minDistance = 0;
+		locations[start.x][start.y].setMinDistance(0);
 
 		while (!pq.isEmpty()) {
 			LocationInfo u = pq.poll();
@@ -71,30 +74,33 @@ public class Dijkstra {
 			
 			settler.add(u);
 			
-			for (int[] pp : dirs) {
-				int nx = pp[0] + u.x;
+			for(Direction d : Direction.values()){
+				if (d == Direction.STILL) continue;
+				
+				int nx = d.x + u.x;
 				if (nx < lowerX || nx >= upperX) continue;
-				int ny = pp[1] + u.y;
+				int ny = d.y + u.y;
 				if (ny < lowerY || ny >= upperY) continue;
 
 				LocationInfo v = locations[nx][ny];
 				LogMF.trace(log,"    <{0},{1}>", nx, ny);
-				if (settler.contains(v) && v.previous != null){
+				if (settler.contains(v) && v.getPrevious() != null){
 					LogMF.trace(log,"      Skipped", nx,ny);
 					continue;
 				}
 				
-				long newCost = u.minDistance; // To stop overflow (e.g Integer.MAX_VALUE + 10)
+				long newCost = u.getMinDistance(); // To stop overflow (e.g Integer.MAX_VALUE + 10)
 				newCost += costProvider.getMovementCost(u.x, u.y, nx, ny);
 
 				LogMF.trace(log,"\tnewcost:{0}",newCost);
 				log.trace("\tv:" + v);
 				
-				if (newCost < v.minDistance) {
-					v.minDistance = (int) newCost; // safe since less then Integer.MAX_VALUE
-					v.previous = u;
-					log.trace("      Updated");
+				if (newCost < v.getMinDistance()) {
+					v.setMinDistance((int) newCost); // safe since less then Integer.MAX_VALUE
+					v.setPrevious(u);
+					u.setNextDirection(d);
 					pq.add(v);
+					log.trace("      Updated");
 				}
 			}
 
