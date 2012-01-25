@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import config.Args;
+
 import engine.map.IMap;
 import engine.map.IModelUnit;
 import engine.map.Unit;
@@ -50,6 +52,7 @@ public class TestPathFinder extends Tests {
 	@Test
 	public void testSimpleRange() {
 		setupSimple();
+		unit.setMove(4);
 		pf = new PathFinder(unit, map);
 		ArrayList<LocationInfo> actual =  pf.getMovementRange();
 		l(0,0);
@@ -60,7 +63,17 @@ public class TestPathFinder extends Tests {
 		compare(exp,actual);
 	}
 	
-	
+	@Test
+	public void testPath(){
+		setupSimple();
+		unit.setMove(31);
+		unit.setLocation(new Location(2,2));
+		pf = new PathFinder(unit, map);
+		ArrayList<LocationInfo> actual = pf.getMovementPath(new Location(4, 3));
+		System.out.println(actual);
+		fail();
+		
+	}
 	
 	private void compare(Collection<LocationInfo> exp, Collection<LocationInfo> act){
 		Iterator<LocationInfo> lexp  = exp.iterator();
