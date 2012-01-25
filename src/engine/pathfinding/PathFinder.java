@@ -46,35 +46,36 @@ public class PathFinder implements IMovementCostProvider {
 		LogF.debug(log,"locations for %s: %s\n",u, LogF.array2d(locations, start.x, end.x, start.y, end.y, true));
 		
 	}
-	
+
+	/** Get all Locations that are vaild*/
 	public ArrayList<LocationInfo> getMovementRange(){
-		
-		if (inRange == null){
-			inRange = new ArrayList<LocationInfo>();
-			for (int i = start.x; i < end.x; i++) {
-				for (int j = start.x; j < end.y; j++) {
-					if (locations[i][j].getMinDistance() <= unit.getMove()){
-						inRange.add(locations[i][j]);
-					}
+		if (inRange != null) return inRange;
+
+		inRange = new ArrayList<LocationInfo>();
+		for (int i = start.x; i < end.x; i++) {
+			for (int j = start.x; j < end.y; j++) {
+				if (locations[i][j].getMinDistance() <= unit.getMove()) {
+					inRange.add(locations[i][j]);
 				}
 			}
 		}
-		
 		return inRange;
 	}
 	
 	// Cache Calcuted paths
 	HashMap<LocationInfo, ArrayList<LocationInfo>> paths = new HashMap<LocationInfo, ArrayList<LocationInfo>>();
 	
+	/**
+	 * Get the path to a specifed Location
+	 * @return The path as a list or null if the location is not reachable with the unit. 
+	 */
 	public ArrayList<LocationInfo> getMovementPath(Location p){
 		Args.nullCheck(p);
 		Args.validateRange(p.x, start.x, end.x);
 		Args.validateRange(p.y, start.y, end.y);
 		
 		if (locations[p.x][p.y] == null || locations[p.x][p.y].getMinDistance() > unit.getMove()){
-			ArrayList<LocationInfo> path = new ArrayList<LocationInfo>();
-			path.add(locations[unit.getGridX()][unit.getGridY()]);
-			return path;
+			return null;
 		}
 		
 		final LocationInfo pl= locations[p.x][p.y];
@@ -88,7 +89,7 @@ public class PathFinder implements IMovementCostProvider {
 			path.add(l);
 			l = locations[l.x + l.getNextDirection().x][l.y + l.getNextDirection().y];
 		}
-
+		path.add(pl);
 		paths.put(pl,path);
 		return path;
 		
