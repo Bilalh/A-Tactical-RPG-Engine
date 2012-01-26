@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.UUID;
 
+import view.map.MapTile;
+
 import common.Location;
 import common.gui.Sprite;
 import common.gui.SpriteManager;

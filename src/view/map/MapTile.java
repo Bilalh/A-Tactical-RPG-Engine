@@ -1,7 +1,8 @@
-package view;
+package view.map;
 
-import static view.MapTile.Orientation.UP_TO_EAST;
-import static view.MapTile.Orientation.UP_TO_NORTH;
+import static view.map.MapTile.Orientation.UP_TO_EAST;
+import static view.map.MapTile.Orientation.UP_TO_NORTH;
+
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -11,8 +12,10 @@ import common.gui.Sprite;
 import common.gui.SpriteManager;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.image.*;
+import java.util.Arrays;
 
 import common.Location;
 import common.Location;
@@ -181,7 +184,6 @@ public class MapTile {
 						neg_y_h2_vet_div_2,
 						neg_y_h2_vet,
 						neg_y_h1_vet_div_2 }, 4);
-
 		if (textured) {
 			g.setPaint(tGrass);
 			g.fillPolygon(top);

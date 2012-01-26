@@ -6,6 +6,8 @@ package view;
 import java.awt.Graphics;
 import java.util.UUID;
 
+import view.map.MapTile;
+
 import common.gui.Sprite;
 import common.gui.SpriteManager;
 import common.interfaces.IUnit;

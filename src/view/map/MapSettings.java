@@ -1,4 +1,6 @@
-package view;
+package view.map;
+
+
 
 import common.ILocation;
 import common.Location;

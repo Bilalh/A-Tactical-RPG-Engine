@@ -1,10 +1,11 @@
+package view.map;
 /**
  * 
  */
-package view;
 
-import static view.MapTile.Orientation.UP_TO_EAST;
-import static view.MapTile.TileState;
+import static view.map.MapTile.TileState;
+import static view.map.MapTile.Orientation.UP_TO_EAST;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -20,6 +21,8 @@ import javax.media.jai.operator.SubtractDescriptor;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
+import view.AnimatedUnit;
+import view.Gui;
 import view.interfaces.IActions;
 import view.notifications.ChooseUnitsNotifications;
 import view.ui.Dialog;
@@ -43,19 +46,19 @@ import common.Location;
 /**
  * @author bilalh
  */
-public class GuiMap implements Observer {
+public class GuiMap implements Observer, IMapRendererParent {
 
-    private int drawX;
-    private int drawY;
-    private static MapTile selectedTile;
+	private MapController mapController; 
+	
     private MapTile[][] field;
+	private MapRenderer mapRender;
+
+	private int fieldWidth, fieldHeight;
+	private static MapTile selectedTile;
     
-    private int fieldWidth, fieldHeight;
     
     private AnimatedUnit[] units;
     private AnimatedUnit[] aiUnits;
-
-    private MapController mapController; 
     
     private Dialog dialog;
     private boolean showDialog = true;
@@ -65,24 +68,21 @@ public class GuiMap implements Observer {
     
     private MousePoxy MousePoxy;
     
-    // bad idea allready in unit?
     private HashMap<UUID,AnimatedUnit> unitMapping;
     private HashMap<MapTile,AnimatedUnit> tileMapping; 
 
     // Buffer for drawing the map.    	
+    private Image mapBuffer;
     private final int bufferWidth;
 	private final int bufferHeight;
-    private Image mapBuffer;
-	
-    final int startX;
-    final int startY;
+
+    private final int startX, startY;
+    private int drawX,drawY;
     
     final private ActionsAdapter[] actions = {new Movement(), new DialogHandler()};
-	private boolean showNumbering = false;
     enum ActionsEnum {
     	MOVEMENT, DIALOG,
     }
-    
     
 	/** @category Constructor */
 	public GuiMap(MapController mapController) {
@@ -109,7 +109,7 @@ public class GuiMap implements Observer {
             }
         }
         
-        int heightOffset = (MapSettings.tileDiagonal);
+        final int heightOffset = (MapSettings.tileDiagonal);
         bufferWidth  =  MapSettings.tileDiagonal*fieldWidth +5;  
 		bufferHeight = (int) (MapSettings.tileDiagonal/2f*fieldHeight +heightOffset);
 		
@@ -130,327 +130,49 @@ public class GuiMap implements Observer {
         mapController.addMapObserver(this);
         mapController.startMap();
         
-        toMove.add(field[2][5]);
-//        toMove.add(field[3][5]);
-//        toMove.add(field[4][5]);
-//        toMove.add(field[4][6]);
-//        toMove.add(field[5][6]);
-//        toMove.add(field[6][6]);
-//        toMove.add(field[6][7]);
-//        toMove.add(field[6][8]);
-
 	}
 
+	
 	void makeImageBuffer(Component parent){
 		mapBuffer = parent.createImage(bufferWidth,bufferHeight);
+		
+        final int heightOffset = (MapSettings.tileDiagonal);
+		mapRender = new MapRenderer(
+				field, this, 
+				startX, startY);
 	}
 
-	// draws the map to the screen
 	private boolean drawn = false;
-//	int frameDuration = 120 *1000000;
-//	int lastFrameChange = 0;
 	
-	int animationDuration = 750 *1000000;
+	int animationDuration = 750 * 1000000;
 	int animationFrameChange = 0;
-	
-	Queue<MapTile> toMove = new ArrayDeque<MapTile>();
-	
-	long total = 0;
+
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
-		
-//		if (mouseMoving) System.out.print("!" + (drawn ? 1 : 0)+ "!");
 		Graphics g = mapBuffer.getGraphics();
-		//TODO rotates workss!
-		if (!drawn) {
-//			System.out.println("%%%drawn is " + drawn + " mouse is " + mouseMoving);
+		
+		if (!drawn){
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
-			int x = startX;
-			int y = startY;
-			final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-			final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-//			System.out.println("___drawn is " + drawn + " mouse is " + mouseMoving);
-			
-			boolean drawnEverything = true;
-			boolean tex = false;
-			for (int i = fieldHeight - 1; i >= 0; i--) {
-	//		for (int i = 0 ; i < fieldHeight; i++) { //  for rotate
-				tex = !tex;
-				for (int j = 0; j < fieldWidth; j++) {
-//				for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
-					tex = !tex;
-					if (mouseMoving ||    
-							(x - horizontal   - drawX <= Gui.WIDTH+MapSettings.tileDiagonal*2
-							&& y - vertical   - drawY <= Gui.HEIGHT+MapSettings.tileDiagonal*2
-							&& x + horizontal - drawX >= -MapSettings.tileDiagonal*2
-							&& y + vertical   - drawY >= -MapSettings.tileDiagonal*2)) {
-						field[j][i].textured = tex;
-						field[j][i].draw(x, y, g, true,true);
-						
-						if (showNumbering) {
-							Color old = g.getColor();
-							g.setColor(Color.RED);
-							g.drawString(String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
-									(int) (x - (MapSettings.tileDiagonal * MapSettings.zoom) / 2 + 20),
-									y + 10);
-							g.setColor(old);
-						}
-						
-						AnimatedUnit u =  tileMapping.get(field[j][i]);
-						if (u != null){
-							u.draw(g, field, x, y, animationDuration);
-						}
-					}else{
-						drawnEverything = false;
-					}
-					x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
-					y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
-				}
-				x = startX- (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
-				y = startY+ (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch* MapSettings.zoom * (fieldHeight - i));
-				//			x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (i+1)); // for rotate
-				//			y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1)); // for rotate
-			}
-			drawn = (mouseMoving && drawnEverything) || !mouseMoving;
-//			System.out.println("@@@DRAWN IS "  + drawn +  " + MOUSE IS " + mouseMoving + " Everything is " + drawnEverything);
+			drawn = mapRender.draw(g, timeDiff, width, height);
 		}
 		
-//		Animated movement by redrawing partical steps.
-//		lastFrameChange += timeDiff;
-//		if (lastFrameChange > frameDuration){
-//			if (toMove.size() >=2){
-//				AnimatedUnit u =  tileMapping.remove(toMove.remove());
-//				tileMapping.put(toMove.peek(),u);
-//				drawn=false;
-//			}
-//			lastFrameChange=0;
-//		}
-		
-		 
-		if(!mouseMoving){
+		_g.drawImage(mapBuffer, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height, null);
+
+		if (!mouseMoving) {
 			animationFrameChange += timeDiff;
-			if (animationFrameChange > animationDuration){
-				total += animationFrameChange;
-//				System.out.printf("NEXT FRAME %.5f ::: %.3f\n", animationFrameChange * .000001, total * .000000001);
-				animationFrameChange=0;
-				drawn=false;
-//				if (toMove.size() >=2){
-//					AnimatedUnit u =  tileMapping.remove(toMove.remove());
-//					tileMapping.put(toMove.peek(),u);
-//					drawn=false;
-//				}
-			}	
+			if (animationFrameChange > animationDuration) {
+				// System.out.printf("NEXT FRAME %.5f ::: %.3f\n", animationFrameChange * .000001, total * .000000001);
+				animationFrameChange = 0;
+				drawn = false;
+				// if (toMove.size() >=2){
+				// AnimatedUnit u = tileMapping.remove(toMove.remove());
+				// tileMapping.put(toMove.peek(),u);
+				// drawn=false;
+				// }
+			}
 		}
-		
-		_g.drawImage(mapBuffer,0, 0, width, height, drawX, drawY, drawX+width, drawY+height, null);
-		
-//		if (inRange != null){
-//			for (Point p :inRange) {
-//				overlayTile(_g, field[p.x][p.y],Color.BLUE,10);
-//				Color c = new Color((int) Math.random(), (int)Math.random(), (int)Math.random());
-//			}	
-//		}
-		
-//		overlayTile(_g,selectedTile,Color.ORANGE,10);
-//		drawUnits(units,_g,timeDiff);
-//		drawUnits(aiUnits,_g,timeDiff);
 
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
-	}
-	
-	/**
-	 * Draw only Viewable tiles
-	 * @category Unused
-	 */
-	void drawViewable(Graphics g){
-//		g.fillRect(0, 0, bufferWidth, bufferHeight);
-
-		int x = startX;
-		int y = startY;
-		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-		final int vertical = (int) (MapSettings.tileDiagonal/2 * MapSettings.pitch * MapSettings.zoom);
-		
-		for (int i = fieldHeight - 1; i >= 0; i--) {
-			for (int j = 0; j < fieldWidth; j++) {
-
-				// Only draw the the tiles if they in the viewport 
-				if (    x - horizontal  - drawX  <= Gui.WIDTH
-						&& y - vertical  - drawY <= Gui.HEIGHT
-						&& x + horizontal - drawX >= 0
-						&& y + vertical   -drawY >= 0) {
-					field[j][i].draw(x, y, g, true,true);
-				}
-				
-				x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
-				y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
-			}
-			x = startX- (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
-			y = startY+ (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch* MapSettings.zoom * (fieldHeight - i));
-		}
-	}
-	
-	void mapToWorld(Location p){
-		p.translate(-drawX, -drawY);
-	}
-	
-	/**
-	 *  Overlay units on the map.
-	 *  @category unused
-	 */
-	void drawUnits(AnimatedUnit[] units, Graphics g, long timeDiff){
-		Graphics2D g2 = (Graphics2D) g;
-		for (AnimatedUnit au : units) {
-			Location l = au.getPostion();
-			Location p = getDrawLocation(startX, startY, au.getGridX(), au.getGridY());
-			mapToWorld(p);
-			
-			float height  = field[l.x][l.y].getHeight();
-			Rectangle r = new Rectangle(au.topLeftPoint(field, p.x, p.y));
-			r.width = au.getWidth();
-			r.height = au.getHeight();
-		    Area resultingArea = new Area(r);
-
-			au.draw(g2, field, p.x, p.y, timeDiff);
-		    
-		    MapTile m;
-		    if (l.x+1 < fieldWidth && (m =  field[l.x+1][l.y]).getHeight() > height ){
-		    	makePolygons(m);
-			    Area a;
-			    
-			    a= new Area(m.left);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tWall);
-			    g2.fill(a);
-
-			    a= new Area(m.right);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tWall);
-			    g2.fill(a);
-			    
-			    a= new Area(m.top);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tGrass);
-			    g2.fill(a);
-		    }
-
-		    if (l.y -1 >= 0 && (m =  field[l.x][l.y-1]).getHeight() > height ){	    	
-		    	makePolygons(m);
-			    Area a;
-			    a= new Area(m.left);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tWall);
-			    g2.fill(a);
-			    
-			    a= new Area(m.right);
-			    a.intersect(resultingArea);
-			    
-			    MapTile mm =  field[l.x-1][l.y-2];
-			    makePolygons(mm);
-			    Area aa = new Area(mm.top);
-			    a.subtract(aa);
-			    
-			    g2.setPaint(m.tWall);
-			    g2.fill(a);
-			    
-			    a= new Area(m.top);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tGrass);
-			    g2.fill(a);			    
-			    
-		    }
-		    
-		    if (l.x +1 < fieldWidth && l.y - 1 >= 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > height){	    	
-		    	makePolygons(m);
-		    	Area a;
-			    a= new Area(m.left);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tWall);
-			    g2.fill(a);
-			    
-			    a= new Area(m.right);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tWall);
-			    g2.fill(a);
-			    
-			    a= new Area(m.top);
-			    a.intersect(resultingArea);
-			    
-//			    MapTile mm =  field[l.x+2][l.y-1];
-//			    makePolygons(mm);
-//			    a.subtract(new Area(mm.left));
-//			    a.subtract(new Area(mm.top));
-
-			    g2.setPaint(m.tGrass);
-			    g2.fill(a);
-			    
-		    }
-		    
-		    if (l.x -1  >=0 && l.y - 1 >= 0 &&  (m =  field[l.x-1][l.y-1]).getHeight() > height){	    	
-		    	makePolygons(m);
-		    	Area a;
-			    a= new Area(m.left);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tWall);
-			    g2.fill(a);
-			    
-			    a= new Area(m.right);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tWall);
-			    g2.fill(a);
-			    
-			    a= new Area(m.top);
-			    a.intersect(resultingArea);
-			    g2.setPaint(m.tGrass);
-			    g2.fill(a);
-			    
-		    }
-		    
-		}		
-	}
-
-	/**
-	 * @category unused
-	 */
-	private  void overlayTile(Graphics g, MapTile t, Paint paint, int limit){
-		Graphics2D g2 = (Graphics2D) g;
-		
-		Location l  = t.getFieldLocation();
-		makePolygons(t);
-	    Area resultingArea = new Area(t.top);
-	    
-	    MapTile m;
-	    if (l.x+1 < fieldWidth && (m =  field[l.x+1][l.y]).getHeight() > t.getHeight() ){
-	    	makePolygons(m);
-		    resultingArea.subtract(new Area(m.top));
-		    resultingArea.subtract(new Area(m.left));
-	    }
-
-	    if (l.y -1 > 0 && (m =  field[l.x][l.y-1]).getHeight() > t.getHeight() ){	    	
-	    	makePolygons(m);
-		    resultingArea.subtract(new Area(m.top));
-		    resultingArea.subtract(new Area(m.right));
-	    }
-	    
-	    if (l.x +1 < fieldWidth && l.y - 1 > 0 &&  (m =  field[l.x+1][l.y-1]).getHeight() > t.getHeight() 
-	    		&& m.getHeight() - t.getHeight()  <=limit ){	    	
-		    makePolygons(m);
-		    resultingArea.subtract(new Area(m.top));
-		    resultingArea.subtract(new Area(m.right));
-	    }
-	   
-	    Paint old = g2.getPaint();
-	    g2.setPaint(paint);
-	    g2.draw(resultingArea);
-		g2.setPaint(old);
-	    
-	}
-	
-	
-	private void makePolygons(MapTile m){
-	    Location p = getDrawLocation(startX, startY, m.getFieldLocation().x, m.getFieldLocation().y);
-	    p.x -= drawX;
-	    p.y -= drawY;
-	    m.makePolygons(p.x, p.y);
 	}
 	
 	Location getDrawLocation(int startX, int startY, int gridX, int gridY){
@@ -468,7 +190,6 @@ public class GuiMap implements Observer {
 		((IMapNotification) notification).process(this);
 	}
 
-	
 	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IUnit> aiUnits) {
 		
 		AnimatedUnit[] newUnits = new AnimatedUnit[allPlayerUnits.size()];
@@ -501,10 +222,10 @@ public class GuiMap implements Observer {
 	public void unitMoved(IUnit u){
 		System.out.println("Unit Moved");
 		AnimatedUnit au =  unitMapping.get(u.getUuid());
-		tileMapping.remove(field[au.gridX][au.gridY]);
+		tileMapping.remove(field[au.getGridX()][au.getGridY()]);
 		au.setGridX(u.getGridX());
 		au.setGridY(u.getGridY());
-		tileMapping.put(field[au.gridX][au.gridY],au);
+		tileMapping.put(field[au.getGridX()][au.getGridY()],au);
 		drawn = false;
 	}
 	
@@ -581,7 +302,7 @@ public class GuiMap implements Observer {
 			if (selected != null){
 				System.out.println("selected " + selected);
 				if ( !getSelectedTile().isSelected() ) return;
-				mapController.moveUnit(selected.unit.getUuid(), getSelectedTile().getFieldLocation());
+				mapController.moveUnit(selected.getUuid(), getSelectedTile().getFieldLocation());
 				for (Location p : inRange) {
 					field[p.x][p.y].setState(TileState.NONE);
 				}
@@ -613,7 +334,7 @@ public class GuiMap implements Observer {
 				selected = unitS;
 			}
 			
-			inRange =  mapController.getMovementRange(unitS.unit.getUuid());
+			inRange =  mapController.getMovementRange(unitS.getUuid());
 			for (Location p : inRange) {
 				field[p.x][p.y].setState(TileState.MOVEMENT_RANGE);
 			}
@@ -685,9 +406,6 @@ public class GuiMap implements Observer {
 						"work of all. However, as his artistic brilliance reached new " +
 						"heights in Provence, his ysical and mental health plummeted. ");
 				showDialog = true;
-				break;
-			case KeyEvent.VK_0:
-				showNumbering  = !showNumbering;
 				break;
 			case KeyEvent.VK_MINUS:
 				if ( MapSettings.zoom <=0.6) break;
@@ -772,7 +490,6 @@ public class GuiMap implements Observer {
 	public void setSelectedTile(int x, int y) {
         assert !(x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight); 
         
-        Graphics g =mapBuffer.getGraphics();
         if (selectedTile != null) {
             selectedTile.setSelected(false);
         }
@@ -783,26 +500,6 @@ public class GuiMap implements Observer {
 		ILocation selected = getDrawLocation(startX, startY, x, y);
 //        System.out.printf("(%d,%d) selected\n", newX, newY);        
     }
-
-    /** @category Generated */
-	public MapTile getSelectedTile() {
-		return selectedTile;
-	}
-	
-    public void setDrawLocation(int x, int y) {
-        drawX = x;
-        drawY = y;
-    }
-
-	/** @category Generated */
-	public boolean isShowDialog() {
-		return showDialog;
-	}
-
-	/** @category Generated */
-	public void setShowDialog(boolean showDialog) {
-		this.showDialog = showDialog;
-	}
 
 	public IActions getActionHandler() {
 		return current;
@@ -826,4 +523,49 @@ public class GuiMap implements Observer {
 		MousePoxy.setMouseListener(aa);
 		MousePoxy.setMouseMotionListener(aa);
 	}
+	
+    public void setDrawLocation(int x, int y) {
+        drawX = x;
+        drawY = y;
+    }
+
+    @Override
+	public AnimatedUnit getUnit(MapTile tile){
+		return tileMapping.get(tile);
+	}
+	
+
+    /** @category Generated */
+	public MapTile getSelectedTile() {
+		return selectedTile;
+	}
+    
+	/** @category Generated */
+	public boolean isShowDialog() {
+		return showDialog;
+	}
+
+	/** @category Generated */
+	public void setShowDialog(boolean showDialog) {
+		this.showDialog = showDialog;
+	}
+
+	/** @category Generated Getter */
+	@Override
+	public boolean isMouseMoving() {
+		return mouseMoving;
+	}
+
+	/** @category Generated Getter */
+	@Override
+	public int getDrawX() {
+		return drawX;
+	}
+
+	/** @category Generated Getter */
+	@Override
+	public int getDrawY() {
+		return drawY;
+	}
+
 }

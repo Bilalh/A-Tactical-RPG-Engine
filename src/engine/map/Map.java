@@ -84,8 +84,8 @@ public class Map extends Observable implements IMap {
 	}
 
 	void testing() {
-		width = 10;
-		height = 10;
+		width = 20;
+		height = 20;
 		field = new Tile[width][height];
 
 		long seed = 654645l;

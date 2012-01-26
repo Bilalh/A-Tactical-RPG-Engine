@@ -6,7 +6,7 @@ package view.notifications;
 import common.interfaces.IMapNotification;
 import common.interfaces.INotification;
 
-import view.GuiMap;
+import view.map.GuiMap;
 
 /**
  * @author bilalh

@@ -1,6 +1,6 @@
 package common.interfaces;
 
-import view.GuiMap;
+import view.map.GuiMap;
 
 /**
  * @author Bilal Hussain

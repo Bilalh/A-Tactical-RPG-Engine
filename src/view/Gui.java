@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import controller.MainController;
 import controller.MapController;
 
+import view.map.MapPanel;
 import view.ui.Console;
 import view.ui.IConsole;
 

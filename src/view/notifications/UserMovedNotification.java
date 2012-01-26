@@ -1,6 +1,6 @@
 package view.notifications;
 
-import view.GuiMap;
+import view.map.GuiMap;
 import common.interfaces.IMapNotification;
 import common.interfaces.IUnit;
 

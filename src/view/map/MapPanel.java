@@ -1,4 +1,4 @@
-package view;
+package view.map;
 
 import java.awt.*;
 import java.awt.color.ColorSpace;
@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 
 import com.sun.tools.example.debug.gui.GUI;
 
+import view.Gui;
 import view.interfaces.IActions;
 
 import controller.MapController;

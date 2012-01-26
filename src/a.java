@@ -11,7 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import view.MapSettings;
+import view.map.MapSettings;
 
 @SuppressWarnings("all")
 public class a extends JComponent {

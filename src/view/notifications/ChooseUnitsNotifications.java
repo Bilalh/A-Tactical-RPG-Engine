@@ -9,7 +9,7 @@ import common.interfaces.IMapNotification;
 import common.interfaces.INotification;
 import common.interfaces.IUnit;
 
-import view.GuiMap;
+import view.map.GuiMap;
 
 import engine.map.Unit;
 
