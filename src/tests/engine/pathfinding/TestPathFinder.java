@@ -79,7 +79,7 @@ public class TestPathFinder extends Tests {
 		compare(exp, actual);
 	}
 
-	// Bad path since there are multiple answers 
+	// Tests multiple answers 
 	@Test
 	public void testPath2(){
 		int[][] costs = new int[7][7];
@@ -99,7 +99,18 @@ public class TestPathFinder extends Tests {
 		l(2,4);
 		l(2,3);
 		l(3,3);
-		compare(exp, actual);
+		int actualSum = 0;
+		int expSum =0;
+		
+		for (LocationInfo l : actual) {
+			actualSum += costs[l.x][l.y];
+		}
+
+		for (LocationInfo l : exp) {
+			expSum += costs[l.x][l.y];
+		}
+		
+		assertEquals("cost", expSum,actualSum);
 	}
 	
 	private void compare(Collection<LocationInfo> exp, Collection<LocationInfo> act){

@@ -99,7 +99,7 @@ public class Dijkstra {
 				if (newCost < v.getMinDistance()) {
 					v.setMinDistance((int) newCost); // safe since less then Integer.MAX_VALUE
 					v.setPrevious(u);
-					u.setNextDirection(d);
+					v.setNextDirection(d);
 					pq.add(v);
 					log.trace("      Updated");
 				}
