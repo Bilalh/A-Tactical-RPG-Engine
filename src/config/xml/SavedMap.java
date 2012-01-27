@@ -22,15 +22,15 @@ public class SavedMap implements IPreference {
 	@XStreamImplicit
 	final SavedTile[] tiles;
 
-	@XStreamAlias("tilemapping")
-	final String tileMapping;
+	@XStreamAlias("tileMappinglocation")
+	final String tileMappinglocation;
 
 	/** @category Generated Constructor */
-	public SavedMap(int width, int height, SavedTile[] tiles, String tileMapping) {
+	public SavedMap(int width, int height, SavedTile[] tiles, String tileMappinglocation) {
 		this.width = width;
 		this.height = height;
 		this.tiles = tiles;
-		this.tileMapping = tileMapping;
+		this.tileMappinglocation = tileMappinglocation;
 	}
 
 	/** @category Generated Getter */
@@ -48,9 +48,16 @@ public class SavedMap implements IPreference {
 		return tiles;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("SavedMap [width=%s, height=%s, tiles=%s]", width, height, Arrays.deepToString(tiles));
+	/** @category Generated Getter */
+	public String getTileMappinglocation() {
+		return tileMappinglocation;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("SavedMap [width=%s, height=%s, tiles=%s, tileMappinglocation=%s]", width, height, tiles, tileMappinglocation);
+	}
+
+	
+	
 }

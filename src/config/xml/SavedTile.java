@@ -51,4 +51,32 @@ public class SavedTile{
 		return String.format("SavedTile [type=%s, height=%s, x=%s, y=%s]", type, height, x, y);
 	}
 
+	@Override
+	/** @category Generated */
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + height;
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+
+	@Override
+	/** @category Generated */
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (!(obj instanceof SavedTile)) return false;
+		SavedTile other = (SavedTile) obj;
+		if (height != other.height) return false;
+		if (type == null) {
+			if (other.type != null) return false;
+		} else if (!type.equals(other.type)) return false;
+		if (x != other.x) return false;
+		if (y != other.y) return false;
+		return true;
+	}
+	
 }
