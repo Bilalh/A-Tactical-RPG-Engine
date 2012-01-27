@@ -18,7 +18,7 @@ public class Tests {
 
 	@BeforeClass
 	public static void loadLogging(){
-		Config.loadLoggingloadLoggingProperties("log4j-test.properties");
+		Config.loadLoggingProperties("log4j-test.properties");
 	}
 	
 }

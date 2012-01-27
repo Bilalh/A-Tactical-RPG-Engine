@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.sun.tools.internal.ws.util.xml.XmlUtil;
 
+import config.Config;
 import config.XMLUtil;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
@@ -18,14 +19,15 @@ import config.xml.TileMapping;
 public class XmlMaker {
 
 	public static void main(String[] args) {
+		Config.loadLoggingProperties();
 		
-		Random r = new Random(1234);
-		int width  = 2;
-		int height = 2;
+		Random r = new Random(12344);
+		int width  = 5;
+		int height = 5;
 		SavedTile[] tiles = new SavedTile[width*height];
 		for (int i = 0, k =0; i < width; i++) {
 			for (int j = 0; j < height; j++, k++) {
-				tiles[k] = new SavedTile("grass",r.nextInt(4)+1, i,j);
+				tiles[k] = new SavedTile("grass",r.nextInt(3)+1, i,j);
 			}
 		}
 		

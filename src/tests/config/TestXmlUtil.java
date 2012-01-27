@@ -36,8 +36,8 @@ public class TestXmlUtil {
 		
 		
 		assertArrayEquals("Tiles", m.getTiles(), m2.getTiles());
-		assertEquals("height", m.getHeight(), m2.getHeight());
-		assertEquals("width", m.getWidth(), m2.getWidth());
+		assertEquals("height", m.getFieldHeight(), m2.getFieldHeight());
+		assertEquals("width", m.getFieldWidth(), m2.getFieldWidth());
 		assertEquals("", m.getTileMappinglocation(), m.getTileMappinglocation());
 	}
 	

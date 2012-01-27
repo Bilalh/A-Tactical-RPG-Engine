@@ -43,15 +43,14 @@ public class Dijkstra {
 	}
 	
 	public LocationInfo[][] calculate(Location start, int lowerX, int upperX, int lowerY, int upperY) {
-		if (upperX <= lowerX || upperY <= lowerY || start == null ) throw new IllegalArgumentException("");
-		
-		System.out.println(start);
+		if (upperX <= lowerX || upperY <= lowerY || start == null ) throw new IllegalArgumentException("Invaild values");
 		
 		LocationInfo[][] locations = new LocationInfo[rows][cols];
 		HashSet<LocationInfo> settler = new HashSet<LocationInfo>();
 		
-		assert(upperX - lowerX * upperY - lowerY >= 0);
-		PriorityQueue<LocationInfo> pq = new PriorityQueue<LocationInfo>((upperX - lowerX * upperY - lowerY),
+		Logf.info(log, "bounds x:%s to %s y:%s to %s", lowerX,upperX, lowerY, upperY);
+		assert((upperX - lowerX) * (upperY - lowerY) > 0);
+		PriorityQueue<LocationInfo> pq = new PriorityQueue<LocationInfo>((upperX - lowerX) * (upperY - lowerY),
 			new Comparator<LocationInfo>() {
 				@Override
 				public int compare(LocationInfo o1, LocationInfo o2) {

@@ -7,6 +7,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 import config.IPreference;
+import engine.map.Tile;
 
 /**
  * @author Bilal Hussain
@@ -32,14 +33,14 @@ public class SavedMap implements IPreference {
 		this.tiles = tiles;
 		this.tileMappinglocation = tileMappinglocation;
 	}
-
+	
 	/** @category Generated Getter */
-	public int getWidth() {
+	public int getFieldWidth() {
 		return width;
 	}
 
 	/** @category Generated Getter */
-	public int getHeight() {
+	public int getFieldHeight() {
 		return height;
 	}
 

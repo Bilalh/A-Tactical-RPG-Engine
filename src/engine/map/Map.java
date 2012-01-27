@@ -13,6 +13,10 @@ import view.notifications.UserMovedNotification;
 
 import common.interfaces.INotification;
 import common.interfaces.IUnit;
+import config.Config;
+import config.xml.SavedMap;
+import config.xml.SavedTile;
+import config.xml.TileMapping;
 import engine.PathfindingEx.AStarPathFinder;
 import engine.PathfindingEx.Mover;
 import engine.PathfindingEx.TileBasedMap;
@@ -28,19 +32,21 @@ public class Map extends Observable implements IMap {
 
 	private static final Logger log = Logger.getLogger(Map.class);
 	
-	Tile[][] field;
+	private Tile[][] field;
+	private TileMapping tileMapping;
+	
 	private int width;
 	private int height;
 
 	private AIPlayer ai;
 	private Player player;
 	
-	
 	private ArrayList<IModelUnit> selectedUnits;
 	private HashMap<IModelUnit, PathFinder> paths;
 	
 	boolean playersTurn; // false aiplayer
 
+	
 	/** @category Constructor */
 	public Map(String name, Player player) {
 		this.player = player;
@@ -68,33 +74,34 @@ public class Map extends Observable implements IMap {
 		this.ai = ai;
 	}
 
-	private void loadFromSpaceSepFile(String name) {
-		try {
-			File f = new java.io.File(name);
-			Scanner sc = new Scanner(f);
-			width = sc.nextInt();
-			height = sc.nextInt();
-			// width = 8;
-			// height = 8;
-			field = new Tile[width][height];
-			for (int i = 0; i < field.length; i++) {
-				for (int j = 0; j < field[i].length; j++) {
-					int a = sc.nextInt() + 2;
-					field[i][j] = new Tile(a, a);
-				}
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
 	private void loadSettings(String name) {
+		loadMap(name);
 //		loadFromSpaceSepFile("test.txt");
-		testing();
+//		testing();
+		
+		assert(field != null);
+		assert(width  > 0);
+		assert(height > 0);
 	}
 
+	void loadMap(String name){
+		SavedMap smap = Config.loadMap(name);
+		
+		width  = smap.getFieldWidth();
+		height = smap.getFieldHeight();
+		field  = new Tile[width][height];
+		
+		for (SavedTile t : smap.getTiles()) {
+			field[t.getX()][t.getY()] = new Tile(t.getHeight(), t.getHeight(), t.getType());
+		}
+		
+		//FIXME load real tile mapping.
+		tileMapping = Config.defaultMapping();
+		
+	}
+	
 	void testing() {
+		tileMapping = Config.defaultMapping();
 		width = 17;
 		height = 17;
 		field = new Tile[width][height];
@@ -132,6 +139,28 @@ public class Map extends Observable implements IMap {
 		// field[i][j] = new Tile(first, first);
 		// }
 		// }
+	}
+
+	private void loadFromSpaceSepFile(String name) {
+		tileMapping = Config.defaultMapping();
+		try {
+			File f = new java.io.File(name);
+			Scanner sc = new Scanner(f);
+			width = sc.nextInt();
+			height = sc.nextInt();
+			// width = 8;
+			// height = 8;
+			field = new Tile[width][height];
+			for (int i = 0; i < field.length; i++) {
+				for (int j = 0; j < field[i].length; j++) {
+					int a = sc.nextInt() + 2;
+					field[i][j] = new Tile(a, a);
+				}
+			}
+	
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
