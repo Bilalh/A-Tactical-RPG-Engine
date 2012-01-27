@@ -208,7 +208,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		for (int i = 0; i < newUnits.length; i++) {
 //			//FIXME indies
 				final IUnit u = allPlayerUnits.get(i);
-				Location p = new Location(2,i+4); 
+				Location p = new Location(2,i+3); 
 				newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
 				selectedPostions.put(u.getUuid(), p);
 				unitMapping.put(u.getUuid(), newUnits[i]);
