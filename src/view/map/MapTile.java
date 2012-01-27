@@ -1,8 +1,7 @@
 package view.map;
 
-import static view.map.MapTile.Orientation.UP_TO_EAST;
-import static view.map.MapTile.Orientation.UP_TO_NORTH;
-
+import static view.map.MapTile.Orientation.*;
+import static common.ImageType.*;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -17,11 +16,13 @@ import java.awt.*;
 import java.awt.image.*;
 import java.util.Arrays;
 
+import common.ImageType;
 import common.Location;
 import common.Location;
 import common.Location;
 
 import common.Location;
+import config.xml.TileImageData;
 
 public class MapTile {
 
@@ -46,42 +47,40 @@ public class MapTile {
 	private Location fieldLocation;
 	private TileState state;
 
-	private Polygon topReal;
-	Polygon top, left, right;
-
+	private Polygon topReal, top;
 	private boolean selected = false;
 
 	// debuging
 	private int cost;
+	
 	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass32.jpg").getImage();
 //	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/tileeesmall.png").getImage();
 	Rectangle2D rGrass = new Rectangle2D.Double(0, 0, iGrass.getWidth(null), iGrass.getHeight(null));
 	TexturePaint tGrass = new TexturePaint(iGrass, rGrass);
 
 	static Image iWall = SpriteManager.instance().getSprite("assets/gui/wallb16.jpg").getImage();
-	static Rectangle2D rWall = new Rectangle2D.Double(0, 0, iWall.getWidth(null),
-			iWall.getHeight(null));
+	static Rectangle2D rWall = new Rectangle2D.Double(0, 0, iWall.getWidth(null),iWall.getHeight(null));
 	static TexturePaint tWall = new TexturePaint((BufferedImage) iWall, rWall);
 	
-	// True if textured  otherwise a tilemap is used.
-	boolean textured = false;
 //	Sprite image = SpriteManager.instance().getSprite("assets/gui/tilemask3.png");
-	Sprite image = SpriteManager.instance().getSprite("assets/gui/tileee.png");
+//	Sprite image = SpriteManager.instance().getSprite("assets/gui/tileee.png");
+	
+	// The Tiles image 
+	private Image tileImage;
+	private ImageType type;
 
 	
-	/**
-	 * @param orientation The orientation of this tile
-	 * @param startHeight The lower height of the tile (If slanted)
-	 * @param endHeight   The upper hieght of the tile (If slanted)
-	 * @category Constructor
-	 */
-	public MapTile(Orientation orientation, float startHeight, float endHeight, int x, int y) {
-		this.orientation = orientation;
-		this.startHeight = startHeight;
-		this.endHeight = endHeight;
-		this.height = (startHeight + endHeight) / 2;
-		this.fieldLocation = new Location();
+	public MapTile(Orientation orientation, float startHeight, float endHeight, 
+			int x, int y, String filename, ImageType type ) {
 		this.fieldLocation = new Location(x, y);
+		this.orientation   = orientation;
+		
+		this.startHeight = startHeight;
+		this.endHeight   = endHeight;
+		
+		this.height = (startHeight + endHeight) / 2;
+		this.type   = type;
+		this.state  = TileState.NONE;
 
 		final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
 		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -101,12 +100,11 @@ public class MapTile {
 						0 - h2 + vertical / 2,
 						0 - h2 + vertical,
 						0 - h1 + vertical / 2 }, 4);
-		state = TileState.NONE;
-//		textured = height %2 !=0;
-		tileImage = image.getImage().getScaledInstance(MapSettings.tileDiagonal+1,MapSettings.tileDiagonal/2+1, Image.SCALE_SMOOTH);
+		
+		
+		Sprite image = SpriteManager.instance().getSprite("Resources/" + filename);
+		tileImage    = image.getImage().getScaledInstance(MapSettings.tileDiagonal+1,MapSettings.tileDiagonal/2+1, Image.SCALE_SMOOTH);
 	}
-	Image tileImage;
-
 	
 	public boolean wasClickedOn(Point click) {
 		return topReal != null && topReal.contains(click);
@@ -152,21 +150,19 @@ public class MapTile {
 	Color lineColor = Color.RED;
 	public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide) {
 		Graphics2D g = (Graphics2D) _g;
-		textured = false;
-		final float finalHeight =(MapSettings.tileHeight * MapSettings.zoom);
-		final float horizontal = (MapSettings.tileDiagonal * MapSettings.zoom);
-		final float vertical =  (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		final float h1 = orientation == UP_TO_EAST ? (finalHeight * startHeight)
-				: (finalHeight * endHeight);
-		final float h2 = orientation == UP_TO_EAST ? (finalHeight * endHeight)
-				: (finalHeight * startHeight);
+		final float finalHeight = (MapSettings.tileHeight * MapSettings.zoom);
+		final float horizontal  = (MapSettings.tileDiagonal * MapSettings.zoom);
+		final float vertical    = (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+		
+		final float h1 = orientation == UP_TO_EAST ? (finalHeight * startHeight) : (finalHeight * endHeight);
+		final float h2 = orientation == UP_TO_EAST ? (finalHeight * endHeight)   : (finalHeight * startHeight);
 
 		Color oldColor = g.getColor();
 		Paint old = g.getPaint();
 
 		final int x_hor_div_2         = (int) (x + horizontal / 2);
 		final int neg_x_hor_div_2     = (int) (x - horizontal / 2);
-		final int y_vet                = (int) (y + vertical);
+		final int y_vet               = (int) (y + vertical);
 		final int y_vet_div_2         = (int) (y + vertical / 2);
 		final int neg_y_h1_vet_div_2  = (int) (y - h1 + vertical / 2);
 		final int neg_y_h2_vet_div_2  = (int) (y - h2 + vertical / 2);
@@ -182,7 +178,7 @@ public class MapTile {
 						neg_y_h2_vet_div_2,
 						neg_y_h2_vet,
 						neg_y_h1_vet_div_2 }, 4);
-		if (textured) {
+		if (type == TEXTURED) {
 			g.setPaint(tGrass);
 			g.fillPolygon(top);
 			g.setPaint(old);
@@ -462,76 +458,6 @@ public class MapTile {
 		g.setColor(oldColor);
 	}
 
-	/**
-	 * @category unused
-	 */
-	Polygon getpoly() {
-		final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
-		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight)
-				: (int) (finalHeight * endHeight);
-		final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight)
-				: (int) (finalHeight * startHeight);
-		return new Polygon(new int[] {
-				0,
-				0 + horizontal / 2,
-				0,
-				0 - horizontal / 2 },
-				new int[] {
-						0 - h1,
-						0 - h2 + vertical / 2,
-						0 - h2 + vertical,
-						0 - h1 + vertical / 2 }, 4);
-	}
-
-	/**
-	 * @category unused
-	 */
-	void makePolygons(int x, int y) {
-		final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
-		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight)
-				: (int) (finalHeight * endHeight);
-		final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight)
-				: (int) (finalHeight * startHeight);
-		top = new Polygon(new int[] {
-				x,
-				x + horizontal / 2,
-				x,
-				x - horizontal / 2 },
-				new int[] {
-						y - h1,
-						y - h2 + vertical / 2,
-						y - h2 + vertical,
-						y - h1 + vertical / 2 }, 4);
-	
-		right = new Polygon(new int[] {
-				x,
-				x + horizontal / 2,
-				x + horizontal / 2,
-				x },
-				new int[] {
-						y - h2 + vertical,
-						y - h2 + vertical / 2,
-						y + vertical / 2,
-						y + vertical }
-				, 4);
-	
-		left = new Polygon(new int[] {
-				x,
-				x - horizontal / 2,
-				x - horizontal / 2,
-				x },
-				new int[] {
-						y - h2 + vertical,
-						y - h1 + vertical / 2,
-						y + vertical / 2,
-						y + vertical }
-				, 4);
-	
-	}
 
 	/** @category Generated */
 	public Orientation getOrientation() {
@@ -579,6 +505,7 @@ public class MapTile {
 		this.cost = cost;
 	}
 
+	/** @category Generated */
 	@Override
 	public String toString() {
 		return String.format("MapTile [way=%s, height=%s, p=%s, cost=%s]",

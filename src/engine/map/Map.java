@@ -16,6 +16,7 @@ import common.interfaces.IUnit;
 import config.Config;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
+import config.xml.TileImageData;
 import config.xml.TileMapping;
 import engine.PathfindingEx.AStarPathFinder;
 import engine.PathfindingEx.Mover;
@@ -229,6 +230,10 @@ public class Map extends Observable implements IMap {
 		return field[x][y];
 	}
 	
+	public TileImageData getTileImageData(int x, int y){
+		return tileMapping.getTileImageData(field[x][y].getType());
+	}
+	
 	/** @category Generated */
 	public Tile[][] getField() {
 		return field;
@@ -251,5 +256,5 @@ public class Map extends Observable implements IMap {
 	public int getFieldHeight() {
 		return height;
 	}
-	
+
 }

@@ -54,19 +54,15 @@ public class MapRenderer {
 		// System.out.println("___drawn is " + drawn + " mouse is " + mouseMoving);
 
 		boolean drawnEverything = true;
-		boolean tex = false;
 		for (int i = fieldHeight - 1; i >= 0; i--) {
 			// for (int i = 0 ; i < fieldHeight; i++) { // for rotate
-			tex = !tex;
 			for (int j = 0; j < fieldWidth; j++) {
 				// for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
-				tex = !tex;
 				if (parent.isMouseMoving() ||
 						(x - horizontal - drawX <= width + MapSettings.tileDiagonal * 2
 								&& y - vertical - drawY <= height + MapSettings.tileDiagonal * 2
 								&& x + horizontal - drawX >= -MapSettings.tileDiagonal * 2
 								&& y + vertical - drawY >= -MapSettings.tileDiagonal * 2)) {
-					field[j][i].textured = tex;
 					field[j][i].draw(x, y, g, true, true);
 
 					if (showNumbering) {

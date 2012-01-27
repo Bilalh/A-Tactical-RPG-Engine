@@ -1,6 +1,7 @@
 package config.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import common.ImageType;
 
 /**
  * @author Bilal Hussain
@@ -8,16 +9,11 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @XStreamAlias("tileImageData")
 public class TileImageData {
 
-	public static enum Type {
-		TEXTURED,
-		NON_TEXTURED
-	}
-
 	final String location;
-	final Type type;
+	final ImageType type;
 
 	/** @category Generated Constructor */
-	public TileImageData(String location, Type type) {
+	public TileImageData(String location, ImageType type) {
 		this.location = location;
 		this.type = type;
 	}
@@ -28,7 +24,7 @@ public class TileImageData {
 	}
 
 	/** @category Generated Getter */
-	public Type getType() {
+	public ImageType getType() {
 		return type;
 	}
 

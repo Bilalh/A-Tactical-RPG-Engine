@@ -11,6 +11,7 @@ import config.IPreference;
 
 /**
  * Maps from the tile type to the images.
+ * 
  * @author Bilal Hussain
  */
 @XStreamAlias("tilemapping")
@@ -18,10 +19,21 @@ public class TileMapping implements IPreference {
 
 	@XStreamImplicit
 	final private HashMap<String, TileImageData> tilemapping;
-	
+
 	/** @category Generated Constructor */
 	public TileMapping(HashMap<String, TileImageData> tilemapping) {
 		this.tilemapping = tilemapping;
+	}
+
+	public TileImageData getTileImageData(String type){
+		TileImageData data =  tilemapping.get(type);
+		if (data == null) throw new IllegalArgumentException();
+		return data;
+	}
+	
+	/** @category Generated Getter */
+	public HashMap<String, TileImageData> getTilemapping() {
+		return tilemapping;
 	}
 
 	@Override
@@ -42,6 +54,5 @@ public class TileMapping implements IPreference {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
 }

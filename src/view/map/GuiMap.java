@@ -36,6 +36,7 @@ import common.gui.SpriteManager;
 import common.interfaces.IMapNotification;
 import common.interfaces.INotification;
 import common.interfaces.IUnit;
+import config.xml.TileImageData;
 import controller.MapController;
 
 import engine.map.IModelUnit;
@@ -108,9 +109,11 @@ public class GuiMap implements Observer, IMapRendererParent {
         //FIXME heights?
         for (int i = 0; i < fieldWidth; i++) { 
             for (int j = 0; j < fieldHeight; j++) {
+            	TileImageData d = mapController.getTileImageData(i, j);
             	field[i][j] = new MapTile(MapTile.Orientation.UP_TO_EAST,
             			grid[i][j].getStartHeight(),
-            			grid[i][j].getEndHeight(), i, j);
+            			grid[i][j].getEndHeight(), i, j,
+            			d.getLocation(), d.getType());
             	field[i][j].setCost(grid[i][j].getCost());
             }
         }

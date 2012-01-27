@@ -34,7 +34,6 @@ public class SpriteManager {
 		
 		URL url = this.getClass().getClassLoader().getResource(filePath);
 		if (url == null){
-//			System.err.printf("Image load of %s failed", filePath);
 			throw new RuntimeException(String.format("Image load of %s failed", filePath));
 		}
 

@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.sun.tools.internal.ws.util.xml.XmlUtil;
+import common.ImageType;
 
 import config.xml.TileImageData;
 import config.xml.TileMapping;
@@ -81,7 +82,7 @@ public class Config {
 	
 	static{
 		HashMap<String, TileImageData> m = new HashMap<String, TileImageData>();
-		TileImageData d= new TileImageData("images/tiles/brawn.jpg", TileImageData.Type.NON_TEXTURED);
+		TileImageData d= new TileImageData("images/tiles/brown.png", ImageType.NON_TEXTURED);
 		m.put("*", d );
 		m.put("grass", d);
 		defaultMapping = new TileMapping(m);

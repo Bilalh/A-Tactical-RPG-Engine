@@ -5,13 +5,11 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.sun.tools.internal.ws.util.xml.XmlUtil;
+import common.ImageType;
 
 import config.Config;
 import config.XMLUtil;
-import config.xml.SavedMap;
-import config.xml.SavedTile;
-import config.xml.TileImageData;
-import config.xml.TileMapping;
+import config.xml.*;
 
 /**
  * @author Bilal Hussain
@@ -37,7 +35,7 @@ public class XmlMaker {
 		System.out.println(s1);
 		
 		HashMap<String, TileImageData> mapping = new HashMap<String, TileImageData>();
-		mapping.put("grass", new TileImageData("images/tiles/brawn.jpg", TileImageData.Type.NON_TEXTURED));
+		mapping.put("grass", new TileImageData("images/tiles/brawn.jpg", ImageType.NON_TEXTURED));
 		
 		TileMapping map = new TileMapping(mapping);
 		String s = XMLUtil.makeFormattedXml(map);
