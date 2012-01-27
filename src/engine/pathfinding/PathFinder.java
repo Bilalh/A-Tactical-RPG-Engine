@@ -4,12 +4,12 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 
+import util.Args;
+import util.Logf;
 import util.Util;
 
 import common.Location;
 
-import config.Args;
-import config.Logf;
 import engine.map.IMap;
 import engine.map.IModelUnit;
 

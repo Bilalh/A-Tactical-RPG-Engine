@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import util.*;
 
-import config.Args;
 
 import engine.map.IMap;
 import engine.map.IModelUnit;

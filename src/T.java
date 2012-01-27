@@ -9,8 +9,9 @@ import org.apache.log4j.LogMF;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import util.Logf;
+
 import config.Config;
-import config.Logf;
 
 
 public class T {

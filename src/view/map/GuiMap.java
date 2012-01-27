@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
+import util.Logf;
 import view.AnimatedUnit;
 import view.Gui;
 import view.interfaces.IActions;
@@ -35,7 +36,6 @@ import common.gui.SpriteManager;
 import common.interfaces.IMapNotification;
 import common.interfaces.INotification;
 import common.interfaces.IUnit;
-import config.Logf;
 import controller.MapController;
 
 import engine.map.IModelUnit;

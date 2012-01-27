@@ -1,4 +1,4 @@
-package config.xml;
+package tests.config;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,11 +7,15 @@ import java.util.Random;
 import com.sun.tools.internal.ws.util.xml.XmlUtil;
 
 import config.XMLUtil;
+import config.xml.SavedMap;
+import config.xml.SavedTile;
+import config.xml.TileImageData;
+import config.xml.TileMapping;
 
 /**
  * @author Bilal Hussain
  */
-public class XmlTest {
+public class XmlMaker {
 
 	public static void main(String[] args) {
 		
@@ -25,22 +29,17 @@ public class XmlTest {
 			}
 		}
 		
-		SavedMap m = new SavedMap(width,height,tiles, "mapping.xml");
+		SavedMap m = new SavedMap(width,height,tiles, "basic-mapping.xml");
 
 		String s1 = XMLUtil.makeFormattedXml(m);
 		System.out.println(s1);
-		SavedMap m2 =  XMLUtil.convertXml(s1);
-		System.out.println(m2);
-//		
-		HashMap<String, String> mapping = new HashMap<String, String>();
-		mapping.put("grass", "images/tiles");
+		
+		HashMap<String, TileImageData> mapping = new HashMap<String, TileImageData>();
+		mapping.put("grass", new TileImageData("images/tiles/brawn.jpg", TileImageData.Type.NON_TEXTURED));
 		
 		TileMapping map = new TileMapping(mapping);
 		String s = XMLUtil.makeFormattedXml(map);
 		System.out.println(s);
-		
-		TileMapping map2 = XMLUtil.convertXml(s);
-		System.out.println(map2);
 		
 	}
 	

@@ -9,8 +9,8 @@ import java.util.Queue;
 
 import org.apache.log4j.Logger;
 
-import config.Logf;
 
+import util.Logf;
 import view.AnimatedUnit;
 
 /**

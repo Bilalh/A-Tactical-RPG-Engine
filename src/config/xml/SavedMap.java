@@ -22,7 +22,7 @@ public class SavedMap implements IPreference {
 	@XStreamImplicit
 	final SavedTile[] tiles;
 
-	@XStreamAlias("tileMappinglocation")
+	@XStreamAsAttribute
 	final String tileMappinglocation;
 
 	/** @category Generated Constructor */

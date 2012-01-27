@@ -11,6 +11,7 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import config.xml.SavedMap;
 import config.xml.SavedTile;
+import config.xml.TileImageData;
 import config.xml.TileMapping;
 
 /**
@@ -86,7 +87,8 @@ public abstract class XMLUtil {
 		return new Class[]{
 			SavedTile.class,
 			SavedMap.class,
-			TileMapping.class
+			TileMapping.class,
+			TileImageData.class
 		};
 	}
 	

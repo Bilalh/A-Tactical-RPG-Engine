@@ -1,0 +1,18 @@
+<map width="2" height="2" tileMappinglocation="basic-mapping.xml">
+  <tile x="0" y="0">
+    <type>grass</type>
+    <height>3</height>
+  </tile>
+  <tile x="0" y="1">
+    <type>grass</type>
+    <height>2</height>
+  </tile>
+  <tile x="1" y="0">
+    <type>grass</type>
+    <height>4</height>
+  </tile>
+  <tile x="1" y="1">
+    <type>grass</type>
+    <height>1</height>
+  </tile>
+</map>

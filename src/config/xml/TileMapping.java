@@ -17,10 +17,10 @@ import config.IPreference;
 public class TileMapping implements IPreference {
 
 	@XStreamImplicit
-	final private HashMap<String, String> tilemapping;
+	final private HashMap<String, TileImageData> tilemapping;
 	
 	/** @category Generated Constructor */
-	public TileMapping(HashMap<String, String> tilemapping) {
+	public TileMapping(HashMap<String, TileImageData> tilemapping) {
 		this.tilemapping = tilemapping;
 	}
 

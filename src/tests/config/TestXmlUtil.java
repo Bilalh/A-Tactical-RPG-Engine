@@ -29,7 +29,7 @@ public class TestXmlUtil {
 			}
 		}
 		
-		SavedMap m = new SavedMap(width,height,tiles, "mapping.xml");
+		SavedMap m = new SavedMap(width,height,tiles, "basic-mapping.xml");
 		
 		String s1 = XMLUtil.makeFormattedXml(m);
 		SavedMap m2 =  XMLUtil.convertXml(s1);
