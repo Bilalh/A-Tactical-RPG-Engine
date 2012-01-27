@@ -6,9 +6,12 @@ import java.io.StringWriter;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.CompactWriter;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import config.xml.SavedMap;
 import config.xml.SavedTile;
+import config.xml.TileMapping;
 
 /**
  *  Xml utilities  to create and parse xml 
@@ -21,7 +24,7 @@ public abstract class XMLUtil {
 	
 	static{
 		
-		xs = new XStream();
+		xs = new XStream(new DomDriver());
 		xs.processAnnotations(getClassesForAnnotations());
 //		xs.addDefaultImplementation(Card.class,ICard.class); 
 		xs.setMode(XStream.NO_REFERENCES);
@@ -82,7 +85,8 @@ public abstract class XMLUtil {
 		
 		return new Class[]{
 			SavedTile.class,
-			SavedMap.class
+			SavedMap.class,
+			TileMapping.class
 		};
 	}
 	

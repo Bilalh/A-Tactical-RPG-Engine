@@ -46,4 +46,9 @@ public class SavedTile{
 		return y;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("SavedTile [type=%s, height=%s, x=%s, y=%s]", type, height, x, y);
+	}
+
 }
