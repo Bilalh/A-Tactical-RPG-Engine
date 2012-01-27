@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+import org.apache.log4j.Logger;
+
 /**
  * A BTextArea displays uneditable text graphically to the user. The paint has to be called to draw the textarea
  * The textArea has a finite history which can scroll backwards and fowards. The number of lines shown is specifed 
@@ -13,6 +15,8 @@ import java.awt.Graphics2D;
  */
 public class Console implements IConsole {
 
+	private static final Logger log = Logger.getLogger(Console.class);
+	
 	// lines is a circular list 
 	private String[] lines;
 	// index is the next free postion, 
@@ -50,7 +54,7 @@ public class Console implements IConsole {
 		if (newObj ==null) throw new IllegalArgumentException("String can not be null");
 		
 		String newString = newObj.toString();
-		if (printToSysout) System.out.println(newString);
+		if (printToSysout) log.info(newObj);
 		
 		lines[index] =  numberLines ? newString : (lineIndex++) + " " + newString;
 		

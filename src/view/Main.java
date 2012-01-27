@@ -2,6 +2,7 @@ package view;
 
 import java.awt.EventQueue;
 
+import config.Config;
 import controller.MainController;
 import engine.Engine;
 
@@ -13,6 +14,7 @@ public class Main {
 	private MainController mainController;
 	
 	public Main(){
+		Config.loadLoggingProperties();
 		System.setProperty("sun.java2d.opengl","True");
 		EventQueue.invokeLater(new Runnable() {
 			@Override

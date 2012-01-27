@@ -140,7 +140,7 @@ public class Unit implements IModelUnit, Mover {
 	@Override
 	public String toString() {
 		return String
-				.format("Unit [name=%s, maxHp=%s, currentHp=%s, move=%s, strength=%s, gridX=%s, gridY=%s, uuid=%s]",
-						name, maxHp, currentHp, move, strength, gridX, gridY, uuid);
+				.format("Unit(%s,%s) [name=%s, maxHp=%s, currentHp=%s, move=%s, strength=%s, uuid=%s]",
+						gridX, gridY,name, maxHp, currentHp, move, strength, uuid);
 	}
 }

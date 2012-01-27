@@ -72,7 +72,7 @@ public class PathFinder implements IMovementCostProvider {
 		Args.nullCheck(p);
 		Args.validateRange(p.x, start.x, end.x);
 		Args.validateRange(p.y, start.y, end.y);
-		Logf.debug(log, "Finding path to %s for %s", p, unit);
+		Logf.info(log, "Finding path to %s for %s", p, unit);
 		
 		if (locations[p.x][p.y] == null || locations[p.x][p.y].getMinDistance() > unit.getMove()){
 			return null;
@@ -91,7 +91,7 @@ public class PathFinder implements IMovementCostProvider {
 		}
 		
 		path.push(locations[unit.getGridX()][unit.getGridY()]);
-		log.debug("finalpath " + path);
+		log.info("finalpath " + path);
 		paths.put(pl,path);
 		return path;
 		

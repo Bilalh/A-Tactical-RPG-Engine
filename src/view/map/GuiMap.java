@@ -19,6 +19,8 @@ import java.util.*;
 import javax.media.jai.RenderedOp;
 import javax.media.jai.operator.SubtractDescriptor;
 
+import org.apache.log4j.Logger;
+
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import view.AnimatedUnit;
@@ -33,12 +35,14 @@ import common.gui.SpriteManager;
 import common.interfaces.IMapNotification;
 import common.interfaces.INotification;
 import common.interfaces.IUnit;
+import config.Logf;
 import controller.MapController;
 
 import engine.map.IModelUnit;
 import engine.map.Map;
 import engine.map.Tile;
 import engine.map.Unit;
+import engine.pathfinding.LocationInfo;
 
 import common.ILocation;
 import common.Location;
@@ -48,10 +52,12 @@ import common.Location;
  */
 public class GuiMap implements Observer, IMapRendererParent {
 
+	private static final Logger log = Logger.getLogger(GuiMap.class);
+	
 	private MapController mapController; 
 	
     private MapTile[][] field;
-	private MapRenderer mapRender;
+	private MapRenderer mapRenderer;
 
 	private int fieldWidth, fieldHeight;
 	private static MapTile selectedTile;
@@ -83,6 +89,8 @@ public class GuiMap implements Observer, IMapRendererParent {
     enum ActionsEnum {
     	MOVEMENT, DIALOG,
     }
+    
+    
     
 	/** @category Constructor */
 	public GuiMap(MapController mapController) {
@@ -129,46 +137,47 @@ public class GuiMap implements Observer, IMapRendererParent {
         
         mapController.addMapObserver(this);
         mapController.startMap();
+        path = new ArrayDeque<LocationInfo>(0);
         
 	}
-
 	
 	void makeImageBuffer(Component parent){
 		mapBuffer = parent.createImage(bufferWidth,bufferHeight);
 		
         final int heightOffset = (MapSettings.tileDiagonal);
-		mapRender = new MapRenderer(
+		mapRenderer = new MapRenderer(
 				field, this, 
 				startX, startY);
 	}
 
 	private boolean drawn = false;
 	
-	int animationDuration = 750 * 1000000;
-	int animationFrameChange = 0;
+	int frameDuration = 750 * 1000000;
+	int frameChange = 0;
 
+	
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 		
 		if (!drawn){
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
-			drawn = mapRender.draw(g, timeDiff, width, height);
+			drawn = mapRenderer.draw(g, width, height);
 		}
 		
 		_g.drawImage(mapBuffer, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height, null);
 
 		if (!mouseMoving) {
-			animationFrameChange += timeDiff;
-			if (animationFrameChange > animationDuration) {
-				// System.out.printf("NEXT FRAME %.5f ::: %.3f\n", animationFrameChange * .000001, total * .000000001);
-				animationFrameChange = 0;
+			frameChange += timeDiff;
+			if (frameChange > frameDuration) {
+				frameChange = 0;
 				drawn = false;
-				// if (toMove.size() >=2){
-				// AnimatedUnit u = tileMapping.remove(toMove.remove());
-				// tileMapping.put(toMove.peek(),u);
-				// drawn=false;
-				// }
+				if(path.size() >= 2){
+					AnimatedUnit u = tileMapping.remove(getTile(path.remove()));
+					tileMapping.put(getTile(path.peek()),u);
+					drawn=false;
+				}
+				
 			}
 		}
 
@@ -189,7 +198,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		Gui.console().println(notification);
 		((IMapNotification) notification).process(this);
 	}
-
+	
 	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IUnit> aiUnits) {
 		
 		AnimatedUnit[] newUnits = new AnimatedUnit[allPlayerUnits.size()];
@@ -218,15 +227,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 	
 	
+	private Queue<LocationInfo> path;
 	
-	public void unitMoved(IUnit u){
-		System.out.println("Unit Moved");
-		AnimatedUnit au =  unitMapping.get(u.getUuid());
-		tileMapping.remove(field[au.getGridX()][au.getGridY()]);
-		au.setGridX(u.getGridX());
-		au.setGridY(u.getGridY());
-		tileMapping.put(field[au.getGridX()][au.getGridY()],au);
-		drawn = false;
+	public void unitMoved(IUnit u, Queue<LocationInfo> path){
+		AnimatedUnit movingUnit =  unitMapping.get(u.getUuid());
+		this.path = path;
+		Logf.info(log, "%s moved from %s to %s with path:s%s", u.getName(),  movingUnit.getLocation(), u.getLocation(), path );
+
+		movingUnit.setGridX(u.getGridX());
+		movingUnit.setGridY(u.getGridY());
+		drawn =false;
 	}
 	
 	public void playersTurn(){
@@ -259,12 +269,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 				setActionHandler(ActionsEnum.MOVEMENT);
 			}
 		}
-		
 	}
-
 	
-	
-	private Collection<Location> inRange = null;
+	private Collection<LocationInfo> inRange = null;
 	private boolean mouseMoving = false;
 	private class Movement extends ActionsAdapter{
 		
@@ -300,15 +307,15 @@ public class GuiMap implements Observer, IMapRendererParent {
 		AnimatedUnit selected = null;
 		private void selectMoveUnit() {
 			if (selected != null){
-				System.out.println("selected " + selected);
+				log.info("selected " + selected);
 				if ( !getSelectedTile().isSelected() ) return;
 				mapController.moveUnit(selected.getUuid(), getSelectedTile().getFieldLocation());
-				for (Location p : inRange) {
+				for (LocationInfo p : inRange) {
 					field[p.x][p.y].setState(TileState.NONE);
 				}
 				selected = null;
 				inRange = null;
-				System.out.println("Selected unit move finished");
+				log.info("Selected unit move finished");
 				return;
 			}
 
@@ -326,7 +333,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			
 			if (unitS != selected){
 				if (inRange != null){
-					for (Location p : inRange) {
+					for (LocationInfo p : inRange) {
 						field[p.x][p.y].setState(TileState.NONE);
 					}	
 				}
@@ -335,7 +342,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			}
 			
 			inRange =  mapController.getMovementRange(unitS.getUuid());
-			for (Location p : inRange) {
+			for (LocationInfo p : inRange) {
 				field[p.x][p.y].setState(TileState.MOVEMENT_RANGE);
 			}
 		}
@@ -344,7 +351,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		public void keyCancel() {
 			selected = null;
 			if (inRange != null){
-				for (Location p : inRange) {
+				for (LocationInfo p : inRange) {
 					field[p.x][p.y].setState(TileState.NONE);
 				}
 				inRange = null;
@@ -354,17 +361,17 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 	    @Override
 		public void mousePressed(MouseEvent e) {
-	    	System.out.println("\nMousePressed");
+	    	log.info("MousePressed");
 	        mouseStart = e.getPoint();
 	        offsetX = e.getX() - drawX;
 	        offsetY = e.getY() - drawY;
-	        System.out.printf("MousePressed MouseMoving:%s drawn:%s\n", mouseMoving,drawn);
+	        Logf.info(log,"MousePressed MouseMoving:%s drawn:%s", mouseMoving,drawn);
 	    }
 
 	    @Override
 		public void mouseReleased(MouseEvent e) {
 	    	mouseMoving = false;
-	    	System.out.println("MousrReleased");
+	    	log.info("MousrReleased");
 	        mouseEnd = e.getPoint();
 	        int a = Math.abs((int) (mouseEnd.getX() - mouseStart.getX()));
 	        int b = Math.abs((int) (mouseEnd.getY() - mouseStart.getY()));
@@ -374,7 +381,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	            findAndSelectTile(e.getX(), e.getY());
 	            selectMoveUnit();
 	        }
-	        System.out.printf("MouseReleased MouseMoving:%s drawn:%s\n", mouseMoving,drawn);
+	        Logf.info(log,"MouseReleased MouseMoving:%s drawn:%s", mouseMoving,drawn);
 	    }
 
 	    @Override
@@ -382,7 +389,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	    	
 	    	if (!mouseMoving){
 	    		mouseMoving =true;
-	    		System.out.println("mouseDragged ");
+	    		log.info("mouseDragged ");
 		    	drawn = false;	
 	    	}
 	    	
@@ -411,34 +418,34 @@ public class GuiMap implements Observer, IMapRendererParent {
 				if ( MapSettings.zoom <=0.6) break;
 				MapSettings.zoom -= 0.2;
 //				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
-				System.out.println(MapSettings.zoom * MapSettings.tileDiagonal);
+				log.info(MapSettings.zoom * MapSettings.tileDiagonal);
 				if ((MapSettings.zoom * MapSettings.tileDiagonal) % 2 !=0){
-//					System.out.println("Odd");
+//					log.info("Odd");
 				}
 				
-				System.out.println(MapSettings.zoom);
+				log.info(MapSettings.zoom);
 				drawn=false;
 				break;
 			case KeyEvent.VK_EQUALS:
 				if ( MapSettings.zoom >1.2) break;
 				MapSettings.zoom += 0.2;
 //				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
-				System.out.println(MapSettings.zoom * MapSettings.tileDiagonal);
-				System.out.println(MapSettings.zoom);
+				log.info(MapSettings.zoom * MapSettings.tileDiagonal);
+				log.info(MapSettings.zoom);
 				drawn=false;
 				break;
 			case KeyEvent.VK_COMMA:
 				if ( MapSettings.pitch <0.6) break;
 				MapSettings.pitch *= 0.8;
 				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
-				System.out.println(MapSettings.pitch);
+				log.info(MapSettings.pitch);
 				drawn=false;
 				break;
 			case KeyEvent.VK_PERIOD:
 				if ( MapSettings.pitch >0.8) break;
 				MapSettings.pitch *= 1.2;
 				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
-				System.out.println(MapSettings.pitch);
+				log.info(MapSettings.pitch);
 				drawn=false;
 				break;
 			case KeyEvent.VK_U:
@@ -446,7 +453,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				mapController.moveUnit(units[0].getUuid(), newP);
 				break;
 			case KeyEvent.VK_I:
-				System.out.printf("draw (%d,%d) selected %s\n", drawX, drawY, selectedTile);
+				Logf.info(log,"draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, tileMapping.get(selectedTile));
 				break;
 		}
 		
@@ -461,14 +468,14 @@ public class GuiMap implements Observer, IMapRendererParent {
         y += drawY;
         int xIndex = -1, yIndex = -1;
         
-//        System.out.printf("p:(%d,%d)\n", x, y);
+//        Logf.info(log,"p:(%d,%d)\n", x, y);
         for (int i = 0; i < fieldWidth; i++) {
             for (int j = 0; j < fieldHeight; j++) {
                 if (field[i][j].wasClickedOn(new Point(x, y))) {
-//                	System.out.printf("Clicked(%d,%d)\n", i, j);
+//                	Logf.info(log,"Clicked(%d,%d)\n", i, j);
                 	
                 	if (field[i][j].getHeight() > highest){
-//                		System.out.println("\t highest");
+//                		log.info("\t highest");
                         highest = field[i][j].getHeight();
                         xIndex = i;
                         yIndex = j;	
@@ -479,14 +486,18 @@ public class GuiMap implements Observer, IMapRendererParent {
         }
         if (xIndex > -1 && yIndex > -1) {
             this.setSelectedTile(xIndex, yIndex);
-//            System.out.printf("(%d,%d)\n\n", xIndex, yIndex);
+//            Logf.info(log,"(%d,%d)\n\n", xIndex, yIndex);
             return new Location(xIndex, yIndex);
         } else {
-//        	System.out.printf("(%d,%d)\n\n", xIndex, yIndex);
+//        	Logf.info(log,"(%d,%d)\n\n", xIndex, yIndex);
             return null;
         }
     }
     
+	public MapTile getSelectedTile() {
+		return selectedTile;
+	}
+
 	public void setSelectedTile(int x, int y) {
         assert !(x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight); 
         
@@ -496,9 +507,6 @@ public class GuiMap implements Observer, IMapRendererParent {
         
         selectedTile = field[x][y];
         selectedTile.setSelected(true);
-        
-		ILocation selected = getDrawLocation(startX, startY, x, y);
-//        System.out.printf("(%d,%d) selected\n", newX, newY);        
     }
 
 	public IActions getActionHandler() {
@@ -534,13 +542,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 		return tileMapping.get(tile);
 	}
 	
-
-    /** @category Generated */
-	public MapTile getSelectedTile() {
-		return selectedTile;
-	}
+    public MapTile getTile(ILocation l){
+    	return field[l.getX()][l.getY()];
+    }
     
-	/** @category Generated */
+    /** @category Generated */
 	public boolean isShowDialog() {
 		return showDialog;
 	}

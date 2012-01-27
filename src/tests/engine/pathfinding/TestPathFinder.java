@@ -78,7 +78,8 @@ public class TestPathFinder extends Tests {
 		l(4,3);
 		compare(exp, actual);
 	}
-	
+
+	// Bad path since there are multiple answers 
 	@Test
 	public void testPath2(){
 		int[][] costs = new int[7][7];

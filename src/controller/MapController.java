@@ -10,6 +10,8 @@ import engine.map.IModelUnit;
 import engine.map.Map;
 import engine.map.Tile;
 import engine.map.Unit;
+import engine.pathfinding.LocationInfo;
+import engine.pathfinding.PathFinder;
 
 /**
  * @author Bilal Hussain
@@ -22,7 +24,7 @@ public class MapController extends Controller{
 	/** @category Generated */
 	public MapController(Map map) {
 		this.map = map;
-		mapping = new HashMap<UUID, IModelUnit>();
+		mapping  = new HashMap<UUID, IModelUnit>();
 		for (IModelUnit u : map.getUnits()){
 			mapping.put(u.getUuid(), u);
 		}
@@ -58,9 +60,9 @@ public class MapController extends Controller{
 		map.addObserver(o);
 	}
 	
-	public Collection<Location> getMovementRange(UUID uuid){
-		IModelUnit u = mapping.get(uuid);
-		return map.getMovementRange(u);
+	public ArrayList<LocationInfo> getMovementRange(UUID u){
+		return map.getMovementRange(mapping.get(u));
 	}
+	
 	
 }

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import org.apache.log4j.Logger;
+
 import view.notifications.ChooseUnitsNotifications;
 import view.notifications.PlayersTurnNotification;
 import view.notifications.UserMovedNotification;
@@ -16,20 +18,27 @@ import engine.PathfindingEx.Mover;
 import engine.PathfindingEx.TileBasedMap;
 import engine.ai.AIPlayer;
 import engine.ai.AIUnit;
+import engine.pathfinding.LocationInfo;
+import engine.pathfinding.PathFinder;
 
 /**
  * @author bilalh
  */
 public class Map extends Observable implements IMap {
 
+	private static final Logger log = Logger.getLogger(Map.class);
+	
 	Tile[][] field;
 	private int width;
 	private int height;
 
 	private AIPlayer ai;
 	private Player player;
+	
+	
 	private ArrayList<IModelUnit> selectedUnits;
-
+	private HashMap<IModelUnit, PathFinder> paths;
+	
 	boolean playersTurn; // false aiplayer
 
 	/** @category Constructor */
@@ -37,7 +46,9 @@ public class Map extends Observable implements IMap {
 		this.player = player;
 		loadSettings(name);
 		setUpAI();
+		
 		playersTurn = true;
+		paths = new HashMap<IModelUnit, PathFinder>();
 	}
 
 	private void setUpAI() {
@@ -84,8 +95,8 @@ public class Map extends Observable implements IMap {
 	}
 
 	void testing() {
-		width = 20;
-		height = 20;
+		width = 10;
+		height = 10;
 		field = new Tile[width][height];
 
 		long seed = 654645l;
@@ -144,17 +155,41 @@ public class Map extends Observable implements IMap {
 		notifyObservers(n);
 	}
 
+	
+	// Precondtion getMovementRange must have been called first
 	@Override
 	public void moveUnit(IModelUnit u, Location p) {
+		
+		Queue<LocationInfo> path  =  paths.get(u).getMovementPath(p);
+
 		field[u.getGridX()][u.getGridY()].setCurrentUnit(null);
 		u.setLocation(p);
 		field[p.x][p.y].setCurrentUnit(u);
-		setChanged();
-		INotification n = new UserMovedNotification(u);
+		
+		//FIXME events
+		for (LocationInfo l : path) {
+//			field[l.x][l.y].event(u)
+		}
+		
+		INotification n = new UserMovedNotification(u,path);
+		paths.remove(u);
+		
 		setChanged();
 		notifyObservers(n);
 	}
 
+	public ArrayList<LocationInfo> getMovementRange(IModelUnit u){
+		PathFinder pf;
+		if ((pf = paths.get(u)) != null){
+			return pf.getMovementRange();
+		}
+		
+		pf = new PathFinder(u, this);
+		paths.put(u, pf);
+		
+		return pf.getMovementRange();
+	}
+	
 	
 	@Override
 	public ArrayList<Unit> getUnits() {
@@ -188,42 +223,5 @@ public class Map extends Observable implements IMap {
 	public int getFieldHeight() {
 		return height;
 	}
-
-	HashSet<Location> points = new HashSet<Location>();
-	static final int[][] dirs = {
-			{ 0, 1 }, // up
-			{ 0, -1 }, // down
-			{ -1, 0 }, // left
-			{ 1, 0 }, // right
-	};
-
-	private void checkAround(Location p, int movmentLeft) {
-		// System.out.println(p + " l:"+ movmentLeft + " c:" + field[x][y].getCost() + " r:" + (
-		// field[x][y].getCost() - movmentLeft) + "\t" + points );
-
-		if (field[p.x][p.y].getCost() - movmentLeft > 0
-				|| field[p.x][p.y].getCurrentUnit() instanceof AIUnit) return;
-		if (!(field[p.x][p.y].getCurrentUnit() instanceof IModelUnit)) {
-			points.add(p);
-		}
-
-		movmentLeft -= field[p.x][p.y].getCost();
-
-		for (final int[] is : dirs) {
-			Location pp = new Location(p);
-			pp.translate(is[0], is[1]);
-			if (pp.x >= 0 && pp.x < width && pp.y >= 0 && pp.y < height) {
-				checkAround(pp, movmentLeft);
-			}
-		}
-
-	}
-
-	public synchronized Collection<Location> getMovementRange(IModelUnit u) {
-		points.clear();
-		System.out.println("Finding moves for " + u);
-		checkAround(u.getLocation(), u.getMove() + field[u.getGridX()][u.getGridY()].getCost());
-		System.out.println("Found moves for " + u + " " + points);
-		return points;
-	}
+	
 }

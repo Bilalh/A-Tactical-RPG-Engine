@@ -1,8 +1,14 @@
 package view.notifications;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Queue;
+
 import view.map.GuiMap;
 import common.interfaces.IMapNotification;
 import common.interfaces.IUnit;
+import engine.pathfinding.LocationInfo;
 
 
 /**
@@ -10,22 +16,39 @@ import common.interfaces.IUnit;
  */
 public class UserMovedNotification  implements IMapNotification {
 	
-	private IUnit u;
-	
-	
-	/** @category Generated */
-	public UserMovedNotification(IUnit u) {
+	final private IUnit u;
+	final private Queue<LocationInfo> path;
+
+	/** @category Generated Constructor */
+	public UserMovedNotification(IUnit u, Queue<LocationInfo> path) {
 		this.u = u;
+		this.path = path;
 	}
 
 	@Override
-	public void process(GuiMap obj) {
-		obj.unitMoved(u);
+	public void process(GuiMap map) {
+		map.unitMoved(u,path);
 	}
 
 	@Override
 	public String toString() {
-		return String.format("UserMovedNotification [u=%s]", u);
+		final int maxLen = 10;
+		return String.format("UserMovedNotification [u=%s, path=%s]", u, path != null ? toString(path, maxLen) : null);
 	}
+
+	private String toString(Collection<?> collection, int maxLen) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[");
+		int i = 0;
+		for (Iterator<?> iterator = collection.iterator(); iterator.hasNext() && i < maxLen; i++) {
+			if (i > 0) builder.append(", ");
+			builder.append(iterator.next());
+		}
+		builder.append("]");
+		return builder.toString();
+	}
+
+
+	
 	
 }

@@ -24,5 +24,8 @@ public interface IUnit {
 	int getGridY();
 
 	UUID getUuid();
+	
+	Location getLocation();
+	
 
 }

@@ -53,8 +53,8 @@ public class MapTile {
 
 	// debuging
 	private int cost;
-//	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/metal.png").getImage();
-	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/tileeesmall.png").getImage();
+	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass32.jpg").getImage();
+//	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/tileeesmall.png").getImage();
 	Rectangle2D rGrass = new Rectangle2D.Double(0, 0, iGrass.getWidth(null), iGrass.getHeight(null));
 	TexturePaint tGrass = new TexturePaint(iGrass, rGrass);
 
@@ -65,9 +65,10 @@ public class MapTile {
 	
 	// True if textured  otherwise a tilemap is used.
 	boolean textured = false;
-	Sprite image = SpriteManager.instance().getSprite("assets/gui/tilemask3.png");
-//	Sprite image = SpriteManager.instance().getSprite("assets/gui/tileee.png");
+//	Sprite image = SpriteManager.instance().getSprite("assets/gui/tilemask3.png");
+	Sprite image = SpriteManager.instance().getSprite("assets/gui/tileee.png");
 
+	
 	/**
 	 * @param orientation The orientation of this tile
 	 * @param startHeight The lower height of the tile (If slanted)
@@ -133,28 +134,25 @@ public class MapTile {
 			case NORMAL:
 				drawNormal(x, y, g);
 				break;
-			// Use the same drawing method for the North/South slants
 			case UP_TO_NORTH:
 			case UP_TO_SOUTH:
 				drawNorthSouth(x, y, g);
 				break;
-			// Use the same drawing method for the East/West slants
 			case UP_TO_EAST:
 			case UP_TO_WEST:
 				drawEastWest(x, y, g, drawLeftSide, drawRightSide);
 				break;
-			// Ignore Emy tiles
 			case EMY:
 				break;
 			default:
-				// System.out.println("That orientation doesn't exist!");
+			assert(false);
 		}
 	}
 
 	Color lineColor = Color.RED;
 	public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide) {
 		Graphics2D g = (Graphics2D) _g;
-		textured = true;
+		textured = false;
 		final float finalHeight =(MapSettings.tileHeight * MapSettings.zoom);
 		final float horizontal = (MapSettings.tileDiagonal * MapSettings.zoom);
 		final float vertical =  (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
@@ -583,7 +581,7 @@ public class MapTile {
 
 	@Override
 	public String toString() {
-		return String.format("MapTile [orientation=%s, height=%s, fieldLocation=%s, cost=%s]",
+		return String.format("MapTile [way=%s, height=%s, p=%s, cost=%s]",
 				orientation, height, fieldLocation, cost);
 	}
 

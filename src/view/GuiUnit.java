@@ -93,7 +93,8 @@ public class GuiUnit implements IUnit {
 		return unit.getUuid();
 	}
 	
-	public Location getPostion(){
+	@Override
+	public Location getLocation(){
 		return new Location(gridX,gridY);
 	}
 

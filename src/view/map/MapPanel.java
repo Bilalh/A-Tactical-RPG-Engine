@@ -51,9 +51,6 @@ public class MapPanel extends JPanel implements Runnable {
 	// used at game termination
 	private volatile boolean gameOver = false;
 
-	// for displaying messages
-	private Font msgsFont;
-	private FontMetrics metrics;
 
 	// off-screen rendering
 	private Graphics dbg;
@@ -71,10 +68,6 @@ public class MapPanel extends JPanel implements Runnable {
 		setIgnoreRepaint(true);
 		setFocusable(true);
 		requestFocus(); // the JPanel now has focus, so receives key events
-
-		// set up message font
-		msgsFont = new Font("SansSerif", Font.BOLD, 24);
-		metrics = this.getFontMetrics(msgsFont);
 
 		this.map  = new GuiMap(mapController);
 		this.addMouseListener(map.getMouseListener());
@@ -146,7 +139,6 @@ public class MapPanel extends JPanel implements Runnable {
 		});		
 	}
 
-	/* The frames of the animation are drawn inside the while loop. */
 	@Override
 	public void run() {
 		long beforeTime, afterTime, timeDiff =0, sleepTime=0;

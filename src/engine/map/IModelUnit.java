@@ -24,8 +24,6 @@ public interface IModelUnit extends IUnit {
 
 	void setLocation(Location p);
 
-	Location getLocation();
-
 	int getCost(Tile old, Tile New);
 	
 }

@@ -35,7 +35,7 @@ public class MapRenderer {
 		this.fieldHeight = field[0].length;
 	}
 
-	public boolean draw(Graphics g, long timeDiff, int width, int height) {
+	public boolean draw(Graphics g, int width, int height) {
 
 		final int drawX = parent.getDrawX();
 		final int drawY = parent.getDrawY();
