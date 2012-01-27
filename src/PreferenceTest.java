@@ -5,7 +5,7 @@ public class PreferenceTest {
 
 	public void setPreference() {
 		// This will define a node in which the preferences can be stored
-		prefs = Preferences.userRoot().node(this.getClass().getName());
+		prefs = Preferences.userRoot().node("TactialEngine");
 		String ID1 = "Test1";
 		String ID2 = "Test2";
 		String ID3 = "Test3";

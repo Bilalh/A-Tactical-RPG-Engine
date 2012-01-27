@@ -139,7 +139,7 @@ public class GuiMap implements Observer, IMapRendererParent {
         pathIterator = path.iterator();
 	}
 	
-	void makeImageBuffer(Component parent){
+	public void makeImageBuffer(Component parent){
 		mapBuffer = parent.createImage(bufferWidth,bufferHeight);
 		
         final int heightOffset = (MapSettings.tileDiagonal);
@@ -149,10 +149,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 
 	private boolean drawn = false;
-	
-	int frameDuration = 750 * 1000000;
-	int frameChange = 0;
-
+	private int frameDuration = 750 * 1000000;
+	private int frameChange = 0;
 	
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();

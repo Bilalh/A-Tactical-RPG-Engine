@@ -16,20 +16,19 @@ import org.apache.log4j.PropertyConfigurator;
  */
 public class Config {
 
-	private static Properties defaults = new Properties();
+	private static Properties defaultLoggingPrefs = new Properties();
 	static {
-		defaults.setProperty("log4j.appender.A1", "org.apache.log4j.ConsoleAppender");
-		defaults.setProperty("log4j.rootLogger", "debug, A1");
-		defaults.setProperty("log4j.appender.A1.layout", "org.apache.log4j.PatternLayout");
-		defaults.setProperty("log4j.appender.A1.layout.ConversionPattern", "%-5p [%t] %c: %m%n");
+		defaultLoggingPrefs.setProperty("log4j.appender.A1", "org.apache.log4j.ConsoleAppender");
+		defaultLoggingPrefs.setProperty("log4j.rootLogger", "debug, A1");
+		defaultLoggingPrefs.setProperty("log4j.appender.A1.layout", "org.apache.log4j.PatternLayout");
+		defaultLoggingPrefs.setProperty("log4j.appender.A1.layout.ConversionPattern", "%-5p [%t] %c: %m%n");
 	}
 
 	private static final String LOG_PROPERTIES_FILE = "log4j.properties";
 	private static Logger log = Logger.getLogger(Config.class);
 	
-	
 	public static Properties defaultLoggingProperties() {
-		return defaults;
+		return defaultLoggingPrefs;
 	}
 
 	public static void loadLoggingProperties() {

@@ -16,6 +16,7 @@ public class Tile {
 	private int endHeight;
 	private int cost;
 	
+	
 	/** @category Generated */
 	public Tile(int startHeight, int endHeight) {
 		this.startHeight = startHeight;

@@ -4,6 +4,11 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/junit-4.10.jar"/>
 	<classpathentry kind="lib" path="libs/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="libs/apache-log4j-extras-1.1.jar"/>
+	<classpathentry kind="lib" path="libs/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="libs/xstream-1.4.2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://xstream.codehaus.org/javadoc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
