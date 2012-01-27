@@ -7,7 +7,7 @@ import java.util.*;
 import org.apache.log4j.LogMF;
 import org.apache.log4j.Logger;
 
-import config.LogF;
+import config.Logf;
 
 /**
  * @author Bilal Hussain

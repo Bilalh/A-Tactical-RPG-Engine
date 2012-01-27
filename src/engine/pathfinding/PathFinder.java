@@ -1,16 +1,15 @@
 package engine.pathfinding;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 import org.apache.log4j.Logger;
+
+import util.Util;
 
 import common.Location;
 
 import config.Args;
-import config.LogF;
+import config.Logf;
 import engine.map.IMap;
 import engine.map.IModelUnit;
 
@@ -32,6 +31,9 @@ public class PathFinder implements IMovementCostProvider {
 	
 	private ArrayList<LocationInfo> inRange;
 	
+	// Cache Calcuted paths
+	HashMap<LocationInfo, Deque<LocationInfo>> paths = new HashMap<LocationInfo, Deque<LocationInfo>>();
+
 	public PathFinder(IModelUnit u, IMap map) {
 		Args.nullCheck(u,map);
 		this.unit = u;
@@ -40,10 +42,10 @@ public class PathFinder implements IMovementCostProvider {
 		Location p = unit.getLocation();
 		start = p.copy().translate(-unit.getMove()+1).limitLower(0, 0);
 		end   = p.copy().translate(unit.getMove()+1).limitUpper(map.getFieldWidth(), map.getFieldHeight());
-		LogF.trace(log, "start:%s, start.x:%s, end.x:%s, start.y:%s, end.y:%s",start, start.x, end.x, start.y, end.y);
+		Logf.trace(log, "start:%s, start.x:%s, end.x:%s, start.y:%s, end.y:%s",start, start.x, end.x, start.y, end.y);
 		locations = d.calculate(u.getLocation(), start.x, end.x, start.y, end.y);
 		
-		LogF.debug(log,"locations for %s: %s\n",u, LogF.array2d(locations, start.x, end.x, start.y, end.y, true));
+		Logf.debug(log,"locations for %s: %s\n",u, Util.array2d(locations, start.x, end.x, start.y, end.y, true));
 		
 	}
 
@@ -62,17 +64,15 @@ public class PathFinder implements IMovementCostProvider {
 		return inRange;
 	}
 	
-	// Cache Calcuted paths
-	HashMap<LocationInfo, ArrayList<LocationInfo>> paths = new HashMap<LocationInfo, ArrayList<LocationInfo>>();
-	
 	/**
 	 * Get the path to a specifed Location
 	 * @return The path as a list or null if the location is not reachable with the unit. 
 	 */
-	public ArrayList<LocationInfo> getMovementPath(Location p){
+	public Deque<LocationInfo> getMovementPath(Location p){
 		Args.nullCheck(p);
 		Args.validateRange(p.x, start.x, end.x);
 		Args.validateRange(p.y, start.y, end.y);
+		Logf.debug(log, "Finding path to %s for %s", p, unit);
 		
 		if (locations[p.x][p.y] == null || locations[p.x][p.y].getMinDistance() > unit.getMove()){
 			return null;
@@ -80,16 +80,18 @@ public class PathFinder implements IMovementCostProvider {
 		
 		final LocationInfo pl= locations[p.x][p.y];
 		
-		ArrayList<LocationInfo> maybePath =  paths.get(pl);
+		Deque<LocationInfo> maybePath =  paths.get(pl);
 		if (maybePath != null) return maybePath;
 		
+		Deque<LocationInfo> path = new ArrayDeque<LocationInfo>();
 		
-		ArrayList<LocationInfo> path = new ArrayList<LocationInfo>();
-		for (LocationInfo l = locations[unit.getGridX()][unit.getGridY()]; l != pl;) {
-			path.add(l);
-			l = locations[l.x + l.getNextDirection().x][l.y + l.getNextDirection().y];
+		for(LocationInfo l = pl; l != locations[unit.getGridX()][unit.getGridY()];l = l.getPrevious()){
+			path.push(l);
+			log.trace("path " + path);
 		}
-		path.add(pl);
+		
+		path.push(locations[unit.getGridX()][unit.getGridY()]);
+		log.debug("finalpath " + path);
 		paths.put(pl,path);
 		return path;
 		

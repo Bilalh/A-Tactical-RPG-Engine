@@ -2,14 +2,13 @@ package tests.engine.pathfinding;
 
 import common.Location;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+
+import util.*;
 
 import config.Args;
 
@@ -69,12 +68,36 @@ public class TestPathFinder extends Tests {
 		unit.setMove(31);
 		unit.setLocation(new Location(2,2));
 		pf = new PathFinder(unit, map);
-		ArrayList<LocationInfo> actual = pf.getMovementPath(new Location(4, 3));
+		Queue<LocationInfo> actual = pf.getMovementPath(new Location(4, 3));
 		
 		l(2,2);
-		l(3,2);
+		l(2,1);
+		l(3,1);
+		l(4,1);
 		l(4,2);
 		l(4,3);
+		compare(exp, actual);
+	}
+	
+	@Test
+	public void testPath2(){
+		int[][] costs = new int[7][7];
+		for (int i = 0; i < costs.length; i++) {
+			for (int j = 0; j < costs.length; j++) {
+				costs[i][j] =1;
+			}
+		}
+		map.setTiles(costs);
+		
+		unit.setMove(3);
+		unit.setLocation(new Location(2,5));
+		pf = new PathFinder(unit, map);
+		Queue<LocationInfo> actual = pf.getMovementPath(new Location(3, 3));
+
+		l(2,5);
+		l(2,4);
+		l(2,3);
+		l(3,3);
 		compare(exp, actual);
 	}
 	
@@ -87,8 +110,8 @@ public class TestPathFinder extends Tests {
 		while(lexp.hasNext() && lact.hasNext()){
 			LocationInfo e = lexp.next();
 			LocationInfo a = lact.next();
-			assertEquals("xs" + e + " "  + a , e.getX(), a.getX());
-			assertEquals("ys" + e + " "  + a, e.getY(), a.getY());
+			assertEquals("xs " + e + " "  + a , e.getX(), a.getX());
+			assertEquals("ys " + e + " "  + a, e.getY(), a.getY());
 		}
 		
 		

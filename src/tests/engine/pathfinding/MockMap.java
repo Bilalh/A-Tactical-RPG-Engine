@@ -1,5 +1,6 @@
 package tests.engine.pathfinding;
 
+import util.Util;
 import engine.map.Tile;
 
 public class MockMap extends MapStub {
@@ -13,6 +14,7 @@ public class MockMap extends MapStub {
 				tiles[i][j] = new Tile(costs[i][j],costs[i][j]);
 			}
 		}
+		System.out.println(Util.numberedArray2d(costs));
 	}
 	
 	@Override
