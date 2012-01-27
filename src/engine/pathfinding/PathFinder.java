@@ -32,7 +32,7 @@ public class PathFinder implements IMovementCostProvider {
 	private ArrayList<LocationInfo> inRange;
 	
 	// Cache Calcuted paths
-	HashMap<LocationInfo, Deque<LocationInfo>> paths = new HashMap<LocationInfo, Deque<LocationInfo>>();
+	HashMap<Location, ArrayDeque<LocationInfo>> paths = new HashMap<Location, ArrayDeque<LocationInfo>>();
 
 	public PathFinder(IModelUnit u, IMap map) {
 		Args.nullCheck(u,map);
@@ -42,7 +42,7 @@ public class PathFinder implements IMovementCostProvider {
 		Location p = unit.getLocation();
 		start = p.copy().translate(-unit.getMove()+1).limitLower(0, 0);
 		end   = p.copy().translate(unit.getMove()+1).limitUpper(map.getFieldWidth(), map.getFieldHeight());
-		Logf.trace(log, "start:%s, start.x:%s, end.x:%s, start.y:%s, end.y:%s",start, start.x, end.x, start.y, end.y);
+		Logf.info(log, "start:%s, start.x:%s, end.x:%s, start.y:%s, end.y:%s",start, start.x, end.x, start.y, end.y);
 		locations = d.calculate(u.getLocation(), start.x, end.x, start.y, end.y);
 		
 		Logf.debug(log,"locations for %s: %s\n",u, Util.array2d(locations, start.x, end.x, start.y, end.y, true));
@@ -53,9 +53,12 @@ public class PathFinder implements IMovementCostProvider {
 	public ArrayList<LocationInfo> getMovementRange(){
 		if (inRange != null) return inRange;
 
+		Logf.debug(log,"u:%s start:%s end:%s \npf getMovementRange %s",unit, start,end, 
+				Util.array2d(locations, start.x,  end.x, start.y, end.y, true));
+		
 		inRange = new ArrayList<LocationInfo>();
 		for (int i = start.x; i < end.x; i++) {
-			for (int j = start.x; j < end.y; j++) {
+			for (int j = start.y; j < end.y; j++) {
 				if (locations[i][j].getMinDistance() <= unit.getMove()) {
 					inRange.add(locations[i][j]);
 				}
@@ -66,9 +69,9 @@ public class PathFinder implements IMovementCostProvider {
 	
 	/**
 	 * Get the path to a specifed Location
-	 * @return The path as a list or null if the location is not reachable with the unit. 
+	 * @return The path as an immutable list or null if the location is not reachable with the unit. 
 	 */
-	public Deque<LocationInfo> getMovementPath(Location p){
+	public Collection<LocationInfo> getMovementPath(Location p){
 		Args.nullCheck(p);
 		Args.validateRange(p.x, start.x, end.x);
 		Args.validateRange(p.y, start.y, end.y);
@@ -78,23 +81,22 @@ public class PathFinder implements IMovementCostProvider {
 			return null;
 		}
 		
-		final LocationInfo pl= locations[p.x][p.y];
-		
-		Deque<LocationInfo> maybePath =  paths.get(pl);
+		ArrayDeque<LocationInfo> maybePath =  paths.get(p);
 		if (maybePath != null) return maybePath;
 		
-		Deque<LocationInfo> path = new ArrayDeque<LocationInfo>();
+		ArrayDeque<LocationInfo> path = new ArrayDeque<LocationInfo>();
 		
-		for(LocationInfo l = pl; l != locations[unit.getGridX()][unit.getGridY()];l = l.getPrevious()){
+		for(LocationInfo l = locations[p.x][p.y]; l != locations[unit.getGridX()][unit.getGridY()];l = l.getPrevious()){
 			path.push(l);
 			log.trace("path " + path);
 		}
 		
 		path.push(locations[unit.getGridX()][unit.getGridY()]);
+		paths.put(p,path);
 		log.info("finalpath " + path);
-		paths.put(pl,path);
-		return path;
 		
+		
+		return Collections.unmodifiableCollection(path);
 	}
 	
 	@Override

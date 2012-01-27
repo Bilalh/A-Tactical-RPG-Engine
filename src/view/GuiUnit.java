@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import view.map.MapTile;
 
+import common.ILocation;
 import common.Location;
 import common.gui.Sprite;
 import common.gui.SpriteManager;
@@ -98,6 +99,11 @@ public class GuiUnit implements IUnit {
 		return new Location(gridX,gridY);
 	}
 
+	public void setLocation(ILocation l){
+		gridX = l.getX();
+		gridY = l.getY();
+	}
+	
 	/** @category Generated Getter */
 	public int getWidth() {
 		return sprite.getWidth();

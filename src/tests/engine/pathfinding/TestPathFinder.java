@@ -68,7 +68,7 @@ public class TestPathFinder extends Tests {
 		unit.setMove(31);
 		unit.setLocation(new Location(2,2));
 		pf = new PathFinder(unit, map);
-		Queue<LocationInfo> actual = pf.getMovementPath(new Location(4, 3));
+		Collection<LocationInfo> actual = pf.getMovementPath(new Location(4, 3));
 		
 		l(2,2);
 		l(2,1);
@@ -93,7 +93,7 @@ public class TestPathFinder extends Tests {
 		unit.setMove(3);
 		unit.setLocation(new Location(2,5));
 		pf = new PathFinder(unit, map);
-		Queue<LocationInfo> actual = pf.getMovementPath(new Location(3, 3));
+		Collection<LocationInfo> actual = pf.getMovementPath(new Location(3, 3));
 
 		l(2,5);
 		l(2,4);

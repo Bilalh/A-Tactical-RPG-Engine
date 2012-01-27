@@ -1,9 +1,6 @@
 package view.notifications;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Queue;
+import java.util.*;
 
 import view.map.GuiMap;
 import common.interfaces.IMapNotification;
@@ -17,10 +14,10 @@ import engine.pathfinding.LocationInfo;
 public class UserMovedNotification  implements IMapNotification {
 	
 	final private IUnit u;
-	final private Queue<LocationInfo> path;
+	final private Collection<LocationInfo> path;
 
 	/** @category Generated Constructor */
-	public UserMovedNotification(IUnit u, Queue<LocationInfo> path) {
+	public UserMovedNotification(IUnit u, Collection<LocationInfo> path) {
 		this.u = u;
 		this.path = path;
 	}

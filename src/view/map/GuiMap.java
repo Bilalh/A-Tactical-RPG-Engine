@@ -85,12 +85,10 @@ public class GuiMap implements Observer, IMapRendererParent {
     private final int startX, startY;
     private int drawX,drawY;
     
-    final private ActionsAdapter[] actions = {new Movement(), new DialogHandler()};
+    final private ActionsAdapter[] actions = {new Movement(), new DialogHandler(), new ActionsAdapter()};
     enum ActionsEnum {
-    	MOVEMENT, DIALOG,
+    	MOVEMENT, DIALOG,NONE
     }
-    
-    
     
 	/** @category Constructor */
 	public GuiMap(MapController mapController) {
@@ -138,7 +136,7 @@ public class GuiMap implements Observer, IMapRendererParent {
         mapController.addMapObserver(this);
         mapController.startMap();
         path = new ArrayDeque<LocationInfo>(0);
-        
+        pathIterator = path.iterator();
 	}
 	
 	void makeImageBuffer(Component parent){
@@ -159,6 +157,25 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 		
+
+		if (!mouseMoving) {
+			frameChange += timeDiff;
+			if (frameChange > frameDuration) {
+				frameChange = 0;
+				if(pathIterator.hasNext()){
+					AnimatedUnit u = tileMapping.remove(getTile(lastLocation));
+					lastLocation = pathIterator.next();
+					u.setLocation(lastLocation);
+					tileMapping.put(getTile(lastLocation),u);
+					log.debug("Moved to" + getTile(lastLocation));
+					if (!pathIterator.hasNext()){
+						setActionHandler(oldAction);
+					}
+				}
+				drawn = false;
+			}
+		}
+
 		if (!drawn){
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
@@ -167,20 +184,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 		_g.drawImage(mapBuffer, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height, null);
 
-		if (!mouseMoving) {
-			frameChange += timeDiff;
-			if (frameChange > frameDuration) {
-				frameChange = 0;
-				drawn = false;
-				if(path.size() >= 2){
-					AnimatedUnit u = tileMapping.remove(getTile(path.remove()));
-					tileMapping.put(getTile(path.peek()),u);
-					drawn=false;
-				}
-				
-			}
-		}
-
+		
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 	}
 	
@@ -227,15 +231,26 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 	
 	
-	private Queue<LocationInfo> path;
+	private Collection<LocationInfo> path;
+	private Iterator<LocationInfo> pathIterator;
+	private LocationInfo lastLocation;
+	private ActionsAdapter oldAction;
 	
-	public void unitMoved(IUnit u, Queue<LocationInfo> path){
+	public void unitMoved(IUnit u, Collection<LocationInfo> path){
 		AnimatedUnit movingUnit =  unitMapping.get(u.getUuid());
-		this.path = path;
+		this.path    = path;
+		pathIterator = path.iterator();
+		lastLocation = pathIterator.next();
+		oldAction = current;
+		
+		// Disable input when a unit is moving
+		if (pathIterator.hasNext()) setActionHandler(ActionsEnum.NONE);
+		
 		Logf.info(log, "%s moved from %s to %s with path:s%s", u.getName(),  movingUnit.getLocation(), u.getLocation(), path );
 
 		movingUnit.setGridX(u.getGridX());
 		movingUnit.setGridY(u.getGridY());
+		
 		drawn =false;
 	}
 	
@@ -527,6 +542,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	private void setActionHandler(ActionsEnum num){
 		final ActionsAdapter aa = actions[num.ordinal()];
+		setActionHandler(aa);
+	}
+	
+	private void setActionHandler(ActionsAdapter aa){
 		current = aa;
 		MousePoxy.setMouseListener(aa);
 		MousePoxy.setMouseMotionListener(aa);

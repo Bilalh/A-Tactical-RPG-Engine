@@ -7,6 +7,10 @@ import java.awt.Image;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
+import org.apache.log4j.Logger;
+
+import config.Logf;
+
 import view.AnimatedUnit;
 
 /**
@@ -14,6 +18,8 @@ import view.AnimatedUnit;
  */
 public class MapRenderer {
 
+	private static final Logger log = Logger.getLogger(MapRenderer.class);
+	
 	IMapRendererParent parent;
 	MapTile[][] field;
 
@@ -74,6 +80,7 @@ public class MapRenderer {
 
 					AnimatedUnit u = parent.getUnit(field[j][i]);
 					if (u != null) {
+//						Logf.debug(log,"(%s,%s) unit:%s",j,i, u);
 						u.draw(g, field, x, y, animationDuration);
 					}
 				} else {
@@ -89,17 +96,6 @@ public class MapRenderer {
 		}
 		return  (parent.isMouseMoving() && drawnEverything) || !parent.isMouseMoving();
 		// System.out.println("@@@DRAWN IS " + drawn + " + MOUSE IS " + mouseMoving + " Everything is " + drawnEverything);
-
-		// Animated movement by redrawing partical steps.
-		// lastFrameChange += timeDiff;
-		// if (lastFrameChange > frameDuration){
-		// if (toMove.size() >=2){
-		// AnimatedUnit u = tileMapping.remove(toMove.remove());
-		// tileMapping.put(toMove.peek(),u);
-		// drawn=false;
-		// }
-		// lastFrameChange=0;
-		// }
 
 	}
 

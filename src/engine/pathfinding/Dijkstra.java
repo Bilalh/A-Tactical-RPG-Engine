@@ -49,7 +49,8 @@ public class Dijkstra {
 		LocationInfo[][] locations = new LocationInfo[rows][cols];
 		HashSet<LocationInfo> settler = new HashSet<LocationInfo>();
 		
-		PriorityQueue<LocationInfo> pq = new PriorityQueue<LocationInfo>(upperX - lowerX * upperY - lowerY,
+		assert(upperX - lowerX * upperY - lowerY >= 0);
+		PriorityQueue<LocationInfo> pq = new PriorityQueue<LocationInfo>((upperX - lowerX * upperY - lowerY),
 			new Comparator<LocationInfo>() {
 				@Override
 				public int compare(LocationInfo o1, LocationInfo o2) {

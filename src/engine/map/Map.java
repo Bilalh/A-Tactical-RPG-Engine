@@ -90,22 +90,21 @@ public class Map extends Observable implements IMap {
 	}
 
 	private void loadSettings(String name) {
-		// loadFromSpaceSepFile("test.txt");
+//		loadFromSpaceSepFile("test.txt");
 		testing();
 	}
 
 	void testing() {
-		width = 10;
-		height = 10;
+		width = 17;
+		height = 17;
 		field = new Tile[width][height];
 
 		long seed = 654645l;
 		Random r = new Random(seed);
-		System.out.println("seed" + " " + seed);
+		log.info("seed" + " " + seed);
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				int first = r.nextInt(3) + 1;
-				first = 1;
 				field[i][j] = new Tile(first, first);
 				// field[i][j] = new Tile(1,1);
 			}
@@ -160,7 +159,7 @@ public class Map extends Observable implements IMap {
 	@Override
 	public void moveUnit(IModelUnit u, Location p) {
 		
-		Queue<LocationInfo> path  =  paths.get(u).getMovementPath(p);
+		Collection<LocationInfo> path  =  paths.get(u).getMovementPath(p);
 
 		field[u.getGridX()][u.getGridY()].setCurrentUnit(null);
 		u.setLocation(p);
