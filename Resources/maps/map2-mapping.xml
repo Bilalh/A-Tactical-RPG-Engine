@@ -1,36 +1,29 @@
 <tilemapping>
   <entry>
-    <string>m64</string>
+    <string>3</string>
     <tileImageData>
-      <location>images/tiles/blue64.png</location>
+      <location>images/tiles/3-rst.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>m32</string>
+    <string>2</string>
     <tileImageData>
-      <location>images/tiles/blue64.png</location>
+      <location>images/tiles/2-rst.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>test</string>
+    <string>1</string>
     <tileImageData>
-      <location>images/tiles/blue400.png</location>
+      <location>images/tiles/1-rst.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>m96</string>
+    <string>0</string>
     <tileImageData>
-      <location>images/tiles/blue96.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>blue</string>
-    <tileImageData>
-      <location>images/tiles/blue.png</location>
+      <location>images/tiles/0-rst.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -42,16 +35,30 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>m128</string>
+    <string>test</string>
     <tileImageData>
-      <location>images/tiles/blue128.png</location>
+      <location>images/tiles/blue400.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>m200</string>
+    <string>blue</string>
     <tileImageData>
-      <location>images/tiles/blue200.png</location>
+      <location>images/tiles/blue.png</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>5</string>
+    <tileImageData>
+      <location>images/tiles/5-rst.png</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>4</string>
+    <tileImageData>
+      <location>images/tiles/4-rst.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>

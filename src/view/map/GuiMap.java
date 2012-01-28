@@ -398,7 +398,26 @@ public class GuiMap implements Observer, IMapRendererParent {
 	        if (Math.sqrt(a * a + b * b) > 3) {
 	            
 	        } else {
-	            findAndSelectTile(e.getX(), e.getY());
+	        	
+	        	Location l = null;
+	        	for (AnimatedUnit u : units) {
+	        		if (l ==null){
+	        			if(u.isIntersecting(getTile(u.getLocation()), e.getX(), e.getY())){
+	        				l = u.getLocation();
+	        			}
+	        		}else{
+	        			l = null;
+	        			
+	        			break;
+	        		}
+				}
+	        	
+	        	if (l != null){
+	        		setSelectedTile(units[1].getGridX(), units[1].getGridY());
+	        	}else{
+		            findAndSelectTile(e.getX(), e.getY());
+	        	}
+	        	
 	            selectMoveUnit();
 	        }
 	        Logf.info(log,"MouseReleased MouseMoving:%s drawn:%s", mouseMoving,drawn);
@@ -419,6 +438,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	    }
 		
 	}
+
 	
 	public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {

@@ -2,8 +2,12 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.geom.Rectangle2D;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
+
+import util.Logf;
 import view.map.MapTile;
 
 import common.ILocation;
@@ -16,6 +20,7 @@ import common.interfaces.IUnit;
  * @author bilalh
  */
 public class GuiUnit implements IUnit {
+	private static final Logger log = Logger.getLogger(GuiUnit.class);
 	protected int gridX;
 	protected int gridY;
 	protected Sprite sprite;
@@ -29,13 +34,23 @@ public class GuiUnit implements IUnit {
 		this.unit = unit;
 	} 
 	
+	Rectangle2D r;
 	public void draw(Graphics g, final MapTile[][] tiles, int x, int y) {
 		final Point centrePoint =  tiles[gridX][gridY].calculateCentrePoint(x,y);
 		int xPos =centrePoint.x - sprite.getWidth()/2;
 		int yPos =(int) (centrePoint.y -  sprite.getHeight()/1.25);
 		sprite.draw(g,xPos,yPos);
+//			Logf.info(log, "%s %s %s %s", xPos, yPos, getWidth(), getHeight());
+			r  = new Rectangle2D.Float(xPos,yPos+getHeight(),getWidth(),getHeight());
+//			System.out.println(r);
+		
 	}
 
+	public boolean isIntersecting(MapTile t, int x, int y){
+		Logf.info(log, "%s %s", x,y);
+		return r.contains(x,y);
+	}
+	
 	public Point topLeftPoint(MapTile[][] tiles, int x, int y){
 		final Point result =  tiles[gridX][gridY].calculateCentrePoint(x,y);
 		result.translate(-sprite.getWidth()/2, (int) (-sprite.getHeight()/1.5));

@@ -28,11 +28,16 @@ public class XmlMaker {
 		SavedTile[] tiles = new SavedTile[width*height];
 		
 		
-		String[] types = {"m", "test", "grass"};
+//		String[] types = {"m", "test", "grass"};
 //		String[] types = {"m","m200", "m128", "m96", "m64","m32","test"};
 //		String[] types = {"m"};
 //		String[] types = {"test"};
 
+		String[] types  = new String[5];
+		for (int i = 0; i < types.length; i++) {
+			types[i] = "" + i;
+		}
+		
 		for (int i = 0, k =0; i < width; i++) {
 			for (int j = 0; j < height; j++, k++) {
 				String type = types[j%types.length];
@@ -48,15 +53,22 @@ public class XmlMaker {
 		System.out.println(s1);
 		
 		HashMap<String, TileImageData> mapping = new HashMap<String, TileImageData>();
-		mapping.put("grass",new TileImageData("images/tiles/brown.png", ImageType.NON_TEXTURED));
 		mapping.put("blue", new TileImageData("images/tiles/blue.png",  ImageType.NON_TEXTURED));
 		mapping.put("m",    new TileImageData("images/tiles/mask.png", ImageType.NON_TEXTURED));
-		mapping.put("m200", new TileImageData("images/tiles/blue200.png", ImageType.NON_TEXTURED));
-		mapping.put("m128", new TileImageData("images/tiles/blue128.png", ImageType.NON_TEXTURED));
-		mapping.put("m96",  new TileImageData("images/tiles/blue96.png", ImageType.NON_TEXTURED));
-		mapping.put("m64",  new TileImageData("images/tiles/blue64.png", ImageType.NON_TEXTURED));
-		mapping.put("m32",  new TileImageData("images/tiles/blue64.png", ImageType.NON_TEXTURED));
 		mapping.put("test", new TileImageData("images/tiles/blue400.png", ImageType.NON_TEXTURED));
+		mapping.put("grass",new TileImageData("images/tiles/brown.png", ImageType.NON_TEXTURED));
+
+		
+		for (int i = 0; i<=types.length; i++) {
+			mapping.put(""+i, new TileImageData("images/tiles/" + i+"-rst.png",  ImageType.NON_TEXTURED));
+		}
+		
+//		mapping.put("m200", new TileImageData("images/tiles/blue200.png", ImageType.NON_TEXTURED));
+//		mapping.put("m128", new TileImageData("images/tiles/blue128.png", ImageType.NON_TEXTURED));
+//		mapping.put("m96",  new TileImageData("images/tiles/blue96.png", ImageType.NON_TEXTURED));
+//		mapping.put("m64",  new TileImageData("images/tiles/blue64.png", ImageType.NON_TEXTURED));
+//		mapping.put("m32",  new TileImageData("images/tiles/blue64.png", ImageType.NON_TEXTURED));
+		
 
 		TileMapping map = new TileMapping(mapping);
 		String s2 = XMLUtil.makeFormattedXml(map);
