@@ -10,16 +10,15 @@ public class LocationInfo implements ILocation {
 	private LocationInfo previous;
 	private Direction nextDirection; 
 	
-	/** @category Generated Constructor */
 	public LocationInfo(int x, int y, int minDistance) {
 		this(x,y,minDistance,null);
 	}
 
-	/** @category Generated Constructor */
 	public LocationInfo(int x, int y, int minDistance, LocationInfo previous) {
 		this(x, y, minDistance,previous,Direction.STILL);
 	}
 
+	/** @category Generated Constructor */
 	public LocationInfo(int x, int y, int minDistance, LocationInfo previous, Direction direction) {
 		this.x = x;
 		this.y = y;
@@ -38,35 +37,6 @@ public class LocationInfo implements ILocation {
 						x, y, minDistance == Integer.MAX_VALUE ? "∞" : minDistance, nextDirection);
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + minDistance;
-		result = prime * result + ((previous == null) ? 0 : previous.x);
-		result = prime * result + ((previous == null) ? 0 : previous.y);
-		result = prime * result + x;
-		result = prime * result + y;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof LocationInfo)) return false;
-		LocationInfo other = (LocationInfo) obj;
-		if (minDistance != other.minDistance) return false;
-		if (previous == null) {
-			if (other.previous != null) return false;
-		} else{
-			if (other.x != x  || other.y != y) return false;
-		}
-		if (x != other.x) return false;
-		if (y != other.y) return false;
-		return true;
-	}
-	
 	/** @category Generated Setter */
 	public void setMinDistance(int minDistance) {
 		this.minDistance = minDistance;
@@ -108,4 +78,34 @@ public class LocationInfo implements ILocation {
 	public void setNextDirection(Direction nextDirection) {
 		this.nextDirection = nextDirection;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + minDistance;
+		result = prime * result + ((previous == null) ? 0 : previous.x);
+		result = prime * result + ((previous == null) ? 0 : previous.y);
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (!(obj instanceof LocationInfo)) return false;
+		LocationInfo other = (LocationInfo) obj;
+		if (minDistance != other.minDistance) return false;
+		if (previous == null) {
+			if (other.previous != null) return false;
+		} else{
+			if (other.x != x  || other.y != y) return false;
+		}
+		if (x != other.x) return false;
+		if (y != other.y) return false;
+		return true;
+	}
+	
 }

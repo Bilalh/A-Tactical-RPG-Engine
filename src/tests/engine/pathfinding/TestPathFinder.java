@@ -48,6 +48,19 @@ public class TestPathFinder extends Tests {
 		map.setTiles(costs);
 	}
 
+	Comparator<LocationInfo> cc = new Comparator<LocationInfo>() {
+		
+		@Override
+		public int compare(LocationInfo o1, LocationInfo o2) {
+			if     (o1.getX() < o2.getX()) return -1;
+			else if(o1.getX() > o2.getX()) return 1;
+			
+			if     (o1.getY() < o2.getY()) return -1;
+			else if(o1.getY() > o2.getY()) return 1;
+			return 0;
+		}
+	};
+	
 	@Test
 	public void testSimpleRange() {
 		setupSimple();
@@ -59,7 +72,14 @@ public class TestPathFinder extends Tests {
 		l(0,2);
 		l(1,0);
 		l(2,0);
-		compare(exp,actual);
+
+		System.out.println("a" + actual);
+		System.out.println("e" +exp);
+		
+		ArrayList<LocationInfo> aa = new ArrayList<LocationInfo>(actual);
+		Collections.sort(aa, cc);
+		Collections.sort(exp, cc);
+		compare(exp, aa);
 	}
 	
 	@Test

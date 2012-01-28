@@ -8,7 +8,10 @@ package common;
 public class ProxyLocationInfo extends LocationInfo {
 
 	
-	/** @category Generated Constructor */
+	public ProxyLocationInfo(int x, int y, int minDistance) {
+		this(x,y,minDistance,null);
+	}
+	
 	public ProxyLocationInfo(int x, int y, int minDistance, LocationInfo previous) {
 		super(x, y, minDistance, previous);
 	}
@@ -16,6 +19,7 @@ public class ProxyLocationInfo extends LocationInfo {
 	public ProxyLocationInfo(LocationInfo l){
 		super(l.getX(), l.getY(), l.getMinDistance(), l.getPrevious(),l.getDirection());
 	}
+	
 	
 	@Override
 	public int hashCode() {

@@ -63,12 +63,14 @@ public class PathFinder implements IMovementCostProvider {
 			for (int j = start.y; j < end.y; j++) {
 				if (locations[i][j].getMinDistance() <= unit.getMove()) {
 					inRange.add(new ProxyLocationInfo(locations[i][j]));
+//					inRange.add(locations[i][j]);
 				}
 			}
 		}
-		
 		return Collections.unmodifiableCollection(inRange);
 	}
+
+	
 	
 	/**
 	 * Get the path to a specifed Location
