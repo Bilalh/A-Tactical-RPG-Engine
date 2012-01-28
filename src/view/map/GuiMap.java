@@ -90,11 +90,16 @@ public class GuiMap implements Observer, IMapRendererParent {
     enum ActionsEnum {
     	MOVEMENT, DIALOG,NONE
     }
+
+    final int heightOffset;
+    
+    Component parent;
     
 	/** @category Constructor */
-	public GuiMap(MapController mapController) {
+	public GuiMap(MapController mapController, Component parent) {
 		assert actions.length == ActionsEnum.values().length;
 		
+		this.parent        = parent;
 		this.mapController = mapController;
 		
 		final Tile grid[][] = mapController.getGrid();
@@ -118,7 +123,7 @@ public class GuiMap implements Observer, IMapRendererParent {
             }
         }
         
-        final int heightOffset = (MapSettings.tileDiagonal);
+        heightOffset = (MapSettings.tileDiagonal);
         bufferWidth  =  MapSettings.tileDiagonal*fieldWidth +5;  
 		bufferHeight = (int) (MapSettings.tileDiagonal/2f*fieldHeight +heightOffset);
 		
@@ -189,6 +194,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			drawn = mapRenderer.draw(g, width, height);
+			Logf.debug(log, "%s %s %s %s %s %s %s %s %s %s ",bufferWidth,bufferHeight, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height);
 		}
 		
 		_g.drawImage(mapBuffer, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height, null);
@@ -444,7 +450,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 	}
 
-	
 	public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_T:
@@ -582,8 +587,27 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 	
     public void setDrawLocation(int x, int y) {
-        drawX = x;
-        drawY = y;
+    	if (x >= 0){
+        	if (x + parent.getWidth()  <= bufferWidth){
+        		drawX = x;
+        	}else{
+        		drawX = bufferWidth - parent.getWidth();
+        	}
+    	}else{
+    		drawX = 0;
+    	}    	
+    	
+    	if (y >= 0){
+        	if (y + parent.getHeight()  <= bufferHeight){
+        		drawY = y;
+        	}
+        	else{
+        		drawY = bufferHeight - parent.getHeight();
+        	}
+    	}else{
+    		drawY = 0;
+    	}    
+    	
     }
 
     @Override

@@ -23,8 +23,8 @@ public class XmlMaker {
 		Config.loadLoggingProperties();
 		
 		Random r = new Random(12344);
-		int width  = 10;
-		int height = 10;
+		int width  = 20;
+		int height = 20;
 		SavedTile[] tiles = new SavedTile[width*height];
 		
 		
@@ -46,11 +46,11 @@ public class XmlMaker {
 			}
 		}
 
-		String filename = "map2";
+		String filename = "map3";
 		SavedMap m = new SavedMap(width,height,tiles, filename + "-mapping.xml");
 
-		String s1 = XMLUtil.makeFormattedXml(m);
-		System.out.println(s1);
+		String s1 = XMLUtil.makeXml(m);
+//		System.out.println(s1);
 		
 		HashMap<String, TileImageData> mapping = new HashMap<String, TileImageData>();
 		mapping.put("blue", new TileImageData("images/tiles/blue.png",  ImageType.NON_TEXTURED));

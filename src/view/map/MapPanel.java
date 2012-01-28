@@ -69,7 +69,7 @@ public class MapPanel extends JPanel implements Runnable {
 		setFocusable(true);
 		requestFocus(); // the JPanel now has focus, so receives key events
 
-		this.map  = new GuiMap(mapController);
+		this.map  = new GuiMap(mapController, this);
 		this.addMouseListener(map.getMouseListener());
 		this.addMouseMotionListener(map.getMouseMotionListener());
 		this.addComponentListener(new ComponentAdapter() {
