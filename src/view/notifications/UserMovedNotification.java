@@ -3,9 +3,9 @@ package view.notifications;
 import java.util.*;
 
 import view.map.GuiMap;
+import common.LocationInfo;
 import common.interfaces.IMapNotification;
 import common.interfaces.IUnit;
-import engine.pathfinding.LocationInfo;
 
 
 /**

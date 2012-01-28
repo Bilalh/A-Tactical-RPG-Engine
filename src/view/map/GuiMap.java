@@ -43,10 +43,10 @@ import engine.map.IModelUnit;
 import engine.map.Map;
 import engine.map.Tile;
 import engine.map.Unit;
-import engine.pathfinding.LocationInfo;
 
 import common.ILocation;
 import common.Location;
+import common.LocationInfo;
 
 /**
  * @author bilalh
@@ -328,7 +328,13 @@ public class GuiMap implements Observer, IMapRendererParent {
 		private void selectMoveUnit() {
 			if (selected != null){
 				log.info("selected " + selected);
-				if ( !getSelectedTile().isSelected() ) return;
+				
+				if (!getSelectedTile().isSelected() ) return;
+				if (!inRange.contains(getSelectedTile().getFieldLocation())){
+					Logf.info(log, "%s not in range", getSelectedTile());
+					return;
+				}
+				
 				mapController.moveUnit(selected.getUuid(), getSelectedTile().getFieldLocation());
 				for (LocationInfo p : inRange) {
 					field[p.x][p.y].setState(TileState.NONE);
@@ -381,17 +387,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 	    @Override
 		public void mousePressed(MouseEvent e) {
-	    	log.info("MousePressed");
 	        mouseStart = e.getPoint();
 	        offsetX = e.getX() - drawX;
 	        offsetY = e.getY() - drawY;
-	        Logf.info(log,"MousePressed MouseMoving:%s drawn:%s", mouseMoving,drawn);
+	        Logf.debug(log,"MousePressed MouseMoving:%s drawn:%s", mouseMoving,drawn);
 	    }
 
 	    @Override
 		public void mouseReleased(MouseEvent e) {
 	    	mouseMoving = false;
-	    	log.info("MousrReleased");
+	    	log.trace("MousrReleased start");
 	        mouseEnd = e.getPoint();
 	        int a = Math.abs((int) (mouseEnd.getX() - mouseStart.getX()));
 	        int b = Math.abs((int) (mouseEnd.getY() - mouseStart.getY()));
@@ -420,7 +425,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	        	
 	            selectMoveUnit();
 	        }
-	        Logf.info(log,"MouseReleased MouseMoving:%s drawn:%s", mouseMoving,drawn);
+	        Logf.debug(log,"MouseReleased MouseMoving:%s drawn:%s", mouseMoving,drawn);
 	    }
 
 	    @Override

@@ -1,6 +1,8 @@
 package tests.engine.pathfinding;
 
 import common.Location;
+import common.LocationInfo;
+
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -118,7 +120,30 @@ public class TestDijkstra extends Tests {
 		l(1,0,  8,  1,1); l(1,1,  6,  1,2); l(1,2,  2,  2,2); l(1,3,  5,  2,3); l(1,4,  7,  1,3); l(1,5,  9,  1,4); 
 		l(2,0,  9,  1,0); l(2,1,  8,  2,2); l(2,2,  0);       l(2,3,  1,  2,2); l(2,4,  9,  2,3); l(2,5, 10,  1,5); 
 		
-		assertArrayEquals("Results", exp, arr);
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(Arrays.toString(arr[i]));
+		}
+
+		System.out.println();
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(Arrays.toString(exp[i]));
+		}	
+		
+		testEqual( exp, arr);
+		
+	}
+	
+	void testEqual(LocationInfo[][] exp, LocationInfo[][] act){
+		assertEquals("length", exp.length, act.length);
+		for (int i = 0; i < act.length; i++) {
+			assertEquals("length" + i, exp[i].length, act[i].length );
+			for (int j = 0; j < act[i].length; j++) {
+				assertEquals(i + "," + j, exp[i][j], act[i][j]);
+				assertEquals(i + "," + j, exp[i][j].getMinDistance(),   act[i][j].getMinDistance());
+//				assertEquals(i + "," + j, exp[i][j].getPrevious(),      act[i][j].getPrevious());
+			}
+		}
+		
 	}
 	
 	

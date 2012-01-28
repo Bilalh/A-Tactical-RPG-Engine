@@ -1,7 +1,5 @@
-package engine.pathfinding;
+package common;
 
-import common.Direction;
-import common.ILocation;
 
 
 // Stores infomation about a tile
@@ -14,20 +12,23 @@ public class LocationInfo implements ILocation {
 	
 	/** @category Generated Constructor */
 	public LocationInfo(int x, int y, int minDistance) {
-		this.x = x;
-		this.y = y;
-		this.minDistance = minDistance;
-		this.nextDirection = Direction.STILL;
+		this(x,y,minDistance,null);
 	}
 
 	/** @category Generated Constructor */
 	public LocationInfo(int x, int y, int minDistance, LocationInfo previous) {
-		this.x = x;
-		this.y = y;
-		this.minDistance = minDistance;
-		this.previous = previous;
+		this(x, y, minDistance,previous,Direction.STILL);
 	}
 
+	public LocationInfo(int x, int y, int minDistance, LocationInfo previous, Direction direction) {
+		this.x = x;
+		this.y = y;
+		this.minDistance   = minDistance;
+		this.previous      = previous;
+		this.nextDirection = direction;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return previous != null ?
@@ -99,7 +100,7 @@ public class LocationInfo implements ILocation {
 	}
 
 	/** @category Generated Getter */
-	public Direction getNextDirection() {
+	public Direction getDirection() {
 		return nextDirection;
 	}
 

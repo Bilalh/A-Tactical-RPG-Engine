@@ -40,14 +40,10 @@ public class GuiUnit implements IUnit {
 		int xPos =centrePoint.x - sprite.getWidth()/2;
 		int yPos =(int) (centrePoint.y -  sprite.getHeight()/1.25);
 		sprite.draw(g,xPos,yPos);
-//			Logf.info(log, "%s %s %s %s", xPos, yPos, getWidth(), getHeight());
-			r  = new Rectangle2D.Float(xPos,yPos+getHeight(),getWidth(),getHeight());
-//			System.out.println(r);
-		
+		r  = new Rectangle2D.Float(xPos,yPos+getHeight(),getWidth(),getHeight());
 	}
 
 	public boolean isIntersecting(MapTile t, int x, int y){
-		Logf.info(log, "%s %s", x,y);
 		return r.contains(x,y);
 	}
 	

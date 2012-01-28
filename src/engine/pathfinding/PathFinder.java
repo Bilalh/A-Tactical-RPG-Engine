@@ -9,6 +9,8 @@ import util.Logf;
 import util.Util;
 
 import common.Location;
+import common.LocationInfo;
+import common.ProxyLocationInfo;
 
 import engine.map.IMap;
 import engine.map.IModelUnit;
@@ -29,7 +31,7 @@ public class PathFinder implements IMovementCostProvider {
 	Location start;
 	Location end;
 	
-	private ArrayList<LocationInfo> inRange;
+	private HashSet<LocationInfo> inRange;
 	
 	// Cache Calcuted paths
 	HashMap<Location, ArrayDeque<LocationInfo>> paths = new HashMap<Location, ArrayDeque<LocationInfo>>();
@@ -42,7 +44,7 @@ public class PathFinder implements IMovementCostProvider {
 		Location p = unit.getLocation();
 		start = p.copy().translate(-unit.getMove()+1).limitLower(0, 0);
 		end   = p.copy().translate(unit.getMove()+1).limitUpper(map.getFieldWidth(), map.getFieldHeight());
-		Logf.info(log, "start:%s, start.x:%s, end.x:%s, start.y:%s, end.y:%s",start, start.x, end.x, start.y, end.y);
+		Logf.debug(log, "start:%s, start.x:%s, end.x:%s, start.y:%s, end.y:%s",start, start.x, end.x, start.y, end.y);
 		locations = d.calculate(u.getLocation(), start.x, end.x, start.y, end.y);
 		
 		Logf.debug(log,"locations for %s: %s\n",u, Util.array2d(locations, start.x, end.x, start.y, end.y, true));
@@ -50,21 +52,22 @@ public class PathFinder implements IMovementCostProvider {
 	}
 
 	/** Get all Locations that are vaild*/
-	public ArrayList<LocationInfo> getMovementRange(){
+	public Collection<LocationInfo> getMovementRange(){
 		if (inRange != null) return inRange;
 
 		Logf.debug(log,"u:%s start:%s end:%s \npf getMovementRange %s",unit, start,end, 
 				Util.array2d(locations, start.x,  end.x, start.y, end.y, true));
 		
-		inRange = new ArrayList<LocationInfo>();
+		inRange = new HashSet<LocationInfo>();
 		for (int i = start.x; i < end.x; i++) {
 			for (int j = start.y; j < end.y; j++) {
 				if (locations[i][j].getMinDistance() <= unit.getMove()) {
-					inRange.add(locations[i][j]);
+					inRange.add(new ProxyLocationInfo(locations[i][j]));
 				}
 			}
 		}
-		return inRange;
+		
+		return Collections.unmodifiableCollection(inRange);
 	}
 	
 	/**

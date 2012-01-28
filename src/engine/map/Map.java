@@ -1,6 +1,8 @@
 package engine.map;
 
 import common.Location;
+import common.LocationInfo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -23,7 +25,6 @@ import engine.PathfindingEx.Mover;
 import engine.PathfindingEx.TileBasedMap;
 import engine.ai.AIPlayer;
 import engine.ai.AIUnit;
-import engine.pathfinding.LocationInfo;
 import engine.pathfinding.PathFinder;
 
 /**
@@ -211,7 +212,7 @@ public class Map extends Observable implements IMap {
 		notifyObservers(n);
 	}
 
-	public ArrayList<LocationInfo> getMovementRange(IModelUnit u){
+	public Collection<LocationInfo> getMovementRange(IModelUnit u){
 		PathFinder pf;
 		if ((pf = paths.get(u)) != null){
 			return pf.getMovementRange();

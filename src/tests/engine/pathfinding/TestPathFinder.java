@@ -1,6 +1,7 @@
 package tests.engine.pathfinding;
 
 import common.Location;
+import common.LocationInfo;
 
 import java.util.*;
 
@@ -52,7 +53,7 @@ public class TestPathFinder extends Tests {
 		setupSimple();
 		unit.setMove(4);
 		pf = new PathFinder(unit, map);
-		ArrayList<LocationInfo> actual =  pf.getMovementRange();
+		Collection<LocationInfo> actual =  pf.getMovementRange();
 		l(0,0);
 		l(0,1);
 		l(0,2);

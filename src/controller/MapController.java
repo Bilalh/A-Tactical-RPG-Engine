@@ -1,6 +1,8 @@
 package controller;
 
 import common.Location;
+import common.LocationInfo;
+
 import java.util.*;
 
 import common.interfaces.IUnit;
@@ -11,7 +13,6 @@ import engine.map.IModelUnit;
 import engine.map.Map;
 import engine.map.Tile;
 import engine.map.Unit;
-import engine.pathfinding.LocationInfo;
 import engine.pathfinding.PathFinder;
 
 /**
@@ -57,7 +58,7 @@ public class MapController extends Controller {
 		map.addObserver(o);
 	}
 
-	public ArrayList<LocationInfo> getMovementRange(UUID u) {
+	public Collection<LocationInfo> getMovementRange(UUID u) {
 		return map.getMovementRange(mapping.get(u));
 	}
 

@@ -18,8 +18,8 @@ public class Location implements Serializable, ILocation {
 		this(0, 0);
 	}
 
-	public Location(Location p) {
-		this(p.x, p.y);
+	public Location(ILocation p) {
+		this(p.getX(), p.getY());
 	}
 
 	public Location(int x, int y) {
@@ -112,10 +112,10 @@ public class Location implements Serializable, ILocation {
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null) return false;
-		if (!(obj instanceof Location)) return false;
-		Location other = (Location) obj;
-		if (x != other.x) return false;
-		if (y != other.y) return false;
+		if (!(obj instanceof ILocation)) return false;
+		ILocation other = (ILocation) obj;
+		if (x != other.getX()) return false;
+		if (y != other.getY()) return false;
 		return true;
 	}
 

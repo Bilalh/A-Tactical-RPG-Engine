@@ -2,6 +2,8 @@ package engine.pathfinding;
 
 import common.Direction;
 import common.Location;
+import common.LocationInfo;
+
 import java.util.*;
 
 import org.apache.log4j.LogMF;
@@ -46,9 +48,9 @@ public class Dijkstra {
 		if (upperX <= lowerX || upperY <= lowerY || start == null ) throw new IllegalArgumentException("Invaild values");
 		
 		LocationInfo[][] locations = new LocationInfo[rows][cols];
-		HashSet<LocationInfo> settler = new HashSet<LocationInfo>();
+		HashSet<LocationInfo> settled = new HashSet<LocationInfo>();
 		
-		Logf.info(log, "bounds x:%s to %s y:%s to %s", lowerX,upperX, lowerY, upperY);
+		Logf.debug(log, "bounds x:%s to %s y:%s to %s", lowerX,upperX, lowerY, upperY);
 		assert((upperX - lowerX) * (upperY - lowerY) > 0);
 		PriorityQueue<LocationInfo> pq = new PriorityQueue<LocationInfo>((upperX - lowerX) * (upperY - lowerY),
 			new Comparator<LocationInfo>() {
@@ -73,7 +75,7 @@ public class Dijkstra {
 			LocationInfo u = pq.poll();
 			log.trace("Processing " + u);
 			
-			settler.add(u);
+			settled.add(u);
 			
 			for(Direction d : Direction.values()){
 				if (d == Direction.STILL) continue;
@@ -85,7 +87,7 @@ public class Dijkstra {
 
 				LocationInfo v = locations[nx][ny];
 				LogMF.trace(log,"    <{0},{1}>", nx, ny);
-				if (settler.contains(v) && v.getPrevious() != null){
+				if (settled.contains(v) && v.getPrevious() != null){
 					LogMF.trace(log,"      Skipped", nx,ny);
 					continue;
 				}
