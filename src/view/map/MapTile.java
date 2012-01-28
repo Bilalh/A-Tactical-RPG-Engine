@@ -103,7 +103,8 @@ public class MapTile {
 		
 		
 		Sprite image = SpriteManager.instance().getSprite("Resources/" + filename);
-		tileImage    = image.getImage().getScaledInstance(MapSettings.tileDiagonal+1,MapSettings.tileDiagonal/2+1, Image.SCALE_SMOOTH);
+		int mheight =  Math.round((MapSettings.tileDiagonal/2f));
+		tileImage    = image.getImage().getScaledInstance(MapSettings.tileDiagonal+1,mheight+1, Image.SCALE_SMOOTH);
 	}
 	
 	public boolean wasClickedOn(Point click) {
@@ -160,14 +161,21 @@ public class MapTile {
 		Color oldColor = g.getColor();
 		Paint old = g.getPaint();
 
-		final int x_hor_div_2         = (int) (x + horizontal / 2);
-		final int neg_x_hor_div_2     = (int) (x - horizontal / 2);
-		final int y_vet               = (int) (y + vertical);
-		final int y_vet_div_2         = (int) (y + vertical / 2);
-		final int neg_y_h1_vet_div_2  = (int) (y - h1 + vertical / 2);
-		final int neg_y_h2_vet_div_2  = (int) (y - h2 + vertical / 2);
-		final int neg_y_h2_vet        = (int) (y - h2 + vertical);
-
+//		final int x_hor_div_2         = (int) (x + horizontal / 2);
+//		final int neg_x_hor_div_2     = (int) (x - horizontal / 2);
+//		final int y_vet               = (int) (y + vertical);
+//		final int y_vet_div_2         = (int) (y + vertical / 2);
+//		final int neg_y_h1_vet_div_2  = (int) (y - h1 + vertical / 2);
+//		final int neg_y_h2_vet_div_2  = (int) (y - h2 + vertical / 2);
+//		final int neg_y_h2_vet        = (int) (y - h2 + vertical);
+		final int x_hor_div_2         =Math.round(x + horizontal / 2);
+		final int neg_x_hor_div_2     =Math.round(x - horizontal / 2);
+		final int y_vet               =Math.round(y + vertical);
+		final int y_vet_div_2         =Math.round(y + vertical / 2);
+		final int neg_y_h1_vet_div_2  =Math.round(y - h1 + vertical / 2);
+		final int neg_y_h2_vet_div_2  =Math.round(y - h2 + vertical / 2);
+		final int neg_y_h2_vet        =Math.round(y - h2 + vertical);
+		
 		top = topReal = new Polygon(new int[] {
 				x,
 				x_hor_div_2,
@@ -183,8 +191,8 @@ public class MapTile {
 			g.fillPolygon(top);
 			g.setPaint(old);
 		} else {
-			float f = x - horizontal / 2f;
-			g.drawImage(tileImage, (int) f, (int) (y - h2), null);
+			int f = Math.round(x - horizontal / 2f);
+			g.drawImage(tileImage,  f, (int) (y - h2), null);
 		}
 
 		if (state == TileState.MOVEMENT_RANGE || selected) {
@@ -261,17 +269,17 @@ public class MapTile {
 
 		}
 //
-//		g.setColor(lineColor); // Outline the top of the tile
+		g.setColor(lineColor); // Outline the top of the tile
 //		g.drawPolygon(new Polygon(new int[] {
 //				x,
 //				x_hor_div_2,
 //				x,
 //				neg_x_hor_div_2 },
 //				new int[] {
-//						y - h1,
+//						(int) (y - h1),
 //						neg_y_h2_vet_div_2,
 //						neg_y_h2_vet,
-//						neg_y_vet_div_2 }
+//						neg_y_h1_vet_div_2 }
 //				, 4));
 //		
 		g.setColor(oldColor);

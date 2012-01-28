@@ -2,21 +2,28 @@
   <entry>
     <string>m64</string>
     <tileImageData>
-      <location>images/tiles/m64.png</location>
+      <location>images/tiles/blue64.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
     <string>m32</string>
     <tileImageData>
-      <location>images/tiles/m64.png</location>
+      <location>images/tiles/blue64.png</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>test</string>
+    <tileImageData>
+      <location>images/tiles/blue400.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
     <string>m96</string>
     <tileImageData>
-      <location>images/tiles/m96.png</location>
+      <location>images/tiles/blue96.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -37,7 +44,14 @@
   <entry>
     <string>m128</string>
     <tileImageData>
-      <location>images/tiles/m128.png</location>
+      <location>images/tiles/blue128.png</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>m200</string>
+    <tileImageData>
+      <location>images/tiles/blue200.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -45,13 +59,6 @@
     <string>m</string>
     <tileImageData>
       <location>images/tiles/mask.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>m60</string>
-    <tileImageData>
-      <location>images/tiles/m60.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>

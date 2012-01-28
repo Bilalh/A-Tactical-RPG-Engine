@@ -154,11 +154,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private boolean drawn = false;
 	private int frameDuration = 750 * 1000000;
 	private int frameChange = 0;
+	private AnimatedUnit over = null;
 	
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 		
-
 		if (!mouseMoving) {
 			frameChange += timeDiff;
 			if (frameChange > frameDuration) {
@@ -167,8 +167,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 					AnimatedUnit u = tileMapping.remove(getTile(lastLocation));
 					lastLocation = pathIterator.next();
 					u.setLocation(lastLocation);
+					
+					if (over != null){
+						tileMapping.put(getTile(over.getLocation()), over);
+						over = null;
+					}
+					over = tileMapping.get(getTile(lastLocation));
+					
 					tileMapping.put(getTile(lastLocation),u);
 					log.trace("Moved to" + getTile(lastLocation));
+					
 					if (!pathIterator.hasNext()){
 						setActionHandler(oldAction);
 					}
@@ -248,10 +256,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		if (pathIterator.hasNext()) setActionHandler(ActionsEnum.NONE);
 		
 		Logf.info(log, "%s moved from %s to %s with path:s%s", u.getName(),  movingUnit.getLocation(), u.getLocation(), path );
-
-		movingUnit.setGridX(u.getGridX());
-		movingUnit.setGridY(u.getGridY());
-		
 		drawn =false;
 	}
 	
