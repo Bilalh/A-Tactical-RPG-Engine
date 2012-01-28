@@ -96,8 +96,12 @@ public class Map extends Observable implements IMap {
 			field[t.getX()][t.getY()] = new Tile(t.getHeight(), t.getHeight(), t.getType());
 		}
 		
-		//FIXME load real tile mapping.
-		tileMapping = Config.defaultMapping();
+		String mappingLocation = smap.getTileMappinglocation();
+		if (mappingLocation == null){
+			tileMapping = Config.defaultMapping();	
+		}else{
+			tileMapping = Config.loadMap(mappingLocation);
+		}
 		
 	}
 	

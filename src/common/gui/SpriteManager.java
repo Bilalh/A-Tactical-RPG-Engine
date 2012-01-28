@@ -2,7 +2,6 @@ package common.gui;
 
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
-import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,12 +12,18 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.Logger;
+
+import util.Logf;
+
 /**
  *  Keeps track of loaded sprites.  The sprites are only loaded once.
  * @author bilalh
  */
 public class SpriteManager {
 
+	private static final Logger log = Logger.getLogger(SpriteManager.class);
+	
 	private static SpriteManager singleton = new SpriteManager();
 	
 	private Map<String, Sprite> sprites = Collections.synchronizedMap(new HashMap<String, Sprite>());
@@ -52,7 +57,9 @@ public class SpriteManager {
 		
 		Sprite sprite = new Sprite(image);
 		sprites.put(filePath,sprite);
-
+		
+		Logf.info(log, "Loaded %s", filePath);
+		
 		return sprite;
 	}
 	
