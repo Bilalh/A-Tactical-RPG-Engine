@@ -1,13 +1,19 @@
 package tests.engine.pathfinding;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
 import common.Location;
+import common.LocationInfo;
+import common.interfaces.IMapUnit;
+import config.xml.TileImageData;
 
+import engine.IMutableUnit;
+import engine.Unit;
 import engine.map.IMap;
-import engine.map.IModelUnit;
+import engine.map.IMutableMapUnit;
 import engine.map.Tile;
-import engine.map.Unit;
 
 /**
  * @author Bilal Hussain
@@ -16,50 +22,52 @@ public class MapStub implements IMap {
 
 	@Override
 	public void start() {
-		// TODO start method
-		
+
 	}
 
 	@Override
-	public void moveUnit(IModelUnit u, Location p) {
-		// TODO moveUnit method
-		
+	public void setUsersUnits(HashMap<IMutableUnit, Location> selected) {
+
 	}
 
 	@Override
-	public void setUsersUnits(ArrayList<IModelUnit> selected) {
-		// TODO setUsersUnits method
-		
+	public void moveUnit(IMutableMapUnit u, Location p) {
+
+	}
+
+	@Override
+	public Collection<LocationInfo> getMovementRange(IMutableMapUnit u) {
+		return null;
+	}
+
+	@Override
+	public ArrayList<IMapUnit> getUnits() {
+		return null;
 	}
 
 	@Override
 	public Tile getTile(int x, int y) {
-		// TODO getTile method
 		return null;
 	}
 
 	@Override
-	public int getFieldHeight() {
-		// TODO getFieldHeight method
-		return 0;
-	}
-
-	@Override
-	public int getFieldWidth() {
-		// TODO getFieldWidth method
-		return 0;
+	public TileImageData getTileImageData(int x, int y) {
+		return null;
 	}
 
 	@Override
 	public boolean isPlayersTurn() {
-		// TODO isPlayersTurn method
 		return false;
 	}
 
 	@Override
-	public ArrayList<Unit> getUnits() {
-		// TODO getUnits method
-		return null;
+	public int getFieldWidth() {
+		return 0;
+	}
+
+	@Override
+	public int getFieldHeight() {
+		return 0;
 	}
 
 }

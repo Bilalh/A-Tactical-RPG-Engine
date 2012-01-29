@@ -5,7 +5,7 @@ import java.util.*;
 import view.map.GuiMap;
 import common.LocationInfo;
 import common.interfaces.IMapNotification;
-import common.interfaces.IUnit;
+import common.interfaces.IMapUnit;
 
 
 /**
@@ -13,11 +13,11 @@ import common.interfaces.IUnit;
  */
 public class UserMovedNotification  implements IMapNotification {
 	
-	final private IUnit u;
+	final private IMapUnit u;
 	final private Collection<LocationInfo> path;
 
 	/** @category Generated Constructor */
-	public UserMovedNotification(IUnit u, Collection<LocationInfo> path) {
+	public UserMovedNotification(IMapUnit u, Collection<LocationInfo> path) {
 		this.u = u;
 		this.path = path;
 	}

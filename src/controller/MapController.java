@@ -5,14 +5,16 @@ import common.LocationInfo;
 
 import java.util.*;
 
+import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
 import config.xml.TileImageData;
 
 import view.GuiUnit;
-import engine.map.IModelUnit;
+import engine.IMutableUnit;
+import engine.Unit;
+import engine.map.IMutableMapUnit;
 import engine.map.Map;
 import engine.map.Tile;
-import engine.map.Unit;
 import engine.pathfinding.PathFinder;
 
 /**
@@ -20,31 +22,22 @@ import engine.pathfinding.PathFinder;
  */
 public class MapController extends Controller {
 
-	private HashMap<UUID, IModelUnit> mapping;
 	private Map map;
 
 	/** @category Generated */
 	public MapController(Map map) {
 		this.map = map;
-		mapping = new HashMap<UUID, IModelUnit>();
-		for (IModelUnit u : map.getUnits()) {
-			mapping.put(u.getUuid(), u);
-		}
-
 	}
 
-	public void moveUnit(UUID uuid, Location fieldLocation) {
-		map.moveUnit(mapping.get(uuid), fieldLocation);
+	public void moveUnit(IMapUnit u , Location fieldLocation) {
+		map.moveUnit((IMutableMapUnit) u, fieldLocation);
 	}
 
-	public void setUsersUnits(java.util.Map<UUID, Location> selectedPostions) {
+	public void setUsersUnits(HashMap<IUnit, Location> selectedPostions) {
 
-		ArrayList<IModelUnit> selected = new ArrayList<IModelUnit>();
-
-		for (java.util.Map.Entry<UUID, Location> e : selectedPostions.entrySet()) {
-			IModelUnit u = mapping.get(e.getKey());
-			u.setLocation(e.getValue());
-			selected.add(u);
+		HashMap<IMutableUnit, Location> selected =  new HashMap<IMutableUnit, Location>();
+		for (java.util.Map.Entry<IUnit, Location> e : selectedPostions.entrySet()) {
+			selected.put((IMutableUnit) e.getKey(), e.getValue());
 		}
 
 		map.setUsersUnits(selected);
@@ -58,8 +51,8 @@ public class MapController extends Controller {
 		map.addObserver(o);
 	}
 
-	public Collection<LocationInfo> getMovementRange(UUID u) {
-		return map.getMovementRange(mapping.get(u));
+	public Collection<LocationInfo> getMovementRange(IMapUnit u) {
+		return map.getMovementRange((IMutableMapUnit) u);
 	}
 
 	public Tile[][] getGrid() {

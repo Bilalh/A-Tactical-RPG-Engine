@@ -1,12 +1,13 @@
 package view.map;
 
-import static view.map.MapTile.Orientation.*;
-import static common.ImageType.*;
+import static view.map.GuiTile.Orientation.*;
+import static common.enums.ImageType.*;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import common.enums.ImageType;
 import common.gui.Sprite;
 import common.gui.SpriteManager;
 
@@ -16,7 +17,6 @@ import java.awt.*;
 import java.awt.image.*;
 import java.util.Arrays;
 
-import common.ImageType;
 import common.Location;
 import common.Location;
 import common.Location;
@@ -24,7 +24,7 @@ import common.Location;
 import common.Location;
 import config.xml.TileImageData;
 
-public class MapTile {
+public class GuiTile {
 
 	static enum Orientation {
 		NORMAL, UP_TO_NORTH, UP_TO_EAST, UP_TO_SOUTH, UP_TO_WEST, EMY
@@ -70,7 +70,7 @@ public class MapTile {
 	private ImageType type;
 
 	
-	public MapTile(Orientation orientation, float startHeight, float endHeight, 
+	public GuiTile(Orientation orientation, float startHeight, float endHeight, 
 			int x, int y, String filename, ImageType type ) {
 		this.fieldLocation = new Location(x, y);
 		this.orientation   = orientation;

@@ -8,53 +8,50 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 
 import util.Logf;
-import view.map.MapTile;
+import view.map.GuiTile;
 
-import common.ILocation;
 import common.Location;
 import common.gui.Sprite;
 import common.gui.SpriteManager;
-import common.interfaces.IUnit;
+import common.interfaces.ILocation;
+import common.interfaces.IMapUnit;
 
 /**
  * @author bilalh
  */
-public class GuiUnit implements IUnit {
+public class GuiUnit {
 	private static final Logger log = Logger.getLogger(GuiUnit.class);
 	protected int gridX;
 	protected int gridY;
 	protected Sprite sprite;
-	protected IUnit unit;
+	protected IMapUnit unit;
+	protected Rectangle2D bounds;
 	
-	
-	public GuiUnit(int gridX,int gridY,String ref, IUnit unit) {
+	public GuiUnit(int gridX,int gridY,String ref) {
 		this.sprite = SpriteManager.instance().getSprite(ref);
 		this.gridX = gridX;
 		this.gridY = gridY;
-		this.unit = unit;
 	} 
 	
-	Rectangle2D r;
-	public void draw(Graphics g, final MapTile[][] tiles, int x, int y) {
+	public void draw(Graphics g, final GuiTile[][] tiles, int x, int y) {
 		final Point centrePoint =  tiles[gridX][gridY].calculateCentrePoint(x,y);
 		int xPos =centrePoint.x - sprite.getWidth()/2;
 		int yPos =(int) (centrePoint.y -  sprite.getHeight()/1.25);
 		sprite.draw(g,xPos,yPos);
-		r  = new Rectangle2D.Float(xPos,yPos+getHeight(),getWidth(),getHeight());
+		bounds  = new Rectangle2D.Float(xPos,yPos+getHeight(),getWidth(),getHeight());
 	}
 
-	public boolean isIntersecting(MapTile t, int x, int y){
-		return r.contains(x,y);
+	public boolean isIntersecting(GuiTile t, int x, int y){
+		return bounds.contains(x,y);
 	}
 	
-	public Point topLeftPoint(MapTile[][] tiles, int x, int y){
+	public Point topLeftPoint(GuiTile[][] tiles, int x, int y){
 		final Point result =  tiles[gridX][gridY].calculateCentrePoint(x,y);
 		result.translate(-sprite.getWidth()/2, (int) (-sprite.getHeight()/1.5));
 		return result;
 	}
 	
 	/** @category Generated */
-	@Override
 	public int getGridX() {
 		return gridX;
 	}
@@ -65,7 +62,6 @@ public class GuiUnit implements IUnit {
 	}
 
 	/** @category Generated */
-	@Override
 	public int getGridY() {
 		return gridY;
 	}
@@ -74,38 +70,7 @@ public class GuiUnit implements IUnit {
 	public void setGridY(int gridY) {
 		this.gridY = gridY;
 	}
-
-	@Override
-	public int getMaxHp() {
-		return unit.getMaxHp();
-	}
-
-	@Override
-	public int getCurrentHp() {
-		return unit.getCurrentHp();
-	}
-
-	@Override
-	public int getMove() {
-		return unit.getMove();
-	}
-
-	@Override
-	public int getStrength() {
-		return unit.getStrength();
-	}
-
-	@Override
-	public String getName() {
-		return unit.getName();
-	}
-
-	@Override
-	public UUID getUuid() {
-		return unit.getUuid();
-	}
 	
-	@Override
 	public Location getLocation(){
 		return new Location(gridX,gridY);
 	}
@@ -123,6 +88,16 @@ public class GuiUnit implements IUnit {
 	/** @category Generated Getter */
 	public int getHeight() {
 		return sprite.getHeight();
+	}
+
+	/** @category Generated */
+	public IMapUnit getUnit() {
+		return unit;
+	}
+
+	/** @category Generated */
+	public void setUnit(IMapUnit unit) {
+		this.unit = unit;
 	}
 	
 }

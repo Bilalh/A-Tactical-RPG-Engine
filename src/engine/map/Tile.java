@@ -12,7 +12,7 @@ import config.xml.TileImageData;
  */
 public class Tile {
 
-	private IUnit current ;
+	private IMutableMapUnit current ;
 	private int startHeight;
 	private int endHeight;
 	private int cost;
@@ -33,12 +33,12 @@ public class Tile {
 	}
 	
 	/** @category Generated */
-	public IUnit getCurrentUnit() {
+	public IMutableMapUnit getCurrentUnit() {
 		return current;
 	}
 
 	/** @category Generated */
-	public void setCurrentUnit(IUnit current) {
+	public void setCurrentUnit(IMutableMapUnit current) {
 		this.current = current;
 	}
 	/** @category Generated */

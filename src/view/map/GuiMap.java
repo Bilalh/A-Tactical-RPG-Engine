@@ -3,8 +3,8 @@ package view.map;
  * 
  */
 
-import static view.map.MapTile.TileState;
-import static view.map.MapTile.Orientation.UP_TO_EAST;
+import static view.map.GuiTile.TileState;
+import static view.map.GuiTile.Orientation.UP_TO_EAST;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -33,18 +33,15 @@ import view.util.ActionsAdapter;
 import view.util.MousePoxy;
 
 import common.gui.SpriteManager;
-import common.interfaces.IMapNotification;
-import common.interfaces.INotification;
-import common.interfaces.IUnit;
+import common.interfaces.*;
 import config.xml.TileImageData;
 import controller.MapController;
 
-import engine.map.IModelUnit;
+import engine.Unit;
+import engine.map.IMutableMapUnit;
 import engine.map.Map;
 import engine.map.Tile;
-import engine.map.Unit;
 
-import common.ILocation;
 import common.Location;
 import common.LocationInfo;
 
@@ -57,11 +54,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	private MapController mapController; 
 	
-    private MapTile[][] field;
+    private GuiTile[][] field;
 	private MapRenderer mapRenderer;
 
 	private int fieldWidth, fieldHeight;
-	private static MapTile selectedTile;
+	private static GuiTile selectedTile;
     
     
     private AnimatedUnit[] units;
@@ -76,7 +73,7 @@ public class GuiMap implements Observer, IMapRendererParent {
     private MousePoxy MousePoxy;
     
     private HashMap<UUID,AnimatedUnit> unitMapping;
-    private HashMap<MapTile,AnimatedUnit> tileMapping; 
+    private HashMap<GuiTile,AnimatedUnit> tileMapping; 
 
     // Buffer for drawing the map.    	
     private Image mapBuffer;
@@ -106,7 +103,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		this.fieldWidth = grid.length;
 		this.fieldHeight = grid[0].length;
 		
-        field = new MapTile[fieldWidth][fieldHeight];
+        field = new GuiTile[fieldWidth][fieldHeight];
         current = getActionHandler(ActionsEnum.MOVEMENT);
         MousePoxy = new MousePoxy();
         setActionHandler(ActionsEnum.MOVEMENT);
@@ -115,11 +112,10 @@ public class GuiMap implements Observer, IMapRendererParent {
         for (int i = 0; i < fieldWidth; i++) { 
             for (int j = 0; j < fieldHeight; j++) {
             	TileImageData d = mapController.getTileImageData(i, j);
-            	field[i][j] = new MapTile(MapTile.Orientation.UP_TO_EAST,
+            	field[i][j] = new GuiTile(GuiTile.Orientation.UP_TO_EAST,
             			grid[i][j].getStartHeight(),
             			grid[i][j].getEndHeight(), i, j,
             			d.getLocation(), d.getType());
-            	field[i][j].setCost(grid[i][j].getCost());
             }
         }
         
@@ -134,7 +130,7 @@ public class GuiMap implements Observer, IMapRendererParent {
         startY = heightOffset;
         
         unitMapping = new HashMap<UUID, AnimatedUnit>();
-        tileMapping = new HashMap<MapTile, AnimatedUnit>();
+        tileMapping = new HashMap<GuiTile, AnimatedUnit>();
         
         dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
         
@@ -218,16 +214,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 		((IMapNotification) notification).process(this);
 	}
 	
-	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IUnit> aiUnits) {
+	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IMapUnit> aiUnits) {
 		
 		AnimatedUnit[] newUnits = new AnimatedUnit[allPlayerUnits.size()];
-		HashMap<UUID, Location> selectedPostions = new HashMap<UUID, Location>();
+		HashMap<IUnit, Location> selectedPostions = new HashMap<IUnit, Location>();
 		for (int i = 0; i < newUnits.length; i++) {
 //			//FIXME indies
 				final IUnit u = allPlayerUnits.get(i);
 				Location p = new Location(2,i+3); 
-				newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"},u );
-				selectedPostions.put(u.getUuid(), p);
+				newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"});
+				selectedPostions.put(u, p);
 				unitMapping.put(u.getUuid(), newUnits[i]);
 				tileMapping.put(field[p.x][p.y], newUnits[i]);
 		}
@@ -236,22 +232,28 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 		AnimatedUnit[] newAiUnits = new AnimatedUnit[aiUnits.size()];
 		for (int i = 0; i < newAiUnits.length; i++) {
-			final IUnit u = aiUnits.get(i);
+			final IMapUnit u = aiUnits.get(i);
 			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(), 
-					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"}, 
-					u);
+					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"});
+			newAiUnits[i].setUnit(u);
 			tileMapping.put(field[u.getGridX()][u.getGridY()], newAiUnits[i]);
 		}
 		this.aiUnits = newAiUnits;
 	}
 	
+	public void unitsChoosen(ArrayList<IMapUnit> units){
+		for (IMapUnit u : units) {
+			//FIXME todo unit choosen 
+			assert(false);
+		}
+	}
 	
 	private Collection<LocationInfo> path;
 	private Iterator<LocationInfo> pathIterator;
 	private LocationInfo lastLocation;
 	private ActionsAdapter oldAction;
 	
-	public void unitMoved(IUnit u, Collection<LocationInfo> path){
+	public void unitMoved(IMapUnit u, Collection<LocationInfo> path){
 		AnimatedUnit movingUnit =  unitMapping.get(u.getUuid());
 		this.path    = path;
 		pathIterator = path.iterator();
@@ -341,7 +343,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 					return;
 				}
 				
-				mapController.moveUnit(selected.getUuid(), getSelectedTile().getFieldLocation());
+				mapController.moveUnit(selected.getUnit(), getSelectedTile().getFieldLocation());
 				for (LocationInfo p : inRange) {
 					field[p.x][p.y].setState(TileState.NONE);
 				}
@@ -352,7 +354,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			}
 
 			AnimatedUnit unitS = null;
-			MapTile t = selectedTile;
+			GuiTile t = selectedTile;
 			
 			for (AnimatedUnit u : units) {
 				if (u.getGridX() == t.getFieldLocation().x && u.getGridY() == t.getFieldLocation().y){
@@ -373,7 +375,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				selected = unitS;
 			}
 			
-			inRange =  mapController.getMovementRange(unitS.getUuid());
+			inRange =  mapController.getMovementRange(unitS.getUnit());
 			for (LocationInfo p : inRange) {
 				field[p.x][p.y].setState(TileState.MOVEMENT_RANGE);
 			}
@@ -500,7 +502,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				break;
 			case KeyEvent.VK_U:
 				Location newP = new Location(units[0].getGridX()+1, units[0].getGridY());
-				mapController.moveUnit(units[0].getUuid(), newP);
+				mapController.moveUnit(units[0].getUnit(), newP);
 				break;
 			case KeyEvent.VK_I:
 				Logf.info(log,"draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, tileMapping.get(selectedTile));
@@ -544,7 +546,7 @@ public class GuiMap implements Observer, IMapRendererParent {
         }
     }
     
-	public MapTile getSelectedTile() {
+	public GuiTile getSelectedTile() {
 		return selectedTile;
 	}
 
@@ -611,11 +613,11 @@ public class GuiMap implements Observer, IMapRendererParent {
     }
 
     @Override
-	public AnimatedUnit getUnit(MapTile tile){
+	public AnimatedUnit getUnit(GuiTile tile){
 		return tileMapping.get(tile);
 	}
 	
-    public MapTile getTile(ILocation l){
+    public GuiTile getTile(ILocation l){
     	return field[l.getX()][l.getY()];
     }
     

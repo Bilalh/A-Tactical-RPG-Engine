@@ -1,8 +1,8 @@
 package engine.pathfinding;
 
-import common.Direction;
 import common.Location;
 import common.LocationInfo;
+import common.enums.Direction;
 
 import java.util.*;
 

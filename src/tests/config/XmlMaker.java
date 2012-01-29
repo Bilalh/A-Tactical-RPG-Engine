@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.sun.tools.internal.ws.util.xml.XmlUtil;
-import common.ImageType;
+
+import common.enums.ImageType;
 
 import config.Config;
 import config.XMLUtil;

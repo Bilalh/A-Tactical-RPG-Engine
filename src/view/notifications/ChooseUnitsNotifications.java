@@ -7,11 +7,12 @@ import java.util.ArrayList;
 
 import common.interfaces.IMapNotification;
 import common.interfaces.INotification;
+import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
 
 import view.map.GuiMap;
 
-import engine.map.Unit;
+import engine.Unit;
 
 /**
  * @author bilalh
@@ -19,11 +20,11 @@ import engine.map.Unit;
 public class ChooseUnitsNotifications implements IMapNotification {
 
 	private ArrayList<? extends IUnit> units = new ArrayList<IUnit>();
-	private ArrayList<? extends IUnit> aiUnits = new ArrayList<IUnit>();
+	private ArrayList<? extends IMapUnit> aiUnits = new ArrayList<IMapUnit>();
 
 	
 	/** @category Generated */
-	public ChooseUnitsNotifications(ArrayList<? extends IUnit> units, ArrayList<? extends IUnit> aiUnits) {
+	public ChooseUnitsNotifications(ArrayList<? extends IUnit> units, ArrayList<? extends IMapUnit> aiUnits) {
 		this.units = units;
 		this.aiUnits = aiUnits;
 	}

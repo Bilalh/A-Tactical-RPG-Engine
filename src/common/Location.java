@@ -2,6 +2,8 @@ package common;
 
 import java.io.Serializable;
 
+import common.interfaces.ILocation;
+
 /**
  * Point representing a location in (x, y). 
  * java.awt.Point was not used so that the model does not have dependency on awt.

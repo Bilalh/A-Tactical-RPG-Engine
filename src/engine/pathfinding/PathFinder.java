@@ -13,7 +13,7 @@ import common.LocationInfo;
 import common.ProxyLocationInfo;
 
 import engine.map.IMap;
-import engine.map.IModelUnit;
+import engine.map.IMutableMapUnit;
 
 
 /**
@@ -24,7 +24,7 @@ public class PathFinder implements IMovementCostProvider {
     private static Logger log = Logger.getLogger(PathFinder.class);
 	
     private Dijkstra d;
-	private IModelUnit unit;
+	private IMutableMapUnit unit;
 	private IMap map;
 	
 	private LocationInfo[][] locations;
@@ -36,7 +36,7 @@ public class PathFinder implements IMovementCostProvider {
 	// Cache Calcuted paths
 	HashMap<Location, ArrayDeque<LocationInfo>> paths = new HashMap<Location, ArrayDeque<LocationInfo>>();
 
-	public PathFinder(IModelUnit u, IMap map) {
+	public PathFinder(IMutableMapUnit u, IMap map) {
 		Args.nullCheck(u,map);
 		this.unit = u;
 		this.map = map;

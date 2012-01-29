@@ -6,11 +6,11 @@ package view;
 import java.awt.Graphics;
 import java.util.UUID;
 
-import view.map.MapTile;
+import view.map.GuiTile;
 
 import common.gui.Sprite;
 import common.gui.SpriteManager;
-import common.interfaces.IUnit;
+import common.interfaces.IMapUnit;
 
 /**
  * A units that look anumated e.g. has sprites with slight changes to make it look like it moving.
@@ -29,8 +29,8 @@ public class AnimatedUnit extends GuiUnit {
 	// 100 millisecond frames
 	private long frameDuration = 100 *1000000; 
 	
-	public AnimatedUnit(int gridX, int gridY, String ref, IUnit u) {
-		super(gridX,gridY,ref,u);
+	public AnimatedUnit(int gridX, int gridY, String ref) {
+		super(gridX,gridY,ref);
 		
 		// setup the animatin frames
 		frames= new Sprite[4];
@@ -40,8 +40,8 @@ public class AnimatedUnit extends GuiUnit {
 		frames[3] = SpriteManager.instance().getSprite("assets/gui/alien3.gif");	
 	}
 
-	public AnimatedUnit(int gridX, int gridY, String[] refs, IUnit u) {
-		super(gridX,gridY,refs[0], u);
+	public AnimatedUnit(int gridX, int gridY, String[] refs) {
+		super(gridX,gridY,refs[0]);
 		frames = new Sprite[refs.length]; 
 		frames[0] = sprite;
 		for (int i = 1; i < refs.length; i++) {
@@ -50,7 +50,7 @@ public class AnimatedUnit extends GuiUnit {
 	}
 	
 
-	public void draw(Graphics g, final MapTile[][] tiles, int x, int y, long timeDiff){
+	public void draw(Graphics g, final GuiTile[][] tiles, int x, int y, long timeDiff){
 		lastFrameChange += timeDiff;
 		
 		// if we need to change the frame, update the frame number and flip over the sprite in use
@@ -69,13 +69,5 @@ public class AnimatedUnit extends GuiUnit {
 		
 		draw(g, tiles,x, y);
 	}
-
-	@Override
-	public String toString() {
-		return String.format("AnimatedUnit [gridX=%s, gridY=%s, getMove()=%s]", gridX, gridY,
-				getMove());
-	}
-	
-	
 	
 }

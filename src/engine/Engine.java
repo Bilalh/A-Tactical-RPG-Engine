@@ -3,8 +3,6 @@ package engine;
 import engine.PathfindingEx.TileBasedMap;
 import engine.map.IMap;
 import engine.map.Map;
-import engine.map.Player;
-import engine.map.Unit;
 
 /**
  * @author bilalh

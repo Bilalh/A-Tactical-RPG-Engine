@@ -13,7 +13,8 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.sun.tools.internal.ws.util.xml.XmlUtil;
-import common.ImageType;
+
+import common.enums.ImageType;
 
 import config.xml.TileImageData;
 import config.xml.TileMapping;

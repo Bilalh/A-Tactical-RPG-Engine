@@ -2,8 +2,8 @@ package view.map;
 
 
 
-import common.ILocation;
 import common.Location;
+import common.interfaces.ILocation;
 
 
 public final class MapSettings {

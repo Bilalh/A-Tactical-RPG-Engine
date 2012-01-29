@@ -1,5 +1,7 @@
 package common;
 
+import common.interfaces.ILocation;
+
 
 
 /**

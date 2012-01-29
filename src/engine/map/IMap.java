@@ -1,27 +1,43 @@
 package engine.map;
 
-import common.Location;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+
+import common.Location;
+import common.LocationInfo;
+import common.interfaces.IMapUnit;
+
+import config.xml.TileImageData;
+import engine.IMutableUnit;
 
 /**
- * @author Bilal Hussain
+ * @author bilalh
  */
 public interface IMap {
 
-	public abstract void start();
+	void start();
 
-	public abstract void moveUnit(IModelUnit u, Location p);
+	void setUsersUnits(HashMap<IMutableUnit, Location> selected);
 
-	public abstract void setUsersUnits(ArrayList<IModelUnit> selected);
+	// Precondition getMovementRange must have been called first
+	void moveUnit(IMutableMapUnit u, Location p);
 
-	public Tile getTile(int x, int y);
-	
-	public abstract int getFieldHeight();
+	Collection<LocationInfo> getMovementRange(IMutableMapUnit u);
 
-	public abstract int getFieldWidth();
+	ArrayList<IMapUnit> getUnits();
 
-	public abstract boolean isPlayersTurn();
+	Tile getTile(int x, int y);
 
-	public abstract ArrayList<Unit> getUnits();
+	TileImageData getTileImageData(int x, int y);
+
+	/** @category Generated */
+	boolean isPlayersTurn();
+
+	/** @category Generated Getter */
+	int getFieldWidth();
+
+	/** @category Generated Getter */
+	int getFieldHeight();
 
 }

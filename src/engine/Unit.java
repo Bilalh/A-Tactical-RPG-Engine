@@ -1,13 +1,15 @@
-package engine.ai;
+package engine;
 
-import java.util.UUID;
+import common.interfaces.IUnit;
 
-import engine.map.MapUnit;
+import java.util.*;
+
+import engine.map.Tile;
 
 /**
- * @author Bilal Hussain
+ * @author bilalh
  */
-public class AIUnit extends MapUnit {
+public class Unit implements IMutableUnit {
 
 	final private String name;
 
@@ -21,91 +23,99 @@ public class AIUnit extends MapUnit {
 
 	final private UUID uuid;
 
-	public AIUnit(String name, int gridX, int gridY) {
-		super(gridX, gridY);
+	/** @category Generated */
+	public Unit(String name, int maxHp, int move, int strength) {
 		this.name = name;
+		this.maxHp = maxHp;
+		this.move = move;
+		this.strength = strength;
 		uuid = UUID.randomUUID();
 	}
 
-	/** @category Generated */
 	@Override
-	public int getMaxHp() {
-		return maxHp;
+	public int getCost(Tile old, Tile next) {
+		return 1 + Math.abs(next.getCost() - old.getCost());
 	}
 
-	/** @category Generated */
-	@Override
-	public void setMaxHp(int maxHp) {
-		this.maxHp = maxHp;
-	}
-
-	/** @category Generated */
-	@Override
-	public int getMove() {
-		return move;
-	}
-
-	/** @category Generated */
-	@Override
-	public void setMove(int move) {
-		this.move = move;
-	}
-
-	/** @category Generated */
-	@Override
-	public int getStrength() {
-		return strength;
-	}
-
-	/** @category Generated */
-	@Override
-	public void setStrength(int strength) {
-		this.strength = strength;
-	}
-
-	/** @category Generated */
-	@Override
-	public int getDefence() {
-		return defence;
-	}
-
-	/** @category Generated */
-	@Override
-	public void setDefence(int defence) {
-		this.defence = defence;
-	}
-
-	/** @category Generated */
-	@Override
-	public int getLevel() {
-		return level;
-	}
-
-	/** @category Generated */
-	@Override
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	/** @category Generated */
-	@Override
-	public int getExp() {
-		return exp;
-	}
-
-	/** @category Generated */
-	@Override
-	public void setExp(int exp) {
-		this.exp = exp;
-	}
-
-	/** @category Generated */
+	/** @category Generated Getter */
 	@Override
 	public String getName() {
 		return name;
 	}
 
-	/** @category Generated */
+	/** @category Generated Getter */
+	@Override
+	public int getMaxHp() {
+		return maxHp;
+	}
+
+	/** @category Generated Setter */
+	@Override
+	public void setMaxHp(int maxHp) {
+		this.maxHp = maxHp;
+	}
+
+	/** @category Generated Getter */
+	@Override
+	public int getMove() {
+		return move;
+	}
+
+	/** @category Generated Setter */
+	@Override
+	public void setMove(int move) {
+		this.move = move;
+	}
+
+	/** @category Generated Getter */
+	@Override
+	public int getStrength() {
+		return strength;
+	}
+
+	/** @category Generated Setter */
+	@Override
+	public void setStrength(int strength) {
+		this.strength = strength;
+	}
+
+	/** @category Generated Getter */
+	@Override
+	public int getDefence() {
+		return defence;
+	}
+
+	/** @category Generated Setter */
+	@Override
+	public void setDefence(int defence) {
+		this.defence = defence;
+	}
+
+	/** @category Generated Getter */
+	@Override
+	public int getLevel() {
+		return level;
+	}
+
+	/** @category Generated Setter */
+	@Override
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	/** @category Generated Getter */
+	@Override
+	public int getExp() {
+		return exp;
+	}
+
+	/** @category Generated Setter */
+	@Override
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+
+	/** @category Generated Getter */
 	@Override
 	public UUID getUuid() {
 		return uuid;

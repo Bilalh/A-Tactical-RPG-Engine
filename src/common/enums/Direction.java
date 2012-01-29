@@ -1,4 +1,4 @@
-package common;
+package common.enums;
 
 public enum Direction {
 	NORTH (0, -1, "N",1),

@@ -12,9 +12,10 @@ import org.junit.Test;
 import util.*;
 
 
+import engine.Unit;
 import engine.map.IMap;
-import engine.map.IModelUnit;
-import engine.map.Unit;
+import engine.map.IMutableMapUnit;
+import engine.map.MapUnit;
 import engine.pathfinding.*;
 import static org.junit.Test.*;
 import static org.junit.Assert.*;
@@ -26,15 +27,14 @@ public class TestPathFinder extends Tests {
 	
 	PathFinder pf;
 	MockMap map;
-	IModelUnit unit;
+	IMutableMapUnit unit;
 	ArrayList<LocationInfo> exp;
 	
 	@Before
 	public void setup(){
 		exp = new ArrayList<LocationInfo>();
 		map = new MockMap();
-		unit = new Unit("dd", 31, 4, 41);
-		unit.setLocation(new Location(0,0));
+		unit = new MapUnit(null, new Location(0, 0));
 	}
 	
 	void setupSimple() {

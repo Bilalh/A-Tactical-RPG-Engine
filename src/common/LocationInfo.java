@@ -1,5 +1,8 @@
 package common;
 
+import common.enums.Direction;
+import common.interfaces.ILocation;
+
 
 
 // Stores infomation about a tile

@@ -1,4 +1,4 @@
-package common;
+package common.interfaces;
 
 /**
  * @author Bilal Hussain

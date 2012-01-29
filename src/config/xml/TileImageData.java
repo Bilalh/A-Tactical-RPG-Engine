@@ -1,7 +1,8 @@
 package config.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import common.ImageType;
+
+import common.enums.ImageType;
 
 /**
  * @author Bilal Hussain

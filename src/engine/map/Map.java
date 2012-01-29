@@ -6,20 +6,23 @@ import common.LocationInfo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
-import view.notifications.ChooseUnitsNotifications;
-import view.notifications.PlayersTurnNotification;
-import view.notifications.UserMovedNotification;
+import view.notifications.*;
 
 import common.interfaces.INotification;
+import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
 import config.Config;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
 import config.xml.TileImageData;
 import config.xml.TileMapping;
+import engine.IMutableUnit;
+import engine.Player;
+import engine.Unit;
 import engine.PathfindingEx.AStarPathFinder;
 import engine.PathfindingEx.Mover;
 import engine.PathfindingEx.TileBasedMap;
@@ -40,14 +43,15 @@ public class Map extends Observable implements IMap {
 	private int width;
 	private int height;
 
-	private AIPlayer ai;
 	private Player player;
 	
-	private ArrayList<IModelUnit> selectedUnits;
-	private HashMap<IModelUnit, PathFinder> paths;
+	private AIPlayer ai;
+	private MapPlayer mplayer;
 	
-	boolean playersTurn; // false aiplayer
-
+	//	Cached movement data 
+	private HashMap<IMutableMapUnit, PathFinder> paths;
+	
+	private boolean playersTurn; 
 	
 	/** @category Constructor */
 	public Map(String name, Player player) {
@@ -56,31 +60,27 @@ public class Map extends Observable implements IMap {
 		setUpAI();
 		
 		playersTurn = true;
-		paths = new HashMap<IModelUnit, PathFinder>();
+		paths = new HashMap<IMutableMapUnit, PathFinder>();
 	}
 
 	private void setUpAI() {
-		AIPlayer ai = new AIPlayer();
-		AIUnit u = new AIUnit("ai-1", 20, 4, 4);
-		u.setGridX(width - 1);
-		u.setGridY(0);
-		ai.addUnit(u);
+		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
+		
+		AIUnit u = new AIUnit("ai-1", width - 1, 0);
+		aiUnits.add(u);
 		field[width - 1][0].setCurrentUnit(u);
 
-		u = new AIUnit("ai-2", 10, 3, 10);
-		u.setGridX(width - 1);
-		u.setGridY(1);
-		ai.addUnit(u);
+		u = new AIUnit("ai-2", width - 1, 1);
+		aiUnits.add(u);
 		field[width - 1][1].setCurrentUnit(u);
-
-		this.ai = ai;
+		
+		ai = new AIPlayer(aiUnits);
 	}
 
 	private void loadSettings(String name) {
 		loadMap(name);
 //		loadFromSpaceSepFile("test.txt");
 //		testing();
-		
 		assert(field != null);
 		assert(width  > 0);
 		assert(height > 0);
@@ -106,69 +106,6 @@ public class Map extends Observable implements IMap {
 		
 	}
 	
-	void testing() {
-		tileMapping = Config.defaultMapping();
-		width = 17;
-		height = 17;
-		field = new Tile[width][height];
-
-		long seed = 654645l;
-		Random r = new Random(seed);
-		log.info("seed" + " " + seed);
-		for (int i = 0; i < field.length; i++) {
-			for (int j = 0; j < field[i].length; j++) {
-				int first = r.nextInt(3) + 1;
-				field[i][j] = new Tile(first, first);
-				// field[i][j] = new Tile(1,1);
-			}
-		}
-		// field[2][6] = new Tile(3, 3);
-		//
-		// field[2][7] = new Tile(2, 2);
-		// field[1][4] = new Tile(2, 2);
-		//
-		//
-		// field[3][5] = new Tile(2, 2);
-		// field[2][4] = new Tile(2, 2);
-		//
-		// field[1][6] = new Tile(2, 2);
-		// field[10][5] = new Tile(7, 7);
-		// field[10][4] = new Tile(7, 7);
-		//
-		// for(int i =0; i < 8;i+=2){
-		// field[6][i] = new Tile(i,i);
-		// }
-
-		// for (int i = 8; i < 14; i++) {
-		// for (int j = 8; j < 14; j++) {
-		// int first = r.nextInt(5)+1;
-		// field[i][j] = new Tile(first, first);
-		// }
-		// }
-	}
-
-	private void loadFromSpaceSepFile(String name) {
-		tileMapping = Config.defaultMapping();
-		try {
-			File f = new java.io.File(name);
-			Scanner sc = new Scanner(f);
-			width = sc.nextInt();
-			height = sc.nextInt();
-			// width = 8;
-			// height = 8;
-			field = new Tile[width][height];
-			for (int i = 0; i < field.length; i++) {
-				for (int j = 0; j < field[i].length; j++) {
-					int a = sc.nextInt() + 2;
-					field[i][j] = new Tile(a, a);
-				}
-			}
-	
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public void start() {
 		INotification n = new ChooseUnitsNotifications(player.getUnits(), ai.getUnits());
@@ -177,25 +114,29 @@ public class Map extends Observable implements IMap {
 	}
 
 	@Override
-	public void setUsersUnits(ArrayList<IModelUnit> selected) {
-		selectedUnits = selected;
+	public void setUsersUnits(HashMap<IMutableUnit, Location> selected) {
 		System.out.println(selected);
-		for (IModelUnit u : selected) {
-			field[u.getGridX()][u.getGridY()].setCurrentUnit(u);
-		}
 
-		INotification n = new PlayersTurnNotification();
+		ArrayList<IMutableMapUnit> units = new ArrayList<IMutableMapUnit>();
+		
+		for (Entry<IMutableUnit, Location> e : selected.entrySet()) {
+			IMutableMapUnit u = new MapUnit(e.getKey(),e.getValue()); 
+			field[u.getGridX()][u.getGridY()].setCurrentUnit(u);
+			units.add(u);
+		}
+		mplayer = new MapPlayer(units);
+		
+		INotification n = new UnitsChosenNotification(new ArrayList<IMapUnit>(units));
 		setChanged();
 		notifyObservers(n);
 	}
 
 	
-	// Precondtion getMovementRange must have been called first
+	// Precondition getMovementRange must have been called first
 	@Override
-	public void moveUnit(IModelUnit u, Location p) {
+	public void moveUnit(IMutableMapUnit u, Location p) {
 		
 		Collection<LocationInfo> path  =  paths.get(u).getMovementPath(p);
-
 		field[u.getGridX()][u.getGridY()].setCurrentUnit(null);
 		u.setLocation(p);
 		field[p.x][p.y].setCurrentUnit(u);
@@ -212,7 +153,8 @@ public class Map extends Observable implements IMap {
 		notifyObservers(n);
 	}
 
-	public Collection<LocationInfo> getMovementRange(IModelUnit u){
+	@Override
+	public Collection<LocationInfo> getMovementRange(IMutableMapUnit u){
 		PathFinder pf;
 		if ((pf = paths.get(u)) != null){
 			return pf.getMovementRange();
@@ -226,8 +168,8 @@ public class Map extends Observable implements IMap {
 	
 	
 	@Override
-	public ArrayList<Unit> getUnits() {
-		return player.getUnits();
+	public ArrayList<IMapUnit> getUnits() {
+		 return new ArrayList<IMapUnit>(mplayer.getUnits());
 	}
 
 	@Override
@@ -235,6 +177,7 @@ public class Map extends Observable implements IMap {
 		return field[x][y];
 	}
 	
+	@Override
 	public TileImageData getTileImageData(int x, int y){
 		return tileMapping.getTileImageData(field[x][y].getType());
 	}
@@ -262,4 +205,45 @@ public class Map extends Observable implements IMap {
 		return height;
 	}
 
+	
+	void testing() {
+		tileMapping = Config.defaultMapping();
+		width = 17;
+		height = 17;
+		field = new Tile[width][height];
+
+		long seed = 654645l;
+		Random r = new Random(seed);
+		log.info("seed" + " " + seed);
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				int first = r.nextInt(3) + 1;
+				field[i][j] = new Tile(first, first);
+				// field[i][j] = new Tile(1,1);
+			}
+		}
+	}
+
+	private void loadFromSpaceSepFile(String name) {
+		tileMapping = Config.defaultMapping();
+		try {
+			File f = new java.io.File(name);
+			Scanner sc = new Scanner(f);
+			width = sc.nextInt();
+			height = sc.nextInt();
+			// width = 8;
+			// height = 8;
+			field = new Tile[width][height];
+			for (int i = 0; i < field.length; i++) {
+				for (int j = 0; j < field[i].length; j++) {
+					int a = sc.nextInt() + 2;
+					field[i][j] = new Tile(a, a);
+				}
+			}
+	
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

@@ -21,7 +21,7 @@ public class MapRenderer {
 	private static final Logger log = Logger.getLogger(MapRenderer.class);
 	
 	IMapRendererParent parent;
-	MapTile[][] field;
+	GuiTile[][] field;
 
 	private final int fieldWidth, fieldHeight;
 	private final int startX, startY;
@@ -31,7 +31,7 @@ public class MapRenderer {
 	int animationDuration = 750 * 1000000;
 
 	/** @category Generated Constructor */
-	public MapRenderer(MapTile[][] field, IMapRendererParent parent, int startX, int startY) {
+	public MapRenderer(GuiTile[][] field, IMapRendererParent parent, int startX, int startY) {
 		this.startX = startX;
 		this.startY = startY;
 		this.parent = parent;
