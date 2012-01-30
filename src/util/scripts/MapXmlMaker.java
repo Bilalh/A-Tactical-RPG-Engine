@@ -21,7 +21,7 @@ import config.xml.*;
  */
 public class MapXmlMaker {
 
-	static String filename = "mask-test";
+	static String filename = "map4";
 	
 	public static void main(String[] args) throws IOException {
 		Config.loadLoggingProperties();

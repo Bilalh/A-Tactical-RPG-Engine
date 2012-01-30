@@ -28,17 +28,16 @@ public abstract class XMLUtil {
 	private static XStream xs;
 
 	static {
-
 		xs = new XStream(new DomDriver());
 		xs.processAnnotations(getClassesForAnnotations());
 		// xs.addDefaultImplementation(Card.class,ICard.class);
-		xs.setMode(XStream.NO_REFERENCES);
+		// xs.setMode(XStream.NO_REFERENCES);
 	}
 
 	/**
-	 * Makes a xml string from a IPreference
+	 * Makes a xml string from am IPreference
 	 * 
-	 * @param message - an instance of message
+	 * @param message - an instance of IPreference
 	 * @return A string containing the xml
 	 */
 	public static String makeXml(IPreference message) {
@@ -48,7 +47,12 @@ public abstract class XMLUtil {
 		return sw.toString();
 	}
 
-	// makes Formatted Xml
+	/**
+	 * Makes a pretty printed xml string from an IPreference
+	 * 
+	 * @param message - an instance of IPreference
+	 * @return A string containing the xml
+	 */
 	public static String makeFormattedXml(IPreference message) {
 		Logf.debug(log, "Saving %s", message);
 		return xs.toXML(message);
@@ -58,11 +62,10 @@ public abstract class XMLUtil {
 	 * Converts the xml in the string to an object
 	 * 
 	 * @param <E> - The type
-	 * @param is - The InputStream
-	 * @return A message object
+	 * @param is  - The InputStream
+	 * @return A IPreference
 	 */
-	public static <E> E convertXml(InputStream is) {
-		@SuppressWarnings("unchecked")
+	public static <E extends IPreference> E convertXml(InputStream is) {
 		E fromXML = (E) xs.fromXML(is);
 		Logf.info(log, "Loaded %s", fromXML);
 		return fromXML;
@@ -72,17 +75,21 @@ public abstract class XMLUtil {
 	 * Converts the xml in the string to an object
 	 * 
 	 * @param <E> - The type
-	 * @param s - The String
-	 * @return A message object
+	 * @param s   - The String
+	 * @return A IPreference
 	 */
-	public static <E> E convertXml(String s) {
-		@SuppressWarnings("unchecked")
+	public static <E extends IPreference> E convertXml(String s) {
 		E fromXML = (E) xs.fromXML(s);
 		Logf.info(log, "loaded %s", fromXML);
 		return fromXML;
 	}
 
-	public static void addAnnotations(Class<?>[] classes) {
+	/**
+	 * Adds a Xstream Annotations to processed, should be done at setup.
+	 * 
+	 * @param <E> - The type
+	 */
+	public static <E extends IPreference> void addAnnotations(Class<E>[] classes) {
 		xs.processAnnotations(classes);
 	}
 

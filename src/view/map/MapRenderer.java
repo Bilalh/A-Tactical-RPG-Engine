@@ -74,7 +74,7 @@ public class MapRenderer {
 						g.setColor(old);
 					}
 
-					AnimatedUnit u = parent.getUnit(field[j][i]);
+					AnimatedUnit u = field[j][i].getUnit();
 					if (u != null) {
 //						Logf.debug(log,"(%s,%s) unit:%s",j,i, u);
 						u.draw(g, field, x, y, animationDuration);

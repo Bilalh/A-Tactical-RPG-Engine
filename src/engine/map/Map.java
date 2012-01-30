@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
+import util.Args;
 import view.notifications.*;
 
 import common.interfaces.INotification;
@@ -155,6 +156,7 @@ public class Map extends Observable implements IMap {
 
 	@Override
 	public Collection<LocationInfo> getMovementRange(IMutableMapUnit u){
+		Args.nullCheck(u);
 		PathFinder pf;
 		if ((pf = paths.get(u)) != null){
 			return pf.getMovementRange();

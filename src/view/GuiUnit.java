@@ -96,7 +96,7 @@ public class GuiUnit {
 	}
 
 	/** @category Generated */
-	public void setUnit(IMapUnit unit) {
+	public void setMapUnit(IMapUnit unit) {
 		this.unit = unit;
 	}
 	

@@ -73,7 +73,6 @@ public class GuiMap implements Observer, IMapRendererParent {
     private MousePoxy MousePoxy;
     
     private HashMap<UUID,AnimatedUnit> unitMapping;
-    private HashMap<GuiTile,AnimatedUnit> tileMapping; 
 
     // Buffer for drawing the map.    	
     private Image mapBuffer;
@@ -130,8 +129,6 @@ public class GuiMap implements Observer, IMapRendererParent {
         startY = heightOffset;
         
         unitMapping = new HashMap<UUID, AnimatedUnit>();
-        tileMapping = new HashMap<GuiTile, AnimatedUnit>();
-        
         dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
         
         selectedTile = field[0][0];
@@ -165,17 +162,17 @@ public class GuiMap implements Observer, IMapRendererParent {
 			if (frameChange > frameDuration) {
 				frameChange = 0;
 				if(pathIterator.hasNext()){
-					AnimatedUnit u = tileMapping.remove(getTile(lastLocation));
+					AnimatedUnit u = getTile(lastLocation).removeUnit();
 					lastLocation = pathIterator.next();
 					u.setLocation(lastLocation);
 					
 					if (over != null){
-						tileMapping.put(getTile(over.getLocation()), over);
+						getTile(lastLocation).setUnit(over);
 						over = null;
 					}
-					over = tileMapping.get(getTile(lastLocation));
+					over = getTile(lastLocation).getUnit();
 					
-					tileMapping.put(getTile(lastLocation),u);
+					getTile(lastLocation).setUnit(u);
 					log.trace("Moved to" + getTile(lastLocation));
 					
 					if (!pathIterator.hasNext()){
@@ -190,7 +187,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			drawn = mapRenderer.draw(g, width, height);
-			Logf.debug(log, "%s %s %s %s %s %s %s %s %s %s ",bufferWidth,bufferHeight, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height);
+//			Logf.trace(log, "%s %s %s %s %s %s %s %s %s %s ",bufferWidth,bufferHeight, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height);
 		}
 		
 		_g.drawImage(mapBuffer, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height, null);
@@ -225,7 +222,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"});
 				selectedPostions.put(u, p);
 				unitMapping.put(u.getUuid(), newUnits[i]);
-				tileMapping.put(field[p.x][p.y], newUnits[i]);
+				field[p.x][p.y].setUnit(newUnits[i]);
 		}
 		mapController.setUsersUnits(selectedPostions);
 		this.units = newUnits;
@@ -235,16 +232,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 			final IMapUnit u = aiUnits.get(i);
 			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(), 
 					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"});
-			newAiUnits[i].setUnit(u);
-			tileMapping.put(field[u.getGridX()][u.getGridY()], newAiUnits[i]);
+			newAiUnits[i].setMapUnit(u);
+			field[u.getGridX()][u.getGridY()].setUnit(newAiUnits[i]);
 		}
 		this.aiUnits = newAiUnits;
 	}
 	
 	public void unitsChoosen(ArrayList<IMapUnit> units){
 		for (IMapUnit u : units) {
-			//FIXME todo unit choosen 
-//			assert(false);
+//			FIXME todo unit choosen 
+			field[u.getGridX()][u.getGridY()].getUnit().setMapUnit(u);
 		}
 	}
 	
@@ -505,7 +502,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				mapController.moveUnit(units[0].getUnit(), newP);
 				break;
 			case KeyEvent.VK_I:
-				Logf.info(log,"draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, tileMapping.get(selectedTile));
+				Logf.info(log,"draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, selectedTile.getUnit());
 				break;
 		}
 		
@@ -612,11 +609,6 @@ public class GuiMap implements Observer, IMapRendererParent {
     	
     }
 
-    @Override
-	public AnimatedUnit getUnit(GuiTile tile){
-		return tileMapping.get(tile);
-	}
-	
     public GuiTile getTile(ILocation l){
     	return field[l.getX()][l.getY()];
     }

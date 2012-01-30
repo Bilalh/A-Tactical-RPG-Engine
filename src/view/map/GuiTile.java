@@ -10,8 +10,11 @@ import java.awt.image.BufferedImage;
 import common.enums.ImageType;
 import common.gui.Sprite;
 import common.gui.SpriteManager;
+import common.interfaces.IMapUnit;
 
 import javax.swing.*;
+
+import view.AnimatedUnit;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -44,20 +47,22 @@ public class GuiTile {
 	private float height;
 	private float startHeight;
 	private float endHeight;
+	
+	private Polygon top; // For mouse testing 
 	private Location fieldLocation;
+	
+	
 	private TileState state;
-
-	private Polygon top;
 	private boolean selected = false;
 
-	
 	// The Tiles image 
 	private Image tileImage;
 	private ImageType type;
 	
+	private AnimatedUnit unit;
+	
 	// debuging
 	private int cost;
-	
 	
 	// testing
 	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass32.jpg").getImage();
@@ -69,6 +74,7 @@ public class GuiTile {
 	static Image iWall = SpriteManager.instance().getSprite("assets/gui/wallb16.jpg").getImage();
 	static Rectangle2D rWall = new Rectangle2D.Double(0, 0, iWall.getWidth(null),iWall.getHeight(null));
 	static TexturePaint tWall = new TexturePaint((BufferedImage) iWall, rWall);
+	
 	
 	public GuiTile(Orientation orientation, float startHeight, float endHeight, 
 			int x, int y, String filename, ImageType type ) {
@@ -466,6 +472,21 @@ public class GuiTile {
 		g.setColor(oldColor);
 	}
 
+	/** @category Generated */
+	public AnimatedUnit getUnit() {
+		return unit;
+	}
+
+	public AnimatedUnit removeUnit(){
+		AnimatedUnit temp = unit;
+		unit = null;
+		return temp;
+	}
+	
+	/** @category Generated */
+	public void setUnit(AnimatedUnit unit) {
+		this.unit = unit;
+	}
 
 	/** @category Generated */
 	public Orientation getOrientation() {

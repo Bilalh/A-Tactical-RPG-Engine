@@ -9,6 +9,7 @@ import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
 import config.xml.TileImageData;
 
+import util.Args;
 import view.GuiUnit;
 import engine.IMutableUnit;
 import engine.Unit;
@@ -52,6 +53,7 @@ public class MapController extends Controller {
 	}
 
 	public Collection<LocationInfo> getMovementRange(IMapUnit u) {
+		Args.nullCheck(u);
 		return map.getMovementRange((IMutableMapUnit) u);
 	}
 

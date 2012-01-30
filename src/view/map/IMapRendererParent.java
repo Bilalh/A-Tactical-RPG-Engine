@@ -9,8 +9,7 @@ import view.AnimatedUnit;
 public interface IMapRendererParent {
 	
 	boolean isMouseMoving();
-	AnimatedUnit getUnit(GuiTile tile);
-	
 	public int getDrawX();
 	public int getDrawY();
+	
 }
