@@ -12,10 +12,13 @@ import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
+import common.spritesheet.Sprite;
+
 import config.xml.SavedMap;
 import config.xml.SavedTile;
 import config.xml.TileImageData;
 import config.xml.TileMapping;
+import editor.imagePacker.Spritee;
 
 /**
  * Xml utilities to create and parse xml
@@ -25,7 +28,7 @@ import config.xml.TileMapping;
 public abstract class XMLUtil {
 	private static final Logger log = Logger.getLogger(XMLUtil.class);
 
-	private static XStream xs;
+	public static XStream xs;
 
 	static {
 		xs = new XStream(new DomDriver());
@@ -53,7 +56,7 @@ public abstract class XMLUtil {
 	 * @param message - an instance of IPreference
 	 * @return A string containing the xml
 	 */
-	public static String makeFormattedXml(IPreference message) {
+	public static String makeFormattedXml(Object message) {
 		Logf.debug(log, "Saving %s", message);
 		return xs.toXML(message);
 	}
@@ -65,7 +68,7 @@ public abstract class XMLUtil {
 	 * @param is  - The InputStream
 	 * @return A IPreference
 	 */
-	public static <E extends IPreference> E convertXml(InputStream is) {
+	public static <E> E convertXml(InputStream is) {
 		E fromXML = (E) xs.fromXML(is);
 		Logf.info(log, "Loaded %s", fromXML);
 		return fromXML;
@@ -78,7 +81,7 @@ public abstract class XMLUtil {
 	 * @param s   - The String
 	 * @return A IPreference
 	 */
-	public static <E extends IPreference> E convertXml(String s) {
+	public static <E> E convertXml(String s) {
 		E fromXML = (E) xs.fromXML(s);
 		Logf.info(log, "loaded %s", fromXML);
 		return fromXML;
@@ -89,7 +92,7 @@ public abstract class XMLUtil {
 	 * 
 	 * @param <E> - The type
 	 */
-	public static <E extends IPreference> void addAnnotations(Class<E>[] classes) {
+	public static <E> void addAnnotations(Class<E>[] classes) {
 		xs.processAnnotations(classes);
 	}
 
@@ -101,6 +104,11 @@ public abstract class XMLUtil {
 	public static Class<?>[] getClassesForAnnotations() {
 
 		return new Class[] {
+				Spritee.class,
+				
+				
+				Sprite.class,
+				
 				SavedTile.class,
 				SavedMap.class,
 				TileMapping.class,

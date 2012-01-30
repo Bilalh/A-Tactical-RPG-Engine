@@ -12,6 +12,7 @@ import java.util.Comparator;
 
 import javax.imageio.ImageIO;
 
+
 /**
  * A daft image packer
  * 
@@ -35,7 +36,7 @@ public class Pack {
 		try {
 			for (int i=0;i<files.size();i++) {
 				File file = (File) files.get(i);
-				Sprite sprite = new Sprite(file.getName(), ImageIO.read(file));
+				Spritee sprite = new Spritee(file.getName(), ImageIO.read(file));
 				
 				images.add(sprite);
 			}
@@ -60,8 +61,8 @@ public class Pack {
 	public Sheet packImages(ArrayList images, int width, int height, int border, File out) throws IOException {
 		Collections.sort(images, new Comparator() {
 			public int compare(Object o1, Object o2) {
-				Sprite a = (Sprite) o1;
-				Sprite b = (Sprite) o2;
+				Spritee a = (Spritee) o1;
+				Spritee b = (Spritee) o2;
 				
 				int asize = a.getHeight();
 				int bsize = b.getHeight();
@@ -80,11 +81,11 @@ public class Pack {
 			PrintStream pout = null;
 			if (out != null) {
 				pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(), out.getName()+".xml")));
-				pout.println("<sheet>");
+				pout.println("<sprite-array>");
 			}
 			
 			for (int i=0;i<images.size();i++) {
-				Sprite current = (Sprite) images.get(i);
+				Spritee current = (Spritee) images.get(i);
 				if (x + current.getWidth() > width) {
 					x = 0;
 					y += rowHeight;
@@ -112,7 +113,7 @@ public class Pack {
 			g.dispose();
 			
 			if (out != null) {
-				pout.println("</sheet>");
+				pout.println("</sprite-array>");
 				pout.close();
 			}
 		} catch (Exception e) {

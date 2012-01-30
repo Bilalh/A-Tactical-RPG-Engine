@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+
 /**
  * The panel displaying the currently generated sprite sheet
  * 
@@ -60,7 +61,7 @@ public class SheetPanel extends JPanel {
 		
 		addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				Sprite sprite = packer.getSpriteAt(e.getX(), e.getY());
+				Spritee sprite = packer.getSpriteAt(e.getX(), e.getY());
 				
 				if (sprite != null) {
 					ArrayList selection = new ArrayList();
@@ -126,7 +127,7 @@ public class SheetPanel extends JPanel {
 		
 		g.setColor(Color.green);
 		for (int i=0;i<selected.size();i++) {
-			Sprite sprite = (Sprite) selected.get(i);
+			Spritee sprite = (Spritee) selected.get(i);
 			
 			g.drawRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 		}

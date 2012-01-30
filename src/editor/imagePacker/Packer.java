@@ -33,6 +33,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 
+
 /**
  * A simple GUI on the front of the packing tool
  * 
@@ -179,7 +180,7 @@ public class Packer extends JFrame {
 					File[] selected = chooser.getSelectedFiles();
 					for (int i=0;i<selected.length;i++) {
 						try {
-							sprites.addElement(new Sprite(selected[i]));
+							sprites.addElement(new Spritee(selected[i]));
 						} catch (IOException x) {
 							x.printStackTrace();
 							JOptionPane.showMessageDialog(Packer.this, "Unable to load: "+selected[i].getName());
@@ -264,10 +265,10 @@ public class Packer extends JFrame {
 	 * @param y The y coordinate to look for the sprite
 	 * @return The sprite found at the given location or null if no sprite can be found
 	 */
-	public Sprite getSpriteAt(int x, int y) {
+	public Spritee getSpriteAt(int x, int y) {
 		for (int i=0;i<sprites.size();i++) {
-			if (((Sprite) sprites.get(i)).contains(x,y)) {
-				return ((Sprite) sprites.get(i));
+			if (((Spritee) sprites.get(i)).contains(x,y)) {
+				return ((Spritee) sprites.get(i));
 			}
 		}
 		
@@ -346,7 +347,7 @@ public class Packer extends JFrame {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,
 					cellHasFocus);
 			
-			Sprite sprite = (Sprite) value;
+			Spritee sprite = (Spritee) value;
 			label.setText(sprite.getName());
 			
 			return label;

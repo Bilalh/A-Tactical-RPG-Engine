@@ -1,0 +1,4 @@
+<sprite-array>
+	<sprite name="blue60-rst.png" x="0" y="0" width="60" height="30" />
+	<sprite name="mask-60.png" x="60" y="0" width="60" height="30" />
+</sprite-array>
