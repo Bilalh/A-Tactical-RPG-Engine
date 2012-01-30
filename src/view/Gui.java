@@ -56,7 +56,7 @@ public class Gui extends Observable {
 		long period = (long) 1000.0 / DEFAULT_FPS;
 		// System.out.println("fps: " + DEFAULT_FPS + "; period: " + period + " ms");
         		
-		MapController mapController =  mainController.startMap("map3.xml");
+		MapController mapController =  mainController.startMap("mask-test.xml");
 		mapPanel = new MapPanel(mapController, period * 1000000L);
 		frame.add(mapPanel);
 	}

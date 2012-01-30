@@ -34,7 +34,7 @@ public class TestPathFinder extends Tests {
 	public void setup(){
 		exp = new ArrayList<LocationInfo>();
 		map = new MockMap();
-		unit = new MapUnit(null, new Location(0, 0));
+		unit = new MapUnit(new Unit("d", 2, 3, 4), new Location(0, 0));
 	}
 	
 	void setupSimple() {

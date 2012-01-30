@@ -244,7 +244,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void unitsChoosen(ArrayList<IMapUnit> units){
 		for (IMapUnit u : units) {
 			//FIXME todo unit choosen 
-			assert(false);
+//			assert(false);
 		}
 	}
 	

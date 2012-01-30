@@ -47,28 +47,28 @@ public class GuiTile {
 	private Location fieldLocation;
 	private TileState state;
 
-	private Polygon topReal, top;
+	private Polygon top;
 	private boolean selected = false;
 
+	
+	// The Tiles image 
+	private Image tileImage;
+	private ImageType type;
+	
 	// debuging
 	private int cost;
 	
+	
+	// testing
 	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass32.jpg").getImage();
 //	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/tileeesmall.png").getImage();
 	Rectangle2D rGrass = new Rectangle2D.Double(0, 0, iGrass.getWidth(null), iGrass.getHeight(null));
 	TexturePaint tGrass = new TexturePaint(iGrass, rGrass);
 
+	// testing
 	static Image iWall = SpriteManager.instance().getSprite("assets/gui/wallb16.jpg").getImage();
 	static Rectangle2D rWall = new Rectangle2D.Double(0, 0, iWall.getWidth(null),iWall.getHeight(null));
 	static TexturePaint tWall = new TexturePaint((BufferedImage) iWall, rWall);
-	
-//	Sprite image = SpriteManager.instance().getSprite("assets/gui/tilemask3.png");
-//	Sprite image = SpriteManager.instance().getSprite("assets/gui/tileee.png");
-	
-	// The Tiles image 
-	private Image tileImage;
-	private ImageType type;
-
 	
 	public GuiTile(Orientation orientation, float startHeight, float endHeight, 
 			int x, int y, String filename, ImageType type ) {
@@ -108,7 +108,7 @@ public class GuiTile {
 	}
 	
 	public boolean wasClickedOn(Point click) {
-		return topReal != null && topReal.contains(click);
+		return top != null && top.contains(click);
 	}
 
 	public Point calculateCentrePoint(Point p) {
@@ -148,7 +148,7 @@ public class GuiTile {
 		}
 	}
 
-	Color lineColor = Color.RED;
+	Color lineColor = Color.BLACK;
 	public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide) {
 		Graphics2D g = (Graphics2D) _g;
 		final float finalHeight = (MapSettings.tileHeight * MapSettings.zoom);
@@ -176,7 +176,7 @@ public class GuiTile {
 		final int neg_y_h2_vet_div_2  =Math.round(y - h2 + vertical / 2);
 		final int neg_y_h2_vet        =Math.round(y - h2 + vertical);
 		
-		top = topReal = new Polygon(new int[] {
+		top = new Polygon(new int[] {
 				x,
 				x_hor_div_2,
 				x,
@@ -270,17 +270,17 @@ public class GuiTile {
 		}
 //
 		g.setColor(lineColor); // Outline the top of the tile
-//		g.drawPolygon(new Polygon(new int[] {
-//				x,
-//				x_hor_div_2,
-//				x,
-//				neg_x_hor_div_2 },
-//				new int[] {
-//						(int) (y - h1),
-//						neg_y_h2_vet_div_2,
-//						neg_y_h2_vet,
-//						neg_y_h1_vet_div_2 }
-//				, 4));
+		g.drawPolygon(new Polygon(new int[] {
+				x,
+				x_hor_div_2,
+				x,
+				neg_x_hor_div_2 },
+				new int[] {
+						(int) (y - h1),
+						neg_y_h2_vet_div_2,
+						neg_y_h2_vet,
+						neg_y_h1_vet_div_2 }
+				, 4));
 //		
 		g.setColor(oldColor);
 	}
