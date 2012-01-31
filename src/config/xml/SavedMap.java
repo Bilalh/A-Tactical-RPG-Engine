@@ -10,6 +10,7 @@ import config.IPreference;
 import engine.map.Tile;
 
 /**
+ * An Xml representation of an map.
  * @author Bilal Hussain
  */
 @XStreamAlias("map")

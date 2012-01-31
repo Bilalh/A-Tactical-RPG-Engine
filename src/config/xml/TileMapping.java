@@ -10,7 +10,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import config.IPreference;
 
 /**
- * Maps from the tile type to the images.
+ * Maps from the tile type to the image.
  * 
  * @author Bilal Hussain
  */

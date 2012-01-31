@@ -1,5 +1,9 @@
 package common.enums;
 
+/**
+ * Stores the values for each Direction and their inverses
+ * @author Bilal Hussain
+ */
 public enum Direction {
 	NORTH (0, -1, "N",1),
 	SOUTH (0,  1, "S", 0),

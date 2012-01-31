@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 import util.Args;
 import util.Logf;
-import util.Util;
+import util.ArrayUtil;
 
 import common.Location;
 import common.LocationInfo;
@@ -47,7 +47,7 @@ public class PathFinder implements IMovementCostProvider {
 		Logf.debug(log, "start:%s, start.x:%s, end.x:%s, start.y:%s, end.y:%s",start, start.x, end.x, start.y, end.y);
 		locations = d.calculate(u.getLocation(), start.x, end.x, start.y, end.y);
 		
-		Logf.debug(log,"locations for %s: %s\n",u, Util.array2d(locations, start.x, end.x, start.y, end.y, true));
+		Logf.debug(log,"locations for %s: %s\n",u, ArrayUtil.array2d(locations, start.x, end.x, start.y, end.y, true));
 		
 	}
 
@@ -56,7 +56,7 @@ public class PathFinder implements IMovementCostProvider {
 		if (inRange != null) return inRange;
 
 		Logf.debug(log,"u:%s start:%s end:%s \npf getMovementRange %s",unit, start,end, 
-				Util.array2d(locations, start.x,  end.x, start.y, end.y, true));
+				ArrayUtil.array2d(locations, start.x,  end.x, start.y, end.y, true));
 		
 		inRange = new HashSet<LocationInfo>();
 		for (int i = start.x; i < end.x; i++) {

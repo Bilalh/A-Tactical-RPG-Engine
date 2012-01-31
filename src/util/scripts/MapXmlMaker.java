@@ -16,7 +16,7 @@ import config.XMLUtil;
 import config.xml.*;
 
 /**
- * Creates the xml for  map 
+ * Creates the xml for a  map 
  * @author Bilal Hussain
  */
 public class MapXmlMaker {

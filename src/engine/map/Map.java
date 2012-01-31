@@ -35,7 +35,6 @@ import engine.pathfinding.PathFinder;
  * @author bilalh
  */
 public class Map extends Observable implements IMap {
-
 	private static final Logger log = Logger.getLogger(Map.class);
 	
 	private Tile[][] field;

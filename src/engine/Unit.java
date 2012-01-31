@@ -7,6 +7,7 @@ import java.util.*;
 import engine.map.Tile;
 
 /**
+ * Store details about the unit.
  * @author bilalh
  */
 public class Unit implements IMutableUnit {

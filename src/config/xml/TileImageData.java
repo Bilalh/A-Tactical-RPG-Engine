@@ -5,6 +5,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import common.enums.ImageType;
 
 /**
+ * Store the location and image type of a tile.
  * @author Bilal Hussain
  */
 @XStreamAlias("tileImageData")

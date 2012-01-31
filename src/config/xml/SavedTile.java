@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import config.IPreference;
 
 /**
+ *  An Xml representation of an tile.
  * @author Bilal Hussain
  */
 @XStreamAlias("tile")

@@ -1,6 +1,7 @@
 package util;
 
 /**
+ * Argument Checking methods
  * @author Bilal Hussain
  */
 public class Args {

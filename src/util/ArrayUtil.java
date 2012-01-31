@@ -3,7 +3,7 @@ package util;
 /**
  * @author Bilal Hussain
  */
-public class Util {
+public class ArrayUtil {
 
 	public static <E> String array2d(E[][] arr,int startX, int endX, int startY, int endY, boolean newline){
 		StringBuffer b = new StringBuffer(100);

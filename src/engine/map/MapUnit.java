@@ -7,6 +7,7 @@ import common.interfaces.ILocation;
 import engine.IMutableUnit;
 
 /**
+ * Store data about unit specific to this map such as location on the map.
  * @author Bilal Hussain
  */
 public class MapUnit implements IMutableMapUnit {
