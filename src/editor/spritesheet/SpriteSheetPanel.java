@@ -1,4 +1,4 @@
-package editor.imagePacker;
+package editor.spritesheet;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,9 +21,9 @@ public class SpriteSheetPanel extends JPanel {
 	private int width;
 	private int height;
 	
-	/** to show transparency */
+	// for transparency
 	private TexturePaint background;
-	/** The sheet that has been generated */
+	// generated sheet
 	private Sheet sheet;
 
 	private ArrayList<Spritee> selected = new ArrayList<Spritee>();

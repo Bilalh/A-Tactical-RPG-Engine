@@ -1,4 +1,4 @@
-package editor.imagePacker;
+package editor.spritesheet;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +20,7 @@ import javax.swing.filechooser.FileFilter;
 import common.spritesheet.Sprite;
 import common.spritesheet.SpriteSheet;
 
+import config.Config;
 import config.XMLUtil;
 
 import util.IOUtil;
@@ -48,7 +49,7 @@ public class SpriteSheetEditor extends JFrame {
 	private DefaultListModel sprites = new DefaultListModel();
 	private JList list = new JList(sprites);
 
-	Pack pack = new Pack();
+	Packer pack = new Packer();
 
 	public SpriteSheetEditor() {
 		init();
@@ -273,6 +274,7 @@ public class SpriteSheetEditor extends JFrame {
 		}
 	}
 
+	// Saves a Sprite sheet 	
 	private int save() {
 		int rst = saveChooser.showSaveDialog(this);
 		if (rst == JFileChooser.APPROVE_OPTION) {
@@ -293,7 +295,8 @@ public class SpriteSheetEditor extends JFrame {
 		return rst;
 	}
 
-	protected void load() {
+	// loads a Sprite sheet 	
+	private void load() {
 		if (sprites.size() >0){
 			int rst =JOptionPane.showConfirmDialog(SpriteSheetEditor.this, "Save current sheet?");
 			if      (rst == JOptionPane.CANCEL_OPTION) return;
@@ -303,12 +306,12 @@ public class SpriteSheetEditor extends JFrame {
 		}
 		
 		chooser.setMultiSelectionEnabled(false);
-		int rst = chooser.showOpenDialog(SpriteSheetEditor.this);		
+		int rst = chooser.showOpenDialog(SpriteSheetEditor.this);
 		if (rst == JFileChooser.APPROVE_OPTION) {
 			File in = chooser.getSelectedFile();
 			File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png", "\\.xml"));
 			try {
-				BufferedImage b =  ImageIO.read(in);
+				BufferedImage b = ImageIO.read(in);
 				SpriteSheet ss = new SpriteSheet(b, new FileInputStream(xml));
 				sprites.clear();
 				for (Entry<String, BufferedImage> e : ss.getSpritesMap().entrySet()) {
@@ -316,16 +319,15 @@ public class SpriteSheetEditor extends JFrame {
 				}
 				renew();
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(this, "xml file " +xml.getName() + " not found", 
+				JOptionPane.showMessageDialog(this, "xml file " + xml.getName() + " not found",
 						"File Not found", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		
-		
-		
+
 	}
 
 	public static void main(String[] args) {
+		Config.loadLoggingProperties();
 		new SpriteSheetEditor().setVisible(true);
 	}
 

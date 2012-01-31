@@ -1,4 +1,4 @@
-package editor.imagePacker;
+package editor.spritesheet;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -35,25 +35,8 @@ public class Spritee extends Sprite implements Comparable<Spritee> {
 		this.height = image.getHeight();
 	}
 	
-	
-	/**
-	 * Check if this sprite location contains the given x,y position
-	 */
 	public boolean contains(int xp, int yp) {
-		if (xp < x) {
-			return false;
-		}
-		if (yp < y) {
-			return false;
-		}
-		if (xp >= x+width) {
-			return false;
-		}
-		if (yp >= y+height) {
-			return false;
-		}
-		
-		return true;
+		return !(xp < x || yp < y || xp >= x+width || yp >= y+height);
 	}
 
 

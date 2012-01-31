@@ -16,7 +16,7 @@ import config.xml.SavedMap;
 import config.xml.SavedTile;
 import config.xml.TileImageData;
 import config.xml.TileMapping;
-import editor.imagePacker.Spritee;
+import editor.spritesheet.Spritee;
 
 /**
  * Xml utilities to create and parse xml

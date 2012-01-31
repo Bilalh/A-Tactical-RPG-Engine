@@ -1,4 +1,4 @@
-package editor.imagePacker;
+package editor.spritesheet;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 
 import config.XMLUtil;
 
-public class Pack {
+public class Packer {
 
 	public Sheet pack(ArrayList<File> files, int width, int height, int border, File out) throws IOException {
 		ArrayList<Spritee> images = new ArrayList<Spritee>();
@@ -104,7 +104,7 @@ public class Pack {
 			}
 		}
 
-		Pack packer = new Pack();
+		Packer packer = new Packer();
 		packer.pack(list, 512, 512, 1, new File(dir, "output.png"));
 		System.out.println("Saved as output.png");
 	}
