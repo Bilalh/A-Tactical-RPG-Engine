@@ -16,6 +16,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import common.spritesheet.Sprite;
 import common.spritesheet.SpriteSheet;
@@ -44,7 +45,8 @@ public class SpriteSheetEditor extends JFrame {
 
 	private JFileChooser chooser = new JFileChooser(".");
 	private JFileChooser saveChooser = new JFileChooser(".");
-
+	private JFileChooser dirChooser = new JFileChooser(".");
+	
 	private JSpinner border = new JSpinner(new SpinnerNumberModel(0, 0, 50, 1));
 	private DefaultListModel sprites = new DefaultListModel();
 	private JList list = new JList(sprites);
@@ -86,16 +88,27 @@ public class SpriteSheetEditor extends JFrame {
 				load();
 			}
 		});
+
+		JMenuItem split = new JMenuItem("Spilt");
+		split.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,mask));
+		split.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				spilt();
+			}
+		});
 		
 		file.add(open);		
 		file.add(save);
+		file.addSeparator();
+		file.add(split);
 		setJMenuBar(bar);
-
-		saveChooser.setFileFilter(IOUtil.makeFileFilter(true, ".png", "Portable Network Graphics (*.png)"));
+		dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
-		chooser.setFileFilter(IOUtil.makeRegexFileFilter(
-				true, ".*\\.(png|jpe?g|gif)$", "Images (*.jpg, *.png, *.gif)"));
-
+		saveChooser.setFileFilter(new FileNameExtensionFilter("Portable Network Graphics (*.png)", "png"));
+		chooser.setFileFilter(new FileNameExtensionFilter("Images (*.jpg, *.png, *.gif)", "png","jpg","jpeg","gif"));
+		
+		
 		JTabbedPane tab = new JTabbedPane();
 		JPanel p = new JPanel(new MigLayout("", "[right]"));
 
@@ -103,7 +116,7 @@ public class SpriteSheetEditor extends JFrame {
 		p.add(new JSeparator(), "growx, wrap, gaptop 4");
 
 		p.add(new JLabel("Sheet Name:"), "gap 4");
-		p.add((sheetName = new JTextField(10)), "span, growx");
+		p.add((sheetName = new JTextField("Untitled Sheet")), "span, growx");
 
 		ActionListener aSizes = new ActionListener() {
 			@Override
@@ -167,7 +180,7 @@ public class SpriteSheetEditor extends JFrame {
 		p.add(new JLabel("Selected"), "split, span, gaptop 4");
 		p.add(new JSeparator(), "growx, wrap, gaptop 4");
 
-		p.add(new JLabel("Type:"), "gap 4");
+		p.add(new JLabel("Name:"), "gap 4");
 		p.add((selectedName = new JTextField(10)), "span, growx");
 
 		JButton del = new JButton("Delete");
@@ -276,10 +289,17 @@ public class SpriteSheetEditor extends JFrame {
 
 	// Saves a Sprite sheet 	
 	private int save() {
+		String name = sheetName.getText();
+		if (!name.endsWith(".png")) name += ".png";
+		saveChooser.setSelectedFile(new File(name));
+		
 		int rst = saveChooser.showSaveDialog(this);
 		if (rst == JFileChooser.APPROVE_OPTION) {
 			File out = saveChooser.getSelectedFile();
-
+			if (!out.getName().endsWith(".png")){
+				out = new File(out.getParent(), out.getName()+".png");
+			}
+			
 			ArrayList<Spritee> list = new ArrayList<Spritee>();
 			for (int i = 0; i < sprites.size(); i++) {
 				list.add((Spritee) sprites.elementAt(i));
@@ -297,7 +317,7 @@ public class SpriteSheetEditor extends JFrame {
 
 	// loads a Sprite sheet 	
 	private void load() {
-		if (sprites.size() >0){
+		if (!sprites.isEmpty()){
 			int rst =JOptionPane.showConfirmDialog(SpriteSheetEditor.this, "Save current sheet?");
 			if      (rst == JOptionPane.CANCEL_OPTION) return;
 			else if (rst == JOptionPane.YES_OPTION){
@@ -317,6 +337,7 @@ public class SpriteSheetEditor extends JFrame {
 				for (Entry<String, BufferedImage> e : ss.getSpritesMap().entrySet()) {
 					sprites.addElement(new Spritee(e.getKey(), e.getValue()));
 				}
+				sheetName.setText(in.getName());
 				renew();
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(this, "xml file " + xml.getName() + " not found",
@@ -324,6 +345,26 @@ public class SpriteSheetEditor extends JFrame {
 			}
 		}
 
+	}
+
+	protected void spilt() {
+		if (sprites.isEmpty()) return;
+		
+		int rst = dirChooser.showSaveDialog(SpriteSheetEditor.this);
+		if (rst != JFileChooser.APPROVE_OPTION) return;
+		File dir = dirChooser.getSelectedFile();
+		for (int i = 0; i < sprites.size(); i++) {
+			Spritee e = (Spritee) sprites.get(i);
+			try {
+			 	File f = new File(dir,e.getName());
+			 	f.createNewFile();
+				ImageIO.write(e.getImage(), "PNG", f);
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(this,"Image writing error", "Writing error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		}
+		
 	}
 
 	public static void main(String[] args) {
