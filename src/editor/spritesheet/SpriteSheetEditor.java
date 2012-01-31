@@ -61,7 +61,7 @@ public class SpriteSheetEditor extends JFrame {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
 
-		setSize(800, 400);
+		setSize(810, 580);
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -223,12 +223,21 @@ public class SpriteSheetEditor extends JFrame {
 		list.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (!sprites.isEmpty() && (e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+				if (sprites.isEmpty()) return;
+				
+				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
 					sprites.remove(list.getSelectedIndex());
 					renew();
+				}else if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_F2 ){
+					if (list.getSelectedIndices().length != 1) return;
+					Spritee selected =  ((Spritee) list.getSelectedValue());
+					
+					String s = JOptionPane.showInputDialog("New name for " + selected.getName(),  selected.getName());
+					if (s!=null) selected.setName(s); 
 				}
 			}
 		});
+		
 		
 		tab.add("Listing", listScroll);
 

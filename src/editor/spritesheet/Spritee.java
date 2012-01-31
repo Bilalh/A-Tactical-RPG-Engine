@@ -55,5 +55,8 @@ public class Spritee extends SpriteInfo implements Comparable<Spritee> {
 		this.y = y;
 	}
 
-	
+	/** @category Generated */
+	public void setName(String name) {
+		this.name = name;
+	}
 }
