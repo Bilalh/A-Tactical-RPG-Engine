@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-import common.spritesheet.Sprite;
+import common.spritesheet.SpriteInfo;
 
 import config.IPreference;
 
@@ -19,7 +19,7 @@ import config.IPreference;
  * @author Bilal Hussain
  */
 @XStreamAlias("sprite")
-public class Spritee extends Sprite implements Comparable<Spritee> {
+public class Spritee extends SpriteInfo implements Comparable<Spritee> {
 	
 	@XStreamOmitField
 	private BufferedImage image;

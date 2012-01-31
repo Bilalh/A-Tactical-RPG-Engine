@@ -9,6 +9,7 @@ import java.util.*;
 import config.XMLUtil;
 
 /**
+ *  Spritesheet contains a number of smaller images, along with a xml file specify the postions
  * @author Bilal Hussain
  */
 public class SpriteSheet {
@@ -20,12 +21,12 @@ public class SpriteSheet {
 		this.sheet = sheet;
 		this.sprites = new HashMap<String, BufferedImage>();
 		
-		Sprite[] arr = XMLUtil.convertXml(xmldef);
+		SpriteInfo[] arr = XMLUtil.convertXml(xmldef);
 		load(arr);
 	}
 	
-	private void load(Sprite[] arr){
-		for (Sprite s : arr) {
+	private void load(SpriteInfo[] arr){
+		for (SpriteInfo s : arr) {
 			sprites.put(s.name, sheet.getSubimage(s.getX(),s.getY(),s.getWidth(),s.getHeight()));
 		}
 	}
@@ -38,22 +39,4 @@ public class SpriteSheet {
 		return sprites;
 	}
 
-	@Override
-	public String toString() {
-		final int maxLen = 3;
-		return String.format("SpriteSheet [sheet=%s, sprites=%s]", sheet, sprites != null ? toString(sprites.entrySet(), maxLen) : null);
-	}
-
-	private String toString(Collection<?> collection, int maxLen) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("[");
-		int i = 0;
-		for (Iterator<?> iterator = collection.iterator(); iterator.hasNext() && i < maxLen; i++) {
-			if (i > 0) builder.append(", ");
-			builder.append(iterator.next());
-		}
-		builder.append("]");
-		return builder.toString();
-	}
-	
 }

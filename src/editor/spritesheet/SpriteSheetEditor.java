@@ -16,7 +16,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import common.spritesheet.Sprite;
+import common.spritesheet.SpriteInfo;
 import common.spritesheet.SpriteSheet;
 
 import config.Config;
@@ -28,6 +28,7 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.swing.MigLayout;
 
 /**
+ * A Editor for spritesheets that can create, modify or split them. 
  * @author Bilal Hussain
  */
 public class SpriteSheetEditor extends JFrame {
@@ -106,7 +107,6 @@ public class SpriteSheetEditor extends JFrame {
 		saveChooser.setFileFilter(new FileNameExtensionFilter("Portable Network Graphics (*.png)", "png"));
 		chooser.setFileFilter(new FileNameExtensionFilter("Images (*.jpg, *.png, *.gif)", "png","jpg","jpeg","gif"));
 		
-		
 		JTabbedPane tab = new JTabbedPane();
 		JPanel p = new JPanel(new MigLayout("", "[right]"));
 
@@ -114,8 +114,9 @@ public class SpriteSheetEditor extends JFrame {
 		p.add(new JSeparator(), "growx, wrap, gaptop 4");
 
 		p.add(new JLabel("Sheet Name:"), "gap 4");
-		p.add((sheetName = new JTextField("Untitled Sheet")), "span, growx");
-
+		p.add((sheetName = new JTextField(10)), "span, growx");
+		sheetName.setText("Untitled Sheet");
+		
 		ActionListener aSizes = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

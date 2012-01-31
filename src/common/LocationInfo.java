@@ -3,9 +3,10 @@ package common;
 import common.enums.Direction;
 import common.interfaces.ILocation;
 
-
-
-// Stores infomation about a tile
+/**
+ * Stores infomation about a tile 
+ * @author Bilal Hussain
+ */
 public class LocationInfo implements ILocation {
 	public final int x;
 	public final int y;

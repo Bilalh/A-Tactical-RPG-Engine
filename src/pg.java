@@ -1,6 +1,6 @@
 import java.util.prefs.Preferences;
 
-public class PreferenceTest {
+public class pg {
 	private Preferences prefs;
 
 	public void setPreference() {
@@ -29,7 +29,7 @@ public class PreferenceTest {
 	}
 
 	public static void main(String[] args) {
-		PreferenceTest test = new PreferenceTest();
+		pg test = new pg();
 		test.setPreference();
 	}
 }

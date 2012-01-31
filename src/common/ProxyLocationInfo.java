@@ -5,6 +5,7 @@ import common.interfaces.ILocation;
 
 
 /**
+ * LocationInfo that sorts like a Location.
  * @author Bilal Hussain
  */
 public class ProxyLocationInfo extends LocationInfo {

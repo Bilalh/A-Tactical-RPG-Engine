@@ -10,7 +10,7 @@ import util.Logf;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import common.spritesheet.Sprite;
+import common.spritesheet.SpriteInfo;
 
 import config.xml.SavedMap;
 import config.xml.SavedTile;
@@ -20,7 +20,6 @@ import editor.spritesheet.Spritee;
 
 /**
  * Xml utilities to create and parse xml
- * 
  * @author Bilal Hussain
  */
 public abstract class XMLUtil {
@@ -103,7 +102,7 @@ public abstract class XMLUtil {
 
 		return new Class[] {
 				Spritee.class,
-				Sprite.class,
+				SpriteInfo.class,
 				
 				SavedTile.class,
 				SavedMap.class,

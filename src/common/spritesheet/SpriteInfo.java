@@ -6,10 +6,11 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import config.IPreference;
 
 /**
+ * SpriteInfo stores the loaction of a sprite in a spritesheet. 
  * @author Bilal Hussain
  */
 @XStreamAlias("sprite")
-public class Sprite implements IPreference {
+public class SpriteInfo implements IPreference {
 
 	@XStreamAsAttribute
 	protected String name;
