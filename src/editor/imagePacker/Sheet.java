@@ -4,9 +4,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
- * A sprite sheet generated with pack-u-like
+ * A sprite sheet
  * 
- * @author kevin
  */
 public class Sheet {
 	/** The image built for this sheet */

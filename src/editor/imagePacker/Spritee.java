@@ -6,24 +6,22 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import common.spritesheet.Sprite;
+
+import config.IPreference;
+
 /**
  * A simple sprite holder that allows the tool to name images
  * 
- * @author kevin
  */
-public class Sprite {
-	/** The name of the sprite */
-	private String name;
-	/** The x position of the sprite */
-	private int x;
-	/** The y position of the sprite */
-	private int y;
-	/** The width of the sprite */
-	private int width;
-	/** The y position of the sprite */
-	private int height;
+@XStreamAlias("Sprite")
+public class Spritee extends Sprite implements IPreference {
 	
 	/** The image for the sprite */
+	@XStreamOmitField
 	private BufferedImage image;
 	
 	/**
@@ -32,7 +30,7 @@ public class Sprite {
 	 * @param file The file containing the sprite image
 	 * @throws IOException Indicates a failure to load the image from the given file
 	 */
-	public Sprite(File file) throws IOException {
+	public Spritee(File file) throws IOException {
 		this(file.getName(), ImageIO.read(file));
 	}
 	
@@ -42,7 +40,7 @@ public class Sprite {
 	 * @param name The name of the sprite
 	 * @param image The image stored
 	 */
-	public Sprite(String name, BufferedImage image) {
+	public Spritee(String name, BufferedImage image) {
 		this.name = name;
 		this.image = image;
 		this.width = image.getWidth();

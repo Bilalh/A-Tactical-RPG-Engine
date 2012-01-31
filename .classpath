@@ -10,5 +10,6 @@
 			<attribute name="javadoc_location" value="http://xstream.codehaus.org/javadoc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/miglayout-4.0-swing.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

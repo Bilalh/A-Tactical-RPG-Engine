@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
 /**
  * A daft image packer
  * 
- * @author kevin
  */
 public class Pack {
 	/**

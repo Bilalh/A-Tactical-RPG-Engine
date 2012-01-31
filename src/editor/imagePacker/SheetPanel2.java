@@ -15,12 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 
-/**
- * The panel displaying the currently generated sprite sheet
- * 
- * @author kevin
- */
-public class SheetPanel extends JPanel {
+public class SheetPanel2 extends JPanel {
 	/** The image currently generated */
 	private Image image;
 	/** The background paint to show transparency */
@@ -32,7 +27,7 @@ public class SheetPanel extends JPanel {
 	/** The sheet that has been generated */
 	private Sheet sheet;
 	/** The packer tool this panel is part of */
-	private Packer packer;
+	private SpriteSheetEditor editor;
 	/** The list of selected sprites */
 	private ArrayList selected = new ArrayList();
 	
@@ -41,8 +36,8 @@ public class SheetPanel extends JPanel {
 	 * 
 	 * @param p The GUI tool this panel is part of
 	 */
-	public SheetPanel(Packer p) {
-		this.packer = p;
+	public SheetPanel2(SpriteSheetEditor e) {
+		this.editor = e;
 		
 		Color base = Color.gray;
 		BufferedImage image = new BufferedImage(50, 50,
@@ -61,7 +56,7 @@ public class SheetPanel extends JPanel {
 		
 		addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				Spritee sprite = packer.getSpriteAt(e.getX(), e.getY());
+				Spritee sprite = editor.getSpriteAt(e.getX(), e.getY());
 				
 				if (sprite != null) {
 					ArrayList selection = new ArrayList();
@@ -70,7 +65,7 @@ public class SheetPanel extends JPanel {
 					}
 					selection.add(sprite);
 					
-					packer.select(selection);
+					editor.select(selection);
 				}
 			}
 		});
