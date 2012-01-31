@@ -1,19 +1,28 @@
 package editor.imagePacker;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Map.Entry;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
+
+import common.spritesheet.Sprite;
+import common.spritesheet.SpriteSheet;
+
+import config.XMLUtil;
+
+import util.IOUtil;
 
 import net.miginfocom.layout.CC;
 import net.miginfocom.swing.MigLayout;
@@ -29,7 +38,7 @@ public class SpriteSheetEditor extends JFrame {
 	private JTextField sheetName;
 	private JTextField selectedName;
 
-	private SheetPanel2 sheetPanel;
+	private SpriteSheetPanel sheetPanel;
 	private int sWidth = sizes[0], sHeight = sizes[0];
 
 	private JFileChooser chooser = new JFileChooser(".");
@@ -57,51 +66,34 @@ public class SpriteSheetEditor extends JFrame {
 		JMenuBar bar = new JMenuBar();
 		JMenu file = new JMenu("File");
 		bar.add(file);
+		int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+		
 		JMenuItem save = new JMenuItem("Save");
-		file.add(save);
+		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,mask));
 		save.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				save();
 			}
 		});
+
+		JMenuItem open = new JMenuItem("Open");
+		open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,mask));
+		open.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				load();
+			}
+		});
+		
+		file.add(open);		
+		file.add(save);
 		setJMenuBar(bar);
 
-		saveChooser.setFileFilter(new FileFilter() {
-			@Override
-			public boolean accept(File f) {
-				if (f.isDirectory()) {
-					return true;
-				}
-
-				return (f.getName().endsWith(".png"));
-			}
-
-			@Override
-			public String getDescription() {
-				return "PNG Images (*.png)";
-			}
-
-		});
-		chooser.setMultiSelectionEnabled(true);
-		chooser.setFileFilter(new FileFilter() {
-			@Override
-			public boolean accept(File f) {
-				if (f.isDirectory()) {
-					return true;
-				}
-
-				return (f.getName().endsWith(".png") ||
-						f.getName().endsWith(".jpg") ||
-				f.getName().endsWith(".gif"));
-			}
-
-			@Override
-			public String getDescription() {
-				return "Images (*.jpg, *.png, *.gif)";
-			}
-
-		});
+		saveChooser.setFileFilter(IOUtil.makeFileFilter(true, ".png", "Portable Network Graphics (*.png)"));
+		
+		chooser.setFileFilter(IOUtil.makeRegexFileFilter(
+				true, ".*\\.(png|jpe?g|gif)$", "Images (*.jpg, *.png, *.gif)"));
 
 		JTabbedPane tab = new JTabbedPane();
 		JPanel p = new JPanel(new MigLayout("", "[right]"));
@@ -123,7 +115,7 @@ public class SpriteSheetEditor extends JFrame {
 					sHeight = i;
 				}
 				sheetPanel.setSheetSize(sWidth, sHeight);
-				regenerate();
+				renew();
 			}
 		};
 
@@ -143,7 +135,7 @@ public class SpriteSheetEditor extends JFrame {
 		border.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				regenerate();
+				renew();
 			}
 		});
 		p.add(border, "alignx leading, span, wrap");
@@ -152,8 +144,9 @@ public class SpriteSheetEditor extends JFrame {
 		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int resp = chooser.showOpenDialog(SpriteSheetEditor.this);
-				if (resp == JFileChooser.APPROVE_OPTION) {
+				chooser.setMultiSelectionEnabled(true);
+				int rst = chooser.showOpenDialog(SpriteSheetEditor.this);
+				if (rst == JFileChooser.APPROVE_OPTION) {
 					File[] selected = chooser.getSelectedFiles();
 					for (int i = 0; i < selected.length; i++) {
 						try {
@@ -164,7 +157,7 @@ public class SpriteSheetEditor extends JFrame {
 						}
 					}
 				}
-				regenerate();
+				renew();
 			}
 		});
 
@@ -184,7 +177,7 @@ public class SpriteSheetEditor extends JFrame {
 				for (int i = 0; i < selected.length; i++) {
 					sprites.removeElement(selected[i]);
 				}
-				regenerate();
+				renew();
 			}
 		});
 
@@ -218,19 +211,19 @@ public class SpriteSheetEditor extends JFrame {
 		this.add(createPanel(""), BorderLayout.SOUTH);
 		this.add(createPanel(""), BorderLayout.NORTH);
 
-		sheetPanel = new SheetPanel2(this);
+		sheetPanel = new SpriteSheetPanel(this);
 		JScrollPane scroll = new JScrollPane(sheetPanel);
 		this.add(scroll, BorderLayout.CENTER);
 
 		sheetPanel.setSheetSize(sWidth, sHeight);
-		regenerate();
+		renew();
 	}
 
-	protected void regenerate() {
+	protected void renew() {
 		try {
-			ArrayList list = new ArrayList();
+			ArrayList<Spritee> list = new ArrayList<Spritee>();
 			for (int i = 0; i < sprites.size(); i++) {
-				list.add(sprites.elementAt(i));
+				list.add((Spritee) sprites.elementAt(i));
 			}
 
 			int b = ((Integer) border.getValue());
@@ -241,20 +234,11 @@ public class SpriteSheetEditor extends JFrame {
 		}
 	}
 
-	private Component createButton(String string, ActionListener al) {
-		JButton btn = new JButton(string);
-		btn.addActionListener(al);
-		return btn;
-	}
 
 	private JPanel createPanel(String string) {
 		JPanel a = new JPanel();
 		a.add(new JLabel(string));
 		return a;
-	}
-
-	public static void main(String[] args) {
-		new SpriteSheetEditor().setVisible(true);
 	}
 
 	public void select(ArrayList selection) {
@@ -277,39 +261,73 @@ public class SpriteSheetEditor extends JFrame {
 	}
 
 	private class FileListRenderer extends DefaultListCellRenderer {
+
 		private static final long serialVersionUID = 5874522377321012662L;
 
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,
-					cellHasFocus);
-
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
 			Spritee sprite = (Spritee) value;
 			label.setText(sprite.getName());
-
 			return label;
 		}
 	}
 
-	private void save() {
-		int resp = saveChooser.showSaveDialog(this);
-		if (resp == JFileChooser.APPROVE_OPTION) {
+	private int save() {
+		int rst = saveChooser.showSaveDialog(this);
+		if (rst == JFileChooser.APPROVE_OPTION) {
 			File out = saveChooser.getSelectedFile();
 
-			ArrayList list = new ArrayList();
+			ArrayList<Spritee> list = new ArrayList<Spritee>();
 			for (int i = 0; i < sprites.size(); i++) {
-				list.add(sprites.elementAt(i));
+				list.add((Spritee) sprites.elementAt(i));
 			}
 
 			try {
-				int b = ((Integer) border.getValue()).intValue();
+				int b = ((Integer) border.getValue());
 				pack.packImages(list, sWidth, sHeight, b, out);
 			} catch (IOException e) {
-				// shouldn't happen
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(this, "Failed to write output");
 			}
 		}
+		return rst;
 	}
 
+	protected void load() {
+		if (sprites.size() >0){
+			int rst =JOptionPane.showConfirmDialog(SpriteSheetEditor.this, "Save current sheet?");
+			if      (rst == JOptionPane.CANCEL_OPTION) return;
+			else if (rst == JOptionPane.YES_OPTION){
+				if (save() == JFileChooser.CANCEL_OPTION) return;
+			}
+		}
+		
+		chooser.setMultiSelectionEnabled(false);
+		int rst = chooser.showOpenDialog(SpriteSheetEditor.this);		
+		if (rst == JFileChooser.APPROVE_OPTION) {
+			File in = chooser.getSelectedFile();
+			File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png", "\\.xml"));
+			try {
+				BufferedImage b =  ImageIO.read(in);
+				SpriteSheet ss = new SpriteSheet(b, new FileInputStream(xml));
+				sprites.clear();
+				for (Entry<String, BufferedImage> e : ss.getSpritesMap().entrySet()) {
+					sprites.addElement(new Spritee(e.getKey(), e.getValue()));
+				}
+				renew();
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(this, "xml file " +xml.getName() + " not found", 
+						"File Not found", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		
+		
+		
+	}
+
+	public static void main(String[] args) {
+		new SpriteSheetEditor().setVisible(true);
+	}
+
+	
 }

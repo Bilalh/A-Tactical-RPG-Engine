@@ -15,15 +15,13 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class SheetPanel2 extends JPanel {
+public class SpriteSheetPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	/** The image currently generated */
 	private Image image;
 	private int width;
 	private int height;
 	
-
-	/** The background paint to show transparency */
+	/** to show transparency */
 	private TexturePaint background;
 	/** The sheet that has been generated */
 	private Sheet sheet;
@@ -31,7 +29,7 @@ public class SheetPanel2 extends JPanel {
 	private ArrayList<Spritee> selected = new ArrayList<Spritee>();
 	private SpriteSheetEditor editor;
 
-	public SheetPanel2(SpriteSheetEditor e) {
+	public SpriteSheetPanel(SpriteSheetEditor e) {
 		this.editor = e;
 
 		Color base = Color.gray;

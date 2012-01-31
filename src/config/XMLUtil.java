@@ -10,8 +10,6 @@ import util.Logf;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
-
 import common.spritesheet.Sprite;
 
 import config.xml.SavedMap;
