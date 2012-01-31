@@ -1,9 +1,7 @@
 package editor.spritesheet;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
@@ -51,7 +49,7 @@ public class SpriteSheetEditor extends JFrame {
 	private DefaultListModel sprites = new DefaultListModel();
 	private JList list = new JList(sprites);
 
-	Packer pack = new Packer();
+	private Packer packer = new Packer();
 
 	public SpriteSheetEditor() {
 		init();
@@ -180,8 +178,8 @@ public class SpriteSheetEditor extends JFrame {
 		p.add(new JLabel("Selected"), "split, span, gaptop 4");
 		p.add(new JSeparator(), "growx, wrap, gaptop 4");
 
-		p.add(new JLabel("Name:"), "gap 4");
-		p.add((selectedName = new JTextField(10)), "span, growx");
+//		p.add(new JLabel("Name:"), "gap 4");
+//		p.add((selectedName = new JTextField(10)), "span, growx");
 
 		JButton del = new JButton("Delete");
 		del.addActionListener(new ActionListener() {
@@ -195,8 +193,10 @@ public class SpriteSheetEditor extends JFrame {
 			}
 		});
 
-		p.add(new JButton("Change"), new CC().spanX(5).split(5).tag("other"));
-		p.add(del, new CC().tag("other"));
+//		p.add(new JButton("Change"), new CC().spanX(5).split(5).tag("other"));
+//		p.add(del, new CC().tag("other"));
+		p.add(del, new CC().spanX(5).split(5).tag("other"));
+
 		tab.add("Data", p);
 
 		JScrollPane listScroll = new JScrollPane(list);
@@ -218,6 +218,17 @@ public class SpriteSheetEditor extends JFrame {
 		});
 		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		list.setCellRenderer(new FileListRenderer());
+		
+		list.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (!sprites.isEmpty() && (e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+					sprites.remove(list.getSelectedIndex());
+					renew();
+				}
+			}
+		});
+		
 		tab.add("Listing", listScroll);
 
 		this.add(tab, BorderLayout.EAST);
@@ -233,7 +244,8 @@ public class SpriteSheetEditor extends JFrame {
 		renew();
 	}
 
-	protected void renew() {
+	// Redraws the sprite sheet
+	private void renew() {
 		try {
 			ArrayList<Spritee> list = new ArrayList<Spritee>();
 			for (int i = 0; i < sprites.size(); i++) {
@@ -241,7 +253,7 @@ public class SpriteSheetEditor extends JFrame {
 			}
 
 			int b = ((Integer) border.getValue());
-			Sheet sheet = pack.packImages(list, sWidth, sHeight, b, null);
+			Sheet sheet = packer.packImages(list, sWidth, sHeight, b, null);
 			sheetPanel.setImage(sheet);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -274,19 +286,6 @@ public class SpriteSheetEditor extends JFrame {
 		return null;
 	}
 
-	private class FileListRenderer extends DefaultListCellRenderer {
-
-		private static final long serialVersionUID = 5874522377321012662L;
-
-		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-			Spritee sprite = (Spritee) value;
-			label.setText(sprite.getName());
-			return label;
-		}
-	}
-
 	// Saves a Sprite sheet 	
 	private int save() {
 		String name = sheetName.getText();
@@ -307,7 +306,7 @@ public class SpriteSheetEditor extends JFrame {
 
 			try {
 				int b = ((Integer) border.getValue());
-				pack.packImages(list, sWidth, sHeight, b, out);
+				packer.packImages(list, sWidth, sHeight, b, out);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -347,7 +346,7 @@ public class SpriteSheetEditor extends JFrame {
 
 	}
 
-	protected void spilt() {
+	private void spilt() {
 		if (sprites.isEmpty()) return;
 		
 		int rst = dirChooser.showSaveDialog(SpriteSheetEditor.this);
@@ -365,6 +364,27 @@ public class SpriteSheetEditor extends JFrame {
 			}
 		}
 		
+	}
+
+
+	public void delete(ArrayList<Spritee> selected) {
+		for (Spritee s : selected) {
+			sprites.removeElement(s);
+		}
+		renew();
+	}
+	
+	private class FileListRenderer extends DefaultListCellRenderer {
+	
+		private static final long serialVersionUID = 5874522377321012662L;
+	
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+			Spritee sprite = (Spritee) value;
+			label.setText(sprite.getName());
+			return label;
+		}
 	}
 
 	public static void main(String[] args) {

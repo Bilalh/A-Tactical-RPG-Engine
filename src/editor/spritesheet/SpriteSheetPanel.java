@@ -7,9 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.TexturePaint;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -47,8 +45,8 @@ public class SpriteSheetPanel extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				SpriteSheetPanel.this.requestFocusInWindow();
 				Spritee sprite = editor.getSpriteAt(e.getX(), e.getY());
-
 				if (sprite != null) {
 					ArrayList<Spritee> selection = new ArrayList<Spritee>();
 					if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0) {
@@ -59,6 +57,16 @@ public class SpriteSheetPanel extends JPanel {
 				}
 			}
 		});
+		
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (!selected.isEmpty() && (e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+					editor.delete(selected);
+				}
+			}
+		});
+		
 	}
 
 	public void setSelectedSprites(ArrayList sprites) {
