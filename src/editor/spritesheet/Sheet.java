@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Sheet {
 	private BufferedImage image;
-	private ArrayList<Spritee> sprites;
+	private ArrayList<MutableSprite> sprites;
 
 	public Sheet(BufferedImage image, ArrayList sprites) {
 		this.image = image;
@@ -16,7 +16,7 @@ public class Sheet {
 		return image;
 	}
 
-	public ArrayList<Spritee> getSprites() {
+	public ArrayList<MutableSprite> getSprites() {
 		return sprites;
 	}
 }

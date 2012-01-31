@@ -16,7 +16,7 @@ import config.xml.SavedMap;
 import config.xml.SavedTile;
 import config.xml.TileImageData;
 import config.xml.TileMapping;
-import editor.spritesheet.Spritee;
+import editor.spritesheet.MutableSprite;
 
 /**
  * Xml utilities to create and parse xml
@@ -101,7 +101,7 @@ public abstract class XMLUtil {
 	public static Class<?>[] getClassesForAnnotations() {
 
 		return new Class[] {
-				Spritee.class,
+				MutableSprite.class,
 				SpriteInfo.class,
 				
 				SavedTile.class,

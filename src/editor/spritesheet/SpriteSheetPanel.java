@@ -24,7 +24,7 @@ public class SpriteSheetPanel extends JPanel {
 	// generated sheet
 	private Sheet sheet;
 
-	private ArrayList<Spritee> selected = new ArrayList<Spritee>();
+	private ArrayList<MutableSprite> selected = new ArrayList<MutableSprite>();
 	private SpriteSheetEditor editor;
 
 	public SpriteSheetPanel(SpriteSheetEditor e) {
@@ -46,9 +46,9 @@ public class SpriteSheetPanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				SpriteSheetPanel.this.requestFocusInWindow();
-				Spritee sprite = editor.getSpriteAt(e.getX(), e.getY());
+				MutableSprite sprite = editor.getSpriteAt(e.getX(), e.getY());
 				if (sprite != null) {
-					ArrayList<Spritee> selection = new ArrayList<Spritee>();
+					ArrayList<MutableSprite> selection = new ArrayList<MutableSprite>();
 					if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0) {
 						selection.addAll(selected);
 					}
@@ -102,7 +102,7 @@ public class SpriteSheetPanel extends JPanel {
 
 		g.setColor(Color.BLUE);
 		for (int i = 0; i < selected.size(); i++) {
-			Spritee sprite =selected.get(i);
+			MutableSprite sprite =selected.get(i);
 			g.drawRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 		}
 	}

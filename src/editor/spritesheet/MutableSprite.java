@@ -19,16 +19,16 @@ import config.IPreference;
  * @author Bilal Hussain
  */
 @XStreamAlias("sprite")
-public class Spritee extends SpriteInfo implements Comparable<Spritee> {
+public class MutableSprite extends SpriteInfo implements Comparable<MutableSprite> {
 	
 	@XStreamOmitField
 	private BufferedImage image;
 	
-	public Spritee(File file) throws IOException {
+	public MutableSprite(File file) throws IOException {
 		this(file.getName(), ImageIO.read(file));
 	}
 	
-	public Spritee(String name, BufferedImage image) {
+	public MutableSprite(String name, BufferedImage image) {
 		this.name = name;
 		this.image = image;
 		this.width = image.getWidth();
@@ -41,7 +41,7 @@ public class Spritee extends SpriteInfo implements Comparable<Spritee> {
 
 
 	@Override
-	public int compareTo(Spritee b) {
+	public int compareTo(MutableSprite b) {
 		return this.getHeight() - b.getHeight();
 	}
 

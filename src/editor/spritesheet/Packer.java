@@ -17,12 +17,12 @@ import config.XMLUtil;
 public class Packer {
 
 	public Sheet pack(ArrayList<File> files, int width, int height, int border, File out) throws IOException {
-		ArrayList<Spritee> images = new ArrayList<Spritee>();
+		ArrayList<MutableSprite> images = new ArrayList<MutableSprite>();
 
 		try {
 			for (int i = 0; i < files.size(); i++) {
 				File file = files.get(i);
-				Spritee sprite = new Spritee(file.getName(), ImageIO.read(file));
+				MutableSprite sprite = new MutableSprite(file.getName(), ImageIO.read(file));
 
 				images.add(sprite);
 			}
@@ -33,7 +33,7 @@ public class Packer {
 		return packImages(images, width, height, border, out);
 	}
 
-	public Sheet packImages(ArrayList<Spritee> images, int width, int height, int border, File out) throws IOException {
+	public Sheet packImages(ArrayList<MutableSprite> images, int width, int height, int border, File out) throws IOException {
 		Collections.sort(images);
 
 		int x = 0, y = 0;
@@ -50,7 +50,7 @@ public class Packer {
 			}
 
 			for (int i = 0; i < images.size(); i++) {
-				Spritee current = images.get(i);
+				MutableSprite current = images.get(i);
 				if (x + current.getWidth() > width) {
 					x = 0;
 					y += rowHeight;

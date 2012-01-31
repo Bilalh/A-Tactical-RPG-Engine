@@ -163,7 +163,7 @@ public class SpriteSheetEditor extends JFrame {
 					File[] selected = chooser.getSelectedFiles();
 					for (int i = 0; i < selected.length; i++) {
 						try {
-							sprites.addElement(new Spritee(selected[i]));
+							sprites.addElement(new MutableSprite(selected[i]));
 						} catch (IOException x) {
 							x.printStackTrace();
 							JOptionPane.showMessageDialog(SpriteSheetEditor.this, "Unable to load: " + selected[i].getName());
@@ -230,7 +230,7 @@ public class SpriteSheetEditor extends JFrame {
 					renew();
 				}else if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_F2 ){
 					if (list.getSelectedIndices().length != 1) return;
-					Spritee selected =  ((Spritee) list.getSelectedValue());
+					MutableSprite selected =  ((MutableSprite) list.getSelectedValue());
 					
 					rename(selected); 
 				}
@@ -242,7 +242,7 @@ public class SpriteSheetEditor extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 		         if (!sprites.isEmpty() && e.getClickCount() == 2) {
 		             int index = list.locationToIndex(e.getPoint());
-		             rename((Spritee) sprites.getElementAt(index));
+		             rename((MutableSprite) sprites.getElementAt(index));
 		          }
 		     }
 		 });
@@ -266,9 +266,9 @@ public class SpriteSheetEditor extends JFrame {
 	// Redraws the sprite sheet
 	private void renew() {
 		try {
-			ArrayList<Spritee> list = new ArrayList<Spritee>();
+			ArrayList<MutableSprite> list = new ArrayList<MutableSprite>();
 			for (int i = 0; i < sprites.size(); i++) {
-				list.add((Spritee) sprites.elementAt(i));
+				list.add((MutableSprite) sprites.elementAt(i));
 			}
 
 			int b = ((Integer) border.getValue());
@@ -296,10 +296,10 @@ public class SpriteSheetEditor extends JFrame {
 		sheetPanel.setSelectedSprites(selection);
 	}
 
-	public Spritee getSpriteAt(int x, int y) {
+	public MutableSprite getSpriteAt(int x, int y) {
 		for (int i = 0; i < sprites.size(); i++) {
-			if (((Spritee) sprites.get(i)).contains(x, y)) {
-				return ((Spritee) sprites.get(i));
+			if (((MutableSprite) sprites.get(i)).contains(x, y)) {
+				return ((MutableSprite) sprites.get(i));
 			}
 		}
 		return null;
@@ -318,9 +318,9 @@ public class SpriteSheetEditor extends JFrame {
 				out = new File(out.getParent(), out.getName()+".png");
 			}
 			
-			ArrayList<Spritee> list = new ArrayList<Spritee>();
+			ArrayList<MutableSprite> list = new ArrayList<MutableSprite>();
 			for (int i = 0; i < sprites.size(); i++) {
-				list.add((Spritee) sprites.elementAt(i));
+				list.add((MutableSprite) sprites.elementAt(i));
 			}
 
 			try {
@@ -353,7 +353,7 @@ public class SpriteSheetEditor extends JFrame {
 				SpriteSheet ss = new SpriteSheet(b, new FileInputStream(xml));
 				sprites.clear();
 				for (Entry<String, BufferedImage> e : ss.getSpritesMap().entrySet()) {
-					sprites.addElement(new Spritee(e.getKey(), e.getValue()));
+					sprites.addElement(new MutableSprite(e.getKey(), e.getValue()));
 				}
 				sheetName.setText(in.getName());
 				renew();
@@ -372,7 +372,7 @@ public class SpriteSheetEditor extends JFrame {
 		if (rst != JFileChooser.APPROVE_OPTION) return;
 		File dir = dirChooser.getSelectedFile();
 		for (int i = 0; i < sprites.size(); i++) {
-			Spritee e = (Spritee) sprites.get(i);
+			MutableSprite e = (MutableSprite) sprites.get(i);
 			try {
 			 	File f = new File(dir,e.getName());
 			 	f.createNewFile();
@@ -386,14 +386,14 @@ public class SpriteSheetEditor extends JFrame {
 	}
 
 
-	public void delete(ArrayList<Spritee> selected) {
-		for (Spritee s : selected) {
+	public void delete(ArrayList<MutableSprite> selected) {
+		for (MutableSprite s : selected) {
 			sprites.removeElement(s);
 		}
 		renew();
 	}
 	
-	private void rename(Spritee selected) {
+	private void rename(MutableSprite selected) {
 		String s;// = JOptionPane.showInputDialog("New name for " + selected.getName(),  selected.getName());
 		s =(String) JOptionPane.showInputDialog(SpriteSheetEditor.this, "New name for " + selected.getName(), 
 				"Renaming " + selected.getName() , JOptionPane.INFORMATION_MESSAGE, 
@@ -408,7 +408,7 @@ public class SpriteSheetEditor extends JFrame {
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-			Spritee sprite = (Spritee) value;
+			MutableSprite sprite = (MutableSprite) value;
 			label.setText(sprite.getName());
 			return label;
 		}
