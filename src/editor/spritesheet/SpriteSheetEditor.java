@@ -232,11 +232,20 @@ public class SpriteSheetEditor extends JFrame {
 					if (list.getSelectedIndices().length != 1) return;
 					Spritee selected =  ((Spritee) list.getSelectedValue());
 					
-					String s = JOptionPane.showInputDialog("New name for " + selected.getName(),  selected.getName());
-					if (s!=null) selected.setName(s); 
+					rename(selected); 
 				}
 			}
 		});
+		
+		 list.addMouseListener(new MouseAdapter() {
+		    @Override
+			public void mouseClicked(MouseEvent e) {
+		         if (!sprites.isEmpty() && e.getClickCount() == 2) {
+		             int index = list.locationToIndex(e.getPoint());
+		             rename((Spritee) sprites.getElementAt(index));
+		          }
+		     }
+		 });
 		
 		
 		tab.add("Listing", listScroll);
@@ -384,6 +393,14 @@ public class SpriteSheetEditor extends JFrame {
 		renew();
 	}
 	
+	private void rename(Spritee selected) {
+		String s;// = JOptionPane.showInputDialog("New name for " + selected.getName(),  selected.getName());
+		s =(String) JOptionPane.showInputDialog(SpriteSheetEditor.this, "New name for " + selected.getName(), 
+				"Renaming " + selected.getName() , JOptionPane.INFORMATION_MESSAGE, 
+				null, null, selected.getName());
+		if (s!=null) selected.setName(s);
+	}
+
 	private class FileListRenderer extends DefaultListCellRenderer {
 	
 		private static final long serialVersionUID = 5874522377321012662L;
