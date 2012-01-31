@@ -105,8 +105,6 @@ public abstract class XMLUtil {
 
 		return new Class[] {
 				Spritee.class,
-				
-				
 				Sprite.class,
 				
 				SavedTile.class,

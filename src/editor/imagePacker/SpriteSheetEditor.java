@@ -27,7 +27,7 @@ public class SpriteSheetEditor extends JFrame {
 	private static final Integer[] sizes = new Integer[] { 128, 256, 512, 1024, 2048, 4096, 8192 };
 
 	private JTextField sheetName;
-	private JTextField selectedType;
+	private JTextField selectedName;
 
 	private SheetPanel2 sheetPanel;
 	private int sWidth = sizes[0], sHeight = sizes[0];
@@ -122,7 +122,7 @@ public class SpriteSheetEditor extends JFrame {
 				} else {
 					sHeight = i;
 				}
-				sheetPanel.setTextureSize(sWidth, sHeight);
+				sheetPanel.setSheetSize(sWidth, sHeight);
 				regenerate();
 			}
 		};
@@ -174,7 +174,7 @@ public class SpriteSheetEditor extends JFrame {
 		p.add(new JSeparator(), "growx, wrap, gaptop 4");
 
 		p.add(new JLabel("Type:"), "gap 4");
-		p.add((selectedType = new JTextField(10)), "span, growx");
+		p.add((selectedName = new JTextField(10)), "span, growx");
 
 		JButton del = new JButton("Delete");
 		del.addActionListener(new ActionListener() {
@@ -222,7 +222,7 @@ public class SpriteSheetEditor extends JFrame {
 		JScrollPane scroll = new JScrollPane(sheetPanel);
 		this.add(scroll, BorderLayout.CENTER);
 
-		sheetPanel.setTextureSize(sWidth, sHeight);
+		sheetPanel.setSheetSize(sWidth, sHeight);
 		regenerate();
 	}
 
@@ -264,7 +264,7 @@ public class SpriteSheetEditor extends JFrame {
 			selected[i] = sprites.indexOf(selection.get(i));
 		}
 		list.setSelectedIndices(selected);
-		sheetPanel.setSelection(selection);
+		sheetPanel.setSelectedSprites(selection);
 	}
 
 	public Spritee getSpriteAt(int x, int y) {

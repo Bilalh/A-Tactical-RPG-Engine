@@ -12,155 +12,100 @@ import java.util.Comparator;
 
 import javax.imageio.ImageIO;
 
+import config.XMLUtil;
 
-/**
- * A daft image packer
- * 
- */
 public class Pack {
-	/**
-	 * Pack the images provided
-	 * 
-	 * @param files The list of file objects pointing at the images to be packed
-	 * @param width The width of the sheet to be generated 
-	 * @param height The height of the sheet to be generated
-	 * @param border The border between sprites
-	 * @param out The file to write out to
-	 * @return The generated sprite sheet
-	 * @throws IOException Indicates a failure to write out files
-	 */
-	public Sheet pack(ArrayList files, int width, int height, int border, File out) throws IOException {
-		ArrayList images = new ArrayList();
-		
+
+	public Sheet pack(ArrayList<File> files, int width, int height, int border, File out) throws IOException {
+		ArrayList<Spritee> images = new ArrayList<Spritee>();
+
 		try {
-			for (int i=0;i<files.size();i++) {
-				File file = (File) files.get(i);
+			for (int i = 0; i < files.size(); i++) {
+				File file = files.get(i);
 				Spritee sprite = new Spritee(file.getName(), ImageIO.read(file));
-				
+
 				images.add(sprite);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return packImages(images, width, height, border, out);
 	}
 
-	/**
-	 * Pack the images provided
-	 * 
-	 * @param images The list of sprite objects pointing at the images to be packed
-	 * @param width The width of the sheet to be generated 
-	 * @param height The height of the sheet to be generated
-	 * @param border The border between sprites
-	 * @param out The file to write out to
-	 * @return The generated sprite sheet
-	 * @throws IOException Indicates a failure to write out files
-	 */
-	public Sheet packImages(ArrayList images, int width, int height, int border, File out) throws IOException {
-		Collections.sort(images, new Comparator() {
-			public int compare(Object o1, Object o2) {
-				Spritee a = (Spritee) o1;
-				Spritee b = (Spritee) o2;
-				
-				int asize = a.getHeight();
-				int bsize = b.getHeight();
-				return bsize - asize;
-			}
-		});
-		
-		int x = 0;
-		int y = 0;
-		
-		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		Graphics g = result.getGraphics();
+	public Sheet packImages(ArrayList<Spritee> images, int width, int height, int border, File out) throws IOException {
+		Collections.sort(images);
+
+		int x = 0, y = 0;
+
+		BufferedImage buf = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics g = buf.getGraphics();
 		int rowHeight = 0;
-		
+
 		try {
 			PrintStream pout = null;
 			if (out != null) {
-				pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(), out.getName()+".xml")));
+				pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(), out.getName() + ".xml")));
 				pout.println("<sprite-array>");
 			}
-			
-			for (int i=0;i<images.size();i++) {
-				Spritee current = (Spritee) images.get(i);
+
+			for (int i = 0; i < images.size(); i++) {
+				Spritee current = images.get(i);
 				if (x + current.getWidth() > width) {
 					x = 0;
 					y += rowHeight;
 					rowHeight = 0;
 				}
-				
+
 				if (rowHeight == 0) {
 					rowHeight = current.getHeight() + border;
 				}
-				
+
 				if (out != null) {
-					pout.print("\t<sprite ");
-					pout.print("name=\""+current.getName()+"\" ");
-					pout.print("x=\""+x+"\" ");
-					pout.print("y=\""+y+"\" ");
-					pout.print("width=\""+current.getWidth()+"\" ");
-					pout.print("height=\""+current.getHeight()+"\" ");
-					pout.println("/>");
+					pout.println(XMLUtil.makeFormattedXml(current));
 				}
-				
-				current.setPosition(x,y);
+
+				current.setPositionInSheet(x, y);
 				g.drawImage(current.getImage(), x, y, null);
 				x += current.getWidth() + border;
 			}
 			g.dispose();
-			
+
 			if (out != null) {
 				pout.println("</sprite-array>");
 				pout.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			IOException io = new IOException("Failed writing image XML");
-			io.initCause(e);
-			
-			throw io;
+			throw new IOException("Failed writing sheet's xml", e);
 		}
-		
+
 		if (out != null) {
 			try {
-				ImageIO.write(result, "PNG", out);
+				ImageIO.write(buf, "PNG", out);
 			} catch (IOException e) {
 				e.printStackTrace();
-				
-				IOException io = new IOException("Failed writing image");
-				io.initCause(e);
-				
-				throw io;
+				throw new IOException("Failed writing Image", e);
 			}
 		}
-		
-		return new Sheet(result, images);
+
+		return new Sheet(buf, images);
 	}
-	
-	/**
-	 * Entry point to the tool, just pack the current directory of images
-	 * 
-	 * @param argv The arguments to the program
-	 * @throws IOException Indicates a failure to write out files
-	 */
+
 	public static void main(String[] argv) throws IOException {
 		File dir = new File(".");
-		dir = new File("C:\\eclipse\\grobot-workspace\\anon\\res\\tiles\\indoor1");
-		
 		ArrayList list = new ArrayList();
 		File[] files = dir.listFiles();
-		for (int i=0;i<files.length;i++) {
+		for (int i = 0; i < files.length; i++) {
 			if (files[i].getName().endsWith(".png")) {
 				if (!files[i].getName().startsWith("output")) {
 					list.add(files[i]);
 				}
 			}
 		}
-		
+
 		Pack packer = new Pack();
 		packer.pack(list, 512, 512, 1, new File(dir, "output.png"));
-		System.out.println("Output Generated.");
+		System.out.println("Saved as output.png");
 	}
 }
