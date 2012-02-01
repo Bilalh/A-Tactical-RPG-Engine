@@ -73,6 +73,9 @@ public class Map extends Observable implements IMap {
 		notifyObservers(n);
 	}
 
+	
+	private IMapUnit current;
+	
 	@Override
 	public void setUsersUnits(HashMap<IMutableUnit, Location> selected) {
 		System.out.println(selected);
@@ -92,6 +95,10 @@ public class Map extends Observable implements IMap {
 		notifyObservers(n);
 		
 		Logf.info(log, "ordering %s", order);
+		setChanged();
+		current = order.remove();
+		n = new UnitTurnNotification(current);
+		notifyObservers(n);
 	}
 
 	

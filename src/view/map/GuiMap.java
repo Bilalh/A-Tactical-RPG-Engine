@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.util.*;
 
 import javax.media.jai.RenderedOp;
+import javax.media.jai.operator.LogDescriptor;
 import javax.media.jai.operator.SubtractDescriptor;
 
 import org.apache.log4j.Logger;
@@ -26,6 +27,7 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 import util.Logf;
 import view.AnimatedUnit;
 import view.Gui;
+import view.GuiUnit;
 import view.interfaces.IActions;
 import view.notifications.ChooseUnitsNotifications;
 import view.ui.Dialog;
@@ -65,7 +67,7 @@ public class GuiMap implements Observer, IMapRendererParent {
     private AnimatedUnit[] aiUnits;
     
     private Dialog dialog;
-    private boolean showDialog = true;
+    private boolean showDialog = false;
         
     // The Class that with handed the input 
     private ActionsAdapter current;
@@ -161,6 +163,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			frameChange += timeDiff;
 			if (frameChange > frameDuration) {
 				frameChange = 0;
+				// Animated moving.
 				if(pathIterator.hasNext()){
 					AnimatedUnit u = getTile(lastLocation).removeUnit();
 					lastLocation = pathIterator.next();
@@ -245,10 +248,12 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 	}
 	
+	/** @category unused **/
 	private Collection<LocationInfo> path;
+	
 	private Iterator<LocationInfo> pathIterator;
 	private LocationInfo lastLocation;
-	private ActionsAdapter oldAction;
+	private ActionsAdapter oldAction = null;
 	
 	public void unitMoved(IMapUnit u, Collection<LocationInfo> path){
 		AnimatedUnit movingUnit =  unitMapping.get(u.getUuid());
@@ -264,6 +269,15 @@ public class GuiMap implements Observer, IMapRendererParent {
 		drawn =false;
 	}
 	
+
+	
+	private GuiUnit currentUnit;
+	public void unitsTurn(IMapUnit unit) {
+		currentUnit = getTile(unit.getLocation()).getUnit();
+		assert(currentUnit != null);
+	}
+	
+	/** @category unused **/
 	public void playersTurn(){
 		displayMessage("Player's Turn");
 	}
@@ -296,10 +310,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 	}
 	
-	private Collection<LocationInfo> inRange = null;
 	private boolean mouseMoving = false;
 	private class Movement extends ActionsAdapter{
 		
+		private Collection<LocationInfo> inRange = null;
 	    private Point mouseStart, mouseEnd;
 	    private int offsetX, offsetY;
 		
@@ -331,10 +345,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 		AnimatedUnit selected = null;
 		private void selectMoveUnit() {
+			assert(currentUnit != null);
 			if (selected != null){
+				if (selected != currentUnit){
+					Logf.info(log, "Not %s's turn its %s turn", getSelectedTile().getUnit(), currentUnit );
+					return; 
+				}
 				log.info("selected " + selected);
 				
 				if (!getSelectedTile().isSelected() ) return;
+				
 				if (!inRange.contains(getSelectedTile().getFieldLocation())){
 					Logf.info(log, "%s not in range", getSelectedTile());
 					return;
@@ -497,10 +517,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 				log.info(MapSettings.pitch);
 				drawn=false;
 				break;
-			case KeyEvent.VK_U:
-				Location newP = new Location(units[0].getGridX()+1, units[0].getGridY());
-				mapController.moveUnit(units[0].getUnit(), newP);
-				break;
 			case KeyEvent.VK_I:
 				Logf.info(log,"draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, selectedTile.getUnit());
 				break;
@@ -580,6 +596,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 	
 	private void setActionHandler(ActionsAdapter aa){
+		Logf.info(log, "Action changed to %s", aa);
 		current = aa;
 		MousePoxy.setMouseListener(aa);
 		MousePoxy.setMouseMotionListener(aa);
