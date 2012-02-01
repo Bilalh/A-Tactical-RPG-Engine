@@ -1,5 +1,9 @@
-TODO
-----
+* enum set for satuas
+
+
+
+GUI
+---
 * Unit crossing in gui
 
 

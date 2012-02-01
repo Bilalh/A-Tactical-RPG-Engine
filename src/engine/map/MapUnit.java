@@ -1,10 +1,13 @@
 package engine.map;
 
+import java.util.EnumSet;
 import java.util.UUID;
 
 import common.Location;
 import common.interfaces.ILocation;
 import engine.IMutableUnit;
+
+import static engine.map.UnitStatus.*;
 
 /**
  * Store data about unit specific to this map such as location on the map.
@@ -12,17 +15,22 @@ import engine.IMutableUnit;
  */
 public class MapUnit implements IMutableMapUnit {
 
-	IMutableUnit unit;
-
+	protected IMutableUnit unit;
+	protected MapPlayer player;
+	
 	protected int gridX = -1;
 	protected int gridY = -1;
 
-	private int currentHp;
-
-	/** @category Generated */
-	public MapUnit(IMutableUnit unit, ILocation l) {
+	protected int currentHp;
+	
+	protected int readiness = 100;
+	
+	protected EnumSet<UnitStatus> status  = EnumSet.noneOf(UnitStatus.class);
+	
+	public MapUnit(IMutableUnit unit, ILocation l, MapPlayer player) {
 		this(l.getX(),l.getY());
 		this.unit = unit;
+		this.player = player;
 	}
 
 	protected MapUnit(int gridX, int gridY) {
@@ -34,7 +42,29 @@ public class MapUnit implements IMutableMapUnit {
 	public int getCost(Tile old, Tile next) {
 		return unit.getCost(old, next);
 	}
+	
+	@Override
+	public boolean hasStatus(UnitStatus s){
+		return status.contains(s);
+	}
+	
+	@Override
+	public void setStatus(UnitStatus s){
+		status.add(s);
+	}
 
+	@Override
+	public boolean isMoved(){
+		return status.contains(UnitStatus.MOVED);
+	}
+
+	@Override
+	public void setMoved(){
+		status.add(MOVED);
+	}
+
+	/* ** Getters and Setters ** */
+	
 	@Override
 	public String getName() {
 		return unit.getName();
@@ -67,7 +97,7 @@ public class MapUnit implements IMutableMapUnit {
 
 	@Override
 	public void setStrength(int strength) {
-		
+		unit.setStrength(strength);
 	}
 
 	@Override
@@ -157,4 +187,41 @@ public class MapUnit implements IMutableMapUnit {
 		return unit;
 	}
 
+	/** @category Generated */
+	@Override
+	public void setSpeed(int speed) {
+		unit.setSpeed(speed);
+	}
+
+	/** @category Generated */
+	@Override
+	public int getSpeed() {
+		return unit.getSpeed();
+	}
+
+	/** @category Generated */
+	@Override
+	public MapPlayer getPlayer() {
+		return player;
+	}
+
+	@Override
+	public int getMaxWeight() {
+		return unit.getMaxWeight();
+	}
+
+	/** @category Generated */
+	@Override
+	public int getReadiness() {
+		return readiness;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("MapUnit [player=%s, gridX=%s, gridY=%s, currentHp=%s, readiness=%s, status=%s, getMove()=%s, getSpeed()=%s]",
+				player, gridX, gridY, currentHp, readiness, status, getMove(), getSpeed());
+	}
+
+	
+	
 }

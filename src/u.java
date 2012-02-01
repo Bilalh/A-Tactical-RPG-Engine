@@ -11,7 +11,7 @@ public class u {
 
 	public static void main(String[] args) {
 		ArrayList<Unit> u = new ArrayList<Unit>();
-		u.add(new Unit("d", 2, 2, 3));
+		u.add(new Unit("d", 2, 2, 3, 10));
 		
 		System.out.println(u);
 		

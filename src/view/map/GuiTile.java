@@ -66,7 +66,7 @@ public class GuiTile {
 	
 	// testing
 	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass32.jpg").getImage();
-//	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/tileeesmall.png").getImage();
+//	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/testTile.png").getImage();
 	Rectangle2D rGrass = new Rectangle2D.Double(0, 0, iGrass.getWidth(null), iGrass.getHeight(null));
 	TexturePaint tGrass = new TexturePaint(iGrass, rGrass);
 
@@ -287,7 +287,7 @@ public class GuiTile {
 						neg_y_h2_vet,
 						neg_y_h1_vet_div_2 }
 				, 4));
-//		
+		
 		g.setColor(oldColor);
 	}
 

@@ -23,7 +23,6 @@ public class UnitsChosenNotification implements IMapNotification {
 	@Override
 	public void process(GuiMap map) {
 		map.unitsChoosen(units);
-		map.playersTurn();
 	}
 
 }

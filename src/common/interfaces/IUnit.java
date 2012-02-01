@@ -27,4 +27,6 @@ public interface IUnit {
 
 	int getCost(Tile old, Tile next);
 
+	int getSpeed();
+	
 }

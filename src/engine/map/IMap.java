@@ -31,13 +31,8 @@ public interface IMap {
 
 	TileImageData getTileImageData(int x, int y);
 
-	/** @category Generated */
-	boolean isPlayersTurn();
-
-	/** @category Generated Getter */
 	int getFieldWidth();
 
-	/** @category Generated Getter */
 	int getFieldHeight();
 
 }

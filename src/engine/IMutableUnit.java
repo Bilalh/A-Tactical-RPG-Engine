@@ -1,6 +1,7 @@
 package engine;
 
 import common.interfaces.IUnit;
+import engine.map.MapPlayer;
 
 /**
  * @author Bilal Hussain
@@ -19,4 +20,8 @@ public interface IMutableUnit extends IUnit {
 
 	void setExp(int exp);
 
+	void setSpeed(int speed);
+
+	 int getMaxWeight();
+	 
 }

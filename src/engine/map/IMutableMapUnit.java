@@ -19,5 +19,12 @@ public interface IMutableMapUnit extends IMapUnit, IMutableUnit {
 	void setGridY(int gridY);
 
 	void setLocation(ILocation p);
-	
+
+	void setStatus(UnitStatus s);
+
+	void setMoved();
+
+	 MapPlayer getPlayer();
+	 int getReadiness();
+
 }

@@ -55,10 +55,6 @@ public class MapStub implements IMap {
 		return null;
 	}
 
-	@Override
-	public boolean isPlayersTurn() {
-		return false;
-	}
 
 	@Override
 	public int getFieldWidth() {

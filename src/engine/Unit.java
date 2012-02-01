@@ -12,25 +12,40 @@ import engine.map.Tile;
  */
 public class Unit implements IMutableUnit {
 
-	final private String name;
+	private String name;
 
 	private int maxHp;
 	private int move;
+	
 	private int strength;
 	private int defence;
-
+	
+	private int speed;
+	
 	private int level;
 	private int exp;
 
 	final private UUID uuid;
 
+	private int weight;
+	
 	/** @category Generated */
 	public Unit(String name, int maxHp, int move, int strength) {
+		this(name, maxHp, move, strength, 10);
+	}
+
+	public Unit(String name){
+		uuid = UUID.randomUUID();
 		this.name = name;
+	}
+	
+	/** @category Generated */
+	public Unit(String name, int maxHp, int move, int strength, int speed) {
+		this(name);
 		this.maxHp = maxHp;
 		this.move = move;
 		this.strength = strength;
-		uuid = UUID.randomUUID();
+		this.speed    = speed;
 	}
 
 	@Override
@@ -120,6 +135,32 @@ public class Unit implements IMutableUnit {
 	@Override
 	public UUID getUuid() {
 		return uuid;
+	}
+
+	@Override
+	public int getSpeed() {
+		return speed;
+	}
+
+	@Override
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	/** @category Generated */
+	public int getMaxWeight() {
+		return weight;
+	}
+
+	/** @category Generated */
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Unit [name=%s, maxHp=%s, move=%s, strength=%s, defence=%s, speed=%s, level=%s, exp=%s, uuid=%s, weight=%s]",
+				name, maxHp, move, strength, defence, speed, level, exp, uuid, weight);
 	}
 
 }

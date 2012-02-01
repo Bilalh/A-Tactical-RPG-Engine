@@ -1,15 +1,8 @@
 <tilemapping>
   <entry>
-    <string>mask-256</string>
+    <string>blue400</string>
     <tileImageData>
-      <location>images/tiles/mask-256.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>grass</string>
-    <tileImageData>
-      <location>images/tiles/brown.png</location>
+      <location>images/tiles/blue400.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -21,51 +14,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>m</string>
+    <string>grass</string>
     <tileImageData>
-      <location>images/tiles/mask.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>mask-192</string>
-    <tileImageData>
-      <location>images/tiles/mask-192.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>mask-200</string>
-    <tileImageData>
-      <location>images/tiles/mask-200.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>mask-128</string>
-    <tileImageData>
-      <location>images/tiles/mask-128.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>mask-100</string>
-    <tileImageData>
-      <location>images/tiles/mask-100.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>blue400</string>
-    <tileImageData>
-      <location>images/tiles/blue400.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>mask-32</string>
-    <tileImageData>
-      <location>images/tiles/mask-32.png</location>
+      <location>images/tiles/brown.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -77,13 +28,6 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>mask-16</string>
-    <tileImageData>
-      <location>images/tiles/mask-16.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
     <string>mask-80</string>
     <tileImageData>
       <location>images/tiles/mask-80.png</location>
@@ -91,9 +35,30 @@
     </tileImageData>
   </entry>
   <entry>
+    <string>m</string>
+    <tileImageData>
+      <location>images/tiles/mask.png</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>mask-128</string>
+    <tileImageData>
+      <location>images/tiles/mask-128.png</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
     <string>mask-60</string>
     <tileImageData>
       <location>images/tiles/mask-60.png</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>mask-100</string>
+    <tileImageData>
+      <location>images/tiles/mask-100.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>

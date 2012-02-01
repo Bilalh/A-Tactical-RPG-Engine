@@ -2,6 +2,7 @@ package engine.ai;
 
 import java.util.UUID;
 
+import engine.map.MapPlayer;
 import engine.map.MapUnit;
 
 /**
@@ -21,10 +22,13 @@ public class AIUnit extends MapUnit {
 
 	final private UUID uuid;
 
-	public AIUnit(String name, int gridX, int gridY) {
+	private int speed;
+
+	public AIUnit(String name, int gridX, int gridY, MapPlayer ai) {
 		super(gridX, gridY);
 		this.name = name;
 		uuid = UUID.randomUUID();
+		this.player = ai;
 	}
 
 	/** @category Generated */
@@ -111,4 +115,10 @@ public class AIUnit extends MapUnit {
 		return uuid;
 	}
 
+	@Override
+	public int getSpeed(){
+		return speed;
+	}
+	
+	
 }

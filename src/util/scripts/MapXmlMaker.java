@@ -27,8 +27,8 @@ public class MapXmlMaker {
 		Config.loadLoggingProperties();
 		
 		Random r = new Random(12344);
-		int width  = 20;
-		int height = 20;
+		int width  = 10;
+		int height = 10;
 		SavedTile[] tiles = new SavedTile[width*height];
 		
 		
@@ -42,7 +42,7 @@ public class MapXmlMaker {
 //			types[i] = "" + i;
 //		}
 	
-		int[]diagonals = {16,32,60,64,80,100,128,192,200,256};
+		int[]diagonals = {60,64,80,100,128};
 		String[] types  = new String[diagonals.length];
 		for (int i = 0; i < types.length; i++) {
 //			types[i] = "blue" + diagonals[i];
@@ -53,7 +53,7 @@ public class MapXmlMaker {
 			for (int j = 0; j < height; j++, k++) {
 				String type = types[j%types.length];
 				int h = r.nextInt(3)+1;
-				h =1;
+//				h =1;
 				tiles[k] = new SavedTile(type,h, i,j);
 			}
 		}

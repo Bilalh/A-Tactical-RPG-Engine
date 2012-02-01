@@ -86,16 +86,16 @@ public class Dijkstra {
 				if (ny < lowerY || ny >= upperY) continue;
 
 				LocationInfo v = locations[nx][ny];
-				LogMF.trace(log,"    <{0},{1}>", nx, ny);
+				Logf.trace(log,"    <%s,%s>", nx, ny);
 				if (settled.contains(v) && v.getPrevious() != null){
-					LogMF.trace(log,"      Skipped", nx,ny);
+					Logf.trace(log,"      Skipped %s %s", nx,ny);
 					continue;
 				}
 				
 				long newCost = u.getMinDistance(); // To stop overflow (e.g Integer.MAX_VALUE + 10)
 				newCost += costProvider.getMovementCost(u.x, u.y, nx, ny);
 
-				LogMF.trace(log,"\tnewcost:{0}",newCost);
+				Logf.trace(log,"\tnewcost:%s",newCost);
 				log.trace("\tv:" + v);
 				
 				if (newCost < v.getMinDistance()) {

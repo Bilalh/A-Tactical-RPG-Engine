@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import util.Args;
+import util.Logf;
 import view.notifications.*;
 
 import common.interfaces.INotification;
@@ -36,6 +37,7 @@ import engine.pathfinding.PathFinder;
  */
 public class Map extends Observable implements IMap {
 	private static final Logger log = Logger.getLogger(Map.class);
+	private Player playerinfo;
 	
 	private Tile[][] field;
 	private TileMapping tileMapping;
@@ -43,34 +45,121 @@ public class Map extends Observable implements IMap {
 	private int width;
 	private int height;
 
-	private Player player;
-	
 	private AIPlayer ai;
-	private MapPlayer mplayer;
+	private MapPlayer player;
 	
 	//	Cached movement data 
 	private HashMap<IMutableMapUnit, PathFinder> paths;
 	
-	private boolean playersTurn; 
+	private PriorityQueue<IMutableMapUnit> order;
 	
 	/** @category Constructor */
 	public Map(String name, Player player) {
-		this.player = player;
+		this.playerinfo = player;
 		loadSettings(name);
 		setUpAI();
 		
-		playersTurn = true;
 		paths = new HashMap<IMutableMapUnit, PathFinder>();
+		order = new PriorityQueue<IMutableMapUnit>(16,new DefaultTurnComparator());
+		
 	}
+
+	@Override
+
+	
+	public void start() {
+		INotification n = new ChooseUnitsNotifications(playerinfo.getUnits(), ai.getUnits());
+		setChanged();
+		notifyObservers(n);
+	}
+
+	@Override
+	public void setUsersUnits(HashMap<IMutableUnit, Location> selected) {
+		System.out.println(selected);
+
+		ArrayList<IMutableMapUnit> units = new ArrayList<IMutableMapUnit>();
+		
+		for (Entry<IMutableUnit, Location> e : selected.entrySet()) {
+			IMutableMapUnit u = new MapUnit(e.getKey(),e.getValue(),player); 
+			field[u.getGridX()][u.getGridY()].setCurrentUnit(u);
+			units.add(u);
+			order.add(u);
+		}
+		player = new MapPlayer(units);
+		
+		INotification n = new UnitsChosenNotification(new ArrayList<IMapUnit>(units));
+		setChanged();
+		notifyObservers(n);
+		
+		Logf.info(log, "ordering %s", order);
+	}
+
+	
+	// Precondition getMovementRange must have been called first
+	@Override
+	public void moveUnit(IMutableMapUnit u, Location p) {
+		
+		Collection<LocationInfo> path  =  paths.get(u).getMovementPath(p);
+		field[u.getGridX()][u.getGridY()].setCurrentUnit(null);
+		u.setLocation(p);
+		field[p.x][p.y].setCurrentUnit(u);
+		
+		//FIXME events
+		for (LocationInfo l : path) {
+//			field[l.x][l.y].event(u)
+		}
+		
+//		u.setMoved
+		
+		INotification n = new UserMovedNotification(u,path);
+		paths.remove(u);
+		
+		setChanged();
+		notifyObservers(n);
+		
+	}
+
+	
+	
+	@Override
+	public Collection<LocationInfo> getMovementRange(IMutableMapUnit u){
+		Args.nullCheck(u);
+		PathFinder pf;
+		if ((pf = paths.get(u)) != null){
+			return pf.getMovementRange();
+		}
+		
+		pf = new PathFinder(u, this);
+		paths.put(u, pf);
+		
+		return pf.getMovementRange();
+	}
+	
+	
+	@Override
+	public ArrayList<IMapUnit> getUnits() {
+		 return new ArrayList<IMapUnit>(player.getUnits());
+	}
+
+	@Override
+	public Tile getTile(int x, int y){
+		return field[x][y];
+	}
+	
+	@Override
+	public TileImageData getTileImageData(int x, int y){
+		return tileMapping.getTileImageData(field[x][y].getType());
+	}
+	
 
 	private void setUpAI() {
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
 		
-		AIUnit u = new AIUnit("ai-1", width - 1, 0);
+		AIUnit u = new AIUnit("ai-1", width - 1, 0,ai);
 		aiUnits.add(u);
 		field[width - 1][0].setCurrentUnit(u);
 
-		u = new AIUnit("ai-2", width - 1, 1);
+		u = new AIUnit("ai-2", width - 1, 1,ai);
 		aiUnits.add(u);
 		field[width - 1][1].setCurrentUnit(u);
 		
@@ -94,7 +183,7 @@ public class Map extends Observable implements IMap {
 		field  = new Tile[width][height];
 		
 		for (SavedTile t : smap.getTiles()) {
-			field[t.getX()][t.getY()] = new Tile(t.getHeight(), t.getHeight(), t.getType());
+			field[t.getX()][t.getY()] = new Tile(t.getHeight(), (int) (t.getHeight()), t.getType());
 		}
 		
 		String mappingLocation = smap.getTileMappinglocation();
@@ -105,94 +194,11 @@ public class Map extends Observable implements IMap {
 		}
 		
 	}
-	
-	@Override
-	public void start() {
-		INotification n = new ChooseUnitsNotifications(player.getUnits(), ai.getUnits());
-		setChanged();
-		notifyObservers(n);
-	}
-
-	@Override
-	public void setUsersUnits(HashMap<IMutableUnit, Location> selected) {
-		System.out.println(selected);
-
-		ArrayList<IMutableMapUnit> units = new ArrayList<IMutableMapUnit>();
-		
-		for (Entry<IMutableUnit, Location> e : selected.entrySet()) {
-			IMutableMapUnit u = new MapUnit(e.getKey(),e.getValue()); 
-			field[u.getGridX()][u.getGridY()].setCurrentUnit(u);
-			units.add(u);
-		}
-		mplayer = new MapPlayer(units);
-		
-		INotification n = new UnitsChosenNotification(new ArrayList<IMapUnit>(units));
-		setChanged();
-		notifyObservers(n);
-	}
-
-	
-	// Precondition getMovementRange must have been called first
-	@Override
-	public void moveUnit(IMutableMapUnit u, Location p) {
-		
-		Collection<LocationInfo> path  =  paths.get(u).getMovementPath(p);
-		field[u.getGridX()][u.getGridY()].setCurrentUnit(null);
-		u.setLocation(p);
-		field[p.x][p.y].setCurrentUnit(u);
-		
-		//FIXME events
-		for (LocationInfo l : path) {
-//			field[l.x][l.y].event(u)
-		}
-		
-		INotification n = new UserMovedNotification(u,path);
-		paths.remove(u);
-		
-		setChanged();
-		notifyObservers(n);
-	}
-
-	@Override
-	public Collection<LocationInfo> getMovementRange(IMutableMapUnit u){
-		Args.nullCheck(u);
-		PathFinder pf;
-		if ((pf = paths.get(u)) != null){
-			return pf.getMovementRange();
-		}
-		
-		pf = new PathFinder(u, this);
-		paths.put(u, pf);
-		
-		return pf.getMovementRange();
-	}
-	
-	
-	@Override
-	public ArrayList<IMapUnit> getUnits() {
-		 return new ArrayList<IMapUnit>(mplayer.getUnits());
-	}
-
-	@Override
-	public Tile getTile(int x, int y){
-		return field[x][y];
-	}
-	
-	@Override
-	public TileImageData getTileImageData(int x, int y){
-		return tileMapping.getTileImageData(field[x][y].getType());
-	}
-	
 	/** @category Generated */
 	public Tile[][] getField() {
 		return field;
 	}
 
-	/** @category Generated */
-	@Override
-	public boolean isPlayersTurn() {
-		return playersTurn;
-	}
 
 	/** @category Generated Getter */
 	@Override

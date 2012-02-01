@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings("all")
-public class tess extends JPanel {
+public class tess extends JPanel implements k {
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
@@ -20,11 +20,15 @@ public class tess extends JPanel {
         f.setVisible(true);
     }
 
+    @Override
+	public void a(){}
+    
     public tess() {
         setPreferredSize(new Dimension(300, 300));
     }
 
-    public void paintComponent(Graphics g) {
+    @Override
+	public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D)g.create();
         Rectangle2D rectangleNotToDrawIn = new Rectangle2D.Double(100, 100, 20, 30);
         Area outside = calculateRectOutside(rectangleNotToDrawIn);
