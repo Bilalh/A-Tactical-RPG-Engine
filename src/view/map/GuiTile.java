@@ -80,7 +80,7 @@ public class GuiTile {
 			int x, int y, String filename, ImageType type ) {
 		this.fieldLocation = new Location(x, y);
 		this.orientation   = orientation;
-		
+
 		this.startHeight = startHeight;
 		this.endHeight   = endHeight;
 		
@@ -560,4 +560,8 @@ public class GuiTile {
 		this.selected = selected;
 	}
 
+	public Rectangle getBounds(){
+		return top.getBounds();
+	}
+	
 }

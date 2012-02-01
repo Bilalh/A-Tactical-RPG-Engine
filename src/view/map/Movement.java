@@ -169,7 +169,7 @@ public  class Movement extends MapActions{
     	if (!mouseMoving){
     		mouseMoving =true;
     		log.info("mouseDragged ");
-//	    	map.setDrawn(false);	
+	    	map.setDrawn(false);	
     	}
     	
         Point current = e.getPoint();

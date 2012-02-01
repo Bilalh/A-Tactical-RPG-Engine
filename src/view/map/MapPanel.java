@@ -283,5 +283,11 @@ public class MapPanel extends JPanel implements Runnable {
 	}
 
 
+	void resizeMap(int width, int height){
+		setPreferredSize(new Dimension(width, height));
+		setSize(width, height);
+		dbImage = createImage(width, height);
+	}
+	
 }
 

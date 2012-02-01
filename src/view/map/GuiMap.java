@@ -145,8 +145,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 		
-		boolean a =true;
-		if (a || !current.isMouseMoving()) {
+		if (!current.isMouseMoving()) {
 			frameChange += timeDiff;
 			if (frameChange > frameDuration) {
 				frameChange = 0;
@@ -182,7 +181,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 		_g.drawImage(mapBuffer, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height, null);
 
-		
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 	}
 	
