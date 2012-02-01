@@ -34,7 +34,7 @@ public class GuiTile {
 	}
 
 	static enum TileState {
-		SELECTED(Color.ORANGE), MOVEMENT_RANGE(Color.BLUE), NONE(Color.GREEN);
+		SELECTED(Color.ORANGE), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.GREEN);
 		public final Color colour;
 
 		TileState(Color c) {
@@ -201,7 +201,7 @@ public class GuiTile {
 			g.drawImage(tileImage,  f, (int) (y - h2), null);
 		}
 
-		if (state == TileState.MOVEMENT_RANGE || selected) {
+		if (state == TileState.MOVEMENT_RANGE || state == TileState.OTHERS_RANGE || selected) {
 			Composite oldC = g.getComposite();
 			AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
 					0.25f);

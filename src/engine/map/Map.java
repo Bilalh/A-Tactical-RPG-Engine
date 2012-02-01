@@ -74,7 +74,7 @@ public class Map extends Observable implements IMap {
 	}
 
 	
-	private IMapUnit current;
+	private IMutableMapUnit current;
 	
 	@Override
 	public void setUsersUnits(HashMap<IMutableUnit, Location> selected) {
@@ -115,18 +115,36 @@ public class Map extends Observable implements IMap {
 		for (LocationInfo l : path) {
 //			field[l.x][l.y].event(u)
 		}
-		
-//		u.setMoved
-		
+
+		u.setReadiness(u.getReadiness() - 60);
+		order.add(u);
 		INotification n = new UserMovedNotification(u,path);
 		paths.remove(u);
 		
 		setChanged();
 		notifyObservers(n);
-		
+		sendNextUnit();
 	}
 
-	
+
+	public void sendNextUnit(){
+		current = order.remove();
+		if (current.getReadiness() == 0){
+			order.clear();
+			for (IMutableMapUnit u : player.getUnits()) {
+				u.setReadiness(100);
+				order.add(u);
+			}
+//			for (IMutableMapUnit u : ai.getUnits()) {
+//				u.setReadiness(100);
+//				order.add(u);
+//			}
+			
+		}
+		setChanged();
+		INotification n = new UnitTurnNotification(current);
+		notifyObservers(n);
+	}
 	
 	@Override
 	public Collection<LocationInfo> getMovementRange(IMutableMapUnit u){

@@ -394,7 +394,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			
 			inRange =  mapController.getMovementRange(unitS.getUnit());
 			for (LocationInfo p : inRange) {
-				field[p.x][p.y].setState(TileState.MOVEMENT_RANGE);
+				field[p.x][p.y].setState(selected == currentUnit ? TileState.MOVEMENT_RANGE : TileState.OTHERS_RANGE);
 			}
 		}
 		

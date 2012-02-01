@@ -26,5 +26,6 @@ public interface IMutableMapUnit extends IMapUnit, IMutableUnit {
 
 	 MapPlayer getPlayer();
 	 int getReadiness();
+	 void setReadiness(int readiness);
 
 }

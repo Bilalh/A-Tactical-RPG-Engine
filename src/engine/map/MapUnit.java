@@ -216,12 +216,17 @@ public class MapUnit implements IMutableMapUnit {
 		return readiness;
 	}
 
+
+
+	/** @category Generated */
+	public void setReadiness(int readiness) {
+		this.readiness = readiness;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("MapUnit [player=%s, gridX=%s, gridY=%s, currentHp=%s, readiness=%s, status=%s, getMove()=%s, getSpeed()=%s]",
 				player, gridX, gridY, currentHp, readiness, status, getMove(), getSpeed());
 	}
-
-	
 	
 }
