@@ -1,16 +1,16 @@
 /*
- *  Tiled Map Editor, (c) 2004-2006
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  Adam Turk <aturk@biggeruniverse.com>
- *  Bjorn Lindeijer <bjorn@lindeijer.nl>
- */
+*
+*  GNU public licence 2 + 
+*  Adam Turk <aturk@biggeruniverse.com>
+*  Bjorn Lindeijer <bjorn@lindeijer.nl>
+*
+*  Changes: added a float button, also made it more customisable 
+*
+*/
 
 package editor;
+
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,9 +24,6 @@ import javax.swing.border.EmptyBorder;
  * A floatable panel. The panel has a titlebar which displays the panel title plus a small button which can be used to turn the panel into a
  * frame. When the frame is closed the panel is restored.
  * 
- * // todo: Prettify the user interface
- * 
- * @version $Id$
  */
 public class FloatablePanel extends JPanel
 {

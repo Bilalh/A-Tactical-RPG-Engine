@@ -145,7 +145,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 		
-		if (!current.isMouseMoving()) {
+		boolean a =true;
+		if (a || !current.isMouseMoving()) {
 			frameChange += timeDiff;
 			if (frameChange > frameDuration) {
 				frameChange = 0;

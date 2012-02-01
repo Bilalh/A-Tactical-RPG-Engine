@@ -29,11 +29,11 @@ import config.xml.TileImageData;
 
 public class GuiTile {
 
-	static enum Orientation {
+	public static enum Orientation {
 		NORMAL, UP_TO_NORTH, UP_TO_EAST, UP_TO_SOUTH, UP_TO_WEST, EMY
 	}
 
-	static enum TileState {
+	public static enum TileState {
 		SELECTED(Color.ORANGE), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.GREEN);
 		public final Color colour;
 

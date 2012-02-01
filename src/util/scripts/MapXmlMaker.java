@@ -27,8 +27,8 @@ public class MapXmlMaker {
 		Config.loadLoggingProperties();
 		
 		Random r = new Random(12344);
-		int width  = 10;
-		int height = 10;
+		int width  = 25;
+		int height = 25;
 		SavedTile[] tiles = new SavedTile[width*height];
 		
 		

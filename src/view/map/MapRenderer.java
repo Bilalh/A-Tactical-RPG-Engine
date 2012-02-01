@@ -20,8 +20,8 @@ public class MapRenderer {
 
 	private static final Logger log = Logger.getLogger(MapRenderer.class);
 	
-	IMapRendererParent parent;
-	GuiTile[][] field;
+	private IMapRendererParent parent;
+	private GuiTile[][] field;
 
 	private final int fieldWidth, fieldHeight;
 	private final int startX, startY;
@@ -59,10 +59,10 @@ public class MapRenderer {
 			for (int j = 0; j < fieldWidth; j++) {
 				// for (int j = fieldWidth - 1; j >= 0; j--) { // for rotate
 				if (parent.isMouseMoving() ||
-						(x - horizontal - drawX <= width + MapSettings.tileDiagonal * 2
-								&& y - vertical - drawY <= height + MapSettings.tileDiagonal * 2
-								&& x + horizontal - drawX >= -MapSettings.tileDiagonal * 2
-								&& y + vertical - drawY >= -MapSettings.tileDiagonal * 2)) {
+						(x - horizontal - drawX <= width + MapSettings.tileDiagonal * 3
+								&& y - vertical - drawY <= height + MapSettings.tileDiagonal * 3
+								&& x + horizontal - drawX >= -MapSettings.tileDiagonal * 3
+								&& y + vertical - drawY >= -MapSettings.tileDiagonal * 3)) {
 					field[j][i].draw(x, y, g, true, true);
 
 					if (showNumbering) {

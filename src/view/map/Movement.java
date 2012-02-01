@@ -20,7 +20,6 @@ import common.LocationInfo;
 public  class Movement extends MapActions{
 	private static final Logger log = Logger.getLogger(Movement.class);
 	
-	private boolean mouseMoving = false;
 	private Collection<LocationInfo> inRange = null;
     private Point mouseStart, mouseEnd;
     private int offsetX, offsetY;
@@ -170,7 +169,7 @@ public  class Movement extends MapActions{
     	if (!mouseMoving){
     		mouseMoving =true;
     		log.info("mouseDragged ");
-	    	map.setDrawn(false);	
+//	    	map.setDrawn(false);	
     	}
     	
         Point current = e.getPoint();
