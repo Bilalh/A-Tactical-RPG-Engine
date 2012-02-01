@@ -3,8 +3,12 @@ package editor;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.prefs.Preferences;
 
 import javax.swing.*;
+
 
 import editor.Editor.State;
 
@@ -18,11 +22,16 @@ public class Editor implements ActionListener {
 
 	private AbstractButton paintButton, eraseButton, pourButton;
 	private AbstractButton eyedButton, marqueeButton, moveButton;
-
 	private final Action zoomInAction, zoomOutAction, zoomNormalAction;
-
 	private State state;
 
+	private JScrollPane mapScrollPane;
+	private JPanel infoPanel;
+	private FloatablePanel infoPanelContainer;
+	private JPanel tilesetPanel;
+	private FloatablePanel tilesetsPanelContainer;
+
+	
 	private static final String TOOL_PAINT = "paint";
 	private static final String TOOL_ERASE = "erase";
 	private static final String TOOL_FILL = "fill";
@@ -48,19 +57,68 @@ public class Editor implements ActionListener {
         zoomNormalAction = new ZoomNormalAction();
         
 		frame.setContentPane(createContentPane());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent event) {
+            	onQuit();
+            }
+        });
+		
+        infoPanelContainer.restore();
+        tilesetsPanelContainer.restore();
+		
 		// frame.setSize(1280, 800);
 		frame.setSize(1440, 900);
 		frame.setVisible(true);
 	}
 
 	private JPanel createContentPane() {
+        mapScrollPane = new JScrollPane(
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        mapScrollPane.setBorder(null);
+        
+        infoPanel = new JPanel();
+        infoPanelContainer = new FloatablePanel(frame,infoPanel, "Info", "info");
+        
+        JSplitPane mainSplit = new JSplitPane(
+                JSplitPane.HORIZONTAL_SPLIT, true, mapScrollPane,infoPanelContainer);
+        mainSplit.setOneTouchExpandable(true);
+        mainSplit.setResizeWeight(1.0);
+        mainSplit.setBorder(null);
+        
+        tilesetPanel = new JPanel();
+        tilesetsPanelContainer = new FloatablePanel(frame, tilesetPanel, "Tiles","tilesets");
+        
+        
+        JSplitPane paletteSplit = new JSplitPane(
+                JSplitPane.VERTICAL_SPLIT, true, mainSplit, tilesetsPanelContainer);
+        paletteSplit.setOneTouchExpandable(true);
+        paletteSplit.setResizeWeight(1.0);
+        
 		JPanel main = new JPanel(new BorderLayout());
+        main.add(paletteSplit, BorderLayout.CENTER);
 		main.add(createToolBar(), BorderLayout.WEST);
 
 		return main;
 	}
 
+	private void onQuit(){
+        final int extendedState = frame.getExtendedState();
+        final Preferences pref = Config.getNode("panels");
+        pref.putInt("state", extendedState);
+        if (extendedState == Frame.NORMAL) {
+            pref.putInt("width", frame.getWidth());
+            pref.putInt("height", frame.getHeight());
+        }
+
+        // Allow the floatable panels to save their position and size
+        infoPanelContainer.save();
+        tilesetsPanelContainer.save();
+        System.exit(0);
+	}
+	
 	private JToolBar createToolBar() {
 		ImageIcon iconMove    = Resources.getIcon("gimp-tool-move-22.png");
 		ImageIcon iconPaint   = Resources.getIcon("gimp-tool-pencil-22.png");
