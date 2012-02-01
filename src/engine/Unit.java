@@ -148,6 +148,7 @@ public class Unit implements IMutableUnit {
 	}
 
 	/** @category Generated */
+	@Override
 	public int getMaxWeight() {
 		return weight;
 	}

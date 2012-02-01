@@ -219,6 +219,7 @@ public class MapUnit implements IMutableMapUnit {
 
 
 	/** @category Generated */
+	@Override
 	public void setReadiness(int readiness) {
 		this.readiness = readiness;
 	}

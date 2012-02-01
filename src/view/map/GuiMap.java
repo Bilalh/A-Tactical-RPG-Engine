@@ -3,49 +3,35 @@ package view.map;
  * 
  */
 
-import static view.map.GuiTile.TileState;
-import static view.map.GuiTile.Orientation.UP_TO_EAST;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
-import java.awt.image.BufferedImage;
 import java.util.*;
 
-import javax.media.jai.RenderedOp;
-import javax.media.jai.operator.LogDescriptor;
-import javax.media.jai.operator.SubtractDescriptor;
-
 import org.apache.log4j.Logger;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import util.Logf;
 import view.AnimatedUnit;
 import view.Gui;
 import view.GuiUnit;
 import view.interfaces.IActions;
-import view.notifications.ChooseUnitsNotifications;
 import view.ui.Dialog;
-import view.util.ActionsAdapter;
+import view.util.MapActions;
 import view.util.MousePoxy;
-
-import common.gui.SpriteManager;
-import common.interfaces.*;
-import config.xml.TileImageData;
-import controller.MapController;
-
-import engine.Unit;
-import engine.map.IMutableMapUnit;
-import engine.map.Map;
-import engine.map.Tile;
 
 import common.Location;
 import common.LocationInfo;
+import common.gui.SpriteManager;
+import common.interfaces.ILocation;
+import common.interfaces.IMapNotification;
+import common.interfaces.IMapUnit;
+import common.interfaces.IUnit;
+
+import config.xml.TileImageData;
+import controller.MapController;
+import engine.map.Tile;
 
 /**
  * @author bilalh
@@ -70,7 +56,7 @@ public class GuiMap implements Observer, IMapRendererParent {
     private boolean showDialog = false;
         
     // The Class that with handed the input 
-    private ActionsAdapter current;
+    private MapActions current;
     
     private MousePoxy MousePoxy;
     
@@ -84,14 +70,14 @@ public class GuiMap implements Observer, IMapRendererParent {
     private final int startX, startY;
     private int drawX,drawY;
     
-    final private ActionsAdapter[] actions = {new Movement(), new DialogHandler(), new ActionsAdapter()};
+    final private MapActions[] actions = {new Movement(this), new DialogHandler(this), new MapActions(this)};
     enum ActionsEnum {
     	MOVEMENT, DIALOG,NONE
     }
 
-    final int heightOffset;
+    private final int heightOffset;
     
-    Component parent;
+    private Component parent;
     
 	/** @category Constructor */
 	public GuiMap(MapController mapController, Component parent) {
@@ -159,7 +145,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 		
-		if (!mouseMoving) {
+		if (!current.isMouseMoving()) {
 			frameChange += timeDiff;
 			if (frameChange > frameDuration) {
 				frameChange = 0;
@@ -182,14 +168,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 						setActionHandler(oldAction);
 					}
 				}
-				drawn = false;
+				setDrawn(false);
 			}
 		}
 
-		if (!drawn){
+		if (!isDrawn()){
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
-			drawn = mapRenderer.draw(g, width, height);
+			setDrawn(mapRenderer.draw(g, width, height));
 //			Logf.trace(log, "%s %s %s %s %s %s %s %s %s %s ",bufferWidth,bufferHeight, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height);
 		}
 		
@@ -253,7 +239,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	private Iterator<LocationInfo> pathIterator;
 	private LocationInfo lastLocation;
-	private ActionsAdapter oldAction = null;
+	private MapActions oldAction = null;
 	
 	public void unitMoved(IMapUnit u, Collection<LocationInfo> path){
 		AnimatedUnit movingUnit =  unitMapping.get(u.getUuid());
@@ -266,10 +252,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 		if (pathIterator.hasNext()) setActionHandler(ActionsEnum.NONE);
 		
 		Logf.info(log, "%s moved from %s to %s with path:s%s", u.getName(),  movingUnit.getLocation(), u.getLocation(), path );
-		drawn =false;
+		setDrawn(false);
 	}
-	
-
 	
 	private GuiUnit currentUnit;
 	public void unitsTurn(IMapUnit unit) {
@@ -290,7 +274,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setActionHandler(ActionsEnum.DIALOG);
 	}
 		
-	private class DialogHandler extends ActionsAdapter{
+	private class DialogHandler extends MapActions{
+
+		public DialogHandler(GuiMap map) {
+			super(map);
+		}
 
 		@Override
 		public void keyComfirm() {
@@ -308,165 +296,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 				setActionHandler(ActionsEnum.MOVEMENT);
 			}
 		}
-	}
-	
-	private boolean mouseMoving = false;
-	private class Movement extends ActionsAdapter{
-		
-		private Collection<LocationInfo> inRange = null;
-	    private Point mouseStart, mouseEnd;
-	    private int offsetX, offsetY;
-		
-		@Override
-		public void keyUp() {
-			setSelectedTile(selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y+1);
-		}
-
-		@Override
-		public void keyDown() {
-			setSelectedTile(selectedTile.getFieldLocation().x, selectedTile.getFieldLocation().y-1);
-		}
-
-		@Override
-		public void keyLeft() {
-			setSelectedTile(selectedTile.getFieldLocation().x-1, selectedTile.getFieldLocation().y);
-			
-		}
-
-		@Override
-		public void keyRight() {
-			setSelectedTile(selectedTile.getFieldLocation().x+1, selectedTile.getFieldLocation().y);
-		}
-		
-		@Override
-		public void keyComfirm() {
-			selectMoveUnit();
-		}
-		
-		AnimatedUnit selected = null;
-		private void selectMoveUnit() {
-			assert(currentUnit != null);
-			if (selected != null){
-				if (selected != currentUnit){
-					Logf.info(log, "Not %s's turn its %s turn", getSelectedTile().getUnit(), currentUnit );
-					return; 
-				}
-				log.info("selected " + selected);
-				
-				if (!getSelectedTile().isSelected() ) return;
-				
-				if (!inRange.contains(getSelectedTile().getFieldLocation())){
-					Logf.info(log, "%s not in range", getSelectedTile());
-					return;
-				}
-				
-				mapController.moveUnit(selected.getUnit(), getSelectedTile().getFieldLocation());
-				for (LocationInfo p : inRange) {
-					field[p.x][p.y].setState(TileState.NONE);
-				}
-				selected = null;
-				inRange = null;
-				log.info("Selected unit move finished");
-				return;
-			}
-
-			AnimatedUnit unitS = null;
-			GuiTile t = selectedTile;
-			
-			for (AnimatedUnit u : units) {
-				if (u.getGridX() == t.getFieldLocation().x && u.getGridY() == t.getFieldLocation().y){
-					unitS = u;
-					break;
-				}
-			}
-			
-			if(unitS == null) return; 
-			
-			if (unitS != selected){
-				if (inRange != null){
-					for (LocationInfo p : inRange) {
-						field[p.x][p.y].setState(TileState.NONE);
-					}	
-				}
-				inRange = null;
-				selected = unitS;
-			}
-			
-			inRange =  mapController.getMovementRange(unitS.getUnit());
-			for (LocationInfo p : inRange) {
-				field[p.x][p.y].setState(selected == currentUnit ? TileState.MOVEMENT_RANGE : TileState.OTHERS_RANGE);
-			}
-		}
-		
-		@Override
-		public void keyCancel() {
-			selected = null;
-			if (inRange != null){
-				for (LocationInfo p : inRange) {
-					field[p.x][p.y].setState(TileState.NONE);
-				}
-				inRange = null;
-			}
-			
-		}
-		
-	    @Override
-		public void mousePressed(MouseEvent e) {
-	        mouseStart = e.getPoint();
-	        offsetX = e.getX() - drawX;
-	        offsetY = e.getY() - drawY;
-	        Logf.debug(log,"MousePressed MouseMoving:%s drawn:%s", mouseMoving,drawn);
-	    }
-
-	    @Override
-		public void mouseReleased(MouseEvent e) {
-	    	mouseMoving = false;
-	    	log.trace("MousrReleased start");
-	        mouseEnd = e.getPoint();
-	        int a = Math.abs((int) (mouseEnd.getX() - mouseStart.getX()));
-	        int b = Math.abs((int) (mouseEnd.getY() - mouseStart.getY()));
-	        if (Math.sqrt(a * a + b * b) > 3) {
-	            
-	        } else {
-	        	
-	        	Location l = null;
-	        	for (AnimatedUnit u : units) {
-	        		if (l ==null){
-	        			if(u.isIntersecting(getTile(u.getLocation()), e.getX(), e.getY())){
-	        				l = u.getLocation();
-	        			}
-	        		}else{
-	        			l = null;
-	        			
-	        			break;
-	        		}
-				}
-	        	
-	        	if (l != null){
-	        		setSelectedTile(units[1].getGridX(), units[1].getGridY());
-	        	}else{
-		            findAndSelectTile(e.getX(), e.getY());
-	        	}
-	        	
-	            selectMoveUnit();
-	        }
-	        Logf.debug(log,"MouseReleased MouseMoving:%s drawn:%s", mouseMoving,drawn);
-	    }
-
-	    @Override
-		public void mouseDragged(MouseEvent e) {
-	    	
-	    	if (!mouseMoving){
-	    		mouseMoving =true;
-	    		log.info("mouseDragged ");
-		    	drawn = false;	
-	    	}
-	    	
-	        Point current = e.getPoint();
-	        setDrawLocation(e.getX() - offsetX, e.getY() - offsetY);
-//	        System.out.print((drawn ? "T" : "F") +  (mouseMoving ? ":" : "@"));
-	    }
-		
 	}
 
 	public void otherKeys(KeyEvent e){
@@ -493,7 +322,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				}
 				
 				log.info(MapSettings.zoom);
-				drawn=false;
+				setDrawn(false);
 				break;
 			case KeyEvent.VK_EQUALS:
 				if ( MapSettings.zoom >1.2) break;
@@ -501,21 +330,21 @@ public class GuiMap implements Observer, IMapRendererParent {
 //				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
 				log.info(MapSettings.zoom * MapSettings.tileDiagonal);
 				log.info(MapSettings.zoom);
-				drawn=false;
+				setDrawn(false);
 				break;
 			case KeyEvent.VK_COMMA:
 				if ( MapSettings.pitch <0.6) break;
 				MapSettings.pitch *= 0.8;
 				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
 				log.info(MapSettings.pitch);
-				drawn=false;
+				setDrawn(false);
 				break;
 			case KeyEvent.VK_PERIOD:
 				if ( MapSettings.pitch >0.8) break;
 				MapSettings.pitch *= 1.2;
 				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
 				log.info(MapSettings.pitch);
-				drawn=false;
+				setDrawn(false);
 				break;
 			case KeyEvent.VK_I:
 				Logf.info(log,"draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, selectedTile.getUnit());
@@ -563,8 +392,12 @@ public class GuiMap implements Observer, IMapRendererParent {
 		return selectedTile;
 	}
 
+	public void moveSelectedTile(int dx, int dy) {
+		setSelectedTile(selectedTile.getX()+dx, selectedTile.getY()+dy);
+	}
+	
 	public void setSelectedTile(int x, int y) {
-        assert !(x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight); 
+        if (x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight) return; 
         
         if (selectedTile != null) {
             selectedTile.setSelected(false);
@@ -586,16 +419,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 		return MousePoxy;
 	}
 	
-	private ActionsAdapter getActionHandler(ActionsEnum num){
+	private MapActions getActionHandler(ActionsEnum num){
 		return actions[num.ordinal()];
 	}
 	
 	private void setActionHandler(ActionsEnum num){
-		final ActionsAdapter aa = actions[num.ordinal()];
+		final MapActions aa = actions[num.ordinal()];
 		setActionHandler(aa);
 	}
 	
-	private void setActionHandler(ActionsAdapter aa){
+	private void setActionHandler(MapActions aa){
 		Logf.info(log, "Action changed to %s", aa);
 		current = aa;
 		MousePoxy.setMouseListener(aa);
@@ -643,7 +476,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	/** @category Generated Getter */
 	@Override
 	public boolean isMouseMoving() {
-		return mouseMoving;
+		return current.isMouseMoving();
 	}
 
 	/** @category Generated Getter */
@@ -656,6 +489,34 @@ public class GuiMap implements Observer, IMapRendererParent {
 	@Override
 	public int getDrawY() {
 		return drawY;
+	}
+
+	/** @category Generated */
+	AnimatedUnit[] getUnits() {
+		return units;
+	}
+
+	/** @category Generated */
+	GuiUnit getCurrentUnit() {
+		return currentUnit;
+	}
+
+	/** @category Generated */
+	MapController getMapController() {
+		return mapController;
+	}
+
+	/** @category Generated */
+	void setUnits(AnimatedUnit[] units) {
+		this.units = units;
+	}
+
+	boolean isDrawn() {
+		return drawn;
+	}
+
+	void setDrawn(boolean drawn) {
+		this.drawn = drawn;
 	}
 
 }

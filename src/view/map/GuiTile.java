@@ -503,6 +503,15 @@ public class GuiTile {
 		return fieldLocation;
 	}
 
+	public int getX(){
+		return fieldLocation.x;
+	}
+	
+	public int getY(){
+		return fieldLocation.y;
+	}
+	
+	
 	/** @category Generated */
 	public float getStartHeight() {
 		return startHeight;
