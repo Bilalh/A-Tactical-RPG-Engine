@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import editor.Editor.State;
+
 
 /**
  * @author Bilal Hussain
@@ -19,6 +21,8 @@ public class Editor implements ActionListener {
 
 	private final Action zoomInAction, zoomOutAction, zoomNormalAction;
 
+	private State state;
+
 	private static final String TOOL_PAINT = "paint";
 	private static final String TOOL_ERASE = "erase";
 	private static final String TOOL_FILL = "fill";
@@ -26,6 +30,16 @@ public class Editor implements ActionListener {
 	private static final String TOOL_SELECT = "select";
 	private static final String TOOL_MOVE_LAYER = "movelayer";
 
+	static enum State{
+		POINT    , 
+		PAINT    , 
+		ERASE    , 
+		POUR     , 
+		EYED     , 
+		MARQUEE  , 
+		MOVE     ; 
+	}
+	
 	public Editor() {
 		frame = new JFrame();
 
@@ -48,19 +62,19 @@ public class Editor implements ActionListener {
 	}
 
 	private JToolBar createToolBar() {
-		ImageIcon iconMove = Resources.getIcon("gimp-tool-move-22.png");
-		ImageIcon iconPaint = Resources.getIcon("gimp-tool-pencil-22.png");
-		ImageIcon iconErase = Resources.getIcon("gimp-tool-eraser-22.png");
-		ImageIcon iconPour = Resources.getIcon("gimp-tool-bucket-fill-22.png");
-		ImageIcon iconEyed = Resources.getIcon("gimp-tool-color-picker-22.png");
+		ImageIcon iconMove    = Resources.getIcon("gimp-tool-move-22.png");
+		ImageIcon iconPaint   = Resources.getIcon("gimp-tool-pencil-22.png");
+		ImageIcon iconErase   = Resources.getIcon("gimp-tool-eraser-22.png");
+		ImageIcon iconPour    = Resources.getIcon("gimp-tool-bucket-fill-22.png");
+		ImageIcon iconEyed    = Resources.getIcon("gimp-tool-color-picker-22.png");
 		ImageIcon iconMarquee = Resources.getIcon("gimp-tool-rect-select-22.png");
 
-		paintButton = createToggleButton(iconPaint, "paint", TOOL_PAINT);
-		eraseButton = createToggleButton(iconErase, "erase", TOOL_ERASE);
-		pourButton = createToggleButton(iconPour, "pour", TOOL_FILL);
-		eyedButton = createToggleButton(iconEyed, "eyed", TOOL_EYE_DROPPER);
-		marqueeButton = createToggleButton(iconMarquee, "marquee", TOOL_SELECT);
-		moveButton = createToggleButton(iconMove, "move", TOOL_MOVE_LAYER);
+		paintButton   = createToggleButton(iconPaint, "PAINT", TOOL_PAINT);
+		eraseButton   = createToggleButton(iconErase, "ERASE", TOOL_ERASE);
+		pourButton    = createToggleButton(iconPour, "POUR", TOOL_FILL);
+		eyedButton    = createToggleButton(iconEyed, "EYED", TOOL_EYE_DROPPER);
+		marqueeButton = createToggleButton(iconMarquee, "MARQUEE", TOOL_SELECT);
+		moveButton    = createToggleButton(iconMove, "MOVE", TOOL_MOVE_LAYER);
 
 		JToolBar toolBar = new JToolBar(SwingConstants.VERTICAL);
 		toolBar.setFloatable(true);
@@ -71,7 +85,7 @@ public class Editor implements ActionListener {
 		toolBar.add(eyedButton);
 		toolBar.add(marqueeButton);
 		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
-		toolBar.add(new TButton(new ZoomInAction()));
+		toolBar.add(new TButton(zoomInAction));
 		toolBar.add(new TButton(zoomOutAction));
 		toolBar.add(Box.createRigidArea(new Dimension(5, 5)));
 		toolBar.add(Box.createGlue());
@@ -92,9 +106,21 @@ public class Editor implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO actionPerformed method
+		State s= State.valueOf(e.getActionCommand());
+		setState(s);
 	}
 
+	private void setState(State s){
+		state = s;
+        paintButton.setSelected(state == State.PAINT);
+        eraseButton.setSelected(state == State.ERASE);
+        pourButton.setSelected(state == State.POUR);
+        eyedButton.setSelected(state == State.EYED);
+        marqueeButton.setSelected(state == State.MARQUEE);
+        moveButton.setSelected(state == State.MOVE);
+		
+	}
+	
 	private class ZoomInAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
