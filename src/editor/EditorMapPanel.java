@@ -8,11 +8,15 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+
+import util.Logf;
 import view.map.GuiTile;
 import view.map.MapRenderer;
 import view.map.MapSettings;
 
 class EditorMapPanel extends JPanel {
+	private static final Logger log = Logger.getLogger(EditorMapPanel.class);
 
 	private static final long serialVersionUID = 3779345216980490025L;
 
@@ -42,7 +46,6 @@ class EditorMapPanel extends JPanel {
 		int startX = bufferWidth / 2;
 		int startY = heightOffset;
 
-		buffer = createImage(bufferWidth, bufferHeight);
 		mapRender = new MapRenderer(field, editor, startX, startY);
 
 		this.addMouseListener(new MouseAdapter() {
@@ -51,41 +54,49 @@ class EditorMapPanel extends JPanel {
 				EditorMapPanel.this.mousePressed(e);
 			}
 		});
+
 	}
 
 	public void mousePressed(MouseEvent e) {
-		GuiTile current = field[0][0];
+		GuiTile current = null;
+		double highest = 0.0;
+
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
-				if (field[i][j].wasClickedOn(e.getPoint()) && field[i][j].getHeight() > current.getHeight()) {
+				if (field[i][j].wasClickedOn(e.getPoint())) {
+					Logf.trace(log, "\t%s (%s,%s)", e.getPoint(), i, j);
+				}
+				if (field[i][j].wasClickedOn(e.getPoint()) && field[i][j].getHeight() > highest) {
+					highest = field[i][j].getHeight();
 					current = field[i][j];
 				}
 			}
 		}
 		if (current != null) {
-//			current.setSelected(true);
-//			repaint(current.getBounds());
+			Logf.debug(log, "Selected %s", current.getFieldLocation());
 			editor.tileClicked(current);
 		}
 
 	}
 
-	long before = System.nanoTime();
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.fillRect(0, 0, getWidth(), getHeight());
-		mapRender.draw(g, bufferWidth, bufferHeight);
-		// long temp = System.nanoTime();
-		// frameChange += (temp-before);
-		// if (frameChange > frameDuration) {
-		// frameChange = 0;
-		// drawn =false;
-		// }
-		// if (!drawn){
-		// g.fillRect(0, 0, getWidth(), getHeight());
-		// mapRender.draw(g, bufferWidth, bufferHeight);
-		// g.drawImage(buffer, 0, 0, null);
-		// }
-		// before = temp;
+		if (buffer == null) {
+			buffer = createImage(bufferWidth, bufferHeight);
+		}
+
+		Graphics _g = buffer.getGraphics();
+		if (!drawn) {
+			mapRender.draw(_g, bufferWidth, bufferHeight);
+			drawn = true;
+		}
+		g.drawImage(buffer, 0, 0, null);
+		_g.dispose();
 	}
+	
+	public  void repaintMap(){
+		drawn = false;
+		repaint();
+	}
+	
 }

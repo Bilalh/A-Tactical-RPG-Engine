@@ -14,6 +14,9 @@ import common.interfaces.IMapUnit;
 
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
+import util.Logf;
 import view.AnimatedUnit;
 
 import java.awt.*;
@@ -28,7 +31,8 @@ import common.Location;
 import config.xml.TileImageData;
 
 public class GuiTile {
-
+	private static final Logger log = Logger.getLogger(GuiTile.class);
+	
 	public static enum Orientation {
 		NORMAL, UP_TO_NORTH, UP_TO_EAST, UP_TO_SOUTH, UP_TO_WEST, EMY
 	}
@@ -543,13 +547,6 @@ public class GuiTile {
 		this.cost = cost;
 	}
 
-	/** @category Generated */
-	@Override
-	public String toString() {
-		return String.format("MapTile [way=%s, height=%s, p=%s, cost=%s]",
-				orientation, height, fieldLocation, cost);
-	}
-
 	/** @category Generated Getter */
 	public boolean isSelected() {
 		return selected;
@@ -563,5 +560,12 @@ public class GuiTile {
 	public Rectangle getBounds(){
 		return top.getBounds();
 	}
+
+	@Override
+	public String toString() {
+		return String.format("MapTile [way=%s, height=%s, p=%s, cost=%s, selected=%s]",
+				orientation, height, fieldLocation, cost,selected);
+	}
+
 	
 }

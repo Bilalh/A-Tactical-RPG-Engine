@@ -1,16 +1,14 @@
 /*
-*
-*  GNU public licence 2 + 
-*  Adam Turk <aturk@biggeruniverse.com>
-*  Bjorn Lindeijer <bjorn@lindeijer.nl>
-*
-*  Changes: added a float button, also made it more customisable 
-*
-*/
+ *
+ *  GNU public licence 2 + 
+ *  Adam Turk <aturk@biggeruniverse.com>
+ *  Bjorn Lindeijer <bjorn@lindeijer.nl>
+ *
+ *  Changes: added a float button, also made it more customisable 
+ *
+ */
 
 package editor;
-
-
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,19 +32,19 @@ public class FloatablePanel extends JPanel
 	private final Preferences prefs;
 	private int dividerSize;
 
-	
 	private class FloatAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
 		public FloatAction() {
 			putValue(SHORT_DESCRIPTION, "action.zoom.in.float");
-            putValue(SMALL_ICON, Resources.getIcon("gnome-zoom-in.png"));
-        }
-        public void actionPerformed(ActionEvent e) {
-        	setFloating(true);
-        }
+			putValue(SMALL_ICON, Resources.getIcon("gnome-zoom-in.png"));
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			setFloating(true);
+		}
 	}
-	
+
 	/**
 	 * Constructs a floatable panel with the given title. When the panel is floated, it is placed in a {@link JDialog} with
 	 * <code>parent</code> as its parent.
@@ -130,7 +128,7 @@ public class FloatablePanel extends JPanel
 			final int lastFrameX = prefs.getInt("x", 0);
 			final int lastFrameY = prefs.getInt("y", 0);
 
-			if (lastFrameWidth > 0){
+			if (lastFrameWidth > 0) {
 				frame.setSize(lastFrameWidth, lastFrameHeight);
 				frame.setLocation(lastFrameX, lastFrameY);
 			}
@@ -191,7 +189,7 @@ public class FloatablePanel extends JPanel
 	/**
 	 * The panel that holds the title label and float button.
 	 */
-	private class HeaderPanel extends JPanel{
+	private class HeaderPanel extends JPanel {
 		public HeaderPanel(BorderLayout borderLayout) {
 			super(borderLayout);
 			setBorder(BorderFactory.createEmptyBorder(1, 4, 2, 1));

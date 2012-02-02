@@ -8,6 +8,8 @@ import java.util.prefs.Preferences;
 
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 import common.enums.ImageType;
 import controller.MainController;
 import controller.MapController;
@@ -25,7 +27,8 @@ import engine.map.Tile;
  * @author Bilal Hussain
  */
 public class Editor implements ActionListener, IMapRendererParent {
-
+	private static final Logger log = Logger.getLogger(Editor.class);
+	
 	private JFrame frame;
 
 	private AbstractButton paintButton, eraseButton, pourButton;
@@ -72,14 +75,28 @@ public class Editor implements ActionListener, IMapRendererParent {
 		frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent event) {
             	onQuit();
+            	System.exit(0);
             }
         });
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+	        public void run() {
+	            onQuit();
+	        }
+	    }));
+
 		
         infoPanelContainer.restore();
         tilesetsPanelContainer.restore();
 		
 		// frame.setSize(1280, 800);
 		frame.setSize(1440, 900);
+		
+		Preferences pref = Config.getNode("panels/main");
+		int width  = pref.getInt("width", 1280);
+		int height = pref.getInt("height", 800);
+		frame.setSize(width, height);
+		
 		frame.setVisible(true);
 	}
 
@@ -128,7 +145,7 @@ public class Editor implements ActionListener, IMapRendererParent {
 			for (int j = 0; j < field[i].length; j++) {
 				int r = rnd.nextInt(3)+1;
 				field[i][j] = new GuiTile(GuiTile.Orientation.UP_TO_EAST, r , r, 
-						1, 1, "images/tiles/blue60-rst.png", ImageType.NON_TEXTURED);
+						i, j, "images/tiles/blue60-rst.png", ImageType.NON_TEXTURED);
 			}
 		}
 	}
@@ -140,7 +157,7 @@ public class Editor implements ActionListener, IMapRendererParent {
 	/** @category IMapRendererParent **/
 	@Override
 	public boolean isMouseMoving() {
-		return false;
+		return true;
 	}
 
 	/** @category IMapRendererParent **/
@@ -158,7 +175,7 @@ public class Editor implements ActionListener, IMapRendererParent {
 	/** @category Gui**/
 	private void onQuit(){
         final int extendedState = frame.getExtendedState();
-        final Preferences pref = Config.getNode("panels");
+        final Preferences pref = Config.getNode("panels/main");
         pref.putInt("state", extendedState);
         if (extendedState == Frame.NORMAL) {
             pref.putInt("width", frame.getWidth());
@@ -168,7 +185,6 @@ public class Editor implements ActionListener, IMapRendererParent {
         // Allow the floatable panels to save their position and size
         infoPanelContainer.save();
         tilesetsPanelContainer.save();
-        System.exit(0);
 	}
 	
 	/** @category Gui **/
@@ -236,7 +252,7 @@ public class Editor implements ActionListener, IMapRendererParent {
 	/** @category Callback**/
 	public void tileClicked(GuiTile tile) {
 		tile.setSelected(true);
-		editorMapPanel.repaint(tile.getBounds());
+		editorMapPanel.repaintMap();
 	}
 
 	
@@ -283,6 +299,7 @@ public class Editor implements ActionListener, IMapRendererParent {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
+		config.Config.loadLoggingProperties();
 		new Editor();
 	}
 
