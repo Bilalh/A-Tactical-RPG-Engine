@@ -53,7 +53,11 @@ public class SpriteSheetPanel extends JPanel {
 					if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0) {
 						selection.addAll(selected);
 					}
-					selection.add(sprite);
+					if (selection.contains(sprite)){
+						selection.remove(sprite);
+					}else{
+						selection.add(sprite);
+					}
 					editor.select(selection);
 				}
 			}
