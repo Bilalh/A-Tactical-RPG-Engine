@@ -37,7 +37,7 @@ public class MapXmlMaker {
 		
 		for (int i = 0, k =0; i < width; i++) {
 			for (int j = 0; j < height; j++, k++) {
-				String type = types[j%types.length];
+				String type = types[(j+i)%types.length];
 				int h = r.nextInt(3)+1;
 //				h =1;
 				tiles[k] = new SavedTile(type,h, i,j);

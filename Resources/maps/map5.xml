@@ -88,803 +88,803 @@
     <height>1</height>
   </tile>
   <tile x="1" y="0">
-    <type>brown</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="1" y="1">
-    <type>darkblue</type>
+    <type>gray</type>
     <height>2</height>
   </tile>
   <tile x="1" y="2">
-    <type>gray</type>
+    <type>ground</type>
     <height>1</height>
   </tile>
   <tile x="1" y="3">
-    <type>ground</type>
+    <type>ice</type>
     <height>2</height>
   </tile>
   <tile x="1" y="4">
-    <type>ice</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
   <tile x="1" y="5">
-    <type>lime</type>
+    <type>marking</type>
     <height>3</height>
   </tile>
   <tile x="1" y="6">
-    <type>marking</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="1" y="7">
-    <type>metal</type>
+    <type>tile</type>
     <height>3</height>
   </tile>
   <tile x="1" y="8">
-    <type>tile</type>
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="1" y="9">
-    <type>white</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="1" y="10">
-    <type>wood</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="1" y="11">
-    <type>brown</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="1" y="12">
-    <type>darkblue</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="1" y="13">
-    <type>gray</type>
+    <type>ground</type>
     <height>3</height>
   </tile>
   <tile x="1" y="14">
-    <type>ground</type>
+    <type>ice</type>
     <height>2</height>
   </tile>
   <tile x="1" y="15">
-    <type>ice</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="1" y="16">
-    <type>lime</type>
+    <type>marking</type>
     <height>3</height>
   </tile>
   <tile x="1" y="17">
-    <type>marking</type>
+    <type>metal</type>
     <height>3</height>
   </tile>
   <tile x="1" y="18">
-    <type>metal</type>
+    <type>tile</type>
     <height>3</height>
   </tile>
   <tile x="1" y="19">
-    <type>tile</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="2" y="0">
-    <type>brown</type>
+    <type>gray</type>
     <height>2</height>
   </tile>
   <tile x="2" y="1">
-    <type>darkblue</type>
+    <type>ground</type>
     <height>1</height>
   </tile>
   <tile x="2" y="2">
-    <type>gray</type>
+    <type>ice</type>
     <height>2</height>
   </tile>
   <tile x="2" y="3">
-    <type>ground</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
   <tile x="2" y="4">
-    <type>ice</type>
+    <type>marking</type>
     <height>3</height>
   </tile>
   <tile x="2" y="5">
-    <type>lime</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="2" y="6">
-    <type>marking</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="2" y="7">
-    <type>metal</type>
+    <type>white</type>
     <height>1</height>
   </tile>
   <tile x="2" y="8">
-    <type>tile</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="2" y="9">
-    <type>white</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="2" y="10">
-    <type>wood</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="2" y="11">
-    <type>brown</type>
+    <type>gray</type>
     <height>2</height>
   </tile>
   <tile x="2" y="12">
-    <type>darkblue</type>
+    <type>ground</type>
     <height>2</height>
   </tile>
   <tile x="2" y="13">
-    <type>gray</type>
+    <type>ice</type>
     <height>2</height>
   </tile>
   <tile x="2" y="14">
-    <type>ground</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
   <tile x="2" y="15">
-    <type>ice</type>
+    <type>marking</type>
     <height>1</height>
   </tile>
   <tile x="2" y="16">
-    <type>lime</type>
+    <type>metal</type>
     <height>2</height>
   </tile>
   <tile x="2" y="17">
-    <type>marking</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="2" y="18">
-    <type>metal</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="2" y="19">
-    <type>tile</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="3" y="0">
-    <type>brown</type>
+    <type>ground</type>
     <height>3</height>
   </tile>
   <tile x="3" y="1">
-    <type>darkblue</type>
+    <type>ice</type>
     <height>1</height>
   </tile>
   <tile x="3" y="2">
-    <type>gray</type>
+    <type>lime</type>
     <height>1</height>
   </tile>
   <tile x="3" y="3">
-    <type>ground</type>
+    <type>marking</type>
     <height>1</height>
   </tile>
   <tile x="3" y="4">
-    <type>ice</type>
+    <type>metal</type>
     <height>3</height>
   </tile>
   <tile x="3" y="5">
-    <type>lime</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="3" y="6">
-    <type>marking</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="3" y="7">
-    <type>metal</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="3" y="8">
-    <type>tile</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="3" y="9">
-    <type>white</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="3" y="10">
-    <type>wood</type>
+    <type>gray</type>
     <height>2</height>
   </tile>
   <tile x="3" y="11">
-    <type>brown</type>
+    <type>ground</type>
     <height>3</height>
   </tile>
   <tile x="3" y="12">
-    <type>darkblue</type>
+    <type>ice</type>
     <height>1</height>
   </tile>
   <tile x="3" y="13">
-    <type>gray</type>
+    <type>lime</type>
     <height>1</height>
   </tile>
   <tile x="3" y="14">
-    <type>ground</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="3" y="15">
-    <type>ice</type>
+    <type>metal</type>
     <height>3</height>
   </tile>
   <tile x="3" y="16">
-    <type>lime</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="3" y="17">
-    <type>marking</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="3" y="18">
-    <type>metal</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="3" y="19">
-    <type>tile</type>
+    <type>brown</type>
     <height>2</height>
   </tile>
   <tile x="4" y="0">
-    <type>brown</type>
+    <type>ice</type>
     <height>1</height>
   </tile>
   <tile x="4" y="1">
-    <type>darkblue</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
   <tile x="4" y="2">
-    <type>gray</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="4" y="3">
-    <type>ground</type>
+    <type>metal</type>
     <height>2</height>
   </tile>
   <tile x="4" y="4">
-    <type>ice</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="4" y="5">
-    <type>lime</type>
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="4" y="6">
-    <type>marking</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="4" y="7">
-    <type>metal</type>
+    <type>brown</type>
     <height>1</height>
   </tile>
   <tile x="4" y="8">
-    <type>tile</type>
+    <type>darkblue</type>
     <height>3</height>
   </tile>
   <tile x="4" y="9">
-    <type>white</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="4" y="10">
-    <type>wood</type>
+    <type>ground</type>
     <height>2</height>
   </tile>
   <tile x="4" y="11">
-    <type>brown</type>
+    <type>ice</type>
     <height>3</height>
   </tile>
   <tile x="4" y="12">
-    <type>darkblue</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="4" y="13">
-    <type>gray</type>
+    <type>marking</type>
     <height>3</height>
   </tile>
   <tile x="4" y="14">
-    <type>ground</type>
+    <type>metal</type>
     <height>2</height>
   </tile>
   <tile x="4" y="15">
-    <type>ice</type>
+    <type>tile</type>
     <height>3</height>
   </tile>
   <tile x="4" y="16">
-    <type>lime</type>
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="4" y="17">
-    <type>marking</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="4" y="18">
-    <type>metal</type>
+    <type>brown</type>
     <height>1</height>
   </tile>
   <tile x="4" y="19">
-    <type>tile</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="5" y="0">
-    <type>brown</type>
+    <type>lime</type>
     <height>1</height>
   </tile>
   <tile x="5" y="1">
-    <type>darkblue</type>
+    <type>marking</type>
     <height>3</height>
   </tile>
   <tile x="5" y="2">
-    <type>gray</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="5" y="3">
-    <type>ground</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="5" y="4">
-    <type>ice</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="5" y="5">
-    <type>lime</type>
+    <type>wood</type>
     <height>1</height>
   </tile>
   <tile x="5" y="6">
-    <type>marking</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="5" y="7">
-    <type>metal</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="5" y="8">
-    <type>tile</type>
+    <type>gray</type>
     <height>1</height>
   </tile>
   <tile x="5" y="9">
-    <type>white</type>
+    <type>ground</type>
     <height>3</height>
   </tile>
   <tile x="5" y="10">
-    <type>wood</type>
+    <type>ice</type>
     <height>3</height>
   </tile>
   <tile x="5" y="11">
-    <type>brown</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="5" y="12">
-    <type>darkblue</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="5" y="13">
-    <type>gray</type>
+    <type>metal</type>
     <height>2</height>
   </tile>
   <tile x="5" y="14">
-    <type>ground</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="5" y="15">
-    <type>ice</type>
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="5" y="16">
-    <type>lime</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="5" y="17">
-    <type>marking</type>
+    <type>brown</type>
     <height>2</height>
   </tile>
   <tile x="5" y="18">
-    <type>metal</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="5" y="19">
-    <type>tile</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="6" y="0">
-    <type>brown</type>
+    <type>marking</type>
     <height>1</height>
   </tile>
   <tile x="6" y="1">
-    <type>darkblue</type>
+    <type>metal</type>
     <height>2</height>
   </tile>
   <tile x="6" y="2">
-    <type>gray</type>
+    <type>tile</type>
     <height>3</height>
   </tile>
   <tile x="6" y="3">
-    <type>ground</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="6" y="4">
-    <type>ice</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="6" y="5">
-    <type>lime</type>
+    <type>brown</type>
     <height>1</height>
   </tile>
   <tile x="6" y="6">
-    <type>marking</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="6" y="7">
-    <type>metal</type>
+    <type>gray</type>
     <height>1</height>
   </tile>
   <tile x="6" y="8">
-    <type>tile</type>
+    <type>ground</type>
     <height>3</height>
   </tile>
   <tile x="6" y="9">
-    <type>white</type>
+    <type>ice</type>
     <height>3</height>
   </tile>
   <tile x="6" y="10">
-    <type>wood</type>
+    <type>lime</type>
     <height>1</height>
   </tile>
   <tile x="6" y="11">
-    <type>brown</type>
+    <type>marking</type>
     <height>1</height>
   </tile>
   <tile x="6" y="12">
-    <type>darkblue</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="6" y="13">
-    <type>gray</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="6" y="14">
-    <type>ground</type>
+    <type>white</type>
     <height>1</height>
   </tile>
   <tile x="6" y="15">
-    <type>ice</type>
+    <type>wood</type>
     <height>1</height>
   </tile>
   <tile x="6" y="16">
-    <type>lime</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="6" y="17">
-    <type>marking</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="6" y="18">
-    <type>metal</type>
+    <type>gray</type>
     <height>2</height>
   </tile>
   <tile x="6" y="19">
-    <type>tile</type>
+    <type>ground</type>
     <height>2</height>
   </tile>
   <tile x="7" y="0">
-    <type>brown</type>
+    <type>metal</type>
     <height>3</height>
   </tile>
   <tile x="7" y="1">
-    <type>darkblue</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="7" y="2">
-    <type>gray</type>
+    <type>white</type>
     <height>1</height>
   </tile>
   <tile x="7" y="3">
-    <type>ground</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="7" y="4">
-    <type>ice</type>
+    <type>brown</type>
     <height>2</height>
   </tile>
   <tile x="7" y="5">
-    <type>lime</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="7" y="6">
-    <type>marking</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="7" y="7">
-    <type>metal</type>
+    <type>ground</type>
     <height>1</height>
   </tile>
   <tile x="7" y="8">
-    <type>tile</type>
+    <type>ice</type>
     <height>2</height>
   </tile>
   <tile x="7" y="9">
-    <type>white</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
   <tile x="7" y="10">
-    <type>wood</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="7" y="11">
-    <type>brown</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="7" y="12">
-    <type>darkblue</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="7" y="13">
-    <type>gray</type>
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="7" y="14">
-    <type>ground</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="7" y="15">
-    <type>ice</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="7" y="16">
-    <type>lime</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="7" y="17">
-    <type>marking</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="7" y="18">
-    <type>metal</type>
+    <type>ground</type>
     <height>2</height>
   </tile>
   <tile x="7" y="19">
-    <type>tile</type>
+    <type>ice</type>
     <height>3</height>
   </tile>
   <tile x="8" y="0">
-    <type>brown</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="8" y="1">
-    <type>darkblue</type>
+    <type>white</type>
     <height>1</height>
   </tile>
   <tile x="8" y="2">
-    <type>gray</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="8" y="3">
-    <type>ground</type>
+    <type>brown</type>
     <height>2</height>
   </tile>
   <tile x="8" y="4">
-    <type>ice</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="8" y="5">
-    <type>lime</type>
+    <type>gray</type>
     <height>2</height>
   </tile>
   <tile x="8" y="6">
-    <type>marking</type>
+    <type>ground</type>
     <height>3</height>
   </tile>
   <tile x="8" y="7">
-    <type>metal</type>
+    <type>ice</type>
     <height>1</height>
   </tile>
   <tile x="8" y="8">
-    <type>tile</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
   <tile x="8" y="9">
-    <type>white</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="8" y="10">
-    <type>wood</type>
+    <type>metal</type>
     <height>3</height>
   </tile>
   <tile x="8" y="11">
-    <type>brown</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="8" y="12">
-    <type>darkblue</type>
+    <type>white</type>
     <height>1</height>
   </tile>
   <tile x="8" y="13">
-    <type>gray</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="8" y="14">
-    <type>ground</type>
+    <type>brown</type>
     <height>1</height>
   </tile>
   <tile x="8" y="15">
-    <type>ice</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="8" y="16">
-    <type>lime</type>
+    <type>gray</type>
     <height>1</height>
   </tile>
   <tile x="8" y="17">
-    <type>marking</type>
+    <type>ground</type>
     <height>1</height>
   </tile>
   <tile x="8" y="18">
-    <type>metal</type>
+    <type>ice</type>
     <height>1</height>
   </tile>
   <tile x="8" y="19">
-    <type>tile</type>
+    <type>lime</type>
     <height>1</height>
   </tile>
   <tile x="9" y="0">
-    <type>brown</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="9" y="1">
-    <type>darkblue</type>
+    <type>wood</type>
     <height>1</height>
   </tile>
   <tile x="9" y="2">
-    <type>gray</type>
+    <type>brown</type>
     <height>1</height>
   </tile>
   <tile x="9" y="3">
-    <type>ground</type>
+    <type>darkblue</type>
     <height>3</height>
   </tile>
   <tile x="9" y="4">
-    <type>ice</type>
+    <type>gray</type>
     <height>2</height>
   </tile>
   <tile x="9" y="5">
-    <type>lime</type>
+    <type>ground</type>
     <height>1</height>
   </tile>
   <tile x="9" y="6">
-    <type>marking</type>
+    <type>ice</type>
     <height>1</height>
   </tile>
   <tile x="9" y="7">
-    <type>metal</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
   <tile x="9" y="8">
-    <type>tile</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="9" y="9">
-    <type>white</type>
+    <type>metal</type>
     <height>3</height>
   </tile>
   <tile x="9" y="10">
-    <type>wood</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="9" y="11">
-    <type>brown</type>
+    <type>white</type>
     <height>1</height>
   </tile>
   <tile x="9" y="12">
-    <type>darkblue</type>
+    <type>wood</type>
     <height>1</height>
   </tile>
   <tile x="9" y="13">
-    <type>gray</type>
+    <type>brown</type>
     <height>1</height>
   </tile>
   <tile x="9" y="14">
-    <type>ground</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="9" y="15">
-    <type>ice</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="9" y="16">
-    <type>lime</type>
+    <type>ground</type>
     <height>2</height>
   </tile>
   <tile x="9" y="17">
-    <type>marking</type>
+    <type>ice</type>
     <height>2</height>
   </tile>
   <tile x="9" y="18">
-    <type>metal</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="9" y="19">
-    <type>tile</type>
+    <type>marking</type>
     <height>1</height>
   </tile>
   <tile x="10" y="0">
-    <type>brown</type>
+    <type>wood</type>
     <height>1</height>
   </tile>
   <tile x="10" y="1">
-    <type>darkblue</type>
+    <type>brown</type>
     <height>2</height>
   </tile>
   <tile x="10" y="2">
-    <type>gray</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="10" y="3">
-    <type>ground</type>
+    <type>gray</type>
     <height>1</height>
   </tile>
   <tile x="10" y="4">
-    <type>ice</type>
+    <type>ground</type>
     <height>1</height>
   </tile>
   <tile x="10" y="5">
-    <type>lime</type>
+    <type>ice</type>
     <height>1</height>
   </tile>
   <tile x="10" y="6">
-    <type>marking</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="10" y="7">
-    <type>metal</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="10" y="8">
-    <type>tile</type>
-    <height>1</height>
-  </tile>
-  <tile x="10" y="9">
-    <type>white</type>
-    <height>2</height>
-  </tile>
-  <tile x="10" y="10">
-    <type>wood</type>
-    <height>3</height>
-  </tile>
-  <tile x="10" y="11">
-    <type>brown</type>
-    <height>3</height>
-  </tile>
-  <tile x="10" y="12">
-    <type>darkblue</type>
-    <height>1</height>
-  </tile>
-  <tile x="10" y="13">
-    <type>gray</type>
-    <height>2</height>
-  </tile>
-  <tile x="10" y="14">
-    <type>ground</type>
-    <height>3</height>
-  </tile>
-  <tile x="10" y="15">
-    <type>ice</type>
-    <height>2</height>
-  </tile>
-  <tile x="10" y="16">
-    <type>lime</type>
-    <height>1</height>
-  </tile>
-  <tile x="10" y="17">
-    <type>marking</type>
-    <height>3</height>
-  </tile>
-  <tile x="10" y="18">
     <type>metal</type>
     <height>1</height>
   </tile>
-  <tile x="10" y="19">
+  <tile x="10" y="9">
     <type>tile</type>
+    <height>2</height>
+  </tile>
+  <tile x="10" y="10">
+    <type>white</type>
+    <height>3</height>
+  </tile>
+  <tile x="10" y="11">
+    <type>wood</type>
+    <height>3</height>
+  </tile>
+  <tile x="10" y="12">
+    <type>brown</type>
+    <height>1</height>
+  </tile>
+  <tile x="10" y="13">
+    <type>darkblue</type>
+    <height>2</height>
+  </tile>
+  <tile x="10" y="14">
+    <type>gray</type>
+    <height>3</height>
+  </tile>
+  <tile x="10" y="15">
+    <type>ground</type>
+    <height>2</height>
+  </tile>
+  <tile x="10" y="16">
+    <type>ice</type>
+    <height>1</height>
+  </tile>
+  <tile x="10" y="17">
+    <type>lime</type>
+    <height>3</height>
+  </tile>
+  <tile x="10" y="18">
+    <type>marking</type>
+    <height>1</height>
+  </tile>
+  <tile x="10" y="19">
+    <type>metal</type>
     <height>2</height>
   </tile>
   <tile x="11" y="0">
@@ -968,643 +968,643 @@
     <height>2</height>
   </tile>
   <tile x="12" y="0">
-    <type>brown</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="12" y="1">
-    <type>darkblue</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="12" y="2">
-    <type>gray</type>
+    <type>ground</type>
     <height>2</height>
   </tile>
   <tile x="12" y="3">
-    <type>ground</type>
+    <type>ice</type>
     <height>3</height>
   </tile>
   <tile x="12" y="4">
-    <type>ice</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="12" y="5">
-    <type>lime</type>
+    <type>marking</type>
     <height>3</height>
   </tile>
   <tile x="12" y="6">
-    <type>marking</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="12" y="7">
-    <type>metal</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="12" y="8">
-    <type>tile</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="12" y="9">
-    <type>white</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="12" y="10">
-    <type>wood</type>
+    <type>brown</type>
     <height>2</height>
   </tile>
   <tile x="12" y="11">
-    <type>brown</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="12" y="12">
-    <type>darkblue</type>
+    <type>gray</type>
     <height>1</height>
   </tile>
   <tile x="12" y="13">
-    <type>gray</type>
+    <type>ground</type>
     <height>2</height>
   </tile>
   <tile x="12" y="14">
-    <type>ground</type>
+    <type>ice</type>
     <height>2</height>
   </tile>
   <tile x="12" y="15">
-    <type>ice</type>
+    <type>lime</type>
     <height>1</height>
   </tile>
   <tile x="12" y="16">
-    <type>lime</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="12" y="17">
-    <type>marking</type>
+    <type>metal</type>
     <height>2</height>
   </tile>
   <tile x="12" y="18">
-    <type>metal</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="12" y="19">
-    <type>tile</type>
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="13" y="0">
-    <type>brown</type>
+    <type>gray</type>
     <height>1</height>
   </tile>
   <tile x="13" y="1">
-    <type>darkblue</type>
+    <type>ground</type>
     <height>3</height>
   </tile>
   <tile x="13" y="2">
-    <type>gray</type>
+    <type>ice</type>
     <height>3</height>
   </tile>
   <tile x="13" y="3">
-    <type>ground</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
   <tile x="13" y="4">
-    <type>ice</type>
+    <type>marking</type>
     <height>1</height>
   </tile>
   <tile x="13" y="5">
-    <type>lime</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="13" y="6">
-    <type>marking</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="13" y="7">
-    <type>metal</type>
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="13" y="8">
-    <type>tile</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="13" y="9">
-    <type>white</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="13" y="10">
-    <type>wood</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="13" y="11">
-    <type>brown</type>
+    <type>gray</type>
     <height>1</height>
   </tile>
   <tile x="13" y="12">
-    <type>darkblue</type>
+    <type>ground</type>
     <height>1</height>
   </tile>
   <tile x="13" y="13">
-    <type>gray</type>
+    <type>ice</type>
     <height>3</height>
   </tile>
   <tile x="13" y="14">
-    <type>ground</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="13" y="15">
-    <type>ice</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="13" y="16">
-    <type>lime</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="13" y="17">
-    <type>marking</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="13" y="18">
-    <type>metal</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="13" y="19">
-    <type>tile</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="14" y="0">
-    <type>brown</type>
+    <type>ground</type>
     <height>2</height>
   </tile>
   <tile x="14" y="1">
-    <type>darkblue</type>
+    <type>ice</type>
     <height>2</height>
   </tile>
   <tile x="14" y="2">
-    <type>gray</type>
+    <type>lime</type>
     <height>1</height>
   </tile>
   <tile x="14" y="3">
-    <type>ground</type>
+    <type>marking</type>
     <height>1</height>
   </tile>
   <tile x="14" y="4">
-    <type>ice</type>
+    <type>metal</type>
     <height>3</height>
   </tile>
   <tile x="14" y="5">
-    <type>lime</type>
+    <type>tile</type>
     <height>3</height>
   </tile>
   <tile x="14" y="6">
-    <type>marking</type>
+    <type>white</type>
     <height>1</height>
   </tile>
   <tile x="14" y="7">
-    <type>metal</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="14" y="8">
-    <type>tile</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="14" y="9">
-    <type>white</type>
+    <type>darkblue</type>
     <height>3</height>
   </tile>
   <tile x="14" y="10">
-    <type>wood</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="14" y="11">
-    <type>brown</type>
+    <type>ground</type>
     <height>3</height>
   </tile>
   <tile x="14" y="12">
-    <type>darkblue</type>
+    <type>ice</type>
     <height>3</height>
   </tile>
   <tile x="14" y="13">
-    <type>gray</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="14" y="14">
-    <type>ground</type>
+    <type>marking</type>
     <height>3</height>
   </tile>
   <tile x="14" y="15">
-    <type>ice</type>
+    <type>metal</type>
     <height>3</height>
   </tile>
   <tile x="14" y="16">
-    <type>lime</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="14" y="17">
-    <type>marking</type>
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="14" y="18">
-    <type>metal</type>
+    <type>wood</type>
     <height>1</height>
   </tile>
   <tile x="14" y="19">
-    <type>tile</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="15" y="0">
-    <type>brown</type>
+    <type>ice</type>
     <height>2</height>
   </tile>
   <tile x="15" y="1">
-    <type>darkblue</type>
+    <type>lime</type>
     <height>1</height>
   </tile>
   <tile x="15" y="2">
-    <type>gray</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="15" y="3">
-    <type>ground</type>
+    <type>metal</type>
     <height>2</height>
   </tile>
   <tile x="15" y="4">
-    <type>ice</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="15" y="5">
-    <type>lime</type>
+    <type>white</type>
     <height>1</height>
   </tile>
   <tile x="15" y="6">
-    <type>marking</type>
+    <type>wood</type>
     <height>1</height>
   </tile>
   <tile x="15" y="7">
-    <type>metal</type>
+    <type>brown</type>
     <height>2</height>
   </tile>
   <tile x="15" y="8">
-    <type>tile</type>
+    <type>darkblue</type>
     <height>3</height>
   </tile>
   <tile x="15" y="9">
-    <type>white</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="15" y="10">
-    <type>wood</type>
+    <type>ground</type>
     <height>2</height>
   </tile>
   <tile x="15" y="11">
-    <type>brown</type>
+    <type>ice</type>
     <height>1</height>
   </tile>
   <tile x="15" y="12">
-    <type>darkblue</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="15" y="13">
-    <type>gray</type>
+    <type>marking</type>
     <height>1</height>
   </tile>
   <tile x="15" y="14">
-    <type>ground</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="15" y="15">
-    <type>ice</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="15" y="16">
-    <type>lime</type>
+    <type>white</type>
     <height>1</height>
   </tile>
   <tile x="15" y="17">
-    <type>marking</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="15" y="18">
-    <type>metal</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="15" y="19">
-    <type>tile</type>
+    <type>darkblue</type>
     <height>2</height>
   </tile>
   <tile x="16" y="0">
-    <type>brown</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
   <tile x="16" y="1">
-    <type>darkblue</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="16" y="2">
-    <type>gray</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="16" y="3">
-    <type>ground</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="16" y="4">
-    <type>ice</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="16" y="5">
-    <type>lime</type>
+    <type>wood</type>
     <height>1</height>
   </tile>
   <tile x="16" y="6">
-    <type>marking</type>
+    <type>brown</type>
     <height>1</height>
   </tile>
   <tile x="16" y="7">
-    <type>metal</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="16" y="8">
-    <type>tile</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="16" y="9">
-    <type>white</type>
+    <type>ground</type>
     <height>2</height>
   </tile>
   <tile x="16" y="10">
-    <type>wood</type>
+    <type>ice</type>
     <height>2</height>
   </tile>
   <tile x="16" y="11">
-    <type>brown</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="16" y="12">
-    <type>darkblue</type>
+    <type>marking</type>
     <height>3</height>
   </tile>
   <tile x="16" y="13">
-    <type>gray</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="16" y="14">
-    <type>ground</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="16" y="15">
-    <type>ice</type>
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="16" y="16">
-    <type>lime</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="16" y="17">
-    <type>marking</type>
+    <type>brown</type>
     <height>2</height>
   </tile>
   <tile x="16" y="18">
-    <type>metal</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="16" y="19">
-    <type>tile</type>
+    <type>gray</type>
     <height>2</height>
   </tile>
   <tile x="17" y="0">
-    <type>brown</type>
+    <type>marking</type>
     <height>3</height>
   </tile>
   <tile x="17" y="1">
-    <type>darkblue</type>
+    <type>metal</type>
     <height>2</height>
   </tile>
   <tile x="17" y="2">
-    <type>gray</type>
+    <type>tile</type>
     <height>1</height>
   </tile>
   <tile x="17" y="3">
-    <type>ground</type>
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="17" y="4">
-    <type>ice</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="17" y="5">
-    <type>lime</type>
+    <type>brown</type>
     <height>1</height>
   </tile>
   <tile x="17" y="6">
-    <type>marking</type>
+    <type>darkblue</type>
     <height>3</height>
   </tile>
   <tile x="17" y="7">
-    <type>metal</type>
+    <type>gray</type>
     <height>2</height>
   </tile>
   <tile x="17" y="8">
-    <type>tile</type>
+    <type>ground</type>
     <height>1</height>
   </tile>
   <tile x="17" y="9">
-    <type>white</type>
+    <type>ice</type>
     <height>1</height>
   </tile>
   <tile x="17" y="10">
-    <type>wood</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
   <tile x="17" y="11">
-    <type>brown</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="17" y="12">
-    <type>darkblue</type>
+    <type>metal</type>
     <height>1</height>
   </tile>
   <tile x="17" y="13">
-    <type>gray</type>
+    <type>tile</type>
     <height>3</height>
   </tile>
   <tile x="17" y="14">
-    <type>ground</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="17" y="15">
-    <type>ice</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="17" y="16">
-    <type>lime</type>
+    <type>brown</type>
     <height>3</height>
   </tile>
   <tile x="17" y="17">
-    <type>marking</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="17" y="18">
-    <type>metal</type>
+    <type>gray</type>
     <height>1</height>
   </tile>
   <tile x="17" y="19">
-    <type>tile</type>
+    <type>ground</type>
     <height>1</height>
   </tile>
   <tile x="18" y="0">
-    <type>brown</type>
+    <type>metal</type>
     <height>3</height>
   </tile>
   <tile x="18" y="1">
-    <type>darkblue</type>
+    <type>tile</type>
     <height>2</height>
   </tile>
   <tile x="18" y="2">
-    <type>gray</type>
+    <type>white</type>
     <height>3</height>
   </tile>
   <tile x="18" y="3">
-    <type>ground</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="18" y="4">
-    <type>ice</type>
+    <type>brown</type>
     <height>2</height>
   </tile>
   <tile x="18" y="5">
-    <type>lime</type>
+    <type>darkblue</type>
     <height>3</height>
   </tile>
   <tile x="18" y="6">
-    <type>marking</type>
+    <type>gray</type>
     <height>1</height>
   </tile>
   <tile x="18" y="7">
-    <type>metal</type>
+    <type>ground</type>
     <height>3</height>
   </tile>
   <tile x="18" y="8">
-    <type>tile</type>
+    <type>ice</type>
     <height>3</height>
   </tile>
   <tile x="18" y="9">
-    <type>white</type>
+    <type>lime</type>
     <height>2</height>
   </tile>
   <tile x="18" y="10">
-    <type>wood</type>
+    <type>marking</type>
     <height>2</height>
   </tile>
   <tile x="18" y="11">
-    <type>brown</type>
+    <type>metal</type>
     <height>2</height>
   </tile>
   <tile x="18" y="12">
-    <type>darkblue</type>
+    <type>tile</type>
     <height>3</height>
   </tile>
   <tile x="18" y="13">
-    <type>gray</type>
+    <type>white</type>
     <height>1</height>
   </tile>
   <tile x="18" y="14">
-    <type>ground</type>
-    <height>3</height>
-  </tile>
-  <tile x="18" y="15">
-    <type>ice</type>
-    <height>1</height>
-  </tile>
-  <tile x="18" y="16">
-    <type>lime</type>
-    <height>3</height>
-  </tile>
-  <tile x="18" y="17">
-    <type>marking</type>
-    <height>2</height>
-  </tile>
-  <tile x="18" y="18">
-    <type>metal</type>
-    <height>3</height>
-  </tile>
-  <tile x="18" y="19">
-    <type>tile</type>
-    <height>2</height>
-  </tile>
-  <tile x="19" y="0">
-    <type>brown</type>
-    <height>3</height>
-  </tile>
-  <tile x="19" y="1">
-    <type>darkblue</type>
-    <height>1</height>
-  </tile>
-  <tile x="19" y="2">
-    <type>gray</type>
-    <height>1</height>
-  </tile>
-  <tile x="19" y="3">
-    <type>ground</type>
-    <height>2</height>
-  </tile>
-  <tile x="19" y="4">
-    <type>ice</type>
-    <height>1</height>
-  </tile>
-  <tile x="19" y="5">
-    <type>lime</type>
-    <height>3</height>
-  </tile>
-  <tile x="19" y="6">
-    <type>marking</type>
-    <height>1</height>
-  </tile>
-  <tile x="19" y="7">
-    <type>metal</type>
-    <height>2</height>
-  </tile>
-  <tile x="19" y="8">
-    <type>tile</type>
-    <height>1</height>
-  </tile>
-  <tile x="19" y="9">
-    <type>white</type>
-    <height>2</height>
-  </tile>
-  <tile x="19" y="10">
     <type>wood</type>
     <height>3</height>
   </tile>
-  <tile x="19" y="11">
+  <tile x="18" y="15">
     <type>brown</type>
     <height>1</height>
   </tile>
-  <tile x="19" y="12">
+  <tile x="18" y="16">
     <type>darkblue</type>
+    <height>3</height>
+  </tile>
+  <tile x="18" y="17">
+    <type>gray</type>
+    <height>2</height>
+  </tile>
+  <tile x="18" y="18">
+    <type>ground</type>
+    <height>3</height>
+  </tile>
+  <tile x="18" y="19">
+    <type>ice</type>
+    <height>2</height>
+  </tile>
+  <tile x="19" y="0">
+    <type>tile</type>
+    <height>3</height>
+  </tile>
+  <tile x="19" y="1">
+    <type>white</type>
+    <height>1</height>
+  </tile>
+  <tile x="19" y="2">
+    <type>wood</type>
+    <height>1</height>
+  </tile>
+  <tile x="19" y="3">
+    <type>brown</type>
+    <height>2</height>
+  </tile>
+  <tile x="19" y="4">
+    <type>darkblue</type>
+    <height>1</height>
+  </tile>
+  <tile x="19" y="5">
+    <type>gray</type>
+    <height>3</height>
+  </tile>
+  <tile x="19" y="6">
+    <type>ground</type>
+    <height>1</height>
+  </tile>
+  <tile x="19" y="7">
+    <type>ice</type>
+    <height>2</height>
+  </tile>
+  <tile x="19" y="8">
+    <type>lime</type>
+    <height>1</height>
+  </tile>
+  <tile x="19" y="9">
+    <type>marking</type>
+    <height>2</height>
+  </tile>
+  <tile x="19" y="10">
+    <type>metal</type>
+    <height>3</height>
+  </tile>
+  <tile x="19" y="11">
+    <type>tile</type>
+    <height>1</height>
+  </tile>
+  <tile x="19" y="12">
+    <type>white</type>
     <height>2</height>
   </tile>
   <tile x="19" y="13">
-    <type>gray</type>
+    <type>wood</type>
     <height>1</height>
   </tile>
   <tile x="19" y="14">
-    <type>ground</type>
+    <type>brown</type>
     <height>2</height>
   </tile>
   <tile x="19" y="15">
-    <type>ice</type>
+    <type>darkblue</type>
     <height>1</height>
   </tile>
   <tile x="19" y="16">
-    <type>lime</type>
+    <type>gray</type>
     <height>3</height>
   </tile>
   <tile x="19" y="17">
-    <type>marking</type>
+    <type>ground</type>
     <height>3</height>
   </tile>
   <tile x="19" y="18">
-    <type>metal</type>
+    <type>ice</type>
     <height>1</height>
   </tile>
   <tile x="19" y="19">
-    <type>tile</type>
+    <type>lime</type>
     <height>3</height>
   </tile>
 </map>

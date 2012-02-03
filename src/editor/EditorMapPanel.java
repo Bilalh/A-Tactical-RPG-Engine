@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 import util.Logf;
 import view.map.GuiTile;
-import view.map.MapRenderer;
+import view.map.IsomertricMapRenderer;
 import view.map.MapSettings;
 
 class EditorMapPanel extends JPanel {
@@ -21,7 +21,7 @@ class EditorMapPanel extends JPanel {
 	private static final long serialVersionUID = 3779345216980490025L;
 
 	private Editor editor;
-	private MapRenderer mapRender;
+	private IsomertricMapRenderer mapRender;
 	private GuiTile[][] field;
 
 	private int heightOffset;
@@ -46,7 +46,7 @@ class EditorMapPanel extends JPanel {
 		int startX = bufferWidth / 2;
 		int startY = heightOffset;
 
-		mapRender = new MapRenderer(field, editor, startX, startY);
+		mapRender = new IsomertricMapRenderer(field, editor, startX, startY);
 
 		this.addMouseListener(new MouseAdapter() {
 			@Override

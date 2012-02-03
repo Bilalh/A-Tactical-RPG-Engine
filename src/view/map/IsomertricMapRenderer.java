@@ -14,11 +14,12 @@ import util.Logf;
 import view.AnimatedUnit;
 
 /**
+ * Draws a isomertricMap
  * @author Bilal Hussain
  */
-public class MapRenderer {
+public class IsomertricMapRenderer {
 
-	private static final Logger log = Logger.getLogger(MapRenderer.class);
+	private static final Logger log = Logger.getLogger(IsomertricMapRenderer.class);
 	
 	private IMapRendererParent parent;
 	private GuiTile[][] field;
@@ -31,7 +32,7 @@ public class MapRenderer {
 	int animationDuration = 750 * 1000000;
 
 	/** @category Generated Constructor */
-	public MapRenderer(GuiTile[][] field, IMapRendererParent parent, int startX, int startY) {
+	public IsomertricMapRenderer(GuiTile[][] field, IMapRendererParent parent, int startX, int startY) {
 		this.startX = startX;
 		this.startY = startY;
 		this.parent = parent;
@@ -82,11 +83,15 @@ public class MapRenderer {
 				} else {
 					drawnEverything = false;
 				}
-				x += (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom);
-				y += (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
+				x += Math.round(MapSettings.tileDiagonal / 2 * MapSettings.zoom);
+				y += Math.round(MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom);
 			}
-			x = startX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
-			y = startY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (fieldHeight - i));
+			Math.round((MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i)));
+//			x = startX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
+//			y = startY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (fieldHeight - i));
+			x = startX - Math.round(MapSettings.tileDiagonal / 2 * MapSettings.zoom * (fieldHeight - i));
+			y = startY + Math.round(MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (fieldHeight - i));
+			
 			// x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (i+1)); // for rotate
 			// y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1)); // for rotate
 		}

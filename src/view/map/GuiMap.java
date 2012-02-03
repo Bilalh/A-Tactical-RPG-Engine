@@ -43,7 +43,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private MapController mapController; 
 	
     private GuiTile[][] field;
-	private MapRenderer mapRenderer;
+	private IsomertricMapRenderer mapRenderer;
 
 	private int fieldWidth, fieldHeight;
 	private static GuiTile selectedTile;
@@ -134,7 +134,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		mapBuffer = parent.createImage(bufferWidth,bufferHeight);
 		
         final int heightOffset = (MapSettings.tileDiagonal);
-		mapRenderer = new MapRenderer(
+		mapRenderer = new IsomertricMapRenderer(
 				field, this, 
 				startX, startY);
 	}
