@@ -12,10 +12,7 @@ import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import common.spritesheet.SpriteInfo;
 
-import config.xml.SavedMap;
-import config.xml.SavedTile;
-import config.xml.TileImageData;
-import config.xml.TileMapping;
+import config.xml.*;
 import editor.spritesheet.MutableSprite;
 
 /**
@@ -106,6 +103,8 @@ public abstract class XMLUtil {
 				
 				SavedTile.class,
 				SavedMap.class,
+				MapData.class,
+				MapSettings.class,
 				TileMapping.class,
 				TileImageData.class
 		};

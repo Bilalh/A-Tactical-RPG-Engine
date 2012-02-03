@@ -21,14 +21,14 @@ import config.xml.*;
  */
 public class MapXmlMaker {
 
-	static String filename = "map4";
+	static String filename = "map5";
 	
 	public static void main(String[] args) throws IOException {
 		Config.loadLoggingProperties();
 		
 		Random r = new Random(12344);
-		int width  = 25;
-		int height = 25;
+		int width  = 20;
+		int height = 20;
 		SavedTile[] tiles = new SavedTile[width*height];
 		
 		
@@ -58,9 +58,12 @@ public class MapXmlMaker {
 			}
 		}
 
-		SavedMap m = new SavedMap(width,height,tiles, filename + "-mapping.xml");
+		MapSettings settings = MapSettings.defaults();
+		MapData     data     = new MapData("maps/" +filename + "-mapping.xml");
+		SavedMap m = new SavedMap(width,height,tiles, settings,data);
 
-		String s1 = XMLUtil.makeXml(m);
+//		String s1 = XMLUtil.makeXml(m);
+		String s1 = XMLUtil.makeFormattedXml(m);
 //		System.out.println(s1);
 		
 		HashMap<String, TileImageData> mapping = new HashMap<String, TileImageData>();
@@ -79,7 +82,7 @@ public class MapXmlMaker {
 			mapping.put("mask-" + diagonals[i], new TileImageData("images/tiles/" + "mask-" + diagonals[i] +".png", ImageType.NON_TEXTURED));
 		}
 		
-		TileMapping map = new TileMapping(mapping);
+		TileMapping map = new TileMapping("images/tilesets/basic.png", mapping);
 		String s2 = XMLUtil.makeFormattedXml(map);
 		System.out.println(s2);
 		

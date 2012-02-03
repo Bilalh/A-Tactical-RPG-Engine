@@ -1,4 +1,4 @@
-<tilemapping>
+<tilemapping spriteSheetLocation="images/tilesets/basic.png">
   <entry>
     <string>blue400</string>
     <tileImageData>

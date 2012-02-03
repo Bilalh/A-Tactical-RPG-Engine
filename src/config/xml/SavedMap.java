@@ -11,6 +11,7 @@ import engine.map.Tile;
 
 /**
  * An Xml representation of an map.
+ * 
  * @author Bilal Hussain
  */
 @XStreamAlias("map")
@@ -21,45 +22,44 @@ public class SavedMap implements IPreference {
 	@XStreamAsAttribute
 	final int height;
 
+	final MapSettings mapSettings;
+	final MapData mapData;
+
 	@XStreamImplicit
 	final SavedTile[] tiles;
-
-	@XStreamAsAttribute
-	final String tileMappinglocation;
-
-	/** @category Generated Constructor */
-	public SavedMap(int width, int height, SavedTile[] tiles, String tileMappinglocation) {
+	
+	/** @category Generated */
+	public SavedMap(int width, int height, SavedTile[] tiles, MapSettings mapSettings, MapData mapData) {
 		this.width = width;
 		this.height = height;
 		this.tiles = tiles;
-		this.tileMappinglocation = tileMappinglocation;
+		this.mapSettings = mapSettings;
+		this.mapData = mapData;
 	}
-	
-	/** @category Generated Getter */
-	public int getFieldWidth() {
+
+	/** @category Generated */
+	int getWidth() {
 		return width;
 	}
 
-	/** @category Generated Getter */
-	public int getFieldHeight() {
+	/** @category Generated */
+	int getHeight() {
 		return height;
 	}
 
-	/** @category Generated Getter */
-	public SavedTile[] getTiles() {
+	/** @category Generated */
+	SavedTile[] getTiles() {
 		return tiles;
 	}
 
-	/** @category Generated Getter */
-	public String getTileMappinglocation() {
-		return tileMappinglocation;
+	/** @category Generated */
+	MapSettings getMapSettings() {
+		return mapSettings;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("SavedMap [width=%s, height=%s, tiles=%s, tileMappinglocation=%s]", width, height, tiles, tileMappinglocation);
+	/** @category Generated */
+	MapData getMapData() {
+		return mapData;
 	}
 
-	
-	
 }

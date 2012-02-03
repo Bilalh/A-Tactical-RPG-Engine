@@ -75,10 +75,6 @@ public class Config {
 		return pref;
 	}
 
-	public static <E extends IPreference> E loadMap(String filename){
-		return loadPreference("maps" + File.separator + filename);
-	}
-
 	private static final TileMapping defaultMapping;
 	
 	static{
@@ -86,7 +82,7 @@ public class Config {
 		TileImageData d= new TileImageData("images/tiles/brown.png", ImageType.NON_TEXTURED);
 		m.put("*", d );
 		m.put("grass", d);
-		defaultMapping = new TileMapping(m);
+		defaultMapping = new TileMapping("",m);
 	}
 	
 	public static TileMapping defaultMapping(){

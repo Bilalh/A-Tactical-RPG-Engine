@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 import config.IPreference;
@@ -17,42 +18,25 @@ import config.IPreference;
 @XStreamAlias("tilemapping")
 public class TileMapping implements IPreference {
 
+	@XStreamAsAttribute
+	final private String spriteSheetLocation;
 	@XStreamImplicit
 	final private HashMap<String, TileImageData> tilemapping;
 
-	/** @category Generated Constructor */
-	public TileMapping(HashMap<String, TileImageData> tilemapping) {
+	/** @category Generated */
+	public TileMapping(String spriteSheet, HashMap<String, TileImageData> tilemapping) {
+		this.spriteSheetLocation = spriteSheet;
 		this.tilemapping = tilemapping;
 	}
 
-	public TileImageData getTileImageData(String type){
-		TileImageData data =  tilemapping.get(type);
-		if (data == null) throw new IllegalArgumentException();
-		return data;
-	}
-	
-	/** @category Generated Getter */
-	public HashMap<String, TileImageData> getTilemapping() {
-		return tilemapping;
-	}
-
-	@Override
-	public String toString() {
-		final int maxLen = 10;
-		return String.format("TileMapping [tilemapping=%s]", tilemapping != null ? toString(tilemapping.entrySet(), maxLen) : null);
+	/** @category Generated */
+	String getSpriteSheet() {
+		return spriteSheetLocation;
 	}
 
 	/** @category Generated */
-	private String toString(Collection<?> collection, int maxLen) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("[");
-		int i = 0;
-		for (Iterator<?> iterator = collection.iterator(); iterator.hasNext() && i < maxLen; i++) {
-			if (i > 0) builder.append(", ");
-			builder.append(iterator.next());
-		}
-		builder.append("]");
-		return builder.toString();
+	HashMap<String, TileImageData> getTilemapping() {
+		return tilemapping;
 	}
 
 }
