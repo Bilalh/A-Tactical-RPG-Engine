@@ -151,6 +151,7 @@ public class SpriteSheetEditor extends JFrame {
 					list.add((MutableSprite) values[i]);
 				}
 				Collections.sort(list, new Comparator<MutableSprite>() {
+					@Override
 					public int compare(MutableSprite o1, MutableSprite o2) {
 						return o1.getName().compareTo(o2.getName());
 					}
