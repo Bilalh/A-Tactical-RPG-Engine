@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
@@ -16,6 +17,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import common.gui.Sprite;
 import common.spritesheet.SpriteInfo;
 import common.spritesheet.SpriteSheet;
 
@@ -106,11 +108,41 @@ public class SpriteSheetEditor extends JFrame {
 			}
 		});
 
+		JMenuItem addSheet = new JMenuItem("Add Sheet");
+		addSheet.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,mask));
+		addSheet.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadSheet(false);
+			}
+		});
+
 		file.add(neww);		
 		file.add(open);		
 		file.add(save);
 		file.addSeparator();
 		file.add(split);
+		file.add(addSheet);
+		
+		JMenu edit = new JMenu("Edit");
+		bar.add(edit);
+		
+		JMenuItem selectedAll = new JMenuItem("Select All");
+		selectedAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,mask));
+		selectedAll.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (sprites.isEmpty()) return;
+				Object[] values = sprites.toArray();
+				ArrayList<MutableSprite> sprites = new ArrayList<MutableSprite>();
+				for (int i = 0; i < values.length; i++) {
+					sprites.add((MutableSprite) values[i]);
+				}
+				select(sprites);
+			}
+		});
+		
+		edit.add(selectedAll);
 		setJMenuBar(bar);
 		dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
@@ -218,9 +250,9 @@ public class SpriteSheetEditor extends JFrame {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				Object[] values = list.getSelectedValues();
-				ArrayList sprites = new ArrayList();
+				ArrayList<MutableSprite> sprites = new ArrayList<MutableSprite>();
 				for (int i = 0; i < values.length; i++) {
-					sprites.add(values[i]);
+					sprites.add((MutableSprite) values[i]);
 				}
 
 				list.removeListSelectionListener(this);
@@ -299,7 +331,7 @@ public class SpriteSheetEditor extends JFrame {
 		return a;
 	}
 
-	public void select(ArrayList selection) {
+	public void select(java.util.List<MutableSprite> selection) {
 		list.clearSelection();
 		int[] selected = new int[selection.size()];
 		for (int i = 0; i < selection.size(); i++) {
@@ -353,8 +385,10 @@ public class SpriteSheetEditor extends JFrame {
 	 */
 	private void load() {
 		if (!sprites.isEmpty() && !askToSave() ) return;
-		
-		chooser.setMultiSelectionEnabled(false);
+		loadSheet(true);
+	}
+
+	private void loadSheet(boolean reset){
 		int rst = chooser.showOpenDialog(SpriteSheetEditor.this);
 		if (rst == JFileChooser.APPROVE_OPTION) {
 			File in = chooser.getSelectedFile();
@@ -362,20 +396,21 @@ public class SpriteSheetEditor extends JFrame {
 			try {
 				BufferedImage b = ImageIO.read(in);
 				SpriteSheet ss = new SpriteSheet(b, new FileInputStream(xml));
-				sprites.clear();
+				if (reset){
+					sprites.clear();
+					sheetName.setText(in.getName());
+				}
 				for (Entry<String, BufferedImage> e : ss.getSpritesMap().entrySet()) {
 					sprites.addElement(new MutableSprite(e.getKey(), e.getValue()));
 				}
-				sheetName.setText(in.getName());
 				renew();
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(this, "xml file " + xml.getName() + " not found",
 						"File Not found", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-
 	}
-
+	
 	/**
 	 * Spilts a sprite sheet into multiple images
 	 */
@@ -420,7 +455,7 @@ public class SpriteSheetEditor extends JFrame {
 	/**
 	 * Deletes the specifed Sprite(s)
 	 */
-	public void delete(ArrayList<MutableSprite> selected) {
+	public void delete(java.util.List<MutableSprite> selected) {
 		for (MutableSprite s : selected) {
 			sprites.removeElement(s);
 		}

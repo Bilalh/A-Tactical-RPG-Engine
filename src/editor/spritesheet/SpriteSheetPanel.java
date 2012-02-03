@@ -10,6 +10,7 @@ import java.awt.TexturePaint;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -24,7 +25,7 @@ public class SpriteSheetPanel extends JPanel {
 	// generated sheet
 	private Sheet sheet;
 
-	private ArrayList<MutableSprite> selected = new ArrayList<MutableSprite>();
+	private java.util.List<MutableSprite> selected = new ArrayList<MutableSprite>();
 	private SpriteSheetEditor editor;
 
 	public SpriteSheetPanel(SpriteSheetEditor e) {
@@ -69,8 +70,8 @@ public class SpriteSheetPanel extends JPanel {
 		
 	}
 
-	public void setSelectedSprites(ArrayList sprites) {
-		this.selected = sprites;
+	public void setSelectedSprites(List<MutableSprite> selection) {
+		this.selected = selection;
 		repaint(0);
 	}
 
