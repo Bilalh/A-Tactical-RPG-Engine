@@ -36,18 +36,8 @@ class EditorMapPanel extends JPanel {
 
 	public EditorMapPanel(Editor editor, GuiTile[][] field) {
 		this.editor = editor;
-		this.field = field;
-
-		heightOffset = (MapSettings.tileDiagonal);
-		bufferWidth = MapSettings.tileDiagonal * field.length + 5;
-		bufferHeight = (int) (MapSettings.tileDiagonal / 2f * field[0].length + heightOffset);
-		setPreferredSize(new Dimension(bufferWidth, bufferHeight));
-
-		int startX = bufferWidth / 2;
-		int startY = heightOffset;
-
-		mapRender = new IsomertricMapRenderer(field, editor, startX, startY);
-
+		setMap(field);
+		
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -57,6 +47,20 @@ class EditorMapPanel extends JPanel {
 
 	}
 
+	public synchronized void setMap(GuiTile[][] field){
+		this.field    = field;
+		heightOffset  = (MapSettings.tileDiagonal);
+		bufferWidth   = MapSettings.tileDiagonal * field.length + 5;
+		bufferHeight  = (int) (MapSettings.tileDiagonal / 2f * field[0].length + heightOffset);
+		
+		setPreferredSize(new Dimension(bufferWidth, bufferHeight));
+
+		int startX = bufferWidth / 2;
+		int startY = heightOffset;
+		buffer     = null;
+		mapRender  = new IsomertricMapRenderer(field, editor, startX, startY);
+	}
+	
 	public void mousePressed(MouseEvent e) {
 		GuiTile current = null;
 		double highest = 0.0;

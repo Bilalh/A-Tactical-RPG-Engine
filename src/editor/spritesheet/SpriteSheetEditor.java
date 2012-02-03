@@ -53,18 +53,19 @@ public class SpriteSheetEditor extends JFrame {
 
 	private Packer packer = new Packer();
 
-	public SpriteSheetEditor() {
-		init();
-	}
-
-	public void init() {
+	public SpriteSheetEditor(int frameClosingValue) {
+		super("Sprite Sheet Editor");
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
-
+		
 		setSize(810, 580);
-		this.setLayout(new BorderLayout());
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		initGui();
+		setJMenuBar(createMenubar());
+		this.setDefaultCloseOperation(frameClosingValue);
+	}
+
+	private JMenuBar createMenubar() {
 
 		JMenuBar bar = new JMenuBar();
 		JMenu file = new JMenu("File");
@@ -166,8 +167,12 @@ public class SpriteSheetEditor extends JFrame {
 		
 		edit.add(selectedAll);
 		edit.add(sort);
-		setJMenuBar(bar);
 		
+		return bar;
+	}
+
+	private void initGui() {
+		this.setLayout(new BorderLayout());
 		dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
 		saveChooser.setFileFilter(new FileNameExtensionFilter("Portable Network Graphics (*.png)", "png"));
@@ -510,7 +515,7 @@ public class SpriteSheetEditor extends JFrame {
 
 	public static void main(String[] args) {
 		Config.loadLoggingProperties();
-		new SpriteSheetEditor().setVisible(true);
+		new SpriteSheetEditor(JFrame.EXIT_ON_CLOSE).setVisible(true);
 	}
 
 	

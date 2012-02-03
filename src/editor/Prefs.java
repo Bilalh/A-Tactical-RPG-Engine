@@ -5,13 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.prefs.Preferences;
 
-public final class Config
+public final class Prefs
 {
-    public static final int RECENT_FILE_COUNT = 8;
-
     private static final Preferences prefs = Preferences.userRoot().node("tactical/editor");
 
-    private Config() {
+    private Prefs() {
     }
 
 

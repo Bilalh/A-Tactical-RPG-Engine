@@ -32,17 +32,10 @@ import engine.pathfinding.PathFinder;
 /**
  * @author bilalh
  */
-public class Map extends Observable implements IMap {
+public class Map extends BasicMap implements IMap {
 	private static final Logger log = Logger.getLogger(Map.class);
 	private Player playerinfo;
 	
-	private Tile[][] field;
-	private TileMapping tileMapping;
-	private MapSettings mapSettings;
-	
-	private int width;
-	private int height;
-
 	private AIPlayer ai;
 	private MapPlayer player;
 	
@@ -63,8 +56,6 @@ public class Map extends Observable implements IMap {
 	}
 
 	@Override
-
-	
 	public void start() {
 		INotification n = new ChooseUnitsNotifications(playerinfo.getUnits(), ai.getUnits());
 		setChanged();
@@ -164,21 +155,6 @@ public class Map extends Observable implements IMap {
 		 return new ArrayList<IMapUnit>(player.getUnits());
 	}
 
-	@Override
-	public Tile getTile(int x, int y){
-		return field[x][y];
-	}
-	
-	@Override
-	public TileImageData getTileImageData(int x, int y){
-		return tileMapping.getTileImageData(field[x][y].getType());
-	}
-
-	
-	public String getTileSheetLocation(){
-		return tileMapping.getSpriteSheetLocation();
-	}
-
 	private void setUpAI() {
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
 		
@@ -202,47 +178,6 @@ public class Map extends Observable implements IMap {
 		assert(height > 0);
 	}
 
-	void loadMap(String name){
-		SavedMap smap = Config.loadPreference(name);
-		
-		width  = smap.getFieldWidth();
-		height = smap.getFieldHeight();
-		field  = new Tile[width][height];
-		
-		for (SavedTile t : smap.getTiles()) {
-			field[t.getX()][t.getY()] = new Tile(t.getHeight(), (t.getHeight()), t.getType());
-		}
-
-		mapSettings  = smap.getMapSettings();
-		MapData data = smap.getMapData();
-		
-		String mappingLocation = data.getTileMappingLocation();
-		if (mappingLocation == null){
-			tileMapping = Config.defaultMapping();	
-		}else{
-			tileMapping = Config.loadPreference(mappingLocation);
-		}
-		
-	}
-	/** @category Generated */
-	public Tile[][] getField() {
-		return field;
-	}
-
-
-	/** @category Generated Getter */
-	@Override
-	public int getFieldWidth() {
-		return width;
-	}
-
-	/** @category Generated Getter */
-	@Override
-	public int getFieldHeight() {
-		return height;
-	}
-
-	
 	void testing() {
 		tileMapping = Config.defaultMapping();
 		width = 17;
@@ -282,5 +217,6 @@ public class Map extends Observable implements IMap {
 			e.printStackTrace();
 		}
 	}
+	
 	
 }

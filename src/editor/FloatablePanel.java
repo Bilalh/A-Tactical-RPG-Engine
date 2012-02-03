@@ -40,6 +40,7 @@ public class FloatablePanel extends JPanel
 			putValue(SMALL_ICON, Resources.getIcon("gnome-zoom-in.png"));
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			setFloating(true);
 		}
@@ -58,7 +59,7 @@ public class FloatablePanel extends JPanel
 		this.child = child;
 		this.parent = parent;
 		titleLabel = new JLabel(title);
-		prefs = Config.getNode("dock/" + preferencesId);
+		prefs = Prefs.getNode("dock/" + preferencesId);
 
 		final JButton floatButton = new TButton(new FloatAction());
 
