@@ -1,20 +1,21 @@
 package editor;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
 
 import org.apache.log4j.Logger;
 
-import common.gui.ResourceManager;
-import config.xml.TileImageData;
-import view.map.*;
-import editor.spritesheet.MutableSprite;
+import view.map.GuiTile;
+import view.map.IMapRendererParent;
 import editor.spritesheet.SpriteSheetEditor;
-import engine.map.BasicMap;
+import editor.ui.FloatablePanel;
+import editor.ui.TButton;
 
 /**
  * @author Bilal Hussain

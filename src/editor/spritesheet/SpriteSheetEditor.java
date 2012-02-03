@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
@@ -32,7 +33,7 @@ import net.miginfocom.swing.MigLayout;
  * A Editor for spritesheets that can create, modify or split them. 
  * @author Bilal Hussain
  */
-public class SpriteSheetEditor extends JFrame {
+public class SpriteSheetEditor extends JFrame implements ISpriteProvider<MutableSprite> {
 
 	private static final long serialVersionUID = 8150077954325861946L;
 	private static final Integer[] sizes = new Integer[] { 128, 256, 512, 1024, 2048, 4096, 8192 };
@@ -360,6 +361,7 @@ public class SpriteSheetEditor extends JFrame {
 		return a;
 	}
 
+	@Override
 	public void select(java.util.List<MutableSprite> selection) {
 		list.clearSelection();
 		int[] selected = new int[selection.size()];
@@ -370,6 +372,7 @@ public class SpriteSheetEditor extends JFrame {
 		sheetPanel.setSelectedSprites(selection);
 	}
 
+	@Override
 	public MutableSprite getSpriteAt(int x, int y) {
 		for (int i = 0; i < sprites.size(); i++) {
 			if (((MutableSprite) sprites.get(i)).contains(x, y)) {
@@ -484,6 +487,7 @@ public class SpriteSheetEditor extends JFrame {
 	/**
 	 * Deletes the specifed Sprite(s)
 	 */
+	@Override
 	public void delete(java.util.List<MutableSprite> selected) {
 		for (MutableSprite s : selected) {
 			sprites.removeElement(s);
@@ -517,6 +521,7 @@ public class SpriteSheetEditor extends JFrame {
 		Config.loadLoggingProperties();
 		new SpriteSheetEditor(JFrame.EXIT_ON_CLOSE).setVisible(true);
 	}
+
 
 	
 }

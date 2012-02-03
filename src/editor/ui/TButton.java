@@ -10,7 +10,7 @@
  *  Bjorn Lindeijer <bjorn@lindeijer.nl>
  */
 
-package editor;
+package editor.ui;
 
 import java.awt.Insets;
 import javax.swing.Action;

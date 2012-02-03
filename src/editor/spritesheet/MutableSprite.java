@@ -49,7 +49,6 @@ public class MutableSprite extends SpriteInfo implements Comparable<MutableSprit
 		return image;
 	}
 
-
 	public void setPositionInSheet(int x, int y) {
 		this.x = x;
 		this.y = y;

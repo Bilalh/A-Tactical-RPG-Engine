@@ -14,7 +14,10 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-public class SpriteSheetPanel extends JPanel {
+import common.gui.Sprite;
+import common.spritesheet.SpriteInfo;
+
+public class SpriteSheetPanel<E extends SpriteInfo> extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Image image;
 	private int width;
@@ -25,12 +28,17 @@ public class SpriteSheetPanel extends JPanel {
 	// generated sheet
 	private Sheet sheet;
 
-	private java.util.List<MutableSprite> selected = new ArrayList<MutableSprite>();
-	private SpriteSheetEditor editor;
+	private List<E> selected = new ArrayList<E>();
+	private ISpriteProvider<E> spriteProvider;
 
-	public SpriteSheetPanel(SpriteSheetEditor e) {
-		this.editor = e;
+	public SpriteSheetPanel(ISpriteProvider<E> spriteProvider) {
+		this.spriteProvider = spriteProvider;
+		initGui();
+		addMouse();
+		addKeys();
+	}
 
+	protected void initGui(){
 		Color base = Color.gray;
 		BufferedImage image = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) image.getGraphics();
@@ -43,13 +51,16 @@ public class SpriteSheetPanel extends JPanel {
 		
 		background = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
 
+	}
+	
+	protected void addMouse(){
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				SpriteSheetPanel.this.requestFocusInWindow();
-				MutableSprite sprite = editor.getSpriteAt(e.getX(), e.getY());
+				E sprite = spriteProvider.getSpriteAt(e.getX(), e.getY());
 				if (sprite != null) {
-					ArrayList<MutableSprite> selection = new ArrayList<MutableSprite>();
+					ArrayList<E> selection = new ArrayList<E>();
 					if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0) {
 						selection.addAll(selected);
 					}
@@ -58,23 +69,24 @@ public class SpriteSheetPanel extends JPanel {
 					}else{
 						selection.add(sprite);
 					}
-					editor.select(selection);
+					spriteProvider.select(selection);
 				}
 			}
 		});
-		
+	}
+	
+	protected void addKeys(){
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (!selected.isEmpty() && (e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
-					editor.delete(selected);
+					spriteProvider.delete(selected);
 				}
 			}
 		});
-		
 	}
-
-	public void setSelectedSprites(List<MutableSprite> selection) {
+	
+	public void setSelectedSprites(List<E> selection) {
 		this.selected = selection;
 		repaint(0);
 	}
@@ -93,8 +105,8 @@ public class SpriteSheetPanel extends JPanel {
 	}
 
 	@Override
-	public void paint(Graphics g1d) {
-		Graphics2D g = (Graphics2D) g1d;
+	public void paint(Graphics _g) {
+		Graphics2D g = (Graphics2D) _g;
 
 		g.setPaint(background);
 		g.fillRect(0, 0, getWidth(), getHeight());
@@ -107,7 +119,7 @@ public class SpriteSheetPanel extends JPanel {
 
 		g.setColor(Color.BLUE);
 		for (int i = 0; i < selected.size(); i++) {
-			MutableSprite sprite =selected.get(i);
+			E sprite =selected.get(i);
 			g.drawRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 		}
 	}
