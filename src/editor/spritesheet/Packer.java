@@ -45,7 +45,7 @@ public class Packer {
 		try {
 			PrintStream pout = null;
 			if (out != null) {
-				pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(), out.getName() + ".xml")));
+				pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(), out.getName().replaceAll(".png$", "") + ".xml")));
 				pout.println("<sprite-array>");
 			}
 

@@ -97,6 +97,16 @@ public class SpriteSheetEditor extends JFrame {
 			}
 		});
 		
+		JMenuItem neww = new JMenuItem("New");
+		neww.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,mask));
+		neww.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clear();
+			}
+		});
+
+		file.add(neww);		
 		file.add(open);		
 		file.add(save);
 		file.addSeparator();
@@ -342,13 +352,7 @@ public class SpriteSheetEditor extends JFrame {
 	 * loads a Sprite sheet
 	 */
 	private void load() {
-		if (!sprites.isEmpty()){
-			int rst =JOptionPane.showConfirmDialog(SpriteSheetEditor.this, "Save current sheet?");
-			if      (rst == JOptionPane.CANCEL_OPTION) return;
-			else if (rst == JOptionPane.YES_OPTION){
-				if (save() == JFileChooser.CANCEL_OPTION) return;
-			}
-		}
+		if (!sprites.isEmpty() && !askToSave() ) return;
 		
 		chooser.setMultiSelectionEnabled(false);
 		int rst = chooser.showOpenDialog(SpriteSheetEditor.this);
@@ -395,7 +399,24 @@ public class SpriteSheetEditor extends JFrame {
 		
 	}
 
+	
+	private boolean askToSave(){
+		int rst =JOptionPane.showConfirmDialog(SpriteSheetEditor.this, "Save current sheet?");
+		if      (rst == JOptionPane.CANCEL_OPTION) return false;
+		else if (rst == JOptionPane.YES_OPTION){
+			if (rst == JOptionPane.CANCEL_OPTION) return false;
+		}
+		return true;
+	}
 
+	private void clear() {
+		if (sprites.isEmpty() || !askToSave() ) return;
+		
+		sprites.clear();
+		renew();
+		
+	}
+	
 	/**
 	 * Deletes the specifed Sprite(s)
 	 */

@@ -17,6 +17,7 @@ import controller.MapController;
 import util.Logf;
 import view.AnimatedUnit;
 import view.map.*;
+import view.util.Pair;
 
 
 import editor.Editor.State;
@@ -119,7 +120,6 @@ public class Editor implements ActionListener, IMapRendererParent {
         tilesetPanel = new JPanel();
         tilesetsPanelContainer = new FloatablePanel(frame, tilesetPanel, "Tiles","tilesets");
         
-        
         JSplitPane paletteSplit = new JSplitPane(
                 JSplitPane.VERTICAL_SPLIT, true, mainSplit, tilesetsPanelContainer);
         paletteSplit.setOneTouchExpandable(true);
@@ -139,7 +139,7 @@ public class Editor implements ActionListener, IMapRendererParent {
 	// temp method to create the map
 	/** @category Temp**/
 	private void createMap(){
-		field = new GuiTile[20][20];
+		field = new GuiTile[25][25];
 		Random rnd = new Random(21212);
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
