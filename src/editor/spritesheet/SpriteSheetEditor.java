@@ -110,9 +110,10 @@ public class SpriteSheetEditor extends JFrame {
 		JTabbedPane tab = new JTabbedPane();
 		JPanel p = new JPanel(new MigLayout("", "[right]"));
 
-		p.add(new JLabel("General"), "split, span, gaptop 4");
-		p.add(new JSeparator(), "growx, wrap, gaptop 4");
-
+		
+		p.add(new JLabel("General"), new CC().split().spanX().gapTop("4"));
+		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
+		
 		p.add(new JLabel("Sheet Name:"), "gap 4");
 		p.add((sheetName = new JTextField(10)), "span, growx");
 		sheetName.setText("Untitled Sheet");
@@ -263,7 +264,9 @@ public class SpriteSheetEditor extends JFrame {
 		renew();
 	}
 
-	// Redraws the sprite sheet
+	/**
+	 * Redraws the sprite sheet
+	 */
 	private void renew() {
 		try {
 			ArrayList<MutableSprite> list = new ArrayList<MutableSprite>();
@@ -305,7 +308,9 @@ public class SpriteSheetEditor extends JFrame {
 		return null;
 	}
 
-	// Saves a Sprite sheet 	
+	/**
+	 * Saves a Sprite sheet
+	 */
 	private int save() {
 		String name = sheetName.getText();
 		if (!name.endsWith(".png")) name += ".png";
@@ -333,7 +338,9 @@ public class SpriteSheetEditor extends JFrame {
 		return rst;
 	}
 
-	// loads a Sprite sheet 	
+	/**
+	 * loads a Sprite sheet
+	 */
 	private void load() {
 		if (!sprites.isEmpty()){
 			int rst =JOptionPane.showConfirmDialog(SpriteSheetEditor.this, "Save current sheet?");
@@ -365,6 +372,9 @@ public class SpriteSheetEditor extends JFrame {
 
 	}
 
+	/**
+	 * Spilts a sprite sheet into multiple images
+	 */
 	private void spilt() {
 		if (sprites.isEmpty()) return;
 		
@@ -386,6 +396,9 @@ public class SpriteSheetEditor extends JFrame {
 	}
 
 
+	/**
+	 * Deletes the specifed Sprite(s)
+	 */
 	public void delete(ArrayList<MutableSprite> selected) {
 		for (MutableSprite s : selected) {
 			sprites.removeElement(s);
@@ -393,6 +406,9 @@ public class SpriteSheetEditor extends JFrame {
 		renew();
 	}
 	
+	/**
+	 * Changes the id of the sprite
+	 */
 	private void rename(MutableSprite selected) {
 		String s;// = JOptionPane.showInputDialog("New name for " + selected.getName(),  selected.getName());
 		s =(String) JOptionPane.showInputDialog(SpriteSheetEditor.this, "New name for " + selected.getName(), 
@@ -402,9 +418,7 @@ public class SpriteSheetEditor extends JFrame {
 	}
 
 	private class FileListRenderer extends DefaultListCellRenderer {
-	
 		private static final long serialVersionUID = 5874522377321012662L;
-	
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);

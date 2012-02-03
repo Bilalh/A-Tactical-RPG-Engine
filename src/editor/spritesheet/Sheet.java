@@ -4,19 +4,22 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Sheet {
-	private BufferedImage image;
+	private BufferedImage sheet;
 	private ArrayList<MutableSprite> sprites;
 
-	public Sheet(BufferedImage image, ArrayList sprites) {
-		this.image = image;
+	public Sheet(BufferedImage sheet, ArrayList<MutableSprite> sprites) {
+		this.sheet = sheet;
 		this.sprites = sprites;
 	}
 
-	public BufferedImage getImage() {
-		return image;
+	/** @category Generated */
+	BufferedImage getImage() {
+		return sheet;
 	}
 
-	public ArrayList<MutableSprite> getSprites() {
+	/** @category Generated */
+	ArrayList<MutableSprite> getSprites() {
 		return sprites;
 	}
+
 }

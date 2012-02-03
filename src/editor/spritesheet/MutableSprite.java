@@ -15,7 +15,7 @@ import config.IPreference;
 
 
 /**
- * 
+ * A sprite who image can be changed
  * @author Bilal Hussain
  */
 @XStreamAlias("sprite")
