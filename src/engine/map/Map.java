@@ -38,6 +38,7 @@ public class Map extends Observable implements IMap {
 	
 	private Tile[][] field;
 	private TileMapping tileMapping;
+	private MapSettings mapSettings;
 	
 	private int width;
 	private int height;
@@ -47,7 +48,7 @@ public class Map extends Observable implements IMap {
 	
 	//	Cached movement data 
 	private HashMap<IMutableMapUnit, PathFinder> paths;
-	
+	// Turn ordering
 	private PriorityQueue<IMutableMapUnit> order;
 	
 	/** @category Constructor */
@@ -172,7 +173,11 @@ public class Map extends Observable implements IMap {
 	public TileImageData getTileImageData(int x, int y){
 		return tileMapping.getTileImageData(field[x][y].getType());
 	}
+
 	
+	public String getTileSheetLocation(){
+		return tileMapping.getSpriteSheetLocation();
+	}
 
 	private void setUpAI() {
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
@@ -207,8 +212,10 @@ public class Map extends Observable implements IMap {
 		for (SavedTile t : smap.getTiles()) {
 			field[t.getX()][t.getY()] = new Tile(t.getHeight(), (t.getHeight()), t.getType());
 		}
-		
+
+		mapSettings  = smap.getMapSettings();
 		MapData data = smap.getMapData();
+		
 		String mappingLocation = data.getTileMappingLocation();
 		if (mappingLocation == null){
 			tileMapping = Config.defaultMapping();	

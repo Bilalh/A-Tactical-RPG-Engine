@@ -23,7 +23,7 @@ import view.util.MousePoxy;
 
 import common.Location;
 import common.LocationInfo;
-import common.gui.SpriteManager;
+import common.gui.ResourceManager;
 import common.interfaces.ILocation;
 import common.interfaces.IMapNotification;
 import common.interfaces.IMapUnit;
@@ -95,6 +95,8 @@ public class GuiMap implements Observer, IMapRendererParent {
         MousePoxy = new MousePoxy();
         setActionHandler(ActionsEnum.MOVEMENT);
 		
+        ResourceManager.instance().loadSpriteSheetFromResources(mapController.getTileSheetLocation());
+        
         //FIXME heights?
         for (int i = 0; i < fieldWidth; i++) { 
             for (int j = 0; j < fieldHeight; j++) {
@@ -117,7 +119,7 @@ public class GuiMap implements Observer, IMapRendererParent {
         startY = heightOffset;
         
         unitMapping = new HashMap<UUID, AnimatedUnit>();
-        dialog = new Dialog(665, 70, "mage", SpriteManager.instance().getSprite("assets/gui/mage.png"));
+        dialog = new Dialog(665, 70, "mage", ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
         
         selectedTile = field[0][0];
         selectedTile.setSelected(true);
@@ -301,7 +303,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_T:
 				setActionHandler(ActionsEnum.DIALOG);
-				dialog.setPicture(SpriteManager.instance().getSprite("assets/gui/mage.png"));
+				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
 				dialog.setName("Mage");
 				dialog.setText(
 						"Many people believe that Vincent van Gogh painted his best works " +

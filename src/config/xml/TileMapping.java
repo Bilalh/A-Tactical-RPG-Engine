@@ -34,7 +34,7 @@ public class TileMapping implements IPreference {
 	}
 
 	/** @category Generated */
-	String getSpriteSheet() {
+	public String getSpriteSheetLocation() {
 		return spriteSheetLocation;
 	}
 

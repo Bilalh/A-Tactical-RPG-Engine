@@ -12,7 +12,7 @@ import view.map.GuiTile;
 
 import common.Location;
 import common.gui.Sprite;
-import common.gui.SpriteManager;
+import common.gui.ResourceManager;
 import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
 
@@ -28,7 +28,7 @@ public class GuiUnit {
 	protected Rectangle2D bounds;
 	
 	public GuiUnit(int gridX,int gridY,String ref) {
-		this.sprite = SpriteManager.instance().getSprite(ref);
+		this.sprite = ResourceManager.instance().getSpriteFromClassPath(ref);
 		this.gridX = gridX;
 		this.gridY = gridY;
 	} 

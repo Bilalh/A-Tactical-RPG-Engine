@@ -9,9 +9,10 @@ import java.awt.image.BufferedImage;
 
 import common.enums.ImageType;
 import common.gui.Sprite;
-import common.gui.SpriteManager;
+import common.gui.ResourceManager;
 import common.interfaces.IMapUnit;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import org.apache.log4j.Logger;
@@ -21,6 +22,8 @@ import view.AnimatedUnit;
 
 import java.awt.*;
 import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 import common.Location;
@@ -60,7 +63,7 @@ public class GuiTile {
 	private boolean selected = false;
 
 	// The Tiles image 
-	private Image tileImage;
+	private BufferedImage tileImage;
 	private ImageType type;
 	
 	private AnimatedUnit unit;
@@ -69,19 +72,19 @@ public class GuiTile {
 	private int cost;
 	
 	// testing
-	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/grass32.jpg").getImage();
+	BufferedImage iGrass = ResourceManager.instance().getSpriteFromClassPath("assets/gui/grass32.jpg").getImage();
 //	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/testTile.png").getImage();
 	Rectangle2D rGrass = new Rectangle2D.Double(0, 0, iGrass.getWidth(null), iGrass.getHeight(null));
 	TexturePaint tGrass = new TexturePaint(iGrass, rGrass);
 
 	// testing
-	static Image iWall = SpriteManager.instance().getSprite("assets/gui/wallb16.jpg").getImage();
+	static Image iWall = ResourceManager.instance().getSpriteFromClassPath("assets/gui/wallb16.jpg").getImage();
 	static Rectangle2D rWall = new Rectangle2D.Double(0, 0, iWall.getWidth(null),iWall.getHeight(null));
 	static TexturePaint tWall = new TexturePaint((BufferedImage) iWall, rWall);
 	
 	
 	public GuiTile(Orientation orientation, float startHeight, float endHeight, 
-			int x, int y, String filename, ImageType type ) {
+			int x, int y, String ref, ImageType type ) {
 		this.fieldLocation = new Location(x, y);
 		this.orientation   = orientation;
 
@@ -112,13 +115,11 @@ public class GuiTile {
 						0 - h1 + vertical / 2 }, 4);
 		
 		
-		Sprite image = SpriteManager.instance().getSprite("Resources/" + filename);
 		int mheight =  Math.round((MapSettings.tileDiagonal/2f));
-		tileImage    = new BufferedImage(MapSettings.tileDiagonal+1,mheight+1, Transparency.BITMASK);
-		Graphics g   = tileImage.getGraphics();
-		g.drawImage(image.getImage(), 0, 0, MapSettings.tileDiagonal+1,mheight+1, null);
-
-//		tileImage    = image.getImage().getScaledInstance(MapSettings.tileDiagonal+1,mheight+1, Image.SCALE_SMOOTH);
+//		Sprite image = ResourceManager.instance().getSpriteFromClassPath("Resources/" + filename,
+//				MapSettings.tileDiagonal+1,mheight+1);
+//		tileImage = image.getImage();
+		tileImage = ResourceManager.instance().getTile(ref);
 	}
 	
 	public boolean wasClickedOn(Point click) {
@@ -283,19 +284,19 @@ public class GuiTile {
 
 		}
 //
-		g.setColor(lineColor); // Outline the top of the tile
-		g.drawPolygon(new Polygon(new int[] {
-				x,
-				x_hor_div_2,
-				x,
-				neg_x_hor_div_2 },
-				new int[] {
-						(int) (y - h1),
-						neg_y_h2_vet_div_2,
-						neg_y_h2_vet,
-						neg_y_h1_vet_div_2 }
-				, 4));
-		
+//		g.setColor(lineColor); // Outline the top of the tile
+//		g.drawPolygon(new Polygon(new int[] {
+//				x,
+//				x_hor_div_2,
+//				x,
+//				neg_x_hor_div_2 },
+//				new int[] {
+//						(int) (y - h1),
+//						neg_y_h2_vet_div_2,
+//						neg_y_h2_vet,
+//						neg_y_h1_vet_div_2 }
+//				, 4));
+//		
 		g.setColor(oldColor);
 	}
 

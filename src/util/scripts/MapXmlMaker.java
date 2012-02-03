@@ -33,21 +33,7 @@ public class MapXmlMaker {
 		
 		
 //		String[] types = {"m", "blue400", "grass"};
-//		String[] types = {"m","m200", "m128", "m96", "m64","m32","blue400"};
-//		String[] types = {"m"};
-//		String[] types = {"test"};
-
-//		String[] types  = new String[5];
-//		for (int i = 0; i < types.length; i++) {
-//			types[i] = "" + i;
-//		}
-	
-		int[]diagonals = {60,64,80,100,128};
-		String[] types  = new String[diagonals.length];
-		for (int i = 0; i < types.length; i++) {
-//			types[i] = "blue" + diagonals[i];
-			types[i] = "mask-" + diagonals[i];
-		}
+		String[] types = {"brown","darkblue","gray","ground","ice","lime","marking","metal","tile","white","wood"};
 		
 		for (int i = 0, k =0; i < width; i++) {
 			for (int j = 0; j < height; j++, k++) {
@@ -67,21 +53,11 @@ public class MapXmlMaker {
 //		System.out.println(s1);
 		
 		HashMap<String, TileImageData> mapping = new HashMap<String, TileImageData>();
-		mapping.put("m",    new TileImageData("images/tiles/mask.png", ImageType.NON_TEXTURED));
-		mapping.put("grass",new TileImageData("images/tiles/brown.png", ImageType.NON_TEXTURED));
-		mapping.put("test", new TileImageData("images/tiles/test.png", ImageType.NON_TEXTURED));
-		mapping.put("blue400", new TileImageData("images/tiles/blue400.png", ImageType.NON_TEXTURED));
-
-//		
-//		for (int i = 0; i<=types.length; i++) {
-//			mapping.put(""+i, new TileImageData("images/tiles/" + i+"-rst.png",  ImageType.NON_TEXTURED));
-//		}
 		
-		for (int i = 0; i < types.length; i++) {
-//			mapping.put("blue" + diagonals[i], new TileImageData("images/tiles/" + "blue" + diagonals[i] +".png", ImageType.NON_TEXTURED));
-			mapping.put("mask-" + diagonals[i], new TileImageData("images/tiles/" + "mask-" + diagonals[i] +".png", ImageType.NON_TEXTURED));
+		for (String t : types) {
+			mapping.put(t, new TileImageData(t, ImageType.NON_TEXTURED));	
 		}
-		
+			
 		TileMapping map = new TileMapping("images/tilesets/basic.png", mapping);
 		String s2 = XMLUtil.makeFormattedXml(map);
 		System.out.println(s2);

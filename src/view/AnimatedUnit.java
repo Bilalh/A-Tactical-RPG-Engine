@@ -9,7 +9,7 @@ import java.util.UUID;
 import view.map.GuiTile;
 
 import common.gui.Sprite;
-import common.gui.SpriteManager;
+import common.gui.ResourceManager;
 import common.interfaces.IMapUnit;
 
 /**
@@ -35,9 +35,9 @@ public class AnimatedUnit extends GuiUnit {
 		// setup the animatin frames
 		frames= new Sprite[4];
 		frames[0] = sprite;
-		frames[1] = SpriteManager.instance().getSprite("assets/gui/alien2.gif");
+		frames[1] = ResourceManager.instance().getSpriteFromClassPath("assets/gui/alien2.gif");
 		frames[2] = sprite;
-		frames[3] = SpriteManager.instance().getSprite("assets/gui/alien3.gif");	
+		frames[3] = ResourceManager.instance().getSpriteFromClassPath("assets/gui/alien3.gif");	
 	}
 
 	public AnimatedUnit(int gridX, int gridY, String[] refs) {
@@ -45,7 +45,7 @@ public class AnimatedUnit extends GuiUnit {
 		frames = new Sprite[refs.length]; 
 		frames[0] = sprite;
 		for (int i = 1; i < refs.length; i++) {
-			frames[i] = SpriteManager.instance().getSprite(refs[i]);
+			frames[i] = ResourceManager.instance().getSpriteFromClassPath(refs[i]);
 		}
 	}
 	

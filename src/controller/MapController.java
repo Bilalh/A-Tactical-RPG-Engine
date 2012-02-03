@@ -64,5 +64,10 @@ public class MapController extends Controller {
 	public TileImageData getTileImageData(int x, int y){
 		return map.getTileImageData(x, y);
 	}
+
+	/** @category Generated */
+	public String getTileSheetLocation() {
+		return map.getTileSheetLocation();
+	}
 	
 }

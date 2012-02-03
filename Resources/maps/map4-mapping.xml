@@ -1,78 +1,64 @@
 <tilemapping spriteSheetLocation="images/tilesets/basic.png">
   <entry>
-    <string>darkblue</string>
+    <string>blue400</string>
     <tileImageData>
-      <location>darkblue</location>
+      <location>images/tiles/blue400.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>wood</string>
+    <string>test</string>
     <tileImageData>
-      <location>wood</location>
+      <location>images/tiles/test.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>metal</string>
+    <string>grass</string>
     <tileImageData>
-      <location>metal</location>
+      <location>images/tiles/brown.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>ice</string>
+    <string>mask-64</string>
     <tileImageData>
-      <location>ice</location>
+      <location>images/tiles/mask-64.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>tile</string>
+    <string>mask-80</string>
     <tileImageData>
-      <location>tile</location>
+      <location>images/tiles/mask-80.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>white</string>
+    <string>m</string>
     <tileImageData>
-      <location>white</location>
+      <location>images/tiles/mask.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>ground</string>
+    <string>mask-128</string>
     <tileImageData>
-      <location>ground</location>
+      <location>images/tiles/mask-128.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>lime</string>
+    <string>mask-60</string>
     <tileImageData>
-      <location>lime</location>
+      <location>images/tiles/mask-60.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>brown</string>
+    <string>mask-100</string>
     <tileImageData>
-      <location>brown</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>marking</string>
-    <tileImageData>
-      <location>marking</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>gray</string>
-    <tileImageData>
-      <location>gray</location>
+      <location>images/tiles/mask-100.png</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>

@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 import view.map.MapSettings;
 import common.gui.Sprite;
-import common.gui.SpriteManager;
+import common.gui.ResourceManager;
 
 
 /**
@@ -25,7 +25,7 @@ public class ImageMaskMaker {
 
 	public static void main(String[] args) throws IOException {
 		config.Config.loadLoggingProperties();
-		Sprite s = SpriteManager.instance().getSprite(filename);
+		Sprite s = ResourceManager.instance().getSpriteFromClassPath(filename);
 		
 		int[]diagonals = {16,32,60,64,80,100,128,192,200,256};
 		
