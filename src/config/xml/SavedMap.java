@@ -27,7 +27,7 @@ public class SavedMap implements IPreference {
 
 	@XStreamImplicit
 	final SavedTile[] tiles;
-	
+
 	/** @category Generated */
 	public SavedMap(int width, int height, SavedTile[] tiles, MapSettings mapSettings, MapData mapData) {
 		this.width = width;
@@ -38,28 +38,28 @@ public class SavedMap implements IPreference {
 	}
 
 	/** @category Generated */
-	int getWidth() {
+	public int getFieldWidth() {
 		return width;
 	}
 
 	/** @category Generated */
-	int getHeight() {
+	public int getFieldHeight() {
 		return height;
 	}
 
 	/** @category Generated */
-	SavedTile[] getTiles() {
-		return tiles;
-	}
-
-	/** @category Generated */
-	MapSettings getMapSettings() {
+	public MapSettings getMapSettings() {
 		return mapSettings;
 	}
 
 	/** @category Generated */
-	MapData getMapData() {
+	public MapData getMapData() {
 		return mapData;
+	}
+
+	/** @category Generated */
+	public SavedTile[] getTiles() {
+		return tiles;
 	}
 
 }

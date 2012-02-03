@@ -16,5 +16,11 @@ public class MapData {
 	public MapData(String tileMappingLocation) {
 		this.tileMappingLocation = tileMappingLocation;
 	}
+
+	/** @category Generated */
+	public String getTileMappingLocation() {
+		return tileMappingLocation;
+	}
+
 	
 }

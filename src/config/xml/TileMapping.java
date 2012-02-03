@@ -29,14 +29,13 @@ public class TileMapping implements IPreference {
 		this.tilemapping = tilemapping;
 	}
 
-	/** @category Generated */
-	String getSpriteSheet() {
-		return spriteSheetLocation;
+	public TileImageData getTileImageData(String type) {
+		return tilemapping.get(type);
 	}
 
 	/** @category Generated */
-	HashMap<String, TileImageData> getTilemapping() {
-		return tilemapping;
+	String getSpriteSheet() {
+		return spriteSheetLocation;
 	}
 
 }

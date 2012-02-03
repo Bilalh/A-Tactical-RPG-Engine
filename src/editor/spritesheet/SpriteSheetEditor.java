@@ -4,8 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
@@ -142,8 +141,32 @@ public class SpriteSheetEditor extends JFrame {
 			}
 		});
 		
+		JMenuItem sort = new JMenuItem("Sort by Name");
+		sort.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] values =sprites.toArray();
+				ArrayList<MutableSprite> list = new ArrayList<MutableSprite>();
+				for (int i = 0; i < values.length; i++) {
+					list.add((MutableSprite) values[i]);
+				}
+				Collections.sort(list, new Comparator<MutableSprite>() {
+					public int compare(MutableSprite o1, MutableSprite o2) {
+						return o1.getName().compareTo(o2.getName());
+					}
+				});
+				sprites.clear();
+				for (MutableSprite mutableSprite : list) {
+					sprites.addElement(mutableSprite);
+				}
+				renew();
+			}
+		});
+		
 		edit.add(selectedAll);
+		edit.add(sort);
 		setJMenuBar(bar);
+		
 		dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
 		saveChooser.setFileFilter(new FileNameExtensionFilter("Portable Network Graphics (*.png)", "png"));
@@ -491,3 +514,4 @@ public class SpriteSheetEditor extends JFrame {
 
 	
 }
+	
