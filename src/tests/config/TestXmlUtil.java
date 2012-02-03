@@ -28,17 +28,18 @@ public class TestXmlUtil {
 				tiles[k] = new SavedTile("grass",r.nextInt(4)+1, i,j);
 			}
 		}
-		
-		SavedMap m = new SavedMap(width,height,tiles, "basic-mapping.xml");
-		
-		String s1 = XMLUtil.makeFormattedXml(m);
-		SavedMap m2 =  XMLUtil.convertXml(s1);
-		
-		
-		assertArrayEquals("Tiles", m.getTiles(), m2.getTiles());
-		assertEquals("height", m.getFieldHeight(), m2.getFieldHeight());
-		assertEquals("width", m.getFieldWidth(), m2.getFieldWidth());
-		assertEquals("", m.getTileMappinglocation(), m.getTileMappinglocation());
+		fail();
+//		
+//		SavedMap m = new SavedMap(width,height,tiles, "basic-mapping.xml");
+//		
+//		String s1 = XMLUtil.makeFormattedXml(m);
+//		SavedMap m2 =  XMLUtil.convertXml(s1);
+//		
+//		
+//		assertArrayEquals("Tiles", m.getTiles(), m2.getTiles());
+//		assertEquals("height", m.getFieldHeight(), m2.getFieldHeight());
+//		assertEquals("width", m.getFieldWidth(), m2.getFieldWidth());
+//		assertEquals("", m.getTileMappinglocation(), m.getTileMappinglocation());
 	}
 	
 }

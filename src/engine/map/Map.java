@@ -18,10 +18,7 @@ import common.interfaces.INotification;
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
 import config.Config;
-import config.xml.SavedMap;
-import config.xml.SavedTile;
-import config.xml.TileImageData;
-import config.xml.TileMapping;
+import config.xml.*;
 import engine.IMutableUnit;
 import engine.Player;
 import engine.Unit;
@@ -201,21 +198,22 @@ public class Map extends Observable implements IMap {
 	}
 
 	void loadMap(String name){
-		SavedMap smap = Config.loadMap(name);
+		SavedMap smap = Config.loadPreference(name);
 		
 		width  = smap.getFieldWidth();
 		height = smap.getFieldHeight();
 		field  = new Tile[width][height];
 		
 		for (SavedTile t : smap.getTiles()) {
-			field[t.getX()][t.getY()] = new Tile(t.getHeight(), (int) (t.getHeight()), t.getType());
+			field[t.getX()][t.getY()] = new Tile(t.getHeight(), (t.getHeight()), t.getType());
 		}
 		
-		String mappingLocation = smap.getTileMappinglocation();
+		MapData data = smap.getMapData();
+		String mappingLocation = data.getTileMappingLocation();
 		if (mappingLocation == null){
 			tileMapping = Config.defaultMapping();	
 		}else{
-			tileMapping = Config.loadMap(mappingLocation);
+			tileMapping = Config.loadPreference(mappingLocation);
 		}
 		
 	}

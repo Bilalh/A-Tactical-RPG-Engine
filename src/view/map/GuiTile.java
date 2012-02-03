@@ -114,7 +114,11 @@ public class GuiTile {
 		
 		Sprite image = SpriteManager.instance().getSprite("Resources/" + filename);
 		int mheight =  Math.round((MapSettings.tileDiagonal/2f));
-		tileImage    = image.getImage().getScaledInstance(MapSettings.tileDiagonal+1,mheight+1, Image.SCALE_SMOOTH);
+		tileImage    = new BufferedImage(MapSettings.tileDiagonal+1,mheight+1, Transparency.BITMASK);
+		Graphics g   = tileImage.getGraphics();
+		g.drawImage(image.getImage(), 0, 0, MapSettings.tileDiagonal+1,mheight+1, null);
+
+//		tileImage    = image.getImage().getScaledInstance(MapSettings.tileDiagonal+1,mheight+1, Image.SCALE_SMOOTH);
 	}
 	
 	public boolean wasClickedOn(Point click) {
