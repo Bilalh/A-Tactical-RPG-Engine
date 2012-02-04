@@ -7,15 +7,16 @@ import java.util.*;
 
 
 import config.XMLUtil;
+import editor.spritesheet.ISpriteSheet;
 
 /**
  *  Spritesheet contains a number of smaller images, along with a xml file specify the postions
  * @author Bilal Hussain
  */
-public class SpriteSheet {
+public class SpriteSheet implements ISpriteSheet {
 
-	private BufferedImage sheet;
-	private HashMap<String, BufferedImage> sprites;
+	protected BufferedImage sheet;
+	protected HashMap<String, BufferedImage> sprites;
 	
 	public SpriteSheet(BufferedImage sheet, InputStream xmldef){
 		this.sheet = sheet;
@@ -25,13 +26,13 @@ public class SpriteSheet {
 		load(arr);
 	}
 	
-	private void load(SpriteInfo[] arr){
+	protected void load(SpriteInfo[] arr){
 		for (SpriteInfo s : arr) {
 			sprites.put(s.name, sheet.getSubimage(s.getX(),s.getY(),s.getWidth(),s.getHeight()));
 		}
 	}
 	
-	public BufferedImage getSprite(String ref){
+	public BufferedImage getSpriteImage(String ref){
 		return sprites.get(ref);
 	}
 	
@@ -39,4 +40,9 @@ public class SpriteSheet {
 		return sprites;
 	}
 
+	/** @category Generated */
+	public BufferedImage getSheetImage() {
+		return sheet;
+	}
+	
 }

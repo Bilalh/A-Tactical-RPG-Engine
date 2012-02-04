@@ -19,14 +19,14 @@ import common.spritesheet.SpriteInfo;
 
 public class SpriteSheetPanel<E extends SpriteInfo> extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private Image image;
+	private BufferedImage image;
 	private int width;
 	private int height;
 	
 	// for transparency
 	private TexturePaint background;
 	// generated sheet
-	private Sheet sheet;
+	private ISpriteSheet sheet;
 
 	private List<E> selected = new ArrayList<E>();
 	private ISpriteProvider<E> spriteProvider;
@@ -98,9 +98,9 @@ public class SpriteSheetPanel<E extends SpriteInfo> extends JPanel {
 		this.height = height;
 	}
 
-	public void setImage(Sheet sheet) {
+	public void setSpriteSheet(ISpriteSheet sheet) {
 		this.sheet = sheet;
-		this.image = sheet.getImage();
+		this.image = sheet.getSheetImage();
 		repaint(0);
 	}
 

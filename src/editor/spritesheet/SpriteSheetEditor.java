@@ -348,7 +348,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 
 			int b = ((Integer) border.getValue());
 			Sheet sheet = packer.packImages(list, sWidth, sHeight, b, null);
-			sheetPanel.setImage(sheet);
+			sheetPanel.setSpriteSheet(sheet);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

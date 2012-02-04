@@ -34,9 +34,7 @@ public class Args {
 	
 	public static void assetNonNull(Object ...arr){
 		for (int i = 0; i < arr.length; i++) {
-			if (arr[i] == null){
-				assert(arr[i] != null);
-			}
+			assert(arr[i] != null);
 		}
 	}	
 	

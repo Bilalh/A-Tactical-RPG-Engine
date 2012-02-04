@@ -16,7 +16,7 @@ import config.XMLUtil;
 
 public class Packer {
 
-	public Sheet pack(ArrayList<File> files, int width, int height, int border, File out) throws IOException {
+	public ISpriteSheet pack(ArrayList<File> files, int width, int height, int border, File out) throws IOException {
 		ArrayList<MutableSprite> images = new ArrayList<MutableSprite>();
 
 		try {

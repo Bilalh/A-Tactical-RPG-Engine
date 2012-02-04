@@ -29,16 +29,14 @@ import view.map.MapSettings;
  * @author bilalh
  */
 public class ResourceManager {
-
 	private static final Logger log = Logger.getLogger(ResourceManager.class);
-
 	private static ResourceManager singleton = new ResourceManager();
 
 	private Map<String, Sprite> sprites = Collections.synchronizedMap(new HashMap<String, Sprite>());
 
 	private static SpriteSheet currentTileSheet;
 	
-	public void loadSpriteSheetFromResources(String filepath){
+	public synchronized void loadSpriteSheetFromResources(String filepath){
 		assert filepath != null;
 		
 		File in = new File("Resources/"+filepath);
@@ -52,11 +50,16 @@ public class ResourceManager {
 		}
 	}
 	
+	public  synchronized void loadSpriteSheet(SpriteSheet sheet){
+		assert sheet != null;
+		currentTileSheet = sheet;
+	}
+	
 	public BufferedImage getTile(String ref){
 		assert currentTileSheet != null;
 		assert ref != null;
 		
-		BufferedImage result = currentTileSheet.getSprite(ref);
+		BufferedImage result = currentTileSheet.getSpriteImage(ref);
 		assert result != null;
 		return result;
 	}
@@ -130,6 +133,11 @@ public class ResourceManager {
 
 	public static ResourceManager instance() {
 		return singleton;
+	}
+
+	/** @category Generated */
+	public SpriteSheet getCurrentTileSheet() {
+		return currentTileSheet;
 	}
 
 }

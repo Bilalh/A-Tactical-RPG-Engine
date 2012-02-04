@@ -5,22 +5,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
 
 import org.apache.log4j.Logger;
 
+import common.spritesheet.SpriteInfo;
+
+import util.Logf;
 import view.map.GuiTile;
 import view.map.IMapRendererParent;
+import editor.spritesheet.ISpriteProvider;
+import editor.spritesheet.MutableSprite;
 import editor.spritesheet.SpriteSheetEditor;
+import editor.spritesheet.SpriteSheetPanel;
 import editor.ui.FloatablePanel;
 import editor.ui.TButton;
 
 /**
  * @author Bilal Hussain
  */
-public class Editor implements ActionListener, IMapRendererParent {
+public class Editor implements ActionListener, IMapRendererParent, ISpriteProvider<MutableSprite> {
 	private static final Logger log = Logger.getLogger(Editor.class);
 
 	private JFrame frame;
@@ -33,12 +40,13 @@ public class Editor implements ActionListener, IMapRendererParent {
 	private JScrollPane mapScrollPane;
 	private JPanel infoPanel;
 	private FloatablePanel infoPanelContainer;
-	private JPanel tilesetPanel;
+	private SpriteSheetPanel<MutableSprite> tilesetPanel;
 	private FloatablePanel tilesetsPanelContainer;
 
 	private EditorMap map;
 	private EditorMapPanel editorMapPanel;
-
+	private EditorSpriteSheet editorSpriteSheet;
+	
 	private static final String TOOL_PAINT = "paint";
 	private static final String TOOL_ERASE = "erase";
 	private static final String TOOL_FILL = "fill";
@@ -91,17 +99,46 @@ public class Editor implements ActionListener, IMapRendererParent {
 		Preferences pref = Prefs.getNode("panels/main");
 		int width = pref.getInt("width", 1280);
 		int height = pref.getInt("height", 800);
+		
 		frame.setSize(width, height);
-
 		frame.setVisible(true);
 	}
 
-	private void createMap() {
-		map = new EditorMap("maps/map5.xml");
-		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
+	/** @category Gui **/
+	private void onQuit() {
+		final int extendedState = frame.getExtendedState();
+		final Preferences pref = Prefs.getNode("panels/main");
+		pref.putInt("state", extendedState);
+		if (extendedState == Frame.NORMAL) {
+			pref.putInt("width", frame.getWidth());
+			pref.putInt("height", frame.getHeight());
+		}
+
+		// Allow the floatable panels to save their position and size
+		infoPanelContainer.save();
+		tilesetsPanelContainer.save();
+	}
+
+	/** @category ISpriteProvider**/
+	@Override
+	public void select(List<MutableSprite> selection) {
+		// TODO select method
 
 	}
 
+	/** @category ISpriteProvider**/
+	@Override
+	public MutableSprite getSpriteAt(int x, int y) {
+		Logf.info(log, "%s %s", x,y);
+		return map.getSpriteAt(x, y);
+	}
+
+	/** @category ISpriteProvider**/
+	@Override
+	public void delete(List<MutableSprite> selected) {
+		// Do nothing
+	}
+	
 	// Since we allways want to redraw the map
 	/** @category IMapRendererParent **/
 	@Override
@@ -121,19 +158,10 @@ public class Editor implements ActionListener, IMapRendererParent {
 		return 0;
 	}
 
-	/** @category Gui **/
-	private void onQuit() {
-		final int extendedState = frame.getExtendedState();
-		final Preferences pref = Prefs.getNode("panels/main");
-		pref.putInt("state", extendedState);
-		if (extendedState == Frame.NORMAL) {
-			pref.putInt("width", frame.getWidth());
-			pref.putInt("height", frame.getHeight());
-		}
-
-		// Allow the floatable panels to save their position and size
-		infoPanelContainer.save();
-		tilesetsPanelContainer.save();
+	private void createMap() {
+		map = new EditorMap("maps/map5.xml");
+		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
+		tilesetPanel.setSpriteSheet(map.getSpriteSheet());
 	}
 
 	/** @category Gui **/
@@ -152,7 +180,7 @@ public class Editor implements ActionListener, IMapRendererParent {
 		mainSplit.setResizeWeight(1.0);
 		mainSplit.setBorder(null);
 	
-		tilesetPanel = new JPanel();
+		tilesetPanel = new SpriteSheetPanel<MutableSprite>(this);
 		tilesetsPanelContainer = new FloatablePanel(frame, tilesetPanel, "Tiles", "tilesets");
 	
 		JSplitPane paletteSplit = new JSplitPane(
@@ -325,5 +353,4 @@ public class Editor implements ActionListener, IMapRendererParent {
 		config.Config.loadLoggingProperties();
 		new Editor();
 	}
-
 }

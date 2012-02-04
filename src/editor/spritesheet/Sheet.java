@@ -3,7 +3,7 @@ package editor.spritesheet;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Sheet {
+public class Sheet implements ISpriteSheet {
 	private BufferedImage sheet;
 	private ArrayList<MutableSprite> sprites;
 
@@ -13,7 +13,7 @@ public class Sheet {
 	}
 
 	/** @category Generated */
-	BufferedImage getImage() {
+	public BufferedImage getSheetImage() {
 		return sheet;
 	}
 
