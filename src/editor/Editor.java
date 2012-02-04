@@ -116,8 +116,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	/** @category ISpriteProvider**/
 	@Override
 	public void select(List<MutableSprite> selection) {
-		// TODO select method
-
+		tilesetPanel.setSelectedSprites(selection);
 	}
 
 	/** @category ISpriteProvider**/
@@ -150,17 +149,15 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private void createMap() {
 		map = new EditorMap("maps/map5.xml");
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
-		// TODO call on redraw
 
+		// Relayout the sprites to fill the whole panel.
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				refreashSprites();
 			}
 		});
-		
 		frame.addComponentListener(new ComponentAdapter() {
-
 			@Override
 			public void componentResized(ComponentEvent e) {
 				refreashSprites();
