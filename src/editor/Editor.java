@@ -40,6 +40,9 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private EditorMap map;
 	private EditorMapPanel editorMapPanel;
 	private EditorSpriteSheet editorSpriteSheet;
+	private Packer packer = new Packer();
+	
+//	private 
 	
 	private static final String TOOL_PAINT = "paint";
 	private static final String TOOL_ERASE = "erase";
@@ -47,7 +50,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private static final String TOOL_EYE_DROPPER = "eyedropper";
 	private static final String TOOL_SELECT = "select";
 	private static final String TOOL_MOVE_LAYER = "movelayer";
-
+	
 	static enum State {
 		POINT,
 		PAINT,
@@ -144,8 +147,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		return 0;
 	}
 
-	private Packer packer = new Packer();
-
 	private void createMap() {
 		map = new EditorMap("maps/map5.xml");
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
@@ -157,7 +158,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 				refreashSprites();
 			}
 		});
-		frame.addComponentListener(new ComponentAdapter() {
+		tilesetPanel.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				refreashSprites();

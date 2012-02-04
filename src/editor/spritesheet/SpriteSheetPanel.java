@@ -91,6 +91,7 @@ public class SpriteSheetPanel extends JPanel {
 		repaint(0);
 	}
 
+	
 	public void setSheetSize(int width, int height) {
 		setPreferredSize(new Dimension(width, height));
 		setSize(new Dimension(width, height));
@@ -122,5 +123,10 @@ public class SpriteSheetPanel extends JPanel {
 			MutableSprite sprite =selected.get(i);
 			g.drawRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 		}
+	}
+
+	/** @category Generated */
+	public List<MutableSprite> getSelectedSprites() {
+		return selected;
 	}
 }

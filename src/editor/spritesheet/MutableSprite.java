@@ -3,6 +3,7 @@ package editor.spritesheet;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -23,6 +24,8 @@ public class MutableSprite extends SpriteInfo implements Comparable<MutableSprit
 	
 	@XStreamOmitField
 	private BufferedImage image;
+	
+	private ArrayList<ISpriteChangedListener> listeners = new ArrayList<ISpriteChangedListener>();
 	
 	public MutableSprite(File file) throws IOException {
 		this(file.getName(), ImageIO.read(file));
@@ -57,5 +60,17 @@ public class MutableSprite extends SpriteInfo implements Comparable<MutableSprit
 	/** @category Generated */
 	public void setName(String name) {
 		this.name = name;
+		notifyListeners();
 	}
+	
+	public void addSpriteChangedListener(ISpriteChangedListener listener){
+		listeners.add(listener);
+	}
+	
+	protected void notifyListeners(){
+		for (ISpriteChangedListener l : listeners) {
+			l.notifyChanged(this);
+		}
+	}
+	
 }

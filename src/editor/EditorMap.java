@@ -35,7 +35,7 @@ public class EditorMap extends BasicMap {
 				guiField[i][j] = new EditorTile(GuiTile.Orientation.UP_TO_EAST,
 						field[i][j].getStartHeight(),
 						field[i][j].getEndHeight(), i, j,
-						d.getLocation(), d.getType());
+						spriteSheet.getSprite(d.getLocation()), d.getType());
 			}
 		}
 

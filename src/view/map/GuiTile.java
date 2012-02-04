@@ -50,26 +50,25 @@ public class GuiTile {
 	}
 
 	// Tile Variables
-	private Orientation orientation;
-	private float height;
-	private float startHeight;
-	private float endHeight;
-	
-	private Polygon top; // For mouse testing 
-	private Location fieldLocation;
-	
-	
-	private TileState state;
-	private boolean selected = false;
+	protected Orientation orientation;
+	protected float height;
+	protected float startHeight;
+	protected float endHeight;
+
+	protected Polygon top; // For mouse testing 
+	protected Location fieldLocation;
+
+	protected TileState state;
+	protected boolean selected = false;
 
 	// The Tiles image 
-	private BufferedImage tileImage;
-	private ImageType type;
-	
-	private AnimatedUnit unit;
-	
+	protected BufferedImage tileImage;
+	protected ImageType type;
+
+	protected AnimatedUnit unit;
+
 	// debuging
-	private int cost;
+	protected int cost;
 	
 	// testing
 	BufferedImage iGrass = ResourceManager.instance().getSpriteFromClassPath("assets/gui/grass32.jpg").getImage();

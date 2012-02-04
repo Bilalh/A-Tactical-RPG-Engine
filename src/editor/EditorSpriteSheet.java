@@ -54,8 +54,6 @@ public class EditorSpriteSheet implements ISpriteSheet {
 	@Override
 	public BufferedImage getSheetImage() {
 		return spriteSheet.getSheetImage();
-		
-		
 	}
 	
 	public ArrayList<MutableSprite> getSprites(){
