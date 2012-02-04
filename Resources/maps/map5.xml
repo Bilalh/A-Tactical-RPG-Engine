@@ -12,11 +12,11 @@
     <height>1</height>
   </tile>
   <tile x="0" y="1">
-    <type>darkblue</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="0" y="2">
-    <type>gray</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="0" y="3">
@@ -88,7 +88,7 @@
     <height>1</height>
   </tile>
   <tile x="1" y="0">
-    <type>darkblue</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="1" y="1">
@@ -168,7 +168,7 @@
     <height>3</height>
   </tile>
   <tile x="2" y="0">
-    <type>gray</type>
+    <type>wood</type>
     <height>2</height>
   </tile>
   <tile x="2" y="1">
@@ -248,7 +248,7 @@
     <height>3</height>
   </tile>
   <tile x="3" y="0">
-    <type>ground</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="3" y="1">
@@ -412,7 +412,7 @@
     <height>1</height>
   </tile>
   <tile x="5" y="1">
-    <type>marking</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="5" y="2">
@@ -496,11 +496,11 @@
     <height>2</height>
   </tile>
   <tile x="6" y="2">
-    <type>tile</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="6" y="3">
-    <type>white</type>
+    <type>wood</type>
     <height>3</height>
   </tile>
   <tile x="6" y="4">
@@ -1228,7 +1228,7 @@
     <height>2</height>
   </tile>
   <tile x="15" y="5">
-    <type>white</type>
+    <type>513.png</type>
     <height>1</height>
   </tile>
   <tile x="15" y="6">
@@ -1236,7 +1236,7 @@
     <height>1</height>
   </tile>
   <tile x="15" y="7">
-    <type>brown</type>
+    <type>513.png</type>
     <height>2</height>
   </tile>
   <tile x="15" y="8">
@@ -1304,7 +1304,7 @@
     <height>1</height>
   </tile>
   <tile x="16" y="4">
-    <type>white</type>
+    <type>513.png</type>
     <height>3</height>
   </tile>
   <tile x="16" y="5">
@@ -1312,7 +1312,7 @@
     <height>1</height>
   </tile>
   <tile x="16" y="6">
-    <type>brown</type>
+    <type>513.png</type>
     <height>1</height>
   </tile>
   <tile x="16" y="7">
@@ -1392,7 +1392,7 @@
     <height>1</height>
   </tile>
   <tile x="17" y="6">
-    <type>darkblue</type>
+    <type>513.png</type>
     <height>3</height>
   </tile>
   <tile x="17" y="7">
@@ -1468,7 +1468,7 @@
     <height>2</height>
   </tile>
   <tile x="18" y="5">
-    <type>darkblue</type>
+    <type>513.png</type>
     <height>3</height>
   </tile>
   <tile x="18" y="6">

@@ -13,6 +13,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import common.spritesheet.SpriteInfo;
 
 import config.xml.*;
+import editor.MutableTileMapping;
 import editor.spritesheet.MutableSprite;
 
 /**
@@ -100,6 +101,7 @@ public abstract class XMLUtil {
 		return new Class[] {
 				MutableSprite.class,
 				SpriteInfo.class,
+				MutableTileMapping.class,
 				
 				SavedTile.class,
 				SavedMap.class,

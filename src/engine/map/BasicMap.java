@@ -19,6 +19,8 @@ public class BasicMap extends Observable {
 	protected ITileMapping tileMapping;
 	protected MapSettings mapSettings;
 
+	protected MapData data;
+	
 	public void loadMap(String name) {
 		SavedMap smap = Config.loadPreference(name);
 
@@ -31,7 +33,7 @@ public class BasicMap extends Observable {
 		}
 
 		mapSettings = smap.getMapSettings();
-		MapData data = smap.getMapData();
+		data = smap.getMapData();
 
 		String mappingLocation = data.getTileMappingLocation();
 		if (mappingLocation == null) {
@@ -68,6 +70,22 @@ public class BasicMap extends Observable {
 	/** @category Generated */
 	public int getFieldHeight() {
 		return height;
+	}
+
+	/** @category Generated */
+	public ITileMapping getTileMapping() {
+		return tileMapping;
+	}
+
+	/** @category Generated */
+	public MapSettings getMapSettings() {
+		return mapSettings;
+	}
+
+
+	/** @category Generated */
+	public MapData getData() {
+		return data;
 	}
 
 }

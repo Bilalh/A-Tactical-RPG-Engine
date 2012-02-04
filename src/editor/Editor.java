@@ -2,6 +2,9 @@ package editor;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.prefs.Preferences;
 
@@ -10,6 +13,11 @@ import javax.swing.*;
 import org.apache.log4j.Logger;
 
 import common.spritesheet.SpriteInfo;
+import config.XMLUtil;
+import config.xml.ITileMapping;
+import config.xml.SavedMap;
+import config.xml.SavedTile;
+import config.xml.TileMapping;
 
 import util.Logf;
 import view.map.GuiTile;
@@ -17,6 +25,7 @@ import view.map.IMapRendererParent;
 import editor.spritesheet.*;
 import editor.ui.FloatablePanel;
 import editor.ui.TButton;
+import engine.map.Tile;
 
 /**
  * @author Bilal Hussain
@@ -255,13 +264,57 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		return toolBar;
 	}
 
+	private void save(){
+		
+		String filename="map5";
+		SavedTile[] tiles = new SavedTile[map.getFieldWidth() * map.getFieldHeight()]; 
+		Tile[][] field = map.getField();
+		for (int i = 0, k=0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++,k++) {
+				tiles[k] = new SavedTile(field[i][j].getType(),field[i][j].getEndHeight(),i,j); 
+			}
+		}
+		SavedMap m = new SavedMap(map.getFieldWidth(), map.getFieldHeight(),tiles , map.getMapSettings(), map.getData());
+	
+		String s1 = XMLUtil.makeFormattedXml(m);
+		String s2 = XMLUtil.makeFormattedXml(map.getTileMapping());
+	
+		FileWriter fw;
+		try {
+			fw = new FileWriter(new File("./Resources/maps/" + filename + ".xml"));
+			fw.write(s1);
+			fw.close();
+			
+			fw = new FileWriter(new File("./Resources/maps/" + filename + "-mapping.xml"));
+			fw.write(s2);
+			fw.close();
+		} catch (IOException e) {
+			// TODO catch block in save
+			e.printStackTrace();
+		}
+		
+		log.info("Saved as " + filename);
+	}
+	
 	/** @category Gui**/
 	private JMenuBar createMenubar() {
+		int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+
 		JMenuBar bar = new JMenuBar();
 		
 		JMenu file = new JMenu("File");
+		
+		JMenuItem save = new JMenuItem("Save");
+		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,mask));
+		save.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				save();
+			}
+		});
+		
+		file.add(save);
 		bar.add(file);
-		int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 		
 		JMenu edit = new JMenu("Edit");
 		bar.add(edit);
