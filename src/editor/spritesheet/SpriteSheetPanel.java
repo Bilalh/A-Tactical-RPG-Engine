@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import common.gui.Sprite;
 import common.spritesheet.SpriteInfo;
 
-public class SpriteSheetPanel<E extends SpriteInfo> extends JPanel {
+public class SpriteSheetPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
 	private int width;
@@ -26,12 +26,12 @@ public class SpriteSheetPanel<E extends SpriteInfo> extends JPanel {
 	// for transparency
 	private TexturePaint background;
 	// generated sheet
-	private ISpriteSheet sheet;
+	private Sheet sheet;
 
-	private List<E> selected = new ArrayList<E>();
-	private ISpriteProvider<E> spriteProvider;
+	private List<MutableSprite> selected = new ArrayList<MutableSprite>();
+	private ISpriteProvider<MutableSprite> spriteProvider;
 
-	public SpriteSheetPanel(ISpriteProvider<E> spriteProvider) {
+	public SpriteSheetPanel(ISpriteProvider<MutableSprite> spriteProvider) {
 		this.spriteProvider = spriteProvider;
 		initGui();
 		addMouse();
@@ -58,9 +58,9 @@ public class SpriteSheetPanel<E extends SpriteInfo> extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				SpriteSheetPanel.this.requestFocusInWindow();
-				E sprite = spriteProvider.getSpriteAt(e.getX(), e.getY());
+				MutableSprite sprite = sheet.getSpriteAt(e.getX(), e.getY());
 				if (sprite != null) {
-					ArrayList<E> selection = new ArrayList<E>();
+					ArrayList<MutableSprite> selection = new ArrayList<MutableSprite>();
 					if ((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK) != 0) {
 						selection.addAll(selected);
 					}
@@ -86,7 +86,7 @@ public class SpriteSheetPanel<E extends SpriteInfo> extends JPanel {
 		});
 	}
 	
-	public void setSelectedSprites(List<E> selection) {
+	public void setSelectedSprites(List<MutableSprite> selection) {
 		this.selected = selection;
 		repaint(0);
 	}
@@ -98,7 +98,7 @@ public class SpriteSheetPanel<E extends SpriteInfo> extends JPanel {
 		this.height = height;
 	}
 
-	public void setSpriteSheet(ISpriteSheet sheet) {
+	public void setSpriteSheet(Sheet sheet) {
 		this.sheet = sheet;
 		this.image = sheet.getSheetImage();
 		repaint(0);
@@ -119,7 +119,7 @@ public class SpriteSheetPanel<E extends SpriteInfo> extends JPanel {
 
 		g.setColor(Color.BLUE);
 		for (int i = 0; i < selected.size(); i++) {
-			E sprite =selected.get(i);
+			MutableSprite sprite =selected.get(i);
 			g.drawRect(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 		}
 	}

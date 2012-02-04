@@ -13,6 +13,7 @@ public class Sheet implements ISpriteSheet {
 	}
 
 	/** @category Generated */
+	@Override
 	public BufferedImage getSheetImage() {
 		return sheet;
 	}
@@ -22,4 +23,13 @@ public class Sheet implements ISpriteSheet {
 		return sprites;
 	}
 
+	public MutableSprite getSpriteAt(int x, int y) {
+		for (int i = 0; i < sprites.size(); i++) {
+			if (sprites.get(i).contains(x, y)) {
+				return sprites.get(i);
+			}
+		}
+		return null;
+	}
+	
 }

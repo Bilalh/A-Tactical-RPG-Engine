@@ -67,7 +67,6 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	}
 
 	private JMenuBar createMenubar() {
-
 		JMenuBar bar = new JMenuBar();
 		JMenu file = new JMenu("File");
 		bar.add(file);
@@ -372,15 +371,6 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		sheetPanel.setSelectedSprites(selection);
 	}
 
-	@Override
-	public MutableSprite getSpriteAt(int x, int y) {
-		for (int i = 0; i < sprites.size(); i++) {
-			if (((MutableSprite) sprites.get(i)).contains(x, y)) {
-				return ((MutableSprite) sprites.get(i));
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * Saves a Sprite sheet

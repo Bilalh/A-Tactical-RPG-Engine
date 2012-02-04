@@ -33,6 +33,16 @@ public class Packer {
 		return packImages(images, width, height, border, out);
 	}
 
+	public Sheet packImages(ArrayList<MutableSprite> images, int width, int height, int border){
+		try {
+			return packImages(images,width,height,border,null);
+		} catch (IOException e) {
+			// should never happen
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public Sheet packImages(ArrayList<MutableSprite> images, int width, int height, int border, File out) throws IOException {
 		Collections.sort(images);
 
@@ -49,8 +59,7 @@ public class Packer {
 				pout.println("<sprite-array>");
 			}
 
-			for (int i = 0; i < images.size(); i++) {
-				MutableSprite current = images.get(i);
+			for (MutableSprite current : images) {
 				if (x + current.getWidth() > width) {
 					x = 0;
 					y += rowHeight;
@@ -69,6 +78,7 @@ public class Packer {
 				g.drawImage(current.getImage(), x, y, null);
 				x += current.getWidth() + border;
 			}
+			
 			g.dispose();
 
 			if (out != null) {

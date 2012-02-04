@@ -1,10 +1,7 @@
 package editor;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.List;
 import java.util.prefs.Preferences;
 
@@ -17,10 +14,7 @@ import common.spritesheet.SpriteInfo;
 import util.Logf;
 import view.map.GuiTile;
 import view.map.IMapRendererParent;
-import editor.spritesheet.ISpriteProvider;
-import editor.spritesheet.MutableSprite;
-import editor.spritesheet.SpriteSheetEditor;
-import editor.spritesheet.SpriteSheetPanel;
+import editor.spritesheet.*;
 import editor.ui.FloatablePanel;
 import editor.ui.TButton;
 
@@ -40,7 +34,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private JScrollPane mapScrollPane;
 	private JPanel infoPanel;
 	private FloatablePanel infoPanelContainer;
-	private SpriteSheetPanel<MutableSprite> tilesetPanel;
+	private SpriteSheetPanel tilesetPanel;
 	private FloatablePanel tilesetsPanelContainer;
 
 	private EditorMap map;
@@ -128,13 +122,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	/** @category ISpriteProvider**/
 	@Override
-	public MutableSprite getSpriteAt(int x, int y) {
-		Logf.info(log, "%s %s", x,y);
-		return map.getSpriteAt(x, y);
-	}
-
-	/** @category ISpriteProvider**/
-	@Override
 	public void delete(List<MutableSprite> selected) {
 		// Do nothing
 	}
@@ -158,12 +145,34 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		return 0;
 	}
 
+	private Packer packer = new Packer();
+
 	private void createMap() {
 		map = new EditorMap("maps/map5.xml");
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
-		tilesetPanel.setSpriteSheet(map.getSpriteSheet());
+		// TODO call on redraw
+
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				refreashSprites();
+			}
+		});
+		
+		frame.addComponentListener(new ComponentAdapter() {
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+				refreashSprites();
+			}
+		});
 	}
 
+	private void refreashSprites(){
+		tilesetPanel.setSpriteSheet(packer.packImages(map.getSpriteSheet().getSprites(),
+				tilesetPanel.getWidth(), tilesetPanel.getHeight(), 2));
+	}
+	
 	/** @category Gui **/
 	private JPanel createContentPane() {
 		mapScrollPane = new JScrollPane(
@@ -180,7 +189,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		mainSplit.setResizeWeight(1.0);
 		mainSplit.setBorder(null);
 	
-		tilesetPanel = new SpriteSheetPanel<MutableSprite>(this);
+		tilesetPanel = new SpriteSheetPanel(this);
 		tilesetsPanelContainer = new FloatablePanel(frame, tilesetPanel, "Tiles", "tilesets");
 	
 		JSplitPane paletteSplit = new JSplitPane(

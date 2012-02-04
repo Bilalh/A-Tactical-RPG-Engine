@@ -2,6 +2,7 @@ package editor;
 
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -18,7 +19,6 @@ public class EditorSpriteSheet implements ISpriteSheet {
 
 	HashMap<String, MutableSprite> sprites = new HashMap<String, MutableSprite>();
 	SpriteSheet spriteSheet;
-
 
 	public EditorSpriteSheet(SpriteSheet spriteSheet) {
 		updateSprites(spriteSheet);
@@ -51,7 +51,16 @@ public class EditorSpriteSheet implements ISpriteSheet {
 		return null;
 	}
 
+	@Override
 	public BufferedImage getSheetImage() {
 		return spriteSheet.getSheetImage();
+		
+		
 	}
+	
+	public ArrayList<MutableSprite> getSprites(){
+		return new ArrayList(sprites.values());
+		
+	}
+	
 }
