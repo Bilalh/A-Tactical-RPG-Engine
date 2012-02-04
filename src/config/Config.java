@@ -16,6 +16,7 @@ import com.sun.tools.internal.ws.util.xml.XmlUtil;
 
 import common.enums.ImageType;
 
+import config.xml.ITileMapping;
 import config.xml.TileImageData;
 import config.xml.TileMapping;
 
@@ -75,7 +76,7 @@ public class Config {
 		return pref;
 	}
 
-	private static final TileMapping defaultMapping;
+	private static final ITileMapping defaultMapping;
 	
 	static{
 		HashMap<String, TileImageData> m = new HashMap<String, TileImageData>();
@@ -85,7 +86,7 @@ public class Config {
 		defaultMapping = new TileMapping("",m);
 	}
 	
-	public static TileMapping defaultMapping(){
+	public static ITileMapping defaultMapping(){
 		return defaultMapping;
 	}
 	

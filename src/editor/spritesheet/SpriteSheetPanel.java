@@ -86,6 +86,11 @@ public class SpriteSheetPanel extends JPanel {
 		});
 	}
 	
+	public void setSelectedSprites(MutableSprite s) {
+		this.selected.clear();
+		this.selected.add(s);
+	}
+	
 	public void setSelectedSprites(List<MutableSprite> selection) {
 		this.selected = selection;
 		repaint(0);

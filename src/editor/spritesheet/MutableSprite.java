@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import common.ListenerUtil;
 import common.spritesheet.SpriteInfo;
 
 import config.IPreference;
@@ -68,9 +69,7 @@ public class MutableSprite extends SpriteInfo implements Comparable<MutableSprit
 	}
 	
 	protected void notifyListeners(){
-		for (ISpriteChangedListener l : listeners) {
-			l.notifyChanged(this);
-		}
+		ListenerUtil.notifyListeners(listeners, this);
 	}
 	
 }

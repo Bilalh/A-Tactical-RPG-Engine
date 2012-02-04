@@ -66,4 +66,10 @@ public class Tile {
 		return String.format("Tile [current=%s, startHeight=%s, endHeight=%s, cost=%s, type=%s]",
 				current, startHeight, endHeight, cost,type);
 	}
+
+	/** @category Generated */
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }

@@ -58,7 +58,7 @@ public class MapXmlMaker {
 			mapping.put(t, new TileImageData(t, ImageType.NON_TEXTURED));	
 		}
 			
-		TileMapping map = new TileMapping("images/tilesets/basic.png", mapping);
+		ITileMapping map = new TileMapping("images/tilesets/basic.png", mapping);
 		String s2 = XMLUtil.makeFormattedXml(map);
 		System.out.println(s2);
 		

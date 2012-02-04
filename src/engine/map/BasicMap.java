@@ -16,7 +16,7 @@ public class BasicMap extends Observable {
 	protected int width;
 	protected int height;
 
-	protected TileMapping tileMapping;
+	protected ITileMapping tileMapping;
 	protected MapSettings mapSettings;
 
 	public void loadMap(String name) {

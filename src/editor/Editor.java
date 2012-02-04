@@ -42,8 +42,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private EditorSpriteSheet editorSpriteSheet;
 	private Packer packer = new Packer();
 	
-//	private 
-	
 	private static final String TOOL_PAINT = "paint";
 	private static final String TOOL_ERASE = "erase";
 	private static final String TOOL_FILL = "fill";
@@ -116,10 +114,17 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		tilesetsPanelContainer.save();
 	}
 
+	private MutableSprite selected;
+	
 	/** @category ISpriteProvider**/
 	@Override
 	public void select(List<MutableSprite> selection) {
 		tilesetPanel.setSelectedSprites(selection);
+		if(selection != null && !selection.isEmpty()) {
+			selected = selection.get(0);
+		}else{
+			selected = null;
+		}
 	}
 
 	/** @category ISpriteProvider**/
@@ -147,6 +152,16 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		return 0;
 	}
 
+	/** @category Callback **/
+	public void tileClicked(GuiTile tile) {
+		if (selected == null){
+			tile.setSelected(!tile.isSelected());
+		}else{
+			map.setSprite(tile.getFieldLocation(), selected);
+		}
+		editorMapPanel.repaintMap();
+	}
+
 	private void createMap() {
 		map = new EditorMap("maps/map5.xml");
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
@@ -156,6 +171,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			@Override
 			public void windowActivated(WindowEvent e) {
 				refreashSprites();
+//				tilesetPanel.setSelectedSprites(map.getSpriteSheet().getSprites().get(0));
 			}
 		});
 		tilesetPanel.addComponentListener(new ComponentAdapter() {
@@ -304,12 +320,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		marqueeButton.setSelected(state == State.MARQUEE);
 		moveButton.setSelected(state == State.MOVE);
 
-	}
-
-	/** @category Callback **/
-	public void tileClicked(GuiTile tile) {
-		tile.setSelected(true);
-		editorMapPanel.repaintMap();
 	}
 
 	private class ZoomInAction extends AbstractAction {

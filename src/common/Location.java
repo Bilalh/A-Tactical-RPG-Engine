@@ -83,8 +83,8 @@ public class Location implements Serializable, ILocation {
 	/**
 	 * @return This Point for chaining.
 	 */
-	public Location setLocation(Location p) {
-		return setLocation(p.x, p.y);
+	public Location setLocation(ILocation p) {
+		return setLocation(p.getX(), p.getY());
 	}
 
 	/**

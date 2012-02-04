@@ -77,7 +77,7 @@ class EditorMapPanel extends JPanel {
 			}
 		}
 		if (current != null) {
-			Logf.debug(log, "Selected %s", current.getFieldLocation());
+			Logf.trace(log, "Selected %s", current.getFieldLocation());
 			editor.tileClicked(current);
 		}
 
