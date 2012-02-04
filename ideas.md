@@ -1,5 +1,6 @@
-* enum set for satuas
-
+FIXME
+-----
+Added image to tilemap on save.
 
 
 GUI
