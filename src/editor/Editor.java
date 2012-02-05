@@ -55,7 +55,10 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private EditorMapPanel editorMapPanel;
 	private EditorSpriteSheet editorSpriteSheet;
 	private Packer packer = new Packer();
-	
+
+	private MutableSprite selectedTileSprite;
+	private EditorTile selectedTile;
+
 	private static final String TOOL_PAINT = "paint";
 	private static final String TOOL_ERASE = "erase";
 	private static final String TOOL_FILL = "fill";
@@ -128,18 +131,14 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		tilesetsPanelContainer.save();
 	}
 
-	private MutableSprite selected;
-	
-	private EditorTile currentTile;
-
 	/** @category ISpriteProvider**/
 	@Override
 	public void select(List<MutableSprite> selection) {
 		tilesetPanel.setSelectedSprites(selection);
 		if(selection != null && !selection.isEmpty()) {
-			selected = selection.get(0);
+			selectedTileSprite = selection.get(0);
 		}else{
-			selected = null;
+			selectedTileSprite = null;
 		}
 	}
 
@@ -170,11 +169,11 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	/** @category Callback **/
 	public void tileClicked(EditorTile tile) {
-		currentTile = tile;
-		if (selected == null){
+		selectedTile = tile;
+		if (selectedTileSprite == null){
 			tile.setSelected(!tile.isSelected());
 		}else{
-			map.setSprite(tile.getFieldLocation(), selected);
+			map.setSprite(tile.getFieldLocation(), selectedTileSprite);
 		}
 		infoHeight.setValue(tile.getHeight());
 		editorMapPanel.repaintMap();
@@ -233,7 +232,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				//TODO deal with no tile selected.
-				currentTile.setHeight(((Number)infoHeight.getValue()).intValue());
+				selectedTile.setHeight(((Number)infoHeight.getValue()).intValue());
 				editorMapPanel.repaintMap();
 			}
 		});
