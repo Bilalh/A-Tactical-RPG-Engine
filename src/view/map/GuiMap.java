@@ -373,7 +373,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 //        Logf.info(log,"p:(%d,%d)\n", x, y);
         for (int i = 0; i < fieldWidth; i++) {
             for (int j = 0; j < fieldHeight; j++) {
-                if (field[i][j].wasClickedOn(new Point(x, y))) {
+                if (field[i][j].contains(new Point(x, y))) {
 //                	Logf.info(log,"Clicked(%d,%d)\n", i, j);
                 	
                 	if (field[i][j].getHeight() > highest){

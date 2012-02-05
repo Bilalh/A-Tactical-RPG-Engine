@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
 
@@ -38,9 +39,9 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private JFrame frame;
 
 	private AbstractButton paintButton, eraseButton, pourButton;
-	private AbstractButton eyedButton, marqueeButton, moveButton;
+	private AbstractButton eyedButton, selectionButton, moveButton;
 	private final Action zoomInAction, zoomOutAction, zoomNormalAction;
-	private State state;
+	private State state = State.PAINT;
 
 	private JScrollPane mapScrollPane;
 	private JPanel infoPanel;
@@ -54,7 +55,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private Packer packer = new Packer();
 
 	private MutableSprite selectedTileSprite;
-	private EditorIsoTile selectedTile;
+	private ArrayList<EditorIsoTile> selection = new ArrayList<EditorIsoTile>();
 
 	private static final String TOOL_PAINT = "paint";
 	private static final String TOOL_ERASE = "erase";
@@ -63,16 +64,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private static final String TOOL_SELECT = "select";
 	private static final String TOOL_MOVE_LAYER = "movelayer";
 	
-	static enum State {
-		POINT,
-		PAINT,
-		ERASE,
-		POUR,
-		EYED,
-		MARQUEE,
-		MOVE;
-	}
-
 	public Editor() {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -166,12 +157,13 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	/** @category Callback **/
 	public void tileClicked(EditorIsoTile tile) {
-		selectedTile = tile;
-		if (selectedTileSprite == null){
-			tile.setSelected(!tile.isSelected());
-		}else{
-			map.setSprite(tile.getFieldLocation(), selectedTileSprite);
+		selection.clear();
+		selection.add(tile);
+		switch (state) {
+			case PAINT:
+				if (selectedTileSprite != null)  map.setSprite(tile.getFieldLocation(), selectedTileSprite);
 		}
+		
 		infoHeight.setValue(tile.getHeight());
 		editorMapPanel.repaintMap();
 	}
@@ -229,7 +221,9 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				//TODO deal with no tile selected.
-				map.setHeight(selectedTile.getFieldLocation(), ((Number)infoHeight.getValue()).intValue());
+				for (EditorIsoTile tile : selection) {
+					map.setHeight(tile.getFieldLocation(), ((Number)infoHeight.getValue()).intValue());	
+				}
 				editorMapPanel.repaintMap();
 			}
 		});
@@ -246,15 +240,16 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		ImageIcon iconErase   = Resources.getIcon("images/gimp-tool-eraser-22.png");
 		ImageIcon iconPour    = Resources.getIcon("images/gimp-tool-bucket-fill-22.png");
 		ImageIcon iconEyed    = Resources.getIcon("images/gimp-tool-color-picker-22.png");
-		ImageIcon iconMarquee = Resources.getIcon("images/gimp-tool-rect-select-22.png");
+		ImageIcon iconSelection = Resources.getIcon("images/gimp-tool-rect-select-22.png");
 
-		paintButton   = createToggleButton(iconPaint, "PAINT", TOOL_PAINT);
-		eraseButton   = createToggleButton(iconErase, "ERASE", TOOL_ERASE);
-		pourButton    = createToggleButton(iconPour, "POUR", TOOL_FILL);
-		eyedButton    = createToggleButton(iconEyed, "EYED", TOOL_EYE_DROPPER);
-		marqueeButton = createToggleButton(iconMarquee, "MARQUEE", TOOL_SELECT);
-		moveButton    = createToggleButton(iconMove, "MOVE", TOOL_MOVE_LAYER);
+		paintButton   = makeToggleButton(iconPaint, "PAINT", TOOL_PAINT);
+		eraseButton   = makeToggleButton(iconErase, "ERASE", TOOL_ERASE);
+		pourButton    = makeToggleButton(iconPour,  "POUR",  TOOL_FILL);
+		eyedButton    = makeToggleButton(iconEyed,  "EYED",  TOOL_EYE_DROPPER);
+		moveButton    = makeToggleButton(iconMove,  "MOVE",  TOOL_MOVE_LAYER);
 
+		selectionButton = makeToggleButton(iconSelection, "SELECTION", TOOL_SELECT);
+		
 		JToolBar toolBar = new JToolBar(SwingConstants.VERTICAL);
 		toolBar.setFloatable(true);
 		toolBar.add(moveButton);
@@ -262,13 +257,13 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		toolBar.add(eraseButton);
 		toolBar.add(pourButton);
 		toolBar.add(eyedButton);
-		toolBar.add(marqueeButton);
+		toolBar.add(selectionButton);
 		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
 		toolBar.add(new TButton(zoomInAction));
 		toolBar.add(new TButton(zoomOutAction));
 		toolBar.add(Box.createRigidArea(new Dimension(5, 5)));
 		toolBar.add(Box.createGlue());
-
+		setState(state);
 		return toolBar;
 	}
 
@@ -277,7 +272,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 	
 			JMenuBar bar = new JMenuBar();
-			
 			JMenu file = new JMenu("File");
 			
 			JMenuItem save = new JMenuItem("Save");
@@ -323,23 +317,25 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		}
 
 	private void createMap() {
-			map = new EditorMap("maps/nice.xml");
-			editorMapPanel = new EditorMapPanel(this, map.getGuiField());
-	
-			// Relayout the sprites to fill the whole panel.
-			frame.addWindowListener(new WindowAdapter() {
-				@Override
-				public void windowActivated(WindowEvent e) {
-					refreashSprites();
-				}
-			});
-			tilesetPanel.addComponentListener(new ComponentAdapter() {
-				@Override
-				public void componentResized(ComponentEvent e) {
-					refreashSprites();
-				}
-			});
-		} 
+		map = new EditorMap("maps/nice.xml");
+		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
+
+		// Relayout the sprites to fill the whole panel.
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				refreashSprites();
+			}
+		});
+		tilesetPanel.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				refreashSprites();
+			}
+		});
+		
+		
+	} 
 
 	private void refreashSprites(){
 		tilesetPanel.setSpriteSheet(packer.packImages(map.getSpriteSheet().getSprites(),
@@ -371,7 +367,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			fw.write(s2);
 			fw.close();
 		} catch (IOException e) {
-			// TODO catch block in save
 			e.printStackTrace();
 		}
 		
@@ -379,7 +374,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	}
 
 	/** @category Gui **/
-	private AbstractButton createToggleButton(Icon icon, String command, String tooltip) {
+	private AbstractButton makeToggleButton(Icon icon, String command, String tooltip) {
 		JToggleButton btn = new JToggleButton("", icon);
 		btn.setMargin(new Insets(0, 0, 0, 0));
 		btn.setActionCommand(command);
@@ -396,17 +391,22 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		setState(s);
 	}
 
+	public State getState(){
+		return state;
+	}
+	
 	private void setState(State s) {
 		state = s;
 		paintButton.setSelected(state == State.PAINT);
 		eraseButton.setSelected(state == State.ERASE);
 		pourButton.setSelected(state == State.POUR);
 		eyedButton.setSelected(state == State.EYED);
-		marqueeButton.setSelected(state == State.MARQUEE);
+		selectionButton.setSelected(state == State.SELECTION);
 		moveButton.setSelected(state == State.MOVE);
 
 	}
 
+	
 	private class ZoomInAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 

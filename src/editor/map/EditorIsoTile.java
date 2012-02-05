@@ -1,5 +1,6 @@
 package editor.map;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import common.ListenerUtil;

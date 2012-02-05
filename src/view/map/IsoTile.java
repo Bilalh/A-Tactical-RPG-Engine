@@ -121,8 +121,8 @@ public class IsoTile {
 		tileImage = ResourceManager.instance().getTile(ref);
 	}
 	
-	public boolean wasClickedOn(Point click) {
-		return top != null && top.contains(click);
+	public boolean contains(Point p) {
+		return top != null && top.contains(p);
 	}
 
 	public Point calculateCentrePoint(Point p) {

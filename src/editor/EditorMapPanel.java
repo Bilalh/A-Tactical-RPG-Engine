@@ -1,10 +1,12 @@
 package editor;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JPanel;
 
@@ -36,15 +38,63 @@ class EditorMapPanel extends JPanel {
 	private int frameDuration = 100 * 1000000;
 	private int frameChange = 0;
 
-	public EditorMapPanel(Editor editor, EditorIsoTile[][] field) {
+	private Rectangle mouseArea;
+	private Point mouseStart;
+	
+	
+	private void selection(){
+		Set<EditorIsoTile> selection = new HashSet<EditorIsoTile>();
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				if (mouseArea.contains(field[i][j].getBounds())){
+					selection.add(field[i][j]);
+				}
+			}
+		}
+		tile
+		
+		selection.clear();
+		repaint(50);
+	}
+	
+	public EditorMapPanel(final Editor editor, EditorIsoTile[][] field) {
 		this.editor = editor;
 		setMap(field);
+		
+		this.addMouseMotionListener(new MouseMotionAdapter() {
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				if (editor.getState() != State.SELECTION) return;
+				Point end = e.getPoint();
+				int y_max = Math.max(mouseStart.y, end.y);
+				int y_min = Math.min(mouseStart.y, end.y);
+				
+				int x_max = Math.max(mouseStart.x, end.x);
+				int x_min = Math.min(mouseStart.x, end.x);
+				
+				mouseArea = new Rectangle(x_min,y_min, x_max - x_min, y_max-y_min);
+				repaint(10);
+			}
+			
+		});
 		
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				EditorMapPanel.this.mousePressed(e);
+				mouseStart = e.getPoint();
 			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+
+				if (editor.getState() == State.SELECTION) {
+					selection();
+				}
+				mouseArea = null;
+			}
+
 		});
 
 	}
@@ -73,10 +123,10 @@ class EditorMapPanel extends JPanel {
 
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
-				if (field[i][j].wasClickedOn(e.getPoint())) {
+				if (field[i][j].contains(e.getPoint())) {
 					Logf.trace(log, "\t%s (%s,%s)", e.getPoint(), i, j);
 				}
-				if (field[i][j].wasClickedOn(e.getPoint()) && field[i][j].getHeight() > highest) {
+				if (field[i][j].contains(e.getPoint()) && field[i][j].getHeight() > highest) {
 					highest = field[i][j].getHeight();
 					current = field[i][j];
 				}
@@ -102,6 +152,12 @@ class EditorMapPanel extends JPanel {
 		}
 		g.drawImage(buffer, 0, 0, null);
 		_g.dispose();
+		if (editor.getState() == State.SELECTION && mouseArea != null){
+			Color old = g.getColor();
+			g.setColor(Color.BLUE);
+			g.drawRect(mouseArea.x, mouseArea.y, mouseArea.width, mouseArea.height);
+			g.setColor(old);
+		}
 	}
 	
 	public  void repaintMap(){
