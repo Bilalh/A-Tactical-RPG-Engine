@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-import editor.map.EditorTile;
+import editor.map.EditorIsoTile;
 
 import util.Logf;
 import view.map.IsoTile;
@@ -24,7 +24,7 @@ class EditorMapPanel extends JPanel {
 
 	private Editor editor;
 	private IsomertricMapRenderer mapRender;
-	private EditorTile[][] field;
+	private EditorIsoTile[][] field;
 
 	private int heightOffset;
 	private int bufferWidth;
@@ -36,7 +36,7 @@ class EditorMapPanel extends JPanel {
 	private int frameDuration = 100 * 1000000;
 	private int frameChange = 0;
 
-	public EditorMapPanel(Editor editor, EditorTile[][] field) {
+	public EditorMapPanel(Editor editor, EditorIsoTile[][] field) {
 		this.editor = editor;
 		setMap(field);
 		
@@ -49,7 +49,7 @@ class EditorMapPanel extends JPanel {
 
 	}
 
-	public synchronized void setMap(EditorTile[][] field){
+	public synchronized void setMap(EditorIsoTile[][] field){
 		this.field    = field;
 		heightOffset  = (MapSettings.tileDiagonal);
 		bufferWidth   = MapSettings.tileDiagonal * field.length + 5;
@@ -64,7 +64,7 @@ class EditorMapPanel extends JPanel {
 	}
 	
 	public void mousePressed(MouseEvent e) {
-		EditorTile current = null;
+		EditorIsoTile current = null;
 		double highest = 0.0;
 
 		for (int i = 0; i < field.length; i++) {

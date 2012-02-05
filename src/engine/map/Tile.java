@@ -12,12 +12,12 @@ import config.xml.TileImageData;
  */
 public class Tile {
 
-	private IMutableMapUnit current ;
-	private int startHeight;
-	private int endHeight;
-	private int cost;
+	protected IMutableMapUnit current ;
+	protected int startHeight;
+	protected int endHeight;
+	protected int cost;
 	
-	private String type;
+	protected String type;
 	
 	/** @category Generated */
 	public Tile(int startHeight, int endHeight,String type) {
@@ -27,10 +27,6 @@ public class Tile {
 		this.type        = type;
 	}
 	
-	// for testing
-	Tile(int startHeight, int endHeight) {
-		this(startHeight, endHeight, "grass");
-	}
 	
 	/** @category Generated */
 	public IMutableMapUnit getCurrentUnit() {
@@ -65,11 +61,6 @@ public class Tile {
 	public String toString() {
 		return String.format("Tile [current=%s, startHeight=%s, endHeight=%s, cost=%s, type=%s]",
 				current, startHeight, endHeight, cost,type);
-	}
-
-	/** @category Generated */
-	public void setType(String type) {
-		this.type = type;
 	}
 	
 }

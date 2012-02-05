@@ -1,52 +1,40 @@
 package editor.map;
 
-import java.util.ArrayList;
-
-import common.ListenerUtil;
-import common.enums.ImageType;
-import common.gui.ResourceManager;
-import common.gui.Sprite;
-import editor.spritesheet.ISpriteChangedListener;
-import editor.spritesheet.MutableSprite;
-
-import view.map.IsoTile;
-
-import static common.ListenerUtil.*;
+import engine.map.IMutableMapUnit;
+import engine.map.Tile;
 
 /**
  * @author Bilal Hussain
  */
-public class EditorTile extends IsoTile implements ISpriteChangedListener {
+public class EditorTile extends Tile {
 
-	private MutableSprite sprite;
-	private ArrayList<ITileChangedListener> listeners = new ArrayList<ITileChangedListener>();
-	
+	public EditorTile(Tile t) {
+		super(t.getStartHeight(), t.getEndHeight(), t.getType());
+	}
+
 	/** @category Generated */
-	public EditorTile(Orientation orientation, float startHeight, float endHeight, 
-			int x, int y, MutableSprite sprite, ImageType type) {
-		super(orientation, startHeight, endHeight, x, y, sprite.getName(), type);
-		sprite.addSpriteChangedListener(this);
+	public void setCurrent(IMutableMapUnit current) {
+		this.current = current;
 	}
-	
-	public void setSprite(MutableSprite sprite){
-		this.sprite = sprite;
-		tileImage = ResourceManager.instance().getTile(sprite.getName());
-		notifyListeners(listeners, this);
+
+	/** @category Generated */
+	public void setStartHeight(int startHeight) {
+		this.startHeight = startHeight;
 	}
-	
-	public void setHeight(int height){
-		assert height >=0;
-		this.endHeight = this.startHeight = this.height = height;
-		notifyListeners(listeners, this);
+
+	/** @category Generated */
+	public void setEndHeight(int endHeight) {
+		this.endHeight = endHeight;
 	}
-	
-	public void addTileChangedListener(ITileChangedListener listener){
-		listeners.add(listener);
+
+	/** @category Generated */
+	public void setCost(int cost) {
+		this.cost = cost;
 	}
-	
-	@Override
-	public void notifyChanged(MutableSprite newValue) {
-		setSprite(sprite);
+
+	/** @category Generated */
+	public void setType(String type) {
+		this.type = type;
 	}
-	
+
 }

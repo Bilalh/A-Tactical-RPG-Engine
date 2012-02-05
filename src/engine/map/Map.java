@@ -189,7 +189,7 @@ public class Map extends BasicMap implements IMap {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				int first = r.nextInt(3) + 1;
-				field[i][j] = new Tile(first, first);
+				field[i][j] = new Tile(first, first,"grass");
 				// field[i][j] = new Tile(1,1);
 			}
 		}
@@ -208,7 +208,7 @@ public class Map extends BasicMap implements IMap {
 			for (int i = 0; i < field.length; i++) {
 				for (int j = 0; j < field[i].length; j++) {
 					int a = sc.nextInt() + 2;
-					field[i][j] = new Tile(a, a);
+					field[i][j] = new Tile(a, a,"grass");
 				}
 			}
 	

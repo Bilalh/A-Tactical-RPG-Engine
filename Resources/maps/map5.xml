@@ -329,7 +329,7 @@
   </tile>
   <tile x="4" y="0">
     <type>ice</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="4" y="1">
     <type>lime</type>
@@ -893,7 +893,7 @@
   </tile>
   <tile x="11" y="1">
     <type>ice</type>
-    <height>3</height>
+    <height>5</height>
   </tile>
   <tile x="11" y="2">
     <type>gray</type>

@@ -23,7 +23,7 @@ import config.xml.SavedMap;
 import config.xml.SavedTile;
 import editor.map.EditorMap;
 import editor.map.EditorSpriteSheet;
-import editor.map.EditorTile;
+import editor.map.EditorIsoTile;
 import editor.spritesheet.*;
 import editor.ui.FloatablePanel;
 import editor.ui.TButton;
@@ -54,7 +54,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private Packer packer = new Packer();
 
 	private MutableSprite selectedTileSprite;
-	private EditorTile selectedTile;
+	private EditorIsoTile selectedTile;
 
 	private static final String TOOL_PAINT = "paint";
 	private static final String TOOL_ERASE = "erase";
@@ -165,7 +165,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	}
 
 	/** @category Callback **/
-	public void tileClicked(EditorTile tile) {
+	public void tileClicked(EditorIsoTile tile) {
 		selectedTile = tile;
 		if (selectedTileSprite == null){
 			tile.setSelected(!tile.isSelected());
@@ -229,8 +229,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				//TODO deal with no tile selected.
-				selectedTile.setHeight(((Number)infoHeight.getValue()).intValue());
-//				map.set
+				map.setHeight(selectedTile.getFieldLocation(), ((Number)infoHeight.getValue()).intValue());
 				editorMapPanel.repaintMap();
 			}
 		});
