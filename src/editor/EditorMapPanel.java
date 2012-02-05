@@ -51,7 +51,6 @@ class EditorMapPanel extends JPanel {
 				}
 			}
 		}
-		tile
 		
 		selection.clear();
 		repaint(50);
