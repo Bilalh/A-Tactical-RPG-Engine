@@ -9,6 +9,11 @@ import java.util.List;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import net.miginfocom.layout.CC;
+import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
@@ -125,6 +130,8 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	private MutableSprite selected;
 	
+	private EditorTile currentTile;
+
 	/** @category ISpriteProvider**/
 	@Override
 	public void select(List<MutableSprite> selection) {
@@ -162,40 +169,17 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	}
 
 	/** @category Callback **/
-	public void tileClicked(GuiTile tile) {
+	public void tileClicked(EditorTile tile) {
+		currentTile = tile;
 		if (selected == null){
 			tile.setSelected(!tile.isSelected());
 		}else{
 			map.setSprite(tile.getFieldLocation(), selected);
 		}
+		infoHeight.setValue(tile.getHeight());
 		editorMapPanel.repaintMap();
 	}
 
-	private void createMap() {
-		map = new EditorMap("maps/map5.xml");
-		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
-
-		// Relayout the sprites to fill the whole panel.
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowActivated(WindowEvent e) {
-				refreashSprites();
-//				tilesetPanel.setSelectedSprites(map.getSpriteSheet().getSprites().get(0));
-			}
-		});
-		tilesetPanel.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				refreashSprites();
-			}
-		});
-	}
-
-	private void refreashSprites(){
-		tilesetPanel.setSpriteSheet(packer.packImages(map.getSpriteSheet().getSprites(),
-				tilesetPanel.getWidth(), tilesetPanel.getHeight(), 2));
-	}
-	
 	/** @category Gui **/
 	private JPanel createContentPane() {
 		mapScrollPane = new JScrollPane(
@@ -203,7 +187,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		mapScrollPane.setBorder(null);
 	
-		infoPanel = new JPanel();
+		infoPanel = createInfoPanel();
 		infoPanelContainer = new FloatablePanel(frame, infoPanel, "Info", "info");
 	
 		JSplitPane mainSplit = new JSplitPane(
@@ -228,6 +212,34 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		mapScrollPane.setViewportView(editorMapPanel);
 	
 		return main;
+	}
+
+	// Infopanel controls 
+	private JTextField infoType;
+	private JSpinner  infoHeight = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
+	
+	/** @category Gui**/
+	private JPanel createInfoPanel() {
+		JPanel p = new JPanel(new MigLayout("", "[right]"));
+
+		p.add(new JLabel("General"), new CC().split().spanX().gapTop("4"));
+		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
+		
+		p.add(new JLabel("Type:"), "gap 4");
+		p.add((infoType = new JTextField(15)), "span, growx");
+		
+		p.add(new JLabel("Height:"), "gap 4");
+		infoHeight.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				//TODO deal with no tile selected.
+				currentTile.setHeight(((Number)infoHeight.getValue()).intValue());
+				editorMapPanel.repaintMap();
+			}
+		});
+		p.add(infoHeight, "alignx leading, span, wrap");
+		
+		return p;
 	}
 
 	/** @category Gui **/
@@ -264,38 +276,31 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		return toolBar;
 	}
 
-	private void save(){
-		
-		String filename="map5";
-		SavedTile[] tiles = new SavedTile[map.getFieldWidth() * map.getFieldHeight()]; 
-		Tile[][] field = map.getField();
-		for (int i = 0, k=0; i < field.length; i++) {
-			for (int j = 0; j < field[i].length; j++,k++) {
-				tiles[k] = new SavedTile(field[i][j].getType(),field[i][j].getEndHeight(),i,j); 
-			}
-		}
-		SavedMap m = new SavedMap(map.getFieldWidth(), map.getFieldHeight(),tiles , map.getMapSettings(), map.getData());
+	private void createMap() {
+			map = new EditorMap("maps/map5.xml");
+			editorMapPanel = new EditorMapPanel(this, map.getGuiField());
 	
-		String s1 = XMLUtil.makeFormattedXml(m);
-		String s2 = XMLUtil.makeFormattedXml(map.getTileMapping());
-	
-		FileWriter fw;
-		try {
-			fw = new FileWriter(new File("./Resources/maps/" + filename + ".xml"));
-			fw.write(s1);
-			fw.close();
-			
-			fw = new FileWriter(new File("./Resources/maps/" + filename + "-mapping.xml"));
-			fw.write(s2);
-			fw.close();
-		} catch (IOException e) {
-			// TODO catch block in save
-			e.printStackTrace();
-		}
-		
-		log.info("Saved as " + filename);
+			// Relayout the sprites to fill the whole panel.
+			frame.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowActivated(WindowEvent e) {
+					refreashSprites();
+	//				tilesetPanel.setSelectedSprites(map.getSpriteSheet().getSprites().get(0));
+				}
+			});
+			tilesetPanel.addComponentListener(new ComponentAdapter() {
+				@Override
+				public void componentResized(ComponentEvent e) {
+					refreashSprites();
+				}
+			});
+		} 
+
+	private void refreashSprites(){
+		tilesetPanel.setSpriteSheet(packer.packImages(map.getSpriteSheet().getSprites(),
+				tilesetPanel.getWidth(), tilesetPanel.getHeight(), 2));
 	}
-	
+
 	/** @category Gui**/
 	private JMenuBar createMenubar() {
 		int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
@@ -346,6 +351,38 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		return bar;
 	}
 	
+	private void save(){
+		
+		String filename="map5";
+		SavedTile[] tiles = new SavedTile[map.getFieldWidth() * map.getFieldHeight()]; 
+		Tile[][] field = map.getField();
+		for (int i = 0, k=0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++,k++) {
+				tiles[k] = new SavedTile(field[i][j].getType(),field[i][j].getEndHeight(),i,j); 
+			}
+		}
+		SavedMap m = new SavedMap(map.getFieldWidth(), map.getFieldHeight(),tiles , map.getMapSettings(), map.getData());
+	
+		String s1 = XMLUtil.makeFormattedXml(m);
+		String s2 = XMLUtil.makeFormattedXml(map.getTileMapping());
+	
+		FileWriter fw;
+		try {
+			fw = new FileWriter(new File("./Resources/maps/" + filename + ".xml"));
+			fw.write(s1);
+			fw.close();
+			
+			fw = new FileWriter(new File("./Resources/maps/" + filename + "-mapping.xml"));
+			fw.write(s2);
+			fw.close();
+		} catch (IOException e) {
+			// TODO catch block in save
+			e.printStackTrace();
+		}
+		
+		log.info("Saved as " + filename);
+	}
+
 	/** @category Gui **/
 	private AbstractButton createToggleButton(Icon icon, String command, String tooltip) {
 		JToggleButton btn = new JToggleButton("", icon);

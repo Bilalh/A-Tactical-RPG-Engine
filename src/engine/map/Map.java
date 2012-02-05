@@ -67,7 +67,6 @@ public class Map extends BasicMap implements IMap {
 	
 	@Override
 	public void setUsersUnits(HashMap<IMutableUnit, Location> selected) {
-		System.out.println(selected);
 
 		ArrayList<IMutableMapUnit> units = new ArrayList<IMutableMapUnit>();
 		

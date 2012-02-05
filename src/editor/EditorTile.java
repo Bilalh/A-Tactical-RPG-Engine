@@ -11,6 +11,8 @@ import editor.spritesheet.MutableSprite;
 
 import view.map.GuiTile;
 
+import static common.ListenerUtil.*;
+
 /**
  * @author Bilal Hussain
  */
@@ -29,7 +31,13 @@ public class EditorTile extends GuiTile implements ISpriteChangedListener {
 	public void setSprite(MutableSprite sprite){
 		this.sprite = sprite;
 		tileImage = ResourceManager.instance().getTile(sprite.getName());
-		ListenerUtil.notifyListeners(listeners, this);
+		notifyListeners(listeners, this);
+	}
+	
+	public void setHeight(int height){
+		assert height >=0;
+		this.endHeight = this.startHeight = this.height = height;
+		notifyListeners(listeners, this);
 	}
 	
 	public void addTileChangedListener(ITileChangedListener listener){

@@ -35,7 +35,7 @@ public class EditorMap extends BasicMap {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				TileImageData d = getTileImageData(i, j);
-				System.out.println(i + " " + j +  field[i][j]);
+				// System.out.println(i + " " + j +  field[i][j]);
 				assert d !=null;
 				guiField[i][j] = new EditorTile(GuiTile.Orientation.UP_TO_EAST,
 						field[i][j].getStartHeight(),

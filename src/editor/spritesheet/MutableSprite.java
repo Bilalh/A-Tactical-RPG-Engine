@@ -15,6 +15,8 @@ import common.spritesheet.SpriteInfo;
 
 import config.IPreference;
 
+import static common.ListenerUtil.*;
+
 
 /**
  * A sprite who image can be changed
@@ -61,15 +63,10 @@ public class MutableSprite extends SpriteInfo implements Comparable<MutableSprit
 	/** @category Generated */
 	public void setName(String name) {
 		this.name = name;
-		notifyListeners();
+		notifyListeners(listeners, this);
 	}
 	
 	public void addSpriteChangedListener(ISpriteChangedListener listener){
 		listeners.add(listener);
 	}
-	
-	protected void notifyListeners(){
-		ListenerUtil.notifyListeners(listeners, this);
-	}
-	
 }

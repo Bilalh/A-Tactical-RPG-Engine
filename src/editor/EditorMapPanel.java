@@ -22,7 +22,7 @@ class EditorMapPanel extends JPanel {
 
 	private Editor editor;
 	private IsomertricMapRenderer mapRender;
-	private GuiTile[][] field;
+	private EditorTile[][] field;
 
 	private int heightOffset;
 	private int bufferWidth;
@@ -34,7 +34,7 @@ class EditorMapPanel extends JPanel {
 	private int frameDuration = 100 * 1000000;
 	private int frameChange = 0;
 
-	public EditorMapPanel(Editor editor, GuiTile[][] field) {
+	public EditorMapPanel(Editor editor, EditorTile[][] field) {
 		this.editor = editor;
 		setMap(field);
 		
@@ -47,7 +47,7 @@ class EditorMapPanel extends JPanel {
 
 	}
 
-	public synchronized void setMap(GuiTile[][] field){
+	public synchronized void setMap(EditorTile[][] field){
 		this.field    = field;
 		heightOffset  = (MapSettings.tileDiagonal);
 		bufferWidth   = MapSettings.tileDiagonal * field.length + 5;
@@ -62,7 +62,7 @@ class EditorMapPanel extends JPanel {
 	}
 	
 	public void mousePressed(MouseEvent e) {
-		GuiTile current = null;
+		EditorTile current = null;
 		double highest = 0.0;
 
 		for (int i = 0; i < field.length; i++) {
@@ -99,6 +99,7 @@ class EditorMapPanel extends JPanel {
 	}
 	
 	public  void repaintMap(){
+		log.trace("repainting Map");
 		drawn = false;
 		repaint();
 	}
