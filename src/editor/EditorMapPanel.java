@@ -43,7 +43,7 @@ class EditorMapPanel extends JPanel {
 	
 	
 	private void selection(){
-		Set<EditorIsoTile> selection = new HashSet<EditorIsoTile>();
+		ArrayList<EditorIsoTile> selection = new ArrayList<EditorIsoTile>();
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				if (mouseArea.contains(field[i][j].getBounds())){
@@ -52,7 +52,7 @@ class EditorMapPanel extends JPanel {
 			}
 		}
 		
-		selection.clear();
+		editor.tilesSelected(selection);
 		repaint(50);
 	}
 	
@@ -88,7 +88,7 @@ class EditorMapPanel extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 
-				if (editor.getState() == State.SELECTION) {
+				if (mouseArea != null && editor.getState() == State.SELECTION) {
 					selection();
 				}
 				mouseArea = null;
@@ -139,23 +139,27 @@ class EditorMapPanel extends JPanel {
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
+	protected void paintComponent(Graphics _g) {
 		if (buffer == null) {
 			buffer = createImage(bufferWidth, bufferHeight);
 		}
 
-		Graphics _g = buffer.getGraphics();
+		Graphics g = buffer.getGraphics();
 		if (!drawn) {
-			mapRender.draw(_g, bufferWidth, bufferHeight);
+			Color old =  _g.getColor();
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, bufferWidth, bufferHeight);
+			g.setColor(old);
+			mapRender.draw(g, bufferWidth, bufferHeight);
 			drawn = true;
 		}
-		g.drawImage(buffer, 0, 0, null);
-		_g.dispose();
+		_g.drawImage(buffer, 0, 0, null);
+		g.dispose();
 		if (editor.getState() == State.SELECTION && mouseArea != null){
-			Color old = g.getColor();
-			g.setColor(Color.BLUE);
-			g.drawRect(mouseArea.x, mouseArea.y, mouseArea.width, mouseArea.height);
-			g.setColor(old);
+			Color old = _g.getColor();
+			_g.setColor(Color.BLUE);
+			_g.drawRect(mouseArea.x, mouseArea.y, mouseArea.width, mouseArea.height);
+			_g.setColor(old);
 		}
 	}
 	

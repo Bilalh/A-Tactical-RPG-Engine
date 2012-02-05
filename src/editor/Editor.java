@@ -168,6 +168,17 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		editorMapPanel.repaintMap();
 	}
 
+	public void tilesSelected(ArrayList<EditorIsoTile> tiles){
+		for (EditorIsoTile t : selection) {
+			t.setSelected(false);
+		}
+		selection = tiles;
+		for (EditorIsoTile t : selection) {
+			t.setSelected(true);
+		}
+		editorMapPanel.repaintMap();
+	}
+	
 	/** @category Gui **/
 	private JPanel createContentPane() {
 		mapScrollPane = new JScrollPane(
