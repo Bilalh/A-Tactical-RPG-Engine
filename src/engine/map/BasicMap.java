@@ -10,7 +10,7 @@ import config.xml.*;
  * 
  * @author Bilal Hussain
  */
-public class BasicMap extends Observable {
+public class BasicMap<E extends Tile> extends Observable {
 
 	protected Tile[][] field;
 	protected int width;

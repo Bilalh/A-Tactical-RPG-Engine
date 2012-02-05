@@ -17,16 +17,13 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
-import common.spritesheet.SpriteInfo;
+import view.map.IMapRendererParent;
 import config.XMLUtil;
-import config.xml.ITileMapping;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
-import config.xml.TileMapping;
-
-import util.Logf;
-import view.map.GuiTile;
-import view.map.IMapRendererParent;
+import editor.map.EditorMap;
+import editor.map.EditorSpriteSheet;
+import editor.map.EditorTile;
 import editor.spritesheet.*;
 import editor.ui.FloatablePanel;
 import editor.ui.TButton;
@@ -233,6 +230,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			public void stateChanged(ChangeEvent e) {
 				//TODO deal with no tile selected.
 				selectedTile.setHeight(((Number)infoHeight.getValue()).intValue());
+//				map.set
 				editorMapPanel.repaintMap();
 			}
 		});

@@ -1,4 +1,4 @@
-package editor;
+package editor.map;
 
 import java.awt.image.BufferedImage;
 import java.io.InputStream;

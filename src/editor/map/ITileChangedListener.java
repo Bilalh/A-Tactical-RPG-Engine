@@ -1,4 +1,4 @@
-package editor;
+package editor.map;
 
 import common.IListener;
 

@@ -13,7 +13,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import common.spritesheet.SpriteInfo;
 
 import config.xml.*;
-import editor.MutableTileMapping;
+import editor.map.MutableTileMapping;
 import editor.spritesheet.MutableSprite;
 
 /**

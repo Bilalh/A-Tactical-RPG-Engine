@@ -1,13 +1,12 @@
-package editor;
+package editor.map;
 
-import java.util.HashMap;
+import util.Args;
+import view.map.GuiTile;
 
 import common.Location;
 import common.gui.ResourceManager;
 
 import config.xml.TileImageData;
-import util.Args;
-import view.map.GuiTile;
 import editor.spritesheet.MutableSprite;
 import engine.map.BasicMap;
 
@@ -49,6 +48,10 @@ public class EditorMap extends BasicMap {
 	public void setSprite(Location p, MutableSprite sprite) {
 		field[p.x][p.y].setType(sprite.getName());
 		guiField[p.x][p.y].setSprite(sprite);		
+	}
+	
+	public void setHeight(Location p, int height){
+		//FIXME finish
 	}
 	
 	/** @category unused**/
