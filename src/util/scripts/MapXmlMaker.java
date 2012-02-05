@@ -33,7 +33,7 @@ public class MapXmlMaker {
 		
 		
 //		String[] types = {"m", "blue400", "grass"};
-		String[] types = {"brown","darkblue","gray","ground","ice","lime","marking","metal","tile","white","wood"};
+		String[] types = {"brown","darkblue","gray","ground","ice","lime","marking","metal","tile","white","wood","bush"};
 		
 		for (int i = 0, k =0; i < width; i++) {
 			for (int j = 0; j < height; j++, k++) {
@@ -61,7 +61,7 @@ public class MapXmlMaker {
 		ITileMapping map = new TileMapping("images/tilesets/basic.png", mapping);
 		String s2 = XMLUtil.makeFormattedXml(map);
 		System.out.println(s2);
-		
+//		
 		FileWriter fw = new FileWriter(new File("./Resources/maps/" + filename + ".xml"));
 		fw.write(s1);
 		fw.close();

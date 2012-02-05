@@ -27,7 +27,8 @@ public class MutableSprite extends SpriteInfo implements Comparable<MutableSprit
 	
 	@XStreamOmitField
 	private BufferedImage image;
-	
+
+	@XStreamOmitField
 	private ArrayList<ISpriteChangedListener> listeners = new ArrayList<ISpriteChangedListener>();
 	
 	public MutableSprite(File file) throws IOException {

@@ -49,6 +49,13 @@
     </tileImageData>
   </entry>
   <entry>
+    <string>bush</string>
+    <tileImageData>
+      <location>bush</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
     <string>lime</string>
     <tileImageData>
       <location>lime</location>

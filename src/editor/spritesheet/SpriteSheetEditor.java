@@ -295,10 +295,13 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		list.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (sprites.isEmpty()) return;
+				if (sprites.isEmpty() || list.getSelectedIndex() <0 ) return;
 				
 				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
-					sprites.remove(list.getSelectedIndex());
+					for (Object o : list.getSelectedValues()) {
+						sprites.removeElement(o);
+					}
+					
 					renew();
 				}else if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_F2 ){
 					if (list.getSelectedIndices().length != 1) return;
