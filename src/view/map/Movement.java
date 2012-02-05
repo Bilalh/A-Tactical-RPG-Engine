@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import util.Logf;
 import view.AnimatedUnit;
-import view.map.GuiTile.TileState;
+import view.map.IsoTile.TileState;
 import view.util.MapActions;
 
 import common.Location;
@@ -81,7 +81,7 @@ public  class Movement extends MapActions{
 		}
 
 		AnimatedUnit unitS = null;
-		GuiTile t = map.getSelectedTile();
+		IsoTile t = map.getSelectedTile();
 		
 		for (AnimatedUnit u : map.getUnits()) {
 			if (u.getGridX() == t.getFieldLocation().x && u.getGridY() == t.getFieldLocation().y){

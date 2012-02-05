@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import editor.map.EditorTile;
 
 import util.Logf;
-import view.map.GuiTile;
+import view.map.IsoTile;
 import view.map.IsomertricMapRenderer;
 import view.map.MapSettings;
 

@@ -1,6 +1,6 @@
 package view.map;
 
-import static view.map.GuiTile.Orientation.*;
+import static view.map.IsoTile.Orientation.*;
 import static common.enums.ImageType.*;
 
 import java.awt.*;
@@ -33,8 +33,8 @@ import common.Location;
 import common.Location;
 import config.xml.TileImageData;
 
-public class GuiTile {
-	private static final Logger log = Logger.getLogger(GuiTile.class);
+public class IsoTile {
+	private static final Logger log = Logger.getLogger(IsoTile.class);
 	
 	public static enum Orientation {
 		NORMAL, UP_TO_NORTH, UP_TO_EAST, UP_TO_SOUTH, UP_TO_WEST, EMY
@@ -82,7 +82,7 @@ public class GuiTile {
 	static TexturePaint tWall = new TexturePaint((BufferedImage) iWall, rWall);
 	
 	
-	public GuiTile(Orientation orientation, float startHeight, float endHeight, 
+	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
 			int x, int y, String ref, ImageType type ) {
 		this.fieldLocation = new Location(x, y);
 		this.orientation   = orientation;

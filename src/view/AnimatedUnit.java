@@ -6,7 +6,7 @@ package view;
 import java.awt.Graphics;
 import java.util.UUID;
 
-import view.map.GuiTile;
+import view.map.IsoTile;
 
 import common.gui.Sprite;
 import common.gui.ResourceManager;
@@ -50,7 +50,7 @@ public class AnimatedUnit extends GuiUnit {
 	}
 	
 
-	public void draw(Graphics g, final GuiTile[][] tiles, int x, int y, long timeDiff){
+	public void draw(Graphics g, final IsoTile[][] tiles, int x, int y, long timeDiff){
 		lastFrameChange += timeDiff;
 		
 		// if we need to change the frame, update the frame number and flip over the sprite in use

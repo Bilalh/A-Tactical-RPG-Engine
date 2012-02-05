@@ -9,14 +9,14 @@ import common.gui.Sprite;
 import editor.spritesheet.ISpriteChangedListener;
 import editor.spritesheet.MutableSprite;
 
-import view.map.GuiTile;
+import view.map.IsoTile;
 
 import static common.ListenerUtil.*;
 
 /**
  * @author Bilal Hussain
  */
-public class EditorTile extends GuiTile implements ISpriteChangedListener {
+public class EditorTile extends IsoTile implements ISpriteChangedListener {
 
 	private MutableSprite sprite;
 	private ArrayList<ITileChangedListener> listeners = new ArrayList<ITileChangedListener>();

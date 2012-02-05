@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 
 import util.Logf;
-import view.map.GuiTile;
+import view.map.IsoTile;
 
 import common.Location;
 import common.gui.Sprite;
@@ -33,7 +33,7 @@ public class GuiUnit {
 		this.gridY = gridY;
 	} 
 	
-	public void draw(Graphics g, final GuiTile[][] tiles, int x, int y) {
+	public void draw(Graphics g, final IsoTile[][] tiles, int x, int y) {
 		final Point centrePoint =  tiles[gridX][gridY].calculateCentrePoint(x,y);
 		int xPos =centrePoint.x - sprite.getWidth()/2;
 		int yPos =(int) (centrePoint.y -  sprite.getHeight()/1.25);
@@ -41,11 +41,11 @@ public class GuiUnit {
 		bounds  = new Rectangle2D.Float(xPos,yPos+getHeight(),getWidth(),getHeight());
 	}
 
-	public boolean isIntersecting(GuiTile t, int x, int y){
+	public boolean isIntersecting(IsoTile t, int x, int y){
 		return bounds.contains(x,y);
 	}
 	
-	public Point topLeftPoint(GuiTile[][] tiles, int x, int y){
+	public Point topLeftPoint(IsoTile[][] tiles, int x, int y){
 		final Point result =  tiles[gridX][gridY].calculateCentrePoint(x,y);
 		result.translate(-sprite.getWidth()/2, (int) (-sprite.getHeight()/1.5));
 		return result;

@@ -1,7 +1,7 @@
 package editor.map;
 
 import util.Args;
-import view.map.GuiTile;
+import view.map.IsoTile;
 
 import common.Location;
 import common.gui.ResourceManager;
@@ -36,7 +36,7 @@ public class EditorMap extends BasicMap {
 				TileImageData d = getTileImageData(i, j);
 				// System.out.println(i + " " + j +  field[i][j]);
 				assert d !=null;
-				guiField[i][j] = new EditorTile(GuiTile.Orientation.UP_TO_EAST,
+				guiField[i][j] = new EditorTile(IsoTile.Orientation.UP_TO_EAST,
 						field[i][j].getStartHeight(),
 						field[i][j].getEndHeight(), i, j,
 						spriteSheet.getSprite(d.getLocation()), d.getType());

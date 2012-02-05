@@ -22,7 +22,7 @@ public class IsomertricMapRenderer {
 	private static final Logger log = Logger.getLogger(IsomertricMapRenderer.class);
 	
 	private IMapRendererParent parent;
-	private GuiTile[][] field;
+	private IsoTile[][] field;
 
 	private final int fieldWidth, fieldHeight;
 	private final int startX, startY;
@@ -32,7 +32,7 @@ public class IsomertricMapRenderer {
 	int animationDuration = 750 * 1000000;
 
 	/** @category Generated Constructor */
-	public IsomertricMapRenderer(GuiTile[][] field, IMapRendererParent parent, int startX, int startY) {
+	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent, int startX, int startY) {
 		this.startX = startX;
 		this.startY = startY;
 		this.parent = parent;

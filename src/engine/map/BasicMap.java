@@ -10,7 +10,7 @@ import config.xml.*;
  * 
  * @author Bilal Hussain
  */
-public class BasicMap<E extends Tile> extends Observable {
+public class BasicMap extends Observable {
 
 	protected Tile[][] field;
 	protected int width;
@@ -20,6 +20,8 @@ public class BasicMap<E extends Tile> extends Observable {
 	protected MapSettings mapSettings;
 
 	protected MapData data;
+	
+	public BasicMap(){}
 	
 	public void loadMap(String name) {
 		SavedMap smap = Config.loadPreference(name);

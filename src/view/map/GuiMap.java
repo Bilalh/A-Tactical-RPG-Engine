@@ -42,11 +42,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	private MapController mapController; 
 	
-    private GuiTile[][] field;
+    private IsoTile[][] field;
 	private IsomertricMapRenderer mapRenderer;
 
 	private int fieldWidth, fieldHeight;
-	private static GuiTile selectedTile;
+	private static IsoTile selectedTile;
     
     
     private AnimatedUnit[] units;
@@ -90,7 +90,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		this.fieldWidth = grid.length;
 		this.fieldHeight = grid[0].length;
 		
-        field = new GuiTile[fieldWidth][fieldHeight];
+        field = new IsoTile[fieldWidth][fieldHeight];
         current = getActionHandler(ActionsEnum.MOVEMENT);
         MousePoxy = new MousePoxy();
         setActionHandler(ActionsEnum.MOVEMENT);
@@ -101,7 +101,7 @@ public class GuiMap implements Observer, IMapRendererParent {
         for (int i = 0; i < fieldWidth; i++) { 
             for (int j = 0; j < fieldHeight; j++) {
             	TileImageData d = mapController.getTileImageData(i, j);
-            	field[i][j] = new GuiTile(GuiTile.Orientation.UP_TO_EAST,
+            	field[i][j] = new IsoTile(IsoTile.Orientation.UP_TO_EAST,
             			grid[i][j].getStartHeight(),
             			grid[i][j].getEndHeight(), i, j,
             			d.getLocation(), d.getType());
@@ -389,7 +389,7 @@ public class GuiMap implements Observer, IMapRendererParent {
         }
     }
     
-	public GuiTile getSelectedTile() {
+	public IsoTile getSelectedTile() {
 		return selectedTile;
 	}
 
@@ -460,7 +460,7 @@ public class GuiMap implements Observer, IMapRendererParent {
     	
     }
 
-    public GuiTile getTile(ILocation l){
+    public IsoTile getTile(ILocation l){
     	return field[l.getX()][l.getY()];
     }
     
