@@ -108,10 +108,17 @@ public class GuiMap implements Observer, IMapRendererParent {
             }
         }
         
+        //FIXME hack calculate real size of bufffer
+//        
+//        heightOffset = (MapSettings.tileDiagonal);
+//        bufferWidth  =  MapSettings.tileDiagonal*fieldWidth +5;  
+//		bufferHeight = (int) (MapSettings.tileDiagonal/2f*fieldHeight +heightOffset);
+	
+        int max = Math.max(fieldHeight, fieldWidth);
         heightOffset = (MapSettings.tileDiagonal);
-        bufferWidth  =  MapSettings.tileDiagonal*fieldWidth +5;  
-		bufferHeight = (int) (MapSettings.tileDiagonal/2f*fieldHeight +heightOffset);
-		
+        bufferWidth  =  MapSettings.tileDiagonal*max +5;  
+		bufferHeight = (int) (MapSettings.tileDiagonal/2f*max +heightOffset);
+        
         drawX = 0;
         drawY = bufferHeight/2 - Gui.HEIGHT/2;
 

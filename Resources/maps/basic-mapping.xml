@@ -1,9 +1,0 @@
-<tilemapping>
-  <entry>
-    <string>grass</string>
-    <tileImageData>
-      <location>images/tiles/brown.png</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-</tilemapping>

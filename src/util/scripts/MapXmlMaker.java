@@ -21,14 +21,14 @@ import config.xml.*;
  */
 public class MapXmlMaker {
 
-	static String filename = "map5";
+	static String filename = "nice";
 	
 	public static void main(String[] args) throws IOException {
 		Config.loadLoggingProperties();
 		
 		Random r = new Random(12344);
-		int width  = 20;
-		int height = 20;
+		int width  = 16;
+		int height = 22;
 		SavedTile[] tiles = new SavedTile[width*height];
 		
 		
@@ -39,7 +39,8 @@ public class MapXmlMaker {
 			for (int j = 0; j < height; j++, k++) {
 				String type = types[(j+i)%types.length];
 				int h = r.nextInt(3)+1;
-//				h =1;
+				h =1;
+				type="marking";
 				tiles[k] = new SavedTile(type,h, i,j);
 			}
 		}

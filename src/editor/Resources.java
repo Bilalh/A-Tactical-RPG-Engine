@@ -15,6 +15,7 @@ public final class Resources {
 	private Resources() {
 	}
 
+	
 	public static Image getImage(String filename) throws IOException, IllegalArgumentException {
 		return ImageIO.read(Editor.class.getResourceAsStream("resources/" + filename));
 	}

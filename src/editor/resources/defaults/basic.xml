@@ -1,0 +1,14 @@
+<sprite-array>
+<sprite name="darkblue" x="0" y="0" width="60" height="30"/>
+<sprite name="wood" x="64" y="0" width="60" height="30"/>
+<sprite name="metal" x="128" y="0" width="60" height="30"/>
+<sprite name="ice" x="192" y="0" width="60" height="30"/>
+<sprite name="tile" x="0" y="34" width="60" height="30"/>
+<sprite name="white" x="64" y="34" width="60" height="30"/>
+<sprite name="ground" x="128" y="34" width="60" height="30"/>
+<sprite name="bush" x="192" y="34" width="60" height="30"/>
+<sprite name="lime" x="0" y="68" width="60" height="30"/>
+<sprite name="brown" x="64" y="68" width="60" height="30"/>
+<sprite name="marking" x="128" y="68" width="60" height="30"/>
+<sprite name="gray" x="192" y="68" width="60" height="30"/>
+</sprite-array>

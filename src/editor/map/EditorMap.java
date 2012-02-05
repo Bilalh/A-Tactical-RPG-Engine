@@ -6,7 +6,10 @@ import view.map.IsoTile;
 import common.Location;
 import common.gui.ResourceManager;
 
+import config.Config;
+import config.xml.SavedMap;
 import config.xml.TileImageData;
+import editor.Resources;
 import editor.spritesheet.MutableSprite;
 import engine.map.BasicMap;
 
@@ -19,14 +22,22 @@ public class EditorMap extends BasicMap {
 	protected EditorSpriteSheet spriteSheet;
 	protected EditorTile[][] editorField;
 	
+	public EditorMap(){
+		//FIXME copy defaults 
+		this.loadMap("maps/default.xml");
+	}
+	
 	public EditorMap(String name) {
 		this.loadMap(name);
-		tileMapping = new MutableTileMapping(tileMapping);
 	}
 
 	@Override
 	public void loadMap(String name) {
 		super.loadMap(name);
+		loadEditorSettings();
+	}
+
+	private void loadEditorSettings() {
 		guiField    = new EditorIsoTile[width][height];
 		editorField = new EditorTile[width][height];
 		ResourceManager.instance().loadSpriteSheetFromResources(getTileSheetLocation());
@@ -45,6 +56,7 @@ public class EditorMap extends BasicMap {
 			}
 		}
 		field = editorField;
+		tileMapping = new MutableTileMapping(tileMapping);
 	}
 
 	public void setSprite(Location p, MutableSprite sprite) {

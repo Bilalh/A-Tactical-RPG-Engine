@@ -41,7 +41,7 @@ public class FloatablePanel extends JPanel
 
 		public FloatAction() {
 			putValue(SHORT_DESCRIPTION, "action.zoom.in.float");
-			putValue(SMALL_ICON, Resources.getIcon("gnome-zoom-in.png"));
+			putValue(SMALL_ICON, Resources.getIcon("images/gnome-zoom-in.png"));
 		}
 
 		@Override

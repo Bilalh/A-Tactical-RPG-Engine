@@ -241,12 +241,12 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	/** @category Gui **/
 	private JToolBar createSideBar() {
 		
-		ImageIcon iconMove    = Resources.getIcon("gimp-tool-move-22.png");
-		ImageIcon iconPaint   = Resources.getIcon("gimp-tool-pencil-22.png");
-		ImageIcon iconErase   = Resources.getIcon("gimp-tool-eraser-22.png");
-		ImageIcon iconPour    = Resources.getIcon("gimp-tool-bucket-fill-22.png");
-		ImageIcon iconEyed    = Resources.getIcon("gimp-tool-color-picker-22.png");
-		ImageIcon iconMarquee = Resources.getIcon("gimp-tool-rect-select-22.png");
+		ImageIcon iconMove    = Resources.getIcon("images/gimp-tool-move-22.png");
+		ImageIcon iconPaint   = Resources.getIcon("images/gimp-tool-pencil-22.png");
+		ImageIcon iconErase   = Resources.getIcon("images/gimp-tool-eraser-22.png");
+		ImageIcon iconPour    = Resources.getIcon("images/gimp-tool-bucket-fill-22.png");
+		ImageIcon iconEyed    = Resources.getIcon("images/gimp-tool-color-picker-22.png");
+		ImageIcon iconMarquee = Resources.getIcon("images/gimp-tool-rect-select-22.png");
 
 		paintButton   = createToggleButton(iconPaint, "PAINT", TOOL_PAINT);
 		eraseButton   = createToggleButton(iconErase, "ERASE", TOOL_ERASE);
@@ -272,8 +272,58 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		return toolBar;
 	}
 
+	/** @category Gui**/
+		private JMenuBar createMenubar() {
+			int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+	
+			JMenuBar bar = new JMenuBar();
+			
+			JMenu file = new JMenu("File");
+			
+			JMenuItem save = new JMenuItem("Save");
+			save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,mask));
+			save.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					save();
+				}
+			});
+			
+			file.add(save);
+			bar.add(file);
+			
+			JMenu edit = new JMenu("Edit");
+			bar.add(edit);
+			
+			JMenu editors = new JMenu("Editors");
+			
+			JMenuItem spriteSheetEditorItem = new JMenuItem("Sprite Sheet Editor");
+	//		spriteSheetEditor.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,mask));
+			spriteSheetEditorItem.addActionListener(new ActionListener() {
+				SpriteSheetEditor spriteSheetEditor;
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (spriteSheetEditor == null) {
+						spriteSheetEditor = new SpriteSheetEditor(WindowConstants.DO_NOTHING_ON_CLOSE);
+						spriteSheetEditor.addWindowListener(new WindowAdapter() {
+							@Override
+							public void windowClosing(WindowEvent e) {
+								spriteSheetEditor.setVisible(false);
+							}
+						});
+					}
+					spriteSheetEditor.setVisible(true);
+				}
+			});
+			
+			editors.add(spriteSheetEditorItem);
+			bar.add(editors);
+			
+			return bar;
+		}
+
 	private void createMap() {
-			map = new EditorMap("maps/map5.xml");
+			map = new EditorMap("maps/nice.xml");
 			editorMapPanel = new EditorMapPanel(this, map.getGuiField());
 	
 			// Relayout the sprites to fill the whole panel.
@@ -281,7 +331,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 				@Override
 				public void windowActivated(WindowEvent e) {
 					refreashSprites();
-	//				tilesetPanel.setSelectedSprites(map.getSpriteSheet().getSprites().get(0));
 				}
 			});
 			tilesetPanel.addComponentListener(new ComponentAdapter() {
@@ -297,59 +346,9 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 				tilesetPanel.getWidth(), tilesetPanel.getHeight(), 2));
 	}
 
-	/** @category Gui**/
-	private JMenuBar createMenubar() {
-		int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
-
-		JMenuBar bar = new JMenuBar();
-		
-		JMenu file = new JMenu("File");
-		
-		JMenuItem save = new JMenuItem("Save");
-		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,mask));
-		save.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				save();
-			}
-		});
-		
-		file.add(save);
-		bar.add(file);
-		
-		JMenu edit = new JMenu("Edit");
-		bar.add(edit);
-		
-		JMenu editors = new JMenu("Editors");
-		
-		JMenuItem spriteSheetEditorItem = new JMenuItem("Sprite Sheet Editor");
-//		spriteSheetEditor.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,mask));
-		spriteSheetEditorItem.addActionListener(new ActionListener() {
-			SpriteSheetEditor spriteSheetEditor;
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (spriteSheetEditor == null) {
-					spriteSheetEditor = new SpriteSheetEditor(WindowConstants.DO_NOTHING_ON_CLOSE);
-					spriteSheetEditor.addWindowListener(new WindowAdapter() {
-						@Override
-						public void windowClosing(WindowEvent e) {
-							spriteSheetEditor.setVisible(false);
-						}
-					});
-				}
-				spriteSheetEditor.setVisible(true);
-			}
-		});
-		
-		editors.add(spriteSheetEditorItem);
-		bar.add(editors);
-		
-		return bar;
-	}
-	
 	private void save(){
 		
-		String filename="map5";
+		String filename="nice";
 		SavedTile[] tiles = new SavedTile[map.getFieldWidth() * map.getFieldHeight()]; 
 		Tile[][] field = map.getField();
 		for (int i = 0, k=0; i < field.length; i++) {
@@ -414,7 +413,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		public ZoomInAction() {
 			putValue(SHORT_DESCRIPTION, "action.zoom.in.tooltip");
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
-			putValue(SMALL_ICON, Resources.getIcon("gnome-zoom-in.png"));
+			putValue(SMALL_ICON, Resources.getIcon("images/gnome-zoom-in.png"));
 		}
 
 		@Override
@@ -428,8 +427,8 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		public ZoomOutAction() {
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control MINUS"));
 			putValue(SHORT_DESCRIPTION, "action.zoom.out.tooltip");
-			putValue(LARGE_ICON_KEY, Resources.getIcon("gnome-zoom-out.png"));
-			putValue(SMALL_ICON, Resources.getIcon("gnome-zoom-out.png"));
+			putValue(LARGE_ICON_KEY, Resources.getIcon("images/gnome-zoom-out.png"));
+			putValue(SMALL_ICON, Resources.getIcon("images/gnome-zoom-out.png"));
 		}
 
 		@Override

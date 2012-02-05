@@ -1,10 +1,7 @@
 package config;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -19,6 +16,7 @@ import common.enums.ImageType;
 import config.xml.ITileMapping;
 import config.xml.TileImageData;
 import config.xml.TileMapping;
+import editor.Editor;
 
 /**
  * @author Bilal Hussain
@@ -76,6 +74,14 @@ public class Config {
 		return pref;
 	}
 
+	public static <E extends IPreference> E loadPreferenceFromPackage(String filepath){
+		InputStream io =  Config.class.getResourceAsStream(filepath);
+		assert io != null;
+		E pref = XMLUtil.convertXml(io);
+		return pref;
+	}
+	
+	
 	private static final ITileMapping defaultMapping;
 	
 	static{

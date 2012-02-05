@@ -51,9 +51,13 @@ class EditorMapPanel extends JPanel {
 
 	public synchronized void setMap(EditorIsoTile[][] field){
 		this.field    = field;
+		
+        //FIXME hack calculate real size of bufffer
+        int max = Math.max(field.length, field[0].length);
+
 		heightOffset  = (MapSettings.tileDiagonal);
-		bufferWidth   = MapSettings.tileDiagonal * field.length + 5;
-		bufferHeight  = (int) (MapSettings.tileDiagonal / 2f * field[0].length + heightOffset);
+		bufferWidth   = MapSettings.tileDiagonal * max + 5;
+		bufferHeight  = (int) (MapSettings.tileDiagonal / 2f *max + heightOffset);
 		
 		setPreferredSize(new Dimension(bufferWidth, bufferHeight));
 
