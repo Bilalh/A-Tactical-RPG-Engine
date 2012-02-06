@@ -162,8 +162,8 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			case DRAW:
 				if (selectedTileSprite != null){
 					map.setSprite(tile.getFieldLocation(), selectedTileSprite);
+					repaint = true;
 				}
-				repaint = true;
 				break;
 			case EYE:
 				selectedTileSprite = tile.getSprite();
@@ -182,14 +182,15 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 		//FIXME rethink this 
 		removeSelection(selection);
-		
 		selection.clear();
 		selection.add(tile);
 		
 		infoHeight.setValue(tile.getHeight());
-		if (repaint){
-			editorMapPanel.repaintMap();	
-		}
+		//FIXME hack type name
+		infoType.setText(tile.getSprite().getName());
+		
+		
+		if (repaint) editorMapPanel.repaintMap();
 	}
 
 	
@@ -198,7 +199,8 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			t.setSelected(false);
 		}
 	}
-	
+
+	/** @category Callback **/
 	public void tilesSelected(ArrayList<EditorIsoTile> tiles){
 		removeSelection(selection);
 		selection = tiles;
