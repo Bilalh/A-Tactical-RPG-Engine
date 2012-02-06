@@ -29,6 +29,7 @@ import editor.Resources;
  */
 public class FloatablePanel extends JPanel
 {
+	private static final long serialVersionUID = 3365282132942748132L;
 	private final JLabel titleLabel;
 	private JDialog frame;
 	private final JComponent child;
@@ -122,6 +123,7 @@ public class FloatablePanel extends JPanel
 			frame = new JDialog(parent, titleLabel.getText());
 			frame.getContentPane().add(child);
 			frame.addWindowListener(new WindowAdapter() {
+				@Override
 				public void windowClosing(WindowEvent e) {
 					setFloating(false);
 				}
@@ -195,11 +197,14 @@ public class FloatablePanel extends JPanel
 	 * The panel that holds the title label and float button.
 	 */
 	private class HeaderPanel extends JPanel {
+		private static final long serialVersionUID = 8790419278839242794L;
+
 		public HeaderPanel(BorderLayout borderLayout) {
 			super(borderLayout);
 			setBorder(BorderFactory.createEmptyBorder(1, 4, 2, 1));
 		}
 
+		@Override
 		protected void paintComponent(Graphics g) {
 			Color backgroundColor = new Color(200, 200, 240);
 			g.setColor(backgroundColor);

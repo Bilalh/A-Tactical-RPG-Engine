@@ -41,6 +41,7 @@ public class SpriteSheet implements ISpriteSheet {
 	}
 
 	/** @category Generated */
+	@Override
 	public BufferedImage getSheetImage() {
 		return sheet;
 	}
