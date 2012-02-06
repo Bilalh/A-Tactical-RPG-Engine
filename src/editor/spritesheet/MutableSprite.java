@@ -19,7 +19,7 @@ import static common.ListenerUtil.*;
 
 
 /**
- * A sprite who image can be changed
+ * A sprite who image can be changed.
  * @author Bilal Hussain
  */
 @XStreamAlias("sprite")

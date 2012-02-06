@@ -13,6 +13,7 @@ import editor.spritesheet.ISpriteSheet;
 import editor.spritesheet.MutableSprite;
 
 /**
+ * Spritesheet fotr the editor
  * @author Bilal Hussain
  */
 public class EditorSpriteSheet implements ISpriteSheet {

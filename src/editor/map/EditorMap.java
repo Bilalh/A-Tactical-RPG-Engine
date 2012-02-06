@@ -14,6 +14,7 @@ import editor.spritesheet.MutableSprite;
 import engine.map.BasicMap;
 
 /**
+ * Stores the map and keeps the model and gui map in sync.
  * @author Bilal Hussain
  */
 public class EditorMap extends BasicMap {

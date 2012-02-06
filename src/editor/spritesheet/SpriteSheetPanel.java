@@ -17,15 +17,17 @@ import javax.swing.JPanel;
 import common.gui.Sprite;
 import common.spritesheet.SpriteInfo;
 
+/**
+ *  Holds and draws  the spritesheet.
+ * @author Bilal Hussain
+ */
 public class SpriteSheetPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
 	private int width;
 	private int height;
 	
-	// for transparency
 	private TexturePaint background;
-	// generated sheet
 	private Sheet sheet;
 
 	private List<MutableSprite> selected = new ArrayList<MutableSprite>();
@@ -33,12 +35,12 @@ public class SpriteSheetPanel extends JPanel {
 
 	public SpriteSheetPanel(ISpriteProvider<MutableSprite> spriteProvider) {
 		this.spriteProvider = spriteProvider;
-		initGui();
+		init();
 		addMouse();
 		addKeys();
 	}
 
-	protected void initGui(){
+	protected void init(){
 		Color base = Color.gray;
 		BufferedImage image = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) image.getGraphics();

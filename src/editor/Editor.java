@@ -31,6 +31,7 @@ import editor.ui.TButton;
 import engine.map.Tile;
 
 /**
+ * Editor for the engine
  * @author Bilal Hussain
  */
 public class Editor implements ActionListener, IMapRendererParent, ISpriteProvider<MutableSprite> {
