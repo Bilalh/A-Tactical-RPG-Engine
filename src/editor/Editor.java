@@ -239,15 +239,15 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		createMap();
 
 		mapScrollPane.setViewportView(editorMapPanel);
+		mapViewport = mapScrollPane.getViewport();
 		
-		vport =  mapScrollPane.getViewport();
-		HandScrollListener  hsl1 = new HandScrollListener();
-        editorMapPanel.addMouseMotionListener(hsl1);
-        editorMapPanel.addMouseListener(hsl1);
+		MouseAdapter mapScroller = new MapScroller();
+        editorMapPanel.addMouseMotionListener(mapScroller);
+        editorMapPanel.addMouseListener(mapScroller);
 		
 		return main;
 	}
-	JViewport vport;
+	JViewport mapViewport;
 	
 	// Infopanel controls 
 	private JTextField infoType;
@@ -316,35 +316,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		return toolBar;
 	}
 
-	class HandScrollListener extends MouseAdapter {
-		private final Cursor defCursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
-		private final Cursor hndCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
-		private final Point pp = new Point();
-
-		@Override
-		public void mouseDragged(MouseEvent e) {
-			if (state != State.MOVE) return;
-			Point cp = e.getPoint();
-			Point vp = vport.getViewPosition(); // = SwingUtilities.convertPoint(vport,0,0,label);
-			vp.translate(pp.x - cp.x, pp.y - cp.y);
-			editorMapPanel.scrollRectToVisible(new Rectangle(vp, vport.getSize()));
-			pp.setLocation(cp);
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			if (state != State.MOVE) return;
-			((JComponent) e.getSource()).setCursor(hndCursor);
-			pp.setLocation(e.getPoint());
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			if (state != State.MOVE) return;
-			((JComponent) e.getSource()).setCursor(defCursor);
-		}
-	}
-	
 	/** @category Gui**/
 		private JMenuBar createMenubar() {
 			int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
@@ -485,6 +456,35 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	}
 
 	
+	class MapScroller extends MouseAdapter {
+		private final Cursor normal   = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
+		private final Cursor movement = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+		private final Point start = new Point();
+	
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			if (state != State.MOVE) return;
+			Point p = e.getPoint();
+			Point vp = mapViewport.getViewPosition();
+			vp.translate(start.x - p.x, start.y - p.y);
+			editorMapPanel.scrollRectToVisible(new Rectangle(vp, mapViewport.getSize()));
+			start.setLocation(p);
+		}
+	
+		@Override
+		public void mousePressed(MouseEvent e) {
+			if (state != State.MOVE) return;
+			((JComponent) e.getSource()).setCursor(movement);
+			start.setLocation(e.getPoint());
+		}
+	
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			if (state != State.MOVE) return;
+			((JComponent) e.getSource()).setCursor(normal);
+		}
+	}
+
 	private class ZoomInAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
