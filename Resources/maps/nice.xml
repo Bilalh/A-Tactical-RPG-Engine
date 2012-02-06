@@ -1073,11 +1073,11 @@
   </tile>
   <tile x="12" y="2">
     <type>marking</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="12" y="3">
     <type>marking</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="12" y="4">
     <type>marking</type>
@@ -1157,19 +1157,19 @@
   </tile>
   <tile x="13" y="1">
     <type>marking</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="13" y="2">
     <type>marking</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="13" y="3">
     <type>marking</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="13" y="4">
     <type>marking</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="13" y="5">
     <type>marking</type>
@@ -1241,19 +1241,19 @@
   </tile>
   <tile x="14" y="0">
     <type>tile</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="14" y="1">
     <type>marking</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="14" y="2">
     <type>marking</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="14" y="3">
     <type>marking</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="14" y="4">
     <type>marking</type>
@@ -1333,11 +1333,11 @@
   </tile>
   <tile x="15" y="1">
     <type>ground</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="15" y="2">
     <type>bush</type>
-    <height>1</height>
+    <height>4</height>
   </tile>
   <tile x="15" y="3">
     <type>lime</type>

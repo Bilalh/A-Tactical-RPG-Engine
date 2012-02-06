@@ -35,16 +35,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>ground</string>
+    <string>white</string>
     <tileImageData>
-      <location>ground</location>
+      <location>white</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>white</string>
+    <string>ground</string>
     <tileImageData>
-      <location>white</location>
+      <location>ground</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -56,16 +56,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>brown</string>
+    <string>lime</string>
     <tileImageData>
-      <location>brown</location>
+      <location>lime</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>lime</string>
+    <string>brown</string>
     <tileImageData>
-      <location>lime</location>
+      <location>brown</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>

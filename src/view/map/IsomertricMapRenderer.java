@@ -1,13 +1,12 @@
 package view.map;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
 import org.apache.log4j.Logger;
+
+import common.Location;
 
 
 import util.Logf;
@@ -42,6 +41,7 @@ public class IsomertricMapRenderer {
 		this.fieldHeight = field[0].length;
 	}
 
+	Font numbers = new Font("Helvetica", Font.PLAIN,  10);
 	public boolean draw(Graphics g, int width, int height) {
 
 		final int drawX = parent.getDrawX();
@@ -55,6 +55,12 @@ public class IsomertricMapRenderer {
 		// System.out.println("___drawn is " + drawn + " mouse is " + mouseMoving);
 
 		boolean drawnEverything = true;
+		Font oldFont = null;
+		if (showNumbering){
+			oldFont =  g.getFont();
+			g.setFont(numbers);	
+		}
+		
 		for (int i = fieldHeight - 1; i >= 0; i--) {
 			// for (int i = 0 ; i < fieldHeight; i++) { // for rotate
 			for (int j = 0; j < fieldWidth; j++) {
@@ -69,9 +75,9 @@ public class IsomertricMapRenderer {
 					if (showNumbering) {
 						Color old = g.getColor();
 						g.setColor(Color.RED);
-						g.drawString(String.format("(%d,%d) %d", j, i, field[j][i].getCost()),
-								(int) (x - (MapSettings.tileDiagonal * MapSettings.zoom) / 2 + 20),
-								y + 10);
+						Point pp =field[j][i].calculateCentrePoint(x,y);
+						g.drawString(String.format("%d,%d", j,i),pp.x - MapSettings.tileDiagonal/4 ,pp.y);
+						
 						g.setColor(old);
 					}
 
@@ -95,9 +101,10 @@ public class IsomertricMapRenderer {
 			// x = drawX - (int) (MapSettings.tileDiagonal / 2 * MapSettings.zoom * (i+1)); // for rotate
 			// y = drawY + (int) (MapSettings.tileDiagonal / 2 * MapSettings.pitch * MapSettings.zoom * (i+1)); // for rotate
 		}
+		
+		g.setFont(oldFont);
 		return  (parent.isMouseMoving() && drawnEverything) || !parent.isMouseMoving();
 		// System.out.println("@@@DRAWN IS " + drawn + " + MOUSE IS " + mouseMoving + " Everything is " + drawnEverything);
-
 	}
 
 }
