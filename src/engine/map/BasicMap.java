@@ -30,10 +30,18 @@ public class BasicMap extends Observable {
 		height = smap.getFieldHeight();
 		field = new Tile[width][height];
 
-		for (SavedTile t : smap.getTiles()) {
-			field[t.getX()][t.getY()] = new Tile(t.getHeight(), (t.getHeight()), t.getType());
-		}
+//		float max = 0;
+//		for (SavedTile t : smap.getTiles()) {
+//			max = Math.max(max, t.getHeight());
+//		}
 
+		for (SavedTile t : smap.getTiles()) {
+//			float h = ((t.getHeight())/max)*10;
+//			field[t.getX()][t.getY()] = new Tile((int)h, (int)h, t.getType());
+			field[t.getX()][t.getY()] = new Tile(t.getHeight(),t.getHeight() , t.getType());
+		}
+		
+		
 		mapSettings = smap.getMapSettings();
 		data = smap.getMapData();
 

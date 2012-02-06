@@ -1,0 +1,1210 @@
+<map width='20' height='20'>
+  <mapSettings>
+    <tileDiagonal>60</tileDiagonal>
+    <tileHeight>20</tileHeight>
+    <pitch>0.5</pitch>
+  </mapSettings>
+  <mapData>
+    <tileMappingLocation>maps/nice-mapping.xml</tileMappingLocation>
+  </mapData>
+<tile x='0' y='0'>
+	<height>0</height>
+<type>lime</type></tile>
+<tile x='0' y='1'>
+	<height>10</height>
+<type>lime</type></tile>
+<tile x='0' y='2'>
+	<height>10</height>
+<type>lime</type></tile>
+<tile x='0' y='3'>
+	<height>9</height>
+<type>lime</type></tile>
+<tile x='0' y='4'>
+	<height>10</height>
+<type>lime</type></tile>
+<tile x='0' y='5'>
+	<height>13</height>
+<type>lime</type></tile>
+<tile x='0' y='6'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='0' y='7'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='0' y='8'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='0' y='9'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='0' y='10'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='0' y='11'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='0' y='12'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='0' y='13'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='0' y='14'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='0' y='15'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='0' y='16'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='0' y='17'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='0' y='18'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='0' y='19'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='1' y='0'>
+	<height>10</height>
+<type>lime</type></tile>
+<tile x='1' y='1'>
+	<height>12</height>
+<type>lime</type></tile>
+<tile x='1' y='2'>
+	<height>12</height>
+<type>lime</type></tile>
+<tile x='1' y='3'>
+	<height>11</height>
+<type>lime</type></tile>
+<tile x='1' y='4'>
+	<height>13</height>
+<type>lime</type></tile>
+<tile x='1' y='5'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='1' y='6'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='1' y='7'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='1' y='8'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='1' y='9'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='1' y='10'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='1' y='11'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='1' y='12'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='1' y='13'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='1' y='14'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='1' y='15'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='1' y='16'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='1' y='17'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='1' y='18'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='1' y='19'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='2' y='0'>
+	<height>14</height>
+<type>lime</type></tile>
+<tile x='2' y='1'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='2' y='2'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='2' y='3'>
+	<height>13</height>
+<type>lime</type></tile>
+<tile x='2' y='4'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='2' y='5'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='2' y='6'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='2' y='7'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='2' y='8'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='2' y='9'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='2' y='10'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='2' y='11'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='2' y='12'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='2' y='13'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='2' y='14'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='2' y='15'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='2' y='16'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='2' y='17'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='2' y='18'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='2' y='19'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='3' y='0'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='3' y='1'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='3' y='2'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='3' y='3'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='3' y='4'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='3' y='5'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='3' y='6'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='3' y='7'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='3' y='8'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='3' y='9'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='3' y='10'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='3' y='11'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='3' y='12'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='3' y='13'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='3' y='14'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='3' y='15'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='3' y='16'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='3' y='17'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='3' y='18'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='3' y='19'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='4' y='0'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='4' y='1'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='4' y='2'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='4' y='3'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='4' y='4'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='4' y='5'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='4' y='6'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='4' y='7'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='4' y='8'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='4' y='9'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='4' y='10'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='4' y='11'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='4' y='12'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='4' y='13'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='4' y='14'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='4' y='15'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='4' y='16'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='4' y='17'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='4' y='18'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='4' y='19'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='5' y='0'>
+	<height>26</height>
+<type>lime</type></tile>
+<tile x='5' y='1'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='5' y='2'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='5' y='3'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='5' y='4'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='5' y='5'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='5' y='6'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='5' y='7'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='5' y='8'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='5' y='9'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='5' y='10'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='5' y='11'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='5' y='12'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='5' y='13'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='5' y='14'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='5' y='15'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='5' y='16'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='5' y='17'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='5' y='18'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='5' y='19'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='6' y='0'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='6' y='1'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='6' y='2'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='6' y='3'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='6' y='4'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='6' y='5'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='6'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='7'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='8'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='9'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='10'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='11'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='12'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='6' y='13'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='14'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='15'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='6' y='16'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='6' y='17'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='18'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='6' y='19'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='7' y='0'>
+	<height>28</height>
+<type>lime</type></tile>
+<tile x='7' y='1'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='7' y='2'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='7' y='3'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='7' y='4'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='7' y='5'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='7' y='6'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='7' y='7'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='7' y='8'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='7' y='9'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='7' y='10'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='7' y='11'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='7' y='12'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='7' y='13'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='7' y='14'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='7' y='15'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='7' y='16'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='7' y='17'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='7' y='18'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='7' y='19'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='8' y='0'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='8' y='1'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='8' y='2'>
+	<height>25</height>
+<type>lime</type></tile>
+<tile x='8' y='3'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='8' y='4'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='8' y='5'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='8' y='6'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='8' y='7'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='8' y='8'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='8' y='9'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='8' y='10'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='8' y='11'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='8' y='12'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='8' y='13'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='8' y='14'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='8' y='15'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='8' y='16'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='8' y='17'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='8' y='18'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='8' y='19'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='9' y='0'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='9' y='1'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='9' y='2'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='9' y='3'>
+	<height>26</height>
+<type>lime</type></tile>
+<tile x='9' y='4'>
+	<height>25</height>
+<type>lime</type></tile>
+<tile x='9' y='5'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='9' y='6'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='9' y='7'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='9' y='8'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='9' y='9'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='9' y='10'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='9' y='11'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='9' y='12'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='9' y='13'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='9' y='14'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='9' y='15'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='9' y='16'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='9' y='17'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='9' y='18'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='9' y='19'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='10' y='0'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='10' y='1'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='10' y='2'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='10' y='3'>
+	<height>25</height>
+<type>lime</type></tile>
+<tile x='10' y='4'>
+	<height>25</height>
+<type>lime</type></tile>
+<tile x='10' y='5'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='10' y='6'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='10' y='7'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='10' y='8'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='10' y='9'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='10' y='10'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='10' y='11'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='10' y='12'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='10' y='13'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='10' y='14'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='10' y='15'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='10' y='16'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='10' y='17'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='10' y='18'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='10' y='19'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='11' y='0'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='11' y='1'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='11' y='2'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='11' y='3'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='11' y='4'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='11' y='5'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='11' y='6'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='11' y='7'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='11' y='8'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='11' y='9'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='11' y='10'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='11' y='11'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='11' y='12'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='11' y='13'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='11' y='14'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='11' y='15'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='11' y='16'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='11' y='17'>
+	<height>14</height>
+<type>lime</type></tile>
+<tile x='11' y='18'>
+	<height>13</height>
+<type>lime</type></tile>
+<tile x='11' y='19'>
+	<height>14</height>
+<type>lime</type></tile>
+<tile x='12' y='0'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='12' y='1'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='12' y='2'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='12' y='3'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='12' y='4'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='12' y='5'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='12' y='6'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='12' y='7'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='12' y='8'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='12' y='9'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='12' y='10'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='12' y='11'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='12' y='12'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='12' y='13'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='12' y='14'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='12' y='15'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='12' y='16'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='12' y='17'>
+	<height>14</height>
+<type>lime</type></tile>
+<tile x='12' y='18'>
+	<height>12</height>
+<type>lime</type></tile>
+<tile x='12' y='19'>
+	<height>12</height>
+<type>lime</type></tile>
+<tile x='13' y='0'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='13' y='1'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='13' y='2'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='13' y='3'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='13' y='4'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='13' y='5'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='13' y='6'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='13' y='7'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='13' y='8'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='13' y='9'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='13' y='10'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='13' y='11'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='13' y='12'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='13' y='13'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='13' y='14'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='13' y='15'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='13' y='16'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='13' y='17'>
+	<height>13</height>
+<type>lime</type></tile>
+<tile x='13' y='18'>
+	<height>12</height>
+<type>lime</type></tile>
+<tile x='13' y='19'>
+	<height>12</height>
+<type>lime</type></tile>
+<tile x='14' y='0'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='14' y='1'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='14' y='2'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='14' y='3'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='14' y='4'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='14' y='5'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='14' y='6'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='14' y='7'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='14' y='8'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='14' y='9'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='14' y='10'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='14' y='11'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='14' y='12'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='14' y='13'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='14' y='14'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='14' y='15'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='14' y='16'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='14' y='17'>
+	<height>14</height>
+<type>lime</type></tile>
+<tile x='14' y='18'>
+	<height>12</height>
+<type>lime</type></tile>
+<tile x='14' y='19'>
+	<height>11</height>
+<type>lime</type></tile>
+<tile x='15' y='0'>
+	<height>26</height>
+<type>lime</type></tile>
+<tile x='15' y='1'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='15' y='2'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='15' y='3'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='15' y='4'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='15' y='5'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='15' y='6'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='15' y='7'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='15' y='8'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='15' y='9'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='15' y='10'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='15' y='11'>
+	<height>25</height>
+<type>lime</type></tile>
+<tile x='15' y='12'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='15' y='13'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='15' y='14'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='15' y='15'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='15' y='16'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='15' y='17'>
+	<height>14</height>
+<type>lime</type></tile>
+<tile x='15' y='18'>
+	<height>13</height>
+<type>lime</type></tile>
+<tile x='15' y='19'>
+	<height>12</height>
+<type>lime</type></tile>
+<tile x='16' y='0'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='16' y='1'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='16' y='2'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='16' y='3'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='16' y='4'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='16' y='5'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='16' y='6'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='16' y='7'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='16' y='8'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='16' y='9'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='16' y='10'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='16' y='11'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='16' y='12'>
+	<height>25</height>
+<type>lime</type></tile>
+<tile x='16' y='13'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='16' y='14'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='16' y='15'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='16' y='16'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='16' y='17'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='16' y='18'>
+	<height>15</height>
+<type>lime</type></tile>
+<tile x='16' y='19'>
+	<height>14</height>
+<type>lime</type></tile>
+<tile x='17' y='0'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='17' y='1'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='17' y='2'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='17' y='3'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='17' y='4'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='17' y='5'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='17' y='6'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='17' y='7'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='17' y='8'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='17' y='9'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='17' y='10'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='17' y='11'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='17' y='12'>
+	<height>25</height>
+<type>lime</type></tile>
+<tile x='17' y='13'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='17' y='14'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='17' y='15'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='17' y='16'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='17' y='17'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='17' y='18'>
+	<height>17</height>
+<type>lime</type></tile>
+<tile x='17' y='19'>
+	<height>16</height>
+<type>lime</type></tile>
+<tile x='18' y='0'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='18' y='1'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='18' y='2'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='18' y='3'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='18' y='4'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='18' y='5'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='18' y='6'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='18' y='7'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='18' y='8'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='18' y='9'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='18' y='10'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='18' y='11'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='18' y='12'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='18' y='13'>
+	<height>24</height>
+<type>lime</type></tile>
+<tile x='18' y='14'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='18' y='15'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='18' y='16'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='18' y='17'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='18' y='18'>
+	<height>19</height>
+<type>lime</type></tile>
+<tile x='18' y='19'>
+	<height>18</height>
+<type>lime</type></tile>
+<tile x='19' y='0'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='19' y='1'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='19' y='2'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='19' y='3'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='19' y='4'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='19' y='5'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='19' y='6'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='19' y='7'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='19' y='8'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='19' y='9'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='19' y='10'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='19' y='11'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='19' y='12'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='19' y='13'>
+	<height>22</height>
+<type>lime</type></tile>
+<tile x='19' y='14'>
+	<height>23</height>
+<type>lime</type></tile>
+<tile x='19' y='15'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='19' y='16'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='19' y='17'>
+	<height>20</height>
+<type>lime</type></tile>
+<tile x='19' y='18'>
+	<height>21</height>
+<type>lime</type></tile>
+<tile x='19' y='19'>
+	<height>20</height>
+<type>lime</type></tile>
+</map>
