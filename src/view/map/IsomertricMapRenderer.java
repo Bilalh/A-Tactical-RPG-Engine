@@ -16,7 +16,7 @@ import view.AnimatedUnit;
  * Draws a isomertricMap
  * @author Bilal Hussain
  */
-public class IsomertricMapRenderer {
+public class IsomertricMapRenderer implements IMapRenderer {
 
 	private static final Logger log = Logger.getLogger(IsomertricMapRenderer.class);
 	
@@ -42,6 +42,7 @@ public class IsomertricMapRenderer {
 	}
 
 	Font numbers = new Font("Helvetica", Font.PLAIN,  10);
+	@Override
 	public boolean draw(Graphics g, int width, int height) {
 
 		final int drawX = parent.getDrawX();
@@ -107,4 +108,14 @@ public class IsomertricMapRenderer {
 		// System.out.println("@@@DRAWN IS " + drawn + " + MOUSE IS " + mouseMoving + " Everything is " + drawnEverything);
 	}
 
+
+	public void toggleNumbering(){
+		showNumbering = !showNumbering;
+	}
+	
+	/** @category Generated */
+	public boolean hasNumbering() {
+		return showNumbering;
+	}
+	
 }

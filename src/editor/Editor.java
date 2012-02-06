@@ -349,6 +349,20 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			JMenu edit = new JMenu("Edit");
 			bar.add(edit);
 			
+			JMenu view = new JMenu("View");
+			final JCheckBoxMenuItem number = new JCheckBoxMenuItem("Show numbering on tiles", editorMapPanel.hasNumbering());
+			number.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1,mask));
+			number.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					editorMapPanel.toggleNumbering();
+					number.setSelected(editorMapPanel.hasNumbering());
+					editorMapPanel.repaintMap();
+				}
+			});
+			view.add(number);
+			bar.add(view);
+			
 			JMenu editors = new JMenu("Editors");
 			
 			JMenuItem spriteSheetEditorItem = new JMenuItem("Sprite Sheet Editor");
