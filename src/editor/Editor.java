@@ -190,6 +190,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		//FIXME hack type name
 		infoType.setText(tile.getSprite().getName());
 		
+		infoLocation.setText(String.format("(%s,%s)", tile.getX(), tile.getY()));
 		
 		if (repaint) editorMapPanel.repaintMap();
 	}
@@ -210,6 +211,9 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		}
 		editorMapPanel.repaintMap();
 	}
+
+	// The map view port 
+	private JViewport mapViewport;
 	
 	/** @category Gui **/
 	private JPanel createContentPane() {
@@ -250,11 +254,12 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		
 		return main;
 	}
-	JViewport mapViewport;
 	
 	// Infopanel controls 
+	private JLabel infoLocation;
 	private JTextField infoType;
 	private JSpinner  infoHeight = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
+
 	
 	/** @category Gui**/
 	private JPanel createInfoPanel() {
@@ -262,6 +267,9 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 		p.add(new JLabel("General"), new CC().split().spanX().gapTop("4"));
 		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
+
+		p.add(new JLabel("Location:"), "gap 4");
+		p.add((infoLocation = new JLabel("        ")), "span, growx");
 		
 		p.add(new JLabel("Type:"), "gap 4");
 		p.add((infoType = new JTextField(15)), "span, growx");
