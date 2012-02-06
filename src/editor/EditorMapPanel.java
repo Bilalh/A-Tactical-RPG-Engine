@@ -19,6 +19,10 @@ import view.map.IsoTile;
 import view.map.IsomertricMapRenderer;
 import view.map.MapSettings;
 
+/**
+ * Contains the view of the map and handles mouse input for the map.
+ * @author Bilal Hussain
+ */
 class EditorMapPanel extends JPanel {
 	private static final Logger log = Logger.getLogger(EditorMapPanel.class);
 

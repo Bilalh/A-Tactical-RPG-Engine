@@ -27,6 +27,7 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 			int x, int y, MutableSprite sprite, ImageType type) {
 		super(orientation, startHeight, endHeight, x, y, sprite.getName(), type);
 		sprite.addSpriteChangedListener(this);
+		this.sprite = sprite;
 	}
 	
 	public void setSprite(MutableSprite sprite){
@@ -48,6 +49,11 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 	@Override
 	public void notifyChanged(MutableSprite newValue) {
 		setSprite(sprite);
+	}
+
+	/** @category Generated */
+	public MutableSprite getSprite() {
+		return sprite;
 	}
 	
 }

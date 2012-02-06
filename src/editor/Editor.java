@@ -38,10 +38,10 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	private JFrame frame;
 
-	private AbstractButton paintButton, eraseButton, pourButton;
-	private AbstractButton eyedButton, selectionButton, moveButton;
+	private AbstractButton drawButton, eraseButton, pourButton;
+	private AbstractButton eyeButton, selectionButton, moveButton;
 	private final Action zoomInAction, zoomOutAction, zoomNormalAction;
-	private State state = State.PAINT;
+	private State state = State.DRAW;
 
 	private JScrollPane mapScrollPane;
 	private JPanel infoPanel;
@@ -57,12 +57,12 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private MutableSprite selectedTileSprite;
 	private ArrayList<EditorIsoTile> selection = new ArrayList<EditorIsoTile>();
 
-	private static final String TOOL_PAINT = "paint";
-	private static final String TOOL_ERASE = "erase";
-	private static final String TOOL_FILL = "fill";
-	private static final String TOOL_EYE_DROPPER = "eyedropper";
-	private static final String TOOL_SELECT = "select";
-	private static final String TOOL_MOVE_LAYER = "movelayer";
+	private static final String TOOL_DRAW = "Draw";
+	private static final String TOOL_ERASE = "Erase";
+	private static final String TOOL_FILL = "Fill";
+	private static final String TOOL_EYE_DROPPER = "Eye Dropper";
+	private static final String TOOL_SELECTION = "Select Area";
+	private static final String TOOL_MOVE = "Move";
 	
 	public Editor() {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
@@ -157,12 +157,20 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	/** @category Callback **/
 	public void tileClicked(EditorIsoTile tile) {
+		switch (state) {
+			case DRAW:
+				if (selectedTileSprite != null){
+					map.setSprite(tile.getFieldLocation(), selectedTileSprite);
+				}
+				break;
+			case EYE:
+				selectedTileSprite = tile.getSprite();
+				System.out.println(selectedTileSprite);
+				break;
+		}
+
 		selection.clear();
 		selection.add(tile);
-		switch (state) {
-			case PAINT:
-				if (selectedTileSprite != null)  map.setSprite(tile.getFieldLocation(), selectedTileSprite);
-		}
 		
 		infoHeight.setValue(tile.getHeight());
 		editorMapPanel.repaintMap();
@@ -253,21 +261,21 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		ImageIcon iconEyed    = Resources.getIcon("images/gimp-tool-color-picker-22.png");
 		ImageIcon iconSelection = Resources.getIcon("images/gimp-tool-rect-select-22.png");
 
-		paintButton   = makeToggleButton(iconPaint, "PAINT", TOOL_PAINT);
-		eraseButton   = makeToggleButton(iconErase, "ERASE", TOOL_ERASE);
-		pourButton    = makeToggleButton(iconPour,  "POUR",  TOOL_FILL);
-		eyedButton    = makeToggleButton(iconEyed,  "EYED",  TOOL_EYE_DROPPER);
-		moveButton    = makeToggleButton(iconMove,  "MOVE",  TOOL_MOVE_LAYER);
+		drawButton    = makeToggleButton(iconPaint, State.DRAW.name(),  TOOL_DRAW);
+		eraseButton   = makeToggleButton(iconErase, State.ERASE.name(), TOOL_ERASE);
+		pourButton    = makeToggleButton(iconPour,  State.POUR.name(),  TOOL_FILL);
+		eyeButton    = makeToggleButton(iconEyed,  State.EYE.name(),  TOOL_EYE_DROPPER);
+		moveButton    = makeToggleButton(iconMove,  State.MOVE.name(),  TOOL_MOVE);
 
-		selectionButton = makeToggleButton(iconSelection, "SELECTION", TOOL_SELECT);
+		selectionButton = makeToggleButton(iconSelection, "SELECTION", TOOL_SELECTION);
 		
 		JToolBar toolBar = new JToolBar(SwingConstants.VERTICAL);
 		toolBar.setFloatable(true);
 		toolBar.add(moveButton);
-		toolBar.add(paintButton);
+		toolBar.add(drawButton);
 		toolBar.add(eraseButton);
 		toolBar.add(pourButton);
-		toolBar.add(eyedButton);
+		toolBar.add(eyeButton);
 		toolBar.add(selectionButton);
 		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
 		toolBar.add(new TButton(zoomInAction));
@@ -408,10 +416,10 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	
 	private void setState(State s) {
 		state = s;
-		paintButton.setSelected(state == State.PAINT);
+		drawButton.setSelected(state == State.DRAW);
 		eraseButton.setSelected(state == State.ERASE);
 		pourButton.setSelected(state == State.POUR);
-		eyedButton.setSelected(state == State.EYED);
+		eyeButton.setSelected(state == State.EYE);
 		selectionButton.setSelected(state == State.SELECTION);
 		moveButton.setSelected(state == State.MOVE);
 

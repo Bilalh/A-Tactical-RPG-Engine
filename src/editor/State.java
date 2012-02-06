@@ -2,10 +2,10 @@ package editor;
 
 public enum State {
 	POINT,
-	PAINT,
+	DRAW,
 	ERASE,
 	POUR,
-	EYED,
+	EYE,
 	SELECTION,
 	MOVE;
 }
