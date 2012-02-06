@@ -157,15 +157,18 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	/** @category Callback **/
 	public void tileClicked(EditorIsoTile tile) {
+		boolean repaint = false;
 		switch (state) {
 			case DRAW:
 				if (selectedTileSprite != null){
 					map.setSprite(tile.getFieldLocation(), selectedTileSprite);
 				}
+				repaint = true;
 				break;
 			case EYE:
 				selectedTileSprite = tile.getSprite();
 				tilesetPanel.setSelectedSprites(selectedTileSprite);
+				repaint = true;
 				break;
 			case FILL:
 				if (selectedTileSprite != null && selection.contains(tile)){
@@ -173,6 +176,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 						t.setSprite(selectedTileSprite);
 					}
 				}
+				repaint = true;
 				break;
 		}
 
@@ -183,7 +187,9 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		selection.add(tile);
 		
 		infoHeight.setValue(tile.getHeight());
-		editorMapPanel.repaintMap();
+		if (repaint){
+			editorMapPanel.repaintMap();	
+		}
 	}
 
 	
@@ -231,11 +237,18 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		main.add(createSideBar(), BorderLayout.WEST);
 	
 		createMap();
+
 		mapScrollPane.setViewportView(editorMapPanel);
-	
+		
+		vport =  mapScrollPane.getViewport();
+		HandScrollListener  hsl1 = new HandScrollListener();
+        editorMapPanel.addMouseMotionListener(hsl1);
+        editorMapPanel.addMouseListener(hsl1);
+		
 		return main;
 	}
-
+	JViewport vport;
+	
 	// Infopanel controls 
 	private JTextField infoType;
 	private JSpinner  infoHeight = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
@@ -288,7 +301,8 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		toolBar.setFloatable(true);
 		toolBar.add(moveButton);
 		toolBar.add(drawButton);
-		toolBar.add(eraseButton);
+		//TODO  erase button needed?
+//		toolBar.add(eraseButton); 
 		toolBar.add(pourButton);
 		toolBar.add(eyeButton);
 		toolBar.add(selectionButton);
@@ -298,9 +312,39 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		toolBar.add(Box.createRigidArea(new Dimension(5, 5)));
 		toolBar.add(Box.createGlue());
 		setState(state);
+		
 		return toolBar;
 	}
 
+	class HandScrollListener extends MouseAdapter {
+		private final Cursor defCursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
+		private final Cursor hndCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+		private final Point pp = new Point();
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			if (state != State.MOVE) return;
+			Point cp = e.getPoint();
+			Point vp = vport.getViewPosition(); // = SwingUtilities.convertPoint(vport,0,0,label);
+			vp.translate(pp.x - cp.x, pp.y - cp.y);
+			editorMapPanel.scrollRectToVisible(new Rectangle(vp, vport.getSize()));
+			pp.setLocation(cp);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			if (state != State.MOVE) return;
+			((JComponent) e.getSource()).setCursor(hndCursor);
+			pp.setLocation(e.getPoint());
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			if (state != State.MOVE) return;
+			((JComponent) e.getSource()).setCursor(defCursor);
+		}
+	}
+	
 	/** @category Gui**/
 		private JMenuBar createMenubar() {
 			int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();

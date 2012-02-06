@@ -91,7 +91,6 @@ class EditorMapPanel extends JPanel {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-
 				if (mouseArea != null && editor.getState() == State.SELECTION) {
 					selection();
 				}
@@ -102,6 +101,7 @@ class EditorMapPanel extends JPanel {
 
 	}
 
+	
 	public synchronized void setMap(EditorIsoTile[][] field){
 		this.field    = field;
 		
@@ -168,7 +168,7 @@ class EditorMapPanel extends JPanel {
 	}
 	
 	public  void repaintMap(){
-		log.trace("repainting Map");
+		log.info("repainting Map");
 		drawn = false;
 		repaint();
 	}
