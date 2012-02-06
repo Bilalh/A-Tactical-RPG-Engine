@@ -21,14 +21,14 @@ import config.xml.*;
  */
 public class MapXmlMaker {
 
-	static String filename = "nice";
+	static String filename = "size";
 	
 	public static void main(String[] args) throws IOException {
 		Config.loadLoggingProperties();
 		
 		Random r = new Random(12344);
-		int width  = 16;
-		int height = 22;
+		int width  = 15;
+		int height = 15;
 		SavedTile[] tiles = new SavedTile[width*height];
 		
 		

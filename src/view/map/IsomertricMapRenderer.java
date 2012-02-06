@@ -30,17 +30,35 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	private boolean showNumbering = false;
 	int animationDuration = 750 * 1000000;
 
+	
+	
 	/** @category Generated Constructor */
-	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent, int startX, int startY) {
-		this.startX = startX;
-		this.startY = startY;
+	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent) {
 		this.parent = parent;
 		this.field = field;
 
 		this.fieldWidth = field.length;
 		this.fieldHeight = field[0].length;
+		makeSize();
+		startX = size.width/2 +(fieldHeight - fieldWidth)*MapSettings.tileDiagonal/4;
+		startY = size.heightOffset;
 	}
 
+	
+	private BufferSize size;
+	private void makeSize(){
+        int max = Math.max(fieldWidth, fieldHeight);
+		int heightOffset  = (MapSettings.tileDiagonal);
+//		bufferWidth   = MapSettings.tileDiagonal * max + 5;
+//		bufferHeight  = (int) (MapSettings.tileDiagonal / 2f *max + heightOffset);
+		
+		int w = fieldWidth + (fieldHeight-fieldWidth)/2;
+		int bufferWidth   = MapSettings.tileDiagonal * w+ 5;
+		int bufferHeight  = (int) (MapSettings.tileDiagonal / 2f *w+ heightOffset);
+		size = new BufferSize(heightOffset, bufferWidth, bufferHeight);
+	}
+	
+	
 	Font numbers = new Font("Helvetica", Font.PLAIN,  10);
 	@Override
 	public boolean draw(Graphics g, int width, int height) {
@@ -117,5 +135,12 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	public boolean hasNumbering() {
 		return showNumbering;
 	}
-	
+
+
+	/** @category Generated */
+	@Override
+	public BufferSize getMapDimensions() {
+		return size;
+	}
+
 }

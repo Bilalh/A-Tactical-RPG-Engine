@@ -67,7 +67,6 @@ public class GuiMap implements Observer, IMapRendererParent {
     private final int bufferWidth;
 	private final int bufferHeight;
 
-    private final int startX, startY;
     private int drawX,drawY;
     
     final private MapActions[] actions = {new Movement(this), new DialogHandler(this), new MapActions(this)};
@@ -75,8 +74,6 @@ public class GuiMap implements Observer, IMapRendererParent {
     	MOVEMENT, DIALOG,NONE
     }
 
-    private final int heightOffset;
-    
     private Component parent;
     
 	/** @category Constructor */
@@ -90,7 +87,13 @@ public class GuiMap implements Observer, IMapRendererParent {
 		this.fieldWidth = grid.length;
 		this.fieldHeight = grid[0].length;
 		
-        field = new IsoTile[fieldWidth][fieldHeight];
+        this.field = new IsoTile[fieldWidth][fieldHeight];
+        this.mapRenderer = new IsomertricMapRenderer(field, this);
+        
+		BufferSize  s  = mapRenderer.getMapDimensions();
+		bufferWidth  = s.width;
+		bufferHeight = s.height;
+        
         current = getActionHandler(ActionsEnum.MOVEMENT);
         MousePoxy = new MousePoxy();
         setActionHandler(ActionsEnum.MOVEMENT);
@@ -107,24 +110,8 @@ public class GuiMap implements Observer, IMapRendererParent {
             			d.getLocation(), d.getType());
             }
         }
-        
-        //FIXME hack calculate real size of bufffer
-//        
-//        heightOffset = (MapSettings.tileDiagonal);
-//        bufferWidth  =  MapSettings.tileDiagonal*fieldWidth +5;  
-//		bufferHeight = (int) (MapSettings.tileDiagonal/2f*fieldHeight +heightOffset);
-	
-        int max = Math.max(fieldHeight, fieldWidth);
-        heightOffset = (MapSettings.tileDiagonal);
-        bufferWidth  =  MapSettings.tileDiagonal*max +5;  
-		bufferHeight = (int) (MapSettings.tileDiagonal/2f*max +heightOffset);
-        
-        drawX = 0;
-        drawY = bufferHeight/2 - Gui.HEIGHT/2;
 
-        startX = bufferWidth/2;
-        startY = heightOffset;
-        
+
         unitMapping = new HashMap<UUID, AnimatedUnit>();
         dialog = new Dialog(665, 70, "mage", ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
         
@@ -133,17 +120,13 @@ public class GuiMap implements Observer, IMapRendererParent {
         
         mapController.addMapObserver(this);
         mapController.startMap();
+        
         path = new ArrayDeque<LocationInfo>(0);
         pathIterator = path.iterator();
 	}
 	
-	public void makeImageBuffer(Component parent){
+	public void makeImageBuffer(){
 		mapBuffer = parent.createImage(bufferWidth,bufferHeight);
-		
-        final int heightOffset = (MapSettings.tileDiagonal);
-		mapRenderer = new IsomertricMapRenderer(
-				field, this, 
-				startX, startY);
 	}
 
 	private boolean drawn = false;

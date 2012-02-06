@@ -69,7 +69,7 @@ public class MapPanel extends JPanel implements Runnable {
 		setFocusable(true);
 		requestFocus(); // the JPanel now has focus, so receives key events
 
-		this.map  = new GuiMap(mapController, this);
+		this.map  = new GuiMap(mapController,this);
 		this.addMouseListener(map.getMouseListener());
 		this.addMouseMotionListener(map.getMouseMotionListener());
 		this.addComponentListener(new ComponentAdapter() {
@@ -150,7 +150,7 @@ public class MapPanel extends JPanel implements Runnable {
 		beforeTime = gameStartTime;
 
 		dbImage = createImage(Gui.WIDTH, Gui.HEIGHT);
-		map.makeImageBuffer(this);
+		map.makeImageBuffer();
 		
 		running = true;
 

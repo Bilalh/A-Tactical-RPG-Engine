@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import editor.map.EditorIsoTile;
 
 import util.Logf;
+import view.map.BufferSize;
 import view.map.IsoTile;
 import view.map.IsomertricMapRenderer;
 import view.map.MapSettings;
@@ -32,9 +33,8 @@ class EditorMapPanel extends JPanel {
 	private IsomertricMapRenderer mapRender;
 	private EditorIsoTile[][] field;
 
-	private int heightOffset;
-	private int bufferWidth;
-	private int bufferHeight;
+	private int bufferWidth  =-2;
+	private int bufferHeight =-3;
 
 	private Image buffer;
 
@@ -44,8 +44,7 @@ class EditorMapPanel extends JPanel {
 
 	private Rectangle mouseArea;
 	private Point mouseStart;
-	
-	
+
 	private void selection(){
 		ArrayList<EditorIsoTile> selection = new ArrayList<EditorIsoTile>();
 		for (int i = 0; i < field.length; i++) {
@@ -104,20 +103,12 @@ class EditorMapPanel extends JPanel {
 	
 	public synchronized void setMap(EditorIsoTile[][] field){
 		this.field    = field;
-		
-        //FIXME hack calculate real size of bufffer
-        int max = Math.max(field.length, field[0].length);
-
-		heightOffset  = (MapSettings.tileDiagonal);
-		bufferWidth   = MapSettings.tileDiagonal * max + 5;
-		bufferHeight  = (int) (MapSettings.tileDiagonal / 2f *max + heightOffset);
-		
-		setPreferredSize(new Dimension(bufferWidth, bufferHeight));
-
-		int startX = bufferWidth / 2;
-		int startY = heightOffset;
 		buffer     = null;
-		mapRender  = new IsomertricMapRenderer(field, editor, startX, startY);
+		mapRender  = new IsomertricMapRenderer(field, editor);
+		BufferSize s = mapRender.getMapDimensions();
+		setPreferredSize(mapRender.getMapDimensions());
+		bufferWidth  = s.width;
+		bufferHeight = s.height;
 	}
 	
 	public void mousePressed(MouseEvent e) {
@@ -151,7 +142,7 @@ class EditorMapPanel extends JPanel {
 		Graphics g = buffer.getGraphics();
 		if (!drawn) {
 			Color old =  _g.getColor();
-			g.setColor(Color.WHITE);
+			g.setColor(Color.BLUE);
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			g.setColor(old);
 			mapRender.draw(g, bufferWidth, bufferHeight);

@@ -412,6 +412,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	} 
 
 	private void refreashSprites(){
+		if (tilesetPanel.getHeight() <=0 || tilesetPanel.getWidth() <=0 ) return;
 		tilesetPanel.setSpriteSheet(packer.packImages(map.getSpriteSheet().getSprites(),
 				tilesetPanel.getWidth(), tilesetPanel.getHeight(), 2));
 	}
