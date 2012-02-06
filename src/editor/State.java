@@ -4,7 +4,7 @@ public enum State {
 	POINT,
 	DRAW,
 	ERASE,
-	POUR,
+	FILL,
 	EYE,
 	SELECTION,
 	MOVE;

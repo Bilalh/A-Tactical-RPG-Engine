@@ -165,10 +165,20 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 				break;
 			case EYE:
 				selectedTileSprite = tile.getSprite();
-				System.out.println(selectedTileSprite);
+				tilesetPanel.setSelectedSprites(selectedTileSprite);
+				break;
+			case FILL:
+				if (selectedTileSprite != null && selection.contains(tile)){
+					for (EditorIsoTile t : selection) {
+						t.setSprite(selectedTileSprite);
+					}
+				}
 				break;
 		}
 
+		//FIXME rethink this 
+		removeSelection(selection);
+		
 		selection.clear();
 		selection.add(tile);
 		
@@ -176,10 +186,15 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		editorMapPanel.repaintMap();
 	}
 
-	public void tilesSelected(ArrayList<EditorIsoTile> tiles){
-		for (EditorIsoTile t : selection) {
+	
+	private void removeSelection(Iterable<EditorIsoTile> it){
+		for (EditorIsoTile t : it) {
 			t.setSelected(false);
 		}
+	}
+	
+	public void tilesSelected(ArrayList<EditorIsoTile> tiles){
+		removeSelection(selection);
 		selection = tiles;
 		for (EditorIsoTile t : selection) {
 			t.setSelected(true);
@@ -263,7 +278,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 		drawButton    = makeToggleButton(iconPaint, State.DRAW.name(),  TOOL_DRAW);
 		eraseButton   = makeToggleButton(iconErase, State.ERASE.name(), TOOL_ERASE);
-		pourButton    = makeToggleButton(iconPour,  State.POUR.name(),  TOOL_FILL);
+		pourButton    = makeToggleButton(iconPour,  State.FILL.name(),  TOOL_FILL);
 		eyeButton    = makeToggleButton(iconEyed,  State.EYE.name(),  TOOL_EYE_DROPPER);
 		moveButton    = makeToggleButton(iconMove,  State.MOVE.name(),  TOOL_MOVE);
 
@@ -418,7 +433,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		state = s;
 		drawButton.setSelected(state == State.DRAW);
 		eraseButton.setSelected(state == State.ERASE);
-		pourButton.setSelected(state == State.POUR);
+		pourButton.setSelected(state == State.FILL);
 		eyeButton.setSelected(state == State.EYE);
 		selectionButton.setSelected(state == State.SELECTION);
 		moveButton.setSelected(state == State.MOVE);
