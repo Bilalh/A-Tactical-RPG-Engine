@@ -233,7 +233,8 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	
 		tilesetPanel = new SpriteSheetPanel(this);
 		tilesetsPanelContainer = new FloatablePanel(frame, tilesetPanel, "Tiles", "tilesets");
-	
+//		tilesetsPanelContainer.setMinimumSize(new )
+		
 		JSplitPane paletteSplit = new JSplitPane(
 				JSplitPane.VERTICAL_SPLIT, true, mainSplit, tilesetsPanelContainer);
 		paletteSplit.setOneTouchExpandable(true);

@@ -142,7 +142,7 @@ class EditorMapPanel extends JPanel {
 		Graphics g = buffer.getGraphics();
 		if (!drawn) {
 			Color old =  _g.getColor();
-			g.setColor(Color.BLUE);
+			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			g.setColor(old);
 			mapRender.draw(g, bufferWidth, bufferHeight);
