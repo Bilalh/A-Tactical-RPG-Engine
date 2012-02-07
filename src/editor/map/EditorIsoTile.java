@@ -55,5 +55,11 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 	public MutableSprite getSprite() {
 		return sprite;
 	}
+
+	public String toFormatedString() {
+		return String.format("Tile(%s,%s)[height=%s]",fieldLocation.x,fieldLocation.y,height, type);
+	}
+
+	
 	
 }

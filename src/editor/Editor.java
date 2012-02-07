@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -50,6 +51,8 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private FloatablePanel infoPanelContainer;
 	private SpriteSheetPanel tilesetPanel;
 	private FloatablePanel tilesetsPanelContainer;
+
+	private JLabel statusLabel;
 
 	private EditorMap map;
 	private EditorMapPanel editorMapPanel;
@@ -170,6 +173,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			editorMapPanel.repaintMap();
 			old = tile;
 		}
+		statusLabel.setText(tile.toFormatedString());
 	}
 	
 	// dragged/clicked
@@ -231,7 +235,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	// The map view port 
 	private JViewport mapViewport;
-	
 	/** @category Gui **/
 	private JPanel createContentPane() {
 		mapScrollPane = new JScrollPane(
@@ -250,7 +253,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	
 		tilesetPanel = new SpriteSheetPanel(this);
 		tilesetsPanelContainer = new FloatablePanel(frame, tilesetPanel, "Tiles", "tilesets");
-//		tilesetsPanelContainer.setMinimumSize(new )
 		
 		JSplitPane paletteSplit = new JSplitPane(
 				JSplitPane.VERTICAL_SPLIT, true, mainSplit, tilesetsPanelContainer);
@@ -260,7 +262,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		JPanel main = new JPanel(new BorderLayout());
 		main.add(paletteSplit, BorderLayout.CENTER);
 		main.add(createSideBar(), BorderLayout.WEST);
-	
 		createMap();
 
 		mapScrollPane.setViewportView(editorMapPanel);
@@ -270,6 +271,16 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
         editorMapPanel.addMouseMotionListener(mapScroller);
         editorMapPanel.addMouseListener(mapScroller);
 		
+        JPanel statusPanel = new JPanel();
+        statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        main.add(statusPanel, BorderLayout.SOUTH);
+        statusPanel.setPreferredSize(new Dimension(frame.getWidth(), 20));
+        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
+        statusLabel = new JLabel("");
+        statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        statusPanel.add(statusLabel);
+
+        
 		return main;
 	}
 	
@@ -392,7 +403,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			view.add(hover);
 			
 			bar.add(view);
-			
 			JMenu editors = new JMenu("Editors");
 			
 			JMenuItem spriteSheetEditorItem = new JMenuItem("Sprite Sheet Editor");
