@@ -21,7 +21,7 @@ import config.xml.*;
  */
 public class MapXmlMaker {
 
-	static String filename = "size";
+	static String filename = "grass";
 	
 	public static void main(String[] args) throws IOException {
 		Config.loadLoggingProperties();
@@ -31,13 +31,16 @@ public class MapXmlMaker {
 		int height = 15;
 		SavedTile[] tiles = new SavedTile[width*height];
 		
-		
 //		String[] types = {"m", "blue400", "grass"};
-		String[] types = {"brown","darkblue","gray","ground","ice","lime","marking","metal","tile","white","wood","bush"};
+//		String[] types = {"brown","darkblue","gray","ground","ice","lime","marking","metal","tile","white","wood","bush"};
+		String[] types = new String[24];
+		for (int i = 0; i < types.length; i++) {
+			types[i] = ""+i;
+		}
 		
 		for (int i = 0, k =0; i < width; i++) {
 			for (int j = 0; j < height; j++, k++) {
-				String type = types[(j+i)%types.length];
+				String type = "" +types[(j+i)%types.length];
 				int h = r.nextInt(3)+1;
 				h =1;
 				type="marking";

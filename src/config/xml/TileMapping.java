@@ -46,5 +46,5 @@ public class TileMapping implements ITileMapping {
 	public HashMap<String, TileImageData> getTilemapping() {
 		return tilemapping;
 	}
-	
+
 }

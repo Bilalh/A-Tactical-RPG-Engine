@@ -48,7 +48,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	private BufferSize size;
 	private void makeSize(){
         int max = Math.max(fieldWidth, fieldHeight);
-		int heightOffset  = (MapSettings.tileDiagonal);
+		int heightOffset  = (MapSettings.tileDiagonal)*3;
 //		bufferWidth   = MapSettings.tileDiagonal * max + 5;
 //		bufferHeight  = (int) (MapSettings.tileDiagonal / 2f *max + heightOffset);
 		

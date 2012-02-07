@@ -1,0 +1,25 @@
+<sprite-array>
+<sprite name="1" x="0" y="0" width="64" height="32"/>
+<sprite name="2" x="64" y="0" width="64" height="32"/>
+<sprite name="3" x="128" y="0" width="64" height="32"/>
+<sprite name="4" x="192" y="0" width="64" height="32"/>
+<sprite name="5" x="0" y="32" width="64" height="32"/>
+<sprite name="6" x="64" y="32" width="64" height="32"/>
+<sprite name="7" x="128" y="32" width="64" height="32"/>
+<sprite name="8" x="192" y="32" width="64" height="32"/>
+<sprite name="9" x="0" y="64" width="64" height="32"/>
+<sprite name="10" x="64" y="64" width="64" height="32"/>
+<sprite name="11" x="128" y="64" width="64" height="32"/>
+<sprite name="12" x="192" y="64" width="64" height="32"/>
+<sprite name="13" x="0" y="96" width="64" height="32"/>
+<sprite name="14" x="64" y="96" width="64" height="32"/>
+<sprite name="15" x="128" y="96" width="64" height="32"/>
+<sprite name="16" x="192" y="96" width="64" height="32"/>
+<sprite name="17" x="0" y="128" width="64" height="32"/>
+<sprite name="18" x="64" y="128" width="64" height="32"/>
+<sprite name="19" x="128" y="128" width="64" height="32"/>
+<sprite name="20" x="192" y="128" width="64" height="32"/>
+<sprite name="21" x="0" y="160" width="64" height="32"/>
+<sprite name="22" x="64" y="160" width="64" height="32"/>
+<sprite name="23" x="128" y="160" width="64" height="32"/>
+</sprite-array>

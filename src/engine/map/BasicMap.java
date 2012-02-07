@@ -25,7 +25,7 @@ public class BasicMap extends Observable {
 	
 	public void loadMap(String name) {
 		SavedMap smap = Config.loadPreference(name);
-
+		assert smap != null;
 		width = smap.getFieldWidth();
 		height = smap.getFieldHeight();
 		field = new Tile[width][height];
@@ -36,7 +36,7 @@ public class BasicMap extends Observable {
 //		}
 
 		for (SavedTile t : smap.getTiles()) {
-//			float h = ((t.getHeight())/max)*10;
+//			float h = ((t.getHeight())/max)*5;
 //			field[t.getX()][t.getY()] = new Tile((int)h, (int)h, t.getType());
 			field[t.getX()][t.getY()] = new Tile(t.getHeight(),t.getHeight() , t.getType());
 		}
@@ -45,13 +45,17 @@ public class BasicMap extends Observable {
 		mapSettings = smap.getMapSettings();
 		data = smap.getMapData();
 
+		assert mapSettings != null;
+		assert data != null;
+
 		String mappingLocation = data.getTileMappingLocation();
+
 		if (mappingLocation == null) {
 			tileMapping = Config.defaultMapping();
 		} else {
 			tileMapping = Config.loadPreference(mappingLocation);
+			assert tileMapping != null;
 		}
-
 	}
 
 

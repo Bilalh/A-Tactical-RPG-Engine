@@ -47,6 +47,14 @@ public class Location implements Serializable, ILocation {
 		return this;
 	}
 
+	/**
+	 * @return This Point for chaining.
+	 */
+	public Location mult(int m){
+		this.x *=m;
+		this.y *=m;
+		return this;
+	}
 	
 	/**
 	 * @return This Point for chaining.

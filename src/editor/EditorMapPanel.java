@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
+import common.Location;
+
 import editor.map.EditorIsoTile;
 
 import util.Logf;
@@ -44,7 +46,8 @@ class EditorMapPanel extends JPanel {
 
 	private Rectangle mouseArea;
 	private Point mouseStart;
-
+	private Point old;
+	
 	private void selection(){
 		ArrayList<EditorIsoTile> selection = new ArrayList<EditorIsoTile>();
 		for (int i = 0; i < field.length; i++) {
@@ -59,14 +62,44 @@ class EditorMapPanel extends JPanel {
 		repaint(50);
 	}
 	
-	public EditorMapPanel(final Editor editor, EditorIsoTile[][] field) {
+	private ArrayList<EditorIsoTile> selected = new ArrayList<EditorIsoTile>();
+	private EditorIsoTile current;
+	
+	private static final int[][] dirs = {
+		{ 0, 1 },  // up
+		{ 0, -1 }, // down
+		{ -1, 0 }, // left
+		{ 1, 0 },  // right
+};
+
+	
+	public EditorMapPanel(final Editor editor, final EditorIsoTile[][] field) {
 		this.editor = editor;
 		setMap(field);
 		
 		this.addMouseMotionListener(new MouseMotionAdapter() {
 
+			
 			@Override
 			public void mouseDragged(MouseEvent e) {
+				Location start = current.getFieldLocation().copy();
+				if (editor.getState() == State.DRAW) {
+					for (int[] ii : dirs) {
+						Location l = start.copy().translate(ii[0], ii[1]);
+
+						if (l.x < 0 || l.x >= field.length || l.y < 0 || l.y >= field[0].length) {
+							continue;
+						}
+
+						if (field[l.x][l.y].contains(e.getPoint())) {
+							editor.tileClicked(field[l.x][l.y]);
+							current = field[l.x][l.y];
+							break;
+						}
+						
+					}
+				}
+				
 				if (editor.getState() != State.SELECTION) return;
 				Point end = e.getPoint();
 				int y_max = Math.max(mouseStart.y, end.y);
@@ -86,6 +119,10 @@ class EditorMapPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				EditorMapPanel.this.mousePressed(e);
 				mouseStart = e.getPoint();
+				if (editor.getState() == State.DRAW){
+					findSelected();
+					old = mouseStart;
+				}
 			}
 
 			@Override
@@ -100,6 +137,25 @@ class EditorMapPanel extends JPanel {
 
 	}
 
+	private void findSelected() {
+		int xIndex = -1, yIndex = -1;
+		double highest = 0.0;
+
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[0].length; j++) {
+				if (field[i][j].contains(mouseStart)) {
+					if (field[i][j].getHeight() > highest) {
+						highest = field[i][j].getHeight();
+						xIndex = i;
+						yIndex = j;
+					}
+				}
+			}
+		}
+        if (xIndex > -1 && yIndex > -1) {
+        	current = field[xIndex][yIndex];
+        }
+	}
 	
 	public synchronized void setMap(EditorIsoTile[][] field){
 		this.field    = field;
@@ -159,7 +215,7 @@ class EditorMapPanel extends JPanel {
 	}
 	
 	public  void repaintMap(){
-		log.debug("repainting Map");
+//		log.debug("repainting Map");
 		drawn = false;
 		repaint();
 	}
