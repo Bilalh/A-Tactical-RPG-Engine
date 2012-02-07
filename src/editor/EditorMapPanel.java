@@ -79,25 +79,70 @@ class EditorMapPanel extends JPanel {
 		
 		this.addMouseMotionListener(new MouseMotionAdapter() {
 
-			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				if (old ==null){
+					old = e.getPoint();
+				}
+				if (current ==null){
+					if (findCurrent(e.getPoint())==null) return;
+				}
+				
+				findNext(e.getPoint(), false);
+			}
+
+			private void findNext(Point e, boolean sendClicked) {
+				assert current !=null;
+				if (sendClicked) editor.tileClicked(current);
+				else             editor.tileEnded(current);
+				
+				if (e.distance(old) > MapSettings.tileDiagonal / 6) {
+					if (findCurrent(e) ==null) return;
+					if (sendClicked) editor.tileClicked(current);
+					else             editor.tileEnded(current);
+				}
+
+				
+				Location start = current.getFieldLocation().copy();
+				for (int[] ii : dirs) {
+					Location l = start.copy().translate(ii[0], ii[1]);
+
+					if (l.x < 0 || l.x >= field.length || l.y < 0 || l.y >= field[0].length) {
+						continue;
+					}
+
+					if (field[l.x][l.y].contains(e)) {
+						if (sendClicked) editor.tileClicked(current);
+						else             editor.tileEnded(current);
+						break;
+					}
+				}
+			}
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				Location start = current.getFieldLocation().copy();
-				if (editor.getState() == State.DRAW) {
-					for (int[] ii : dirs) {
-						Location l = start.copy().translate(ii[0], ii[1]);
-
-						if (l.x < 0 || l.x >= field.length || l.y < 0 || l.y >= field[0].length) {
-							continue;
-						}
-
-						if (field[l.x][l.y].contains(e.getPoint())) {
-							editor.tileClicked(field[l.x][l.y]);
-							current = field[l.x][l.y];
-							break;
-						}
-						
-					}
+				if (current!=null && editor.getState() == State.DRAW){
+					findNext(e.getPoint(),true);
+//					if (e.getPoint().distance(old) > MapSettings.tileDiagonal/6){
+//						findCurrent(e.getPoint());
+//						editor.tileClicked(current);
+//					}
+//					
+//					Location start = current.getFieldLocation().copy();
+//					for (int[] ii : dirs) {
+//						Location l = start.copy().translate(ii[0], ii[1]);
+//
+//						if (l.x < 0 || l.x >= field.length || l.y < 0 || l.y >= field[0].length) {
+//							continue;
+//						}
+//
+//						if (field[l.x][l.y].contains(e.getPoint())) {
+//							editor.tileClicked(field[l.x][l.y]);
+//							current = field[l.x][l.y];
+//							break;
+//						}
+//						
+//					}
+//					old = e.getPoint();
 				}
 				
 				if (editor.getState() != State.SELECTION) return;
@@ -111,7 +156,7 @@ class EditorMapPanel extends JPanel {
 				mouseArea = new Rectangle(x_min,y_min, x_max - x_min, y_max-y_min);
 				repaint(10);
 			}
-			
+
 		});
 		
 		this.addMouseListener(new MouseAdapter() {
@@ -120,7 +165,7 @@ class EditorMapPanel extends JPanel {
 				EditorMapPanel.this.mousePressed(e);
 				mouseStart = e.getPoint();
 				if (editor.getState() == State.DRAW){
-					findSelected();
+					findCurrent(mouseStart);
 					old = mouseStart;
 				}
 			}
@@ -132,18 +177,17 @@ class EditorMapPanel extends JPanel {
 				}
 				mouseArea = null;
 			}
-
 		});
 
 	}
 
-	private void findSelected() {
+	private EditorIsoTile findCurrent(Point p) {
 		int xIndex = -1, yIndex = -1;
 		double highest = 0.0;
 
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[0].length; j++) {
-				if (field[i][j].contains(mouseStart)) {
+				if (field[i][j].contains(p)) {
 					if (field[i][j].getHeight() > highest) {
 						highest = field[i][j].getHeight();
 						xIndex = i;
@@ -154,7 +198,10 @@ class EditorMapPanel extends JPanel {
 		}
         if (xIndex > -1 && yIndex > -1) {
         	current = field[xIndex][yIndex];
+        }else{
+        	current=null;
         }
+        return current;
 	}
 	
 	public synchronized void setMap(EditorIsoTile[][] field){

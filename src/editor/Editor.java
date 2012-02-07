@@ -19,6 +19,7 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 
 import view.map.IMapRendererParent;
+import view.map.IsoTile.Orientation;
 import config.XMLUtil;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
@@ -156,6 +157,22 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		return 0;
 	}
 
+	
+	private EditorIsoTile old;
+	private boolean showOnHover =false;
+
+	public void tileEnded(EditorIsoTile tile) {
+		if (old != null) {
+			old.setSelected(false);
+		}
+		if (showOnHover && state != State.SELECTION && state != State.MOVE){
+			tile.setSelected(true);
+			editorMapPanel.repaintMap();
+			old = tile;
+		}
+	}
+	
+	// dragged/clicked
 	/** @category Callback **/
 	public void tileClicked(EditorIsoTile tile) {
 		boolean repaint = false;
@@ -328,7 +345,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		return toolBar;
 	}
 
-	/** @category Gui**/
+		/** @category Gui**/
 		private JMenuBar createMenubar() {
 			int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 	
@@ -362,6 +379,18 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 				}
 			});
 			view.add(number);
+			
+			final JCheckBoxMenuItem hover = new JCheckBoxMenuItem("Highlight tiles when ended", false);
+			hover.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,mask));
+			hover.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					showOnHover=!showOnHover;
+					hover.setSelected(showOnHover);
+				}
+			});
+			view.add(hover);
+			
 			bar.add(view);
 			
 			JMenu editors = new JMenu("Editors");

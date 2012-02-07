@@ -41,7 +41,7 @@ public class IsoTile {
 	}
 
 	public static enum TileState {
-		SELECTED(Color.ORANGE), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.GREEN);
+		SELECTED(Color.white.darker()), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.GREEN);
 		public final Color colour;
 
 		TileState(Color c) {
