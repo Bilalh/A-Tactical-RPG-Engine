@@ -99,7 +99,25 @@ public class PathFinder implements IMovementCostProvider {
 		path.push(locations[unit.getGridX()][unit.getGridY()]);
 		paths.put(p,path);
 		log.info("finalpath " + path);
-		
+
+		if (log.isDebugEnabled()){
+
+			for (LocationInfo l : path) {
+				System.out.printf("(%s,%s) ", l.x,l.y);
+			}
+			System.out.println();
+			
+			for (LocationInfo l : path) {
+				System.out.print(l.getDirection()+ "     ");
+			}
+			System.out.println();
+
+			for (LocationInfo l : path) {
+				System.out.print(l.getDirection().inverse()+ "     ");
+			}
+			System.out.println();
+
+		}
 		
 		return Collections.unmodifiableCollection(path);
 	}

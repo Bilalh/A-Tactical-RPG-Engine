@@ -5,8 +5,8 @@ package common.enums;
  * @author Bilal Hussain
  */
 public enum Direction {
-	NORTH (0, -1, "N",1),
-	SOUTH (0,  1, "S", 0),
+	SOUTH (0, -1, "S",1),
+	NORTH (0,  1, "N", 0),
 	
 	WEST  (-1, 0, "W",3),
 	EAST  (1,  0, "E",2),
@@ -29,10 +29,13 @@ public enum Direction {
 		return values()[inverse];
 	}
 	
+	public String reference() {
+		return this.name().toLowerCase();
+	}
+	
 	@Override
 	public String toString() {
 		return shortName;
 	}
-	
 	
 }

@@ -39,10 +39,13 @@ import engine.map.Tile;
 public class GuiMap implements Observer, IMapRendererParent {
 	private static final Logger log = Logger.getLogger(GuiMap.class);
 		
-    private IsoTile[][] field;
+    private Component parent;
+
 	private IsomertricMapRenderer mapRenderer;
 	private MapController mapController; 
 	
+	private IsoTile[][] field;
+
 	private int fieldWidth, fieldHeight;
 	private static IsoTile selectedTile;
     
@@ -68,13 +71,12 @@ public class GuiMap implements Observer, IMapRendererParent {
     private int drawX,drawY;
     
     final private MapActions[] actions = {new Movement(this), new DialogHandler(this), new MapActions(this)};
-    enum ActionsEnum {
+    private GuiUnit currentUnit;
+	enum ActionsEnum {
     	MOVEMENT, DIALOG,NONE
     }
 
-    private Component parent;
-    
-	/** @category Constructor */
+    /** @category Constructor */
 	public GuiMap(MapController mapController, Component parent) {
 		assert actions.length == ActionsEnum.values().length;
 		
@@ -144,7 +146,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 					AnimatedUnit u = getTile(lastLocation).removeUnit();
 					lastLocation = pathIterator.next();
 					u.setLocation(lastLocation);
-					
+					u.setDirection(lastLocation.getDirection());
 					if (over != null){
 						getTile(lastLocation).setUnit(over);
 						over = null;
@@ -244,7 +246,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setDrawn(false);
 	}
 	
-	private GuiUnit currentUnit;
 	public void unitsTurn(IMapUnit unit) {
 		currentUnit = getTile(unit.getLocation()).getUnit();
 		assert(currentUnit != null);

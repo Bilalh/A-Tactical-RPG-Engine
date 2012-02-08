@@ -39,7 +39,7 @@ public class GuiUnit {
 	public GuiUnit(int gridX,int gridY) {
 		this.gridX = gridX;
 		this.gridY = gridY;
-		direction = Direction.SOUTH;
+		direction = Direction.EAST;
 	} 
 	
 	public void draw(Graphics g, final IsoTile[][] tiles, int drawX, int drawY) {
@@ -108,7 +108,7 @@ public class GuiUnit {
 	public void setMapUnit(IMapUnit unit) {
 		this.unit = unit;
 		spriteSheet = Config.loadSpriteSheet(unit.getSpriteSheetLocation());
-		sprite = spriteSheet.getSpriteImage("se");
+		sprite = spriteSheet.getSpriteImage(direction.reference());
 	}
 
 	/** @category Generated */
@@ -119,6 +119,7 @@ public class GuiUnit {
 	/** @category Generated */
 	public void setDirection(Direction direction) {
 		this.direction = direction;
+		sprite = spriteSheet.getSpriteImage(direction.reference());
 	}
 	
 }
