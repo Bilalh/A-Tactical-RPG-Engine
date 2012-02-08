@@ -164,9 +164,26 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				renew();
 			}
 		});
+
+		JMenuItem removeExt = new JMenuItem("Remove Extensions from Names");
+		removeExt.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] values =sprites.toArray();
+				for (Object o : values) {
+					MutableSprite s = (MutableSprite) o;
+					final String str = s.getName();
+					final int index  = str.lastIndexOf('.');
+					if(index ==-1) continue;
+					s.setName(str.substring(0, index));
+				}
+			}
+		});
+		
 		
 		edit.add(selectedAll);
 		edit.add(sort);
+		edit.add(removeExt);
 		
 		return bar;
 	}

@@ -41,13 +41,13 @@ public class SpriteSheetPanel extends JPanel {
 	}
 
 	protected void init(){
-		Color base = Color.gray;
+		Color start = Color.gray;
 		BufferedImage image = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		
-		g.setColor(base);
+		g.setColor(start);
 		g.fillRect(0, 0, image.getWidth(), image.getHeight());
-		g.setColor(base.darker());
+		g.setColor(start.darker());
 		g.fillRect(image.getWidth() / 2, 0,  image.getWidth() / 2, image.getHeight() / 2);
 		g.fillRect(0, image.getHeight() / 2, image.getWidth() / 2, image.getHeight() / 2);
 		
