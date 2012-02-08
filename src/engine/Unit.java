@@ -29,19 +29,17 @@ public class Unit implements IMutableUnit {
 
 	private int weight;
 	
-	/** @category Generated */
-	public Unit(String name, int maxHp, int move, int strength) {
-		this(name, maxHp, move, strength, 10);
-	}
+	String spriteSheetLocation;
 
-	public Unit(String name){
+	public Unit(){
 		uuid = UUID.randomUUID();
-		this.name = name;
+		this.name = uuid.toString();
 	}
 	
 	/** @category Generated */
 	public Unit(String name, int maxHp, int move, int strength, int speed) {
-		this(name);
+		this();
+		this.name=name;
 		this.maxHp = maxHp;
 		this.move = move;
 		this.strength = strength;
@@ -53,85 +51,85 @@ public class Unit implements IMutableUnit {
 		return 1 + Math.abs(next.getCost() - old.getCost());
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	@Override
 	public String getName() {
 		return name;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	@Override
 	public int getMaxHp() {
 		return maxHp;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	@Override
 	public void setMaxHp(int maxHp) {
 		this.maxHp = maxHp;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	@Override
 	public int getMove() {
 		return move;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	@Override
 	public void setMove(int move) {
 		this.move = move;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	@Override
 	public int getStrength() {
 		return strength;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	@Override
 	public void setStrength(int strength) {
 		this.strength = strength;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	@Override
 	public int getDefence() {
 		return defence;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	@Override
 	public void setDefence(int defence) {
 		this.defence = defence;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	@Override
 	public int getLevel() {
 		return level;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	@Override
 	public void setLevel(int level) {
 		this.level = level;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	@Override
 	public int getExp() {
 		return exp;
 	}
 
-	/** @category Generated Setter */
+	/** @category Generated */
 	@Override
 	public void setExp(int exp) {
 		this.exp = exp;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	@Override
 	public UUID getUuid() {
 		return uuid;
@@ -162,6 +160,22 @@ public class Unit implements IMutableUnit {
 	public String toString() {
 		return String.format("Unit [name=%s, maxHp=%s, move=%s, strength=%s, defence=%s, speed=%s, level=%s, exp=%s, uuid=%s, weight=%s]",
 				name, maxHp, move, strength, defence, speed, level, exp, uuid, weight);
+	}
+
+	/** @category Generated */
+	@Override
+	public String getSpriteSheetLocation() {
+		return spriteSheetLocation;
+	}
+
+	/** @category Generated */
+	public void setSpriteSheetLocation(String spriteSheetLocation) {
+		this.spriteSheetLocation = spriteSheetLocation;
+	}
+
+	/** @category Generated */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

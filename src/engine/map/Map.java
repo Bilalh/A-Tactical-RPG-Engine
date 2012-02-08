@@ -157,13 +157,28 @@ public class Map extends BasicMap implements IMap {
 	private void setUpAI() {
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
 		
-		AIUnit u = new AIUnit("ai-1", width - 1, 0,ai);
-		aiUnits.add(u);
-		field[width - 1][0].setCurrentUnit(u);
-
-		u = new AIUnit("ai-2", width - 1, 1,ai);
-		aiUnits.add(u);
-		field[width - 1][1].setCurrentUnit(u);
+		
+		Unit u = new Unit();
+		u.setName("ai-1");
+		u.setMove(3);
+		u.setSpeed(20);
+		u.setStrength(30);
+		u.setDefence(20);
+		u.setSpriteSheetLocation("images/characters/Elena.png");
+		AIUnit au = new AIUnit(u,new Location( width - 1, 0), ai);
+		aiUnits.add(au);
+		field[width - 1][0].setCurrentUnit(au);
+		
+		u = new Unit();
+		u.setName("ai-2");
+		u.setMove(4);
+		u.setSpeed(60);
+		u.setStrength(10);
+		u.setDefence(10);
+		u.setSpriteSheetLocation("images/characters/Elena.png");
+		au = new AIUnit(u,new Location( width - 1, 1), ai);
+		aiUnits.add(au);
+		field[width - 1][1].setCurrentUnit(au);
 		
 		ai = new AIPlayer(aiUnits);
 	}
@@ -177,6 +192,7 @@ public class Map extends BasicMap implements IMap {
 		assert(height > 0);
 	}
 
+	/** @category unused**/
 	void testing() {
 		tileMapping = Config.defaultMapping();
 		width = 17;
@@ -195,6 +211,7 @@ public class Map extends BasicMap implements IMap {
 		}
 	}
 
+	/** @category unused**/
 	private void loadFromSpaceSepFile(String name) {
 		tileMapping = Config.defaultMapping();
 		try {

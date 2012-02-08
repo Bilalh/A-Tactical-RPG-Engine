@@ -29,4 +29,7 @@ public interface IUnit {
 
 	int getSpeed();
 	
+	String getSpriteSheetLocation();
+	
+	
 }

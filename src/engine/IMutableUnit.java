@@ -22,6 +22,8 @@ public interface IMutableUnit extends IUnit {
 
 	void setSpeed(int speed);
 
-	 int getMaxWeight();
-	 
+	int getMaxWeight();
+
+	void setName(String name);
+
 }

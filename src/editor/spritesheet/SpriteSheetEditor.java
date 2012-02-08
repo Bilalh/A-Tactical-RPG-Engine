@@ -109,7 +109,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		});
 
 		JMenuItem addSheet = new JMenuItem("Add Sheet");
-		addSheet.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,mask));
+		addSheet.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,mask));
 		addSheet.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -177,6 +177,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 					if(index ==-1) continue;
 					s.setName(str.substring(0, index));
 				}
+				list.repaint();
 			}
 		});
 		
