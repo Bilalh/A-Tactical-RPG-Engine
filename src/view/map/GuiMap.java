@@ -37,7 +37,6 @@ import engine.map.Tile;
  * @author bilalh
  */
 public class GuiMap implements Observer, IMapRendererParent {
-
 	private static final Logger log = Logger.getLogger(GuiMap.class);
 	
 	private MapController mapController; 
@@ -47,7 +46,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	private int fieldWidth, fieldHeight;
 	private static IsoTile selectedTile;
-    
     
     private AnimatedUnit[] units;
     private AnimatedUnit[] aiUnits;

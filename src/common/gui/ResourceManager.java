@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import org.apache.log4j.Logger;
 
 import common.spritesheet.SpriteSheet;
+import config.Config;
 
 import util.Args;
 import util.Logf;
@@ -38,16 +39,7 @@ public class ResourceManager {
 	
 	public synchronized void loadSpriteSheetFromResources(String filepath){
 		assert filepath != null;
-		
-		File in = new File("Resources/"+filepath);
-		File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png", "\\.xml"));
-		try {
-			BufferedImage b = ImageIO.read(in);
-			currentTileSheet = new SpriteSheet(b, new FileInputStream(xml));
-		} catch (IOException e) {
-			// TODO catch block in getSpriteSheetFromResources
-			e.printStackTrace();
-		}
+		currentTileSheet = Config.loadSpriteSheet(filepath);
 	}
 	
 	public  synchronized void loadSpriteSheet(SpriteSheet sheet){

@@ -8,9 +8,8 @@ import java.awt.image.BufferedImage;
  * @author bilalh
  */
 public class Sprite {
-
 	
-	private BufferedImage  image;
+	private BufferedImage image;
 
 	/** @category Generated */
 	public Sprite(BufferedImage image) {

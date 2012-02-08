@@ -1,9 +1,12 @@
 package config;
 
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Properties;
+
+import javax.imageio.ImageIO;
 
 import org.apache.log4j.LogMF;
 import org.apache.log4j.Logger;
@@ -12,6 +15,7 @@ import org.apache.log4j.PropertyConfigurator;
 import com.sun.tools.internal.ws.util.xml.XmlUtil;
 
 import common.enums.ImageType;
+import common.spritesheet.SpriteSheet;
 
 import config.xml.ITileMapping;
 import config.xml.TileImageData;
@@ -81,6 +85,19 @@ public class Config {
 		return pref;
 	}
 	
+	public static SpriteSheet loadSpriteSheet(String filepath){
+		File in = new File("Resources/"+filepath);
+		File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png", "\\.xml"));
+		SpriteSheet ss = null;
+		try {
+			BufferedImage b = ImageIO.read(in);
+			ss = new SpriteSheet(b, new FileInputStream(xml));
+		} catch (IOException e) {
+			// TODO catch block in loadSpriteSheet
+			e.printStackTrace();
+		}
+		return ss;
+	}
 	
 	private static final ITileMapping defaultMapping;
 	
@@ -95,6 +112,7 @@ public class Config {
 	public static ITileMapping defaultMapping(){
 		return defaultMapping;
 	}
+	
 	
 }
 
