@@ -174,6 +174,7 @@ public class Unit implements IMutableUnit {
 	}
 
 	/** @category Generated */
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}

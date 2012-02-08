@@ -5,7 +5,6 @@ package view.map;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.*;
@@ -34,24 +33,25 @@ import controller.MapController;
 import engine.map.Tile;
 
 /**
+ * The view 
  * @author bilalh
  */
 public class GuiMap implements Observer, IMapRendererParent {
 	private static final Logger log = Logger.getLogger(GuiMap.class);
-	
-	private MapController mapController; 
-	
+		
     private IsoTile[][] field;
 	private IsomertricMapRenderer mapRenderer;
-
+	private MapController mapController; 
+	
 	private int fieldWidth, fieldHeight;
 	private static IsoTile selectedTile;
     
+	// The units
     private AnimatedUnit[] units;
     private AnimatedUnit[] aiUnits;
     
-    private Dialog dialog;
-    private boolean showDialog = false;
+    Dialog dialog;
+    boolean showDialog = false;
         
     // The Class that with handed the input 
     private MapActions current;
@@ -263,30 +263,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setActionHandler(ActionsEnum.DIALOG);
 	}
 		
-	private class DialogHandler extends MapActions{
-
-		public DialogHandler(GuiMap map) {
-			super(map);
-		}
-
-		@Override
-		public void keyComfirm() {
-			nextPage();
-		}
-		
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			nextPage();
-		}
-		
-		private void nextPage(){
-			if (!dialog.nextPage()){
-				showDialog = false;
-				setActionHandler(ActionsEnum.MOVEMENT);
-			}
-		}
-	}
-
 	public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_T:
@@ -412,7 +388,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		return actions[num.ordinal()];
 	}
 	
-	private void setActionHandler(ActionsEnum num){
+	void setActionHandler(ActionsEnum num){
 		final MapActions aa = actions[num.ordinal()];
 		setActionHandler(aa);
 	}

@@ -30,43 +30,43 @@ public class AnimatedUnit extends GuiUnit {
 	private long frameDuration = 100 *1000000; 
 	
 	public AnimatedUnit(int gridX, int gridY, String ref) {
-		super(gridX,gridY,ref);
+		super(gridX,gridY);
 		
 		// setup the animatin frames
-		frames= new Sprite[4];
-		frames[0] = sprite;
-		frames[1] = ResourceManager.instance().getSpriteFromClassPath("assets/gui/alien2.gif");
-		frames[2] = sprite;
-		frames[3] = ResourceManager.instance().getSpriteFromClassPath("assets/gui/alien3.gif");	
+//		frames= new Sprite[4];
+//		frames[0] = sprite;
+//		frames[1] = ResourceManager.instance().getSpriteFromClassPath("assets/gui/alien2.gif");
+//		frames[2] = sprite;
+//		frames[3] = ResourceManager.instance().getSpriteFromClassPath("assets/gui/alien3.gif");	
 	}
 
 	public AnimatedUnit(int gridX, int gridY, String[] refs) {
-		super(gridX,gridY,refs[0]);
-		frames = new Sprite[refs.length]; 
-		frames[0] = sprite;
-		for (int i = 1; i < refs.length; i++) {
-			frames[i] = ResourceManager.instance().getSpriteFromClassPath(refs[i]);
-		}
+		super(gridX,gridY);
+//		frames = new Sprite[refs.length]; 
+//		frames[0] = sprite;
+//		for (int i = 1; i < refs.length; i++) {
+//			frames[i] = ResourceManager.instance().getSpriteFromClassPath(refs[i]);
+//		}
 	}
 	
 
 	public void draw(Graphics g, final IsoTile[][] tiles, int x, int y, long timeDiff){
-		lastFrameChange += timeDiff;
-		
-		// if we need to change the frame, update the frame number and flip over the sprite in use
-		if (lastFrameChange > frameDuration) {
-			// reset our frame change time counter
-			lastFrameChange = 0;
-			
-			// update the frame
-			frameNumber++;
-			if (frameNumber >= frames.length) {
-				frameNumber = 0;
-			}
-			
-			sprite = frames[frameNumber];
-		}
-		
+//		lastFrameChange += timeDiff;
+//		
+//		// if we need to change the frame, update the frame number and flip over the sprite in use
+//		if (lastFrameChange > frameDuration) {
+//			// reset our frame change time counter
+//			lastFrameChange = 0;
+//			
+//			// update the frame
+//			frameNumber++;
+//			if (frameNumber >= frames.length) {
+//				frameNumber = 0;
+//			}
+//			
+//			sprite = frames[frameNumber];
+//		}
+//		
 		draw(g, tiles,x, y);
 	}
 	

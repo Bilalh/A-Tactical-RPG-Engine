@@ -23,6 +23,7 @@ import config.xml.TileMapping;
 import editor.Editor;
 
 /**
+ * Class for loading preferences and spritesheets.  It also store the defaults 
  * @author Bilal Hussain
  */
 public class Config {
@@ -96,6 +97,7 @@ public class Config {
 			// TODO catch block in loadSpriteSheet
 			e.printStackTrace();
 		}
+		assert ss != null;
 		return ss;
 	}
 	

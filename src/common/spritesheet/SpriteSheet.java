@@ -35,12 +35,11 @@ public class SpriteSheet implements ISpriteSheet {
 	public BufferedImage getSpriteImage(String ref){
 		return sprites.get(ref);
 	}
-	
+
 	public Map<String, BufferedImage> getSpritesMap(){
 		return sprites;
 	}
 
-	/** @category Generated */
 	@Override
 	public BufferedImage getSheetImage() {
 		return sheet;

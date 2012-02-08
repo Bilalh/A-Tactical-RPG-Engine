@@ -34,7 +34,6 @@ public class ResourceManager {
 	private static ResourceManager singleton = new ResourceManager();
 
 	private Map<String, Sprite> sprites = Collections.synchronizedMap(new HashMap<String, Sprite>());
-
 	private static SpriteSheet currentTileSheet;
 	
 	public synchronized void loadSpriteSheetFromResources(String filepath){
