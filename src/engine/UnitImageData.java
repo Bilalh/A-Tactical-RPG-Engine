@@ -26,5 +26,10 @@ public class UnitImageData {
 	public int getNumberOfFrames() {
 		return numberOfFrames;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("%s - %s", name, numberOfFrames);
+	}
 	
 }

@@ -1,9 +1,7 @@
 package engine;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.Map.Entry;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
@@ -62,5 +60,15 @@ public class UnitImages implements IPreference {
 	/** @category Generated */
 	public int size() {
 		return animations.size();
+	}
+
+	/** @category Generated */
+	public UnitImageData remove(Object key) {
+		return animations.remove(key);
+	}
+
+	/** @category Generated */
+	public Set<Entry<String, UnitImageData>> entrySet() {
+		return animations.entrySet();
 	}
 }

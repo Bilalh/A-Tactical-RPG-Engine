@@ -62,7 +62,10 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private JSpinner border = new JSpinner(new SpinnerNumberModel(0, 0, 50, 1));
 	private DefaultListModel sprites = new DefaultListModel();
 	private ReorderableJList list;
+	private DefaultListModel lamanimations = new DefaultListModel();
+	private JList lanimations = new JList(lamanimations);
 
+	
 	private Packer packer = new Packer();
 	private UnitImages animations = new UnitImages();
 	
@@ -235,8 +238,30 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			}
 		});
 
-		tab.add("Listing", listScroll);
+		JScrollPane animationScroll = new JScrollPane(lanimations);
+		animationScroll.setBounds(540, 5, 200, 350);
+		
+		lanimations.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+//		list.setCellRenderer(new FileListRenderer());
 
+		lanimations.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (lamanimations.isEmpty() || lanimations.getSelectedIndex() < 0) return;
+
+				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+					for (Object o : lanimations.getSelectedValues()) {
+						lamanimations.removeElement(o);
+						animations.remove(((UnitImageData)o).getName());
+					}
+					lanimations.repaint();
+				}
+			}
+		});
+		
+		tab.add("Listing", listScroll);
+		tab.add("Animations", animationScroll);
+		
 		this.add(tab, BorderLayout.EAST);
 		this.add(createPanel(""), BorderLayout.WEST);
 		this.add(createPanel(""), BorderLayout.SOUTH);
@@ -368,7 +393,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		});
 		
 		
-		JMenuItem animation = new JMenuItem("Make animation from selected");
+		JMenuItem animation = new JMenuItem("Make Animation from Selected");
 		animation.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -482,8 +507,15 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				File a = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "") + "-animations.xml");
 				if (a.exists()){
 					UnitImages temp = XMLUtil.convertXml(new FileInputStream(a));
-					if (temp != null) animations = temp;
-					else              animations = new UnitImages();
+					if (temp != null){
+						animations = temp;
+						for (Entry<String, UnitImageData> e: animations.entrySet()) {
+							lamanimations.addElement(e.getValue());
+							lanimations.repaint();
+						}
+					}else{
+						animations = new UnitImages();
+					}
 				}
 				
 				renew();
@@ -574,14 +606,16 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				MutableSprite ms = (MutableSprite) o;
 				ms.setName(base + i++);
 			}
-			animations.put(base, new UnitImageData(base, list.getSelectedValues().length));
+			UnitImageData data =  new UnitImageData(base, list.getSelectedValues().length);
+			animations.put(base, data);
+			lamanimations.addElement(data);
 			list.repaint();
+			lanimations.repaint();
 		}
 	}
 	
 	private class FileListRenderer extends  ReorderableListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
-		
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
