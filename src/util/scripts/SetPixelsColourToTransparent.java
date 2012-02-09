@@ -21,29 +21,34 @@ import util.ImageUtil;
  */
 public class SetPixelsColourToTransparent {
 	private JFrame f = new JFrame();
-
-	public SetPixelsColourToTransparent(int x, int y) throws IOException {
+	JFileChooser chooser;
+	public SetPixelsColourToTransparent() {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JFileChooser chooser = new JFileChooser("Resources/images");
+		chooser = new JFileChooser("Resources/images");
 		chooser.setFileFilter(new FileNameExtensionFilter("Portable Network Graphics (*.png)", "png"));
 		chooser.setMultiSelectionEnabled(true);
+	}
+
+	public void makeTranspanarent(int x, int y) throws IOException {
 		int rst = chooser.showOpenDialog(f);
 		if (rst == JFileChooser.APPROVE_OPTION) {
+			File dir = new File(chooser.getSelectedFile().getParentFile(), "results");
+			dir.mkdirs();
 			for (File f : chooser.getSelectedFiles()) {
 				BufferedImage source = ImageIO.read(f);
 				int color = source.getRGB(x, y);
 				Image image = ImageUtil.setColorToTransparent(source, new Color(color));
 				BufferedImage transparent = ImageUtil.createBufferedImage(image);
-				File out = new File(f.getPath().replaceAll("\\.png", "-rst.png"));
+				File out = new File(dir, f.getName());
 				ImageIO.write(transparent, "PNG", out);
 			}
 		}
-
 	}
-
+	
 	public static void main(String[] args) throws Exception {
-		SetPixelsColourToTransparent s = new SetPixelsColourToTransparent(0, 0);
+		SetPixelsColourToTransparent s = new SetPixelsColourToTransparent();
+		s.makeTranspanarent(0, 0);
 	}
 
 }

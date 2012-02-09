@@ -44,9 +44,10 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private SpriteSheetPanel sheetPanel;
 	private int sWidth = sizes[0], sHeight = sizes[0];
 
-	private JFileChooser chooser = new JFileChooser(".");
-	private JFileChooser saveChooser = new JFileChooser(".");
-	private JFileChooser dirChooser = new JFileChooser(".");
+	private final String STARTING_PATH = "Resources/images";
+	private JFileChooser chooser = new JFileChooser(STARTING_PATH);
+	private JFileChooser saveChooser = new JFileChooser(STARTING_PATH);
+	private JFileChooser dirChooser = new JFileChooser(STARTING_PATH);
 	
 	private JSpinner border = new JSpinner(new SpinnerNumberModel(0, 0, 50, 1));
 	private DefaultListModel sprites = new DefaultListModel();

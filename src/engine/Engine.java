@@ -19,7 +19,7 @@ public class Engine {
 	private void loadSettings() {
 		player = new Player();
 		Unit u = new Unit();
-		u.setName("a");
+		u.setName("Elena");
 		u.setMove(3);
 		u.setSpeed(20);
 		u.setStrength(30);
@@ -28,13 +28,13 @@ public class Engine {
 		u.setSpriteSheetLocation("images/characters/Elena.png");
 		
 		u = new Unit();
-		u.setName("b");
+		u.setName("Boy");
 		u.setMove(4);
 		u.setSpeed(60);
 		u.setStrength(10);
 		u.setDefence(10);
 		player.addUnit(u);
-		u.setSpriteSheetLocation("images/characters/Elena.png");
+		u.setSpriteSheetLocation("images/characters/Boy.png");
 		
 	}
 
