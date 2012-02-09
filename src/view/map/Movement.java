@@ -168,7 +168,7 @@ public  class Movement extends MapActions{
     	
     	if (!mouseMoving){
     		mouseMoving =true;
-    		log.info("mouseDragged ");
+    		log.debug("mouseDragged ");
 	    	map.setDrawn(false);	
     	}
     	

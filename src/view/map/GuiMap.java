@@ -40,10 +40,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private static final Logger log = Logger.getLogger(GuiMap.class);
 		
     private Component parent;
-
-	private IsomertricMapRenderer mapRenderer;
 	private MapController mapController; 
+
 	
+	private IsomertricMapRenderer mapRenderer;
 	private IsoTile[][] field;
 
 	private int fieldWidth, fieldHeight;
@@ -58,7 +58,6 @@ public class GuiMap implements Observer, IMapRendererParent {
         
     // The Class that with handed the input 
     private MapActions current;
-    
     private MousePoxy MousePoxy;
     
     private HashMap<UUID,AnimatedUnit> unitMapping;
@@ -76,6 +75,18 @@ public class GuiMap implements Observer, IMapRendererParent {
     	MOVEMENT, DIALOG,NONE
     }
 
+	// For unit movement
+	private Iterator<LocationInfo> pathIterator;
+	private LocationInfo lastLocation;
+	private MapActions oldAction = null;
+	
+	// For drawing 
+	private boolean drawn = false;
+	private int frameDuration = 750 * 1000000;
+	private int frameChange = 0;
+	// When there are two units on the same tile
+	private AnimatedUnit over = null;
+	
     /** @category Constructor */
 	public GuiMap(MapController mapController, Component parent) {
 		assert actions.length == ActionsEnum.values().length;
@@ -121,19 +132,12 @@ public class GuiMap implements Observer, IMapRendererParent {
         mapController.addMapObserver(this);
         mapController.startMap();
         
-        path = new ArrayDeque<LocationInfo>(0);
-        pathIterator = path.iterator();
+        pathIterator = new ArrayDeque<LocationInfo>(0).iterator();
 	}
 	
 	public void makeImageBuffer(){
 		mapBuffer = parent.createImage(bufferWidth,bufferHeight);
 	}
-
-	private boolean drawn = false;
-	private int frameDuration = 750 * 1000000;
-	private int frameChange = 0;
-	private AnimatedUnit over = null;
-	
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 		
@@ -144,17 +148,21 @@ public class GuiMap implements Observer, IMapRendererParent {
 				// Animated moving.
 				if(pathIterator.hasNext()){
 					AnimatedUnit u = getTile(lastLocation).removeUnit();
-					lastLocation = pathIterator.next();
-					u.setLocation(lastLocation);
-					u.setDirection(lastLocation.getDirection());
+
 					if (over != null){
 						getTile(lastLocation).setUnit(over);
+						log.trace("over set "+ over);
 						over = null;
 					}
+					lastLocation = pathIterator.next();
 					over = getTile(lastLocation).getUnit();
+					log.trace("over "+ over);
 					
+					u.setLocation(lastLocation);
+					u.setDirection(lastLocation.getDirection());
 					getTile(lastLocation).setUnit(u);
-					log.trace("Moved to" + getTile(lastLocation));
+					
+					log.debug("Moved to" + getTile(lastLocation));
 					
 					if (!pathIterator.hasNext()){
 						setActionHandler(oldAction);
@@ -176,7 +184,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 	}
 	
-	Location getDrawLocation(int startX, int startY, int gridX, int gridY){
+	private Location getDrawLocation(int startX, int startY, int gridX, int gridY){
 		int x = startX- (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - gridY-1f));
 		int y = startY+ (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch* MapSettings.zoom * (fieldHeight - gridY-1));
 		x += (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom) * gridX;
@@ -225,16 +233,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 	}
 	
-	/** @category unused **/
-	private Collection<LocationInfo> path;
-	
-	private Iterator<LocationInfo> pathIterator;
-	private LocationInfo lastLocation;
-	private MapActions oldAction = null;
-	
 	public void unitMoved(IMapUnit u, Collection<LocationInfo> path){
 		AnimatedUnit movingUnit =  unitMapping.get(u.getUuid());
-		this.path    = path;
 		pathIterator = path.iterator();
 		lastLocation = pathIterator.next();
 		oldAction = current;
@@ -249,6 +249,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void unitsTurn(IMapUnit unit) {
 		currentUnit = getTile(unit.getLocation()).getUnit();
 		assert(currentUnit != null);
+		
 	}
 	
 	/** @category unused **/
@@ -264,60 +265,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setActionHandler(ActionsEnum.DIALOG);
 	}
 		
-	public void otherKeys(KeyEvent e){
-		switch (e.getKeyCode()) {
-			case KeyEvent.VK_T:
-				setActionHandler(ActionsEnum.DIALOG);
-				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
-				dialog.setName("Mage");
-				dialog.setText(
-						"Many people believe that Vincent van Gogh painted his best works " +
-						"during the two-year period he spent in Provence. Here is where he " +
-						"painted The Starry Night--which some consider to be his greatest " +
-						"work of all. However, as his artistic brilliance reached new " +
-						"heights in Provence, his ysical and mental health plummeted. ");
-				showDialog = true;
-				break;
-			case KeyEvent.VK_MINUS:
-				if ( MapSettings.zoom <=0.6) break;
-				MapSettings.zoom -= 0.2;
-//				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
-				log.info(MapSettings.zoom * MapSettings.tileDiagonal);
-				if ((MapSettings.zoom * MapSettings.tileDiagonal) % 2 !=0){
-//					log.info("Odd");
-				}
-				
-				log.info(MapSettings.zoom);
-				setDrawn(false);
-				break;
-			case KeyEvent.VK_EQUALS:
-				if ( MapSettings.zoom >1.2) break;
-				MapSettings.zoom += 0.2;
-//				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
-				log.info(MapSettings.zoom * MapSettings.tileDiagonal);
-				log.info(MapSettings.zoom);
-				setDrawn(false);
-				break;
-			case KeyEvent.VK_COMMA:
-				if ( MapSettings.pitch <0.6) break;
-				MapSettings.pitch *= 0.8;
-				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
-				log.info(MapSettings.pitch);
-				setDrawn(false);
-				break;
-			case KeyEvent.VK_PERIOD:
-				if ( MapSettings.pitch >0.8) break;
-				MapSettings.pitch *= 1.2;
-				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
-				log.info(MapSettings.pitch);
-				setDrawn(false);
-				break;
-			case KeyEvent.VK_I:
-				Logf.info(log,"draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, selectedTile.getUnit());
-				break;
-		}
-		
-	}
 	
 	/**
      * Select the file that is under the mouse click
@@ -429,6 +376,60 @@ public class GuiMap implements Observer, IMapRendererParent {
     	return field[l.getX()][l.getY()];
     }
     
+    public void otherKeys(KeyEvent e){
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_T:
+				setActionHandler(ActionsEnum.DIALOG);
+				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
+				dialog.setName("Mage");
+				dialog.setText(
+						"Many people believe that Vincent van Gogh painted his best works " +
+						"during the two-year period he spent in Provence. Here is where he " +
+						"painted The Starry Night--which some consider to be his greatest " +
+						"work of all. However, as his artistic brilliance reached new " +
+						"heights in Provence, his ysical and mental health plummeted. ");
+				showDialog = true;
+				break;
+			case KeyEvent.VK_MINUS:
+				if ( MapSettings.zoom <=0.6) break;
+				MapSettings.zoom -= 0.2;
+//				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
+				log.info(MapSettings.zoom * MapSettings.tileDiagonal);
+				if ((MapSettings.zoom * MapSettings.tileDiagonal) % 2 !=0){
+//					log.info("Odd");
+				}
+				
+				log.info(MapSettings.zoom);
+				setDrawn(false);
+				break;
+			case KeyEvent.VK_EQUALS:
+				if ( MapSettings.zoom >1.2) break;
+				MapSettings.zoom += 0.2;
+//				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
+				log.info(MapSettings.zoom * MapSettings.tileDiagonal);
+				log.info(MapSettings.zoom);
+				setDrawn(false);
+				break;
+			case KeyEvent.VK_COMMA:
+				if ( MapSettings.pitch <0.6) break;
+				MapSettings.pitch *= 0.8;
+				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
+				log.info(MapSettings.pitch);
+				setDrawn(false);
+				break;
+			case KeyEvent.VK_PERIOD:
+				if ( MapSettings.pitch >0.8) break;
+				MapSettings.pitch *= 1.2;
+				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
+				log.info(MapSettings.pitch);
+				setDrawn(false);
+				break;
+			case KeyEvent.VK_I:
+				Logf.info(log,"draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, selectedTile.getUnit());
+				break;
+		}
+		
+	}
     /** @category Generated */
 	public boolean isShowDialog() {
 		return showDialog;
@@ -477,10 +478,12 @@ public class GuiMap implements Observer, IMapRendererParent {
 		this.units = units;
 	}
 
+	/** @category Generated */
 	boolean isDrawn() {
 		return drawn;
 	}
 
+	/** @category Generated */
 	void setDrawn(boolean drawn) {
 		this.drawn = drawn;
 	}

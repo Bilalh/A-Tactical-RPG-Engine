@@ -1,7 +1,7 @@
 /**
  * 
  */
-package view.notifications;
+package notifications;
 
 import common.interfaces.IMapNotification;
 import common.interfaces.INotification;

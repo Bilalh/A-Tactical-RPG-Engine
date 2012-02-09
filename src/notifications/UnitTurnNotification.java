@@ -1,4 +1,4 @@
-package view.notifications;
+package notifications;
 
 import view.map.GuiMap;
 import common.interfaces.IMapNotification;
@@ -11,13 +11,11 @@ import common.interfaces.INotification;
 public class UnitTurnNotification implements IMapNotification {
 
 	private IMapUnit unit;
-	
+
 	/** @category Generated */
 	public UnitTurnNotification(IMapUnit unit) {
 		this.unit = unit;
 	}
-
-
 
 	@Override
 	public void process(GuiMap map) {

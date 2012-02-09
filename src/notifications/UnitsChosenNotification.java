@@ -1,4 +1,4 @@
-package view.notifications;
+package notifications;
 
 import java.util.ArrayList;
 

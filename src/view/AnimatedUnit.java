@@ -66,7 +66,6 @@ public class AnimatedUnit extends GuiUnit {
 			super.setDirection(direction);
 			frames    = new BufferedImage[1];
 			frames[0] = sprite;
-			log.debug(frames + " " + frames.length);
 			return;
 		}
 		UnitAnimation id = images.get(direction.reference());
@@ -79,7 +78,9 @@ public class AnimatedUnit extends GuiUnit {
 
 	@Override
 	public String toString() {
-		return String.format("AnimatedUnit [frames=%s]", frames.length);
+		return String.format("AnimatedUnit [frames=%s name=%s location=%s]", frames.length, unit.getName(), getLocation());
 	}
+
+	
 	
 }

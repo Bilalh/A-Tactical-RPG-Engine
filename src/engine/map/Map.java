@@ -8,11 +8,12 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.Map.Entry;
 
+import notifications.*;
+
 import org.apache.log4j.Logger;
 
 import util.Args;
 import util.Logf;
-import view.notifications.*;
 
 import common.interfaces.INotification;
 import common.interfaces.IMapUnit;
@@ -190,7 +191,6 @@ public class Map extends BasicMap implements IMap {
 
 	private void loadSettings(String name) {
 		loadMap(name);
-//		loadFromSpaceSepFile("test.txt");
 //		testing();
 		assert(field != null);
 		assert(width  > 0);
@@ -215,29 +215,5 @@ public class Map extends BasicMap implements IMap {
 			}
 		}
 	}
-
-	/** @category unused**/
-	private void loadFromSpaceSepFile(String name) {
-		tileMapping = Config.defaultMapping();
-		try {
-			File f = new java.io.File(name);
-			Scanner sc = new Scanner(f);
-			width = sc.nextInt();
-			height = sc.nextInt();
-			// width = 8;
-			// height = 8;
-			field = new Tile[width][height];
-			for (int i = 0; i < field.length; i++) {
-				for (int j = 0; j < field[i].length; j++) {
-					int a = sc.nextInt() + 2;
-					field[i][j] = new Tile(a, a,"grass");
-				}
-			}
-	
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	
 }
