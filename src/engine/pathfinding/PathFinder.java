@@ -11,9 +11,11 @@ import util.ArrayUtil;
 import common.Location;
 import common.LocationInfo;
 import common.ProxyLocationInfo;
+import common.interfaces.IUnit;
 
 import engine.map.IMap;
 import engine.map.IMutableMapUnit;
+import engine.unit.IMutableUnit;
 
 
 /**
@@ -28,13 +30,13 @@ public class PathFinder implements IMovementCostProvider {
 	private IMap map;
 	
 	private LocationInfo[][] locations;
-	Location start;
-	Location end;
+	private Location start;
+	private Location end;
 	
 	private HashSet<LocationInfo> inRange;
 	
 	// Cache Calcuted paths
-	HashMap<Location, ArrayDeque<LocationInfo>> paths = new HashMap<Location, ArrayDeque<LocationInfo>>();
+	private HashMap<Location, ArrayDeque<LocationInfo>> paths = new HashMap<Location, ArrayDeque<LocationInfo>>();
 
 	public PathFinder(IMutableMapUnit u, IMap map) {
 		Args.nullCheck(u,map);
@@ -61,6 +63,9 @@ public class PathFinder implements IMovementCostProvider {
 		inRange = new HashSet<LocationInfo>();
 		for (int i = start.x; i < end.x; i++) {
 			for (int j = start.y; j < end.y; j++) {
+				IMutableMapUnit u = map.getTile(i, j).getCurrentUnit();
+				if (u != null && u != unit) continue;
+				
 				if (locations[i][j].getMinDistance() <= unit.getMove()) {
 					inRange.add(new ProxyLocationInfo(locations[i][j]));
 //					inRange.add(locations[i][j]);
@@ -109,11 +114,6 @@ public class PathFinder implements IMovementCostProvider {
 			
 			for (LocationInfo l : path) {
 				System.out.print(l.getDirection()+ "     ");
-			}
-			System.out.println();
-
-			for (LocationInfo l : path) {
-				System.out.print(l.getDirection().inverse()+ "     ");
 			}
 			System.out.println();
 

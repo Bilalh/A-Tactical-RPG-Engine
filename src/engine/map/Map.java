@@ -189,7 +189,7 @@ public class Map extends BasicMap implements IMap {
 		aiUnits.add(au);
 		field[width - 1][1].setCurrentUnit(au);
 		
-		ai = new AIPlayer(aiUnits);
+		ai = new AIPlayer(this,aiUnits);
 		
 		assert order !=null;
 		for (IMutableMapUnit aiu : aiUnits) {
