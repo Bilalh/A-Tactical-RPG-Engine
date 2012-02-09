@@ -16,36 +16,28 @@ import config.XMLUtil;
 
 public class Packer {
 
-	public ISpriteSheet pack(ArrayList<File> files, int width, int height, int border, File out) throws IOException {
-		ArrayList<MutableSprite> images = new ArrayList<MutableSprite>();
 
-		try {
-			for (int i = 0; i < files.size(); i++) {
-				File file = files.get(i);
-				MutableSprite sprite = new MutableSprite(file.getName(), ImageIO.read(file));
-
-				images.add(sprite);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return packImages(images, width, height, border, out);
-	}
-
-	public Sheet packImages(ArrayList<MutableSprite> images, int width, int height, int border) {
-		try {
-			return packImages(images, width, height, border, null);
-		} catch (IOException e) {
-			// no file so should not happen
-			e.printStackTrace();
-		}
-		return null;
-	}
-
+	/**
+	 * Packs the sprites into a image of the specifed size then writes the image to a file.
+	 */
 	public Sheet packImages(ArrayList<MutableSprite> images, int width, int height, int border, File out) throws IOException {
-		Collections.sort(images);
+		Sheet sheet = packImages(images, width, height, border);
 
+		assert out !=null;
+		PrintStream pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(),
+				out.getName().replaceAll("\\.png$", "") + ".xml")));
+		pout.print(XMLUtil.makeFormattedXml(images.toArray(new MutableSprite[0])));
+		pout.close();
+		ImageIO.write(sheet.getSheetImage(), "PNG", out);
+
+		return sheet;
+	}
+
+	/**
+	 * Packs the sprites into a image of the specifed size.
+	 */
+	public Sheet packImages(ArrayList<MutableSprite> images, int width, int height, int border) {
+		Collections.sort(images);
 		int x = 0, y = 0;
 
 		BufferedImage buf = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -69,18 +61,25 @@ public class Packer {
 		}
 
 		g.dispose();
-
-		if (out != null) {
-			PrintStream pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(),
-					out.getName().replaceAll("\\.png$", "") + ".xml")));
-			pout.print(XMLUtil.makeFormattedXml(images.toArray(new MutableSprite[0])));
-			pout.close();
-			ImageIO.write(buf, "PNG", out);
-		}
-
 		return new Sheet(buf, images);
 	}
 
+	
+	public ISpriteSheet pack(ArrayList<File> files, int width, int height, int border, File out) throws IOException {
+		ArrayList<MutableSprite> images = new ArrayList<MutableSprite>();
+
+		for (File f : files) {
+			MutableSprite sprite = new MutableSprite(f.getName(), ImageIO.read(f));
+			images.add(sprite);
+		}
+		
+		return packImages(images, width, height, border, out);
+	}
+
+	
+	/**
+	 * Packs all the image in the current directory into output.png.
+	 */
 	public static void main(String[] args) throws IOException {
 		File dir = new File(".");
 		ArrayList list = new ArrayList();

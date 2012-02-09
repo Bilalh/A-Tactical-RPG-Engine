@@ -361,18 +361,14 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	 * Redraws the sprite sheet
 	 */
 	private void renew() {
-		try {
-			ArrayList<MutableSprite> list = new ArrayList<MutableSprite>();
-			for (int i = 0; i < sprites.size(); i++) {
-				list.add((MutableSprite) sprites.elementAt(i));
-			}
-
-			int b = ((Integer) border.getValue());
-			Sheet sheet = packer.packImages(list, sWidth, sHeight, b, null);
-			sheetPanel.setSpriteSheet(sheet);
-		} catch (IOException e) {
-			e.printStackTrace();
+		ArrayList<MutableSprite> list = new ArrayList<MutableSprite>();
+		for (int i = 0; i < sprites.size(); i++) {
+			list.add((MutableSprite) sprites.elementAt(i));
 		}
+
+		int b = ((Integer) border.getValue());
+		Sheet sheet = packer.packImages(list, sWidth, sHeight, b);
+		sheetPanel.setSpriteSheet(sheet);
 	}
 
 
