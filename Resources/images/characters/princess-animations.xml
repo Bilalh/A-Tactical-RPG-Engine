@@ -1,0 +1,33 @@
+<unitImages>
+  <spriteSheetLocation>images/characters/princess.png</spriteSheetLocation>
+  <animations>
+    <entry>
+      <string>south</string>
+      <unitAnimation>
+        <name>south</name>
+        <numberOfFrames>4</numberOfFrames>
+      </unitAnimation>
+    </entry>
+    <entry>
+      <string>east</string>
+      <unitAnimation>
+        <name>east</name>
+        <numberOfFrames>4</numberOfFrames>
+      </unitAnimation>
+    </entry>
+    <entry>
+      <string>north</string>
+      <unitAnimation>
+        <name>north</name>
+        <numberOfFrames>4</numberOfFrames>
+      </unitAnimation>
+    </entry>
+    <entry>
+      <string>west</string>
+      <unitAnimation>
+        <name>west</name>
+        <numberOfFrames>4</numberOfFrames>
+      </unitAnimation>
+    </entry>
+  </animations>
+</unitImages>

@@ -22,7 +22,7 @@ public class Engine {
 		player = new Player();
 		
 		Unit u        = new Unit();
-		UnitImages ui = Config.loadPreference("images/characters/Elena-animations.xml");
+		UnitImages ui = Config.loadPreference("images/characters/princess-animations.xml");
 		u.setName("Elena");
 		u.setMove(3);
 		u.setSpeed(20);

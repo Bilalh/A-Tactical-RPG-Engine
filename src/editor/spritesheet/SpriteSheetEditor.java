@@ -25,6 +25,8 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
+import com.sun.org.apache.bcel.internal.generic.LMUL;
+
 import common.spritesheet.SpriteSheet;
 
 import config.Config;
@@ -61,8 +63,8 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	// Lists
 	private DefaultListModel sprites = new DefaultListModel();
 	private ReorderableJList list;
-	private DefaultListModel lamanimations = new DefaultListModel();
-	private JList lanimations = new JList(lamanimations);
+	private DefaultListModel lmanimations = new DefaultListModel();
+	private JList lanimations = new JList(lmanimations);
 
 	// Stores the data.	
 	private Packer packer = new Packer();
@@ -266,11 +268,11 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		lanimations.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (lamanimations.isEmpty() || lanimations.getSelectedIndex() < 0) return;
+				if (lmanimations.isEmpty() || lanimations.getSelectedIndex() < 0) return;
 
 				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
 					for (Object o : lanimations.getSelectedValues()) {
-						lamanimations.removeElement(o);
+						lmanimations.removeElement(o);
 						animations.remove(((UnitAnimation)o).getName());
 					}
 					lanimations.repaint();
@@ -530,7 +532,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 					if (temp != null){
 						animations = temp;
 						for (Entry<String, UnitAnimation> e: animations.entrySet()) {
-							lamanimations.addElement(e.getValue());
+							lmanimations.addElement(e.getValue());
 							lanimations.repaint();
 						}
 					}else{
@@ -581,6 +583,8 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private void clear() {
 		if (sprites.isEmpty() || !askToSave() ) return;
 		sprites.clear();
+		animations = new UnitImages();
+		lmanimations.clear();
 		renew();
 	}
 
@@ -620,7 +624,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			}
 			UnitAnimation data =  new UnitAnimation(base, list.getSelectedValues().length);
 			animations.put(base, data);
-			lamanimations.addElement(data);
+			lmanimations.addElement(data);
 			list.repaint();
 			lanimations.repaint();
 		}

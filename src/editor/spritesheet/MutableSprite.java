@@ -49,7 +49,7 @@ public class MutableSprite extends SpriteInfo implements Comparable<MutableSprit
 
 	@Override
 	public int compareTo(MutableSprite b) {
-		return this.getHeight() - b.getHeight();
+		return b.getHeight() - this.getHeight();
 	}
 
 	public BufferedImage getImage() {
