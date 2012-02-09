@@ -1,5 +1,6 @@
 package engine;
 
+import config.Config;
 import engine.PathfindingEx.TileBasedMap;
 import engine.map.IMap;
 import engine.map.Map;
@@ -20,25 +21,24 @@ public class Engine {
 		player = new Player();
 		
 		Unit u        = new Unit();
-		UnitImages ui = new UnitImages(); 
+		UnitImages ui = Config.loadPreference("images/characters/Elena-animations.xml");
 		u.setName("Elena");
 		u.setMove(3);
 		u.setSpeed(20);
 		u.setStrength(30);
 		u.setDefence(20);
 		player.addUnit(u);
-		ui.setSpriteSheetLocation("images/characters/Elena.png");
+//		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
 		
 		u  = new Unit();
-		ui = new UnitImages();
+		ui = Config.loadPreference("images/characters/Boy-animations.xml");
 		u.setName("Boy");
 		u.setMove(4);
 		u.setSpeed(60);
 		u.setStrength(10);
 		u.setDefence(10);
 		player.addUnit(u);
-		ui.setSpriteSheetLocation("images/characters/Boy.png");
 		u.setImageData(ui);
 		
 	}

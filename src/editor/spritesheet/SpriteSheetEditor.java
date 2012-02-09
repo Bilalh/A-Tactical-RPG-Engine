@@ -437,8 +437,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				packer.packImages(list, sWidth, sHeight, b, out);
 					String aname = out.getName().replaceAll("\\.png$", "") + "-animations.xml"; 
 					
-					String shortaName = out.getAbsolutePath().replaceAll("\\.png$", "") + "-animations.xml";
-					shortaName = shortaName.replaceFirst(".*Resources/", "");
+					String shortaName = out.getAbsolutePath().replaceFirst(".*Resources/", "");
 					animations.setSpriteSheetLocation(shortaName);
 					
 					PrintStream pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(),aname)));

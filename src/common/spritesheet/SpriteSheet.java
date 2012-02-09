@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.*;
 
+import util.Args;
+
 
 import config.XMLUtil;
 import editor.spritesheet.ISpriteSheet;
@@ -19,6 +21,9 @@ public class SpriteSheet implements ISpriteSheet {
 	protected HashMap<String, BufferedImage> sprites;
 	
 	public SpriteSheet(BufferedImage sheet, InputStream xmldef){
+		assert sheet   != null;
+		assert xmldef   != null;
+
 		this.sheet = sheet;
 		this.sprites = new HashMap<String, BufferedImage>();
 		
@@ -27,7 +32,11 @@ public class SpriteSheet implements ISpriteSheet {
 	}
 	
 	protected void load(SpriteInfo[] arr){
+		assert arr   != null;
+		assert arr.length >0;
+		
 		for (SpriteInfo s : arr) {
+			assert s != null;
 			sprites.put(s.name, sheet.getSubimage(s.getX(),s.getY(),s.getWidth(),s.getHeight()));
 		}
 	}

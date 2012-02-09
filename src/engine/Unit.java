@@ -175,6 +175,7 @@ public class Unit implements IMutableUnit {
 	}
 
 	/** @category Generated */
+	@Override
 	public void setImageData(UnitImages imageData) {
 		this.imageData = imageData;
 	}

@@ -112,6 +112,8 @@ public class GuiUnit {
 		this.unit = unit;
 		
 		images = unit.getImageData(); 
+		assert images != null;
+		Logf.info(log,"Using sheet %s", images.getSpriteSheetLocation());
 		spriteSheet = Config.loadSpriteSheet(images.getSpriteSheetLocation());
 		sprite = spriteSheet.getSpriteImage(direction.reference());
 	}
