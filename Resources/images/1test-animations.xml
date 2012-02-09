@@ -1,0 +1,9 @@
+<unitImages>
+  <entry>
+    <string>south</string>
+    <unitImageData>
+      <name>south</name>
+      <numberOfFrames>5</numberOfFrames>
+    </unitImageData>
+  </entry>
+</unitImages>

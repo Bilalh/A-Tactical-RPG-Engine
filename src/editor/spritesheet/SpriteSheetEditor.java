@@ -18,6 +18,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
+
 import common.gui.Sprite;
 import common.spritesheet.SpriteInfo;
 import common.spritesheet.SpriteSheet;
@@ -26,6 +28,7 @@ import config.Config;
 import config.XMLUtil;
 import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
 import engine.UnitImageData;
+import engine.UnitImages;
 
 import util.IOUtil;
 
@@ -57,7 +60,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private ReorderableJList list;
 
 	private Packer packer = new Packer();
-	private HashMap<String, UnitImageData> animations = new HashMap<String, UnitImageData>();
+	private UnitImages animations = new UnitImages();
 	
 	public SpriteSheetEditor(int frameClosingValue) {
 		super("Sprite Sheet Editor");
@@ -363,8 +366,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		animation.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-					
+				makeAnimation();
 			}
 		});
 		
@@ -433,6 +435,14 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			try {
 				int b = ((Integer) border.getValue());
 				packer.packImages(list, sWidth, sHeight, b, out);
+					String aname = out.getName().replaceAll("\\.png$", "") + "-animations.xml"; 
+					
+					String shortaName = out.getAbsolutePath().replaceAll("\\.png$", "") + "-animations.xml";
+					shortaName = shortaName.replaceFirst(".*Resources/", "");
+					animations.setSpriteSheetLocation(shortaName);
+					
+					PrintStream pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(),aname)));
+					pout.print(XMLUtil.makeFormattedXml(animations));					
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -452,7 +462,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		int rst = chooser.showOpenDialog(SpriteSheetEditor.this);
 		if (rst == JFileChooser.APPROVE_OPTION) {
 			File in = chooser.getSelectedFile();
-			File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png", "\\.xml"));
+			File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "\\.xml"));
 			try {
 				BufferedImage b = ImageIO.read(in);
 				SpriteSheet ss = new SpriteSheet(b, new FileInputStream(xml));
@@ -463,6 +473,12 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				for (Entry<String, BufferedImage> e : ss.getSpritesMap().entrySet()) {
 					sprites.addElement(new MutableSprite(e.getKey(), e.getValue()));
 				}
+				
+				File a = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "") + "-animations.xml");
+				if (a.exists()){
+					animations = XMLUtil.convertXml(new FileInputStream(a));
+				}
+				
 				renew();
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(this, "xml file " + xml.getName() + " not found",
@@ -534,6 +550,22 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		if (s!=null) selected.setName(s);
 	}
 
+	private void makeAnimation() {
+		if (list.getSelectedIndex() == -1) return;
+		String base;
+		base =(String) JOptionPane.showInputDialog(SpriteSheetEditor.this, "Base name for animation", 
+				"Animation" , JOptionPane.INFORMATION_MESSAGE, null, null, ((MutableSprite) list.getSelectedValue()).getName());
+		if (base!=null){
+			int i=0;
+			for (Object o : list.getSelectedValues()) {
+				MutableSprite ms = (MutableSprite) o;
+				ms.setName(base + i++);
+			}
+			animations.put(base, new UnitImageData(base, list.getSelectedValues().length));
+			list.repaint();
+		}
+	}
+	
 	private class FileListRenderer extends  ReorderableListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
 		

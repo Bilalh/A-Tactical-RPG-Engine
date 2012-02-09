@@ -29,12 +29,12 @@ public class Unit implements IMutableUnit {
 	private int weight;
 	String spriteSheetLocation;
 
-	HashMap<String, UnitImageData> imagedata;
+	UnitImages imageData;
 	
 	public Unit(){
 		uuid = UUID.randomUUID();
 		this.name = uuid.toString();
-		imagedata = new HashMap<String, UnitImageData>();
+		imageData = new UnitImages();
 	}
 	
 	public Unit(String name, int maxHp, int move, int strength, int speed) {
@@ -53,7 +53,7 @@ public class Unit implements IMutableUnit {
 
 	@Override
 	public UnitImageData getImageData(String ref){
-		return imagedata.get(ref);
+		return imageData.get(ref);
 	}
 	
 	/** @category Generated */
