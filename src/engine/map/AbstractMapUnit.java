@@ -8,6 +8,7 @@ import common.Location;
 import common.interfaces.ILocation;
 
 import engine.IMutableUnit;
+import engine.UnitImageData;
 
 /**
  * Keeps all the gets and setters so it does not clutter the mapUnit class
@@ -162,10 +163,14 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 		return unit.getSpriteSheetLocation();
 	}
 
-	/** @category Generated */
 	@Override
 	public void setName(String name) {
 		unit.setName(name);
+	}
+
+	@Override
+	public UnitImageData getImageData(String ref) {
+		return unit.getImageData(ref);
 	}
 
 }

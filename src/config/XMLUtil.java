@@ -15,6 +15,7 @@ import common.spritesheet.SpriteInfo;
 import config.xml.*;
 import editor.map.MutableTileMapping;
 import editor.spritesheet.MutableSprite;
+import engine.UnitImageData;
 
 /**
  * Xml utilities to create and parse xml
@@ -99,16 +100,20 @@ public abstract class XMLUtil {
 	public static Class<?>[] getClassesForAnnotations() {
 
 		return new Class[] {
-				MutableSprite.class,
-				SpriteInfo.class,
-				MutableTileMapping.class,
-				
+				// Prefs
 				SavedTile.class,
 				SavedMap.class,
 				MapData.class,
 				MapSettings.class,
 				TileMapping.class,
-				TileImageData.class
+				TileImageData.class,
+				UnitImageData.class,
+				
+				// Editor
+				MutableSprite.class,
+				SpriteInfo.class,
+				MutableTileMapping.class,
+				
 		};
 	}
 

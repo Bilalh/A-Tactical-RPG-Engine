@@ -26,17 +26,17 @@ public class Unit implements IMutableUnit {
 	private int exp;
 
 	final private UUID uuid;
-
 	private int weight;
-	
 	String spriteSheetLocation;
 
+	HashMap<String, UnitImageData> imagedata;
+	
 	public Unit(){
 		uuid = UUID.randomUUID();
 		this.name = uuid.toString();
+		imagedata = new HashMap<String, UnitImageData>();
 	}
 	
-	/** @category Generated */
 	public Unit(String name, int maxHp, int move, int strength, int speed) {
 		this();
 		this.name=name;
@@ -51,6 +51,11 @@ public class Unit implements IMutableUnit {
 		return 1 + Math.abs(next.getCost() - old.getCost());
 	}
 
+	@Override
+	public UnitImageData getImageData(String ref){
+		return imagedata.get(ref);
+	}
+	
 	/** @category Generated */
 	@Override
 	public String getName() {
@@ -135,11 +140,13 @@ public class Unit implements IMutableUnit {
 		return uuid;
 	}
 
+	/** @category Generated */
 	@Override
 	public int getSpeed() {
 		return speed;
 	}
-
+	
+	/** @category Generated */
 	@Override
 	public void setSpeed(int speed) {
 		this.speed = speed;

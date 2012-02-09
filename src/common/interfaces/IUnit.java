@@ -2,6 +2,7 @@ package common.interfaces;
 
 import java.util.UUID;
 
+import engine.UnitImageData;
 import engine.map.Tile;
 
 /**
@@ -31,5 +32,6 @@ public interface IUnit {
 	
 	String getSpriteSheetLocation();
 	
+	UnitImageData getImageData(String ref);
 	
 }

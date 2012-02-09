@@ -29,15 +29,9 @@ public class AnimatedUnit extends GuiUnit {
 	// 100 millisecond frames
 	private long frameDuration = 100 *1000000; 
 	
-	public AnimatedUnit(int gridX, int gridY, String ref) {
-		super(gridX,gridY);
-		
-		// setup the animatin frames
-//		frames= new Sprite[4];
-//		frames[0] = sprite;
-//		frames[1] = ResourceManager.instance().getSpriteFromClassPath("assets/gui/alien2.gif");
-//		frames[2] = sprite;
-//		frames[3] = ResourceManager.instance().getSpriteFromClassPath("assets/gui/alien3.gif");	
+	/** @category Generated */
+	public AnimatedUnit(int gridX, int gridY) {
+		super(gridX, gridY);
 	}
 
 	public AnimatedUnit(int gridX, int gridY, String[] refs) {

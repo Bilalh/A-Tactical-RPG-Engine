@@ -16,7 +16,6 @@ public class MapUnit extends AbstractMapUnit {
 
 	protected int readiness = 100;
 	protected EnumSet<UnitStatus> status = EnumSet.noneOf(UnitStatus.class);
-//	protected dir
 	
 	public MapUnit(IMutableUnit unit, ILocation l, MapPlayer player) {
 		this.gridX = l.getX();
@@ -66,4 +65,6 @@ public class MapUnit extends AbstractMapUnit {
 				player, gridX, gridY, currentHp, readiness, status, getMove(), getSpeed());
 	}
 
+	
+	
 }
