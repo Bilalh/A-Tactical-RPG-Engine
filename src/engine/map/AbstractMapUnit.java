@@ -1,15 +1,12 @@
 package engine.map;
 
-import static engine.map.UnitStatus.MOVED;
-
 import java.util.UUID;
 
 import common.Location;
 import common.interfaces.ILocation;
 
-import engine.IMutableUnit;
-import engine.UnitAnimation;
-import engine.UnitImages;
+import engine.unit.IMutableUnit;
+import engine.unit.UnitImages;
 
 /**
  * Keeps all the gets and setters so it does not clutter the mapUnit class

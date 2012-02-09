@@ -4,9 +4,9 @@ import java.util.UUID;
 
 import common.interfaces.ILocation;
 
-import engine.IMutableUnit;
 import engine.map.MapPlayer;
 import engine.map.MapUnit;
+import engine.unit.IMutableUnit;
 
 /**
  * @author Bilal Hussain

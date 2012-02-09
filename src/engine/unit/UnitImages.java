@@ -1,10 +1,10 @@
-package engine;
+package engine.unit;
 
-import java.util.*;
+import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 import config.IPreference;
 

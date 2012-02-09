@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
@@ -13,14 +12,13 @@ import view.map.IsoTile;
 
 import common.Location;
 import common.enums.Direction;
-import common.gui.Sprite;
-import common.gui.ResourceManager;
 import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
 import common.spritesheet.SpriteSheet;
+
 import config.Config;
-import engine.UnitImages;
+import engine.unit.UnitImages;
 
 /**
  * @author bilalh

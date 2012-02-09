@@ -9,7 +9,7 @@ import common.LocationInfo;
 import common.interfaces.IMapUnit;
 
 import config.xml.TileImageData;
-import engine.IMutableUnit;
+import engine.unit.IMutableUnit;
 
 /**
  * @author bilalh

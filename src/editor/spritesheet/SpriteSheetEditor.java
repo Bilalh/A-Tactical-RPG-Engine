@@ -1,12 +1,15 @@
 package editor.spritesheet;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Toolkit;
 import java.awt.dnd.DragSourceDropEvent;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.*;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
@@ -15,28 +18,21 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import net.miginfocom.layout.CC;
+import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
-
-import common.gui.Sprite;
-import common.spritesheet.SpriteInfo;
 import common.spritesheet.SpriteSheet;
 
 import config.Config;
 import config.XMLUtil;
 import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
 import editor.ui.AlphanumComparator;
-import engine.UnitAnimation;
-import engine.UnitImages;
-
-import util.IOUtil;
-
-import net.miginfocom.layout.CC;
-import net.miginfocom.swing.MigLayout;
+import engine.unit.UnitAnimation;
+import engine.unit.UnitImages;
 
 /**
  * A Editor for spritesheets that can create, modify or split them. It can also create animations. 

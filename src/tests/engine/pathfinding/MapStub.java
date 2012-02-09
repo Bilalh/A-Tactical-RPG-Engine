@@ -9,11 +9,11 @@ import common.LocationInfo;
 import common.interfaces.IMapUnit;
 import config.xml.TileImageData;
 
-import engine.IMutableUnit;
-import engine.Unit;
 import engine.map.IMap;
 import engine.map.IMutableMapUnit;
 import engine.map.Tile;
+import engine.unit.IMutableUnit;
+import engine.unit.Unit;
 
 /**
  * @author Bilal Hussain

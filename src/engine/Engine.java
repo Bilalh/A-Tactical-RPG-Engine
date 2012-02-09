@@ -1,9 +1,10 @@
 package engine;
 
 import config.Config;
-import engine.PathfindingEx.TileBasedMap;
 import engine.map.IMap;
 import engine.map.Map;
+import engine.unit.Unit;
+import engine.unit.UnitImages;
 
 /**
  * @author bilalh

@@ -12,7 +12,7 @@ import common.interfaces.IUnit;
 
 import view.map.GuiMap;
 
-import engine.Unit;
+import engine.unit.Unit;
 
 /**
  * @author bilalh

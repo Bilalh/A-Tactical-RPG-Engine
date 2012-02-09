@@ -5,18 +5,15 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
 import view.map.IsoTile;
 
 import common.enums.Direction;
-import common.gui.Sprite;
-import common.gui.ResourceManager;
-import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
-import engine.UnitAnimation;
+
+import engine.unit.UnitAnimation;
 
 /**
  * A units that look anumated e.g. has sprites with slight changes to make it look like it moving.
@@ -78,7 +75,6 @@ public class AnimatedUnit extends GuiUnit {
 			frames[i] =spriteSheet.getSpriteImage(direction.reference()+i);
 		}
 		sprite = frames[0];
-		log.debug(frames + " " + frames.length);
 	}
 
 	@Override

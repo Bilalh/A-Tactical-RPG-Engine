@@ -1,8 +1,6 @@
-package engine;
+package engine.unit;
 
-import common.interfaces.IUnit;
-
-import java.util.*;
+import java.util.UUID;
 
 import engine.map.Tile;
 

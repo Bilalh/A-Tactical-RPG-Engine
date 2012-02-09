@@ -1,12 +1,12 @@
 package engine.map;
 
+import static engine.map.UnitStatus.MOVED;
+
 import java.util.EnumSet;
 
 import common.interfaces.ILocation;
-import engine.IMutableUnit;
-import engine.UnitImages;
 
-import static engine.map.UnitStatus.*;
+import engine.unit.IMutableUnit;
 
 /**
  * Store data about unit specific to this map such as location on the map.

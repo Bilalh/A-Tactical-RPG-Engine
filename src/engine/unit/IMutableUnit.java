@@ -1,4 +1,4 @@
-package engine;
+package engine.unit;
 
 import common.interfaces.IUnit;
 import engine.map.MapPlayer;

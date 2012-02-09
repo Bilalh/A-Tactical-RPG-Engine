@@ -11,12 +11,12 @@ import config.xml.TileImageData;
 
 import util.Args;
 import view.GuiUnit;
-import engine.IMutableUnit;
-import engine.Unit;
 import engine.map.IMutableMapUnit;
 import engine.map.Map;
 import engine.map.Tile;
 import engine.pathfinding.PathFinder;
+import engine.unit.IMutableUnit;
+import engine.unit.Unit;
 
 /**
  * @author Bilal Hussain

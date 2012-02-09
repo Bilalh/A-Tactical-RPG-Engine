@@ -4,7 +4,7 @@ import common.Location;
 
 import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
-import engine.IMutableUnit;
+import engine.unit.IMutableUnit;
 
 
 /**

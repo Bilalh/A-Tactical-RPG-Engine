@@ -1,4 +1,4 @@
-package engine;
+package engine.unit;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

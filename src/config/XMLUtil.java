@@ -15,9 +15,8 @@ import common.spritesheet.SpriteInfo;
 import config.xml.*;
 import editor.map.MutableTileMapping;
 import editor.spritesheet.MutableSprite;
-import editor.spritesheet.SpriteSheetEditor;
-import engine.UnitAnimation;
-import engine.UnitImages;
+import engine.unit.UnitAnimation;
+import engine.unit.UnitImages;
 
 /**
  * Xml utilities to create and parse xml

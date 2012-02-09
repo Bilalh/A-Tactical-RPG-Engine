@@ -2,9 +2,8 @@ package common.interfaces;
 
 import java.util.UUID;
 
-import engine.UnitAnimation;
-import engine.UnitImages;
 import engine.map.Tile;
+import engine.unit.UnitImages;
 
 /**
  * @author Bilal Hussain

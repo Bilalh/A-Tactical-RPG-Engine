@@ -6,7 +6,7 @@ package engine.map;
 import java.util.ArrayList;
 
 import common.interfaces.IMapUnit;
-import engine.Unit;
+import engine.unit.Unit;
 
 /**
  * @author bilalh

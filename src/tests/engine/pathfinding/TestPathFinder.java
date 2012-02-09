@@ -12,11 +12,11 @@ import org.junit.Test;
 import util.*;
 
 
-import engine.Unit;
 import engine.map.IMap;
 import engine.map.IMutableMapUnit;
 import engine.map.MapUnit;
 import engine.pathfinding.*;
+import engine.unit.Unit;
 import static org.junit.Test.*;
 import static org.junit.Assert.*;
 

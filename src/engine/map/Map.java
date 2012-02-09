@@ -19,16 +19,16 @@ import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
 import config.Config;
 import config.xml.*;
-import engine.IMutableUnit;
 import engine.Player;
-import engine.Unit;
-import engine.UnitImages;
 import engine.PathfindingEx.AStarPathFinder;
 import engine.PathfindingEx.Mover;
 import engine.PathfindingEx.TileBasedMap;
 import engine.ai.AIPlayer;
 import engine.ai.AIUnit;
 import engine.pathfinding.PathFinder;
+import engine.unit.IMutableUnit;
+import engine.unit.Unit;
+import engine.unit.UnitImages;
 
 /**
  * @author bilalh
