@@ -57,7 +57,7 @@ public class GuiMap implements Observer, IMapRendererParent {
     boolean showDialog = false;
         
     // The Class that with handed the input 
-    private MapActions current;
+    private MapActions currentAction;
     private MousePoxy MousePoxy;
     
     private HashMap<UUID,AnimatedUnit> unitMapping;
@@ -84,8 +84,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private boolean drawn = false;
 	private int frameDuration = 750 * 1000000;
 	private int frameChange = 0;
-	// When there are two units on the same tile
-	private AnimatedUnit over = null;
+	// When there are two units on the same tile keep a referance to the unit replaced 
+	// so that it does not get lost.
+	private AnimatedUnit replaced = null;
 	
     /** @category Constructor */
 	public GuiMap(MapController mapController, Component parent) {
@@ -105,7 +106,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		bufferWidth  = s.width;
 		bufferHeight = s.height;
         
-        current = getActionHandler(ActionsEnum.MOVEMENT);
+        currentAction = getActionHandler(ActionsEnum.MOVEMENT);
         MousePoxy = new MousePoxy();
         setActionHandler(ActionsEnum.MOVEMENT);
 		
@@ -141,7 +142,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 		
-		if (!current.isMouseMoving()) {
+		if (!currentAction.isMouseMoving()) {
 			frameChange += timeDiff;
 			if (frameChange > frameDuration) {
 				frameChange = 0;
@@ -149,14 +150,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 				if(pathIterator.hasNext()){
 					AnimatedUnit u = getTile(lastLocation).removeUnit();
 
-					if (over != null){
-						getTile(lastLocation).setUnit(over);
-						log.trace("over set "+ over);
-						over = null;
+					if (replaced != null){
+						getTile(lastLocation).setUnit(replaced);
+						log.trace("over set "+ replaced);
+						replaced = null;
 					}
 					lastLocation = pathIterator.next();
-					over = getTile(lastLocation).getUnit();
-					log.trace("over "+ over);
+					replaced = getTile(lastLocation).getUnit();
+					log.trace("over "+ replaced);
 					
 					u.setLocation(lastLocation);
 					u.setDirection(lastLocation.getDirection());
@@ -237,7 +238,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		AnimatedUnit movingUnit =  unitMapping.get(u.getUuid());
 		pathIterator = path.iterator();
 		lastLocation = pathIterator.next();
-		oldAction = current;
+		oldAction = currentAction;
 		
 		// Disable input when a unit is moving
 		if (pathIterator.hasNext()) setActionHandler(ActionsEnum.NONE);
@@ -249,7 +250,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void unitsTurn(IMapUnit unit) {
 		currentUnit = getTile(unit.getLocation()).getUnit();
 		assert(currentUnit != null);
-		
+		setSelectedTile(currentUnit.getGridX(), currentUnit.getGridY());
 	}
 	
 	/** @category unused **/
@@ -321,7 +322,7 @@ public class GuiMap implements Observer, IMapRendererParent {
     }
 
 	public IActions getActionHandler() {
-		return current;
+		return currentAction;
 	}
 	
 	public MouseListener getMouseListener(){
@@ -343,7 +344,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	private void setActionHandler(MapActions aa){
 		Logf.info(log, "Action changed to %s", aa);
-		current = aa;
+		currentAction = aa;
 		MousePoxy.setMouseListener(aa);
 		MousePoxy.setMouseMotionListener(aa);
 	}
@@ -443,7 +444,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	/** @category Generated Getter */
 	@Override
 	public boolean isMouseMoving() {
-		return current.isMouseMoving();
+		return currentAction.isMouseMoving();
 	}
 
 	/** @category Generated Getter */
