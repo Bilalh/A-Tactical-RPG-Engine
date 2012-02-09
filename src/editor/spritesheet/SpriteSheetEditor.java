@@ -1,6 +1,7 @@
 package editor.spritesheet;
 
 import java.awt.*;
+import java.awt.dnd.DragSourceDropEvent;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -23,6 +24,8 @@ import common.spritesheet.SpriteSheet;
 
 import config.Config;
 import config.XMLUtil;
+import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
+import engine.UnitImageData;
 
 import util.IOUtil;
 
@@ -51,10 +54,11 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	
 	private JSpinner border = new JSpinner(new SpinnerNumberModel(0, 0, 50, 1));
 	private DefaultListModel sprites = new DefaultListModel();
-	private JList list = new JList(sprites);
+	private ReorderableJList list;
 
 	private Packer packer = new Packer();
-
+	private HashMap<String, UnitImageData> animations = new HashMap<String, UnitImageData>();
+	
 	public SpriteSheetEditor(int frameClosingValue) {
 		super("Sprite Sheet Editor");
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
@@ -65,6 +69,178 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		initGui();
 		setJMenuBar(createMenubar());
 		this.setDefaultCloseOperation(frameClosingValue);
+	}
+
+	private void initGui() {
+		this.setLayout(new BorderLayout());
+		dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+		saveChooser.setFileFilter(new FileNameExtensionFilter("Portable Network Graphics (*.png)", "png"));
+		chooser.setFileFilter(new FileNameExtensionFilter("Images (*.jpg, *.png, *.gif)", "png", "jpg", "jpeg", "gif"));
+
+		JTabbedPane tab = new JTabbedPane();
+		JPanel p = new JPanel(new MigLayout("", "[right]"));
+
+		p.add(new JLabel("General"), new CC().split().spanX().gapTop("4"));
+		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
+
+		p.add(new JLabel("Sheet Name:"), "gap 4");
+		p.add((sheetName = new JTextField(10)), "span, growx");
+		sheetName.setText("Untitled Sheet");
+
+		ActionListener aSizes = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JComboBox b = ((JComboBox) e.getSource());
+				int i = (Integer) ((JComboBox) e.getSource()).getSelectedItem();
+				if (b.getActionCommand().equals("width")) {
+					sWidth = i;
+				} else {
+					sHeight = i;
+				}
+				sheetPanel.setSheetSize(sWidth, sHeight);
+				renew();
+			}
+		};
+
+		p.add(new JLabel("Width:"), "gap 4");
+		JComboBox widths = new JComboBox(sizes);
+		widths.setActionCommand("width");
+		widths.addActionListener(aSizes);
+		p.add(widths, "alignx leading, span, wrap");
+
+		p.add(new JLabel("Height:"), "gap 4");
+		JComboBox heights = new JComboBox(sizes);
+		heights.setActionCommand("heights");
+		heights.addActionListener(aSizes);
+		p.add(heights, "alignx leading, span, wrap");
+
+		p.add(new JLabel("Border:"), "gap 4");
+		border.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				renew();
+			}
+		});
+		p.add(border, "alignx leading, span, wrap");
+
+		JButton add = new JButton("Add");
+		add.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				chooser.setMultiSelectionEnabled(true);
+				int rst = chooser.showOpenDialog(SpriteSheetEditor.this);
+				if (rst == JFileChooser.APPROVE_OPTION) {
+					File[] selected = chooser.getSelectedFiles();
+					for (int i = 0; i < selected.length; i++) {
+						try {
+							sprites.addElement(new MutableSprite(selected[i]));
+						} catch (IOException x) {
+							x.printStackTrace();
+							JOptionPane.showMessageDialog(SpriteSheetEditor.this, "Unable to load: " + selected[i].getName());
+						}
+					}
+				}
+				renew();
+			}
+		});
+
+		p.add(add, new CC().spanX(5).split(5).wrap().tag("other"));
+
+		p.add(new JLabel("Selected"), "split, span, gaptop 4");
+		p.add(new JSeparator(), "growx, wrap, gaptop 4");
+
+		// p.add(new JLabel("Name:"), "gap 4");
+		// p.add((selectedName = new JTextField(10)), "span, growx");
+
+		JButton del = new JButton("Delete");
+		del.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] selected = list.getSelectedValues();
+				for (int i = 0; i < selected.length; i++) {
+					sprites.removeElement(selected[i]);
+				}
+				renew();
+			}
+		});
+
+		// p.add(new JButton("Change"), new CC().spanX(5).split(5).tag("other"));
+		// p.add(del, new CC().tag("other"));
+		p.add(del, new CC().spanX(5).split(5).tag("other"));
+
+		tab.add("Data", p);
+
+		list = new ReorderableJList(sprites, new IDragFinishedListener() {
+			@Override
+			public void dragDropEnd(DragSourceDropEvent dsde) {
+				renew();
+			}
+		});
+
+		JScrollPane listScroll = new JScrollPane(list);
+		listScroll.setBounds(540, 5, 200, 350);
+		list.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				Object[] values = list.getSelectedValues();
+				ArrayList<MutableSprite> sprites = new ArrayList<MutableSprite>();
+				for (int i = 0; i < values.length; i++) {
+					sprites.add((MutableSprite) values[i]);
+				}
+
+				list.removeListSelectionListener(this);
+				select(sprites);
+				list.addListSelectionListener(this);
+			}
+		});
+		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		list.setCellRenderer(new FileListRenderer());
+
+		list.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (sprites.isEmpty() || list.getSelectedIndex() < 0) return;
+
+				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+					for (Object o : list.getSelectedValues()) {
+						sprites.removeElement(o);
+					}
+
+					renew();
+				} else if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_F2) {
+					if (list.getSelectedIndices().length != 1) return;
+					MutableSprite selected = ((MutableSprite) list.getSelectedValue());
+
+					rename(selected);
+				}
+			}
+		});
+
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (!sprites.isEmpty() && e.getClickCount() == 2) {
+					int index = list.locationToIndex(e.getPoint());
+					rename((MutableSprite) sprites.getElementAt(index));
+				}
+			}
+		});
+
+		tab.add("Listing", listScroll);
+
+		this.add(tab, BorderLayout.EAST);
+		this.add(createPanel(""), BorderLayout.WEST);
+		this.add(createPanel(""), BorderLayout.SOUTH);
+		this.add(createPanel(""), BorderLayout.NORTH);
+
+		sheetPanel = new SpriteSheetPanel(this);
+		JScrollPane scroll = new JScrollPane(sheetPanel);
+		this.add(scroll, BorderLayout.CENTER);
+
+		sheetPanel.setSheetSize(sWidth, sHeight);
+		renew();
 	}
 
 	private JMenuBar createMenubar() {
@@ -183,178 +359,22 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		});
 		
 		
+		JMenuItem animation = new JMenuItem("Make animation from selected");
+		animation.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+					
+			}
+		});
+		
 		edit.add(selectedAll);
 		edit.add(sort);
 		edit.add(removeExt);
+		edit.addSeparator();
+		edit.add(animation);
 		
 		return bar;
-	}
-
-	private void initGui() {
-		this.setLayout(new BorderLayout());
-		dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		
-		saveChooser.setFileFilter(new FileNameExtensionFilter("Portable Network Graphics (*.png)", "png"));
-		chooser.setFileFilter(new FileNameExtensionFilter("Images (*.jpg, *.png, *.gif)", "png","jpg","jpeg","gif"));
-		
-		JTabbedPane tab = new JTabbedPane();
-		JPanel p = new JPanel(new MigLayout("", "[right]"));
-
-		
-		p.add(new JLabel("General"), new CC().split().spanX().gapTop("4"));
-		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
-		
-		p.add(new JLabel("Sheet Name:"), "gap 4");
-		p.add((sheetName = new JTextField(10)), "span, growx");
-		sheetName.setText("Untitled Sheet");
-		
-		ActionListener aSizes = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JComboBox b = ((JComboBox) e.getSource());
-				int i = (Integer) ((JComboBox) e.getSource()).getSelectedItem();
-				if (b.getActionCommand().equals("width")) {
-					sWidth = i;
-				} else {
-					sHeight = i;
-				}
-				sheetPanel.setSheetSize(sWidth, sHeight);
-				renew();
-			}
-		};
-
-		p.add(new JLabel("Width:"), "gap 4");
-		JComboBox widths = new JComboBox(sizes);
-		widths.setActionCommand("width");
-		widths.addActionListener(aSizes);
-		p.add(widths, "alignx leading, span, wrap");
-
-		p.add(new JLabel("Height:"), "gap 4");
-		JComboBox heights = new JComboBox(sizes);
-		heights.setActionCommand("heights");
-		heights.addActionListener(aSizes);
-		p.add(heights, "alignx leading, span, wrap");
-
-		p.add(new JLabel("Border:"), "gap 4");
-		border.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				renew();
-			}
-		});
-		p.add(border, "alignx leading, span, wrap");
-
-		JButton add = new JButton("Add");
-		add.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				chooser.setMultiSelectionEnabled(true);
-				int rst = chooser.showOpenDialog(SpriteSheetEditor.this);
-				if (rst == JFileChooser.APPROVE_OPTION) {
-					File[] selected = chooser.getSelectedFiles();
-					for (int i = 0; i < selected.length; i++) {
-						try {
-							sprites.addElement(new MutableSprite(selected[i]));
-						} catch (IOException x) {
-							x.printStackTrace();
-							JOptionPane.showMessageDialog(SpriteSheetEditor.this, "Unable to load: " + selected[i].getName());
-						}
-					}
-				}
-				renew();
-			}
-		});
-
-		p.add(add, new CC().spanX(5).split(5).wrap().tag("other"));
-
-		p.add(new JLabel("Selected"), "split, span, gaptop 4");
-		p.add(new JSeparator(), "growx, wrap, gaptop 4");
-
-//		p.add(new JLabel("Name:"), "gap 4");
-//		p.add((selectedName = new JTextField(10)), "span, growx");
-
-		JButton del = new JButton("Delete");
-		del.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object[] selected = list.getSelectedValues();
-				for (int i = 0; i < selected.length; i++) {
-					sprites.removeElement(selected[i]);
-				}
-				renew();
-			}
-		});
-
-//		p.add(new JButton("Change"), new CC().spanX(5).split(5).tag("other"));
-//		p.add(del, new CC().tag("other"));
-		p.add(del, new CC().spanX(5).split(5).tag("other"));
-
-		tab.add("Data", p);
-
-		JScrollPane listScroll = new JScrollPane(list);
-		listScroll.setBounds(540, 5, 200, 350);
-		list.addListSelectionListener(new ListSelectionListener() {
-
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				Object[] values = list.getSelectedValues();
-				ArrayList<MutableSprite> sprites = new ArrayList<MutableSprite>();
-				for (int i = 0; i < values.length; i++) {
-					sprites.add((MutableSprite) values[i]);
-				}
-
-				list.removeListSelectionListener(this);
-				select(sprites);
-				list.addListSelectionListener(this);
-			}
-		});
-		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		list.setCellRenderer(new FileListRenderer());
-		
-		list.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (sprites.isEmpty() || list.getSelectedIndex() <0 ) return;
-				
-				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
-					for (Object o : list.getSelectedValues()) {
-						sprites.removeElement(o);
-					}
-					
-					renew();
-				}else if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_F2 ){
-					if (list.getSelectedIndices().length != 1) return;
-					MutableSprite selected =  ((MutableSprite) list.getSelectedValue());
-					
-					rename(selected); 
-				}
-			}
-		});
-		
-		 list.addMouseListener(new MouseAdapter() {
-		    @Override
-			public void mouseClicked(MouseEvent e) {
-		         if (!sprites.isEmpty() && e.getClickCount() == 2) {
-		             int index = list.locationToIndex(e.getPoint());
-		             rename((MutableSprite) sprites.getElementAt(index));
-		          }
-		     }
-		 });
-		
-		
-		tab.add("Listing", listScroll);
-
-		this.add(tab, BorderLayout.EAST);
-		this.add(createPanel(""), BorderLayout.WEST);
-		this.add(createPanel(""), BorderLayout.SOUTH);
-		this.add(createPanel(""), BorderLayout.NORTH);
-
-		sheetPanel = new SpriteSheetPanel(this);
-		JScrollPane scroll = new JScrollPane(sheetPanel);
-		this.add(scroll, BorderLayout.CENTER);
-
-		sheetPanel.setSheetSize(sWidth, sHeight);
-		renew();
 	}
 
 	/**
@@ -514,8 +534,9 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		if (s!=null) selected.setName(s);
 	}
 
-	private class FileListRenderer extends DefaultListCellRenderer {
+	private class FileListRenderer extends  ReorderableListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
+		
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
