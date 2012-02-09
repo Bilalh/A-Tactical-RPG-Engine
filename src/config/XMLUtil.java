@@ -16,7 +16,7 @@ import config.xml.*;
 import editor.map.MutableTileMapping;
 import editor.spritesheet.MutableSprite;
 import editor.spritesheet.SpriteSheetEditor;
-import engine.UnitImageData;
+import engine.UnitAnimation;
 import engine.UnitImages;
 
 /**
@@ -109,7 +109,7 @@ public abstract class XMLUtil {
 				MapSettings.class,
 				TileMapping.class,
 				TileImageData.class,
-				UnitImageData.class,
+				UnitAnimation.class,
 				UnitImages.class,
 				// Editor
 				MutableSprite.class,

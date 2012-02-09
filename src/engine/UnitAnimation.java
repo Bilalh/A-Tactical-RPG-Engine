@@ -3,16 +3,17 @@ package engine;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
+ * Store details on the animation
  * @author Bilal Hussain
  */
-@XStreamAlias("unitImageData")
-public class UnitImageData {
+@XStreamAlias("unitAnimation")
+public class UnitAnimation {
 
 	final private String name;
 	final private int numberOfFrames;
 	
 	/** @category Generated */
-	public UnitImageData(String name, int numberOfFrames) {
+	public UnitAnimation(String name, int numberOfFrames) {
 		this.name = name;
 		this.numberOfFrames = numberOfFrames;
 	}

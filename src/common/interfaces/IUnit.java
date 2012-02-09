@@ -2,7 +2,7 @@ package common.interfaces;
 
 import java.util.UUID;
 
-import engine.UnitImageData;
+import engine.UnitAnimation;
 import engine.UnitImages;
 import engine.map.Tile;
 

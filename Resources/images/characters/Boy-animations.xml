@@ -3,10 +3,10 @@
   <animations>
     <entry>
       <string>west</string>
-      <unitImageData>
+      <unitAnimation>
         <name>west</name>
         <numberOfFrames>4</numberOfFrames>
-      </unitImageData>
+      </unitAnimation>
     </entry>
   </animations>
 </unitImages>

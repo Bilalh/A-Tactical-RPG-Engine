@@ -8,7 +8,7 @@ import common.Location;
 import common.interfaces.ILocation;
 
 import engine.IMutableUnit;
-import engine.UnitImageData;
+import engine.UnitAnimation;
 import engine.UnitImages;
 
 /**

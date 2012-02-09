@@ -15,11 +15,10 @@ import config.IPreference;
 public class UnitImages implements IPreference {
 
 	private String spriteSheetLocation;
-	
-	private HashMap<String, UnitImageData> animations;
+	private HashMap<String, UnitAnimation> animations;
 
 	public UnitImages(){
-		animations = new HashMap<String, UnitImageData>();
+		animations = new HashMap<String, UnitAnimation>();
 	}
 	
 	/** @category Generated */
@@ -40,7 +39,7 @@ public class UnitImages implements IPreference {
 	}
 
 	/** @category Generated */
-	public UnitImageData get(Object key) {
+	public UnitAnimation get(Object key) {
 		return animations.get(key);
 	}
 
@@ -50,7 +49,7 @@ public class UnitImages implements IPreference {
 	}
 
 	/** @category Generated */
-	public UnitImageData put(String key, UnitImageData value) {
+	public UnitAnimation put(String key, UnitAnimation value) {
 		assert animations != null;
 		assert key   !=null;
 		assert value !=null;
@@ -63,12 +62,12 @@ public class UnitImages implements IPreference {
 	}
 
 	/** @category Generated */
-	public UnitImageData remove(Object key) {
+	public UnitAnimation remove(Object key) {
 		return animations.remove(key);
 	}
 
 	/** @category Generated */
-	public Set<Entry<String, UnitImageData>> entrySet() {
+	public Set<Entry<String, UnitAnimation>> entrySet() {
 		return animations.entrySet();
 	}
 }

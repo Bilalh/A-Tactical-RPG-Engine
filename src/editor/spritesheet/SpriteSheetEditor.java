@@ -30,7 +30,7 @@ import config.Config;
 import config.XMLUtil;
 import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
 import editor.ui.AlphanumComparator;
-import engine.UnitImageData;
+import engine.UnitAnimation;
 import engine.UnitImages;
 
 import util.IOUtil;
@@ -39,7 +39,7 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * A Editor for spritesheets that can create, modify or split them. 
+ * A Editor for spritesheets that can create, modify or split them. It can also create animations. 
  * @author Bilal Hussain
  */
 public class SpriteSheetEditor extends JFrame implements ISpriteProvider<MutableSprite> {
@@ -48,24 +48,27 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private static final long serialVersionUID = 8150077954325861946L;
 	private static final Integer[] sizes = new Integer[] { 128, 256, 512, 1024, 2048, 4096, 8192 };
 
+	// Sprite sheets data
 	private JTextField sheetName;
 	private JTextField selectedName;
-
 	private SpriteSheetPanel sheetPanel;
 	private int sWidth = sizes[0], sHeight = sizes[0];
 
+	// For IO
 	private final String STARTING_PATH = "Resources/images";
 	private JFileChooser chooser = new JFileChooser(STARTING_PATH);
 	private JFileChooser saveChooser = new JFileChooser(STARTING_PATH);
 	private JFileChooser dirChooser = new JFileChooser(STARTING_PATH);
 	
 	private JSpinner border = new JSpinner(new SpinnerNumberModel(0, 0, 50, 1));
+
+	// Lists
 	private DefaultListModel sprites = new DefaultListModel();
 	private ReorderableJList list;
 	private DefaultListModel lamanimations = new DefaultListModel();
 	private JList lanimations = new JList(lamanimations);
 
-	
+	// Stores the data.	
 	private Packer packer = new Packer();
 	private UnitImages animations = new UnitImages();
 	
@@ -84,11 +87,27 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private void initGui() {
 		this.setLayout(new BorderLayout());
 		dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
 		saveChooser.setFileFilter(new FileNameExtensionFilter("Portable Network Graphics (*.png)", "png"));
 		chooser.setFileFilter(new FileNameExtensionFilter("Images (*.jpg, *.png, *.gif)", "png", "jpg", "jpeg", "gif"));
 
 		JTabbedPane tab = new JTabbedPane();
+		tab.add("Data",       createDataPanel());
+		tab.add("Listing",    createFileListPanel());
+		tab.add("Animations", createAnimationPanel());
+		
+		this.add(tab, BorderLayout.EAST);
+		this.add(createPanel(""), BorderLayout.WEST);
+		this.add(createPanel(""), BorderLayout.SOUTH);
+		this.add(createPanel(""), BorderLayout.NORTH);
+
+		sheetPanel = new SpriteSheetPanel(this);
+		sheetPanel.setSheetSize(sWidth, sHeight);
+		this.add(new JScrollPane(sheetPanel), BorderLayout.CENTER);
+		
+		renew();
+	}
+
+	private JPanel createDataPanel(){
 		JPanel p = new JPanel(new MigLayout("", "[right]"));
 
 		p.add(new JLabel("General"), new CC().split().spanX().gapTop("4"));
@@ -178,8 +197,10 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		// p.add(new JButton("Change"), new CC().spanX(5).split(5).tag("other"));
 		// p.add(del, new CC().tag("other"));
 		p.add(del, new CC().spanX(5).split(5).tag("other"));
-
-		tab.add("Data", p);
+		return p;
+	}
+	
+	private JScrollPane createFileListPanel(){
 
 		list = new ReorderableJList(sprites, new IDragFinishedListener() {
 			@Override
@@ -237,12 +258,14 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				}
 			}
 		});
+		return listScroll;
+	}
 
+	private JScrollPane createAnimationPanel(){
 		JScrollPane animationScroll = new JScrollPane(lanimations);
 		animationScroll.setBounds(540, 5, 200, 350);
 		
 		lanimations.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-//		list.setCellRenderer(new FileListRenderer());
 
 		lanimations.addKeyListener(new KeyAdapter() {
 			@Override
@@ -252,29 +275,15 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
 					for (Object o : lanimations.getSelectedValues()) {
 						lamanimations.removeElement(o);
-						animations.remove(((UnitImageData)o).getName());
+						animations.remove(((UnitAnimation)o).getName());
 					}
 					lanimations.repaint();
 				}
 			}
 		});
-		
-		tab.add("Listing", listScroll);
-		tab.add("Animations", animationScroll);
-		
-		this.add(tab, BorderLayout.EAST);
-		this.add(createPanel(""), BorderLayout.WEST);
-		this.add(createPanel(""), BorderLayout.SOUTH);
-		this.add(createPanel(""), BorderLayout.NORTH);
-
-		sheetPanel = new SpriteSheetPanel(this);
-		JScrollPane scroll = new JScrollPane(sheetPanel);
-		this.add(scroll, BorderLayout.CENTER);
-
-		sheetPanel.setSheetSize(sWidth, sHeight);
-		renew();
+		return animationScroll;
 	}
-
+	
 	private JMenuBar createMenubar() {
 		JMenuBar bar = new JMenuBar();
 		JMenu file = new JMenu("File");
@@ -410,6 +419,12 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		return bar;
 	}
 
+	private JPanel createPanel(String string) {
+		JPanel a = new JPanel();
+		a.add(new JLabel(string));
+		return a;
+	}
+
 	/**
 	 * Redraws the sprite sheet
 	 */
@@ -425,12 +440,9 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	}
 
 
-	private JPanel createPanel(String string) {
-		JPanel a = new JPanel();
-		a.add(new JLabel(string));
-		return a;
-	}
-
+	/**
+	 * Selected the specifed sprites
+	 */
 	@Override
 	public void select(java.util.List<MutableSprite> selection) {
 		list.clearSelection();
@@ -442,6 +454,17 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		sheetPanel.setSelectedSprites(selection);
 	}
 
+
+	/**
+	 * Deletes the specifed Sprite(s)
+	 */
+	@Override
+	public void delete(java.util.List<MutableSprite> selected) {
+		for (MutableSprite s : selected) {
+			sprites.removeElement(s);
+		}
+		renew();
+	}
 
 	/**
 	 * Saves a Sprite sheet
@@ -480,14 +503,15 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		return rst;
 	}
 
-	/**
-	 * loads a Sprite sheet
-	 */
+
 	private void load() {
 		if (!sprites.isEmpty() && !askToSave() ) return;
 		loadSheet(true);
 	}
 
+	/**
+	 * loads a Sprite sheet
+	 */
 	private void loadSheet(boolean reset){
 		int rst = chooser.showOpenDialog(SpriteSheetEditor.this);
 		if (rst == JFileChooser.APPROVE_OPTION) {
@@ -509,7 +533,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 					UnitImages temp = XMLUtil.convertXml(new FileInputStream(a));
 					if (temp != null){
 						animations = temp;
-						for (Entry<String, UnitImageData> e: animations.entrySet()) {
+						for (Entry<String, UnitAnimation> e: animations.entrySet()) {
 							lamanimations.addElement(e.getValue());
 							lanimations.repaint();
 						}
@@ -555,7 +579,15 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		
 	}
 
-	
+	/**
+	 * Removes the sprite sheets
+	 */
+	private void clear() {
+		if (sprites.isEmpty() || !askToSave() ) return;
+		sprites.clear();
+		renew();
+	}
+
 	private boolean askToSave(){
 		int rst =JOptionPane.showConfirmDialog(SpriteSheetEditor.this, "Save current sheet?");
 		if      (rst == JOptionPane.CANCEL_OPTION) return false;
@@ -565,25 +597,6 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		return true;
 	}
 
-	private void clear() {
-		if (sprites.isEmpty() || !askToSave() ) return;
-		
-		sprites.clear();
-		renew();
-		
-	}
-	
-	/**
-	 * Deletes the specifed Sprite(s)
-	 */
-	@Override
-	public void delete(java.util.List<MutableSprite> selected) {
-		for (MutableSprite s : selected) {
-			sprites.removeElement(s);
-		}
-		renew();
-	}
-	
 	/**
 	 * Changes the id of the sprite
 	 */
@@ -595,6 +608,9 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		if (s!=null) selected.setName(s);
 	}
 
+	/**
+	 * Makes a animation from the selected images
+	 */
 	private void makeAnimation() {
 		if (list.getSelectedIndex() == -1) return;
 		String base;
@@ -606,7 +622,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				MutableSprite ms = (MutableSprite) o;
 				ms.setName(base + i++);
 			}
-			UnitImageData data =  new UnitImageData(base, list.getSelectedValues().length);
+			UnitAnimation data =  new UnitAnimation(base, list.getSelectedValues().length);
 			animations.put(base, data);
 			lamanimations.addElement(data);
 			list.repaint();
@@ -614,6 +630,10 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		}
 	}
 	
+	/**
+	 * Displays the name of the sprites.
+	 * @author Bilal Hussain
+	 */
 	private class FileListRenderer extends  ReorderableListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
 		@Override

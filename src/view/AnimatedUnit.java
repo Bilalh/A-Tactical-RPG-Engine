@@ -16,7 +16,7 @@ import common.gui.Sprite;
 import common.gui.ResourceManager;
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
-import engine.UnitImageData;
+import engine.UnitAnimation;
 
 /**
  * A units that look anumated e.g. has sprites with slight changes to make it look like it moving.
@@ -72,7 +72,7 @@ public class AnimatedUnit extends GuiUnit {
 			log.debug(frames + " " + frames.length);
 			return;
 		}
-		UnitImageData id = images.get(direction.reference());
+		UnitAnimation id = images.get(direction.reference());
 		frames = new BufferedImage[id.getNumberOfFrames()];
 		for (int i = 0; i < frames.length; i++) {
 			frames[i] =spriteSheet.getSpriteImage(direction.reference()+i);
