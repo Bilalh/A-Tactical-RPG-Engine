@@ -17,6 +17,7 @@ import common.gui.Sprite;
 import common.gui.ResourceManager;
 import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
+import common.interfaces.IUnit;
 import common.spritesheet.SpriteSheet;
 import config.Config;
 import engine.UnitImages;
@@ -39,16 +40,22 @@ public class GuiUnit {
 	
 	protected Rectangle2D bounds;
 	
-	public GuiUnit(int gridX,int gridY) {
+	public GuiUnit(int gridX,int gridY, IUnit u) {
 		this.gridX = gridX;
 		this.gridY = gridY;
-		direction = Direction.EAST;
+		assert u != null;
+		images = u.getImageData(); 
+		assert images != null;
+		Logf.info(log,"Using sheet %s", images.getSpriteSheetLocation());
+		spriteSheet = Config.loadSpriteSheet(images.getSpriteSheetLocation());
+		setDirection(Direction.EAST);
+		
 	} 
 	
 	public void draw(Graphics g, final IsoTile[][] tiles, int drawX, int drawY) {
 		final Point centrePoint =  tiles[gridX][gridY].calculateCentrePoint(drawX,drawY);
 		int xPos =centrePoint.x - sprite.getWidth()/2;
-		int yPos =(int) (centrePoint.y -  sprite.getHeight()/1.25);
+		int yPos =(int) (centrePoint.y -  sprite.getHeight()/1.3);
 		g.drawImage(sprite,xPos,yPos,null);
 		bounds  = new Rectangle2D.Float(xPos,yPos+getHeight(),getWidth(),getHeight());
 	}
@@ -110,12 +117,6 @@ public class GuiUnit {
 	/** @category Generated */
 	public void setMapUnit(IMapUnit unit) {
 		this.unit = unit;
-		
-		images = unit.getImageData(); 
-		assert images != null;
-		Logf.info(log,"Using sheet %s", images.getSpriteSheetLocation());
-		spriteSheet = Config.loadSpriteSheet(images.getSpriteSheetLocation());
-		sprite = spriteSheet.getSpriteImage(direction.reference());
 	}
 
 	/** @category Generated */
@@ -126,7 +127,7 @@ public class GuiUnit {
 	/** @category Generated */
 	public void setDirection(Direction direction) {
 		this.direction = direction;
-		sprite = spriteSheet.getSpriteImage(direction.reference());
+		sprite = spriteSheet.getSpriteImage(direction.reference()+"0");
 	}
 	
 }

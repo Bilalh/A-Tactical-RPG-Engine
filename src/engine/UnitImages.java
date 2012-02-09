@@ -18,10 +18,12 @@ public class UnitImages implements IPreference {
 
 	private String spriteSheetLocation;
 	
-	@XStreamImplicit
-	private HashMap<String, UnitImageData> animations = new HashMap<String, UnitImageData>();
+	private HashMap<String, UnitImageData> animations;
 
-
+	public UnitImages(){
+		animations = new HashMap<String, UnitImageData>();
+	}
+	
 	/** @category Generated */
 	public String getSpriteSheetLocation() {
 		return spriteSheetLocation;
@@ -34,6 +36,8 @@ public class UnitImages implements IPreference {
 	
 	/** @category Generated */
 	public boolean containsKey(Object key) {
+		assert animations != null;
+		assert key        !=null;
 		return animations.containsKey(key);
 	}
 
@@ -49,6 +53,9 @@ public class UnitImages implements IPreference {
 
 	/** @category Generated */
 	public UnitImageData put(String key, UnitImageData value) {
+		assert animations != null;
+		assert key   !=null;
+		assert value !=null;
 		return animations.put(key, value);
 	}
 

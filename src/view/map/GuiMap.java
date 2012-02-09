@@ -198,8 +198,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 		for (int i = 0; i < newUnits.length; i++) {
 //			//FIXME indies
 				final IUnit u = allPlayerUnits.get(i);
+				assert u != null;
 				Location p = new Location(2,i+3); 
-				newUnits[i] = new AnimatedUnit(p.x, p.y, new String[]{"assets/gui/Archer.png"});
+				newUnits[i] = new AnimatedUnit(p.x, p.y,u);
 				selectedPostions.put(u, p);
 				unitMapping.put(u.getUuid(), newUnits[i]);
 				field[p.x][p.y].setUnit(newUnits[i]);
@@ -210,8 +211,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		AnimatedUnit[] newAiUnits = new AnimatedUnit[aiUnits.size()];
 		for (int i = 0; i < newAiUnits.length; i++) {
 			final IMapUnit u = aiUnits.get(i);
-			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(), 
-					new String[]{"assets/gui/alien.gif", "assets/gui/alien2.gif", "assets/gui/alien3.gif"});
+			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(),u);
 			newAiUnits[i].setMapUnit(u);
 			field[u.getGridX()][u.getGridY()].setUnit(newAiUnits[i]);
 		}

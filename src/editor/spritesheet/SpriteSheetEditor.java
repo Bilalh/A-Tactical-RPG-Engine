@@ -18,6 +18,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.apache.log4j.Logger;
+
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 import common.gui.Sprite;
@@ -27,6 +29,7 @@ import common.spritesheet.SpriteSheet;
 import config.Config;
 import config.XMLUtil;
 import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
+import editor.ui.AlphanumComparator;
 import engine.UnitImageData;
 import engine.UnitImages;
 
@@ -40,7 +43,8 @@ import net.miginfocom.swing.MigLayout;
  * @author Bilal Hussain
  */
 public class SpriteSheetEditor extends JFrame implements ISpriteProvider<MutableSprite> {
-
+	private static final Logger log = Logger.getLogger(SpriteSheetEditor.class);
+	
 	private static final long serialVersionUID = 8150077954325861946L;
 	private static final Integer[] sizes = new Integer[] { 128, 256, 512, 1024, 2048, 4096, 8192 };
 
@@ -327,18 +331,20 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object[] values =sprites.toArray();
-				ArrayList<MutableSprite> list = new ArrayList<MutableSprite>();
+				ArrayList<MutableSprite> alist = new ArrayList<MutableSprite>();
 				for (int i = 0; i < values.length; i++) {
-					list.add((MutableSprite) values[i]);
+					alist.add((MutableSprite) values[i]);
 				}
-				Collections.sort(list, new Comparator<MutableSprite>() {
+				Collections.sort(alist, new Comparator<MutableSprite>() {
 					@Override
 					public int compare(MutableSprite o1, MutableSprite o2) {
-						return o1.getName().compareTo(o2.getName());
+						return AlphanumComparator.compareStrings(o1.getName(), o2.getName());
 					}
 				});
+				
+				
 				sprites.clear();
-				for (MutableSprite mutableSprite : list) {
+				for (MutableSprite mutableSprite : alist) {
 					sprites.addElement(mutableSprite);
 				}
 				renew();
@@ -475,7 +481,9 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				
 				File a = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "") + "-animations.xml");
 				if (a.exists()){
-					animations = XMLUtil.convertXml(new FileInputStream(a));
+					UnitImages temp = XMLUtil.convertXml(new FileInputStream(a));
+					if (temp != null) animations = temp;
+					else              animations = new UnitImages();
 				}
 				
 				renew();
@@ -495,13 +503,19 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		int rst = dirChooser.showSaveDialog(SpriteSheetEditor.this);
 		if (rst != JFileChooser.APPROVE_OPTION) return;
 		File dir = dirChooser.getSelectedFile();
+		if (!dir.isDirectory()) dir = dir.getParentFile();
+		log.info("Saving to dir: " +dir);
 		for (int i = 0; i < sprites.size(); i++) {
 			MutableSprite e = (MutableSprite) sprites.get(i);
 			try {
-			 	File f = new File(dir,e.getName());
+				String name = e.getName();
+				if (!name.endsWith(".png")) name += ".png";
+			 	File f = new File(dir,name);
 			 	f.createNewFile();
 				ImageIO.write(e.getImage(), "PNG", f);
+				log.info("Saved: " +f.getName());
 			} catch (IOException e1) {
+				e1.printStackTrace();
 				JOptionPane.showMessageDialog(this,"Image writing error", "Writing error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}

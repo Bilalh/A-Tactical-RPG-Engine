@@ -111,7 +111,6 @@ public abstract class XMLUtil {
 				TileImageData.class,
 				UnitImageData.class,
 				UnitImages.class,
-				
 				// Editor
 				MutableSprite.class,
 				SpriteInfo.class,
