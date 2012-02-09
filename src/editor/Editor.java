@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.prefs.Preferences;
 
@@ -60,7 +61,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private Packer packer = new Packer();
 
 	private MutableSprite selectedTileSprite;
-	private ArrayList<EditorIsoTile> selection = new ArrayList<EditorIsoTile>();
+	private HashSet<EditorIsoTile> selection = new HashSet<EditorIsoTile>();
 
 	private static final String TOOL_DRAW = "Draw";
 	private static final String TOOL_ERASE = "Erase";
@@ -195,7 +196,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			case FILL:
 				if (selectedTileSprite != null && selection.contains(tile)){
 					for (EditorIsoTile t : selection) {
-						t.setSprite(selectedTileSprite);
+						map.setSprite(t.getFieldLocation(), selectedTileSprite);
 					}
 				}
 				repaint = true;
@@ -203,9 +204,11 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		}
 
 		//FIXME rethink this 
-		removeSelection(selection);
-		selection.clear();
-		selection.add(tile);
+		if (state!=State.SELECTION && state != State.FILL){
+			removeSelection(selection);
+			selection.clear();
+			selection.add(tile);	
+		}
 		
 		infoHeight.setValue(tile.getHeight());
 		//FIXME hack type name
@@ -223,13 +226,24 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		}
 	}
 
-	/** @category Callback **/
-	public void tilesSelected(ArrayList<EditorIsoTile> tiles){
-		removeSelection(selection);
-		selection = tiles;
+	/** @param shiftDown 
+	 * @category Callback **/
+	public void tilesSelected(ArrayList<EditorIsoTile> tiles, boolean shiftDown){
+		
+		System.out.println();
+		System.out.println(selection);
+		System.out.println(tiles);
+		if (!shiftDown){
+			System.out.println("cleered");
+			removeSelection(selection);
+			selection.clear();
+		}
+		selection.addAll(tiles);
+		System.out.println(selection);
 		for (EditorIsoTile t : selection) {
 			t.setSelected(true);
 		}
+		mapScrollPane.repaint();
 		editorMapPanel.repaintMap();
 	}
 
@@ -430,8 +444,9 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			return bar;
 		}
 
+	String filename = "nicer";
 	private void createMap() {
-		map = new EditorMap("maps/nice.xml");
+		map = new EditorMap("maps/"+filename+".xml");
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
 
 		// Relayout the sprites to fill the whole panel.
@@ -458,8 +473,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	}
 
 	private void save(){
-		
-		String filename="nice";
 		SavedTile[] tiles = new SavedTile[map.getFieldWidth() * map.getFieldHeight()]; 
 		Tile[][] field = map.getField();
 		for (int i = 0, k=0; i < field.length; i++) {

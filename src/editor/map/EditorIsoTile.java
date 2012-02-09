@@ -1,5 +1,6 @@
 package editor.map;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -21,6 +22,10 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 
 	private MutableSprite sprite;
 	private ArrayList<ITileChangedListener> listeners = new ArrayList<ITileChangedListener>();
+	
+	static{
+		TileState.SELECTED.setColor(Color.BLUE.brighter());
+	}
 	
 	/** @category Generated */
 	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight, 
@@ -58,6 +63,28 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 
 	public String toFormatedString() {
 		return String.format("Tile(%s,%s)[height=%s]",fieldLocation.x,fieldLocation.y,height, type);
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fieldLocation == null) ? 0 : fieldLocation.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (!(obj instanceof EditorIsoTile)) return false;
+		IsoTile other = (EditorIsoTile) obj;
+		if (fieldLocation == null) {
+			if (other.getFieldLocation() != null) return false;
+		} else if (!fieldLocation.equals(other.getFieldLocation())) return false;
+		return true;
 	}
 
 	

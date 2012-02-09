@@ -59,6 +59,7 @@ public class GuiUnit {
 	}
 
 	public boolean isIntersecting(IsoTile t, int x, int y){
+		assert t !=null;
 		return bounds.contains(x,y);
 	}
 	
@@ -73,6 +74,7 @@ public class GuiUnit {
 	}
 
 	public void setLocation(ILocation l){
+		assert l != null;
 		gridX = l.getX();
 		gridY = l.getY();
 	}

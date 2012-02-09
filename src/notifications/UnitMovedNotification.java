@@ -11,13 +11,13 @@ import common.interfaces.IMapUnit;
 /**
  * @author Bilal Hussain
  */
-public class UserMovedNotification  implements IMapNotification {
+public class UnitMovedNotification  implements IMapNotification {
 	
 	final private IMapUnit u;
 	final private Collection<LocationInfo> path;
 
 	/** @category Generated Constructor */
-	public UserMovedNotification(IMapUnit u, Collection<LocationInfo> path) {
+	public UnitMovedNotification(IMapUnit u, Collection<LocationInfo> path) {
 		this.u = u;
 		this.path = path;
 	}

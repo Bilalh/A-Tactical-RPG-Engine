@@ -50,11 +50,10 @@ public class Map extends BasicMap implements IMap {
 	public Map(String name, Player player) {
 		this.playerinfo = player;
 		loadSettings(name);
-		setUpAI();
-		
 		paths = new HashMap<IMutableMapUnit, PathFinder>();
 		order = new PriorityQueue<IMutableMapUnit>(16,new DefaultTurnComparator());
 		
+		setUpAI();
 	}
 
 	@Override
@@ -108,7 +107,7 @@ public class Map extends BasicMap implements IMap {
 
 		u.setReadiness(u.getReadiness() - 60);
 		order.add(u);
-		INotification n = new UserMovedNotification(u,path);
+		INotification n = new UnitMovedNotification(u,path);
 		paths.remove(u);
 		
 		setChanged();
@@ -125,15 +124,19 @@ public class Map extends BasicMap implements IMap {
 				u.setReadiness(100);
 				order.add(u);
 			}
-//			for (IMutableMapUnit u : ai.getUnits()) {
-//				u.setReadiness(100);
-//				order.add(u);
-//			}
+			for (IMutableMapUnit u : ai.getUnits()) {
+				u.setReadiness(100);
+				order.add(u);
+			}
 			
 		}
+		
 		setChanged();
 		INotification n = new UnitTurnNotification(current);
 		notifyObservers(n);
+		if (current instanceof AIUnit){
+			
+		}
 	}
 	
 	@Override
@@ -164,7 +167,7 @@ public class Map extends BasicMap implements IMap {
 		UnitImages ui = new UnitImages(); 
 		u.setName("ai-1");
 		u.setMove(3);
-		u.setSpeed(20);
+		u.setSpeed(5);
 		u.setStrength(30);
 		u.setDefence(20);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
@@ -177,7 +180,7 @@ public class Map extends BasicMap implements IMap {
 		ui = new UnitImages(); 
 		u.setName("ai-2");
 		u.setMove(4);
-		u.setSpeed(60);
+		u.setSpeed(10);
 		u.setStrength(10);
 		u.setDefence(10);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
@@ -187,6 +190,12 @@ public class Map extends BasicMap implements IMap {
 		field[width - 1][1].setCurrentUnit(au);
 		
 		ai = new AIPlayer(aiUnits);
+		
+		assert order !=null;
+		for (IMutableMapUnit aiu : aiUnits) {
+			assert aiu !=null;
+			order.add(aiu);
+		}
 	}
 
 	private void loadSettings(String name) {

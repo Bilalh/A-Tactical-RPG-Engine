@@ -11,6 +11,7 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 
+import util.Args;
 import util.Logf;
 import view.AnimatedUnit;
 import view.Gui;
@@ -31,6 +32,8 @@ import common.interfaces.IUnit;
 import config.xml.TileImageData;
 import controller.MapController;
 import engine.map.Tile;
+
+import static util.Args.*;
 
 /**
  * The view 
@@ -201,6 +204,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 	
 	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IMapUnit> aiUnits) {
+		assetNonNull(allPlayerUnits,aiUnits);
 		
 		AnimatedUnit[] newUnits = new AnimatedUnit[allPlayerUnits.size()];
 		HashMap<IUnit, Location> selectedPostions = new HashMap<IUnit, Location>();
@@ -214,7 +218,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 				unitMapping.put(u.getUuid(), newUnits[i]);
 				field[p.x][p.y].setUnit(newUnits[i]);
 		}
-		mapController.setUsersUnits(selectedPostions);
 		this.units = newUnits;
 		
 		AnimatedUnit[] newAiUnits = new AnimatedUnit[aiUnits.size()];
@@ -225,6 +228,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 			field[u.getGridX()][u.getGridY()].setUnit(newAiUnits[i]);
 		}
 		this.aiUnits = newAiUnits;
+		
+		mapController.setUsersUnits(selectedPostions);
 	}
 	
 	public void unitsChoosen(ArrayList<IMapUnit> units){
@@ -249,6 +254,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	public void unitsTurn(IMapUnit unit) {
 		currentUnit = getTile(unit.getLocation()).getUnit();
+		log.debug(unit);
+		log.debug(getTile(unit.getLocation()));
 		assert(currentUnit != null);
 		setSelectedTile(currentUnit.getGridX(), currentUnit.getGridY());
 	}

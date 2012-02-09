@@ -48,7 +48,7 @@ class EditorMapPanel extends JPanel {
 	private Point mouseStart;
 	private Point old;
 	
-	private void selection(){
+	private ArrayList<EditorIsoTile> selection(){
 		ArrayList<EditorIsoTile> selection = new ArrayList<EditorIsoTile>();
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
@@ -57,9 +57,7 @@ class EditorMapPanel extends JPanel {
 				}
 			}
 		}
-		
-		editor.tilesSelected(selection);
-		repaint(50);
+		return selection;
 	}
 	
 	private ArrayList<EditorIsoTile> selected = new ArrayList<EditorIsoTile>();
@@ -173,7 +171,8 @@ class EditorMapPanel extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (mouseArea != null && editor.getState() == State.SELECTION) {
-					selection();
+					ArrayList<EditorIsoTile> selection = selection();
+					editor.tilesSelected(selection,e.isShiftDown());
 				}
 				mouseArea = null;
 			}
@@ -215,6 +214,7 @@ class EditorMapPanel extends JPanel {
 	}
 	
 	public void mousePressed(MouseEvent e) {
+		if (editor.getState()==State.SELECTION) return;
 		EditorIsoTile current = null;
 		double highest = 0.0;
 

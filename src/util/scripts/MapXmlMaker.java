@@ -21,7 +21,8 @@ import config.xml.*;
  */
 public class MapXmlMaker {
 
-	static String filename = "grass";
+	static String filename = "map6";
+	static String sheet = "images/tilesets/nicer.png";
 	
 	public static void main(String[] args) throws IOException {
 		Config.loadLoggingProperties();
@@ -33,7 +34,7 @@ public class MapXmlMaker {
 		
 //		String[] types = {"m", "blue400", "grass"};
 //		String[] types = {"brown","darkblue","gray","ground","ice","lime","marking","metal","tile","white","wood","bush"};
-		String[] types = new String[24];
+		String[] types = new String[135];
 		for (int i = 0; i < types.length; i++) {
 			types[i] = ""+i;
 		}
@@ -43,7 +44,7 @@ public class MapXmlMaker {
 				String type = "" +types[(j+i)%types.length];
 				int h = r.nextInt(3)+1;
 				h =1;
-				type="marking";
+				type="0";
 				tiles[k] = new SavedTile(type,h, i,j);
 			}
 		}
@@ -62,7 +63,7 @@ public class MapXmlMaker {
 			mapping.put(t, new TileImageData(t, ImageType.NON_TEXTURED));	
 		}
 			
-		ITileMapping map = new TileMapping("images/tilesets/basic.png", mapping);
+		ITileMapping map = new TileMapping(sheet, mapping);
 		String s2 = XMLUtil.makeFormattedXml(map);
 		System.out.println(s2);
 //		

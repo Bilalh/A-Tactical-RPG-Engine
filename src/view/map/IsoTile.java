@@ -42,11 +42,16 @@ public class IsoTile {
 
 	public static enum TileState {
 		SELECTED(Color.white.darker()), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.GREEN);
-		public final Color colour;
+		public Color colour;
 
 		TileState(Color c) {
 			this.colour = c;
 		}
+		
+		public void setColor(Color c){
+			this.colour =c;
+		}
+		
 	}
 
 	// Tile Variables
@@ -567,9 +572,12 @@ public class IsoTile {
 
 	@Override
 	public String toString() {
-		return String.format("MapTile [way=%s, height=%s, p=%s, cost=%s, selected=%s]",
-				orientation, height, fieldLocation, cost,selected);
+		return fieldLocation.toString();
 	}
-
 	
+//	@Override
+//	public String toString() {
+//		return String.format("IsoTile [%s, way=%s, height=%s,selected=%s, unit=%s]",
+//				fieldLocation,orientation, height, selected, unit);
+//	}
 }
