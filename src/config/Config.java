@@ -12,6 +12,8 @@ import org.apache.log4j.LogMF;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import util.Logf;
+
 import com.sun.tools.internal.ws.util.xml.XmlUtil;
 
 import common.enums.ImageType;
@@ -89,6 +91,7 @@ public class Config {
 	public static SpriteSheet loadSpriteSheet(String filepath){
 		File in = new File("Resources/"+filepath);
 		File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png", "\\.xml"));
+		Logf.debug(log, "Try to load '%s' and '%s", in.getAbsolutePath(), xml.getAbsolutePath());
 		SpriteSheet ss = null;
 		try {
 			BufferedImage b = ImageIO.read(in);

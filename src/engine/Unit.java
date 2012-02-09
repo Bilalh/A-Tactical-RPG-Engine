@@ -27,9 +27,7 @@ public class Unit implements IMutableUnit {
 
 	final private UUID uuid;
 	private int weight;
-	String spriteSheetLocation;
-
-	UnitImages imageData;
+	private UnitImages imageData;
 	
 	public Unit(){
 		uuid = UUID.randomUUID();
@@ -49,11 +47,6 @@ public class Unit implements IMutableUnit {
 	@Override
 	public int getCost(Tile old, Tile next) {
 		return 1 + Math.abs(next.getCost() - old.getCost());
-	}
-
-	@Override
-	public UnitImageData getImageData(String ref){
-		return imageData.get(ref);
 	}
 	
 	/** @category Generated */
@@ -171,19 +164,19 @@ public class Unit implements IMutableUnit {
 
 	/** @category Generated */
 	@Override
-	public String getSpriteSheetLocation() {
-		return spriteSheetLocation;
-	}
-
-	/** @category Generated */
-	public void setSpriteSheetLocation(String spriteSheetLocation) {
-		this.spriteSheetLocation = spriteSheetLocation;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/** @category Generated */
 	@Override
-	public void setName(String name) {
-		this.name = name;
+	public UnitImages getImageData() {
+		return imageData;
+	}
+
+	/** @category Generated */
+	public void setImageData(UnitImages imageData) {
+		this.imageData = imageData;
 	}
 
 }

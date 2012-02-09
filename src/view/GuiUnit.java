@@ -19,6 +19,7 @@ import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
 import common.spritesheet.SpriteSheet;
 import config.Config;
+import engine.UnitImages;
 
 /**
  * @author bilalh
@@ -31,6 +32,8 @@ public class GuiUnit {
 	protected int gridY;
 	
 	protected SpriteSheet spriteSheet;
+	protected UnitImages images;
+	
 	protected BufferedImage sprite;
 	protected Direction direction;
 	
@@ -107,7 +110,9 @@ public class GuiUnit {
 	/** @category Generated */
 	public void setMapUnit(IMapUnit unit) {
 		this.unit = unit;
-		spriteSheet = Config.loadSpriteSheet(unit.getSpriteSheetLocation());
+		
+		images = unit.getImageData(); 
+		spriteSheet = Config.loadSpriteSheet(images.getSpriteSheetLocation());
 		sprite = spriteSheet.getSpriteImage(direction.reference());
 	}
 

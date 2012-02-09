@@ -22,6 +22,7 @@ import config.xml.*;
 import engine.IMutableUnit;
 import engine.Player;
 import engine.Unit;
+import engine.UnitImages;
 import engine.PathfindingEx.AStarPathFinder;
 import engine.PathfindingEx.Mover;
 import engine.PathfindingEx.TileBasedMap;
@@ -158,24 +159,28 @@ public class Map extends BasicMap implements IMap {
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
 		
 		
-		Unit u = new Unit();
+		Unit u        = new Unit();
+		UnitImages ui = new UnitImages(); 
 		u.setName("ai-1");
 		u.setMove(3);
 		u.setSpeed(20);
 		u.setStrength(30);
 		u.setDefence(20);
-		u.setSpriteSheetLocation("images/characters/Elena.png");
+		ui.setSpriteSheetLocation("images/characters/Elena.png");
+		u.setImageData(ui);
 		AIUnit au = new AIUnit(u,new Location( width - 1, 0), ai);
 		aiUnits.add(au);
 		field[width - 1][0].setCurrentUnit(au);
 		
-		u = new Unit();
+		u  = new Unit();
+		ui = new UnitImages(); 
 		u.setName("ai-2");
 		u.setMove(4);
 		u.setSpeed(60);
 		u.setStrength(10);
 		u.setDefence(10);
-		u.setSpriteSheetLocation("images/characters/Elena.png");
+		ui.setSpriteSheetLocation("images/characters/Elena.png");
+		u.setImageData(ui);
 		au = new AIUnit(u,new Location( width - 1, 1), ai);
 		aiUnits.add(au);
 		field[width - 1][1].setCurrentUnit(au);

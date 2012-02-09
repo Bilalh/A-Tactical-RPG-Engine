@@ -3,6 +3,7 @@ package common.interfaces;
 import java.util.UUID;
 
 import engine.UnitImageData;
+import engine.UnitImages;
 import engine.map.Tile;
 
 /**
@@ -30,8 +31,5 @@ public interface IUnit {
 
 	int getSpeed();
 	
-	String getSpriteSheetLocation();
-	
-	UnitImageData getImageData(String ref);
-	
+	UnitImages getImageData();
 }

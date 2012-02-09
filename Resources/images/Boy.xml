@@ -1,0 +1,6 @@
+<sprite-array>
+  <sprite name="south" x="0" y="0" width="22" height="47"/>
+  <sprite name="north" x="22" y="0" width="19" height="47"/>
+  <sprite name="east" x="41" y="0" width="22" height="47"/>
+  <sprite name="west" x="63" y="0" width="19" height="47"/>
+</sprite-array>

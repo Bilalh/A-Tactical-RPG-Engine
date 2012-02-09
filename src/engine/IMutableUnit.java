@@ -26,4 +26,6 @@ public interface IMutableUnit extends IUnit {
 
 	void setName(String name);
 
+	void setImageData(UnitImages imageData);
+	
 }

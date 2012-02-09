@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import common.interfaces.ILocation;
 import engine.IMutableUnit;
+import engine.UnitImages;
 
 import static engine.map.UnitStatus.*;
 
@@ -64,7 +65,4 @@ public class MapUnit extends AbstractMapUnit {
 		return String.format("MapUnit [player=%s, gridX=%s, gridY=%s, currentHp=%s, readiness=%s, status=%s, getMove()=%s, getSpeed()=%s]",
 				player, gridX, gridY, currentHp, readiness, status, getMove(), getSpeed());
 	}
-
-	
-	
 }
