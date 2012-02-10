@@ -9,6 +9,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.*;
 
+import openal.Music;
+import openal.SlickException;
+
 import org.apache.log4j.Logger;
 
 import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
@@ -46,7 +49,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
     private Component parent;
 	private MapController mapController; 
-
 	
 	private IsomertricMapRenderer mapRenderer;
 	private IsoTile[][] field;
@@ -57,7 +59,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 	// The units
     private AnimatedUnit[] punits;
     private AnimatedUnit[] aiUnits;
-    
+
+    private HashMap<UUID,AnimatedUnit> unitMapping;
+
+    private Music music;
     Dialog dialog;
     boolean showDialog = false;
         
@@ -65,8 +70,6 @@ public class GuiMap implements Observer, IMapRendererParent {
     private MapActions currentAction;
     private MousePoxy MousePoxy;
     
-    private HashMap<UUID,AnimatedUnit> unitMapping;
-
     // Buffer for drawing the map.    	
     private Image mapBuffer;
     private final int bufferWidth;
@@ -116,8 +119,14 @@ public class GuiMap implements Observer, IMapRendererParent {
         setActionHandler(ActionsEnum.MOVEMENT);
 		
         ResourceManager.instance().loadSpriteSheetFromResources(mapController.getTileSheetLocation());
+        try {
+			music = new Music("test/theme.ogg", true);
+			music.loop();
+		} catch (SlickException e) {
+			// FIXME catch block in GuiMap
+			e.printStackTrace();
+		}
         
-        //FIXME heights?
         for (int i = 0; i < fieldWidth; i++) { 
             for (int j = 0; j < fieldHeight; j++) {
             	TileImageData d = mapController.getTileImageData(i, j);
@@ -145,6 +154,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		mapBuffer = parent.createImage(bufferWidth,bufferHeight);
 	}
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
+		Music.poll((int) (timeDiff/1000000));
 		Graphics g = mapBuffer.getGraphics();
 		
 		if (!currentAction.isMouseMoving()) {

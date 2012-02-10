@@ -116,7 +116,7 @@ public class Music {
 	}
 
 	/**
-	 * Create and load a piece of music (either OGG or MOD/XM)
+	 * Create and load a piece of music (OGG)
 	 * 
 	 * @param ref
 	 *            The location of the music
