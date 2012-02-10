@@ -23,6 +23,7 @@ import com.jcraft.jorbis.Info;
  * 
  * @author kevin
  */
+@SuppressWarnings("unused")
 public class OggInputStream extends InputStream implements AudioInputStream {
 	/** The conversion buffer size */
 	private int convsize = 4096 * 4;

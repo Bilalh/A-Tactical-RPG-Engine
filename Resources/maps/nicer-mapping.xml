@@ -1,5 +1,12 @@
 <tilemapping spriteSheetLocation="images/tilesets/nicer.png">
   <entry>
+    <string>test</string>
+    <tileImageData>
+      <location>test</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
     <string>35</string>
     <tileImageData>
       <location>35</location>
@@ -182,13 +189,6 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>5</string>
-    <tileImageData>
-      <location>5</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
     <string>32</string>
     <tileImageData>
       <location>32</location>
@@ -196,9 +196,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>4</string>
+    <string>5</string>
     <tileImageData>
-      <location>4</location>
+      <location>5</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -206,6 +206,13 @@
     <string>31</string>
     <tileImageData>
       <location>31</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>4</string>
+    <tileImageData>
+      <location>4</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -423,13 +430,6 @@
     <string>92</string>
     <tileImageData>
       <location>92</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>91</string>
-    <tileImageData>
-      <location>91</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -700,6 +700,13 @@
     </tileImageData>
   </entry>
   <entry>
+    <string>test2</string>
+    <tileImageData>
+      <location>test2</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
     <string>70</string>
     <tileImageData>
       <location>70</location>
@@ -707,16 +714,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>71</string>
+    <string>120</string>
     <tileImageData>
-      <location>71</location>
+      <location>120</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>120</string>
+    <string>71</string>
     <tileImageData>
-      <location>120</location>
+      <location>71</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -770,16 +777,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>59</string>
+    <string>133</string>
     <tileImageData>
-      <location>59</location>
+      <location>133</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>133</string>
+    <string>59</string>
     <tileImageData>
-      <location>133</location>
+      <location>59</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -840,13 +847,6 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>60</string>
-    <tileImageData>
-      <location>60</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
     <string>131</string>
     <tileImageData>
       <location>131</location>
@@ -854,9 +854,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>61</string>
+    <string>60</string>
     <tileImageData>
-      <location>61</location>
+      <location>60</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -864,6 +864,13 @@
     <string>130</string>
     <tileImageData>
       <location>130</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>61</string>
+    <tileImageData>
+      <location>61</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -906,6 +913,20 @@
     <string>46</string>
     <tileImageData>
       <location>46</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>white_test</string>
+    <tileImageData>
+      <location>white_test</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>blue</string>
+    <tileImageData>
+      <location>blue</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>

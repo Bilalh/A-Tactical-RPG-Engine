@@ -47,7 +47,7 @@ public class EditorMap extends BasicMap {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				TileImageData d = getTileImageData(i, j);
-				assert d !=null;
+				assert d !=null :  String.format("TileImageData not found (%s,%s) %s",i,j, field[i][j]);
 				editorField[i][j] = new EditorTile(field[i][j]);				
 				guiField[i][j]    = new EditorIsoTile(IsoTile.Orientation.UP_TO_EAST,
 						editorField[i][j].getStartHeight(),

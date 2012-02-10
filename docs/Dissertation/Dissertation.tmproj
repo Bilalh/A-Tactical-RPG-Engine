@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>tex/Objectives.tex</string>
+	<string>tex/Scripting.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -18,42 +18,42 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>157</integer>
+	<integer>212</integer>
 	<key>metaData</key>
 	<dict>
-		<key>Project.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>19</integer>
-				<key>line</key>
-				<integer>14</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>tex/Objectives.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>12</integer>
 				<key>line</key>
-				<integer>76</integer>
+				<integer>85</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>18</integer>
+			<integer>75</integer>
+		</dict>
+		<key>tex/Scripting.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>13</integer>
+				<key>line</key>
+				<integer>57</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>40</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>tex/Objectives.tex</string>
-		<string>Project.tex</string>
+		<string>tex/Scripting.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -67,13 +67,6 @@
 			<true/>
 			<key>subItems</key>
 			<dict>
-				<key>figures</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
 				<key>tex</key>
 				<dict>
 					<key>isExpanded</key>
@@ -85,6 +78,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{319, 122}, {886, 726}}</string>
+	<string>{{492, 135}, {886, 726}}</string>
 </dict>
 </plist>

@@ -42,6 +42,7 @@ public class EditorSpriteSheet implements ISpriteSheet {
 	}
 
 	public MutableSprite getSprite(String ref){
+		assert sprites.containsKey(ref): ref + " not found in spritesheet" ;  
 		return sprites.get(ref);
 	}
 
