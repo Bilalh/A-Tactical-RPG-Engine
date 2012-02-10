@@ -1,11 +1,17 @@
-FIXME
+AI
+--
+* Pathfinding -- done 
+  * targets the unit with lowest hp for now.
+
+
+Editor
 -----
-Added image to tilemap on save.
+* Added image to tilemap on save. -- done
 
 
 GUI
 ---
-* Unit crossing in gui
+* Unit crossing in gui -- done
 
 
 Map Drawing
