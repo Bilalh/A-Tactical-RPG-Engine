@@ -11,8 +11,8 @@ import config.xml.TileImageData;
 
 import util.Args;
 import view.GuiUnit;
+import engine.ai.Map;
 import engine.map.IMutableMapUnit;
-import engine.map.Map;
 import engine.map.Tile;
 import engine.pathfinding.PathFinder;
 import engine.unit.IMutableUnit;
@@ -68,6 +68,10 @@ public class MapController extends Controller {
 	/** @category Generated */
 	public String getTileSheetLocation() {
 		return map.getTileSheetLocation();
+	}
+
+	public void finishedMoving() {
+		map.finishedMoving();
 	}
 	
 }

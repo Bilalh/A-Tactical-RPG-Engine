@@ -11,6 +11,7 @@ import util.ArrayUtil;
 import common.Location;
 import common.LocationInfo;
 import common.ProxyLocationInfo;
+import common.interfaces.ILocation;
 import common.interfaces.IUnit;
 
 import engine.map.IMap;
@@ -36,7 +37,7 @@ public class PathFinder implements IMovementCostProvider {
 	private HashSet<LocationInfo> inRange;
 	
 	// Cache Calcuted paths
-	private HashMap<Location, ArrayDeque<LocationInfo>> paths = new HashMap<Location, ArrayDeque<LocationInfo>>();
+	private HashMap<ILocation, ArrayDeque<LocationInfo>> paths = new HashMap<ILocation, ArrayDeque<LocationInfo>>();
 
 	public PathFinder(IMutableMapUnit u, IMap map) {
 		Args.nullCheck(u,map);
@@ -68,7 +69,6 @@ public class PathFinder implements IMovementCostProvider {
 				
 				if (locations[i][j].getMinDistance() <= unit.getMove()) {
 					inRange.add(new ProxyLocationInfo(locations[i][j]));
-//					inRange.add(locations[i][j]);
 				}
 			}
 		}
@@ -81,13 +81,13 @@ public class PathFinder implements IMovementCostProvider {
 	 * Get the path to a specifed Location
 	 * @return The path as an immutable list or null if the location is not reachable with the unit. 
 	 */
-	public Collection<LocationInfo> getMovementPath(Location p){
+	public Collection<LocationInfo> getMovementPath(ILocation p){
 		Args.nullCheck(p);
-		Args.validateRange(p.x, start.x, end.x);
-		Args.validateRange(p.y, start.y, end.y);
+		Args.validateRange(p.getX(), start.x, end.x);
+		Args.validateRange(p.getY(), start.y, end.y);
 		Logf.info(log, "Finding path to %s for %s", p, unit);
 		
-		if (locations[p.x][p.y] == null || locations[p.x][p.y].getMinDistance() > unit.getMove()){
+		if (locations[p.getX()][p.getY()] == null || locations[p.getX()][p.getY()].getMinDistance() > unit.getMove()){
 			return null;
 		}
 		
@@ -96,7 +96,7 @@ public class PathFinder implements IMovementCostProvider {
 		
 		ArrayDeque<LocationInfo> path = new ArrayDeque<LocationInfo>();
 		
-		for(LocationInfo l = locations[p.x][p.y]; l != locations[unit.getGridX()][unit.getGridY()];l = l.getPrevious()){
+		for(LocationInfo l = locations[p.getX()][p.getY()]; l != locations[unit.getGridX()][unit.getGridY()];l = l.getPrevious()){
 			path.push(l);
 			log.trace("path " + path);
 		}

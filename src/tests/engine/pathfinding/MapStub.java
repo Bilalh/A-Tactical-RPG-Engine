@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import common.Location;
 import common.LocationInfo;
+import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
 import config.xml.TileImageData;
 
@@ -30,18 +31,14 @@ public class MapStub implements IMap {
 
 	}
 
+
 	@Override
-	public void moveUnit(IMutableMapUnit u, Location p) {
+	public void moveUnit(IMutableMapUnit u, ILocation p) {
 
 	}
 
 	@Override
 	public Collection<LocationInfo> getMovementRange(IMutableMapUnit u) {
-		return null;
-	}
-
-	@Override
-	public ArrayList<IMapUnit> getUnits() {
 		return null;
 	}
 
@@ -54,7 +51,6 @@ public class MapStub implements IMap {
 	public TileImageData getTileImageData(int x, int y) {
 		return null;
 	}
-
 
 	@Override
 	public int getFieldWidth() {

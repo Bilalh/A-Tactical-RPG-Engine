@@ -1,4 +1,4 @@
-package engine.map;
+package engine.ai;
 
 import common.Location;
 import common.LocationInfo;
@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import util.Args;
 import util.Logf;
 
+import common.interfaces.ILocation;
 import common.interfaces.INotification;
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
@@ -24,8 +25,7 @@ import engine.Player;
 import engine.PathfindingEx.AStarPathFinder;
 import engine.PathfindingEx.Mover;
 import engine.PathfindingEx.TileBasedMap;
-import engine.ai.AIPlayer;
-import engine.ai.AIUnit;
+import engine.map.*;
 import engine.pathfinding.PathFinder;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
@@ -37,22 +37,24 @@ import engine.unit.UnitImages;
 public class Map extends BasicMap implements IMap {
 	private static final Logger log = Logger.getLogger(Map.class);
 	private Player playerinfo;
-	
+
 	private AIPlayer ai;
 	private MapPlayer player;
-	
-	//	Cached movement data 
+
+	// Cached movement data
 	private HashMap<IMutableMapUnit, PathFinder> paths;
 	// Turn ordering
 	private PriorityQueue<IMutableMapUnit> order;
-	
+
+	private IMutableMapUnit current;
+
 	/** @category Constructor */
 	public Map(String name, Player player) {
 		this.playerinfo = player;
 		loadSettings(name);
 		paths = new HashMap<IMutableMapUnit, PathFinder>();
-		order = new PriorityQueue<IMutableMapUnit>(16,new DefaultTurnComparator());
-		
+		order = new PriorityQueue<IMutableMapUnit>(16, new DefaultTurnComparator());
+
 		setUpAI();
 	}
 
@@ -63,26 +65,22 @@ public class Map extends BasicMap implements IMap {
 		notifyObservers(n);
 	}
 
-	
-	private IMutableMapUnit current;
-	
 	@Override
 	public void setUsersUnits(HashMap<IMutableUnit, Location> selected) {
 
 		ArrayList<IMutableMapUnit> units = new ArrayList<IMutableMapUnit>();
-		
+
 		for (Entry<IMutableUnit, Location> e : selected.entrySet()) {
-			IMutableMapUnit u = new MapUnit(e.getKey(),e.getValue(),player); 
+			IMutableMapUnit u = new MapUnit(e.getKey(), e.getValue(), player);
 			field[u.getGridX()][u.getGridY()].setCurrentUnit(u);
 			units.add(u);
 			order.add(u);
 		}
 		player = new MapPlayer(units);
-		
 		INotification n = new UnitsChosenNotification(new ArrayList<IMapUnit>(units));
 		setChanged();
 		notifyObservers(n);
-		
+
 		Logf.info(log, "ordering %s", order);
 		setChanged();
 		current = order.remove();
@@ -90,35 +88,38 @@ public class Map extends BasicMap implements IMap {
 		notifyObservers(n);
 	}
 
-	
 	// Precondition getMovementRange must have been called first
 	@Override
-	public void moveUnit(IMutableMapUnit u, Location p) {
-		
-		Collection<LocationInfo> path  =  paths.get(u).getMovementPath(p);
+	public void moveUnit(IMutableMapUnit u, ILocation p) {
+
+		Collection<LocationInfo> path = paths.get(u).getMovementPath(p);
 		field[u.getGridX()][u.getGridY()].setCurrentUnit(null);
 		u.setLocation(p);
-		field[p.x][p.y].setCurrentUnit(u);
-		
-		//FIXME events
+		field[p.getX()][p.getY()].setCurrentUnit(u);
+
+		// FIXME events
 		for (LocationInfo l : path) {
-//			field[l.x][l.y].event(u)
+			// field[l.x][l.y].event(u)
 		}
 
 		u.setReadiness(u.getReadiness() - 60);
 		order.add(u);
-		INotification n = new UnitMovedNotification(u,path);
+		INotification n = new UnitMovedNotification(u, path);
 		paths.remove(u);
-		
+
 		setChanged();
 		notifyObservers(n);
-		sendNextUnit();
 	}
 
 
-	public void sendNextUnit(){
+	public void finishedMoving() {
+		sendNextUnit();
+	}
+	
+	
+	public void sendNextUnit() {
 		current = order.remove();
-		if (current.getReadiness() == 0){
+		if (current.getReadiness() == 0) {
 			order.clear();
 			for (IMutableMapUnit u : player.getUnits()) {
 				u.setReadiness(100);
@@ -128,85 +129,85 @@ public class Map extends BasicMap implements IMap {
 				u.setReadiness(100);
 				order.add(u);
 			}
-			
+
 		}
-		
+
 		setChanged();
 		INotification n = new UnitTurnNotification(current);
 		notifyObservers(n);
-		if (current instanceof AIUnit){
-			
+		if (current instanceof AIUnit) {
+			ILocation l = ai.getMoveLocation((AIUnit) current);
+			moveUnit(current, l);
 		}
 	}
-	
+
 	@Override
-	public Collection<LocationInfo> getMovementRange(IMutableMapUnit u){
+	public Collection<LocationInfo> getMovementRange(IMutableMapUnit u) {
 		Args.nullCheck(u);
 		PathFinder pf;
-		if ((pf = paths.get(u)) != null){
+		if ((pf = paths.get(u)) != null) {
 			return pf.getMovementRange();
 		}
-		
+
 		pf = new PathFinder(u, this);
 		paths.put(u, pf);
-		
+
 		return pf.getMovementRange();
 	}
-	
-	
-	@Override
-	public ArrayList<IMapUnit> getUnits() {
-		 return new ArrayList<IMapUnit>(player.getUnits());
+
+	public ArrayList<IMutableMapUnit> getPlayerUnits() {
+		return player.getUnits();
 	}
 
 	private void setUpAI() {
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
-		
-		
-		Unit u        = new Unit();
-		UnitImages ui = new UnitImages(); 
+
+		Unit u = new Unit();
+		UnitImages ui = new UnitImages();
 		u.setName("ai-1");
 		u.setMove(3);
 		u.setSpeed(5);
 		u.setStrength(30);
 		u.setDefence(20);
+		u.setMaxHp(40);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
-		AIUnit au = new AIUnit(u,new Location( width - 1, 0), ai);
+		AIUnit au = new AIUnit(u, new Location(width - 1, 0), ai);
 		aiUnits.add(au);
 		field[width - 1][0].setCurrentUnit(au);
-		
-		u  = new Unit();
-		ui = new UnitImages(); 
+
+		u = new Unit();
+		ui = new UnitImages();
 		u.setName("ai-2");
 		u.setMove(4);
 		u.setSpeed(10);
 		u.setStrength(10);
 		u.setDefence(10);
+		u.setMaxHp(30);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
-		au = new AIUnit(u,new Location( width - 1, 1), ai);
+		au = new AIUnit(u, new Location(width - 1, 1), ai);
 		aiUnits.add(au);
 		field[width - 1][1].setCurrentUnit(au);
-		
-		ai = new AIPlayer(this,aiUnits);
-		
-		assert order !=null;
+
+		ai = new AIPlayer(this, aiUnits);
+
+		assert order != null;
 		for (IMutableMapUnit aiu : aiUnits) {
-			assert aiu !=null;
+			assert aiu != null;
 			order.add(aiu);
 		}
 	}
 
 	private void loadSettings(String name) {
 		loadMap(name);
-//		testing();
-		assert(field != null);
-		assert(width  > 0);
-		assert(height > 0);
+		// testing();
+		assert (field != null);
+		assert (width > 0);
+		assert (height > 0);
 	}
 
-	/** @category unused**/
+	/** @category unused **/
 	void testing() {
 		tileMapping = Config.defaultMapping();
 		width = 17;
@@ -219,10 +220,10 @@ public class Map extends BasicMap implements IMap {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				int first = r.nextInt(3) + 1;
-				field[i][j] = new Tile(first, first,"grass");
+				field[i][j] = new Tile(first, first, "grass");
 				// field[i][j] = new Tile(1,1);
 			}
 		}
 	}
-	
+
 }

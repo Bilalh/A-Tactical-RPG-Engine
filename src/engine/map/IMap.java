@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import common.Location;
 import common.LocationInfo;
+import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
 
 import config.xml.TileImageData;
@@ -21,11 +22,9 @@ public interface IMap {
 	void setUsersUnits(HashMap<IMutableUnit, Location> selected);
 
 	// Precondition getMovementRange must have been called first
-	void moveUnit(IMutableMapUnit u, Location p);
+	void moveUnit(IMutableMapUnit u, ILocation p);
 
 	Collection<LocationInfo> getMovementRange(IMutableMapUnit u);
-
-	ArrayList<IMapUnit> getUnits();
 
 	Tile getTile(int x, int y);
 

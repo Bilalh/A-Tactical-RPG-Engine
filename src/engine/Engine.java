@@ -1,8 +1,8 @@
 package engine;
 
 import config.Config;
+import engine.ai.Map;
 import engine.map.IMap;
-import engine.map.Map;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
 
@@ -28,6 +28,7 @@ public class Engine {
 		u.setSpeed(20);
 		u.setStrength(30);
 		u.setDefence(20);
+		u.setMaxHp(20);
 		player.addUnit(u);
 //		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
@@ -39,6 +40,7 @@ public class Engine {
 		u.setSpeed(60);
 		u.setStrength(10);
 		u.setDefence(10);
+		u.setMaxHp(30);
 		player.addUnit(u);
 		u.setImageData(ui);
 		

@@ -11,6 +11,8 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
+
 import util.Args;
 import util.Logf;
 import view.AnimatedUnit;
@@ -170,6 +172,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 					
 					if (!pathIterator.hasNext()){
 						setActionHandler(oldAction);
+						mapController.finishedMoving();
 					}
 				}
 				setDrawn(false);
@@ -226,6 +229,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(),u);
 			newAiUnits[i].setMapUnit(u);
 			field[u.getGridX()][u.getGridY()].setUnit(newAiUnits[i]);
+			unitMapping.put(u.getUuid(), newUnits[i]);
 		}
 		this.aiUnits = newAiUnits;
 		
@@ -240,13 +244,19 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 	
 	public void unitMoved(IMapUnit u, Collection<LocationInfo> path){
+		assert u != null;
+		assert path != null;
+		Logf.info(log, "Unit: %s",u);
 		AnimatedUnit movingUnit =  unitMapping.get(u.getUuid());
+		assert movingUnit != null;
+		
 		pathIterator = path.iterator();
 		lastLocation = pathIterator.next();
 		oldAction = currentAction;
 		
 		// Disable input when a unit is moving
 		if (pathIterator.hasNext()) setActionHandler(ActionsEnum.NONE);
+		
 		
 		Logf.info(log, "%s moved from %s to %s with path:s%s", u.getName(),  movingUnit.getLocation(), u.getLocation(), path );
 		setDrawn(false);
@@ -386,6 +396,9 @@ public class GuiMap implements Observer, IMapRendererParent {
     
     public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {
+			case KeyEvent.VK_1:
+				mapRenderer.toggleNumbering();
+				break;
 			case KeyEvent.VK_T:
 				setActionHandler(ActionsEnum.DIALOG);
 				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
