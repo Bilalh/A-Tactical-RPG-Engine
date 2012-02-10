@@ -175,12 +175,16 @@
 % (end)      
 
 
+\usepackage{bbding}
+% for lists
+\newcommand*\tick{\item[\Checkmark]}
+\newcommand*\cross{\item[\XSolidBrush]}
 
 % question macros (fold) 
 \newcounter{qnumber}
 \setcounter{qnumber}{0}
 \stepcounter{qnumber}
-
+  
 \def\qquestion#1\par#2\par{\hbox to \hsize
 {\vbox{\hsize=0.5\hsize #1}\quad#2\hfil}\medskip\goodbreak}
 
