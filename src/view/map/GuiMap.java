@@ -243,6 +243,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 	}
 	
+	Timer timer = new Timer();
+	
 	public void unitMoved(IMapUnit u, Collection<LocationInfo> path){
 		assert u != null;
 		assert path != null;
@@ -255,7 +257,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 		oldAction = currentAction;
 		
 		// Disable input when a unit is moving
-		if (pathIterator.hasNext()) setActionHandler(ActionsEnum.NONE);
+		if (pathIterator.hasNext()) {
+			setActionHandler(ActionsEnum.NONE);
+		}else{
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					mapController.finishedMoving();
+				}
+			}, 1000);
+		}
 		
 		
 		Logf.info(log, "%s moved from %s to %s with path:s%s", u.getName(),  movingUnit.getLocation(), u.getLocation(), path );

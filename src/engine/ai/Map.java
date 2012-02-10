@@ -119,7 +119,7 @@ public class Map extends BasicMap implements IMap {
 	
 	public void sendNextUnit() {
 		current = order.remove();
-		if (current.getReadiness() == 0) {
+		if (current.getReadiness() <= 0) {
 			order.clear();
 			for (IMutableMapUnit u : player.getUnits()) {
 				u.setReadiness(100);
