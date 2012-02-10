@@ -55,7 +55,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private static IsoTile selectedTile;
     
 	// The units
-    private AnimatedUnit[] units;
+    private AnimatedUnit[] punits;
     private AnimatedUnit[] aiUnits;
     
     Dialog dialog;
@@ -221,7 +221,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				unitMapping.put(u.getUuid(), newUnits[i]);
 				field[p.x][p.y].setUnit(newUnits[i]);
 		}
-		this.units = newUnits;
+		this.punits = newUnits;
 		
 		AnimatedUnit[] newAiUnits = new AnimatedUnit[aiUnits.size()];
 		for (int i = 0; i < newAiUnits.length; i++) {
@@ -478,12 +478,17 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public int getDrawY() {
 		return drawY;
 	}
-
+	
 	/** @category Generated */
-	AnimatedUnit[] getUnits() {
-		return units;
+	AnimatedUnit[] getPlayersUnits() {
+		return punits;
 	}
-
+	
+	/** @category Generated */
+	AnimatedUnit[] getAIUnits() {
+		return aiUnits;
+	}
+	
 	/** @category Generated */
 	GuiUnit getCurrentUnit() {
 		return currentUnit;
@@ -494,10 +499,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		return mapController;
 	}
 
-	/** @category Generated */
-	void setUnits(AnimatedUnit[] units) {
-		this.units = units;
-	}
 
 	/** @category Generated */
 	boolean isDrawn() {

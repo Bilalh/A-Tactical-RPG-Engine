@@ -83,10 +83,19 @@ public  class Movement extends MapActions{
 		AnimatedUnit unitS = null;
 		IsoTile t = map.getSelectedTile();
 		
-		for (AnimatedUnit u : map.getUnits()) {
+		for (AnimatedUnit u : map.getPlayersUnits()) {
 			if (u.getGridX() == t.getFieldLocation().x && u.getGridY() == t.getFieldLocation().y){
 				unitS = u;
 				break;
+			}
+		}
+		
+		if (unitS == null){
+			for (AnimatedUnit u : map.getAIUnits()) {
+				if (u.getGridX() == t.getFieldLocation().x && u.getGridY() == t.getFieldLocation().y){
+					unitS = u;
+					break;
+				}
 			}
 		}
 		
@@ -140,7 +149,7 @@ public  class Movement extends MapActions{
         } else {
         	
         	Location l = null;
-        	for (AnimatedUnit u : map.getUnits()) {
+        	for (AnimatedUnit u : map.getPlayersUnits()) {
         		if (l ==null){
         			if(u.isIntersecting(map.getTile(u.getLocation()), e.getX(), e.getY())){
         				l = u.getLocation();
