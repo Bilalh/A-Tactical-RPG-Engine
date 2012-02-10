@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+import org.apache.log4j.Logger;
+
+import util.Logf;
+
 import common.Location;
 import common.LocationInfo;
 import common.interfaces.ILocation;
@@ -15,7 +19,8 @@ import engine.map.MapPlayer;
  * @author bilalh
  */
 public class AIPlayer extends MapPlayer {
-
+	private static final Logger log = Logger.getLogger(AIPlayer.class);
+	
 	private Map map;
 	private PriorityQueue<IMutableMapUnit> lowestHp;
 	
@@ -42,26 +47,30 @@ public class AIPlayer extends MapPlayer {
 		
 		Collection<LocationInfo> movementRange = map.getMovementRange(a);
 		LocationInfo chosen = null;
+		boolean adjacent = false;
 		
 		double currentDistance = Double.MAX_VALUE;
 		for (LocationInfo l : movementRange) {
-			if (tl.adjacent(l)){
-				return l;
-			}
+			
 			double dist =  tl.distance(l);
-			if (dist < currentDistance){
+			if (tl.adjacent(l)){
+				if (!adjacent) {
+					chosen = l;
+					currentDistance = dist;
+					adjacent = true;
+				}else if (l.getMinDistance() < chosen.getMinDistance()){
+					chosen = l;
+					currentDistance = dist;
+				}
+			// since we allready found a adjacent
+			}else if (!adjacent &&  dist < currentDistance){
+				Logf.info(log, "l %s", l);
 				chosen = l;
 				currentDistance = dist;
 			}
 		}
 		
 		return chosen;
-	}
-
-	public static void main(String[] args) {
-		Location a = new Location(0, 1);
-		Location b = new Location(1, 1);
-		System.out.println(Location.distance(a, b));
 	}
 	
 }

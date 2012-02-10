@@ -165,7 +165,7 @@ public class Map extends BasicMap implements IMap {
 		Unit u = new Unit();
 		UnitImages ui = new UnitImages();
 		u.setName("ai-1");
-		u.setMove(3);
+		u.setMove(5);
 		u.setSpeed(5);
 		u.setStrength(30);
 		u.setDefence(20);
@@ -179,7 +179,7 @@ public class Map extends BasicMap implements IMap {
 		u = new Unit();
 		ui = new UnitImages();
 		u.setName("ai-2");
-		u.setMove(4);
+		u.setMove(6);
 		u.setSpeed(10);
 		u.setStrength(10);
 		u.setDefence(10);
