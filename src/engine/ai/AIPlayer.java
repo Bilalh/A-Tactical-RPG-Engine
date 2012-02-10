@@ -33,7 +33,7 @@ public class AIPlayer extends MapPlayer {
 			public int compare(IMutableMapUnit o1, IMutableMapUnit o2) {
 				 int r = o1.getCurrentHp() - o2.getCurrentHp();
 				 if (r == 0) r = o1.getStrength() - o2.getStrength();
-				 return -r;
+				 return r;
 			}
 		});
 	}

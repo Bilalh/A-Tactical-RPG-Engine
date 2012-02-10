@@ -120,7 +120,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
         ResourceManager.instance().loadSpriteSheetFromResources(mapController.getTileSheetLocation());
         try {
-			music = new Music("test/theme.ogg", true);
+			music = new Music("music/1-19 Fight It Out!.ogg", true);
 			music.loop();
 		} catch (SlickException e) {
 			// FIXME catch block in GuiMap

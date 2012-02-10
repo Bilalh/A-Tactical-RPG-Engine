@@ -1,13 +1,10 @@
 Libs/Classes
 ------------
-* Junit
-* log4java
-* xstream with xpp3
-* FloatablePanel 
-
-Maybe
------
-* openal audio using slick 2d
+* Junit                         -- Testing 
+* log4java                      -- Logging 
+* xstream with xpp3             -- Reading/Writing xml
+* FloatablePanel                -- JPanel that can float above other element in the gui 
+* openal wrapper from slick 2d  -- For playing music (ogg/wav) and sounds 
 
 
 
