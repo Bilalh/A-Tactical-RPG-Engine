@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
@@ -53,6 +54,13 @@ public class ResourceManager {
 		BufferedImage result = currentTileSheet.getSpriteImage(ref);
 		assert result != null;
 		return result;
+	}
+	
+	
+	public InputStream getResourceAsStream(String ref){
+		InputStream s =  this.getClass().getClassLoader().getResourceAsStream("Resources/"+ref);
+		assert s != null : ref;
+		return s;
 	}
 	
 	public Sprite getSpriteFromClassPath(String path) {

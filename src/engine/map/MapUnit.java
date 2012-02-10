@@ -23,6 +23,7 @@ public class MapUnit extends AbstractMapUnit {
 		this.gridY = l.getY();
 		this.unit = unit;
 		this.player = player;
+		this.currentHp = getMaxHp();
 	}
 
 	@Override

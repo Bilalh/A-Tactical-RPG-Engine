@@ -11,5 +11,13 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/miglayout-4.0-swing.jar"/>
+	<classpathentry kind="lib" path="libs/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="libs/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="libs/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="CS4099-SH/libs"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
