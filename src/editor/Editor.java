@@ -41,9 +41,9 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	private JFrame frame;
 
-	private AbstractButton drawButton, eraseButton, pourButton;
-	private AbstractButton eyeButton, selectionButton, moveButton;
-	private final Action zoomInAction, zoomOutAction, zoomNormalAction;
+	private AbstractButton drawButton, drawInfoButton,  eraseButton, fillButton;
+	private AbstractButton eyeButton,  selectionButton, moveButton;
+	private final Action zoomInAction, zoomOutAction,   zoomNormalAction;
 	private State state = State.DRAW;
 
 	private JScrollPane mapScrollPane;
@@ -62,13 +62,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private MutableSprite selectedTileSprite;
 	private HashSet<EditorIsoTile> selection = new HashSet<EditorIsoTile>();
 
-	private static final String TOOL_DRAW = "Draw";
-	private static final String TOOL_ERASE = "Erase";
-	private static final String TOOL_FILL = "Fill";
-	private static final String TOOL_EYE_DROPPER = "Eye Dropper";
-	private static final String TOOL_SELECTION = "Select Area";
-	private static final String TOOL_MOVE = "Move";
-	
 	public Editor() {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -164,7 +157,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private EditorIsoTile old;
 	private boolean showOnHover =false;
 
-	public void tileEnded(EditorIsoTile tile) {
+	public void tileEntered(EditorIsoTile tile) {
 		if (old != null) {
 			old.setSelected(false);
 		}
@@ -187,6 +180,17 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 					repaint = true;
 				}
 				break;
+			case DRAW_INFO:
+				if (selectedTileSprite != null){
+					map.setSprite(tile.getFieldLocation(), selectedTileSprite);
+					repaint = true;
+				}
+				
+				int  height = ((Number) infoHeight.getValue()).intValue();
+				if (height >=0){
+					map.setHeight(tile.getFieldLocation(), height);	
+				}
+				
 			case EYE:
 				selectedTileSprite = tile.getSprite();
 				tilesetPanel.setSelectedSprites(selectedTileSprite);
@@ -203,7 +207,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		}
 
 		//FIXME rethink this 
-		if (state!=State.SELECTION && state != State.FILL){
+		if (state==State.SELECTION && state != State.FILL){
 			removeSelection(selection);
 			selection.clear();
 			selection.add(tile);	
@@ -212,7 +216,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		infoHeight.setValue(tile.getHeight());
 		//FIXME hack type name
 		infoType.setText(tile.getSprite().getName());
-		
 		infoLocation.setText(String.format("(%s,%s)", tile.getX(), tile.getY()));
 		
 		if (repaint) editorMapPanel.repaintMap();
@@ -335,28 +338,31 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	/** @category Gui **/
 	private JToolBar createSideBar() {
 		
-		ImageIcon iconMove    = Resources.getIcon("images/gimp-tool-move-22.png");
-		ImageIcon iconPaint   = Resources.getIcon("images/gimp-tool-pencil-22.png");
-		ImageIcon iconErase   = Resources.getIcon("images/gimp-tool-eraser-22.png");
-		ImageIcon iconPour    = Resources.getIcon("images/gimp-tool-bucket-fill-22.png");
-		ImageIcon iconEyed    = Resources.getIcon("images/gimp-tool-color-picker-22.png");
+		ImageIcon iconMove      = Resources.getIcon("images/gimp-tool-move-22.png");
+		ImageIcon iconDraw     = Resources.getIcon("images/gimp-tool-pencil-22.png");
+		ImageIcon iconErase     = Resources.getIcon("images/gimp-tool-eraser-22.png");
+		ImageIcon iconFill      = Resources.getIcon("images/gimp-tool-bucket-fill-22.png");
+		ImageIcon iconEyed      = Resources.getIcon("images/gimp-tool-color-picker-22.png");
 		ImageIcon iconSelection = Resources.getIcon("images/gimp-tool-rect-select-22.png");
 
-		drawButton    = makeToggleButton(iconPaint, State.DRAW.name(),  TOOL_DRAW);
-		eraseButton   = makeToggleButton(iconErase, State.ERASE.name(), TOOL_ERASE);
-		pourButton    = makeToggleButton(iconPour,  State.FILL.name(),  TOOL_FILL);
-		eyeButton    = makeToggleButton(iconEyed,  State.EYE.name(),  TOOL_EYE_DROPPER);
-		moveButton    = makeToggleButton(iconMove,  State.MOVE.name(),  TOOL_MOVE);
+		drawButton     = makeToggleButton(iconDraw,  State.DRAW.name(),       State.DRAW.description);
+		drawInfoButton = makeToggleButton(iconDraw,  State.DRAW_INFO.name(),  State.DRAW_INFO.description);
+		
+		eraseButton    = makeToggleButton(iconErase, State.ERASE.name(), State.ERASE.description);
+		fillButton     = makeToggleButton(iconFill,  State.FILL.name(),  State.FILL.description);
+		eyeButton      = makeToggleButton(iconEyed,  State.EYE.name(),   State.ERASE.description);
+		moveButton     = makeToggleButton(iconMove,  State.MOVE.name(),  State.MOVE.description);
 
-		selectionButton = makeToggleButton(iconSelection, "SELECTION", TOOL_SELECTION);
+		selectionButton = makeToggleButton(iconSelection, State.SELECTION.name(), State.SELECTION.description);
 		
 		JToolBar toolBar = new JToolBar(SwingConstants.VERTICAL);
 		toolBar.setFloatable(true);
 		toolBar.add(moveButton);
 		toolBar.add(drawButton);
+		toolBar.add(drawInfoButton);
 		//TODO  erase button needed?
 //		toolBar.add(eraseButton); 
-		toolBar.add(pourButton);
+		toolBar.add(fillButton);
 		toolBar.add(eyeButton);
 		toolBar.add(selectionButton);
 		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -525,12 +531,12 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private void setState(State s) {
 		state = s;
 		drawButton.setSelected(state == State.DRAW);
+		drawInfoButton.setSelected(state == State.DRAW_INFO);
 		eraseButton.setSelected(state == State.ERASE);
-		pourButton.setSelected(state == State.FILL);
+		fillButton.setSelected(state == State.FILL);
 		eyeButton.setSelected(state == State.EYE);
 		selectionButton.setSelected(state == State.SELECTION);
 		moveButton.setSelected(state == State.MOVE);
-
 	}
 
 	

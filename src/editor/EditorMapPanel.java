@@ -90,14 +90,14 @@ class EditorMapPanel extends JPanel {
 			}
 
 			private void findNext(Point e, boolean sendClicked) {
-				assert current !=null;
+				assert current !=null : "current null";
 				if (sendClicked) editor.tileClicked(current);
-				else             editor.tileEnded(current);
+				else             editor.tileEntered(current);
 				
 				if (e.distance(old) > MapSettings.tileDiagonal / 6) {
 					if (findCurrent(e) ==null) return;
 					if (sendClicked) editor.tileClicked(current);
-					else             editor.tileEnded(current);
+					else             editor.tileEntered(current);
 				}
 
 				
@@ -111,14 +111,17 @@ class EditorMapPanel extends JPanel {
 
 					if (field[l.x][l.y].contains(e)) {
 						if (sendClicked) editor.tileClicked(current);
-						else             editor.tileEnded(current);
+						else             editor.tileEntered(current);
 						break;
 					}
 				}
+				if (sendClicked) editor.tileClicked(current);
+				else             editor.tileEntered(current);
+				
 			}
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				if (current!=null && editor.getState() == State.DRAW){
+				if (current!=null && (editor.getState() == State.DRAW ||editor.getState() == State.DRAW_INFO) ){
 					findNext(e.getPoint(),true);
 //					if (e.getPoint().distance(old) > MapSettings.tileDiagonal/6){
 //						findCurrent(e.getPoint());
@@ -162,7 +165,7 @@ class EditorMapPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				EditorMapPanel.this.mousePressed(e);
 				mouseStart = e.getPoint();
-				if (editor.getState() == State.DRAW){
+				if (editor.getState() == State.DRAW || editor.getState() == State.DRAW_INFO){
 					findCurrent(mouseStart);
 					old = mouseStart;
 				}
