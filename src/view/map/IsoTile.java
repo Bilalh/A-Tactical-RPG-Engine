@@ -38,7 +38,7 @@ public class IsoTile {
 	private static final Logger log = Logger.getLogger(IsoTile.class);
 	
 	public static enum TileState {
-		SELECTED(Color.white.darker()), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.GREEN);
+		SELECTED(Color.ORANGE), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.GREEN);
 		public Color colour;
 
 		TileState(Color c) {
@@ -162,7 +162,7 @@ public class IsoTile {
 	}
 
 	Color lineColor = Color.BLACK;
-	public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide, boolean toponly,  boolean selecte) {
+	public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide, boolean topPloy,  boolean topOnly) {
 		Graphics2D g = (Graphics2D) _g;
 		final float finalHeight = (MapSettings.tileHeight * MapSettings.zoom);
 		final float horizontal  = (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -202,7 +202,7 @@ public class IsoTile {
 						neg_y_h2_vet,
 						neg_y_h1_vet_div_2 }, 4);
 		
-		if (toponly && !selecte) return;
+		if (topPloy && !topOnly) return;
 		
 		if (type == TEXTURED) {
 			g.setPaint(tGrass);
@@ -214,17 +214,17 @@ public class IsoTile {
 		}
 
 		
-		if (state == TileState.MOVEMENT_RANGE || state == TileState.OTHERS_RANGE || selecte) {
+		if (state == TileState.MOVEMENT_RANGE || state == TileState.OTHERS_RANGE || isSelected()|| topOnly) {
 			Composite oldC = g.getComposite();
 			AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
 					0.25f);
 			g.setComposite(alphaComposite);
-			g.setColor(selecte ? TileState.SELECTED.colour : state.colour);
+			g.setColor(topOnly ? TileState.SELECTED.colour : state.colour);
 			g.fillPolygon(top);
 			g.setComposite(oldC);
 		}
 
-		if (toponly) return;
+		if (topPloy) return;
 		
 		if (drawRightSide) {
 			Polygon poly = new Polygon(new int[] {
