@@ -71,13 +71,15 @@ public class Map extends BasicMap implements IMap {
 
 		ArrayList<IMutableMapUnit> units = new ArrayList<IMutableMapUnit>();
 
+		player = new MapPlayer();
 		for (Entry<IMutableUnit, Location> e : selected.entrySet()) {
 			IMutableMapUnit u = new MapUnit(e.getKey(), e.getValue(), player);
 			field[u.getGridX()][u.getGridY()].setCurrentUnit(u);
 			units.add(u);
 			order.add(u);
 		}
-		player = new MapPlayer(units);
+		player.setUnits(units);
+		
 		INotification n = new UnitsChosenNotification(new ArrayList<IMapUnit>(units));
 		setChanged();
 		notifyObservers(n);

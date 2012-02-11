@@ -26,7 +26,7 @@ public class AIPlayer extends MapPlayer {
 	
 	
 	public AIPlayer(Map map, ArrayList<IMutableMapUnit> units){
-		super(units);
+		this.units = units;
 		this.map = map;
 		lowestHp = new PriorityQueue<IMutableMapUnit>(16, new Comparator<IMutableMapUnit>() {
 			@Override

@@ -27,6 +27,17 @@ public class MapUnit extends AbstractMapUnit {
 	}
 
 	@Override
+	public int getCost(Tile old, Tile next) {
+		
+		// Can't go though another player's units 
+		IMutableMapUnit uu =  next.getCurrentUnit();
+		if (uu != null && uu.getPlayer() != getPlayer()){
+			return Integer.MAX_VALUE;
+		}
+		return unit.getCost(old, next);
+	}
+	
+	@Override
 	public boolean hasStatus(UnitStatus s) {
 		return status.contains(s);
 	}

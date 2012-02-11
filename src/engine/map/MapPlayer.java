@@ -15,14 +15,14 @@ public class MapPlayer {
 	
 	protected ArrayList<IMutableMapUnit> units;
 
-	/** @category Generated Constructor */
-	public MapPlayer(ArrayList<IMutableMapUnit> unit) {
-		this.units = unit;
-	}
-
 	/** @category Generated */
 	public ArrayList<IMutableMapUnit> getUnits() {
 		return units;
+	}
+
+	/** @category Generated */
+	public void setUnits(ArrayList<IMutableMapUnit> units) {
+		this.units = units;
 	}
 
 }

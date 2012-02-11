@@ -22,11 +22,6 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 	protected int currentHp;
 
 	@Override
-	public int getCost(Tile old, Tile next) {
-		return unit.getCost(old, next);
-	}
-
-	@Override
 	public String getName() {
 		return unit.getName();
 	}
