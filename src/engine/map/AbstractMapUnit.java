@@ -171,4 +171,10 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 		unit.setImageData(imageData);
 	}
 
+	@Override
+	public int getMaxWeight() {
+		return unit.getMaxWeight();
+	}
+
+	
 }

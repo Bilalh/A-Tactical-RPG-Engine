@@ -4,6 +4,8 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import common.enums.Orientation;
+
 import config.XMLUtil;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
@@ -25,7 +27,7 @@ public class TestXmlUtil {
 		SavedTile[] tiles = new SavedTile[width*height];
 		for (int i = 0, k =0; i < width; i++) {
 			for (int j = 0; j < height; j++, k++) {
-				tiles[k] = new SavedTile("grass",r.nextInt(4)+1, i,j);
+				tiles[k] = new SavedTile("grass",r.nextInt(4)+1, i,j,Orientation.UP_TO_EAST);
 			}
 		}
 		fail();

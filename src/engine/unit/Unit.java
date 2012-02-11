@@ -2,6 +2,8 @@ package engine.unit;
 
 import java.util.UUID;
 
+import common.enums.Orientation;
+
 import engine.map.Tile;
 
 /**
@@ -44,7 +46,8 @@ public class Unit implements IMutableUnit {
 
 	@Override
 	public int getCost(Tile old, Tile next) {
-		return 1 + Math.abs(next.getCost() - old.getCost());
+		if   (next.getOrientation() == Orientation.EMPTY) return Integer.MAX_VALUE;
+		else return 1 + Math.abs(next.getCost() - old.getCost());
 	}
 	
 	/** @category Generated */

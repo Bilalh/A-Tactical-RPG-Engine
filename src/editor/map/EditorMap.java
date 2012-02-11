@@ -49,7 +49,7 @@ public class EditorMap extends BasicMap {
 				TileImageData d = getTileImageData(i, j);
 				assert d !=null :  String.format("TileImageData not found (%s,%s) %s",i,j, field[i][j]);
 				editorField[i][j] = new EditorTile(field[i][j]);				
-				guiField[i][j]    = new EditorIsoTile(Orientation.UP_TO_EAST,
+				guiField[i][j]    = new EditorIsoTile(editorField[i][j].getOrientation(),
 						editorField[i][j].getStartHeight(),
 						editorField[i][j].getEndHeight(), i, j,
 						spriteSheet.getSprite(d.getLocation()), d.getType());
@@ -68,6 +68,11 @@ public class EditorMap extends BasicMap {
 		editorField[p.x][p.y].setStartHeight(height);
 		editorField[p.x][p.y].setEndHeight(height);
 		guiField[p.x][p.y].setHeight(height);
+	}
+	
+	public void setOrientation(Location p, Orientation o) {
+		editorField[p.x][p.y].setOrientation(o);
+		guiField[p.x][p.y].setOrientation(o);
 	}
 	
 	/** @category unused**/
@@ -91,6 +96,5 @@ public class EditorMap extends BasicMap {
 	public EditorSpriteSheet getSpriteSheet() {
 		return spriteSheet;
 	}
-
 
 }

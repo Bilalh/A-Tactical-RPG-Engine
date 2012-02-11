@@ -11,6 +11,7 @@ import util.ArrayUtil;
 import common.Location;
 import common.LocationInfo;
 import common.ProxyLocationInfo;
+import common.enums.Orientation;
 import common.interfaces.ILocation;
 import common.interfaces.IUnit;
 
@@ -66,6 +67,12 @@ public class PathFinder implements IMovementCostProvider {
 			for (int j = start.y; j < end.y; j++) {
 				IMutableMapUnit u = map.getTile(i, j).getCurrentUnit();
 				if (u != null && u != unit) continue;
+				
+				// TODO allow flying?
+				if (map.getTile(i, j).getOrientation() == Orientation.EMPTY){
+					System.out.println(locations[i][j]);
+					continue;
+				}
 				
 				if (locations[i][j].getMinDistance() <= unit.getMove()) {
 					inRange.add(new ProxyLocationInfo(locations[i][j]));

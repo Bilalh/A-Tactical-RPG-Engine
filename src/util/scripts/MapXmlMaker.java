@@ -10,6 +10,7 @@ import java.util.Random;
 import com.sun.tools.internal.ws.util.xml.XmlUtil;
 
 import common.enums.ImageType;
+import common.enums.Orientation;
 
 import config.Config;
 import config.XMLUtil;
@@ -45,7 +46,7 @@ public class MapXmlMaker {
 				int h = r.nextInt(3)+1;
 				h =1;
 				type="0";
-				tiles[k] = new SavedTile(type,h, i,j);
+				tiles[k] = new SavedTile(type,h, i,j,Orientation.UP_TO_EAST);
 			}
 		}
 

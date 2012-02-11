@@ -23,10 +23,6 @@ public class SavedTile {
 
 	Orientation orientation;
 
-	public SavedTile(String type, int height, int x, int y) {
-		this(type, height, x, y, Orientation.UP_TO_EAST);
-	}
-
 	// to give default values
 	private Object readResolve() {
 		if (orientation == null)  orientation= Orientation.UP_TO_EAST;

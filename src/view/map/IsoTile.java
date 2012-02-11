@@ -146,7 +146,6 @@ public class IsoTile {
 	public void draw(int x, int y, Graphics g, boolean drawLeftSide, boolean drawRightSide) {
 		assert orientation != null: orientation + " is null";
 		switch (orientation) {
-		// Drawing the standard tile (Not Slanted)
 			case UP_TO_NORTH:
 			case UP_TO_SOUTH:
 				drawNorthSouth(x, y, g);
@@ -158,7 +157,7 @@ public class IsoTile {
 			case EMPTY:
 				break;
 			default:
-			assert false : orientation + "Not defined" ;
+				assert false : orientation + "Not defined" ;
 		}
 	}
 

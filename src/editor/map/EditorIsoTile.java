@@ -23,33 +23,38 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 
 	private MutableSprite sprite;
 	private ArrayList<ITileChangedListener> listeners = new ArrayList<ITileChangedListener>();
-	
-	static{
+
+	static {
 		TileState.SELECTED.setColor(Color.BLUE.brighter());
 	}
-	
+
 	/** @category Generated */
-	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight, 
+	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight,
 			int x, int y, MutableSprite sprite, ImageType type) {
 		super(orientation, startHeight, endHeight, x, y, sprite.getName(), type);
 		sprite.addSpriteChangedListener(this);
 		this.sprite = sprite;
 	}
-	
-	public void setSprite(MutableSprite sprite){
+
+	public void setSprite(MutableSprite sprite) {
 		this.sprite = sprite;
 		tileImage = ResourceManager.instance().getTile(sprite.getName());
 		notifyListeners(listeners, this);
 	}
-	
-	public void setHeight(int height){
-		assert height >=0;
+
+	public void setHeight(int height) {
+		assert height >= 0;
 		this.endHeight = this.startHeight = this.height = height;
 		notifyListeners(listeners, this);
 	}
-	
-	public void addTileChangedListener(ITileChangedListener listener){
+
+	public void addTileChangedListener(ITileChangedListener listener) {
 		listeners.add(listener);
+	}
+
+
+	public String toFormatedString() {
+		return String.format("Tile(%s,%s)[height=%s]", fieldLocation.x, fieldLocation.y, height, type);
 	}
 	
 	@Override
@@ -62,11 +67,11 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		return sprite;
 	}
 
-	public String toFormatedString() {
-		return String.format("Tile(%s,%s)[height=%s]",fieldLocation.x,fieldLocation.y,height, type);
+
+	/** @category Generated */
+	public void setOrientation(Orientation orientation) {
+		this.orientation = orientation;
 	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -88,6 +93,4 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		return true;
 	}
 
-	
-	
 }

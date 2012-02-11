@@ -1,5 +1,7 @@
 package editor.map;
 
+import common.enums.Orientation;
+
 import engine.map.IMutableMapUnit;
 import engine.map.Tile;
 
@@ -35,6 +37,10 @@ public class EditorTile extends Tile {
 	/** @category Generated */
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public void setOrientation(Orientation o) {
+		this.orientation =o;
 	}
 
 }

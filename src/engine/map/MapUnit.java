@@ -47,11 +47,6 @@ public class MapUnit extends AbstractMapUnit {
 	}
 
 	@Override
-	public int getMaxWeight() {
-		return unit.getMaxWeight();
-	}
-
-	@Override
 	public int getReadiness() {
 		return readiness;
 	}

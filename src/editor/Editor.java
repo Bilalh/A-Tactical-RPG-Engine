@@ -20,6 +20,8 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
+import common.enums.Orientation;
+
 import view.map.IMapRendererParent;
 import config.XMLUtil;
 import config.xml.SavedMap;
@@ -169,10 +171,11 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		statusLabel.setText(tile.toFormatedString());
 	}
 	
-	// dragged/clicked
+	EditorIsoTile selectedTile;
 	/** @category Callback **/
 	public void tileClicked(EditorIsoTile tile) {
 		boolean repaint = false;
+		selectedTile = tile;
 		switch (state) {
 			case DRAW:
 				if (selectedTileSprite != null){
@@ -188,13 +191,19 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 				
 				int  height = ((Number) infoHeight.getValue()).intValue();
 				if (height >=0){
-					map.setHeight(tile.getFieldLocation(), height);	
+					map.setHeight(tile.getFieldLocation(), height);
+					repaint = true;
+				}
+				
+				Orientation o = (Orientation) infoOrientation.getSelectedItem();
+				if (o != tile.getOrientation()){
+					map.setOrientation(tile.getFieldLocation(),o);
+					repaint = true;
 				}
 				
 			case EYE:
 				selectedTileSprite = tile.getSprite();
 				tilesetPanel.setSelectedSprites(selectedTileSprite);
-				repaint = true;
 				break;
 			case FILL:
 				if (selectedTileSprite != null && selection.contains(tile)){
@@ -216,6 +225,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		infoHeight.setValue(tile.getHeight());
 		//FIXME hack type name
 		infoType.setText(tile.getSprite().getName());
+		infoOrientation.setSelectedItem(tile.getOrientation());
 		infoLocation.setText(String.format("(%s,%s)", tile.getX(), tile.getY()));
 		
 		if (repaint) editorMapPanel.repaintMap();
@@ -301,9 +311,10 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	}
 	
 	// Infopanel controls 
-	private JLabel infoLocation;
+	private JLabel     infoLocation;
 	private JTextField infoType;
-	private JSpinner  infoHeight = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
+	private JComboBox  infoOrientation = new JComboBox(Orientation.values());
+	private JSpinner   infoHeight      = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
 
 	
 	/** @category Gui**/
@@ -319,14 +330,37 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		p.add(new JLabel("Type:"), "gap 4");
 		p.add((infoType = new JTextField(15)), "span, growx");
 		
+		infoOrientation.setEditable(false);
+		p.add(new JLabel("Orientation:"), "gap 4");
+		infoOrientation.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+		        if (e.getStateChange() != ItemEvent.SELECTED) return;
+		        if (state == State.DRAW || state == State.DRAW_INFO || state == State.EYE){
+					map.setOrientation(selectedTile.getFieldLocation(), (Orientation) infoOrientation.getSelectedItem());	
+		        }else{
+					for (EditorIsoTile tile : selection) {
+						map.setOrientation(tile.getFieldLocation(), (Orientation) infoOrientation.getSelectedItem());	
+					}	
+		        }
+				editorMapPanel.repaintMap();
+			}
+		});
+		p.add(infoOrientation, "span, growx");
+		
+		
 		p.add(new JLabel("Height:"), "gap 4");
 		infoHeight.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				//TODO deal with no tile selected.
-				for (EditorIsoTile tile : selection) {
-					map.setHeight(tile.getFieldLocation(), ((Number)infoHeight.getValue()).intValue());	
-				}
+				if (state == State.DRAW || state == State.DRAW_INFO || state == State.EYE){
+					map.setHeight(selectedTile.getFieldLocation(), ((Number)infoHeight.getValue()).intValue());	
+		        }else{
+					for (EditorIsoTile tile : selection) {
+						map.setHeight(tile.getFieldLocation(), ((Number)infoHeight.getValue()).intValue());	
+					}	
+		        }
 				editorMapPanel.repaintMap();
 			}
 		});
@@ -482,7 +516,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		Tile[][] field = map.getField();
 		for (int i = 0, k=0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++,k++) {
-				tiles[k] = new SavedTile(field[i][j].getType(),field[i][j].getEndHeight(),i,j); 
+				tiles[k] = new SavedTile(field[i][j].getType(),field[i][j].getEndHeight(),i,j,field[i][j].getOrientation()); 
 			}
 		}
 		SavedMap m = new SavedMap(map.getFieldWidth(), map.getFieldHeight(),tiles , map.getMapSettings(), map.getData());

@@ -64,12 +64,12 @@ public class AIPlayer extends MapPlayer {
 				}
 			// since we allready found a adjacent
 			}else if (!adjacent &&  dist < currentDistance){
-				Logf.info(log, "l %s", l);
 				chosen = l;
 				currentDistance = dist;
 			}
 		}
 		
+		Logf.info(log, "chosen %s", chosen);
 		return chosen;
 	}
 	
