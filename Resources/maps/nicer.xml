@@ -308,7 +308,7 @@
     <height>4</height>
   </tile>
   <tile x="5" y="0">
-    <type>4</type>
+    <type>124</type>
     <height>1</height>
   </tile>
   <tile x="5" y="1">
@@ -368,7 +368,7 @@
     <height>3</height>
   </tile>
   <tile x="6" y="0">
-    <type>4</type>
+    <type>124</type>
     <height>1</height>
   </tile>
   <tile x="6" y="1">
@@ -676,11 +676,11 @@
     <height>1</height>
   </tile>
   <tile x="11" y="2">
-    <type>blue</type>
+    <type>124</type>
     <height>1</height>
   </tile>
   <tile x="11" y="3">
-    <type>blue</type>
+    <type>124</type>
     <height>1</height>
   </tile>
   <tile x="11" y="4">
@@ -736,11 +736,11 @@
     <height>1</height>
   </tile>
   <tile x="12" y="2">
-    <type>blue</type>
+    <type>124</type>
     <height>1</height>
   </tile>
   <tile x="12" y="3">
-    <type>blue</type>
+    <type>124</type>
     <height>1</height>
   </tile>
   <tile x="12" y="4">

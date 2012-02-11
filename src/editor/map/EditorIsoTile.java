@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import common.ListenerUtil;
 import common.enums.ImageType;
+import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.gui.Sprite;
 import editor.spritesheet.ISpriteChangedListener;

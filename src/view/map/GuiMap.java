@@ -28,6 +28,7 @@ import view.util.MousePoxy;
 
 import common.Location;
 import common.LocationInfo;
+import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.ILocation;
 import common.interfaces.IMapNotification;
@@ -130,9 +131,11 @@ public class GuiMap implements Observer, IMapRendererParent {
         for (int i = 0; i < fieldWidth; i++) { 
             for (int j = 0; j < fieldHeight; j++) {
             	TileImageData d = mapController.getTileImageData(i, j);
-            	field[i][j] = new IsoTile(IsoTile.Orientation.UP_TO_EAST,
+            	field[i][j] = new IsoTile(
+            			grid[i][j].getOrientation(),
             			grid[i][j].getStartHeight(),
-            			grid[i][j].getEndHeight(), i, j,
+            			grid[i][j].getEndHeight(), 
+            			i, j,
             			d.getLocation(), d.getType());
             }
         }
@@ -253,8 +256,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 	}
 	
+	// To allow the user to see the ai's move 
 	Timer timer = new Timer();
-	
 	public void unitMoved(IMapUnit u, Collection<LocationInfo> path){
 		assert u != null;
 		assert path != null;

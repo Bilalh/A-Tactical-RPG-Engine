@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import util.Args;
 import util.Logf;
 
+import common.enums.Orientation;
 import common.interfaces.ILocation;
 import common.interfaces.INotification;
 import common.interfaces.IMapUnit;
@@ -220,7 +221,7 @@ public class Map extends BasicMap implements IMap {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				int first = r.nextInt(3) + 1;
-				field[i][j] = new Tile(first, first, "grass");
+				field[i][j] = new Tile(first, first, "grass",Orientation.UP_TO_EAST);
 				// field[i][j] = new Tile(1,1);
 			}
 		}

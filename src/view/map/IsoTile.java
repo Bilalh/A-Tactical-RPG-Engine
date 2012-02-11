@@ -1,13 +1,14 @@
 package view.map;
 
-import static view.map.IsoTile.Orientation.*;
 import static common.enums.ImageType.*;
+import static common.enums.Orientation.*;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import common.enums.ImageType;
+import common.enums.Orientation;
 import common.gui.Sprite;
 import common.gui.ResourceManager;
 import common.interfaces.IMapUnit;
@@ -36,10 +37,6 @@ import config.xml.TileImageData;
 public class IsoTile {
 	private static final Logger log = Logger.getLogger(IsoTile.class);
 	
-	public static enum Orientation {
-		NORMAL, UP_TO_NORTH, UP_TO_EAST, UP_TO_SOUTH, UP_TO_WEST, EMY
-	}
-
 	public static enum TileState {
 		SELECTED(Color.white.darker()), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.GREEN);
 		public Color colour;
@@ -147,11 +144,9 @@ public class IsoTile {
 	}
 
 	public void draw(int x, int y, Graphics g, boolean drawLeftSide, boolean drawRightSide) {
+		assert orientation != null: orientation + " is null";
 		switch (orientation) {
 		// Drawing the standard tile (Not Slanted)
-			case NORMAL:
-				drawNormal(x, y, g);
-				break;
 			case UP_TO_NORTH:
 			case UP_TO_SOUTH:
 				drawNorthSouth(x, y, g);
@@ -160,10 +155,10 @@ public class IsoTile {
 			case UP_TO_WEST:
 				drawEastWest(x, y, g, drawLeftSide, drawRightSide);
 				break;
-			case EMY:
+			case EMPTY:
 				break;
 			default:
-			assert(false);
+			assert false : orientation + "Not defined" ;
 		}
 	}
 
@@ -305,97 +300,6 @@ public class IsoTile {
 	}
 
 	/**
-	 * Draw a Standard Tile. Standard Tiles do not have a slant to them. Note that the drawing
-	 * begins at (x,y - MapSettings.tileHeight*height).
-	 * 
-	 * @category unused
-	 */
-	public void drawNormal(int x, int y, Graphics g) {
-		int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
-		int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-		int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		// System.out.printf("(%d,%d) finalHeight:%3d hoz:%3d vet:%3d\n",x,y, finalHeight,
-		// horizontal, vertical);
-
-		Color oldColor = g.getColor();
-		g.setColor(state.colour);
-		g.fillPolygon(top = new Polygon(new int[] {
-				x,
-				x + horizontal / 2,
-				x,
-				x - horizontal / 2 },
-				new int[] {
-						y - finalHeight,
-						y + vertical / 2 - finalHeight,
-						y + vertical - finalHeight,
-						y + vertical / 2 - finalHeight }
-				, 4));
-
-		g.fillPolygon(new Polygon(new int[] {
-				x,
-				x + horizontal / 2,
-				x + horizontal / 2,
-				x },
-				new int[] {
-						y - finalHeight + vertical,
-						y - finalHeight + vertical / 2,
-						y + vertical / 2,
-						y + vertical }
-				, 4));
-
-		g.fillPolygon(new Polygon(new int[] {
-				x,
-				x - horizontal / 2,
-				x - horizontal / 2,
-				x },
-				new int[] {
-						y - finalHeight + vertical,
-						y - finalHeight + vertical / 2,
-						y + vertical / 2,
-						y + vertical }
-				, 4));
-
-		g.setColor(Color.BLACK); // Outline the top
-		g.drawPolygon(new Polygon(new int[] {
-				x,
-				x + horizontal / 2,
-				x,
-				x - horizontal / 2 },
-				new int[] {
-						y - finalHeight,
-						y + vertical / 2 - finalHeight,
-						y + vertical - finalHeight,
-						y + vertical / 2 - finalHeight }
-				, 4));
-		// Outline the right side
-		g.drawPolygon(new Polygon(new int[] {
-				x,
-				x + horizontal / 2,
-				x + horizontal / 2,
-				x },
-				new int[] {
-						y - finalHeight + vertical,
-						y - finalHeight + vertical / 2,
-						y + vertical / 2,
-						y + vertical }
-				, 4));
-		// Outline the left side
-		g.drawPolygon(new Polygon(new int[] {
-				x,
-				x - horizontal / 2,
-				x - horizontal / 2,
-				x },
-				new int[] {
-						y - finalHeight + vertical,
-						y - finalHeight + vertical / 2,
-						y + vertical / 2,
-						y + vertical }
-				, 4));
-		g.setColor(Color.RED);
-		g.setColor(oldColor);
-	}
-
-	/**
 	 * Draw a tile that slants to the north or the south. The methods for drawing are very similar,
 	 * so they can be merged into one method.
 	 * 
@@ -485,9 +389,8 @@ public class IsoTile {
 		g.setColor(oldColor);
 	}
 
-	/** @category Generated */
-	public AnimatedUnit getUnit() {
-		return unit;
+	public Rectangle getBounds(){
+		return top.getBounds();
 	}
 
 	public AnimatedUnit removeUnit(){
@@ -495,7 +398,12 @@ public class IsoTile {
 		unit = null;
 		return temp;
 	}
-	
+
+	/** @category Generated */
+	public AnimatedUnit getUnit() {
+		return unit;
+	}
+
 	/** @category Generated */
 	public void setUnit(AnimatedUnit unit) {
 		this.unit = unit;
@@ -512,19 +420,21 @@ public class IsoTile {
 	}
 
 	/** @category Generated */
+	public int getX(){
+		return fieldLocation.getX();
+	}
+	
+	/** @category Generated */
+	public int getY(){
+		return fieldLocation.getY();
+	}
+	
+	
+	/** @category Generated */
 	public Location getFieldLocation() {
 		return fieldLocation;
 	}
 
-	public int getX(){
-		return fieldLocation.x;
-	}
-	
-	public int getY(){
-		return fieldLocation.y;
-	}
-	
-	
 	/** @category Generated */
 	public float getStartHeight() {
 		return startHeight;
@@ -564,10 +474,6 @@ public class IsoTile {
 	/** @category Generated Setter */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-	}
-
-	public Rectangle getBounds(){
-		return top.getBounds();
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import engine.map.Tile;
 public class EditorTile extends Tile {
 
 	public EditorTile(Tile t) {
-		super(t.getStartHeight(), t.getEndHeight(), t.getType());
+		super(t.getStartHeight(), t.getEndHeight(), t.getType(),t.getOrientation());
 	}
 
 	/** @category Generated */

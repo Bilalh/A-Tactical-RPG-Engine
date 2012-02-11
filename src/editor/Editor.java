@@ -21,7 +21,6 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 
 import view.map.IMapRendererParent;
-import view.map.IsoTile.Orientation;
 import config.XMLUtil;
 import config.xml.SavedMap;
 import config.xml.SavedTile;

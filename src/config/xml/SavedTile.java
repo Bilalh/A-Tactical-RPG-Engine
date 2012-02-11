@@ -2,15 +2,17 @@ package config.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import common.enums.Orientation;
 
 import config.IPreference;
 
 /**
- *  An Xml representation of an tile.
+ * An Xml representation of an tile.
+ * 
  * @author Bilal Hussain
  */
 @XStreamAlias("tile")
-public class SavedTile{
+public class SavedTile {
 	final String type;
 	final int height;
 
@@ -19,37 +21,51 @@ public class SavedTile{
 	@XStreamAsAttribute
 	final int y;
 
-	/** @category Generated Constructor */
+	Orientation orientation;
+
 	public SavedTile(String type, int height, int x, int y) {
+		this(type, height, x, y, Orientation.UP_TO_EAST);
+	}
+
+	// to give default values
+	private Object readResolve() {
+		if (orientation == null)  orientation= Orientation.UP_TO_EAST;
+		
+		return this;
+	}
+
+	/** @category Generated */
+	public SavedTile(String type, int height, int x, int y, Orientation orientation) {
 		this.type = type;
 		this.height = height;
 		this.x = x;
 		this.y = y;
+		this.orientation = orientation;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public String getType() {
 		return type;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public int getHeight() {
 		return height;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public int getX() {
 		return x;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	public int getY() {
 		return y;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("SavedTile [type=%s, height=%s, x=%s, y=%s]", type, height, x, y);
+	/** @category Generated */
+	public Orientation getOrientation() {
+		return orientation;
 	}
 
 	@Override
@@ -79,5 +95,10 @@ public class SavedTile{
 		if (y != other.y) return false;
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return String.format("SavedTile [type=%s, height=%s, x=%s, y=%s, orientation=%s]", type, height, x, y, orientation);
+	}
+
 }

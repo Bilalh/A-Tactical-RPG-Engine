@@ -1,9 +1,9 @@
 package editor.map;
 
 import util.Args;
-import view.map.IsoTile;
 
 import common.Location;
+import common.enums.Orientation;
 import common.gui.ResourceManager;
 
 import config.Config;
@@ -49,7 +49,7 @@ public class EditorMap extends BasicMap {
 				TileImageData d = getTileImageData(i, j);
 				assert d !=null :  String.format("TileImageData not found (%s,%s) %s",i,j, field[i][j]);
 				editorField[i][j] = new EditorTile(field[i][j]);				
-				guiField[i][j]    = new EditorIsoTile(IsoTile.Orientation.UP_TO_EAST,
+				guiField[i][j]    = new EditorIsoTile(Orientation.UP_TO_EAST,
 						editorField[i][j].getStartHeight(),
 						editorField[i][j].getEndHeight(), i, j,
 						spriteSheet.getSprite(d.getLocation()), d.getType());
