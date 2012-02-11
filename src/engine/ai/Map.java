@@ -173,7 +173,7 @@ public class Map extends BasicMap implements IMap {
 		u.setMaxHp(40);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
-		AIUnit au = new AIUnit(u, new Location(width - 1, 0), ai);
+		AIUnit au = new AIUnit(u, new Location(width - 1, 5), ai);
 		aiUnits.add(au);
 		field[width - 1][0].setCurrentUnit(au);
 
@@ -187,7 +187,7 @@ public class Map extends BasicMap implements IMap {
 		u.setMaxHp(30);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
-		au = new AIUnit(u, new Location(width - 1, 1), ai);
+		au = new AIUnit(u, new Location(width - 1, 4), ai);
 		aiUnits.add(au);
 		field[width - 1][1].setCurrentUnit(au);
 

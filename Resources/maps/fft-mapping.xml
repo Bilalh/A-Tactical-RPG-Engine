@@ -119,13 +119,6 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>11-8</string>
-    <tileImageData>
-      <location>11-8</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
     <string>12-3</string>
     <tileImageData>
       <location>12-3</location>
@@ -133,9 +126,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>11-7</string>
+    <string>11-8</string>
     <tileImageData>
-      <location>11-7</location>
+      <location>11-8</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -147,9 +140,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>11-6</string>
+    <string>11-7</string>
     <tileImageData>
-      <location>11-6</location>
+      <location>11-7</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -161,9 +154,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>11-5</string>
+    <string>11-6</string>
     <tileImageData>
-      <location>11-5</location>
+      <location>11-6</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -171,6 +164,13 @@
     <string>12-0</string>
     <tileImageData>
       <location>12-0</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>11-5</string>
+    <tileImageData>
+      <location>11-5</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -350,13 +350,6 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>2-6</string>
-    <tileImageData>
-      <location>2-6</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
     <string>3-1</string>
     <tileImageData>
       <location>3-1</location>
@@ -364,9 +357,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>2-5</string>
+    <string>2-6</string>
     <tileImageData>
-      <location>2-5</location>
+      <location>2-6</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -374,6 +367,13 @@
     <string>3-0</string>
     <tileImageData>
       <location>3-0</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>2-5</string>
+    <tileImageData>
+      <location>2-5</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -399,13 +399,6 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>2-9</string>
-    <tileImageData>
-      <location>2-9</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
     <string>7-8</string>
     <tileImageData>
       <location>7-8</location>
@@ -413,9 +406,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>2-8</string>
+    <string>2-9</string>
     <tileImageData>
-      <location>2-8</location>
+      <location>2-9</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -427,16 +420,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>5-10</string>
+    <string>2-8</string>
     <tileImageData>
-      <location>5-10</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>2-7</string>
-    <tileImageData>
-      <location>2-7</location>
+      <location>2-8</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -448,9 +434,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>5-11</string>
+    <string>2-7</string>
     <tileImageData>
-      <location>5-11</location>
+      <location>2-7</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>5-10</string>
+    <tileImageData>
+      <location>5-10</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -462,16 +455,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>5-12</string>
+    <string>5-11</string>
     <tileImageData>
-      <location>5-12</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>3-8</string>
-    <tileImageData>
-      <location>3-8</location>
+      <location>5-11</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -483,16 +469,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>5-13</string>
+    <string>3-8</string>
     <tileImageData>
-      <location>5-13</location>
+      <location>3-8</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>3-7</string>
+    <string>5-12</string>
     <tileImageData>
-      <location>3-7</location>
+      <location>5-12</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -504,16 +490,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>5-14</string>
+    <string>3-7</string>
     <tileImageData>
-      <location>5-14</location>
+      <location>3-7</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>3-6</string>
+    <string>5-13</string>
     <tileImageData>
-      <location>3-6</location>
+      <location>5-13</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -525,9 +511,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>3-5</string>
+    <string>3-6</string>
     <tileImageData>
-      <location>3-5</location>
+      <location>3-6</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>5-14</string>
+    <tileImageData>
+      <location>5-14</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -539,9 +532,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>3-4</string>
+    <string>3-5</string>
     <tileImageData>
-      <location>3-4</location>
+      <location>3-5</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -553,9 +546,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>2-0</string>
+    <string>3-4</string>
     <tileImageData>
-      <location>2-0</location>
+      <location>3-4</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -563,6 +556,13 @@
     <string>3-3</string>
     <tileImageData>
       <location>3-3</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>2-0</string>
+    <tileImageData>
+      <location>2-0</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -581,16 +581,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>6-0</string>
+    <string>3-13</string>
     <tileImageData>
-      <location>6-0</location>
+      <location>3-13</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>3-13</string>
+    <string>6-0</string>
     <tileImageData>
-      <location>3-13</location>
+      <location>6-0</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -609,16 +609,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>6-3</string>
+    <string>3-10</string>
     <tileImageData>
-      <location>6-3</location>
+      <location>3-10</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>3-10</string>
+    <string>6-3</string>
     <tileImageData>
-      <location>3-10</location>
+      <location>6-3</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -630,13 +630,6 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>6-5</string>
-    <tileImageData>
-      <location>6-5</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
     <string>3-12</string>
     <tileImageData>
       <location>3-12</location>
@@ -644,9 +637,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>6-6</string>
+    <string>6-5</string>
     <tileImageData>
-      <location>6-6</location>
+      <location>6-5</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -658,9 +651,9 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>1-10</string>
+    <string>6-6</string>
     <tileImageData>
-      <location>1-10</location>
+      <location>6-6</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -668,6 +661,13 @@
     <string>7-2</string>
     <tileImageData>
       <location>7-2</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>1-10</string>
+    <tileImageData>
+      <location>1-10</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>

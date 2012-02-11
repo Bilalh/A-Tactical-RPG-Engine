@@ -228,7 +228,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 //			//FIXME indies
 				final IUnit u = allPlayerUnits.get(i);
 				assert u != null;
-				Location p = new Location(2,i+3); 
+				Location p = new Location(2,i+2); 
 				newUnits[i] = new AnimatedUnit(p.x, p.y,u);
 				selectedPostions.put(u, p);
 				unitMapping.put(u.getUuid(), newUnits[i]);

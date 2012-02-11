@@ -8,22 +8,22 @@
     <tileMappingLocation>maps/fft-mapping.xml</tileMappingLocation>
   </mapData>
   <tile x="0" y="0">
-    <type>11-5</type>
+    <type>5-10</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="0" y="1">
-    <type>11-5</type>
+    <type>5-10</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="0" y="2">
-    <type>11-5</type>
+    <type>9-4</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="0" y="3">
-    <type>11-5</type>
+    <type>9-4</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -65,40 +65,40 @@
   <tile x="0" y="11">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="0" y="12">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-1</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="0" y="13">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-1</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="0" y="14">
-    <type>11-5</type>
-    <height>1</height>
+    <type>12-3</type>
+    <height>6</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="1" y="0">
-    <type>11-5</type>
+    <type>5-10</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="1" y="1">
-    <type>11-5</type>
+    <type>9-4</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="1" y="2">
-    <type>11-5</type>
+    <type>9-4</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="1" y="3">
-    <type>11-5</type>
+    <type>9-4</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -140,21 +140,21 @@
   <tile x="1" y="11">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="1" y="12">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-1</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="1" y="13">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-1</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="1" y="14">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-1</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="2" y="0">
@@ -163,17 +163,17 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="2" y="1">
-    <type>11-5</type>
+    <type>12-8</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="2" y="2">
-    <type>11-5</type>
+    <type>12-8</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="2" y="3">
-    <type>11-5</type>
+    <type>12-8</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -215,21 +215,21 @@
   <tile x="2" y="11">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="2" y="12">
     <type>11-5</type>
-    <height>1</height>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="2" y="13">
     <type>11-5</type>
-    <height>1</height>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="2" y="14">
-    <type>11-5</type>
-    <height>1</height>
+    <type>3-4</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="3" y="0">
@@ -238,7 +238,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="3" y="1">
-    <type>11-9</type>
+    <type>12-8</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -258,12 +258,12 @@
     <orientation>EMPTY</orientation>
   </tile>
   <tile x="3" y="5">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-0</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="3" y="6">
-    <type>5-6</type>
+    <type>12-3</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -290,21 +290,21 @@
   <tile x="3" y="11">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="3" y="12">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="3" y="13">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-11</type>
+    <height>4</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="3" y="14">
-    <type>11-5</type>
-    <height>1</height>
+    <type>3-4</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="4" y="0">
@@ -313,12 +313,12 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="4" y="1">
-    <type>11-9</type>
+    <type>12-7</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="4" y="2">
-    <type>11-9</type>
+    <type>12-7</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -333,18 +333,18 @@
     <orientation>EMPTY</orientation>
   </tile>
   <tile x="4" y="5">
-    <type>11-5</type>
-    <height>1</height>
+    <type>7-6</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="4" y="6">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-0</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="4" y="7">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-0</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="4" y="8">
@@ -359,27 +359,27 @@
   </tile>
   <tile x="4" y="10">
     <type>11-5</type>
-    <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <height>2</height>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="4" y="11">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="4" y="12">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="4" y="13">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-11</type>
+    <height>4</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="4" y="14">
-    <type>11-5</type>
-    <height>1</height>
+    <type>3-4</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="0">
@@ -388,12 +388,12 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="1">
-    <type>11-9</type>
+    <type>12-7</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="2">
-    <type>11-9</type>
+    <type>12-7</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -403,58 +403,58 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="4">
-    <type>8-0</type>
+    <type>7-6</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="5">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="6">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="7">
-    <type>11-5</type>
-    <height>1</height>
+    <type>7-6</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="8">
-    <type>11-5</type>
-    <height>1</height>
+    <type>5-7</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="9">
-    <type>11-5</type>
-    <height>1</height>
+    <type>5-7</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="10">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="11">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="12">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="13">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="14">
-    <type>11-5</type>
-    <height>1</height>
+    <type>5-4</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="0">
@@ -478,58 +478,58 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="4">
-    <type>8-0</type>
+    <type>7-6</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="5">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="6">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="7">
-    <type>11-5</type>
-    <height>1</height>
+    <type>7-6</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="8">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-0</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="9">
-    <type>11-5</type>
-    <height>1</height>
+    <type>5-7</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="10">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="11">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="12">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="13">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="14">
-    <type>11-5</type>
-    <height>1</height>
+    <type>3-4</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="0">
@@ -553,58 +553,58 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="4">
-    <type>8-0</type>
+    <type>7-6</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="5">
-    <type>11-5</type>
-    <height>1</height>
+    <type>7-6</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="6">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="7">
-    <type>11-5</type>
-    <height>1</height>
+    <type>7-6</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="8">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-0</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="9">
-    <type>11-5</type>
-    <height>1</height>
+    <type>8-0</type>
+    <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="10">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="11">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="12">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="13">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="14">
-    <type>11-5</type>
-    <height>1</height>
+    <type>3-4</type>
+    <height>5</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="8" y="0">
@@ -659,31 +659,31 @@
   </tile>
   <tile x="8" y="10">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="8" y="11">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="8" y="12">
-    <type>11-5</type>
-    <height>1</height>
+    <type>4-5</type>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="8" y="13">
-    <type>11-5</type>
-    <height>1</height>
+    <type>6-6</type>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="8" y="14">
-    <type>11-5</type>
-    <height>1</height>
+    <type>10-7</type>
+    <height>4</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="9" y="0">
-    <type>11-5</type>
+    <type>7-6</type>
     <height>1</height>
     <orientation>EMPTY</orientation>
   </tile>
@@ -708,7 +708,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="9" y="5">
-    <type>8-0</type>
+    <type>5-9</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -730,31 +730,31 @@
   <tile x="9" y="9">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="9" y="10">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="9" y="11">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="9" y="12">
     <type>11-5</type>
-    <height>1</height>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="9" y="13">
-    <type>11-5</type>
-    <height>1</height>
+    <type>4-5</type>
+    <height>3</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="9" y="14">
     <type>11-5</type>
-    <height>1</height>
+    <height>4</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="10" y="0">
@@ -778,12 +778,12 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="10" y="4">
-    <type>11-5</type>
+    <type>5-9</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="10" y="5">
-    <type>11-5</type>
+    <type>5-9</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -793,7 +793,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="10" y="7">
-    <type>8-0</type>
+    <type>4-10</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -805,32 +805,32 @@
   <tile x="10" y="9">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="10" y="10">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="10" y="11">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="10" y="12">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="10" y="13">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="10" y="14">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="11" y="0">
     <type>11-5</type>
@@ -880,32 +880,32 @@
   <tile x="11" y="9">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="11" y="10">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="11" y="11">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="11" y="12">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="11" y="13">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="11" y="14">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="12" y="0">
     <type>11-5</type>
@@ -955,31 +955,31 @@
   <tile x="12" y="9">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="12" y="10">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="12" y="11">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="12" y="12">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="12" y="13">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
   <tile x="12" y="14">
     <type>11-5</type>
     <height>1</height>
-    <orientation>UP_TO_EAST</orientation>
+    <orientation>EMPTY</orientation>
   </tile>
 </map>
