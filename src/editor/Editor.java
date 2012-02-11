@@ -64,6 +64,13 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private MutableSprite selectedTileSprite;
 	private HashSet<EditorIsoTile> selection = new HashSet<EditorIsoTile>();
 
+	// Highlight the tile the mouse is over.
+	private boolean showOnHover = false;
+	
+	// For draw
+	private EditorIsoTile selectedTile;
+
+	
 	public Editor() {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -157,8 +164,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	
 	private EditorIsoTile old;
-	private boolean showOnHover =false;
-
 	public void tileEntered(EditorIsoTile tile) {
 		if (old != null) {
 			old.setSelected(false);
@@ -171,7 +176,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		statusLabel.setText(tile.toFormatedString());
 	}
 	
-	EditorIsoTile selectedTile;
 	/** @category Callback **/
 	public void tileClicked(EditorIsoTile tile) {
 		boolean repaint = false;
