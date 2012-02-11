@@ -22,30 +22,32 @@ import config.xml.*;
  */
 public class MapXmlMaker {
 
-	static String filename = "map6";
-	static String sheet = "images/tilesets/nicer.png";
+	static String filename = "fft";
+	static String sheet = "images/tilesets/fft.png";
 	
 	public static void main(String[] args) throws IOException {
 		Config.loadLoggingProperties();
 		
 		Random r = new Random(12344);
-		int width  = 15;
+		int width  = 13;
 		int height = 15;
 		SavedTile[] tiles = new SavedTile[width*height];
 		
-//		String[] types = {"m", "blue400", "grass"};
 //		String[] types = {"brown","darkblue","gray","ground","ice","lime","marking","metal","tile","white","wood","bush"};
-		String[] types = new String[135];
-		for (int i = 0; i < types.length; i++) {
-			types[i] = ""+i;
+		String[] types = new String[width*height];
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				types[i*height + j] = i+"-"+j;
+			}
 		}
+		
 		
 		for (int i = 0, k =0; i < width; i++) {
 			for (int j = 0; j < height; j++, k++) {
 				String type = "" +types[(j+i)%types.length];
 				int h = r.nextInt(3)+1;
 				h =1;
-				type="0";
+				type="0-7";
 				tiles[k] = new SavedTile(type,h, i,j,Orientation.UP_TO_EAST);
 			}
 		}

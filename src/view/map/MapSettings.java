@@ -13,7 +13,7 @@ public final class MapSettings {
 	// 60  80 100
 	
     public static int tileDiagonal = (int) 60;
-    public static int tileHeight = (int) 20;
+    public static int tileHeight = (int) 10;
     public static float pitch = .5f;
     public static float zoom = 1.0f;
 }

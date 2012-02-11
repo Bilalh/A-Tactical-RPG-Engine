@@ -54,14 +54,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>14</integer>
+				<integer>6</integer>
 				<key>line</key>
-				<integer>17</integer>
+				<integer>92</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>69</integer>
 		</dict>
 		<key>tex/Scripting.tex</key>
 		<dict>
@@ -81,9 +81,7 @@
 	<key>openDocuments</key>
 	<array>
 		<string>tex/Objectives.tex</string>
-		<string>tex/Scripting.tex</string>
 		<string>Project.tex</string>
-		<string>tex/Introduction.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>

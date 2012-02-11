@@ -148,11 +148,11 @@ public class IsoTile {
 		switch (orientation) {
 			case UP_TO_NORTH:
 			case UP_TO_SOUTH:
-				drawNorthSouth(x, y, g);
+				drawNorthSouth(x, y, g, false);
 				break;
 			case UP_TO_EAST:
 			case UP_TO_WEST:
-				drawEastWest(x, y, g, drawLeftSide, drawRightSide);
+				drawEastWest(x, y, g, drawLeftSide, drawRightSide, false,false);
 				break;
 			case EMPTY:
 				break;
@@ -162,7 +162,7 @@ public class IsoTile {
 	}
 
 	Color lineColor = Color.BLACK;
-	public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide) {
+	public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide, boolean toponly,  boolean selecte) {
 		Graphics2D g = (Graphics2D) _g;
 		final float finalHeight = (MapSettings.tileHeight * MapSettings.zoom);
 		final float horizontal  = (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -189,6 +189,8 @@ public class IsoTile {
 		final int neg_y_h2_vet_div_2  =Math.round(y - h2 + vertical / 2);
 		final int neg_y_h2_vet        =Math.round(y - h2 + vertical);
 		
+		
+		
 		top = new Polygon(new int[] {
 				x,
 				x_hor_div_2,
@@ -199,6 +201,9 @@ public class IsoTile {
 						neg_y_h2_vet_div_2,
 						neg_y_h2_vet,
 						neg_y_h1_vet_div_2 }, 4);
+		
+		if (toponly && !selecte) return;
+		
 		if (type == TEXTURED) {
 			g.setPaint(tGrass);
 			g.fillPolygon(top);
@@ -208,16 +213,19 @@ public class IsoTile {
 			g.drawImage(tileImage,  f, (int) (y - h2), null);
 		}
 
-		if (state == TileState.MOVEMENT_RANGE || state == TileState.OTHERS_RANGE || selected) {
+		
+		if (state == TileState.MOVEMENT_RANGE || state == TileState.OTHERS_RANGE || selecte) {
 			Composite oldC = g.getComposite();
 			AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
 					0.25f);
 			g.setComposite(alphaComposite);
-			g.setColor(selected ? TileState.SELECTED.colour : state.colour);
+			g.setColor(selecte ? TileState.SELECTED.colour : state.colour);
 			g.fillPolygon(top);
 			g.setComposite(oldC);
 		}
 
+		if (toponly) return;
+		
 		if (drawRightSide) {
 			Polygon poly = new Polygon(new int[] {
 					x,
@@ -303,8 +311,9 @@ public class IsoTile {
 	 * so they can be merged into one method.
 	 * 
 	 * @category unused
+	 * @param toponly FIXME
 	 */
-	public void drawNorthSouth(int x, int y, Graphics g) {
+	public void drawNorthSouth(int x, int y, Graphics g, boolean toponly) {
 
 		int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
 		int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -316,7 +325,7 @@ public class IsoTile {
 
 		Color oldColor = g.getColor();
 		g.setColor(state.colour);
-		g.fillPolygon(top = new Polygon(new int[] {
+		top = new Polygon(new int[] {
 				x,
 				x + horizontal / 2,
 				x, x - horizontal / 2 },
@@ -325,8 +334,11 @@ public class IsoTile {
 						y - HEIGHT2 + vertical / 2,
 						y - HEIGHT1 + vertical,
 						y - HEIGHT1 + vertical / 2 }
-				, 4));
-
+				, 4);
+		if (toponly) return;
+		
+		g.fillPolygon(top);
+		
 		g.fillPolygon(new Polygon(new int[] {
 				x,
 				x + horizontal / 2,

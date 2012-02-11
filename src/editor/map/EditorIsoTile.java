@@ -1,6 +1,7 @@
 package editor.map;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -28,6 +29,15 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		TileState.SELECTED.setColor(Color.BLUE.brighter());
 	}
 
+	@Override
+	public void draw(int x, int y, Graphics g, boolean drawLeftSide, boolean drawRightSide) {
+		if (orientation ==Orientation.EMPTY){
+			drawEastWest(x, y, g, drawLeftSide, drawRightSide, true,isSelected());
+		}else{
+			super.draw(x, y, g, drawLeftSide, drawRightSide);
+		}
+	}
+	
 	/** @category Generated */
 	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight,
 			int x, int y, MutableSprite sprite, ImageType type) {

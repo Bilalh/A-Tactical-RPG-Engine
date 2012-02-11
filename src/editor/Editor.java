@@ -220,7 +220,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		}
 
 		//FIXME rethink this 
-		if (state==State.SELECTION && state != State.FILL){
+		if (state==State.SELECTION){
 			removeSelection(selection);
 			selection.clear();
 			selection.add(tile);	
@@ -487,7 +487,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			return bar;
 		}
 
-	String filename = "nicer";
+	String filename = "fft";
 	private void createMap() {
 		map = new EditorMap("maps/"+filename+".xml");
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
