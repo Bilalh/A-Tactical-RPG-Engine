@@ -38,7 +38,7 @@ public class IsoTile {
 	private static final Logger log = Logger.getLogger(IsoTile.class);
 	
 	public static enum TileState {
-		SELECTED(Color.ORANGE), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.GREEN);
+		SELECTED(Color.BLACK), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.BLACK);
 		public Color colour;
 
 		TileState(Color c) {
@@ -217,7 +217,7 @@ public class IsoTile {
 		if (state == TileState.MOVEMENT_RANGE || state == TileState.OTHERS_RANGE || isSelected()|| topOnly) {
 			Composite oldC = g.getComposite();
 			AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-					0.25f);
+					0.5f);
 			g.setComposite(alphaComposite);
 			g.setColor(topOnly ? TileState.SELECTED.colour : state.colour);
 			g.fillPolygon(top);

@@ -70,7 +70,6 @@ public class PathFinder implements IMovementCostProvider {
 				
 				// TODO allow flying?
 				if (map.getTile(i, j).getOrientation() == Orientation.EMPTY){
-					System.out.println(locations[i][j]);
 					continue;
 				}
 				

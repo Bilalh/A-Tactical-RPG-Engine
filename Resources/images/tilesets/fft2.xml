@@ -1,12 +1,11 @@
 <sprite-array>
-  <sprite name="1" x="0" y="0" width="60" height="30"/>
-  <sprite name="2" x="64" y="0" width="60" height="30"/>
-  <sprite name="3" x="128" y="0" width="60" height="30"/>
-  <sprite name="4" x="192" y="0" width="60" height="30"/>
-  <sprite name="5" x="0" y="34" width="60" height="30"/>
-  <sprite name="6" x="64" y="34" width="60" height="30"/>
-  <sprite name="7" x="128" y="34" width="60" height="30"/>
-  <sprite name="8-4" x="192" y="34" width="60" height="30"/>
-  <sprite name="8" x="0" y="68" width="60" height="30"/>
-  <sprite name="mask" x="64" y="68" width="60" height="30"/>
+  <sprite name="8-4" x="0" y="0" width="60" height="30"/>
+  <sprite name="3" x="60" y="0" width="60" height="30"/>
+  <sprite name="2" x="120" y="0" width="60" height="30"/>
+  <sprite name="7" x="180" y="0" width="60" height="30"/>
+  <sprite name="6" x="0" y="30" width="60" height="30"/>
+  <sprite name="5" x="60" y="30" width="60" height="30"/>
+  <sprite name="4" x="120" y="30" width="60" height="30"/>
+  <sprite name="mask" x="180" y="30" width="60" height="30"/>
+  <sprite name="8" x="0" y="60" width="60" height="30"/>
 </sprite-array>
