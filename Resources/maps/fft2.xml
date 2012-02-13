@@ -393,7 +393,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="2">
-    <type>8-4</type>
+    <type>3</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -408,7 +408,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="5">
-    <type>8-4</type>
+    <type>8</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -493,7 +493,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="7">
-    <type>8-4</type>
+    <type>2</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -558,12 +558,12 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="5">
-    <type>8-4</type>
+    <type>1</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="6">
-    <type>8-4</type>
+    <type>mask</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -628,12 +628,12 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="8" y="4">
-    <type>8-4</type>
+    <type>4</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="8" y="5">
-    <type>8-4</type>
+    <type>1</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -703,7 +703,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="9" y="4">
-    <type>8-4</type>
+    <type>7</type>
     <height>2</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -718,7 +718,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="9" y="7">
-    <type>8-4</type>
+    <type>6</type>
     <height>1</height>
     <orientation>EMPTY</orientation>
   </tile>
@@ -788,7 +788,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="10" y="6">
-    <type>8-4</type>
+    <type>6</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
@@ -853,7 +853,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="11" y="4">
-    <type>8-4</type>
+    <type>5</type>
     <height>1</height>
     <orientation>UP_TO_EAST</orientation>
   </tile>
