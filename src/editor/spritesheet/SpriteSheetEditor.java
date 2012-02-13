@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
@@ -27,10 +28,14 @@ import org.apache.log4j.Logger;
 
 import com.sun.org.apache.bcel.internal.generic.LMUL;
 
+import common.enums.ImageType;
 import common.spritesheet.SpriteSheet;
 
 import config.Config;
 import config.XMLUtil;
+import config.xml.ITileMapping;
+import config.xml.TileImageData;
+import config.xml.TileMapping;
 import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
 import editor.ui.AlphanumComparator;
 import engine.unit.UnitAnimation;
@@ -408,11 +413,20 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			}
 		});
 		
+		JMenuItem tileMapping = new JMenuItem("Make Tile Mapping from Sheet");
+		animation.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				makeTileMapping();
+			}
+		});		
+		
 		edit.add(selectedAll);
 		edit.add(sort);
 		edit.add(removeExt);
 		edit.addSeparator();
 		edit.add(animation);
+		edit.add(tileMapping);
 		
 		return bar;
 	}
@@ -463,7 +477,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		}
 		renew();
 	}
-
+	
 	/**
 	 * Saves a Sprite sheet
 	 */
@@ -502,6 +516,32 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	}
 
 
+	private void makeTileMapping(){
+		saveChooser.setSelectedFile(new File("mapping.xml"));
+		int rst = saveChooser.showSaveDialog(SpriteSheetEditor.this);
+		if (rst == JFileChooser.APPROVE_OPTION) {
+			
+			HashMap<String, TileImageData> mapping = new HashMap<String, TileImageData>();
+			for (int i = 0; i < sprites.size(); i++) {
+				MutableSprite m = (MutableSprite) sprites.elementAt(i);
+				mapping.put(m.getName(), new TileImageData(m.getName(), ImageType.NON_TEXTURED));	
+			}
+			String name = sheetName.getText();
+			if (!name.endsWith(".png")) name += ".png";
+			ITileMapping map = new TileMapping("images/tilesets/"+name, mapping);
+			String s2 = XMLUtil.makeFormattedXml(map);
+			FileWriter fw;
+			try {
+				fw = new FileWriter(saveChooser.getSelectedFile());
+				fw.write(s2);
+				fw.close();
+			} catch (IOException e) {
+				// FIXME catch block in makeTileMapping
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private void load() {
 		if (!sprites.isEmpty() && !askToSave() ) return;
 		loadSheet(true);

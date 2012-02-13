@@ -1,8 +1,71 @@
 <tilemapping spriteSheetLocation="images/tilesets/fft2.png">
-   <entry>
+  <entry>
+    <string>3</string>
+    <tileImageData>
+      <location>3</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
     <string>8-4</string>
     <tileImageData>
       <location>8-4</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>2</string>
+    <tileImageData>
+      <location>2</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>1</string>
+    <tileImageData>
+      <location>1</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>7</string>
+    <tileImageData>
+      <location>7</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>6</string>
+    <tileImageData>
+      <location>6</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>5</string>
+    <tileImageData>
+      <location>5</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>4</string>
+    <tileImageData>
+      <location>4</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>mask</string>
+    <tileImageData>
+      <location>mask</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>8</string>
+    <tileImageData>
+      <location>8</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
