@@ -418,10 +418,19 @@ public class GuiMap implements Observer, IMapRendererParent {
     	return field[l.getX()][l.getY()];
     }
     
+    boolean musicPlaying = true;
     public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_1:
 				mapRenderer.toggleNumbering();
+				break;
+			case KeyEvent.VK_M:
+				if (musicPlaying){
+					music.stop();
+				}else{
+					music.loop();
+				}
+				musicPlaying = !musicPlaying;
 				break;
 			case KeyEvent.VK_T:
 				setActionHandler(ActionsEnum.DIALOG);
@@ -440,9 +449,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 				MapSettings.zoom -= 0.2;
 //				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
 				log.info(MapSettings.zoom * MapSettings.tileDiagonal);
-				if ((MapSettings.zoom * MapSettings.tileDiagonal) % 2 !=0){
+//				if ((MapSettings.zoom * MapSettings.tileDiagonal) % 2 !=0){
 //					log.info("Odd");
-				}
+//				}
 				
 				log.info(MapSettings.zoom);
 				setDrawn(false);
