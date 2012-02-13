@@ -226,11 +226,13 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			selection.add(tile);	
 		}
 		
-		infoHeight.setValue(tile.getHeight());
-		//FIXME hack type name
-		infoType.setText(tile.getSprite().getName());
-		infoOrientation.setSelectedItem(tile.getOrientation());
-		infoLocation.setText(String.format("(%s,%s)", tile.getX(), tile.getY()));
+		if (state == State.DRAW_INFO || state == State.DRAW || state == State.EYE ){
+			infoHeight.setValue(tile.getHeight());
+			//FIXME hack type name
+			infoType.setText(tile.getSprite().getName());
+			infoOrientation.setSelectedItem(tile.getOrientation());
+			infoLocation.setText(String.format("(%s,%s)", tile.getX(), tile.getY()));	
+		}
 		
 		if (repaint) editorMapPanel.repaintMap();
 	}
@@ -242,8 +244,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		}
 	}
 
-	/** @param shiftDown 
-	 * @category Callback **/
+	 /** @category Callback **/
 	public void tilesSelected(ArrayList<EditorIsoTile> tiles, boolean shiftDown){
 		
 		System.out.println();
@@ -487,7 +488,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			return bar;
 		}
 
-	String filename = "fft";
+	String filename = "fft2";
 	private void createMap() {
 		map = new EditorMap("maps/"+filename+".xml");
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
