@@ -23,6 +23,7 @@ import view.Gui;
 import view.GuiUnit;
 import view.interfaces.IActions;
 import view.ui.Dialog;
+import view.ui.UnitInfoDisplay;
 import view.util.MapActions;
 import view.util.MousePoxy;
 
@@ -67,6 +68,8 @@ public class GuiMap implements Observer, IMapRendererParent {
     Dialog dialog;
     boolean showDialog = false;
         
+    UnitInfoDisplay infoDisplay = new UnitInfoDisplay();
+    
     // The Class that with handed the input 
     private MapActions currentAction;
     private MousePoxy MousePoxy;
@@ -122,7 +125,8 @@ public class GuiMap implements Observer, IMapRendererParent {
         ResourceManager.instance().loadSpriteSheetFromResources(mapController.getTileSheetLocation());
         try {
 			music = new Music("music/1-19 Fight It Out!.ogg", true);
-			music.loop();
+//			music.loop();
+			musicPlaying = false;
 		} catch (SlickException e) {
 			// FIXME catch block in GuiMap
 			e.printStackTrace();
@@ -160,6 +164,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		Music.poll((int) (timeDiff/1000000));
 		Graphics g = mapBuffer.getGraphics();
 		
+		// Handled the animated movement
 		if (!currentAction.isMouseMoving()) {
 			frameChange += timeDiff;
 			if (frameChange > frameDuration) {
@@ -193,7 +198,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 
 		if (!isDrawn()){
-			g.setColor(Color.WHITE);
+			g.setColor(Color.BLUE.brighter());
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			setDrawn(mapRenderer.draw(g, width, height));
 //			Logf.trace(log, "%s %s %s %s %s %s %s %s %s %s ",bufferWidth,bufferHeight, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height);
@@ -201,6 +206,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 		_g.drawImage(mapBuffer, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height, null);
 
+		if (selectedTile.getUnit() != null){
+			infoDisplay.draw((Graphics2D) _g, width-100, 100, selectedTile.getUnit().getUnit());
+		}
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 	}
 	
