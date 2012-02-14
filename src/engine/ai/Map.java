@@ -9,6 +9,10 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import notifications.*;
+import notifications.map.ChooseUnitsNotifications;
+import notifications.map.UnitMovedNotification;
+import notifications.map.UnitTurnNotification;
+import notifications.map.UnitsChosenNotification;
 
 import org.apache.log4j.Logger;
 

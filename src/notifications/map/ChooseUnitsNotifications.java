@@ -1,7 +1,7 @@
 /**
  * 
  */
-package notifications;
+package notifications.map;
 
 import java.util.ArrayList;
 

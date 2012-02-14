@@ -1,4 +1,4 @@
-package notifications;
+package notifications.map;
 
 import view.map.GuiMap;
 import common.interfaces.IMapNotification;

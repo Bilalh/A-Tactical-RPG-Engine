@@ -38,7 +38,6 @@ public class MapPanel extends JPanel implements Runnable {
 	// i.e the games state is updated but not rendered
 	private static int MAX_FRAME_SKIPS = 5;
 
-
 	private long gameStartTime;
 
 	private Thread animator; // the thread that performs the animation
@@ -172,6 +171,7 @@ public class MapPanel extends JPanel implements Runnable {
 				try {
 					Thread.sleep(sleepTime / 1000000L); // nano -> ms
 				} catch (InterruptedException ex) {
+					ex.printStackTrace();
 				}
 				overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
 			} else { // sleepTime <= 0; the frame took longer than the period
@@ -198,19 +198,18 @@ public class MapPanel extends JPanel implements Runnable {
 //				System.out.println("Skipping " + skips);
 			}
 		}
-		System.exit(0); // so window disappears
 	}
 
 	// wait for the JPanel to be added to the JFrame before starting
 	@Override
 	public void addNotify() {
 		super.addNotify(); // creates the peer
-		startGame(); // start the thread
+		start(); // start the thread
 	}
 
 
 	// initialise and start the thread
-	private void startGame(){
+	private void start(){
 		if (animator == null || !running) {
 			animator = new Thread(this);
 			animator.start();
@@ -220,17 +219,16 @@ public class MapPanel extends JPanel implements Runnable {
 	// called by the JFrame's window listener methods
 
 	// called when the JFrame is activated / deiconified
-	public void resumeGame(){
+	public void resume(){
 		isPaused = false;
 	}
 
 	// called when the JFrame is deactivated / iconified
-	public void pauseGame(){
+	public void pause(){
 		isPaused = true;
 	}
 
-	// called when the JFrame is closing
-	public void stopGame() {
+	public void finished() {
 		running = false;
 	}
 
@@ -238,7 +236,6 @@ public class MapPanel extends JPanel implements Runnable {
 		if (!isPaused && !gameOver) {
 		}
 	}
-
 
 	private void gameRender(long timeDiff) {
 //		dbImage = createImage(getWidth(), getHeight());
@@ -278,7 +275,7 @@ public class MapPanel extends JPanel implements Runnable {
 
 			g.dispose();
 		} catch (Exception e) {
-			System.out.println("Graphics context error: " + e);
+			e.printStackTrace();
 		}
 	}
 

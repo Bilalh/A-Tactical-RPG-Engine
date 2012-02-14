@@ -5,6 +5,10 @@ import common.LocationInfo;
 
 import java.util.*;
 
+import org.apache.log4j.Logger;
+
+import notifications.map.MapFinishedNotification;
+
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
 import config.xml.TileImageData;
@@ -23,10 +27,9 @@ import engine.unit.Unit;
  * @author Bilal Hussain
  */
 public class MapController extends Controller {
-
+	private static final Logger log = Logger.getLogger(MapController.class);
 	private Map map;
 
-	/** @category Generated */
 	public MapController(Map map) {
 		this.map = map;
 	}
@@ -72,6 +75,13 @@ public class MapController extends Controller {
 
 	public void finishedMoving(IMapUnit u) {
 		map.finishedMoving((IMutableMapUnit) u);
+	}
+
+	public void mapFinished() {
+		MapFinishedNotification n = new MapFinishedNotification();
+		setChanged();
+		log.info("mapFinished");
+		notifyObservers(n);
 	}
 	
 }

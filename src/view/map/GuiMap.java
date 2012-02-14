@@ -430,6 +430,9 @@ public class GuiMap implements Observer, IMapRendererParent {
     boolean musicPlaying = true;
     public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {
+			case KeyEvent.VK_L:
+				mapController.mapFinished();
+				break;
 			case KeyEvent.VK_1:
 				mapRenderer.toggleNumbering();
 				break;
