@@ -10,6 +10,7 @@ import common.interfaces.IUnit;
 import config.xml.TileImageData;
 
 import util.Args;
+import view.AnimatedUnit;
 import view.GuiUnit;
 import engine.ai.Map;
 import engine.map.IMutableMapUnit;
@@ -65,13 +66,12 @@ public class MapController extends Controller {
 		return map.getTileImageData(x, y);
 	}
 
-	/** @category Generated */
 	public String getTileSheetLocation() {
 		return map.getTileSheetLocation();
 	}
 
-	public void finishedMoving() {
-		map.finishedMoving();
+	public void finishedMoving(IMapUnit u) {
+		map.finishedMoving((IMutableMapUnit) u);
 	}
 	
 }

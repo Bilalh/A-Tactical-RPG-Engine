@@ -190,7 +190,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 					
 					if (!pathIterator.hasNext()){
 						setActionHandler(oldAction);
-						mapController.finishedMoving();
+						mapController.finishedMoving(u.getUnit());
 					}
 				}
 				setDrawn(false);
@@ -266,7 +266,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	// To allow the user to see the ai's move 
 	Timer timer = new Timer();
-	public void unitMoved(IMapUnit u, Collection<LocationInfo> path){
+	public void unitMoved(final IMapUnit u, Collection<LocationInfo> path){
 		assert u != null;
 		assert path != null;
 		Logf.info(log, "Unit: %s",u);
@@ -281,10 +281,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 		if (pathIterator.hasNext()) {
 			setActionHandler(ActionsEnum.NONE);
 		}else{
+			// Allows the player to see the ai moves
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					mapController.finishedMoving();
+					mapController.finishedMoving(u);
 				}
 			}, 1000);
 		}

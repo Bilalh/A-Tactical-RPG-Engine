@@ -9,6 +9,7 @@ import common.interfaces.INotification;
 import view.map.GuiMap;
 
 /**
+ * @category unused
  * @author bilalh
  */
 public class PlayersTurnNotification implements IMapNotification {
