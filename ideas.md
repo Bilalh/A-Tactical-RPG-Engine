@@ -12,6 +12,8 @@ Editor
 GUI
 ---
 * Unit crossing in gui -- done
+* Going to next map    -- done 
+* Rare bug when click unit
 
 
 Map Drawing
@@ -22,7 +24,7 @@ Map Drawing
 	* unit drawing in reguard to height wrong 
 	* redraw on each movement -- ok
 		
-		* Draw all of A's  and only draw the tops of 
+		* Draw all of A's  and only draw the tops of T's
 	 
 		*    
 		-
