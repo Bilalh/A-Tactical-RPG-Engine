@@ -184,7 +184,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 					log.trace("over "+ replaced);
 					
 					u.setLocation(lastLocation);
-					u.setDirection(lastLocation.getDirection());
+					u.setDirection(mapRenderer.getRotation().transtateDirection(lastLocation.getDirection()));
 					getTile(lastLocation).setUnit(u);
 					
 					log.debug("Moved to" + getTile(lastLocation));
