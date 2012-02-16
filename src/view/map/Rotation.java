@@ -21,7 +21,6 @@ public enum Rotation{
 				case SOUTH: return Direction.NORTH;
 				case EAST:  return Direction.EAST;
 				case WEST:  return Direction.WEST;
-				case STILL: return Direction.STILL;
 			}
 			return current;
 		}
@@ -29,6 +28,12 @@ public enum Rotation{
 	EAST {
 		@Override
 		Direction transtateDirection(Direction current) {
+			switch(current){
+				case NORTH: return Direction.SOUTH;
+				case SOUTH: return Direction.NORTH;
+				case EAST:  return Direction.WEST;
+				case WEST:  return Direction.EAST;
+			}
 			return current;
 		}
 	},
