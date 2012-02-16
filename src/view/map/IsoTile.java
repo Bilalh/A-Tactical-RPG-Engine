@@ -19,7 +19,7 @@ import javax.swing.*;
 import org.apache.log4j.Logger;
 
 import util.Logf;
-import view.AnimatedUnit;
+import view.units.AnimatedUnit;
 
 import java.awt.*;
 import java.awt.image.*;

@@ -1,7 +1,7 @@
 package view.map;
 
 
-import view.AnimatedUnit;
+import view.units.AnimatedUnit;
 
 /**
  * Interface that allow the map render to get the infomation it needs

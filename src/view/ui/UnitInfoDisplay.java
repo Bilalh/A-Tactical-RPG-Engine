@@ -6,7 +6,7 @@ import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
 
-import view.GuiUnit;
+import view.units.GuiUnit;
 
 import common.interfaces.IMapUnit;
 

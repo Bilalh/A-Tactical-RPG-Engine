@@ -10,7 +10,7 @@ import common.Location;
 
 
 import util.Logf;
-import view.AnimatedUnit;
+import view.units.AnimatedUnit;
 
 /**
  * Draws a isomertricMap

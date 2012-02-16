@@ -2,10 +2,7 @@ package view.map;
 
 import java.awt.*;
 import java.awt.color.ColorSpace;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -21,39 +18,29 @@ import javax.swing.JPanel;
 import com.sun.tools.example.debug.gui.GUI;
 
 import view.Gui;
-import view.interfaces.IActions;
 
 import controller.MapController;
 
 import engine.ai.Map;
 
-
 public class MapPanel extends JPanel implements Runnable {
-
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 525072238231645623L;
+	
 	private static final int NO_DELAYS_PER_YIELD = 16;
-
-	// no. of frames that can be skipped in any one animation loop
-	// i.e the games state is updated but not rendered
-	private static int MAX_FRAME_SKIPS = 5;
-
-	private long gameStartTime;
-
-	private Thread animator; // the thread that performs the animation
-	private volatile boolean running = false; // used to stop the animation thread
-	private volatile boolean isPaused = false;
-
+	// Number of frame that can be skipped.
+	private static final int MAX_FRAME_SKIPS = 5;
+	// Differnces in nanoseconds between each draw.
 	private long period; // period between drawing in _nanosecs_
 
-
-	// used at game termination
+	// For the thread
+	private Thread animator;
+	private volatile boolean running = false;
+	private volatile boolean isPaused = false;
 	private volatile boolean gameOver = false;
 
-
 	// off-screen rendering
-	private Graphics dbg;
-	private Image dbImage = null;
+	private Graphics bg;
+	private Image buffer = null;
 
 	private GuiMap map;
 
@@ -68,43 +55,33 @@ public class MapPanel extends JPanel implements Runnable {
 		setFocusable(true);
 		requestFocus(); // the JPanel now has focus, so receives key events
 
-		this.map  = new GuiMap(mapController,this);
+		this.map = new GuiMap(mapController, this);
 		this.addMouseListener(map.getMouseListener());
 		this.addMouseMotionListener(map.getMouseMotionListener());
-		this.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-//				dbImage = null;
-//				System.out.println("resized");
-			}
+		// this.addComponentListener(new ComponentAdapter() {
+		// @Override
+		// public void componentResized(ComponentEvent e) {
+		// }
+		//
+		// });
 
-		});
-
-		this.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-			}
-
+		this.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 
-				if (e.isMetaDown()){
-					if (e.getKeyCode() == KeyEvent.VK_D)   Gui.toggleDebugConsole();
+				if (e.isMetaDown()) {
+					if (e.getKeyCode() == KeyEvent.VK_D) Gui.toggleDebugConsole();
 					return;
-				}else if (e.isShiftDown()){
-					if      (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET)   Gui.console().pageUp();
-					else if (e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET)  Gui.console().pageDown();
+				} else if (e.isShiftDown()) {
+					if (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET)
+						Gui.console().pageUp();
+					else if (e.getKeyCode() == KeyEvent.VK_CLOSE_BRACKET) Gui.console().pageDown();
 					return;
 				}
 
 				final IActions handler = map.getActionHandler();
 
-				switch (e.getKeyCode()) {					
+				switch (e.getKeyCode()) {
 					case KeyEvent.VK_OPEN_BRACKET:
 						Gui.console().scrollUp();
 						break;
@@ -135,156 +112,128 @@ public class MapPanel extends JPanel implements Runnable {
 				}
 
 			}
-		});		
+		});
+
 	}
 
 	@Override
 	public void run() {
-		long beforeTime, afterTime, timeDiff =0, sleepTime=0;
+		long before, after, timeDiff = 0, sleepTime = 0;
 		long overSleepTime = 0L;
 		int noDelays = 0;
 		long excess = 0L;
 
-		gameStartTime = System.nanoTime();
-		beforeTime = gameStartTime;
-
-		dbImage = createImage(Gui.WIDTH, Gui.HEIGHT);
+		before = System.nanoTime();
+		buffer = createImage(Gui.WIDTH, Gui.HEIGHT);
 		map.makeImageBuffer();
-		
+
 		running = true;
 
-		
 		long realOld = System.nanoTime();
 		while (running) {
 			gameUpdate();
 			long temp = System.nanoTime();
-//			gameRender(timeDiff);
-			gameRender(temp - realOld);
+			render(temp - realOld);
 			realOld = temp;
-			paintScreen();
+			draw();
 
-			afterTime = System.nanoTime();
-			timeDiff = afterTime - beforeTime;
+			after = System.nanoTime();
+			timeDiff = after - before;
 			sleepTime = (period - timeDiff) - overSleepTime;
-//			System.out.println(sleepTime + "   " + "   " + "   " + beforeTime + "   " +  afterTime + "   "+ timeDiff);
 			if (sleepTime > 0) { // some time left in this cycle
 				try {
-					Thread.sleep(sleepTime / 1000000L); // nano -> ms
-				} catch (InterruptedException ex) {
-					ex.printStackTrace();
+					Thread.sleep(sleepTime / 1000000L); // ns -> ms
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
-				overSleepTime = (System.nanoTime() - afterTime) - sleepTime;
-			} else { // sleepTime <= 0; the frame took longer than the period
-				excess -= sleepTime; // store excess time value
+				overSleepTime = (System.nanoTime() - after) - sleepTime;
+
+				// The frame took longer then the period
+			} else {
+				excess -= sleepTime;
 				overSleepTime = 0L;
 
+				// Allow other threads to run.
 				if (++noDelays >= NO_DELAYS_PER_YIELD) {
-					Thread.yield(); // give another thread a chance to run
+					Thread.yield();
 					noDelays = 0;
 				}
+
 			}
 
-			beforeTime = System.nanoTime();
+			before = System.nanoTime();
 
-			/*
-			 * If frame animation is taking too long, update the game state without rendering it, to
-			 * get the updates/sec nearer to the required FPS.
-			 */
+			// Frame skip if this is taken to long
 			int skips = 0;
 			while ((excess > period) && (skips < MAX_FRAME_SKIPS)) {
 				excess -= period;
 				gameUpdate(); // update state but don't render
 				skips++;
-//				System.out.println("Skipping " + skips);
 			}
 		}
 	}
 
-	// wait for the JPanel to be added to the JFrame before starting
 	@Override
 	public void addNotify() {
-		super.addNotify(); // creates the peer
-		start(); // start the thread
+		super.addNotify(); 
+		initialize(); // start the thread
 	}
 
-
-	// initialise and start the thread
-	private void start(){
+	private void initialize() {
 		if (animator == null || !running) {
 			animator = new Thread(this);
 			animator.start();
 		}
 	}
 
-	// called by the JFrame's window listener methods
-
-	// called when the JFrame is activated / deiconified
-	public void resume(){
-		isPaused = false;
-	}
-
-	// called when the JFrame is deactivated / iconified
-	public void pause(){
-		isPaused = true;
-	}
-
 	public void finished() {
 		running = false;
 	}
 
+	private void render(long timeDiff) {
+
+		assert buffer != null : "image buffer null";
+		bg = buffer.getGraphics();
+
+		// Clear the panel
+		bg.setColor(Color.GRAY);
+		bg.fillRect(0, 0, getWidth(), getHeight());
+		// Draw the elements of the panel
+		map.draw(buffer.getGraphics(), timeDiff, getWidth(), getHeight());
+
+		// Draw the Console if needed
+		if (Gui.showDebugConsole()) {
+			Gui.console().paint((Graphics2D) bg, 0, getHeight() - Gui.console().getHeight(), getWidth());
+		}
+
+		bg.dispose();
+	}
+
+	// Uses active rendering
+	private void draw() {
+		Graphics g = this.getGraphics();
+
+		assert g      != null : "graphics buffer null";
+		assert buffer != null : "image    buffer null";
+
+		g.drawImage(buffer, 0, 0, null);
+
+		// Fix for some linux systems.
+		Toolkit.getDefaultToolkit().sync();
+		g.dispose();
+	}
+
+	// TODO use?
 	private void gameUpdate() {
 		if (!isPaused && !gameOver) {
 		}
 	}
 
-	private void gameRender(long timeDiff) {
-//		dbImage = createImage(getWidth(), getHeight());
-		if (dbImage == null) {
-			System.out.println("dbImage is null");
-			System.exit(1);
-		}
-		dbg = dbImage.getGraphics();
-		
-		
-		dbg.setColor(Color.GRAY);
-		dbg.fillRect(0, 0, getWidth(), getHeight());		
-		// draw game elements
-		map.draw(dbImage.getGraphics(), timeDiff, getWidth(), getHeight());
-
-
-		if (Gui.showDebugConsole()) {
-			Gui.console().paint((Graphics2D) dbg, 0, getHeight() - Gui.console().getHeight()  , getWidth());
-		}         
-
-		dbg.dispose();
-	}
-
-	// use active rendering to put the buffered image on-screen
-	private void paintScreen() {
-		Graphics g;
-		try {
-			g = this.getGraphics();
-			if ((g != null) && (dbImage != null)){
-
-				g.drawImage(dbImage, 0,0, null);
-			}
-				
-			// Sync the display on some systems.
-			// (on Linux, this fixes event queue problems)
-			Toolkit.getDefaultToolkit().sync();
-
-			g.dispose();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-
-	void resizeMap(int width, int height){
+	/** @category unused**/
+	void resizeMap(int width, int height) {
 		setPreferredSize(new Dimension(width, height));
 		setSize(width, height);
-		dbImage = createImage(width, height);
+		buffer = createImage(width, height);
 	}
-	
-}
 
+}

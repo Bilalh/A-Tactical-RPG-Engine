@@ -14,8 +14,8 @@ import common.interfaces.IUnit;
 import config.xml.TileImageData;
 
 import util.Args;
-import view.AnimatedUnit;
-import view.GuiUnit;
+import view.units.AnimatedUnit;
+import view.units.GuiUnit;
 import engine.ai.Map;
 import engine.map.IMutableMapUnit;
 import engine.map.Tile;

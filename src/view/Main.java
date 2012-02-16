@@ -10,19 +10,19 @@ import controller.MainController;
 import engine.Engine;
 
 /**
+ * Runs the game
  * @author Bilal Hussain
  */
 public class Main {
 	private static final Logger log = Logger.getLogger(Main.class);
 	
 	private MainController mainController;
-	Gui window;
+	private Gui window;
 	
 	public Main(){
 		Config.loadLoggingProperties();
 		System.setProperty("sun.java2d.opengl","True");
-		try {
-			EventQueue.invokeAndWait(new Runnable() {
+			EventQueue.invokeLater(new Runnable() {
 				@Override
 				public void run() {
 					try {
@@ -35,16 +35,6 @@ public class Main {
 					}
 				}
 			});
-		} catch (InterruptedException e) {
-			// FIXME catch block in Main
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// FIXME catch block in Main
-			e.printStackTrace();
-		}
-		log.info("Main returned");
-		
-		
 	}
 	
 	@SuppressWarnings("unused")

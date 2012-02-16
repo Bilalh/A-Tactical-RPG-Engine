@@ -1,4 +1,4 @@
-package view.interfaces;
+package view.map;
 
 /**
  * A set of action that view must implement.

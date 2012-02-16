@@ -7,8 +7,8 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 
 import util.Logf;
-import view.AnimatedUnit;
 import view.map.IsoTile.TileState;
+import view.units.AnimatedUnit;
 import view.util.MapActions;
 
 import common.Location;

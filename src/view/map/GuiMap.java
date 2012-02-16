@@ -18,12 +18,11 @@ import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 
 import util.Args;
 import util.Logf;
-import view.AnimatedUnit;
 import view.Gui;
-import view.GuiUnit;
-import view.interfaces.IActions;
 import view.ui.Dialog;
 import view.ui.UnitInfoDisplay;
+import view.units.AnimatedUnit;
+import view.units.GuiUnit;
 import view.util.MapActions;
 import view.util.MousePoxy;
 
@@ -68,7 +67,7 @@ public class GuiMap implements Observer, IMapRendererParent {
     Dialog dialog;
     boolean showDialog = false;
         
-    UnitInfoDisplay infoDisplay = new UnitInfoDisplay();
+    private UnitInfoDisplay infoDisplay = new UnitInfoDisplay();
     
     // The Class that with handed the input 
     private MapActions currentAction;
@@ -78,16 +77,18 @@ public class GuiMap implements Observer, IMapRendererParent {
     private Image mapBuffer;
     private final int bufferWidth;
 	private final int bufferHeight;
-
+	
+	// When to draw from 
     private int drawX,drawY;
     
+    // Handles the input fpr each state 
     final private MapActions[] actions = {new Movement(this), new DialogHandler(this), new MapActions(this)};
-    private GuiUnit currentUnit;
 	enum ActionsEnum {
     	MOVEMENT, DIALOG,NONE
     }
 
 	// For unit movement
+	private GuiUnit currentUnit;
 	private Iterator<LocationInfo> pathIterator;
 	private LocationInfo lastLocation;
 	private MapActions oldAction = null;
@@ -371,6 +372,32 @@ public class GuiMap implements Observer, IMapRendererParent {
         selectedTile.setSelected(true);
     }
 
+	
+    public void setDrawLocation(int x, int y) {
+    	if (x >= 0){
+        	if (x + parent.getWidth()  <= bufferWidth){
+        		drawX = x;
+        	}else{
+        		drawX = bufferWidth - parent.getWidth();
+        	}
+    	}else{
+    		drawX = 0;
+    	}    	
+    	
+    	if (y >= 0){
+        	if (y + parent.getHeight()  <= bufferHeight){
+        		drawY = y;
+        	}
+        	else{
+        		drawY = bufferHeight - parent.getHeight();
+        	}
+    	}else{
+    		drawY = 0;
+    	}    
+    	
+    }
+
+	
 	public IActions getActionHandler() {
 		return currentAction;
 	}
@@ -398,30 +425,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		MousePoxy.setMouseListener(aa);
 		MousePoxy.setMouseMotionListener(aa);
 	}
-	
-    public void setDrawLocation(int x, int y) {
-    	if (x >= 0){
-        	if (x + parent.getWidth()  <= bufferWidth){
-        		drawX = x;
-        	}else{
-        		drawX = bufferWidth - parent.getWidth();
-        	}
-    	}else{
-    		drawX = 0;
-    	}    	
-    	
-    	if (y >= 0){
-        	if (y + parent.getHeight()  <= bufferHeight){
-        		drawY = y;
-        	}
-        	else{
-        		drawY = bufferHeight - parent.getHeight();
-        	}
-    	}else{
-    		drawY = 0;
-    	}    
-    	
-    }
 
     public IsoTile getTile(ILocation l){
     	return field[l.getX()][l.getY()];
@@ -496,6 +499,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 		
 	}
+    
     /** @category Generated */
 	public boolean isShowDialog() {
 		return showDialog;

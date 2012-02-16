@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import view.interfaces.IActions;
+import view.map.IActions;
 
 /**
  * @author Bilal Hussain
