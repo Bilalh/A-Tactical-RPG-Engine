@@ -40,6 +40,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
 	int vertical   = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
 	
+	private Rotation rotation = Rotation.WEST;
 	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent) {
 		this.parent = parent;
 		this.field = field;
@@ -63,31 +64,13 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	private void calculateSize(){
         int max = Math.max(fieldWidth, fieldHeight);
 		int heightOffset  = (MapSettings.tileDiagonal)*3;
-//		bufferWidth   = MapSettings.tileDiagonal * max + 5;
-//		bufferHeight  = (int) (MapSettings.tileDiagonal / 2f *max + heightOffset);
-		
+
 		int w = fieldWidth + (fieldHeight-fieldWidth)/2;
 		int bufferWidth   = MapSettings.tileDiagonal * w+ 5;
 		int bufferHeight  = (int) (MapSettings.tileDiagonal / 2f *w+ heightOffset);
 		size = new BufferSize(heightOffset, bufferWidth, bufferHeight);
 	}
-//	
-//	
-//	enum Rotation{
-//		WEST  { 
-//			@Override
-//			int offset(int fieldWidth, int fieldHeight, int i) {
-//				return fieldHeight - i;
-//			}
-//		};
-//
-//		final int inc;
-//		abstract int offset(int fieldWidth, int fieldHeight, int i);
-//		
-//		
-//		
-//	}
-	
+
 	@Override
 	public boolean draw(Graphics g, int width, int height) {
 	
@@ -97,11 +80,28 @@ public class IsomertricMapRenderer implements IMapRenderer {
 			g.setFont(numbers);	
 		}
 		
-		boolean drawnEverything = drawNorth(g, width, height);
+		boolean drawnEverything =true;
+		switch (rotation){
+			case EAST:
+				drawnEverything = drawEast(g, width, height);
+				break;
+			case NORTH:
+				drawnEverything = drawNorth(g, width, height);
+				break;
+			case SOUTH:
+				drawnEverything = drawSouth(g, width, height);
+				break;
+			case WEST:
+				drawnEverything = drawWest(g, width, height);
+				break;
+		}
+		
 		g.setFont(oldFont);
 		return  (parent.isMouseMoving() && drawnEverything) || !parent.isMouseMoving();
 	}
 
+	// Methods to rotate the map 
+	
 	private boolean drawWest(Graphics g, int width, int height) {
 
 		int x = startX, y = startY;
@@ -209,9 +209,12 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		
 	}
 
-
 	public void toggleNumbering(){
 		showNumbering = !showNumbering;
+	}
+
+	public void nextRotation(){
+		rotation = rotation.next();
 	}
 	
 	/** @category Generated */
@@ -224,6 +227,16 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	@Override
 	public BufferSize getMapDimensions() {
 		return size;
+	}
+
+	/** @category Generated */
+	public Rotation getRotation() {
+		return rotation;
+	}
+
+	/** @category Generated */
+	public void setRotation(Rotation rotation) {
+		this.rotation = rotation;
 	}
 
 }

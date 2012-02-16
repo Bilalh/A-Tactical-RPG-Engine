@@ -439,6 +439,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 			case KeyEvent.VK_1:
 				mapRenderer.toggleNumbering();
 				break;
+			case KeyEvent.VK_R:
+				mapRenderer.nextRotation();
+				break;
 			case KeyEvent.VK_M:
 				if (musicPlaying){
 					music.stop();

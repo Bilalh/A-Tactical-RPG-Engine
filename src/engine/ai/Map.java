@@ -212,29 +212,14 @@ public class Map extends BasicMap implements IMap {
 
 	private void loadSettings(String name) {
 		loadMap(name);
-		// testing();
+//		for (int i = 0; i < width; i++) {
+//			for (int j = 0; j < height; j++) {
+//				field[i][j] = new Tile(1, 1, field[i][j].getType(), Orientation.UP_TO_EAST);
+//			}
+//		}
 		assert (field != null);
 		assert (width > 0);
 		assert (height > 0);
-	}
-
-	/** @category unused **/
-	void testing() {
-		tileMapping = Config.defaultMapping();
-		width = 17;
-		height = 17;
-		field = new Tile[width][height];
-
-		long seed = 654645l;
-		Random r = new Random(seed);
-		log.info("seed" + " " + seed);
-		for (int i = 0; i < field.length; i++) {
-			for (int j = 0; j < field[i].length; j++) {
-				int first = r.nextInt(3) + 1;
-				field[i][j] = new Tile(first, first, "grass",Orientation.UP_TO_EAST);
-				// field[i][j] = new Tile(1,1);
-			}
-		}
 	}
 
 }

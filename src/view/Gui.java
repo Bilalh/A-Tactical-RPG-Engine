@@ -29,8 +29,8 @@ public class Gui {
 	private static final Logger log = Logger.getLogger(Gui.class);
 
 
-	public static int WIDTH = 675;
-	public static int HEIGHT = 450;
+	public static int WIDTH;
+	public static int HEIGHT;
 
 	private MainController mainController;
 
@@ -54,7 +54,7 @@ public class Gui {
 	}
 
 	public Gui(MainController mainController) {
-		this(675, 450, mainController);
+		this(800, 500, mainController);
 	}
 	
 	private void initialize() {
