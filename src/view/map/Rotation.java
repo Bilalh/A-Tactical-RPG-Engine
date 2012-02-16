@@ -3,7 +3,8 @@ package view.map;
 import common.enums.Direction;
 
 /**
- * Postion of 0,0 on the map 
+ * The Rotation specifes the location of 0,0 on the map.
+ * This enum also handles converting the direction based on the rotation.
  * @author Bilal Hussain
  */
 public enum Rotation{
@@ -40,6 +41,12 @@ public enum Rotation{
 	SOUTH {
 		@Override
 		Direction transtateDirection(Direction current) {
+			switch(current){
+				case NORTH: return Direction.NORTH;
+				case SOUTH: return Direction.SOUTH;
+				case EAST:  return Direction.WEST;
+				case WEST:  return Direction.EAST;
+			}
 			return current;
 		}
 	};
@@ -51,6 +58,9 @@ public enum Rotation{
 		return values()[(ordinal() +1) % values().length];
 	}
 	
+	/**
+	 * Return the correct direction for the this direction.
+	 */
 	abstract Direction transtateDirection(Direction current);
 	
 }
