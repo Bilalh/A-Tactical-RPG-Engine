@@ -3,6 +3,7 @@ package view.map;
 import java.awt.Dimension;
 
 /**
+ * Size of the buffer for map drawing.
  * @author Bilal Hussain
  */
 public class BufferSize extends Dimension {
