@@ -33,8 +33,7 @@ class DialogHandler extends MapActions {
 	}
 
 	private void nextPage() {
-		if (!this.map.dialog.nextPage()) {
-			this.map.showDialog = false;
+		if (!dialog.nextPage()) {
 			map.setActionHandler(ActionsEnum.MOVEMENT);
 		}
 	}

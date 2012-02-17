@@ -62,27 +62,17 @@ public class GuiMap implements Observer, IMapRendererParent {
 
     private HashMap<UUID,AnimatedUnit> unitMapping;
 
-    Dialog dialog = new Dialog(0, 0);
-    Menu   menu   = new Menu();
-    boolean showDialog = false;
-        
-    private UnitInfoDisplay infoDisplay = new UnitInfoDisplay();
+    private Dialog dialog = new Dialog(0, 0);
+    private Menu   menu   = new Menu();
     
-    // The Class that with handed the input 
+    final DialogHandler dialogHandler   = new DialogHandler(this,dialog);
+    final MenuInput menuInput           = new MenuInput(this,menu);    
+    private UnitInfoDisplay infoDisplay = new UnitInfoDisplay();
+       
+    // The classes that with handed the input 
     private MapActions currentAction;
     private MousePoxy MousePoxy;
-    
-    // Buffer for drawing the map.    	
-    private Image mapBuffer;
-    private final int bufferWidth;
-	private final int bufferHeight;
-	
-	// When to draw from 
-    private int drawX,drawY;
-    
-    final DialogHandler dialogHandler = new DialogHandler(this,dialog);
-    final MenuInput menuInput         = new MenuInput(this,menu);
-    
+
     // Handles the input fpr each state 
     final private MapActions[] actions = {
     		new Movement(this), dialogHandler, 
@@ -97,6 +87,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private Iterator<LocationInfo> pathIterator;
 	private LocationInfo lastLocation;
 	private MapActions oldAction = null;
+
+    // Buffer for drawing the map.    	
+    private Image mapBuffer;
+    private final int bufferWidth;
+	private final int bufferHeight;
+	
+	// When to draw from 
+    private int drawX,drawY;
 	
 	// For drawing 
 	private boolean drawn = false;
@@ -326,7 +324,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		dialog.setPicture(null);
 		dialog.setName(null);
 		dialog.setText(text);
-		showDialog = true;
 		setActionHandler(ActionsEnum.DIALOG);
 	}
 		
@@ -556,7 +553,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 				setActionHandler(ActionsEnum.MENU);
 				break;
 			case KeyEvent.VK_T:
-				setActionHandler(ActionsEnum.DIALOG);
 				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
 				dialog.setName("Mage");
 				dialog.setText(
@@ -565,7 +561,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 						"painted The Starry Night--which some consider to be his greatest " +
 						"work of all. However, as his artistic brilliance reached new " +
 						"heights in Provence, his ysical and mental health plummeted. ");
-				showDialog = true;
+				setActionHandler(ActionsEnum.DIALOG);
 				break;
 			case KeyEvent.VK_I:
 				Logf.info(log,"draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, selectedTile.getUnit());
@@ -573,30 +569,20 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 		
 	}
-    
-    /** @category Generated */
-	public boolean isShowDialog() {
-		return showDialog;
-	}
 
 	/** @category Generated */
-	public void setShowDialog(boolean showDialog) {
-		this.showDialog = showDialog;
-	}
-
-	/** @category Generated Getter */
 	@Override
 	public boolean isMouseMoving() {
 		return currentAction.isMouseMoving();
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	@Override
 	public int getDrawX() {
 		return drawX;
 	}
 
-	/** @category Generated Getter */
+	/** @category Generated */
 	@Override
 	public int getDrawY() {
 		return drawY;

@@ -26,7 +26,7 @@ public class MusicThread extends Thread {
 		if (musicPlaying) {
 			music.pause();
 		} else {
-			music.play();
+			music.resume();
 		}
 		musicPlaying = !musicPlaying;
 	}
