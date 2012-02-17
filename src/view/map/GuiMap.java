@@ -377,61 +377,56 @@ public class GuiMap implements Observer, IMapRendererParent {
     	
     }
 
+    private Direction translateDirectionOnRotation(Direction d){
+		Rotation r  =  mapRenderer.getRotation();
+		switch (d){
+			case EAST:  if (r==Rotation.EAST )  return d.inverse();
+			case NORTH: if (r==Rotation.SOUTH)  return d.inverse();
+			case SOUTH: if (r==Rotation.NORTH)  return d.inverse();
+			case WEST:  if (r==Rotation.WEST)   return d.inverse();
+			default:    return d;
+		}
+    }
+    
     public void rotateMap(){
 		mapRenderer.rotateMap();
 		
-		Rotation r  =  mapRenderer.getRotation();
+		// Fixes the way the units faces.
 		
 		for (AnimatedUnit u : plunits) {
-			switch (u.getDirection()){
-				case EAST:
-					if (r==Rotation.EAST  ){
-						u.inverseDirection();
-					}
-					break;
-				case NORTH:
-					if (r==Rotation.SOUTH){
-						u.inverseDirection();
-					}
-					break;
-				case SOUTH:
-					if (r==Rotation.NORTH){
-						u.inverseDirection();
-					}
-					break;
-				case WEST:
-					if (r==Rotation.WEST){
-						u.inverseDirection();
-					}
-					break;
-			}
+			translateDirectionOnRotation(u);
 		}
 
 		for (AnimatedUnit u : aiUnits) {
-			switch (u.getDirection()){
-				case EAST:
-					if (r==Rotation.EAST  ){
-						u.inverseDirection();
-					}
-					break;
-				case NORTH:
-					if (r==Rotation.SOUTH){
-						u.inverseDirection();
-					}
-					break;
-				case SOUTH:
-					if (r==Rotation.NORTH){
-						u.inverseDirection();
-					}
-					break;
-				case WEST:
-					if (r==Rotation.WEST){
-						u.inverseDirection();
-					}
-					break;
-			}
+			translateDirectionOnRotation(u);
 		}
 		
+    }
+    
+    public void translateDirectionOnRotation(AnimatedUnit u){
+		Rotation r  =  mapRenderer.getRotation();
+		switch (u.getDirection()) {
+			case EAST:
+				if (r == Rotation.EAST) {
+					u.inverseDirection();
+				}
+				break;
+			case NORTH:
+				if (r == Rotation.SOUTH) {
+					u.inverseDirection();
+				}
+				break;
+			case SOUTH:
+				if (r == Rotation.NORTH) {
+					u.inverseDirection();
+				}
+				break;
+			case WEST:
+				if (r == Rotation.WEST) {
+					u.inverseDirection();
+				}
+				break;
+		}
     }
     
     public IsoTile getTile(ILocation l){
@@ -499,7 +494,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			case KeyEvent.VK_R:
 				rotateMap();
 				break;
-			case KeyEvent.VK_M:
+			case KeyEvent.VK_M:{
 				if (musicPlaying){
 					music.stop();
 				}else{
@@ -507,6 +502,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				}
 				musicPlaying = !musicPlaying;
 				break;
+			}
 			case KeyEvent.VK_T:
 				setActionHandler(ActionsEnum.DIALOG);
 				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));

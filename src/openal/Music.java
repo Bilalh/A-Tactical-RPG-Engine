@@ -9,6 +9,8 @@ import java.util.ArrayList;
  * 
  * @author kevin
  * @author Nathan Sweet <misc@n4te.com>
+ * 
+ * @author Bilal bug fix in startMusic
  */
 public class Music {
 	/** The music currently being played or null if none */
@@ -239,7 +241,7 @@ public class Music {
 	 *            if false the music is played once, the music is looped otherwise
 	 */
 	private void startMusic(float pitch, float volume, boolean loop) {
-		if (currentMusic != null) {
+		if (currentMusic != null && currentMusic != this) {
 			currentMusic.stop();
 			currentMusic.fireMusicSwapped(this);
 		}
