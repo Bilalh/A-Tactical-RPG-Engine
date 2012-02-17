@@ -211,7 +211,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	}
 
 
-	public void nextRotation(){
+	public void rotateMap(){
 		rotation = rotation.next();
 	}
 

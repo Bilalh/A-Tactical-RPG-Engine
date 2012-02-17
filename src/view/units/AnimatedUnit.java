@@ -77,6 +77,11 @@ public class AnimatedUnit extends GuiUnit {
 		sprite = frames[0];
 	}
 
+	public synchronized void inverseDirection() {
+		this.setDirection(direction.inverse());
+	}
+	
+	
 	@Override
 	public String toString() {
 		return String.format("AnimatedUnit [frames=%s name=%s location=%s direction=%s]", frames.length, unit.getName(), getLocation(),direction);

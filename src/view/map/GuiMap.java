@@ -378,15 +378,59 @@ public class GuiMap implements Observer, IMapRendererParent {
     }
 
     public void rotateMap(){
-		mapRenderer.nextRotation();
+		mapRenderer.rotateMap();
 		
-//		for (AnimatedUnit u : plunits) {
-//			u.setDirection(mapRenderer.traslateDirection(u.getDirection()));
-//		}
-//
-//		for (AnimatedUnit u : aiUnits) {
-//			u.setDirection(mapRenderer.traslateDirection(u.getDirection()));
-//		}
+		Rotation r  =  mapRenderer.getRotation();
+		
+		for (AnimatedUnit u : plunits) {
+			switch (u.getDirection()){
+				case EAST:
+					if (r==Rotation.EAST  ){
+						u.inverseDirection();
+					}
+					break;
+				case NORTH:
+					if (r==Rotation.SOUTH){
+						u.inverseDirection();
+					}
+					break;
+				case SOUTH:
+					if (r==Rotation.NORTH){
+						u.inverseDirection();
+					}
+					break;
+				case WEST:
+					if (r==Rotation.WEST){
+						u.inverseDirection();
+					}
+					break;
+			}
+		}
+
+		for (AnimatedUnit u : aiUnits) {
+			switch (u.getDirection()){
+				case EAST:
+					if (r==Rotation.EAST  ){
+						u.inverseDirection();
+					}
+					break;
+				case NORTH:
+					if (r==Rotation.SOUTH){
+						u.inverseDirection();
+					}
+					break;
+				case SOUTH:
+					if (r==Rotation.NORTH){
+						u.inverseDirection();
+					}
+					break;
+				case WEST:
+					if (r==Rotation.WEST){
+						u.inverseDirection();
+					}
+					break;
+			}
+		}
 		
     }
     
