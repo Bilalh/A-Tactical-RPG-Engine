@@ -62,6 +62,7 @@ public class AnimatedUnit extends GuiUnit {
 	@Override
 	public synchronized void setDirection(Direction direction) {
 		assert images !=null;
+		this.direction = direction;
 		if(!images.containsKey(direction.reference())){
 			super.setDirection(direction);
 			frames    = new BufferedImage[1];
@@ -78,7 +79,7 @@ public class AnimatedUnit extends GuiUnit {
 
 	@Override
 	public String toString() {
-		return String.format("AnimatedUnit [frames=%s name=%s location=%s]", frames.length, unit.getName(), getLocation());
+		return String.format("AnimatedUnit [frames=%s name=%s location=%s direction=%s]", frames.length, unit.getName(), getLocation(),direction);
 	}
 
 	

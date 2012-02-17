@@ -13,6 +13,7 @@ import view.util.MapActions;
 
 import common.Location;
 import common.LocationInfo;
+import common.enums.Direction;
 
 /**
  * @author Bilal Hussain
@@ -30,22 +31,22 @@ public  class Movement extends MapActions{
 
 	@Override
 	public void keyUp() {
-		map.moveSelectedTile(0,1);
+		map.moveSelectedTile(Direction.NORTH);
 	}
 
 	@Override
 	public void keyDown() {
-		map.moveSelectedTile(0, -1);
+		map.moveSelectedTile(Direction.SOUTH);
 	}
 
 	@Override
 	public void keyLeft() {
-		map.moveSelectedTile(-1, 0);
+		map.moveSelectedTile(Direction.WEST);
 	}
 
 	@Override
 	public void keyRight() {
-		map.moveSelectedTile(1, 0);
+		map.moveSelectedTile(Direction.EAST);
 	}
 	
 	@Override

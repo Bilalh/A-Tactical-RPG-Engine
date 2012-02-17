@@ -28,6 +28,7 @@ import view.util.MousePoxy;
 
 import common.Location;
 import common.LocationInfo;
+import common.enums.Direction;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.ILocation;
@@ -58,7 +59,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private static IsoTile selectedTile;
     
 	// The units
-    private AnimatedUnit[] punits;
+    private AnimatedUnit[] plunits;
     private AnimatedUnit[] aiUnits;
 
     private HashMap<UUID,AnimatedUnit> unitMapping;
@@ -184,7 +185,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 					log.trace("over "+ replaced);
 					
 					u.setLocation(lastLocation);
-					u.setDirection(mapRenderer.getRotation().transtateDirection(lastLocation.getDirection()));
+					u.setDirection(mapRenderer.traslateDirection(lastLocation.getDirection()));
 					getTile(lastLocation).setUnit(u);
 					
 					log.debug("Moved to" + getTile(lastLocation));
@@ -243,7 +244,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				unitMapping.put(u.getUuid(), newUnits[i]);
 				field[p.x][p.y].setUnit(newUnits[i]);
 		}
-		this.punits = newUnits;
+		this.plunits = newUnits;
 		
 		AnimatedUnit[] newAiUnits = new AnimatedUnit[aiUnits.size()];
 		for (int i = 0; i < newAiUnits.length; i++) {
@@ -290,7 +291,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 				}
 			}, 1000);
 		}
-		
 		
 		Logf.info(log, "%s moved from %s to %s with path:s%s", u.getName(),  movingUnit.getLocation(), u.getLocation(), path );
 		setDrawn(false);
@@ -352,26 +352,6 @@ public class GuiMap implements Observer, IMapRendererParent {
             return null;
         }
     }
-    
-	public IsoTile getSelectedTile() {
-		return selectedTile;
-	}
-
-	public void moveSelectedTile(int dx, int dy) {
-		setSelectedTile(selectedTile.getX()+dx, selectedTile.getY()+dy);
-	}
-	
-	public void setSelectedTile(int x, int y) {
-        if (x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight) return; 
-        
-        if (selectedTile != null) {
-            selectedTile.setSelected(false);
-        }
-        
-        selectedTile = field[x][y];
-        selectedTile.setSelected(true);
-    }
-
 	
     public void setDrawLocation(int x, int y) {
     	if (x >= 0){
@@ -395,6 +375,43 @@ public class GuiMap implements Observer, IMapRendererParent {
     		drawY = 0;
     	}    
     	
+    }
+
+    public void rotateMap(){
+		mapRenderer.nextRotation();
+		
+//		for (AnimatedUnit u : plunits) {
+//			u.setDirection(mapRenderer.traslateDirection(u.getDirection()));
+//		}
+//
+//		for (AnimatedUnit u : aiUnits) {
+//			u.setDirection(mapRenderer.traslateDirection(u.getDirection()));
+//		}
+		
+    }
+    
+    public IsoTile getTile(ILocation l){
+    	return field[l.getX()][l.getY()];
+    }
+    
+	public IsoTile getSelectedTile() {
+		return selectedTile;
+	}
+
+	public void moveSelectedTile(Direction d) {
+		d = mapRenderer.traslateDirection(d);
+		setSelectedTile(selectedTile.getX()+d.x, selectedTile.getY()+d.y);
+	}
+	
+	public void setSelectedTile(int x, int y) {
+        if (x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight) return; 
+        
+        if (selectedTile != null) {
+            selectedTile.setSelected(false);
+        }
+        
+        selectedTile = field[x][y];
+        selectedTile.setSelected(true);
     }
 
 	
@@ -426,10 +443,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		MousePoxy.setMouseMotionListener(aa);
 	}
 
-    public IsoTile getTile(ILocation l){
-    	return field[l.getX()][l.getY()];
-    }
-    
     boolean musicPlaying = true;
     public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {
@@ -440,7 +453,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				mapRenderer.toggleNumbering();
 				break;
 			case KeyEvent.VK_R:
-				mapRenderer.nextRotation();
+				rotateMap();
 				break;
 			case KeyEvent.VK_M:
 				if (musicPlaying){
@@ -533,7 +546,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	/** @category Generated */
 	AnimatedUnit[] getPlayersUnits() {
-		return punits;
+		return plunits;
 	}
 	
 	/** @category Generated */

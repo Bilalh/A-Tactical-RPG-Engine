@@ -7,6 +7,7 @@ import java.util.Queue;
 import org.apache.log4j.Logger;
 
 import common.Location;
+import common.enums.Direction;
 import common.interfaces.ILocation;
 
 
@@ -209,12 +210,18 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		
 	}
 
-	public void toggleNumbering(){
-		showNumbering = !showNumbering;
-	}
 
 	public void nextRotation(){
 		rotation = rotation.next();
+	}
+
+	public Direction traslateDirection(Direction d){
+		assert d != null : "Direction should not null";
+		return rotation.transtateDirection(d);
+	}
+	
+	public void toggleNumbering(){
+		showNumbering = !showNumbering;
 	}
 	
 	/** @category Generated */
@@ -233,7 +240,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	public Rotation getRotation() {
 		return rotation;
 	}
-
+	
 	/** @category Generated */
 	public void setRotation(Rotation rotation) {
 		this.rotation = rotation;

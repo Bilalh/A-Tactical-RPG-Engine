@@ -47,7 +47,7 @@ public class GuiUnit {
 		Logf.info(log,"Using sheet %s", images.getSpriteSheetLocation());
 		spriteSheet = Config.loadSpriteSheet(images.getSpriteSheetLocation());
 		setDirection(Direction.EAST);
-		
+		assert direction != null : "Direction Should not be null";
 	} 
 	
 	public void draw(Graphics g, final IsoTile[][] tiles, int drawX, int drawY) {
