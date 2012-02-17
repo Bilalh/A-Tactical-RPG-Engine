@@ -14,7 +14,12 @@ GUI
 * Unit crossing in gui -- done
 * Going to next map    -- done 
 * Rare bug when click unit
-
+* Zoom  -- done
+* Pitch -- done
+* Resize images
+* Rotate -- done 
+  * Units -- done
+* refactor -- done
 
 Map Drawing
 -----------

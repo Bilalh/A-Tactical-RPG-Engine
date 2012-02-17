@@ -482,8 +482,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		MousePoxy.setMouseMotionListener(aa);
 	}
 
-	private void afterZoom(){
-		log.info(MapSettings.zoom);
+	private void afterMapSettingsChange(){
 		mapRenderer.invaildate();
 		for (IsoTile[] arr : field) {
 			for (IsoTile t : arr) {
@@ -496,9 +495,6 @@ public class GuiMap implements Observer, IMapRendererParent {
     boolean musicPlaying = true;
     public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {
-			case KeyEvent.VK_L:
-				mapController.mapFinished();
-				break;
 			case KeyEvent.VK_1:
 				mapRenderer.toggleNumbering();
 				break;
@@ -514,6 +510,40 @@ public class GuiMap implements Observer, IMapRendererParent {
 				musicPlaying = !musicPlaying;
 				break;
 			}
+			case KeyEvent.VK_MINUS:
+				if ( MapSettings.zoom <=0.8) break;
+				MapSettings.zoom -= 0.2;
+				log.info(MapSettings.zoom);
+				afterMapSettingsChange();
+				break;
+				
+			case KeyEvent.VK_EQUALS:
+				if ( MapSettings.zoom >1.2) break;
+				MapSettings.zoom += 0.2;
+				log.info(MapSettings.zoom);
+				afterMapSettingsChange();
+				break;
+				
+			case KeyEvent.VK_COMMA:
+				if (MapSettings.zoom == 1 ||  MapSettings.pitch < 0.6) break;
+				MapSettings.pitch *= 0.8;
+				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
+				log.info(MapSettings.pitch);
+				afterMapSettingsChange();
+				break;
+			case KeyEvent.VK_PERIOD:
+				if (MapSettings.zoom == 1 || MapSettings.pitch > 0.8) break;
+				MapSettings.pitch *= 1.2;
+				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
+				log.info(MapSettings.pitch);
+				afterMapSettingsChange();
+				break;
+			
+				
+			case KeyEvent.VK_L:
+				mapController.mapFinished();
+				break;
+				
 			case KeyEvent.VK_T:
 				setActionHandler(ActionsEnum.DIALOG);
 				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
@@ -525,33 +555,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 						"work of all. However, as his artistic brilliance reached new " +
 						"heights in Provence, his ysical and mental health plummeted. ");
 				showDialog = true;
-				break;
-				
-			case KeyEvent.VK_MINUS:
-				if ( MapSettings.zoom <=0.6) break;
-				MapSettings.zoom -= 0.2;
-				afterZoom();
-				break;
-				
-			case KeyEvent.VK_EQUALS:
-				if ( MapSettings.zoom >1.2) break;
-				MapSettings.zoom += 0.2;
-				afterZoom();
-				break;
-				
-			case KeyEvent.VK_COMMA:
-				if ( MapSettings.pitch <0.6) break;
-				MapSettings.pitch *= 0.8;
-				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
-				log.info(MapSettings.pitch);
-				setDrawn(false);
-				break;
-			case KeyEvent.VK_PERIOD:
-				if ( MapSettings.pitch >0.8) break;
-				MapSettings.pitch *= 1.2;
-				MapSettings.pitch =  Math.round(MapSettings.pitch*10f)/10f;
-				log.info(MapSettings.pitch);
-				setDrawn(false);
 				break;
 			case KeyEvent.VK_I:
 				Logf.info(log,"draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, selectedTile.getUnit());
