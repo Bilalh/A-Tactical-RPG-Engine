@@ -56,6 +56,22 @@ public class ResourceManager {
 		return result;
 	}
 	
+	private Map<String, BufferedImage> tilesResized = Collections.synchronizedMap(new HashMap<String, BufferedImage>());
+	public BufferedImage getTile(String ref, int width, int height){
+		if (MapSettings.zoom == 1) return getTile(ref);
+		String path = ref + width+height;
+		if (tilesResized.containsKey(path)){
+			return tilesResized.get(path);
+		}
+		Logf.info(log, "%s %s %s", path, width,height);
+		GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+		BufferedImage image = gc.createCompatibleImage(width, height, Transparency.BITMASK);
+		Graphics g = image.getGraphics();
+		g.drawImage(getTile(ref), 0, 0, width,height, null);
+		g.dispose();
+		tilesResized.put(path,image);
+		return image;
+	}
 	
 	public InputStream getResourceAsStream(String ref){
 		InputStream s =  this.getClass().getClassLoader().getResourceAsStream("Resources/"+ref);
@@ -66,6 +82,7 @@ public class ResourceManager {
 	public Sprite getSpriteFromClassPath(String path) {
 		return getSpriteFromClassPath(path, -1, -1);
 	}
+	
 	
 	public Sprite getSpriteFromClassPath(String path, int width, int height) {
 		assert path != null;

@@ -66,12 +66,10 @@ public class IsoTile {
 	// The Tiles image 
 	protected BufferedImage tileImage;
 	protected ImageType type;
-
+	protected String name;
+	
 	protected AnimatedUnit unit;
 
-	// debuging
-	protected int cost;
-	
 	// testing
 	BufferedImage iGrass = ResourceManager.instance().getSpriteFromClassPath("assets/gui/grass32.jpg").getImage();
 //	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/testTile.png").getImage();
@@ -95,7 +93,8 @@ public class IsoTile {
 		this.height = (startHeight + endHeight) / 2;
 		this.type   = type;
 		this.state  = TileState.NONE;
-
+		this.name   = ref;
+		
 		final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
 		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
 		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
@@ -116,11 +115,13 @@ public class IsoTile {
 						0 - h1 + vertical / 2 }, 4);
 		
 		
-		int mheight =  Math.round((MapSettings.tileDiagonal/2f));
-//		Sprite image = ResourceManager.instance().getSpriteFromClassPath("Resources/" + filename,
-//				MapSettings.tileDiagonal+1,mheight+1);
-//		tileImage = image.getImage();
-		tileImage = ResourceManager.instance().getTile(ref);
+		tileImage = ResourceManager.instance().getTile(ref,horizontal,vertical);
+	}
+	
+	public void invaildate(){
+		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+		tileImage = ResourceManager.instance().getTile(name,horizontal,vertical);
 	}
 	
 	public boolean contains(Point p) {
@@ -464,17 +465,6 @@ public class IsoTile {
 	/** @category Generated */
 	public void setState(TileState state) {
 		this.state = state;
-	}
-
-	// for debuging
-	/** @category Generated */
-	public int getCost() {
-		return cost;
-	}
-
-	/** @category Generated */
-	public void setCost(int cost) {
-		this.cost = cost;
 	}
 
 	/** @category Generated Getter */

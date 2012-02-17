@@ -482,6 +482,17 @@ public class GuiMap implements Observer, IMapRendererParent {
 		MousePoxy.setMouseMotionListener(aa);
 	}
 
+	private void afterZoom(){
+		log.info(MapSettings.zoom);
+		mapRenderer.invaildate();
+		for (IsoTile[] arr : field) {
+			for (IsoTile t : arr) {
+				t.invaildate();
+			}
+		}
+		setDrawn(false);
+	}
+	
     boolean musicPlaying = true;
     public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {
@@ -515,26 +526,19 @@ public class GuiMap implements Observer, IMapRendererParent {
 						"heights in Provence, his ysical and mental health plummeted. ");
 				showDialog = true;
 				break;
+				
 			case KeyEvent.VK_MINUS:
 				if ( MapSettings.zoom <=0.6) break;
 				MapSettings.zoom -= 0.2;
-//				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
-				log.info(MapSettings.zoom * MapSettings.tileDiagonal);
-//				if ((MapSettings.zoom * MapSettings.tileDiagonal) % 2 !=0){
-//					log.info("Odd");
-//				}
-				
-				log.info(MapSettings.zoom);
-				setDrawn(false);
+				afterZoom();
 				break;
+				
 			case KeyEvent.VK_EQUALS:
 				if ( MapSettings.zoom >1.2) break;
 				MapSettings.zoom += 0.2;
-//				MapSettings.zoom =  Math.round(MapSettings.zoom*10f)/10f;
-				log.info(MapSettings.zoom * MapSettings.tileDiagonal);
-				log.info(MapSettings.zoom);
-				setDrawn(false);
+				afterZoom();
 				break;
+				
 			case KeyEvent.VK_COMMA:
 				if ( MapSettings.pitch <0.6) break;
 				MapSettings.pitch *= 0.8;

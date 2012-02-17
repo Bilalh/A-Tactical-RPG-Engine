@@ -38,8 +38,8 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	// expression used for all x/y cond calculations 
 	float xCalc, yCalc;
 
-	int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-	int vertical   = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+	int horizontal;
+	int vertical;
 	
 	private Rotation rotation = Rotation.WEST;
 	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent) {
@@ -52,14 +52,17 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		startX = size.width/2 +(fieldHeight - fieldWidth)*MapSettings.tileDiagonal/4;
 		startY = size.heightOffset;
 		
-		 
+		invaildate();
+	}
+
+	public void invaildate(){
+
 		 horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
 		 vertical   = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
 		
 		 xCalc =  horizontal/2;
 		 yCalc =  vertical /2;
 	}
-
 	
 	private BufferSize size;
 	private void calculateSize(){
