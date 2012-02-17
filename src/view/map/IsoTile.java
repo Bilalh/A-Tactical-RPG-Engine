@@ -312,7 +312,6 @@ public class IsoTile {
 	 * so they can be merged into one method.
 	 * 
 	 * @category unused
-	 * @param toponly FIXME
 	 */
 	public void drawNorthSouth(int x, int y, Graphics g, boolean toponly) {
 

@@ -3,6 +3,8 @@ package view.map;
  * 
  */
 
+import static util.Args.assetNonNull;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
@@ -14,12 +16,10 @@ import openal.SlickException;
 
 import org.apache.log4j.Logger;
 
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
-
-import util.Args;
 import util.Logf;
 import view.Gui;
 import view.ui.Dialog;
+import view.ui.Menu;
 import view.ui.UnitInfoDisplay;
 import view.units.AnimatedUnit;
 import view.units.GuiUnit;
@@ -29,7 +29,6 @@ import view.util.MousePoxy;
 import common.Location;
 import common.LocationInfo;
 import common.enums.Direction;
-import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.ILocation;
 import common.interfaces.IMapNotification;
@@ -39,8 +38,6 @@ import common.interfaces.IUnit;
 import config.xml.TileImageData;
 import controller.MapController;
 import engine.map.Tile;
-
-import static util.Args.*;
 
 /**
  * The view 
@@ -69,6 +66,7 @@ public class GuiMap implements Observer, IMapRendererParent {
     boolean showDialog = false;
         
     private UnitInfoDisplay infoDisplay = new UnitInfoDisplay();
+    Menu menu = new Menu();
     
     // The Class that with handed the input 
     private MapActions currentAction;
@@ -83,9 +81,11 @@ public class GuiMap implements Observer, IMapRendererParent {
     private int drawX,drawY;
     
     // Handles the input fpr each state 
-    final private MapActions[] actions = {new Movement(this), new DialogHandler(this), new MapActions(this)};
+    final private MapActions[] actions = {
+    		new Movement(this), new DialogHandler(this), 
+    		new MapActions(this), new MenuInput(this)};
 	enum ActionsEnum {
-    	MOVEMENT, DIALOG,NONE
+    	MOVEMENT, DIALOG,NONE, MENU
     }
 
 	// For unit movement
@@ -128,9 +128,8 @@ public class GuiMap implements Observer, IMapRendererParent {
         try {
 			music = new Music("music/1-19 Fight It Out!.ogg", true);
 //			music.loop();
-			musicPlaying = false;
+//			musicPlaying = false;
 		} catch (SlickException e) {
-			// FIXME catch block in GuiMap
 			e.printStackTrace();
 		}
         
@@ -157,6 +156,7 @@ public class GuiMap implements Observer, IMapRendererParent {
         mapController.startMap();
         
         pathIterator = new ArrayDeque<LocationInfo>(0).iterator();
+        setActionHandler(ActionsEnum.MENU);
 	}
 	
 	public void makeImageBuffer(){
@@ -211,6 +211,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 		if (selectedTile.getUnit() != null){
 			infoDisplay.draw((Graphics2D) _g, width-100, 100, selectedTile.getUnit().getUnit());
 		}
+		
+		menu.draw((Graphics2D) _g, width-100, height-200);
+		
 		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 	}
 	
