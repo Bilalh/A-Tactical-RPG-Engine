@@ -16,7 +16,7 @@ import java.util.Hashtable;
 import common.gui.Sprite;
 
 
-public class Dialog {
+public class Dialog implements IDisplayable{
 
 	private int textWidth;
 	private int width;
@@ -108,6 +108,7 @@ public class Dialog {
 	}
 	
 //	FIXME cache data
+	@Override
 	public void draw(Graphics2D g,  int drawX, int drawY){
 		Color originalColour = g.getColor();
 		Font originalFont = g.getFont();

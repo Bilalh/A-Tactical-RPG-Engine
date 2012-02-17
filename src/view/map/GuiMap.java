@@ -112,23 +112,24 @@ public class GuiMap implements Observer, IMapRendererParent {
 		this.mapController = mapController;
 		
 		final Tile grid[][] = mapController.getGrid();
-		this.fieldWidth = grid.length;
-		this.fieldHeight = grid[0].length;
+		this.fieldWidth     = grid.length;
+		this.fieldHeight    = grid[0].length;
 		
-        this.field = new IsoTile[fieldWidth][fieldHeight];
+        this.field       = new IsoTile[fieldWidth][fieldHeight];
         this.mapRenderer = new IsomertricMapRenderer(field, this);
         
-		BufferSize  s  = mapRenderer.getMapDimensions();
+		BufferSize s = mapRenderer.getMapDimensions();
 		bufferWidth  = s.width;
 		bufferHeight = s.height;
         
         currentAction = getActionHandler(ActionsEnum.MOVEMENT);
-        MousePoxy = new MousePoxy();
+        MousePoxy     = new MousePoxy();
         setActionHandler(ActionsEnum.MOVEMENT);
 		
         ResourceManager.instance().loadSpriteSheetFromResources(mapController.getTileSheetLocation());
         try {
-			Gui.getMusicThread().setMusic(new Music("music/1-19 Fight It Out!.ogg", true));
+			Gui.getMusicThread().replaceMusic(new Music("music/1-19 Fight It Out!.ogg", true));
+			Gui.getMusicThread().pause();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -149,8 +150,6 @@ public class GuiMap implements Observer, IMapRendererParent {
         unitMapping = new HashMap<UUID, AnimatedUnit>();
         dialog.setWidth(665);
         dialog.setHeight(70);
-        dialog.setName("Mage");
-        dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
         
         
         selectedTile = field[0][0];
@@ -213,12 +212,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 		_g.drawImage(mapBuffer, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height, null);
 
 		if (selectedTile.getUnit() != null){
-			infoDisplay.draw((Graphics2D) _g, width-100, 100, selectedTile.getUnit().getUnit());
+			infoDisplay.setUnit(selectedTile.getUnit().getUnit());
+			infoDisplay.draw((Graphics2D) _g, width-100, 100);
 		}
 		
 		currentAction.draw((Graphics2D) _g,width,height);
-		
-//		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 	}
 	
 	private Location getDrawLocation(int startX, int startY, int gridX, int gridY){

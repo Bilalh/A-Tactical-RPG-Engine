@@ -3,7 +3,8 @@ package view;
 import openal.Music;
 
 /**
- * Plays the music
+ * Plays music
+ * 
  * @author Bilal Hussain
  */
 public class MusicThread extends Thread {
@@ -12,15 +13,21 @@ public class MusicThread extends Thread {
 	private boolean running = true;
 	private boolean musicPlaying = false;
 
-	public synchronized void setMusic(Music newMusic) {
+	/**
+	 *  Replaces the current music, then plays it 
+	 */
+	public synchronized void replaceMusic(Music newMusic) {
 		assert newMusic != null;
 		if (music != null) music.stop();
 		music = newMusic;
 		music.loop();
 	}
 
+	/**
+	 * Toggle the playing state.
+	 */
 	public synchronized void toggleMusic() {
-		if (music == null){
+		if (music == null) {
 			return;
 		}
 		if (musicPlaying) {
@@ -31,6 +38,14 @@ public class MusicThread extends Thread {
 		musicPlaying = !musicPlaying;
 	}
 
+	/**
+	 * Pause the music.
+	 */
+	public synchronized void pause() {
+		music.pause();
+		musicPlaying = false;
+	}
+
 	@Override
 	public void run() {
 		super.run();
@@ -39,7 +54,7 @@ public class MusicThread extends Thread {
 		while (running) {
 			long temp = System.nanoTime();
 			if (musicPlaying) {
-//				System.out.println((int) ((temp - realOld) / 1000000));
+				// System.out.println((int) ((temp - realOld) / 1000000));
 				Music.poll((int) ((temp - realOld) / 1000000));
 			}
 			realOld = temp;

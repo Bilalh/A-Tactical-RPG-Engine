@@ -68,7 +68,7 @@ public class Gui {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				try {
-					musicThread.setMusic( new Music("music/3-15 Faraway Heights.ogg", true));
+					musicThread.replaceMusic( new Music("music/3-15 Faraway Heights.ogg", true));
 				} catch (SlickException e1) {
 					e1.printStackTrace();
 				}

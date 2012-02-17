@@ -13,49 +13,48 @@ import common.interfaces.IMapUnit;
 /**
  * @author Bilal Hussain
  */
-public class Menu {
+public class Menu implements IDisplayable {
 
-	int xOffset = 25;
-	int yOffset = 20;
+	private int xOffset = 25;
+	private int yOffset = 20;
 	
-	RoundRectangle2D.Float area = new RoundRectangle2D.Float();
-	ArrayList<MenuItem> commands = new ArrayList<MenuItem>();
-
-	int selected = 0;
+	private int selected = 0;
+	
+	private RoundRectangle2D.Float area  = new RoundRectangle2D.Float();
+	private ArrayList<MenuItem> commands = new ArrayList<MenuItem>();
 	
 	public Menu(){
 		commands.addAll(Arrays.asList(new MenuItem[]{
 				new MenuItem("Attack"), new MenuItem("Wait"), new MenuItem("item"), new MenuItem("Back")}
 		));
 	}
-	
 
-	public void draw(Graphics2D g2, int x, int y){
-		g2 = (Graphics2D) g2.create();
-		
-		
-		area =  new RoundRectangle2D.Float(x, y,
+	@Override
+	public void draw(Graphics2D g, int drawX, int drawY){
+		g = (Graphics2D) g.create();
+
+		area =  new RoundRectangle2D.Float(drawX, drawY,
 				70,
 				25*commands.size(),
 				10, 10);
 		
-		Composite oldC = g2.getComposite();
+		Composite oldC = g.getComposite();
 		
 		AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.5f);
-		Color oldCo = g2.getColor();
-		g2.setComposite(alphaComposite);
-		g2.setColor(Color.green);
-		g2.fill(area);
+		Color oldCo = g.getColor();
+		g.setComposite(alphaComposite);
+		g.setColor(Color.green);
+		g.fill(area);
 		
-		g2.setComposite(oldC);
-		g2.setColor(oldCo);
+		g.setComposite(oldC);
+		g.setColor(oldCo);
 
-		g2.translate(x+xOffset, y+yOffset);
+		g.translate(drawX+xOffset, drawY+yOffset);
 
-        g2.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
+        g.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
 		for (MenuItem m : commands) {
-			m.draw(g2, m == commands.get(selected));
-			g2.translate(0, 20);
+			m.draw(g, m == commands.get(selected));
+			g.translate(0, 20);
 		}
 		
 	}

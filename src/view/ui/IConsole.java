@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 /**
  * @author Bilal Hussain
  */
-public interface IConsole {
+public interface IConsole extends IDisplayable {
 
 	// Adds a string to the Text area, the string will be printed on a new line
 	void println(Object newObj);
@@ -14,8 +14,9 @@ public interface IConsole {
 	void printf(String format, Object... args);
 
 	// Draw the text area at the specifed point, with the specifed width.
-	void paint(Graphics2D graphics2D, int drawX, int drawY, int width);
-
+	@Override
+	void draw(Graphics2D g, int drawX, int drawY);
+	
 	// Scroll backwards by one line
 	void scrollUp();
 
@@ -31,4 +32,8 @@ public interface IConsole {
 	// Return the height in xel of the text area
 	int getHeight();
 
+	int getWidth();
+
+	void setWidth(int width);
+	
 }
