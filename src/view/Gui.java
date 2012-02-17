@@ -5,13 +5,20 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.util.Observable;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import openal.Music;
+import openal.SlickException;
+
 import org.apache.log4j.Logger;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import controller.MainController;
 import controller.MapController;
@@ -41,6 +48,8 @@ public class Gui {
 	private long period = (long) 1000.0 / DEFAULT_FPS;
 	private static IConsole debugConsole = new Console();
 
+	static MusicThread music = new MusicThread();
+	
 	public Gui(int width, int height, MainController mainController) {
 		log.info("Gui Creating");
 		WIDTH  = width;
@@ -49,8 +58,39 @@ public class Gui {
 		this.mainController = mainController;
 		initialize();
 		
-		MapController mapController = mainController.startMap("maps/fft2.xml");
-		setCurrentPanel(new MapPanel(mapController, period * 1000000L));
+//		MapController mapController = mainController.startMap("maps/fft2.xml");
+//		setCurrentPanel(new MapPanel(mapController, period * 1000000L));
+		
+		music.start();
+		frame.setResizable(true);
+		frame.addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+				// FIXME componentShown method
+				
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent e) {
+				try {
+					music.setMusic( new Music("music/3-15 Faraway Heights.ogg", true));
+				} catch (SlickException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				music.toggleMusic();
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// FIXME componentHidden method
+				
+			}
+		});
 	}
 
 	public Gui(MainController mainController) {

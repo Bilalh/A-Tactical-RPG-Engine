@@ -77,7 +77,7 @@ public class ResourceManager {
 	
 	public InputStream getResourceAsStream(String ref){
 		InputStream s =  this.getClass().getClassLoader().getResourceAsStream("Resources/"+ref);
-		assert s != null : ref;
+		assert s != null : ref + " not found";
 		return s;
 	}
 	
