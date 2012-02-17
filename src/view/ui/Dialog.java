@@ -199,5 +199,10 @@ public class Dialog {
 	public Sprite getPic() {
 		return pic;
 	}
+
+	public void setWidth(int width) {
+		this.width = width;
+		this.textWidth = width-xdiff;
+	}
 	
 }

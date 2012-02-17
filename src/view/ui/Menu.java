@@ -21,13 +21,12 @@ public class Menu {
 	RoundRectangle2D.Float area = new RoundRectangle2D.Float();
 	ArrayList<MenuItem> commands = new ArrayList<MenuItem>();
 
-	MenuItem selected = null;
+	int selected = 0;
 	
 	public Menu(){
 		commands.addAll(Arrays.asList(new MenuItem[]{
-				new MenuItem("Attack"), new MenuItem("Wait"), new MenuItem("item")}
+				new MenuItem("Attack"), new MenuItem("Wait"), new MenuItem("item"), new MenuItem("Back")}
 		));
-		selected=commands.get(0);
 	}
 	
 
@@ -55,21 +54,27 @@ public class Menu {
 
         g2.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
 		for (MenuItem m : commands) {
-			m.draw(g2, m == selected);
+			m.draw(g2, m == commands.get(selected));
 			g2.translate(0, 20);
 		}
 		
 	}
 
+	public void scrollToPrevious(){
+		selected = (selected-1 + commands.size()) % commands.size();
+	}
+	
+	public void scrollToNext(){
+		selected = (selected+1) % commands.size();
+	}
 	
 	public MenuItem clicked(Point p){
 		if (area.contains(p)){
 			System.out.println(p);
 			System.out.println(area.getBounds());
 			float index = p.y-area.y;
-			index /= 25;
-			selected = commands.get((int) index);
-			return selected;
+			selected = (int) (index/25) ;
+			return commands.get(selected);
 		}
 		return null;
 	}
@@ -78,12 +83,22 @@ public class Menu {
 		commands.add(m);
 	}
 
+	public void reset(){
+		selected=0;
+	}
+	
 	public void clear(){
 		commands.clear();
+	}
+	
+
+	public MenuItem getSelected() {
+		return commands.get(selected);
 	}
 	
 	/** @category Generated */
 	public void setCommands(ArrayList<MenuItem> commands) {
 		this.commands = commands;
 	}
+
 }

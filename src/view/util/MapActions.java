@@ -1,5 +1,8 @@
 package view.util;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 import view.map.GuiMap;
 
 /**
@@ -19,4 +22,5 @@ public class MapActions extends ActionsAdapter {
 		return mouseMoving;
 	}
 
+	public void draw(Graphics2D g, int width, int height){}	
 }

@@ -20,6 +20,7 @@ import util.Logf;
 import view.Gui;
 import view.ui.Dialog;
 import view.ui.Menu;
+import view.ui.MenuItem;
 import view.ui.UnitInfoDisplay;
 import view.units.AnimatedUnit;
 import view.units.GuiUnit;
@@ -62,11 +63,11 @@ public class GuiMap implements Observer, IMapRendererParent {
     private HashMap<UUID,AnimatedUnit> unitMapping;
 
     private Music music;
-    Dialog dialog;
+    Dialog dialog = new Dialog(0, 0);
+    Menu   menu   = new Menu();
     boolean showDialog = false;
         
     private UnitInfoDisplay infoDisplay = new UnitInfoDisplay();
-    Menu menu = new Menu();
     
     // The Class that with handed the input 
     private MapActions currentAction;
@@ -80,10 +81,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 	// When to draw from 
     private int drawX,drawY;
     
+    final DialogHandler dialogHandler = new DialogHandler(this,dialog);
+    final MenuInput menuInput         = new MenuInput(this,menu);
+    
     // Handles the input fpr each state 
     final private MapActions[] actions = {
-    		new Movement(this), new DialogHandler(this), 
-    		new MapActions(this), new MenuInput(this)};
+    		new Movement(this), dialogHandler, 
+    		new MapActions(this), menuInput};
+    
 	enum ActionsEnum {
     	MOVEMENT, DIALOG,NONE, MENU
     }
@@ -147,7 +152,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 
         unitMapping = new HashMap<UUID, AnimatedUnit>();
-        dialog = new Dialog(665, 70, "mage", ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
+        dialog.setWidth(665);
+        dialog.setHeight(70);
+        dialog.setName("Mage");
+        dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
+        
         
         selectedTile = field[0][0];
         selectedTile.setSelected(true);
@@ -212,9 +221,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 			infoDisplay.draw((Graphics2D) _g, width-100, 100, selectedTile.getUnit().getUnit());
 		}
 		
-		menu.draw((Graphics2D) _g, width-100, height-200);
+		currentAction.draw((Graphics2D) _g,width,height);
 		
-		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
+//		if (showDialog) dialog.draw((Graphics2D) _g, 5, height - dialog.getHeight() - 5);
 	}
 	
 	private Location getDrawLocation(int startX, int startY, int gridX, int gridY){
@@ -310,6 +319,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 	/** @category unused **/
 	public void playersTurn(){
 		displayMessage("Player's Turn");
+	}
+	
+	void menuItemChosen(MenuItem item){
+		log.info(item);
 	}
 	
 	private void displayMessage(String text){
@@ -546,7 +559,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 			case KeyEvent.VK_L:
 				mapController.mapFinished();
 				break;
-				
+
+			case KeyEvent.VK_Y:
+				menu.reset();
+				setActionHandler(ActionsEnum.MENU);
+				break;
 			case KeyEvent.VK_T:
 				setActionHandler(ActionsEnum.DIALOG);
 				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
@@ -625,4 +642,5 @@ public class GuiMap implements Observer, IMapRendererParent {
 		this.drawn = drawn;
 	}
 
+	
 }

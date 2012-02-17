@@ -22,7 +22,7 @@ public  class Movement extends MapActions{
 	private static final Logger log = Logger.getLogger(Movement.class);
 	
 	private Collection<LocationInfo> inRange = null;
-    private Point mouseStart, mouseEnd;
+    private Point mouseStart = new Point(), mouseEnd = new Point();
     private int offsetX, offsetY;
 	
 	public Movement(GuiMap map) {
