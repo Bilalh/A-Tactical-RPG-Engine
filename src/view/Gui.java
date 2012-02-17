@@ -5,6 +5,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
@@ -48,7 +49,7 @@ public class Gui {
 	private long period = (long) 1000.0 / DEFAULT_FPS;
 	private static IConsole debugConsole = new Console();
 
-	static MusicThread music = new MusicThread();
+	private static MusicThread musicThread = new MusicThread();
 	
 	public Gui(int width, int height, MainController mainController) {
 		log.info("Gui Creating");
@@ -57,24 +58,17 @@ public class Gui {
 
 		this.mainController = mainController;
 		initialize();
+		musicThread.start();
+		MapController mapController = mainController.startMap("maps/fft2.xml");
+		setCurrentPanel(new MapPanel(mapController, period * 1000000L));
 		
-//		MapController mapController = mainController.startMap("maps/fft2.xml");
-//		setCurrentPanel(new MapPanel(mapController, period * 1000000L));
-		
-		music.start();
 		frame.setResizable(true);
-		frame.addComponentListener(new ComponentListener() {
-			
-			@Override
-			public void componentShown(ComponentEvent e) {
-				// FIXME componentShown method
-				
-			}
+		frame.addComponentListener(new ComponentAdapter() {
 			
 			@Override
 			public void componentResized(ComponentEvent e) {
 				try {
-					music.setMusic( new Music("music/3-15 Faraway Heights.ogg", true));
+					musicThread.setMusic( new Music("music/3-15 Faraway Heights.ogg", true));
 				} catch (SlickException e1) {
 					e1.printStackTrace();
 				}
@@ -82,13 +76,7 @@ public class Gui {
 			
 			@Override
 			public void componentMoved(ComponentEvent e) {
-				music.toggleMusic();
-			}
-			
-			@Override
-			public void componentHidden(ComponentEvent e) {
-				// FIXME componentHidden method
-				
+				musicThread.toggleMusic();
 			}
 		});
 	}
@@ -138,4 +126,8 @@ public class Gui {
 		showDebugConsole = !showDebugConsole;
 	}
 
+	public static MusicThread getMusicThread() {
+		return musicThread;
+	}
+	
 }

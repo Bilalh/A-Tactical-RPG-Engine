@@ -12,19 +12,11 @@ public class MusicThread extends Thread {
 	private boolean running = true;
 	private boolean musicPlaying = false;
 
-	// public MusicThread() {
-	// try {
-	// music = new Music("music/1-19 Fight It Out!.ogg", true);
-	// } catch (SlickException e) {
-	// e.printStackTrace();
-	// }
-	// }
-
 	public synchronized void setMusic(Music newMusic) {
 		assert newMusic != null;
 		if (music != null) music.stop();
 		music = newMusic;
-		toggleMusic();
+		music.loop();
 	}
 
 	public synchronized void toggleMusic() {
@@ -32,9 +24,9 @@ public class MusicThread extends Thread {
 			return;
 		}
 		if (musicPlaying) {
-			music.stop();
+			music.pause();
 		} else {
-			music.loop();
+			music.play();
 		}
 		musicPlaying = !musicPlaying;
 	}
@@ -47,11 +39,11 @@ public class MusicThread extends Thread {
 		while (running) {
 			long temp = System.nanoTime();
 			if (musicPlaying) {
+//				System.out.println((int) ((temp - realOld) / 1000000));
 				Music.poll((int) ((temp - realOld) / 1000000));
 			}
 			realOld = temp;
 
-			Thread.yield();
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

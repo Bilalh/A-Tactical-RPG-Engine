@@ -62,7 +62,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 
     private HashMap<UUID,AnimatedUnit> unitMapping;
 
-    private Music music;
     Dialog dialog = new Dialog(0, 0);
     Menu   menu   = new Menu();
     boolean showDialog = false;
@@ -131,9 +130,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
         ResourceManager.instance().loadSpriteSheetFromResources(mapController.getTileSheetLocation());
         try {
-			music = new Music("music/1-19 Fight It Out!.ogg", true);
-//			music.loop();
-//			musicPlaying = false;
+			Gui.getMusicThread().setMusic(new Music("music/1-19 Fight It Out!.ogg", true));
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -508,7 +505,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setDrawn(false);
 	}
 	
-    boolean musicPlaying = true;
     public void otherKeys(KeyEvent e){
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_1:
@@ -518,12 +514,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				rotateMap();
 				break;
 			case KeyEvent.VK_M:{
-				if (musicPlaying){
-					music.stop();
-				}else{
-					music.loop();
-				}
-				musicPlaying = !musicPlaying;
+				Gui.getMusicThread().toggleMusic();
 				break;
 			}
 			case KeyEvent.VK_MINUS:
