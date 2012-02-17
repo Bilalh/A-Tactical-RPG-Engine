@@ -541,14 +541,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 				break;
 				
 			case KeyEvent.VK_COMMA:
-				if (MapSettings.zoom == 1 ||  MapSettings.pitch < 0.6) break;
+				if (MapSettings.pitch < 0.6) break;
 				MapSettings.pitch *= 0.8;
 				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
 				log.info(MapSettings.pitch);
 				afterMapSettingsChange();
 				break;
 			case KeyEvent.VK_PERIOD:
-				if (MapSettings.zoom == 1 || MapSettings.pitch > 0.8) break;
+				if (MapSettings.pitch > 0.8) break;
 				MapSettings.pitch *= 1.2;
 				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
 				log.info(MapSettings.pitch);

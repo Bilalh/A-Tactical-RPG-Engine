@@ -56,9 +56,11 @@ public class ResourceManager {
 		return result;
 	}
 	
+	
+	// TODO Prehash
 	private Map<String, BufferedImage> tilesResized = Collections.synchronizedMap(new HashMap<String, BufferedImage>());
 	public BufferedImage getTile(String ref, int width, int height){
-		if (MapSettings.zoom == 1) return getTile(ref);
+		if (MapSettings.zoom == 1f && MapSettings.pitch ==0.5f ) return getTile(ref);
 		String path = ref + width+height;
 		if (tilesResized.containsKey(path)){
 			return tilesResized.get(path);

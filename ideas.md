@@ -20,6 +20,7 @@ GUI
 * Rotate -- done 
   * Units -- done
 * refactor -- done
+* Disallow pitch changing when zoom is one
 
 Map Drawing
 -----------
