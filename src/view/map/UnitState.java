@@ -19,16 +19,16 @@ enum UnitState {
 	
 	WAITING {
 		@Override
-		void stateEntered(GuiMap map, AnimatedUnit other) {
+		void stateEntered(AnimatedUnit other) {
 		}
 
 		@Override
-		UnitState exec(GuiMap map, AnimatedUnit other, IsoTile tile) {
+		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 			return MOVEMENT_RANGE;
 		}
 
 		@Override
-		UnitState cancel(GuiMap map, AnimatedUnit other) {
+		UnitState cancel(AnimatedUnit other) {
 			map.waitingCancel();
 			return this;
 		}
@@ -36,18 +36,18 @@ enum UnitState {
 	},
 	MENU_SELECTED {
 		@Override
-		void stateEntered(GuiMap map, AnimatedUnit other) {
+		void stateEntered(AnimatedUnit other) {
 			// SetupMenu
 		}
 
 		@Override
-		UnitState exec(GuiMap map, AnimatedUnit other, IsoTile tile) {
+		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 			return null;
 			// display menu?
 		}
 
 		@Override
-		UnitState cancel(GuiMap map, AnimatedUnit other) {
+		UnitState cancel(AnimatedUnit other) {
 			return null;
 			
 		}
@@ -56,7 +56,7 @@ enum UnitState {
 		private Collection<LocationInfo> inRange = null;
 
 		@Override
-		void stateEntered(GuiMap map, AnimatedUnit other) {
+		void stateEntered(AnimatedUnit other) {
 			
 			// Set up movement range
 			inRange =  map.getMapController().getMovementRange(map.getCurrentUnit().getUnit());
@@ -66,9 +66,9 @@ enum UnitState {
 		}
 
 		@Override
-		UnitState exec(GuiMap map, AnimatedUnit other, IsoTile tile) {
+		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 			assert other != null;
-			assert tile != null;
+			assert otherTile != null;
 			
 			if (!map.getSelectedTile().isSelected()) return this;
 
@@ -88,7 +88,7 @@ enum UnitState {
 		}
 
 		@Override
-		UnitState cancel(GuiMap map, AnimatedUnit other) {
+		UnitState cancel(AnimatedUnit other) {
 			map.removeRange(inRange);
 			return WAITING; 
 		}
@@ -96,101 +96,102 @@ enum UnitState {
 	},
 	MENU_MOVED {
 		@Override
-		void stateEntered(GuiMap map, AnimatedUnit other) {
+		void stateEntered(AnimatedUnit other) {
 			// Setup menu
 		}
 
 		@Override
-		UnitState exec(GuiMap map, AnimatedUnit other, IsoTile tile) {
+		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 			return null;
 			
 		}
 
 		@Override
-		UnitState cancel(GuiMap map, AnimatedUnit other) {
+		UnitState cancel(AnimatedUnit other) {
 			return null;
 			
 		}
 	},
 	SHOW_TARGETS {
 		@Override
-		void stateEntered(GuiMap map, AnimatedUnit other) {
+		void stateEntered(AnimatedUnit other) {
 			// Show Range
 		}
 
 		@Override
-		UnitState exec(GuiMap map, AnimatedUnit other, IsoTile tile) {
+		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 			return null;
 			
 		}
 
 		@Override
-		UnitState cancel(GuiMap map, AnimatedUnit other) {
+		UnitState cancel(AnimatedUnit other) {
 			return null;
 			// Remove Range
 		}
 	},
 	FIGHT {
 		@Override
-		void stateEntered(GuiMap map, AnimatedUnit other) {
+		void stateEntered(AnimatedUnit other) {
 			
 		}
 
 		@Override
-		UnitState exec(GuiMap map, AnimatedUnit other, IsoTile tile) {
+		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 			return null;
 			
 		}
 
 		@Override
-		UnitState cancel(GuiMap map, AnimatedUnit other) {
+		UnitState cancel(AnimatedUnit other) {
 			return null;
 			
 		}
 	},
 	FINISHED {
 		@Override
-		void stateEntered(GuiMap map, AnimatedUnit other) {
+		void stateEntered(AnimatedUnit other) {
 			
 		}
 
 		@Override
-		UnitState exec(GuiMap map, AnimatedUnit other, IsoTile tile) {
+		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 			return null;
 			
 		}
 
 		@Override
-		UnitState cancel(GuiMap map, AnimatedUnit other) {
+		UnitState cancel(AnimatedUnit other) {
 			return null;
 			
 		}
 	},
 	DEFEATED {
 		@Override
-		void stateEntered(GuiMap map, AnimatedUnit other) {
+		void stateEntered(AnimatedUnit other) {
 			
 		}
 
 		@Override
-		UnitState exec(GuiMap map, AnimatedUnit other, IsoTile tile) {
+		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 			return null;
 			
 		}
 
 		@Override
-		UnitState cancel(GuiMap map, AnimatedUnit other) {
+		UnitState cancel(AnimatedUnit other) {
 			return null;
 			
 		}
 
 	};
 
-	private static final Logger log = Logger.getLogger(UnitState.class);
+	abstract void      stateEntered(AnimatedUnit other);
+	abstract UnitState exec(AnimatedUnit other, IsoTile otherTile);
+	abstract UnitState cancel(AnimatedUnit other);
 	
-	abstract void stateEntered(GuiMap map, AnimatedUnit other);
+	private static GuiMap map;
+	public static void setMap(GuiMap map) {UnitState.map = map;}
 
-	abstract UnitState exec(GuiMap map, AnimatedUnit other, IsoTile tile);
-
-	abstract UnitState cancel(GuiMap map, AnimatedUnit other);
+	private static final Logger log = Logger.getLogger(UnitState.class);
 }

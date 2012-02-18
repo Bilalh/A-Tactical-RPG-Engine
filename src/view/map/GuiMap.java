@@ -118,8 +118,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 		this.fieldWidth     = grid.length;
 		this.fieldHeight    = grid[0].length;
 		
-        this.field       = new IsoTile[fieldWidth][fieldHeight];
-        this.mapRenderer = new IsomertricMapRenderer(field, this);
+        this.field        = new IsoTile[fieldWidth][fieldHeight];
+        this.mapRenderer  = new IsomertricMapRenderer(field, this);
+        this.unitMapping  = new HashMap<UUID, AnimatedUnit>();
+        this.pathIterator = new ArrayDeque<LocationInfo>(0).iterator();
+
         
 		BufferSize s = mapRenderer.getMapDimensions();
 		bufferWidth  = s.width;
@@ -128,14 +131,13 @@ public class GuiMap implements Observer, IMapRendererParent {
         currentAction = getActionHandler(ActionsEnum.MOVEMENT);
         MousePoxy     = new MousePoxy();
         setActionHandler(ActionsEnum.MOVEMENT);
-		
+
+        dialog.setWidth(665);
+        dialog.setHeight(70);
+        UnitState.setMap(this);
+        
+        // Load the tile images
         ResourceManager.instance().loadSpriteSheetFromResources(mapController.getTileSheetLocation());
-        try {
-			Gui.getMusicThread().replaceMusic(new Music("music/1-19 Fight It Out!.ogg", true));
-			Gui.getMusicThread().pause();
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
         
         for (int i = 0; i < fieldWidth; i++) { 
             for (int j = 0; j < fieldHeight; j++) {
@@ -148,12 +150,6 @@ public class GuiMap implements Observer, IMapRendererParent {
             			d.getLocation(), d.getType());
             }
         }
-
-
-        unitMapping = new HashMap<UUID, AnimatedUnit>();
-        dialog.setWidth(665);
-        dialog.setHeight(70);
-        
         
         selectedTile = field[0][0];
         selectedTile.setSelected(true);
@@ -161,8 +157,14 @@ public class GuiMap implements Observer, IMapRendererParent {
         mapController.addMapObserver(this);
         mapController.startMap();
         
-        pathIterator = new ArrayDeque<LocationInfo>(0).iterator();
-//        setActionHandler(ActionsEnum.MENU);
+        try {
+			Gui.getMusicThread().replaceMusic(new Music("music/1-19 Fight It Out!.ogg", true));
+			Gui.getMusicThread().pause();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+        
+//      setActionHandler(ActionsEnum.MENU);
 	}
 	
 	public void makeImageBuffer(){
@@ -352,17 +354,17 @@ public class GuiMap implements Observer, IMapRendererParent {
 		final AnimatedUnit u = getSelectedTile().getUnit();
 		
 		if (u != currentUnit && state == UnitState.WAITING && othersRange == null){
-			othersRange =highlightRange(u);
+			if (u != null) othersRange =highlightRange(u);
 			return;
 		}
 		
 		switch(state){
 			case WAITING: 
-				changeState(state.exec(this, null, null));
+				changeState(state.exec(null, null));
 				break;
 			case MOVEMENT_RANGE:
 				Logf.info(log, "exec: %s",state);
-				nextState = state.exec(this, currentUnit, selected);
+				nextState = state.exec(currentUnit, selected);
 				break;
 		}
 		
@@ -405,7 +407,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		Logf.info(log, "State %s -> %s", state, newState);
 		state = newState;
 		Logf.info(log, "stateEntered: %s",state);
-		state.stateEntered(this, null);
+		state.stateEntered(null);
 	}
 	
 	private void displayMessage(String text){
