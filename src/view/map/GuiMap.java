@@ -79,7 +79,7 @@ public class GuiMap implements Observer, IMapRendererParent {
     		new Movement(this), dialogHandler, 
     		new MapActions(this), menuInput};
     
-	enum ActionsEnum {
+	static enum ActionsEnum {
     	MOVEMENT, DIALOG, NONE, MENU
     }
 
@@ -689,5 +689,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 		return state;
 	}
 
+	/** @category Generated */
+	public Menu getMenu() {
+		return menu;
+	}
 	
 }

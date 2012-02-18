@@ -1,6 +1,8 @@
 package view.map;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -8,7 +10,9 @@ import common.LocationInfo;
 
 import util.Logf;
 import view.map.IsoTile.TileState;
+import view.map.UnitStatee.Waiting;
 import view.ui.Menu;
+import view.ui.MenuItem;
 import view.units.AnimatedUnit;
 
 /**
@@ -20,11 +24,12 @@ enum UnitState {
 	WAITING {
 		@Override
 		void stateEntered(AnimatedUnit other) {
+			map.setActionHandler(GuiMap.ActionsEnum.MOVEMENT);
 		}
 
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			return MOVEMENT_RANGE;
+			return MENU_SELECTED;
 		}
 
 		@Override
@@ -35,23 +40,28 @@ enum UnitState {
 		
 	},
 	MENU_SELECTED {
+		private List<MenuItem> commands = Arrays.asList(new MenuItem[]{
+				new MenuItem("Attack"), new MenuItem("Wait"), new MenuItem("item"), new MenuItem("Back")}
+		);
+		
 		@Override
 		void stateEntered(AnimatedUnit other) {
-			// SetupMenu
+			map.getMenu().setCommands(commands);
+			map.setActionHandler(GuiMap.ActionsEnum.MENU);
 		}
 
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			return null;
-			// display menu?
+			return MOVEMENT_RANGE;
 		}
 
 		@Override
 		UnitState cancel(AnimatedUnit other) {
-			return null;
+			return WAITING;
 			
 		}
 	},
+	
 	MOVEMENT_RANGE {
 		private Collection<LocationInfo> inRange = null;
 
@@ -63,6 +73,7 @@ enum UnitState {
 			for (LocationInfo p : inRange) {
 				map.getTile(p).setState(TileState.MOVEMENT_RANGE);
 			}
+			
 		}
 
 		@Override
@@ -90,10 +101,11 @@ enum UnitState {
 		@Override
 		UnitState cancel(AnimatedUnit other) {
 			map.removeRange(inRange);
-			return WAITING; 
+			return MENU_SELECTED; 
 		}
 		
 	},
+	
 	MENU_MOVED {
 		@Override
 		void stateEntered(AnimatedUnit other) {
@@ -112,6 +124,7 @@ enum UnitState {
 			
 		}
 	},
+	
 	SHOW_TARGETS {
 		@Override
 		void stateEntered(AnimatedUnit other) {
@@ -130,6 +143,7 @@ enum UnitState {
 			// Remove Range
 		}
 	},
+	
 	FIGHT {
 		@Override
 		void stateEntered(AnimatedUnit other) {
@@ -148,6 +162,7 @@ enum UnitState {
 			
 		}
 	},
+	
 	FINISHED {
 		@Override
 		void stateEntered(AnimatedUnit other) {
@@ -166,6 +181,7 @@ enum UnitState {
 			
 		}
 	},
+	
 	DEFEATED {
 		@Override
 		void stateEntered(AnimatedUnit other) {

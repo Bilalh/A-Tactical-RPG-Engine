@@ -72,7 +72,6 @@ public class Map extends BasicMap implements IMap {
 
 	@Override
 	public void setUsersUnits(HashMap<IMutableUnit, Location> selected) {
-
 		ArrayList<IMutableMapUnit> units = new ArrayList<IMutableMapUnit>();
 
 		player = new MapPlayer();
@@ -122,9 +121,9 @@ public class Map extends BasicMap implements IMap {
 	public void finishedMoving(IMutableMapUnit u) {
 		if (!(u instanceof AIUnit)){
 			log.info("Player moved a unit");
-//			return;
+//			sendNextUnit();
 		}
-		sendNextUnit();
+		
 	}
 	
 	

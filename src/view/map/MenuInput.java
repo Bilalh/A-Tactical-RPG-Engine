@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
+import org.apache.log4j.Logger;
+
 import util.Logf;
 import view.map.GuiMap.ActionsEnum;
 import view.ui.Menu;
@@ -14,7 +16,8 @@ import view.util.MapActions;
  * @author Bilal Hussain
  */
 public class MenuInput extends MapActions {
-
+	private static final Logger log = Logger.getLogger(MenuInput.class);
+	
 	private Menu menu;
 
 	public MenuInput(GuiMap map, Menu menu) {
@@ -34,7 +37,8 @@ public class MenuInput extends MapActions {
 
 	@Override
 	public void keyCancel() {
-		map.setActionHandler(ActionsEnum.MOVEMENT);
+		Logf.info(log, "cancel: %s",map.getState());
+		map.changeState(map.getState().cancel(null));
 	}
 
 	@Override
@@ -50,6 +54,7 @@ public class MenuInput extends MapActions {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		MenuItem mi = menu.getClickedItem(e.getPoint());
+		
 		if (mi != null) map.menuItemChosen(mi);
 		else           keyCancel();
 	}

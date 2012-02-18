@@ -18,14 +18,8 @@ public class Menu implements IMenu {
 	private int selected = 0;
 	
 	private RoundRectangle2D.Float area  = new RoundRectangle2D.Float();
-	private List<MenuItem> commands = new ArrayList<MenuItem>();
+	private List<MenuItem> commands;
 	
-	public Menu(){
-		commands.addAll(Arrays.asList(new MenuItem[]{
-				new MenuItem("Attack"), new MenuItem("Wait"), new MenuItem("item"), new MenuItem("Back")}
-		));
-	}
-
 	@Override
 	public void draw(Graphics2D g, int drawX, int drawY){
 		g = (Graphics2D) g.create();
@@ -69,8 +63,6 @@ public class Menu implements IMenu {
 	@Override
 	public MenuItem getClickedItem(Point p){
 		if (area.contains(p)){
-			System.out.println(p);
-			System.out.println(area.getBounds());
 			float index = p.y-area.y;
 			selected = (int) (index/25) ;
 			return commands.get(selected);
