@@ -8,6 +8,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.*;
 
+import javax.swing.text.DefaultEditorKit.CutAction;
+
 import openal.Music;
 import openal.SlickException;
 
@@ -15,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import util.Logf;
 import view.Gui;
+import view.map.IsoTile.TileState;
 import view.ui.Dialog;
 import view.ui.Menu;
 import view.ui.MenuItem;
@@ -159,7 +162,7 @@ public class GuiMap implements Observer, IMapRendererParent {
         mapController.startMap();
         
         pathIterator = new ArrayDeque<LocationInfo>(0).iterator();
-        setActionHandler(ActionsEnum.MENU);
+//        setActionHandler(ActionsEnum.MENU);
 	}
 	
 	public void makeImageBuffer(){
@@ -332,16 +335,60 @@ public class GuiMap implements Observer, IMapRendererParent {
 		currentUnit = getTile(unit.getLocation()).getUnit();
 		log.debug(unit);
 		log.debug(getTile(unit.getLocation()));
-		assert(currentUnit != null);
+		
+		assert currentUnit != null;
+		state = UnitState.WAITING;
+		
 		setSelectedTile(currentUnit.getGridX(), currentUnit.getGridY());
 	}
 	
+	
+	Collection<LocationInfo> othersRange;
+	UnitState nextState;
 	void tileSelected(){
+		if (othersRange != null) return;
+		
 		IsoTile selected = getSelectedTile();
-		if (selected.getUnit() == currentUnit){
-			state.exec(this, currentUnit, selected);
+		final AnimatedUnit u = getSelectedTile().getUnit();
+		
+		if (u != currentUnit && state == UnitState.WAITING && othersRange == null){
+			othersRange =highlightRange(u);
+			return;
+		}
+		
+		switch(state){
+			case WAITING: 
+				changeState(state.exec(this, null, null));
+				break;
+			case MOVEMENT_RANGE:
+				Logf.info(log, "exec: %s",state);
+				nextState = state.exec(this, currentUnit, selected);
+				break;
+		}
+		
+	}
+
+	void waitingCancel(){
+		if (othersRange != null){
+			removeRange(othersRange);
+			othersRange = null;
 		}
 	}
+	
+	Collection<LocationInfo> highlightRange(AnimatedUnit u){ 
+		Collection<LocationInfo>  inRange =  mapController.getMovementRange(u.getUnit());
+		for (LocationInfo p : inRange) {
+			getTile(p).setState(u == currentUnit ? TileState.MOVEMENT_RANGE : TileState.OTHERS_RANGE);
+		}
+		return inRange;
+	}
+	
+	void removeRange(Iterable<LocationInfo> range){ 
+		for (LocationInfo l : range) {
+			getTile(l).setState(TileState.NONE);
+		}
+	}	
+	
 	
 	void menuItemChosen(MenuItem item){
 		log.info(item);
@@ -350,6 +397,15 @@ public class GuiMap implements Observer, IMapRendererParent {
 	/** @category unused **/
 	public void playersTurn(){
 		displayMessage("Player's Turn");
+	}
+
+	void changeState(UnitState newState){
+		assert newState != null;
+		
+		Logf.info(log, "State %s -> %s", state, newState);
+		state = newState;
+		Logf.info(log, "stateEntered: %s",state);
+		state.stateEntered(this, null);
 	}
 	
 	private void displayMessage(String text){
@@ -624,6 +680,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	/** @category Generated */
 	void setDrawn(boolean drawn) {
 		this.drawn = drawn;
+	}
+
+	/** @category Generated */
+	public UnitState getState() {
+		return state;
 	}
 
 	

@@ -21,9 +21,6 @@ import common.enums.Direction;
 public  class Movement extends MapActions{
 	private static final Logger log = Logger.getLogger(Movement.class);
 	
-	private Collection<LocationInfo> inRange = null;
-	private AnimatedUnit selected = null;
-	
     private Point mouseStart = new Point(), mouseEnd = new Point();
     private int offsetX, offsetY;
 	
@@ -58,50 +55,13 @@ public  class Movement extends MapActions{
 	
 	private void selectMoveUnit() {
 		assert(map.getCurrentUnit() != null);
-		if (selected != null){
-			if (selected != map.getCurrentUnit()){
-				Logf.info(log, "Not %s's turn its %s turn", map.getSelectedTile().getUnit(), map.getCurrentUnit() );
-				return; 
-			}
-			log.info("selected " + selected);
-			
-			if (!map.getSelectedTile().isSelected() ) return;
-			
-			if (!inRange.contains(map.getSelectedTile().getLocation())){
-				Logf.info(log, "%s not in range", map.getSelectedTile());
-				return;
-			}
-			
-			map.getMapController().moveUnit(selected.getUnit(), map.getSelectedTile().getLocation());
-			for (LocationInfo p : inRange) {
-				map.getTile(p).setState(TileState.NONE);
-			}
-			selected = null;
-			inRange = null;
-			log.info("Selected unit move finished");
-			return;
-		}
-
-		IsoTile t = map.getSelectedTile();
-		selected = t.getUnit();
-		if (selected == null) return;
-		
-		inRange =  map.getMapController().getMovementRange(selected.getUnit());
-		for (LocationInfo p : inRange) {
-			map.getTile(p).setState(selected == map.getCurrentUnit() ? TileState.MOVEMENT_RANGE : TileState.OTHERS_RANGE);
-		}
+		map.tileSelected();
 	}
 	
 	@Override
 	public void keyCancel() {
-		selected = null;
-		if (inRange != null){
-			for (LocationInfo p : inRange) {
-				map.getTile(p).setState(TileState.NONE);
-			}
-			inRange = null;
-		}
-		
+		Logf.info(log, "cancel: %s",map.getState());
+		map.changeState(map.getState().cancel(map, null));
 	}
 	
     @Override
