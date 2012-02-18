@@ -1,7 +1,4 @@
 package view.map;
-/**
- * 
- */
 
 import static util.Args.assetNonNull;
 
@@ -80,7 +77,7 @@ public class GuiMap implements Observer, IMapRendererParent {
     		new MapActions(this), menuInput};
     
 	enum ActionsEnum {
-    	MOVEMENT, DIALOG,NONE, MENU
+    	MOVEMENT, DIALOG, NONE, MENU
     }
 
 	// For unit movement
@@ -105,7 +102,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	// so that it does not get lost.
 	private AnimatedUnit replaced = null;
 	
-    /** @category Constructor */
+	/** @category Constructor */
 	public GuiMap(MapController mapController, Component parent) {
 		assert actions.length == ActionsEnum.values().length;
 		
@@ -166,15 +163,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void makeImageBuffer(){
 		mapBuffer = parent.createImage(bufferWidth,bufferHeight);
 	}
+	
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 		
-		// Handled the animated movement
 		if (!currentAction.isMouseMoving()) {
 			frameChange += timeDiff;
 			if (frameChange > frameDuration) {
 				frameChange = 0;
-				// Animated moving.
 				animatedMovement();
 				setDrawn(false);
 			}
@@ -197,6 +193,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		currentAction.draw((Graphics2D) _g,width,height);
 	}
 
+	// Animated any movement left in the current path. 
 	private void animatedMovement() {
 		if(pathIterator.hasNext()){
 			AnimatedUnit u = getTile(lastLocation).removeUnit();

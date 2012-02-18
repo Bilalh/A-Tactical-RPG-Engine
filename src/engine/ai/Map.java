@@ -124,11 +124,13 @@ public class Map extends BasicMap implements IMap {
 			log.info("Player moved a unit");
 //			return;
 		}
-		sendNextUnit();
 	}
 	
 	
-	public void sendNextUnit() {
+	/**
+	 * Tell the  Observers the next unit to move
+	 */
+	void sendNextUnit() {
 		current = order.remove();
 		if (current.getReadiness() <= 0) {
 			order.clear();
