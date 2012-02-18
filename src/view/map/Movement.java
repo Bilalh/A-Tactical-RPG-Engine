@@ -82,38 +82,11 @@ public  class Movement extends MapActions{
 			return;
 		}
 
-		AnimatedUnit unitS = null;
 		IsoTile t = map.getSelectedTile();
+		selected = t.getUnit();
+		if (selected == null) return;
 		
-		for (AnimatedUnit u : map.getPlayersUnits()) {
-			if (u.getLocation().equals(t.getLocation())){
-				unitS = u;
-				break;
-			}
-		}
-		
-		if (unitS == null){
-			for (AnimatedUnit u : map.getAIUnits()) {
-				if (u.getLocation().equals(t.getLocation())){
-					unitS = u;
-					break;
-				}
-			}
-		}
-		
-		if(unitS == null) return; 
-		
-		if (unitS != selected){
-			if (inRange != null){
-				for (LocationInfo p : inRange) {
-					map.getTile(p).setState(TileState.NONE);
-				}	
-			}
-			inRange = null;
-			selected = unitS;
-		}
-		
-		inRange =  map.getMapController().getMovementRange(unitS.getUnit());
+		inRange =  map.getMapController().getMovementRange(selected.getUnit());
 		for (LocationInfo p : inRange) {
 			map.getTile(p).setState(selected == map.getCurrentUnit() ? TileState.MOVEMENT_RANGE : TileState.OTHERS_RANGE);
 		}

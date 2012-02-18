@@ -83,7 +83,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	UnitState state = UnitState.WAITING;
 	
 	// For unit movement
-	private GuiUnit currentUnit;
+	private AnimatedUnit currentUnit;
 	private Iterator<LocationInfo> pathIterator;
 	private LocationInfo lastLocation;
 	private MapActions oldAction = null;
@@ -336,13 +336,20 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setSelectedTile(currentUnit.getGridX(), currentUnit.getGridY());
 	}
 	
-	/** @category unused **/
-	public void playersTurn(){
-		displayMessage("Player's Turn");
+	void tileSelected(){
+		IsoTile selected = getSelectedTile();
+		if (selected.getUnit() == currentUnit){
+			state.exec(this, currentUnit, selected);
+		}
 	}
 	
 	void menuItemChosen(MenuItem item){
 		log.info(item);
+	}
+	
+	/** @category unused **/
+	public void playersTurn(){
+		displayMessage("Player's Turn");
 	}
 	
 	private void displayMessage(String text){
