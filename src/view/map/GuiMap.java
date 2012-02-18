@@ -80,6 +80,8 @@ public class GuiMap implements Observer, IMapRendererParent {
     	MOVEMENT, DIALOG, NONE, MENU
     }
 
+	UnitState state = UnitState.WAITING;
+	
 	// For unit movement
 	private GuiUnit currentUnit;
 	private Iterator<LocationInfo> pathIterator;
@@ -229,6 +231,30 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 
 	
+	public void setDrawLocation(int x, int y) {
+		if (x >= 0){
+	    	if (x + parent.getWidth()  <= bufferWidth){
+	    		drawX = x;
+	    	}else{
+	    		drawX = bufferWidth - parent.getWidth();
+	    	}
+		}else{
+			drawX = 0;
+		}    	
+		
+		if (y >= 0){
+	    	if (y + parent.getHeight()  <= bufferHeight){
+	    		drawY = y;
+	    	}
+	    	else{
+	    		drawY = bufferHeight - parent.getHeight();
+	    	}
+		}else{
+			drawY = 0;
+		}    
+		
+	}
+
 	@Override
 	public void update(Observable map, Object notification) {
 		Gui.console().println(notification);
@@ -327,66 +353,22 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 		
 	
-	/**
-     * Select the file that is under the mouse click
-	 */
-    public ILocation findAndSelectTile(int x, int y) {
-        double highest = 0.0;
-        x += drawX;
-        y += drawY;
-        int xIndex = -1, yIndex = -1;
-        
-//        Logf.info(log,"p:(%d,%d)\n", x, y);
-        for (int i = 0; i < fieldWidth; i++) {
-            for (int j = 0; j < fieldHeight; j++) {
-                if (field[i][j].contains(new Point(x, y))) {
-//                	Logf.info(log,"Clicked(%d,%d)\n", i, j);
-                	
-                	if (field[i][j].getHeight() > highest){
-//                		log.info("\t highest");
-                        highest = field[i][j].getHeight();
-                        xIndex = i;
-                        yIndex = j;	
-                	}
-                    
-                }
-            }
-        }
-        if (xIndex > -1 && yIndex > -1) {
-            this.setSelectedTile(xIndex, yIndex);
-//            Logf.info(log,"(%d,%d)\n\n", xIndex, yIndex);
-            return new Location(xIndex, yIndex);
-        } else {
-//        	Logf.info(log,"(%d,%d)\n\n", xIndex, yIndex);
-            return null;
-        }
-    }
+	public void rotateMap(){
+		mapRenderer.rotateMap();
+		
+		// Fixes the way the units faces.
+		
+		for (AnimatedUnit u : plunits) {
+			translateDirectionOnRotation(u);
+		}
 	
-    public void setDrawLocation(int x, int y) {
-    	if (x >= 0){
-        	if (x + parent.getWidth()  <= bufferWidth){
-        		drawX = x;
-        	}else{
-        		drawX = bufferWidth - parent.getWidth();
-        	}
-    	}else{
-    		drawX = 0;
-    	}    	
-    	
-    	if (y >= 0){
-        	if (y + parent.getHeight()  <= bufferHeight){
-        		drawY = y;
-        	}
-        	else{
-        		drawY = bufferHeight - parent.getHeight();
-        	}
-    	}else{
-    		drawY = 0;
-    	}    
-    	
-    }
+		for (AnimatedUnit u : aiUnits) {
+			translateDirectionOnRotation(u);
+		}
+		
+	}
 
-    private Direction translateDirectionOnRotation(Direction d){
+	private Direction translateDirectionOnRotation(Direction d){
 		Rotation r  =  mapRenderer.getRotation();
 		switch (d){
 			case EAST:  if (r==Rotation.EAST )  return d.inverse();
@@ -395,21 +377,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 			case WEST:  if (r==Rotation.WEST)   return d.inverse();
 			default:    return d;
 		}
-    }
-    
-    public void rotateMap(){
-		mapRenderer.rotateMap();
-		
-		// Fixes the way the units faces.
-		
-		for (AnimatedUnit u : plunits) {
-			translateDirectionOnRotation(u);
-		}
-
-		for (AnimatedUnit u : aiUnits) {
-			translateDirectionOnRotation(u);
-		}
-		
     }
     
     public void translateDirectionOnRotation(AnimatedUnit u){
@@ -438,31 +405,65 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
     }
     
-    public IsoTile getTile(ILocation l){
-    	return field[l.getX()][l.getY()];
-    }
-    
-	public IsoTile getSelectedTile() {
-		return selectedTile;
-	}
+    /**
+	     * Select the file that is under the mouse click
+		 */
+	    public ILocation findAndSelectTile(int x, int y) {
+	        double highest = 0.0;
+	        x += drawX;
+	        y += drawY;
+	        int xIndex = -1, yIndex = -1;
+	        
+	//        Logf.info(log,"p:(%d,%d)\n", x, y);
+	        for (int i = 0; i < fieldWidth; i++) {
+	            for (int j = 0; j < fieldHeight; j++) {
+	                if (field[i][j].contains(new Point(x, y))) {
+	//                	Logf.info(log,"Clicked(%d,%d)\n", i, j);
+	                	
+	                	if (field[i][j].getHeight() > highest){
+	//                		log.info("\t highest");
+	                        highest = field[i][j].getHeight();
+	                        xIndex = i;
+	                        yIndex = j;	
+	                	}
+	                    
+	                }
+	            }
+	        }
+	        if (xIndex > -1 && yIndex > -1) {
+	            this.setSelectedTile(xIndex, yIndex);
+	//            Logf.info(log,"(%d,%d)\n\n", xIndex, yIndex);
+	            return new Location(xIndex, yIndex);
+	        } else {
+	//        	Logf.info(log,"(%d,%d)\n\n", xIndex, yIndex);
+	            return null;
+	        }
+	    }
 
 	public void moveSelectedTile(Direction d) {
 		d = mapRenderer.traslateDirection(d);
 		setSelectedTile(selectedTile.getX()+d.x, selectedTile.getY()+d.y);
 	}
-	
-	public void setSelectedTile(int x, int y) {
-        if (x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight) return; 
-        
-        if (selectedTile != null) {
-            selectedTile.setSelected(false);
-        }
-        
-        selectedTile = field[x][y];
-        selectedTile.setSelected(true);
-    }
 
-	
+	public IsoTile getSelectedTile() {
+		return selectedTile;
+	}
+
+	public void setSelectedTile(int x, int y) {
+	    if (x < 0  || y < 0  || x >= fieldWidth || y >= fieldHeight) return; 
+	    
+	    if (selectedTile != null) {
+	        selectedTile.setSelected(false);
+	    }
+	    
+	    selectedTile = field[x][y];
+	    selectedTile.setSelected(true);
+	}
+
+	public IsoTile getTile(ILocation l){
+    	return field[l.getX()][l.getY()];
+    }
+    
 	public IActions getActionHandler() {
 		return currentAction;
 	}

@@ -442,7 +442,7 @@ public class IsoTile {
 	
 	
 	/** @category Generated */
-	public Location getFieldLocation() {
+	public Location getLocation() {
 		return fieldLocation;
 	}
 

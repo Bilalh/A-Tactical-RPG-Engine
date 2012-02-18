@@ -72,7 +72,7 @@ enum UnitState {
 	SHOW_TARGETS {
 		@Override
 		void stateEntered(GuiMap m, AnimatedUnit u) {
-			
+			// Show Range
 		}
 
 		@Override
@@ -82,7 +82,7 @@ enum UnitState {
 
 		@Override
 		void stateLeft(GuiMap m, AnimatedUnit u) {
-			
+			// Remove Range
 		}
 	},
 	FIGHT {

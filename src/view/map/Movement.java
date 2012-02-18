@@ -22,6 +22,8 @@ public  class Movement extends MapActions{
 	private static final Logger log = Logger.getLogger(Movement.class);
 	
 	private Collection<LocationInfo> inRange = null;
+	private AnimatedUnit selected = null;
+	
     private Point mouseStart = new Point(), mouseEnd = new Point();
     private int offsetX, offsetY;
 	
@@ -54,7 +56,6 @@ public  class Movement extends MapActions{
 		selectMoveUnit();
 	}
 	
-	private AnimatedUnit selected = null;
 	private void selectMoveUnit() {
 		assert(map.getCurrentUnit() != null);
 		if (selected != null){
@@ -66,12 +67,12 @@ public  class Movement extends MapActions{
 			
 			if (!map.getSelectedTile().isSelected() ) return;
 			
-			if (!inRange.contains(map.getSelectedTile().getFieldLocation())){
+			if (!inRange.contains(map.getSelectedTile().getLocation())){
 				Logf.info(log, "%s not in range", map.getSelectedTile());
 				return;
 			}
 			
-			map.getMapController().moveUnit(selected.getUnit(), map.getSelectedTile().getFieldLocation());
+			map.getMapController().moveUnit(selected.getUnit(), map.getSelectedTile().getLocation());
 			for (LocationInfo p : inRange) {
 				map.getTile(p).setState(TileState.NONE);
 			}
@@ -85,7 +86,7 @@ public  class Movement extends MapActions{
 		IsoTile t = map.getSelectedTile();
 		
 		for (AnimatedUnit u : map.getPlayersUnits()) {
-			if (u.getGridX() == t.getFieldLocation().x && u.getGridY() == t.getFieldLocation().y){
+			if (u.getLocation().equals(t.getLocation())){
 				unitS = u;
 				break;
 			}
@@ -93,7 +94,7 @@ public  class Movement extends MapActions{
 		
 		if (unitS == null){
 			for (AnimatedUnit u : map.getAIUnits()) {
-				if (u.getGridX() == t.getFieldLocation().x && u.getGridY() == t.getFieldLocation().y){
+				if (u.getLocation().equals(t.getLocation())){
 					unitS = u;
 					break;
 				}

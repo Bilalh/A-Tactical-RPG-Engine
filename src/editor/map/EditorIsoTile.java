@@ -98,8 +98,8 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		if (!(obj instanceof EditorIsoTile)) return false;
 		IsoTile other = (EditorIsoTile) obj;
 		if (fieldLocation == null) {
-			if (other.getFieldLocation() != null) return false;
-		} else if (!fieldLocation.equals(other.getFieldLocation())) return false;
+			if (other.getLocation() != null) return false;
+		} else if (!fieldLocation.equals(other.getLocation())) return false;
 		return true;
 	}
 

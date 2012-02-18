@@ -183,25 +183,25 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		switch (state) {
 			case DRAW:
 				if (selectedTileSprite != null){
-					map.setSprite(tile.getFieldLocation(), selectedTileSprite);
+					map.setSprite(tile.getLocation(), selectedTileSprite);
 					repaint = true;
 				}
 				break;
 			case DRAW_INFO:
 				if (selectedTileSprite != null){
-					map.setSprite(tile.getFieldLocation(), selectedTileSprite);
+					map.setSprite(tile.getLocation(), selectedTileSprite);
 					repaint = true;
 				}
 				
 				int  height = ((Number) infoHeight.getValue()).intValue();
 				if (height >=0){
-					map.setHeight(tile.getFieldLocation(), height);
+					map.setHeight(tile.getLocation(), height);
 					repaint = true;
 				}
 				
 				Orientation o = (Orientation) infoOrientation.getSelectedItem();
 				if (o != tile.getOrientation()){
-					map.setOrientation(tile.getFieldLocation(),o);
+					map.setOrientation(tile.getLocation(),o);
 					repaint = true;
 				}
 				
@@ -212,7 +212,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			case FILL:
 				if (selectedTileSprite != null && selection.contains(tile)){
 					for (EditorIsoTile t : selection) {
-						map.setSprite(t.getFieldLocation(), selectedTileSprite);
+						map.setSprite(t.getLocation(), selectedTileSprite);
 					}
 				}
 				repaint = true;
@@ -342,10 +342,10 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			public void itemStateChanged(ItemEvent e) {
 		        if (e.getStateChange() != ItemEvent.SELECTED) return;
 		        if (state == State.DRAW || state == State.DRAW_INFO || state == State.EYE){
-					map.setOrientation(selectedTile.getFieldLocation(), (Orientation) infoOrientation.getSelectedItem());	
+					map.setOrientation(selectedTile.getLocation(), (Orientation) infoOrientation.getSelectedItem());	
 		        }else{
 					for (EditorIsoTile tile : selection) {
-						map.setOrientation(tile.getFieldLocation(), (Orientation) infoOrientation.getSelectedItem());	
+						map.setOrientation(tile.getLocation(), (Orientation) infoOrientation.getSelectedItem());	
 					}	
 		        }
 				editorMapPanel.repaintMap();
@@ -360,10 +360,10 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 			public void stateChanged(ChangeEvent e) {
 				//TODO deal with no tile selected.
 				if (state == State.DRAW || state == State.DRAW_INFO || state == State.EYE){
-					map.setHeight(selectedTile.getFieldLocation(), ((Number)infoHeight.getValue()).intValue());	
+					map.setHeight(selectedTile.getLocation(), ((Number)infoHeight.getValue()).intValue());	
 		        }else{
 					for (EditorIsoTile tile : selection) {
-						map.setHeight(tile.getFieldLocation(), ((Number)infoHeight.getValue()).intValue());	
+						map.setHeight(tile.getLocation(), ((Number)infoHeight.getValue()).intValue());	
 					}	
 		        }
 				editorMapPanel.repaintMap();

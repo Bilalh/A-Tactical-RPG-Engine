@@ -124,6 +124,7 @@ public class Map extends BasicMap implements IMap {
 			log.info("Player moved a unit");
 //			return;
 		}
+		sendNextUnit();
 	}
 	
 	

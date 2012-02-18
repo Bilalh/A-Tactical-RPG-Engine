@@ -101,7 +101,7 @@ class EditorMapPanel extends JPanel {
 				}
 
 				
-				Location start = current.getFieldLocation().copy();
+				Location start = current.getLocation().copy();
 				for (int[] ii : dirs) {
 					Location l = start.copy().translate(ii[0], ii[1]);
 
@@ -233,7 +233,7 @@ class EditorMapPanel extends JPanel {
 			}
 		}
 		if (current != null) {
-			Logf.trace(log, "Selected %s", current.getFieldLocation());
+			Logf.trace(log, "Selected %s", current.getLocation());
 			editor.tileClicked(current);
 		}
 
