@@ -17,10 +17,10 @@ import common.Location;
 import editor.map.EditorIsoTile;
 
 import util.Logf;
-import view.map.BufferSize;
 import view.map.IsoTile;
 import view.map.IsomertricMapRenderer;
 import view.map.MapSettings;
+import view.util.BufferSize;
 
 /**
  * Contains the view of the map and handles mouse input for the map.

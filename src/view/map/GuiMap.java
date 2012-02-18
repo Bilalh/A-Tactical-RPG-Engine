@@ -24,6 +24,7 @@ import view.ui.MenuItem;
 import view.ui.UnitInfoDisplay;
 import view.units.AnimatedUnit;
 import view.units.GuiUnit;
+import view.util.BufferSize;
 import view.util.MapActions;
 import view.util.MousePoxy;
 
@@ -166,7 +167,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		mapBuffer = parent.createImage(bufferWidth,bufferHeight);
 	}
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
-		Music.poll((int) (timeDiff/1000000));
 		Graphics g = mapBuffer.getGraphics();
 		
 		// Handled the animated movement
@@ -175,29 +175,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			if (frameChange > frameDuration) {
 				frameChange = 0;
 				// Animated moving.
-				if(pathIterator.hasNext()){
-					AnimatedUnit u = getTile(lastLocation).removeUnit();
-
-					if (replaced != null){
-						getTile(lastLocation).setUnit(replaced);
-						log.trace("over set "+ replaced);
-						replaced = null;
-					}
-					lastLocation = pathIterator.next();
-					replaced = getTile(lastLocation).getUnit();
-					log.trace("over "+ replaced);
-					
-					u.setLocation(lastLocation);
-					u.setDirection(mapRenderer.traslateDirection(lastLocation.getDirection()));
-					getTile(lastLocation).setUnit(u);
-					
-					log.debug("Moved to" + getTile(lastLocation));
-					
-					if (!pathIterator.hasNext()){
-						setActionHandler(oldAction);
-						mapController.finishedMoving(u.getUnit());
-					}
-				}
+				animatedMovement();
 				setDrawn(false);
 			}
 		}
@@ -217,6 +195,32 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 		
 		currentAction.draw((Graphics2D) _g,width,height);
+	}
+
+	private void animatedMovement() {
+		if(pathIterator.hasNext()){
+			AnimatedUnit u = getTile(lastLocation).removeUnit();
+
+			if (replaced != null){
+				getTile(lastLocation).setUnit(replaced);
+				log.trace("over set "+ replaced);
+				replaced = null;
+			}
+			lastLocation = pathIterator.next();
+			replaced = getTile(lastLocation).getUnit();
+			log.trace("over "+ replaced);
+			
+			u.setLocation(lastLocation);
+			u.setDirection(mapRenderer.traslateDirection(lastLocation.getDirection()));
+			getTile(lastLocation).setUnit(u);
+			
+			log.debug("Moved to" + getTile(lastLocation));
+			
+			if (!pathIterator.hasNext()){
+				setActionHandler(oldAction);
+				mapController.finishedMoving(u.getUnit());
+			}
+		}
 	}
 	
 	private Location getDrawLocation(int startX, int startY, int gridX, int gridY){

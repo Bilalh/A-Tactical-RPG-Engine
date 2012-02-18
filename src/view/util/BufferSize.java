@@ -1,4 +1,4 @@
-package view.map;
+package view.util;
 
 import java.awt.Dimension;
 

@@ -2,6 +2,8 @@ package view.map;
 
 import java.awt.Graphics;
 
+import view.util.BufferSize;
+
 /**
  * Renders a map.
  * @author Bilal Hussain

@@ -13,6 +13,7 @@ import common.interfaces.ILocation;
 
 import util.Logf;
 import view.units.AnimatedUnit;
+import view.util.BufferSize;
 
 /**
  * Draws a isomertricMap
