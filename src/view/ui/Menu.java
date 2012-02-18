@@ -97,4 +97,9 @@ public class Menu implements IMenu {
 		return commands.get(selected);
 	}
 
+	@Override
+	public int getSelectedIndex() {
+		return selected;
+	}
+	
 }

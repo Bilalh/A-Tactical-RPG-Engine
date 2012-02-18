@@ -121,9 +121,8 @@ public class Map extends BasicMap implements IMap {
 	public void finishedMoving(IMutableMapUnit u) {
 		if (!(u instanceof AIUnit)){
 			log.info("Player moved a unit");
-//			sendNextUnit();
 		}
-		
+		sendNextUnit();
 	}
 	
 	

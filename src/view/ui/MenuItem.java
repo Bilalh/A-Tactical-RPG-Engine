@@ -11,11 +11,11 @@ import java.awt.geom.Path2D;
  */
 public class MenuItem {
 	private String name;
-	private CurvedArrow arrow;
+	private Pointer arrow;
 	
 	public MenuItem(String name) {
 		this.name = name;
-		arrow = new CurvedArrow();
+		arrow = new Pointer();
 	}
 	
 	public void draw(Graphics2D g2, boolean selected){
@@ -28,7 +28,7 @@ public class MenuItem {
 	}
 
 	
-	static class CurvedArrow{
+	static class Pointer{
 		
 		public void draw(Graphics2D g){
 			// based off http://stackoverflow.com/questions/2027613/how-to-draw-a-directed-arrow-line-in-java

@@ -394,6 +394,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	void menuItemChosen(MenuItem item){
 		log.info(item);
+		Logf.info(log, "exec: %s",state);
+		changeState(state.exec(null, null));
 	}
 	
 	/** @category unused **/

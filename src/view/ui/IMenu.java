@@ -26,4 +26,6 @@ public interface IMenu extends IDisplayable {
 
 	MenuItem getSelected();
 
+	int getSelectedIndex();
+
 }

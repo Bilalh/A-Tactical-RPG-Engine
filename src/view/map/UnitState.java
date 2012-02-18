@@ -41,7 +41,7 @@ enum UnitState {
 	},
 	MENU_SELECTED {
 		private List<MenuItem> commands = Arrays.asList(new MenuItem[]{
-				new MenuItem("Attack"), new MenuItem("Wait"), new MenuItem("item"), new MenuItem("Back")}
+				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Cancel")}
 		);
 		
 		@Override
@@ -52,7 +52,11 @@ enum UnitState {
 
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			return MOVEMENT_RANGE;
+			int index = map.getMenu().getSelectedIndex();
+			if (index == 0){
+				return MOVEMENT_RANGE;
+			}
+			return this;
 		}
 
 		@Override
@@ -67,13 +71,12 @@ enum UnitState {
 
 		@Override
 		void stateEntered(AnimatedUnit other) {
-			
 			// Set up movement range
 			inRange =  map.getMapController().getMovementRange(map.getCurrentUnit().getUnit());
 			for (LocationInfo p : inRange) {
 				map.getTile(p).setState(TileState.MOVEMENT_RANGE);
 			}
-			
+			map.setActionHandler(GuiMap.ActionsEnum.MOVEMENT);
 		}
 
 		@Override
@@ -201,9 +204,12 @@ enum UnitState {
 		}
 
 	};
-
-	abstract void      stateEntered(AnimatedUnit other);
+	
+	/** Peforms any actions when the state is entered */
+	abstract void stateEntered(AnimatedUnit other);
+	/** Peform any actions of the state and return the next state */
 	abstract UnitState exec(AnimatedUnit other, IsoTile otherTile);
+	/** Goes to the previous state */
 	abstract UnitState cancel(AnimatedUnit other);
 	
 	private static GuiMap map;
