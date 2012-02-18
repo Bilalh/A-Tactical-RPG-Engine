@@ -1,19 +1,16 @@
 package view.ui;
 
 import java.awt.*;
-import java.awt.geom.Line2D;
-import java.awt.geom.Path2D;
 import java.awt.geom.RoundRectangle2D;
-import java.awt.geom.RoundRectangle2D.Float;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import common.interfaces.IMapUnit;
+import java.util.List;
 
 /**
+ * A menu has a number of items that can be chosen either using the keyboard or the mouse.
  * @author Bilal Hussain
  */
-public class Menu implements IDisplayable {
+public class Menu implements IMenu {
 
 	private int xOffset = 25;
 	private int yOffset = 20;
@@ -21,7 +18,7 @@ public class Menu implements IDisplayable {
 	private int selected = 0;
 	
 	private RoundRectangle2D.Float area  = new RoundRectangle2D.Float();
-	private ArrayList<MenuItem> commands = new ArrayList<MenuItem>();
+	private List<MenuItem> commands = new ArrayList<MenuItem>();
 	
 	public Menu(){
 		commands.addAll(Arrays.asList(new MenuItem[]{
@@ -59,15 +56,18 @@ public class Menu implements IDisplayable {
 		
 	}
 
+	@Override
 	public void scrollToPrevious(){
 		selected = (selected-1 + commands.size()) % commands.size();
 	}
 	
+	@Override
 	public void scrollToNext(){
 		selected = (selected+1) % commands.size();
 	}
 	
-	public MenuItem clicked(Point p){
+	@Override
+	public MenuItem getClickedItem(Point p){
 		if (area.contains(p)){
 			System.out.println(p);
 			System.out.println(area.getBounds());
@@ -78,26 +78,31 @@ public class Menu implements IDisplayable {
 		return null;
 	}
 	
+	@Override
 	public void addCommand(MenuItem m){
 		commands.add(m);
 	}
 
+	@Override
+	public void setCommands(List<MenuItem> commands) {
+		this.commands = commands;
+		reset();
+	}
+	
+	@Override
 	public void reset(){
 		selected=0;
 	}
 	
+	@Override
 	public void clear(){
 		commands.clear();
 	}
 	
 
+	@Override
 	public MenuItem getSelected() {
 		return commands.get(selected);
-	}
-	
-	/** @category Generated */
-	public void setCommands(ArrayList<MenuItem> commands) {
-		this.commands = commands;
 	}
 
 }

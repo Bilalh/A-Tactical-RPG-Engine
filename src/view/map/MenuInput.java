@@ -49,7 +49,7 @@ public class MenuInput extends MapActions {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		MenuItem mi = menu.clicked(e.getPoint());
+		MenuItem mi = menu.getClickedItem(e.getPoint());
 		if (mi != null) map.menuItemChosen(mi);
 		else           keyCancel();
 	}
