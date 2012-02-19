@@ -39,8 +39,9 @@ enum UnitState {
 		}
 		
 	},
+	
 	MENU_SELECTED {
-		private List<MenuItem> commands = Arrays.asList(new MenuItem[]{
+		private final List<MenuItem> commands = Arrays.asList(new MenuItem[]{
 				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Cancel")}
 		);
 		
@@ -53,10 +54,16 @@ enum UnitState {
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 			int index = map.getMenu().getSelectedIndex();
-			if (index == 0){
-				return MOVEMENT_RANGE;
+
+			switch (index) {
+				case 0:
+					return MOVEMENT_RANGE;
+				case 2:
+					return cancel(null);
+				default:
+					return this;
 			}
-			return this;
+			
 		}
 
 		@Override
