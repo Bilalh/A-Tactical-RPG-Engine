@@ -76,7 +76,7 @@ public class Location implements Serializable, ILocation {
 		this.y += d;
 		return this;
 	}
-
+	
 	/**
 	 * @return This Point for chaining.
 	 */

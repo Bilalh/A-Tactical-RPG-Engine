@@ -210,7 +210,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 			if (replaced != null) {
 				getTile(lastLocation).setUnit(replaced);
-				log.trace("over set " + replaced);
+				log.info("over set " + replaced);
 				replaced = null;
 			}
 			lastLocation = pathIterator.next();
@@ -221,20 +221,21 @@ public class GuiMap implements Observer, IMapRendererParent {
 			u.setDirection(mapRenderer.traslateDirection(lastLocation.getDirection()));
 			getTile(lastLocation).setUnit(u);
 
-			log.debug("Moved to" + getTile(lastLocation));
+			log.trace("Moved to" + getTile(lastLocation));
 
 			if (!pathIterator.hasNext()) {
+				Logf.debug(log, "Finished moving au:%s", u);
 				setActionHandler(oldAction);
 				finishedMoving(u);
 			}
 		}
 	}
 
-	private Location getDrawLocation(int startX, int startY, int gridX, int gridY) {
-		int x = startX - (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - gridY - 1f));
-		int y = startY + (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom * (fieldHeight - gridY - 1));
-		x += (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom) * gridX;
-		y += (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom) * gridX;
+	private Location getDrawLocation(Location l) {
+		int x = mapRenderer.getStartX() - (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - l.y - 1f));
+		int y = mapRenderer.getStartX() + (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom * (fieldHeight - l.y - 1));
+		x += (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom) * l.x;
+		y += (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom) * l.x;
 		return new Location(x, y);
 	}
 
@@ -291,7 +292,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(), u);
 			newAiUnits[i].setMapUnit(u);
 			field[u.getGridX()][u.getGridY()].setUnit(newAiUnits[i]);
-			unitMapping.put(u.getUuid(), newUnits[i]);
+			unitMapping.put(u.getUuid(), newAiUnits[i]);
 		}
 		this.aiUnits = newAiUnits;
 
@@ -300,31 +301,36 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	public void unitsChoosen(ArrayList<IMapUnit> units) {
 		for (IMapUnit u : units) {
-			// FIXME todo unit choosen
 			field[u.getGridX()][u.getGridY()].getUnit().setMapUnit(u);
 		}
 	}
 
 	public void unitsTurn(IMapUnit unit) {
 		currentUnit = getTile(unit.getLocation()).getUnit();
-		log.debug(unit);
-		log.debug(getTile(unit.getLocation()));
-
 		assert currentUnit != null;
+
 		changeState(UnitState.WAITING);
 		setSelectedTile(currentUnit.getGridX(), currentUnit.getGridY());
+		
+		
+		Location drawLocation  = getDrawLocation(currentUnit.getLocation());
+		Location bottom  = drawLocation.copy().translate(-parent.getWidth(), -parent.getHeight());
+		System.out.printf("(%d,%d)\n", parent.getWidth(), parent.getHeight());
+		System.out.println(drawLocation);
+		System.out.println(bottom);
+		
 	}
 
 	// To allow the user to see the ai's move
 	Timer timer = new Timer();
 
 	public void unitMoved(final IMapUnit u, Collection<LocationInfo> path) {
-		assert u != null;
+		assert u    != null;
 		assert path != null;
-		Logf.info(log, "Unit: %s", u);
 		final AnimatedUnit movingUnit = unitMapping.get(u.getUuid());
 		assert movingUnit != null;
-
+		assert movingUnit.getUnit().getUuid() == u.getUuid();
+		
 		pathIterator = path.iterator();
 		lastLocation = pathIterator.next();
 		oldAction = currentAction;
@@ -342,7 +348,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 			}, 1000);
 		}
 
-		Logf.info(log, "%s moved from %s to %s with path:s%s", u.getName(), movingUnit.getLocation(), u.getLocation(), path);
+		log.debug(u);
+		log.debug(movingUnit);
+		Logf.info(log, "%s moved from %s to %s with path:%s", u.getName(), movingUnit.getLocation(), u.getLocation(), path);
 		setDrawn(false);
 	}
 

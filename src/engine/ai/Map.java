@@ -150,7 +150,9 @@ public class Map extends BasicMap implements IMap {
 		setChanged();
 		INotification n = new UnitTurnNotification(current);
 		notifyObservers(n);
-		if (current instanceof AIUnit) {
+		
+		if (current.isAI()) {
+			log.info("Next Unit is ai:" + current);
 			ILocation l = ai.getMoveLocation((AIUnit) current);
 			moveUnit(current, l);
 		}

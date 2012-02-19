@@ -250,4 +250,14 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		this.rotation = rotation;
 	}
 
+	/** @category Generated */
+	public int getStartX() {
+		return startX;
+	}
+
+	/** @category Generated */
+	public int getStartY() {
+		return startY;
+	}
+
 }

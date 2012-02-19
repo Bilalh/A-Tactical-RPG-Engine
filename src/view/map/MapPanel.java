@@ -49,7 +49,7 @@ public class MapPanel extends JPanel implements Runnable {
 
 		setDoubleBuffered(false);
 		setBackground(Color.black);
-		setSize(300, 300);
+		setSize(Gui.WIDTH, Gui.HEIGHT);
 		setPreferredSize(new Dimension(getWidth(), getHeight()));
 		setIgnoreRepaint(true);
 		setFocusable(true);
