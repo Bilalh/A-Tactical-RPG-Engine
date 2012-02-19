@@ -61,6 +61,7 @@ public class IsoTile {
 	protected Location fieldLocation;
 
 	protected TileState state;
+	// TODO use enumSet?
 	protected boolean selected = false;
 
 	// The Tiles image 
@@ -217,10 +218,9 @@ public class IsoTile {
 		
 		if (state == TileState.MOVEMENT_RANGE || state == TileState.OTHERS_RANGE || isSelected()|| topOnly) {
 			Composite oldC = g.getComposite();
-			AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-					0.5f);
+			AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
 			g.setComposite(alphaComposite);
-			g.setColor(topOnly ? TileState.SELECTED.colour : state.colour);
+			g.setColor(topOnly || isSelected() ? TileState.SELECTED.colour : state.colour);
 			g.fillPolygon(top);
 			g.setComposite(oldC);
 		}
