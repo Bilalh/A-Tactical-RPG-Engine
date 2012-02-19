@@ -224,6 +224,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			
 			if (!pathIterator.hasNext()){
 				setActionHandler(oldAction);
+				if (nextState == null) nextState = UnitState.WAITING;
 				changeState(nextState);
 				nextState = null;
 				mapController.finishedMoving(u.getUnit());
@@ -343,8 +344,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		log.debug(getTile(unit.getLocation()));
 		
 		assert currentUnit != null;
-		state = UnitState.WAITING;
-		
+		changeState(UnitState.WAITING);
 		setSelectedTile(currentUnit.getGridX(), currentUnit.getGridY());
 	}
 	

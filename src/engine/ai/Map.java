@@ -121,10 +121,13 @@ public class Map extends BasicMap implements IMap {
 	public void finishedMoving(IMutableMapUnit u) {
 		if ((u instanceof AIUnit)){
 			log.info("AI moved a unit");
-			sendNextUnit();
+			unitTurnFinished(u);
 		}
 	}
-	
+
+	public void unitTurnFinished(IMutableMapUnit u) {
+		sendNextUnit();
+	}
 	
 	/**
 	 * Tell the  Observers the next unit to move
@@ -222,5 +225,6 @@ public class Map extends BasicMap implements IMap {
 		assert (width > 0);
 		assert (height > 0);
 	}
+
 
 }

@@ -34,47 +34,13 @@ public class MapController extends Controller {
 		this.map = map;
 	}
 
-	public void moveUnit(IMapUnit u , Location fieldLocation) {
-		map.moveUnit((IMutableMapUnit) u, fieldLocation);
-	}
-
-	public void setUsersUnits(HashMap<IUnit, Location> selectedPostions) {
-
-		HashMap<IMutableUnit, Location> selected =  new HashMap<IMutableUnit, Location>();
-		for (java.util.Map.Entry<IUnit, Location> e : selectedPostions.entrySet()) {
-			selected.put((IMutableUnit) e.getKey(), e.getValue());
-		}
-
-		map.setUsersUnits(selected);
-	}
-
 	public void startMap() {
 		map.start();
 	}
 
 	public void addMapObserver(Observer o) {
 		map.addObserver(o);
-	}
 
-	public Collection<LocationInfo> getMovementRange(IMapUnit u) {
-		Args.nullCheck(u);
-		return map.getMovementRange((IMutableMapUnit) u);
-	}
-
-	public Tile[][] getGrid() {
-		return map.getField();
-	}
-
-	public TileImageData getTileImageData(int x, int y){
-		return map.getTileImageData(x, y);
-	}
-
-	public String getTileSheetLocation() {
-		return map.getTileSheetLocation();
-	}
-
-	public void finishedMoving(IMapUnit u) {
-		map.finishedMoving((IMutableMapUnit) u);
 	}
 
 	public void mapFinished() {
@@ -83,5 +49,44 @@ public class MapController extends Controller {
 		log.info("mapFinished");
 		notifyObservers(n);
 	}
-	
+
+	public Tile[][] getGrid() {
+		return map.getField();
+	}
+
+	public TileImageData getTileImageData(int x, int y) {
+		return map.getTileImageData(x, y);
+	}
+
+	public String getTileSheetLocation() {
+		return map.getTileSheetLocation();
+	}
+
+	public Collection<LocationInfo> getMovementRange(IMapUnit u) {
+		Args.nullCheck(u);
+		return map.getMovementRange((IMutableMapUnit) u);
+	}
+
+	public void setUsersUnits(HashMap<IUnit, Location> selectedPostions) {
+
+		HashMap<IMutableUnit, Location> selected = new HashMap<IMutableUnit, Location>();
+		for (java.util.Map.Entry<IUnit, Location> e : selectedPostions.entrySet()) {
+			selected.put((IMutableUnit) e.getKey(), e.getValue());
+		}
+
+		map.setUsersUnits(selected);
+	}
+
+	public void moveUnit(IMapUnit u, Location fieldLocation) {
+		map.moveUnit((IMutableMapUnit) u, fieldLocation);
+	}
+
+	public void finishedMoving(IMapUnit u) {
+		map.finishedMoving((IMutableMapUnit) u);
+	}
+
+	public void unitTurnFinished(IMapUnit u) {
+		map.unitTurnFinished((IMutableMapUnit) u);
+	}
+
 }

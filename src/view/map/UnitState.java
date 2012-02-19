@@ -191,18 +191,20 @@ enum UnitState {
 	FINISHED {
 		@Override
 		void stateEntered(AnimatedUnit other) {
-			
+			map.getMapController().unitTurnFinished(map.getCurrentUnit().getUnit());
 		}
 
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			return null;
+			assert false : "Should not be called";
+			return WAITING;
 			
 		}
 
 		@Override
 		UnitState cancel(AnimatedUnit other) {
-			return null;
+			assert false : "Should not be called";
+			return this;
 			
 		}
 	},
