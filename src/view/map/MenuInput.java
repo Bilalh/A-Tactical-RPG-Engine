@@ -32,7 +32,8 @@ public class MenuInput extends MapActions {
 
 	@Override
 	public void keyComfirm() {
-		map.menuItemChosen(menu.getSelected());
+		Logf.info(log, "exec: %s",map.getState());
+		map.changeState(map.getState().exec(null, null));
 	}
 
 	@Override
@@ -55,8 +56,12 @@ public class MenuInput extends MapActions {
 	public void mousePressed(MouseEvent e) {
 		IMenuItem mi = menu.getClickedItem(e.getPoint());
 		
-		if (mi != null) map.menuItemChosen(mi);
-		else           keyCancel();
+		if (mi != null){
+			Logf.info(log, "exec: %s",map.getState());
+			map.changeState(map.getState().exec(null, null));
+		}else{
+			keyCancel();
+		}
 	}
 
 	/** @category Generated */

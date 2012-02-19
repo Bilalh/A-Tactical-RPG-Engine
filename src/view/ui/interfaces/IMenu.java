@@ -24,7 +24,7 @@ public interface IMenu extends IDisplayable {
 
 	void reset();
 
-	void clear();
+	void clearCommands();
 
 	IMenuItem getSelected();
 

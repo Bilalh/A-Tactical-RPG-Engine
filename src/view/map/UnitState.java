@@ -20,6 +20,8 @@ import view.units.AnimatedUnit;
  * @author Bilal Hussain
  */
 enum UnitState {
+		
+	// See docs/Unit.pdf for a diagram
 	
 	WAITING {
 		@Override
@@ -42,8 +44,8 @@ enum UnitState {
 	
 	MENU_SELECTED {
 		private final List<MenuItem> commands = Arrays.asList(new MenuItem[]{
-				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Cancel")}
-		);
+				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Cancel")
+		});
 		
 		@Override
 		void stateEntered(AnimatedUnit other) {
@@ -117,20 +119,33 @@ enum UnitState {
 	},
 	
 	MENU_MOVED {
+		private final List<MenuItem> commands = Arrays.asList(new MenuItem[]{
+				new MenuItem("Attack"), new MenuItem("Wait")
+		});
+		
 		@Override
 		void stateEntered(AnimatedUnit other) {
-			// Setup menu
+			map.getMenu().setCommands(commands); 
+			map.setActionHandler(GuiMap.ActionsEnum.MENU);
 		}
 
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			return null;
-			
+			int index = map.getMenu().getSelectedIndex();
+
+			switch (index) {
+				case 0:
+					return MOVEMENT_RANGE;
+				case 1:
+					return FINISHED;
+				default:
+					return this;
+			}
 		}
 
 		@Override
 		UnitState cancel(AnimatedUnit other) {
-			return null;
+			return this;
 			
 		}
 	},

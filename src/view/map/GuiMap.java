@@ -83,14 +83,16 @@ public class GuiMap implements Observer, IMapRendererParent {
     	MOVEMENT, DIALOG, NONE, MENU
     }
 
-	UnitState state = UnitState.WAITING;
+	private UnitState state = UnitState.WAITING;
 	
 	// For unit movement
 	private AnimatedUnit currentUnit;
 	private Iterator<LocationInfo> pathIterator;
 	private LocationInfo lastLocation;
 	private MapActions oldAction = null;
+	private UnitState nextState;
 
+	
     // Buffer for drawing the map.    	
     private Image mapBuffer;
     private final int bufferWidth;
@@ -222,6 +224,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 			
 			if (!pathIterator.hasNext()){
 				setActionHandler(oldAction);
+				changeState(nextState);
+				nextState = null;
 				mapController.finishedMoving(u.getUnit());
 			}
 		}
@@ -346,7 +350,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	
 	Collection<LocationInfo> othersRange;
-	UnitState nextState;
 	void tileSelected(){
 		if (othersRange != null) return;
 		
@@ -390,13 +393,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 			getTile(l).setState(TileState.NONE);
 		}
 	}	
-	
-	
-	void menuItemChosen(IMenuItem item){
-		log.info(item);
-		Logf.info(log, "exec: %s",state);
-		changeState(state.exec(null, null));
-	}
 	
 	/** @category unused **/
 	public void playersTurn(){

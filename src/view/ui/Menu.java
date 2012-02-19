@@ -75,14 +75,19 @@ public class Menu implements IMenu {
 	}
 
 	@Override
-	public void addCommand(MenuItem m) {
-		commands.add(m);
-	}
-
-	@Override
 	public void setCommands(List<MenuItem> commands) {
 		this.commands = commands;
 		reset();
+	}
+
+	@Override
+	public void addCommand(MenuItem m) {
+		commands.add(m);
+	}
+	
+	@Override
+	public void clearCommands() {
+		commands.clear();
 	}
 
 	@Override
@@ -90,10 +95,6 @@ public class Menu implements IMenu {
 		selected = 0;
 	}
 
-	@Override
-	public void clear() {
-		commands.clear();
-	}
 
 	@Override
 	public IMenuItem getSelected() {

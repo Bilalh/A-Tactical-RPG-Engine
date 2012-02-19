@@ -119,10 +119,10 @@ public class Map extends BasicMap implements IMap {
 
 
 	public void finishedMoving(IMutableMapUnit u) {
-		if (!(u instanceof AIUnit)){
-			log.info("Player moved a unit");
+		if ((u instanceof AIUnit)){
+			log.info("AI moved a unit");
+			sendNextUnit();
 		}
-		sendNextUnit();
 	}
 	
 	

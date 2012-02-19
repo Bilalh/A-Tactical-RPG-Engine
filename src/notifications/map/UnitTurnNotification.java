@@ -22,4 +22,9 @@ public class UnitTurnNotification implements IMapNotification {
 		map.unitsTurn(unit);
 	}
 
+	@Override
+	public String toString() {
+		return String.format("UnitTurnNotification [unit=%s]", unit);
+	}
+	
 }
