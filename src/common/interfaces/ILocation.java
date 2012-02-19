@@ -1,7 +1,7 @@
 package common.interfaces;
 
 /**
- * Store an x and y values 
+ * Point representing a location in (x, y). 
  * @author Bilal Hussain
  */
 public interface ILocation {

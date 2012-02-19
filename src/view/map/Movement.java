@@ -50,11 +50,11 @@ public  class Movement extends MapActions{
 	
 	@Override
 	public void keyComfirm() {
-		selectMoveUnit();
+		tileSelected();
 	}
 	
-	private void selectMoveUnit() {
-		assert(map.getCurrentUnit() != null);
+	private void tileSelected() {
+		assert map.getCurrentUnit() != null;
 		map.tileSelected();
 	}
 	
@@ -82,7 +82,6 @@ public  class Movement extends MapActions{
         if (Math.sqrt(a * a + b * b) > 3) {
             
         } else {
-        	
         	Location l = null;
         	for (AnimatedUnit u : map.getPlayersUnits()) {
         		if (l ==null){
@@ -91,7 +90,6 @@ public  class Movement extends MapActions{
         			}
         		}else{
         			l = null;
-        			
         			break;
         		}
 			}
@@ -99,17 +97,18 @@ public  class Movement extends MapActions{
         	if (l != null){
         		map.setSelectedTile(l.x, l.y);
         	}else{
-	            map.findAndSelectTile(e.getX(), e.getY());
+	            if (map.findAndSelectTile(e.getX(), e.getY()) == null){
+	            	return;
+	            }
         	}
         	
-            selectMoveUnit();
+            tileSelected();
         }
         Logf.debug(log,"MouseReleased MouseMoving:%s map.drawn:%s", mouseMoving,map.isDrawn());
     }
 
     @Override
 	public void mouseDragged(MouseEvent e) {
-    	
     	if (!mouseMoving){
     		mouseMoving =true;
     		log.debug("mouseDragged ");
