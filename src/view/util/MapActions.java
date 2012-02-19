@@ -22,5 +22,5 @@ public class MapActions extends ActionsAdapter {
 		return mouseMoving;
 	}
 
-	public void draw(Graphics2D g, int width, int height){}	
+	public void draw(Graphics2D g, int width, int height) {}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import common.Location;
 import common.LocationInfo;
 
 import util.Logf;
@@ -137,7 +138,7 @@ enum UnitState {
 
 			switch (index) {
 				case 0:
-					return MOVEMENT_RANGE;
+					return SHOW_TARGETS;
 				case 1:
 					return FINISHED;
 				default:
@@ -155,19 +156,20 @@ enum UnitState {
 	SHOW_TARGETS {
 		@Override
 		void stateEntered(AnimatedUnit other) {
+			Collection<Location> targets = map.getMapController().getVaildTargets(map.getCurrentUnit().getUnit());
+			System.out.println(targets);
 			// Show Range
 		}
 
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			return null;
-			
+			return this;
 		}
 
 		@Override
 		UnitState cancel(AnimatedUnit other) {
-			return null;
 			// Remove Range
+			return MENU_MOVED;
 		}
 	},
 	

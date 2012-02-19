@@ -62,23 +62,23 @@ public class Gui {
 		MapController mapController = mainController.startMap("maps/fft2.xml");
 		setCurrentPanel(new MapPanel(mapController, period * 1000000L));
 		
-		frame.setResizable(true);
-		frame.addComponentListener(new ComponentAdapter() {
-			
-			@Override
-			public void componentResized(ComponentEvent e) {
-				try {
-					musicThread.replaceMusic( new Music("music/3-15 Faraway Heights.ogg", true));
-				} catch (SlickException e1) {
-					e1.printStackTrace();
-				}
-			}
-			
-			@Override
-			public void componentMoved(ComponentEvent e) {
-				musicThread.toggleMusic();
-			}
-		});
+//		frame.setResizable(true);
+//		frame.addComponentListener(new ComponentAdapter() {
+//			
+//			@Override
+//			public void componentResized(ComponentEvent e) {
+//				try {
+//					musicThread.replaceMusic( new Music("music/3-15 Faraway Heights.ogg", true));
+//				} catch (SlickException e1) {
+//					e1.printStackTrace();
+//				}
+//			}
+//			
+//			@Override
+//			public void componentMoved(ComponentEvent e) {
+//				musicThread.toggleMusic();
+//			}
+//		});
 	}
 
 	public Gui(MainController mainController) {

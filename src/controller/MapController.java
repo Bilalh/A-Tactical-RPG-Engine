@@ -89,4 +89,8 @@ public class MapController extends Controller {
 		map.unitTurnFinished((IMutableMapUnit) u);
 	}
 
+	public Collection<Location> getVaildTargets(IMapUnit u){
+		return map.getVaildTargets((IMutableMapUnit) u);
+	}
+	
 }

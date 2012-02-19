@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 import view.map.IActions;
 
 /**
+ * Stub for all actions and mouse input
  * @author Bilal Hussain
  */
 public class ActionsAdapter implements IActions, MouseListener, MouseMotionListener {

@@ -13,6 +13,7 @@ import view.ui.interfaces.IMenuItem;
 import view.util.MapActions;
 
 /**
+ * Handles input for the menus as well as drawing the menu 
  * @author Bilal Hussain
  */
 public class MenuInput extends MapActions {

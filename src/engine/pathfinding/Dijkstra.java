@@ -24,13 +24,6 @@ public class Dijkstra {
 	// Gives the cost between two points. 
 	private IMovementCostProvider costProvider;
 
-	public Dijkstra(IMovementCostProvider costProvider, int rows, int cols) {
-		this.rows = rows;
-		this.cols = cols;
-
-		this.costProvider = costProvider;
-	}
-	
 	// To get the neighbours. 
 	private static final int[][] dirs = {
 			{ 0, 1 },  // up
@@ -39,7 +32,14 @@ public class Dijkstra {
 			{ 1, 0 },  // right
 	};
 
-	// Retuens the min cost to all connected nodes	
+	public Dijkstra(IMovementCostProvider costProvider, int rows, int cols) {
+		this.rows = rows;
+		this.cols = cols;
+
+		this.costProvider = costProvider;
+	}
+	
+	// Returns the min cost to all connected nodes	
 	public LocationInfo[][] calculate(Location start) {
 		return calculate(start, 0, rows, 0, cols);
 	}
@@ -51,13 +51,14 @@ public class Dijkstra {
 		HashSet<LocationInfo> settled = new HashSet<LocationInfo>();
 		
 		Logf.debug(log, "bounds x:%s to %s y:%s to %s", lowerX,upperX, lowerY, upperY);
-		assert((upperX - lowerX) * (upperY - lowerY) > 0);
+		assert (upperX - lowerX) * (upperY - lowerY) > 0;
+		
 		PriorityQueue<LocationInfo> pq = new PriorityQueue<LocationInfo>((upperX - lowerX) * (upperY - lowerY),
 			new Comparator<LocationInfo>() {
 				@Override
 				public int compare(LocationInfo o1, LocationInfo o2) {
-					return o1.getMinDistance() < o2.getMinDistance() ? -1
-							: (o1.getMinDistance() == o2.getMinDistance() ? 0
+					return o1.getMinDistance()      < o2.getMinDistance() ? -1
+							: (o1.getMinDistance() == o2.getMinDistance() ?  0
 							: 1);
 				}
 			});

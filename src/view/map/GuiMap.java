@@ -65,17 +65,17 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	private HashMap<UUID, AnimatedUnit> unitMapping;
 
+	private Menu menu     = new Menu();
 	private Dialog dialog = new Dialog(0, 0);
-	private Menu menu = new Menu();
-
-	final DialogHandler dialogHandler = new DialogHandler(this, dialog);
-	final MenuInput menuInput = new MenuInput(this, menu);
+	
+	final MenuInput menuInput           = new MenuInput(this, menu);
+	final DialogHandler dialogHandler   = new DialogHandler(this, dialog);
 	private UnitInfoDisplay infoDisplay = new UnitInfoDisplay();
 
 	// The classes that with handed the input
+	private MousePoxy  MousePoxy;
 	private MapActions currentAction;
-	private MousePoxy MousePoxy;
-
+	
 	// Handles the input fpr each state
 	final private MapActions[] actions = {
 			new Movement(this), dialogHandler,
@@ -91,7 +91,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private AnimatedUnit currentUnit;
 	private Iterator<LocationInfo> pathIterator;
 	private LocationInfo lastLocation;
-	private MapActions oldAction = null;
+	private MapActions oldAction;
 	private UnitState nextState;
 
 	// Buffer for drawing the map.
@@ -106,9 +106,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private boolean drawn = false;
 	private int frameDuration = 750 * 1000000;
 	private int frameChange = 0;
-	// When there are two units on the same tile keep a referance to the unit replaced
-	// so that it does not get lost.
-	private AnimatedUnit replaced = null;
+	// When there are two units on the same tile keep a referance to the 
+	// unit replaced so that it does not get lost.
+	private AnimatedUnit replaced;
 
 	/** @category Constructor */
 	public GuiMap(MapController mapController, Component parent) {
@@ -589,6 +589,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		MousePoxy.setMouseMotionListener(aa);
 	}
 
+	// Reloads the images of all tiles
 	private void afterMapSettingsChange() {
 		mapRenderer.invaildate();
 		for (IsoTile[] arr : field) {

@@ -42,17 +42,18 @@ public class PathFinder implements IMovementCostProvider {
 
 	public PathFinder(IMutableMapUnit u, IMap map) {
 		Args.nullCheck(u,map);
+		
 		this.unit = u;
 		this.map = map;
-		d = new Dijkstra(this, map.getFieldWidth(), map.getFieldHeight());
+		this.d = new Dijkstra(this, map.getFieldWidth(), map.getFieldHeight());
 		Location p = unit.getLocation();
+		
 		start = p.copy().translate(-unit.getMove()+1).limitLower(0, 0);
 		end   = p.copy().translate(unit.getMove()+1).limitUpper(map.getFieldWidth(), map.getFieldHeight());
+		
 		Logf.debug(log, "start:%s, start.x:%s, end.x:%s, start.y:%s, end.y:%s",start, start.x, end.x, start.y, end.y);
 		locations = d.calculate(u.getLocation(), start.x, end.x, start.y, end.y);
-		
 		Logf.debug(log,"locations for %s: %s\n",u, ArrayUtil.array2d(locations, start.x, end.x, start.y, end.y, true));
-		
 	}
 
 	/** Get all Locations that are vaild*/

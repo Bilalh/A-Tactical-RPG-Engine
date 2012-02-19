@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import util.Args;
 import util.Logf;
 
+import common.enums.Direction;
 import common.enums.Orientation;
 import common.interfaces.ILocation;
 import common.interfaces.INotification;
@@ -87,7 +88,7 @@ public class Map extends BasicMap implements IMap {
 		setChanged();
 		notifyObservers(n);
 
-		Logf.info(log, "ordering %s", order);
+		Logf.debug(log, "ordering %s", order);
 		setChanged();
 		current = order.remove();
 		n = new UnitTurnNotification(current);
@@ -172,10 +173,32 @@ public class Map extends BasicMap implements IMap {
 		return pf.getMovementRange();
 	}
 
-	public ArrayList<IMutableMapUnit> getPlayerUnits() {
+	public Collection<Location> getVaildTargets(IMutableMapUnit u) {
+		assert u != null;
+		
+		Location l = u.getLocation();
+		Tile t = field[l.x][l.y];
+		Collection<Location> results = new ArrayList<Location>();
+		boolean opponent = !u.isAI();
+
+		for (Direction d : Direction.values()) {
+			final int nx = l.x + d.x, ny = l.y + d.y;
+			if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
+
+			final Tile tt = field[nx][ny];
+			final IMutableMapUnit v = tt.getCurrentUnit();
+			if (Math.abs(tt.getEndHeight() - t.getEndHeight()) <= 2 && v != null && v.isAI() == opponent) {
+				results.add(new Location(nx, ny));
+			}
+		}
+		return results;
+	}
+
+	ArrayList<IMutableMapUnit> getPlayerUnits() {
 		return player.getUnits();
 	}
 
+	
 	private void setUpAI() {
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
 
