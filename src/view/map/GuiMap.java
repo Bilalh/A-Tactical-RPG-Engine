@@ -314,10 +314,17 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 		
 		Location drawLocation  = getDrawLocation(currentUnit.getLocation());
+		//FIXME why add MapSettings.tileDiagonal?
+		int diffY = drawY + mapRenderer.getMapDimensions().heightOffset + MapSettings.tileDiagonal;
+		drawLocation.translate(-drawX, -diffY);
+		
+		//FIXME need testing on larger maps
 		Location bottom  = drawLocation.copy().translate(-parent.getWidth(), -parent.getHeight());
-		System.out.printf("(%d,%d)\n", parent.getWidth(), parent.getHeight());
-		System.out.println(drawLocation);
-		System.out.println(bottom);
+//		System.out.printf("(%d,%d)\n", parent.getWidth(), parent.getHeight());
+//		System.out.println(drawLocation);
+//		System.out.println(bottom);
+		bottom.limitLower(0, 0);
+		setDrawLocation(drawX+bottom.y, drawY+bottom.y);			
 		
 	}
 

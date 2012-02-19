@@ -31,6 +31,7 @@ Misc
 * Zoom  -- done
 * Pitch -- done
 * Selection above range -- done
+* Map scrolling to current units turn --  maybe
 
 State
 -----
