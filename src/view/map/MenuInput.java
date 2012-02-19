@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import util.Logf;
 import view.map.GuiMap.ActionsEnum;
 import view.ui.Menu;
-import view.ui.MenuItem;
+import view.ui.interfaces.IMenuItem;
 import view.util.MapActions;
 
 /**
@@ -53,7 +53,7 @@ public class MenuInput extends MapActions {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		MenuItem mi = menu.getClickedItem(e.getPoint());
+		IMenuItem mi = menu.getClickedItem(e.getPoint());
 		
 		if (mi != null) map.menuItemChosen(mi);
 		else           keyCancel();

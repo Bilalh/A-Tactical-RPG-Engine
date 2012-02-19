@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 
 import org.apache.log4j.Logger;
 
+import view.ui.interfaces.IConsole;
+
 /**
  * A Console displays uneditable text graphically to the user. Draw has to be called to draw the textarea
  * The textArea has a finite history which can scroll backwards and fowards. The number of lines shown is 

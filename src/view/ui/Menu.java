@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import view.ui.interfaces.IMenu;
+import view.ui.interfaces.IMenuItem;
+
 /**
  * A menu has a number of items that can be chosen either using the keyboard or the mouse.
  * 
@@ -44,7 +47,7 @@ public class Menu implements IMenu {
 		g.translate(drawX + xOffset, drawY + yOffset);
 
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		for (MenuItem m : commands) {
+		for (IMenuItem m : commands) {
 			m.draw(g, m == commands.get(selected));
 			g.translate(0, 20);
 		}
@@ -62,7 +65,7 @@ public class Menu implements IMenu {
 	}
 
 	@Override
-	public MenuItem getClickedItem(Point p) {
+	public IMenuItem getClickedItem(Point p) {
 		if (area.contains(p)) {
 			float index = p.y - area.y;
 			selected = (int) (index / 25);
@@ -93,7 +96,7 @@ public class Menu implements IMenu {
 	}
 
 	@Override
-	public MenuItem getSelected() {
+	public IMenuItem getSelected() {
 		return commands.get(selected);
 	}
 

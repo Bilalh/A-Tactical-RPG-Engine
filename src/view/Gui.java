@@ -26,7 +26,7 @@ import controller.MapController;
 
 import view.map.MapPanel;
 import view.ui.Console;
-import view.ui.IConsole;
+import view.ui.interfaces.IConsole;
 
 import engine.Engine;
 

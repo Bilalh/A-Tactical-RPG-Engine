@@ -13,6 +13,8 @@ import java.text.AttributedString;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+import view.ui.interfaces.IDisplayable;
+
 import common.gui.Sprite;
 
 

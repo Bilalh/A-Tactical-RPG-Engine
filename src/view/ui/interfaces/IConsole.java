@@ -1,4 +1,4 @@
-package view.ui;
+package view.ui.interfaces;
 
 import java.awt.Graphics2D;
 

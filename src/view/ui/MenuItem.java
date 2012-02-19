@@ -6,18 +6,22 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Path2D;
 
+import view.ui.interfaces.IMenuItem;
+
 /**
+ * Default MenuItem
  * @author Bilal Hussain
  */
-public class MenuItem {
-	private String name;
-	private Pointer arrow;
+public class MenuItem implements IMenuItem {
+	protected String name;
+	protected Pointer arrow;
 	
 	public MenuItem(String name) {
 		this.name = name;
 		arrow = new Pointer();
 	}
 	
+	@Override
 	public void draw(Graphics2D g2, boolean selected){
 		if (selected){
 			g2.translate(-65, -4);
@@ -26,9 +30,8 @@ public class MenuItem {
 		}
 		g2.drawString(name, 0, 0);
 	}
-
 	
-	static class Pointer{
+	protected static class Pointer{
 		
 		public void draw(Graphics2D g){
 			// based off http://stackoverflow.com/questions/2027613/how-to-draw-a-directed-arrow-line-in-java

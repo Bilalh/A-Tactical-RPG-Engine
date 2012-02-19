@@ -20,8 +20,8 @@ import view.Gui;
 import view.map.IsoTile.TileState;
 import view.ui.Dialog;
 import view.ui.Menu;
-import view.ui.MenuItem;
 import view.ui.UnitInfoDisplay;
+import view.ui.interfaces.IMenuItem;
 import view.units.AnimatedUnit;
 import view.units.GuiUnit;
 import view.util.BufferSize;
@@ -392,7 +392,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}	
 	
 	
-	void menuItemChosen(MenuItem item){
+	void menuItemChosen(IMenuItem item){
 		log.info(item);
 		Logf.info(log, "exec: %s",state);
 		changeState(state.exec(null, null));
