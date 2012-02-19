@@ -8,7 +8,6 @@ Editor
 -----
 * Added image to tilemap on save. -- done
 
-
 GUI
 ---
 * Unit crossing in gui -- done
@@ -16,11 +15,30 @@ GUI
 * Rare bug when click unit
 * Zoom  -- done
 * Pitch -- done
-* Resize images
-* Rotate -- done 
-  * Units -- done
+* Resize images -- done
+* Rotate   -- done 
+  * Units  -- done
 * refactor -- done
-* Disallow pitch changing when zoom is one
+* Skip empty tiles -- done
+
+Misc
+----
+* Music in its own thread -- done
+* Fixed music not playing after pausing -- done
+* Rotate map -- done 
+	* Rotate units  -- done
+	* Rotate Cursor -- done
+* Zoom  -- done
+* Pitch -- done
+* Selection above range -- done
+
+State
+-----
+* Make fsm -- done
+* Wait     -- done
+* Menus    -- done 
+	* Mouse and keyboard input -- done
+
 
 Map Drawing
 -----------
