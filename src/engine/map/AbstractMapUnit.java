@@ -171,5 +171,8 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 		return unit.getMaxWeight();
 	}
 
+	public boolean isAI() {
+		return false;
+	}
 	
 }

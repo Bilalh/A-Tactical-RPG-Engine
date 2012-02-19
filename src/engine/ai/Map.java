@@ -119,7 +119,7 @@ public class Map extends BasicMap implements IMap {
 
 
 	public void finishedMoving(IMutableMapUnit u) {
-		if ((u instanceof AIUnit)){
+		if (u.isAI()){
 			log.info("AI moved a unit");
 			unitTurnFinished(u);
 		}

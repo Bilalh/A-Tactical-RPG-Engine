@@ -13,9 +13,13 @@ import engine.unit.IMutableUnit;
  */
 public class AIUnit extends MapUnit {
 
-	/** @category Generated */
 	public AIUnit(IMutableUnit unit, ILocation l, MapPlayer ai) {
 		super(unit, l, ai);
 	}
 
+	@Override
+	public boolean isAI(){
+		return true;
+	}
+	
 }

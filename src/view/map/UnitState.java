@@ -44,7 +44,7 @@ enum UnitState {
 	
 	MENU_SELECTED {
 		private final List<MenuItem> commands = Arrays.asList(new MenuItem[]{
-				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Cancel")
+				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Wait"), new MenuItem("Cancel")
 		});
 		
 		@Override
@@ -61,6 +61,8 @@ enum UnitState {
 				case 0:
 					return MOVEMENT_RANGE;
 				case 2:
+					return FINISHED;
+				case 3:
 					return cancel(null);
 				default:
 					return this;

@@ -21,5 +21,7 @@ public interface IMapUnit extends IUnit {
 	boolean hasStatus(UnitStatus s);
 
 	boolean isMoved();
+
+	boolean isAI();
 	
 }

@@ -224,10 +224,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			
 			if (!pathIterator.hasNext()){
 				setActionHandler(oldAction);
-				if (nextState == null) nextState = UnitState.WAITING;
-				changeState(nextState);
-				nextState = null;
-				mapController.finishedMoving(u.getUnit());
+				finishedMoving(u);
 			}
 		}
 	}
@@ -308,13 +305,24 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 	}
 	
+	
+	public void unitsTurn(IMapUnit unit) {
+		currentUnit = getTile(unit.getLocation()).getUnit();
+		log.debug(unit);
+		log.debug(getTile(unit.getLocation()));
+		
+		assert currentUnit != null;
+		changeState(UnitState.WAITING);
+		setSelectedTile(currentUnit.getGridX(), currentUnit.getGridY());
+	}
+	
 	// To allow the user to see the ai's move 
 	Timer timer = new Timer();
 	public void unitMoved(final IMapUnit u, Collection<LocationInfo> path){
 		assert u != null;
 		assert path != null;
 		Logf.info(log, "Unit: %s",u);
-		AnimatedUnit movingUnit =  unitMapping.get(u.getUuid());
+		final AnimatedUnit movingUnit =  unitMapping.get(u.getUuid());
 		assert movingUnit != null;
 		
 		pathIterator = path.iterator();
@@ -329,7 +337,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					mapController.finishedMoving(u);
+					finishedMoving(movingUnit);
 				}
 			}, 1000);
 		}
@@ -338,17 +346,13 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setDrawn(false);
 	}
 	
-	public void unitsTurn(IMapUnit unit) {
-		currentUnit = getTile(unit.getLocation()).getUnit();
-		log.debug(unit);
-		log.debug(getTile(unit.getLocation()));
-		
-		assert currentUnit != null;
-		changeState(UnitState.WAITING);
-		setSelectedTile(currentUnit.getGridX(), currentUnit.getGridY());
+	private void finishedMoving(AnimatedUnit u){
+		if (nextState == null) nextState = UnitState.WAITING;
+		changeState(nextState);
+		nextState = null;
+		mapController.finishedMoving(u.getUnit());
 	}
-	
-	
+
 	Collection<LocationInfo> othersRange;
 	void tileSelected(){
 		if (othersRange != null) return;
