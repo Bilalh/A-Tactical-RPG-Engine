@@ -488,12 +488,7 @@ public class IsoTile {
 
 	@Override
 	public String toString() {
-		return fieldLocation.toString();
+		return String.format("IsoTile [%s, way=%s, state=%s height=%s,selected=%s, unit=%s]",
+				fieldLocation,orientation,state, height, selected, unit);
 	}
-	
-//	@Override
-//	public String toString() {
-//		return String.format("IsoTile [%s, way=%s, height=%s,selected=%s, unit=%s]",
-//				fieldLocation,orientation, height, selected, unit);
-//	}
 }

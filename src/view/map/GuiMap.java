@@ -368,8 +368,13 @@ public class GuiMap implements Observer, IMapRendererParent {
 		mapController.finishedMoving(u.getUnit());
 	}
 
-	Collection<LocationInfo> othersRange;
 
+	public void unitsBattle(IMapUnit attacker, IMapUnit target, int damage) {
+//		changeState(UnitState.FIGHT);
+		
+	}
+	
+	Collection<LocationInfo> othersRange;
 	void tileSelected() {
 		if (othersRange != null) return;
 
@@ -392,8 +397,12 @@ public class GuiMap implements Observer, IMapRendererParent {
 				break;
 			case SHOW_TARGETS:
 				Logf.info(log, "exec: %s", state);
-				changeState(state.exec(null, null));
+				UnitState s = state.exec(null, null);
+				Logf.info(log, "newState: %s current:%s", s, state);
+				if (s != null) changeState(s);
 				break;
+			default:
+				assert false :"Not done yet";
 		}
 
 	}
@@ -426,8 +435,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	void changeState(UnitState newState) {
 		assert newState != null;
-
-		Logf.info(log, "State %s -> %s", state, newState);
+        
+		Logf.info(log, "State %s -> %s from %s", state, newState, Logf.getCallers(3));
 		state = newState;
 		Logf.info(log, "stateEntered: %s", state);
 		state.stateEntered(null);

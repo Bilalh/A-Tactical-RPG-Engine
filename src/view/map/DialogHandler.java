@@ -9,8 +9,9 @@ import view.util.MapActions;
 
 class DialogHandler extends MapActions {
 
-	Dialog dialog;
-	
+	private Dialog dialog;
+	private ActionsEnum nextAction = ActionsEnum.MOVEMENT;
+
 	public DialogHandler(GuiMap map, Dialog dialog) {
 		super(map);
 		this.dialog = dialog;
@@ -20,8 +21,7 @@ class DialogHandler extends MapActions {
 	public void draw(Graphics2D g, int width, int height) {
 		dialog.draw(g, 5, height - dialog.getHeight() - 5);
 	}
-	
-	
+
 	@Override
 	public void keyComfirm() {
 		nextPage();
@@ -34,12 +34,17 @@ class DialogHandler extends MapActions {
 
 	private void nextPage() {
 		if (!dialog.nextPage()) {
-			map.setActionHandler(ActionsEnum.MOVEMENT);
+			map.setActionHandler(nextAction);
 		}
 	}
 
 	/** @category Generated */
 	public Dialog getDialog() {
 		return dialog;
+	}
+
+	/** @category Generated */
+	public void setNextAction(ActionsEnum nextAction) {
+		this.nextAction = nextAction;
 	}
 }

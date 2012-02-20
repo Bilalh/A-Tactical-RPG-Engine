@@ -30,7 +30,6 @@ public class ImageUtil {
 		private Color colour;
 		private int rgbMask;
 		
-		/** @category Generated */
 		public ColorToTransparent(Color colour) {
 			this.colour = colour;
 			rgbMask = colour.getRGB() | 0xFF000000;

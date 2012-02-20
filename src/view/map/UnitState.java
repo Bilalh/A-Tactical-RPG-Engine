@@ -10,6 +10,7 @@ import common.Location;
 import common.LocationInfo;
 
 import util.Logf;
+import view.map.GuiMap.ActionsEnum;
 import view.map.IsoTile.TileState;
 import view.map.UnitStatee.Waiting;
 import view.ui.Menu;
@@ -164,9 +165,9 @@ enum UnitState {
 		//TODO fight
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			map.getMapController().targetChosen(map.getCurrentUnit().getUnit(), map.getSelectedTile().getUnit().getUnit());
+			if (map.getSelectedTile().getState() != IsoTile.TileState.ATTACK_RANGE) return null;
 			map.removeRange(targets);
-			return FINISHED;
+			return FIGHT;
 		}
 
 		@Override
@@ -179,17 +180,18 @@ enum UnitState {
 	FIGHT {
 		@Override
 		void stateEntered(AnimatedUnit other) {
-			
+			map.setActionHandler(ActionsEnum.NONE);
+			map.getMapController().targetChosen(map.getCurrentUnit().getUnit(), map.getSelectedTile().getUnit().getUnit());
 		}
 
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			return null;
-			
+			return FINISHED;
 		}
 
 		@Override
 		UnitState cancel(AnimatedUnit other) {
+			assert false : "Should not be called";
 			return this;
 			
 		}

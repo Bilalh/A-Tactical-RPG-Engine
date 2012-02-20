@@ -15,6 +15,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+
 import com.sun.tools.example.debug.gui.GUI;
 
 import view.Gui;
@@ -24,6 +26,7 @@ import controller.MapController;
 import engine.ai.Map;
 
 public class MapPanel extends JPanel implements Runnable {
+	private static final Logger log = Logger.getLogger(MapPanel.class);
 	private static final long serialVersionUID = 525072238231645623L;
 	
 	private static final int NO_DELAYS_PER_YIELD = 16;
@@ -66,6 +69,7 @@ public class MapPanel extends JPanel implements Runnable {
 		// });
 
 		this.addKeyListener(new KeyAdapter() {
+			
 			@Override
 			public void keyPressed(KeyEvent e) {
 
@@ -80,7 +84,8 @@ public class MapPanel extends JPanel implements Runnable {
 				}
 
 				final IActions handler = map.getActionHandler();
-
+				log.trace("using "+ handler + " for " + e.getKeyCode() + " " + e.getKeyChar());
+				
 				switch (e.getKeyCode()) {
 					case KeyEvent.VK_OPEN_BRACKET:
 						Gui.console().scrollUp();

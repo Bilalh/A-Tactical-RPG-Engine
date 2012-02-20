@@ -9,10 +9,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import notifications.*;
-import notifications.map.ChooseUnitsNotifications;
-import notifications.map.UnitMovedNotification;
-import notifications.map.UnitTurnNotification;
-import notifications.map.UnitsChosenNotification;
+import notifications.map.*;
 
 import org.apache.log4j.Logger;
 
@@ -21,10 +18,7 @@ import util.Logf;
 
 import common.enums.Direction;
 import common.enums.Orientation;
-import common.interfaces.ILocation;
-import common.interfaces.INotification;
-import common.interfaces.IMapUnit;
-import common.interfaces.IUnit;
+import common.interfaces.*;
 import config.Config;
 import config.xml.*;
 import engine.Player;
@@ -229,6 +223,7 @@ public class Map extends BasicMap implements IMap {
 		return pf.getMovementRange();
 	}
 
+	// Returns the units that the specifed units can attack
 	public Collection<Location> getVaildTargets(IMutableMapUnit u) {
 		assert u != null;
 		
@@ -250,8 +245,13 @@ public class Map extends BasicMap implements IMap {
 		return results;
 	}
 
-	public void targetChosen(IMutableMapUnit u, IMutableMapUnit target ){
-		target.removeHp(20);
+	// Peforms the attack and notifies the Observers what the results were 
+	public void targetChosen(IMutableMapUnit u, IMutableMapUnit target){
+		int damage = 20;
+		boolean alive = target.removeHp(damage);
+		IMapNotification n = new FightNotification(u, target, damage);
+		setChanged();
+		notifyObservers(n);
 	}
 
 }

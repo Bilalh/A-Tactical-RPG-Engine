@@ -44,5 +44,17 @@ public class Logf {
 		}
 	}
 
-	
+	// Get the callers of the method that called this method (for debuging)
+	public static String getCallers(int number){
+		assert number >0;
+        final StackTraceElement[] ste =Thread.currentThread().getStackTrace();
+        StringBuffer b = new StringBuffer(50);
+        for (int i = 2, j = Math.min(ste.length, 2+number); i <j; i++) {
+//			b.append(ste[i].getMethodName()).append(":").append(ste[i].getLineNumber());
+//			b.append(ste[i].getMethodName()).append("(").append(ste[i].getFileName()).append(":").append(ste[i].getLineNumber()).append(")");
+        	b.append(ste[i].getClassName()).append(".").append(ste[i].getMethodName()).append("(").append(ste[i].getFileName()).append(":").append(ste[i].getLineNumber()).append(")");
+			if (i != j -1) b.append(", ");
+		}
+        return b.toString();
+	}
 }
