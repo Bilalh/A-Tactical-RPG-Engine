@@ -6,7 +6,7 @@ import config.Config;
 import config.xml.*;
 
 /**
- * Map Shared between the game and the editor.
+ * Map data that is used in the view and the editor.
  * 
  * @author Bilal Hussain
  */
@@ -20,28 +20,27 @@ public class BasicMap extends Observable {
 	protected MapSettings mapSettings;
 
 	protected MapData data;
-	
-	public BasicMap(){}
-	
+
+
 	public void loadMap(String name) {
 		SavedMap smap = Config.loadPreference(name);
 		assert smap != null;
+		
 		width = smap.getFieldWidth();
 		height = smap.getFieldHeight();
 		field = new Tile[width][height];
 
-//		float max = 0;
-//		for (SavedTile t : smap.getTiles()) {
-//			max = Math.max(max, t.getHeight());
-//		}
+		// float max = 0;
+		// for (SavedTile t : smap.getTiles()) {
+		// max = Math.max(max, t.getHeight());
+		// }
 
 		for (SavedTile t : smap.getTiles()) {
-//			float h = ((t.getHeight())/max)*5;
-//			field[t.getX()][t.getY()] = new Tile((int)h, (int)h, t.getType());
-			field[t.getX()][t.getY()] = new Tile(t.getHeight(),t.getHeight() , t.getType(), t.getOrientation());
+			// float h = ((t.getHeight())/max)*5;
+			// field[t.getX()][t.getY()] = new Tile((int)h, (int)h, t.getType());
+			field[t.getX()][t.getY()] = new Tile(t.getHeight(), t.getHeight(), t.getType(), t.getOrientation());
 		}
-		
-		
+
 		mapSettings = smap.getMapSettings();
 		data = smap.getMapData();
 
@@ -52,12 +51,12 @@ public class BasicMap extends Observable {
 
 		if (mappingLocation == null) {
 			tileMapping = Config.defaultMapping();
+			assert tileMapping != null;
 		} else {
 			tileMapping = Config.loadPreference(mappingLocation);
 			assert tileMapping != null;
 		}
 	}
-
 
 	public TileImageData getTileImageData(int x, int y) {
 		return tileMapping.getTileImageData(field[x][y].getType());
@@ -70,7 +69,7 @@ public class BasicMap extends Observable {
 	public Tile getTile(int x, int y) {
 		return field[x][y];
 	}
-	
+
 	/** @category Generated */
 	public Tile[][] getField() {
 		return field;
@@ -95,7 +94,6 @@ public class BasicMap extends Observable {
 	public MapSettings getMapSettings() {
 		return mapSettings;
 	}
-
 
 	/** @category Generated */
 	public MapData getData() {

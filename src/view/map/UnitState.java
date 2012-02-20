@@ -161,9 +161,12 @@ enum UnitState {
 			map.setActionHandler(GuiMap.ActionsEnum.MOVEMENT);
 		}
 
+		//TODO fight
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			return this;
+			map.getMapController().targetChosen(map.getCurrentUnit().getUnit(), map.getSelectedTile().getUnit().getUnit());
+			map.removeRange(targets);
+			return FINISHED;
 		}
 
 		@Override
@@ -187,7 +190,7 @@ enum UnitState {
 
 		@Override
 		UnitState cancel(AnimatedUnit other) {
-			return null;
+			return this;
 			
 		}
 	},
@@ -227,10 +230,9 @@ enum UnitState {
 
 		@Override
 		UnitState cancel(AnimatedUnit other) {
-			return null;
+			return this;
 			
 		}
-
 	};
 	
 	/** Peforms any actions when the state is entered */

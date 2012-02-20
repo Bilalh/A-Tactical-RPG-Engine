@@ -64,6 +64,62 @@ public class Map extends BasicMap implements IMap {
 		setUpAI();
 	}
 
+	private void loadSettings(String name) {
+			loadMap(name);
+	//		for (int i = 0; i < width; i++) {
+	//			for (int j = 0; j < height; j++) {
+	//				field[i][j] = new Tile(1, 1, field[i][j].getType(), Orientation.UP_TO_EAST);
+	//			}
+	//		}
+			assert (field != null);
+			assert (width > 0);
+			assert (height > 0);
+		}
+
+	private void setUpAI() {
+		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
+	
+		Unit u = new Unit();
+		UnitImages ui = new UnitImages();
+		u.setName("ai-1");
+		u.setMove(5);
+		u.setSpeed(5);
+		u.setStrength(30);
+		u.setDefence(20);
+		u.setMaxHp(40);
+		ui.setSpriteSheetLocation("images/characters/Elena.png");
+		u.setImageData(ui);
+		AIUnit au = new AIUnit(u, new Location(width - 1, 5), ai);
+		aiUnits.add(au);
+		field[width - 1][0].setCurrentUnit(au);
+	
+		u = new Unit();
+		ui = new UnitImages();
+		u.setName("ai-2");
+		u.setMove(6);
+		u.setSpeed(10);
+		u.setStrength(10);
+		u.setDefence(10);
+		u.setMaxHp(30);
+		ui.setSpriteSheetLocation("images/characters/Elena.png");
+		u.setImageData(ui);
+		au = new AIUnit(u, new Location(width - 1, 4), ai);
+		aiUnits.add(au);
+		field[width - 1][1].setCurrentUnit(au);
+	
+		ai = new AIPlayer(this, aiUnits);
+	
+		assert order != null;
+		for (IMutableMapUnit aiu : aiUnits) {
+			assert aiu != null;
+			order.add(aiu);
+		}
+	}
+
+	ArrayList<IMutableMapUnit> getPlayerUnits() {
+		return player.getUnits();
+	}
+
 	@Override
 	public void start() {
 		INotification n = new ChooseUnitsNotifications(playerinfo.getUnits(), ai.getUnits());
@@ -194,62 +250,8 @@ public class Map extends BasicMap implements IMap {
 		return results;
 	}
 
-	ArrayList<IMutableMapUnit> getPlayerUnits() {
-		return player.getUnits();
+	public void targetChosen(IMutableMapUnit u, IMutableMapUnit target ){
+		target.removeHp(20);
 	}
-
-	
-	private void setUpAI() {
-		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
-
-		Unit u = new Unit();
-		UnitImages ui = new UnitImages();
-		u.setName("ai-1");
-		u.setMove(5);
-		u.setSpeed(5);
-		u.setStrength(30);
-		u.setDefence(20);
-		u.setMaxHp(40);
-		ui.setSpriteSheetLocation("images/characters/Elena.png");
-		u.setImageData(ui);
-		AIUnit au = new AIUnit(u, new Location(width - 1, 5), ai);
-		aiUnits.add(au);
-		field[width - 1][0].setCurrentUnit(au);
-
-		u = new Unit();
-		ui = new UnitImages();
-		u.setName("ai-2");
-		u.setMove(6);
-		u.setSpeed(10);
-		u.setStrength(10);
-		u.setDefence(10);
-		u.setMaxHp(30);
-		ui.setSpriteSheetLocation("images/characters/Elena.png");
-		u.setImageData(ui);
-		au = new AIUnit(u, new Location(width - 1, 4), ai);
-		aiUnits.add(au);
-		field[width - 1][1].setCurrentUnit(au);
-
-		ai = new AIPlayer(this, aiUnits);
-
-		assert order != null;
-		for (IMutableMapUnit aiu : aiUnits) {
-			assert aiu != null;
-			order.add(aiu);
-		}
-	}
-
-	private void loadSettings(String name) {
-		loadMap(name);
-//		for (int i = 0; i < width; i++) {
-//			for (int j = 0; j < height; j++) {
-//				field[i][j] = new Tile(1, 1, field[i][j].getType(), Orientation.UP_TO_EAST);
-//			}
-//		}
-		assert (field != null);
-		assert (width > 0);
-		assert (height > 0);
-	}
-
 
 }

@@ -92,5 +92,9 @@ public class MapController extends Controller {
 	public Collection<Location> getVaildTargets(IMapUnit u){
 		return map.getVaildTargets((IMutableMapUnit) u);
 	}
+
+	public void targetChosen(IMapUnit u, IMapUnit target ){
+		map.targetChosen((IMutableMapUnit)u, (IMutableMapUnit)target);
+	}
 	
 }

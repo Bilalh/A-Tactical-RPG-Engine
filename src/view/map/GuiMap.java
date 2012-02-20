@@ -383,11 +383,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		switch (state) {
 			case WAITING:
+				Logf.info(log, "exec: %s", state);
 				changeState(state.exec(null, null));
 				break;
 			case MOVEMENT_RANGE:
 				Logf.info(log, "exec: %s", state);
 				nextState = state.exec(currentUnit, selected);
+				break;
+			case SHOW_TARGETS:
+				Logf.info(log, "exec: %s", state);
+				changeState(state.exec(null, null));
 				break;
 		}
 

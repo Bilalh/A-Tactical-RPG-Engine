@@ -132,6 +132,14 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 		this.currentHp = currentHp;
 	}
 
+	/** Removes the specifed number of hit points from the unit
+	 * @return True if the unit still alive otherwise false'
+	 */
+	public boolean removeHp(int value){
+		currentHp -= value;
+		return currentHp > 0; 
+	}
+	
 	public IMutableUnit getUnit() {
 		return unit;
 	}
@@ -171,6 +179,7 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 		return unit.getMaxWeight();
 	}
 
+	@Override
 	public boolean isAI() {
 		return false;
 	}
