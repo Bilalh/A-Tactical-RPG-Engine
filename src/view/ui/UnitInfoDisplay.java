@@ -23,9 +23,18 @@ public class UnitInfoDisplay {
 	private IMapUnit unit;
 
 	public void draw(Graphics2D g, int drawX, int drawY) {
+		
+		String[] arr = {
+				unit.getName(),
+				String.format("HP %3d/%3d", unit.getCurrentHp(), unit.getMaxHp()),
+				String.format("STR %s", unit.getStrength()),
+				String.format("DEF %s", unit.getDefence()),
+				String.format("SPD %s", unit.getSpeed()),
+		};
+		
 		RoundRectangle2D.Float area = new RoundRectangle2D.Float(drawX, drawY,
 				120,
-				90,
+				10 + arr.length*20,
 				10, 10);
 
 		Color old = g.getColor();
@@ -39,11 +48,12 @@ public class UnitInfoDisplay {
 		g.setComposite(oldC);
 		g.setColor(old);
 
-		// Draw the unts info
-		g.drawString(unit.getName(), drawX + xOffset, drawY + yOffset);
-		String hp = String.format("HP %3d/%3d", unit.getCurrentHp(), unit.getMaxHp());
-		g.drawString(hp, drawX + xOffset, drawY + yOffset + 20);
-
+		int sDrawY = yOffset;
+		for (String s : arr) {
+			g.drawString(s, drawX + xOffset, drawY + sDrawY);
+			sDrawY +=20;
+		}
+		
 	}
 
 	/** @category Generated */
