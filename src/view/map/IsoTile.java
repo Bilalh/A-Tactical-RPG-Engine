@@ -38,7 +38,8 @@ public class IsoTile {
 	private static final Logger log = Logger.getLogger(IsoTile.class);
 	
 	public static enum TileState {
-		SELECTED(Color.BLACK), MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED),  NONE(Color.BLACK);
+		NONE(Color.BLACK), SELECTED(Color.BLACK), 
+		MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.RED), ATTACK_RANGE(Color.RED);
 		public Color colour;
 
 		TileState(Color c) {
@@ -46,7 +47,7 @@ public class IsoTile {
 		}
 		
 		public void setColor(Color c){
-			this.colour =c;
+			this.colour = c;
 		}
 		
 	}
@@ -145,6 +146,16 @@ public class IsoTile {
 				y + vertical / 2 - finalHeight);
 	}
 
+	public Rectangle getBounds(){
+		return top.getBounds();
+	}
+
+	public AnimatedUnit removeUnit(){
+		AnimatedUnit temp = unit;
+		unit = null;
+		return temp;
+	}
+
 	public void draw(int x, int y, Graphics g, boolean drawLeftSide, boolean drawRightSide) {
 		assert orientation != null: orientation + " is null";
 		switch (orientation) {
@@ -216,15 +227,24 @@ public class IsoTile {
 		}
 
 		
-		if (state == TileState.MOVEMENT_RANGE || state == TileState.OTHERS_RANGE || isSelected()|| topOnly) {
+		if (state != TileState.NONE) {
 			Composite oldC = g.getComposite();
 			AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
 			g.setComposite(alphaComposite);
-			g.setColor(topOnly || isSelected() ? TileState.SELECTED.colour : state.colour);
+			g.setColor(state.colour);
 			g.fillPolygon(top);
 			g.setComposite(oldC);
 		}
-
+		
+		if (isSelected() || topOnly) {
+			Composite oldC = g.getComposite();
+			AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
+			g.setComposite(alphaComposite);
+			g.setColor(TileState.SELECTED.colour);
+			g.fillPolygon(top);
+			g.setComposite(oldC);
+		}
+		
 		if (topPloy) return;
 		
 		if (drawRightSide) {
@@ -398,16 +418,6 @@ public class IsoTile {
 						y + vertical }
 				, 4));
 		g.setColor(oldColor);
-	}
-
-	public Rectangle getBounds(){
-		return top.getBounds();
-	}
-
-	public AnimatedUnit removeUnit(){
-		AnimatedUnit temp = unit;
-		unit = null;
-		return temp;
 	}
 
 	/** @category Generated */

@@ -377,7 +377,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		final AnimatedUnit u = getSelectedTile().getUnit();
 
 		if (u != currentUnit && state == UnitState.WAITING && othersRange == null) {
-			if (u != null) othersRange = highlightRange(u);
+			if (u != null) othersRange = highlightRange(u, TileState.OTHERS_RANGE);
 			return;
 		}
 
@@ -400,16 +400,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 	}
 
-	Collection<LocationInfo> highlightRange(AnimatedUnit u) {
+	Collection<LocationInfo> highlightRange(GuiUnit u, TileState tileState) {
 		Collection<LocationInfo> inRange = mapController.getMovementRange(u.getUnit());
 		for (LocationInfo p : inRange) {
-			getTile(p).setState(u == currentUnit ? TileState.MOVEMENT_RANGE : TileState.OTHERS_RANGE);
+			getTile(p).setState(u == currentUnit ? TileState.MOVEMENT_RANGE : tileState);
 		}
 		return inRange;
 	}
 
-	void removeRange(Iterable<LocationInfo> range) {
-		for (LocationInfo l : range) {
+	void removeRange(Iterable<? extends ILocation> range) {
+		for (ILocation l : range) {
 			getTile(l).setState(TileState.NONE);
 		}
 	}

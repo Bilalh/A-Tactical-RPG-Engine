@@ -84,10 +84,7 @@ enum UnitState {
 		@Override
 		void stateEntered(AnimatedUnit other) {
 			// Set up movement range
-			inRange =  map.getMapController().getMovementRange(map.getCurrentUnit().getUnit());
-			for (LocationInfo p : inRange) {
-				map.getTile(p).setState(TileState.MOVEMENT_RANGE);
-			}
+			inRange =  map.highlightRange(map.getCurrentUnit(), TileState.MOVEMENT_RANGE);
 			map.setActionHandler(GuiMap.ActionsEnum.MOVEMENT);
 		}
 
@@ -104,9 +101,8 @@ enum UnitState {
 			}
 
 			map.getMapController().moveUnit(other.getUnit(), map.getSelectedTile().getLocation());
-			for (LocationInfo p : inRange) {
-				map.getTile(p).setState(TileState.NONE);
-			}
+			map.removeRange(inRange);
+			
 			inRange = null;
 			log.info("Selected unit move finished");
 			
@@ -154,11 +150,15 @@ enum UnitState {
 	},
 	
 	SHOW_TARGETS {
+		private Collection<Location> targets = null;
+
 		@Override
 		void stateEntered(AnimatedUnit other) {
-			Collection<Location> targets = map.getMapController().getVaildTargets(map.getCurrentUnit().getUnit());
-			System.out.println(targets);
-			// Show Range
+			targets = map.getMapController().getVaildTargets(map.getCurrentUnit().getUnit());
+			for (Location p : targets) {
+				map.getTile(p).setState(TileState.ATTACK_RANGE);
+			}
+			map.setActionHandler(GuiMap.ActionsEnum.MOVEMENT);
 		}
 
 		@Override
@@ -168,7 +168,7 @@ enum UnitState {
 
 		@Override
 		UnitState cancel(AnimatedUnit other) {
-			// Remove Range
+			map.removeRange(targets);
 			return MENU_MOVED;
 		}
 	},
