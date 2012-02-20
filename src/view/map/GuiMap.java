@@ -386,7 +386,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}, 1200);
 		
 		setDrawn(false);
-		Gui.getMusicThread().playSound("music/sounds/2-39 Fanfare 1.ogg");
+		Gui.getMusicThread().playSound("music/sounds/Slash8-Bit.ogg");
 	}
 	
 	Collection<LocationInfo> othersRange;
