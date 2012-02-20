@@ -5,10 +5,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
@@ -76,7 +73,12 @@ public class ResourceManager {
 	}
 	
 	public InputStream getResourceAsStream(String ref){
-		InputStream s =  this.getClass().getClassLoader().getResourceAsStream("Resources/"+ref);
+		InputStream s = null;//this.getClass().getClassLoader().getResourceAsStream("Resources/"+ref);
+		try {
+			s = new FileInputStream("Resources/"+ref);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		assert s != null : ref + " not found";
 		return s;
 	}

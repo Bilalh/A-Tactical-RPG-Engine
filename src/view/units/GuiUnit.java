@@ -1,5 +1,7 @@
 package view.units;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.geom.Rectangle2D;
@@ -38,6 +40,11 @@ public class GuiUnit {
 	
 	protected Rectangle2D bounds;
 	
+	// For drawing the damage when attacked.
+	protected static Font numbers = new Font("Helvetica", Font.BOLD,  15);
+	protected int damage = 0;
+	boolean showDamage   = false;
+	
 	public GuiUnit(int gridX,int gridY, IUnit u) {
 		this.gridX = gridX;
 		this.gridY = gridY;
@@ -55,14 +62,41 @@ public class GuiUnit {
 		int xPos =centrePoint.x - sprite.getWidth()/2;
 		int yPos =(int) (centrePoint.y -  sprite.getHeight()/1.3);
 		g.drawImage(sprite,xPos,yPos,null);
-		bounds  = new Rectangle2D.Float(xPos,yPos+getHeight(),getWidth(),getHeight());
+		
+		if (showDamage) drawDamage(g, xPos, yPos);
+		
+		//FIXME check?
+//		bounds  = new Rectangle2D.Float(xPos,yPos+getHeight(),getWidth(),getHeight());
+		bounds  = new Rectangle2D.Float(xPos,yPos,getWidth(),getHeight());
 	}
 
+	protected void drawDamage(Graphics g, int xPos, int yPos){
+		Font old   = g.getFont();
+		Color oldC = g.getColor();
+		g.setFont(numbers);
+		g.setColor(Color.RED);
+		if (damage <100) xPos+=3;
+		g.drawString(""+damage, xPos+1, yPos-5);
+		
+		g.setColor(oldC);
+		g.setFont(old);
+	}
+	
+	public void setDamage(int value){
+		this.damage = value;
+		this.showDamage = true;
+	}
+	
+	public void removeDamage(){
+		this.showDamage = false;
+	}
+	
 	public boolean isIntersecting(IsoTile t, int x, int y){
 		assert t !=null;
 		return bounds.contains(x,y);
 	}
 	
+	/** @category unused**/
 	public Point topLeftPoint(IsoTile[][] tiles, int x, int y){
 		final Point result =  tiles[gridX][gridY].calculateCentrePoint(x,y);
 		result.translate(-sprite.getWidth()/2, (int) (-sprite.getHeight()/1.5));
@@ -124,7 +158,6 @@ public class GuiUnit {
 		return direction;
 	}
 
-	/** @category Generated */
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 		sprite = spriteSheet.getSpriteImage(direction.reference()+"0");

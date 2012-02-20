@@ -1,5 +1,6 @@
 package openal;
 
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -45,13 +46,10 @@ public class Sound {
 	 * 
 	 * @param ref
 	 *            The location of the OGG or MOD/XM to load
-	 * @throws SlickException
-	 *             Indicates a failure to load the sound effect
 	 */
-	public Sound(String ref) throws SlickException {
+	public Sound(String ref) throws IOException {
 		SoundStore.get().init();
 
-		try {
 			if (ref.toLowerCase().endsWith(".ogg")) {
 				sound = SoundStore.get().getOgg(ref);
 			} else if (ref.toLowerCase().endsWith(".wav")) {
@@ -59,12 +57,8 @@ public class Sound {
 			} else if (ref.toLowerCase().endsWith(".aif")) {
 				sound = SoundStore.get().getAIF(ref);
 			} else {
-				throw new SlickException(
-						"Only .xm, .mod, .aif, .wav and .ogg are currently supported.");
+				throw new Error("Only .aif, .wav and .ogg are currently supported.");
 			}
-		} catch (Exception e) {
-			throw new SlickException("Failed to load sound: " + ref);
-		}
 	}
 
 	/**

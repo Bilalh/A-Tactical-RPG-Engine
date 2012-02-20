@@ -1,6 +1,9 @@
 package view;
 
+import java.io.IOException;
+
 import openal.Music;
+import openal.Sound;
 
 /**
  * Plays music
@@ -20,6 +23,7 @@ public class MusicThread extends Thread {
 		assert newMusic != null;
 		if (music != null) music.stop();
 		music = newMusic;
+//		music.setVolume(0.5f);
 		music.loop();
 	}
 
@@ -33,6 +37,7 @@ public class MusicThread extends Thread {
 		if (musicPlaying) {
 			music.pause();
 		} else {
+//			music.setVolume(0.5f);
 			music.resume();
 		}
 		musicPlaying = !musicPlaying;
@@ -50,7 +55,6 @@ public class MusicThread extends Thread {
 	public void run() {
 		super.run();
 		long realOld = System.nanoTime();
-
 		while (running) {
 			long temp = System.nanoTime();
 			if (musicPlaying) {
@@ -70,6 +74,15 @@ public class MusicThread extends Thread {
 
 	public void kill() {
 		running = false;
+	}
+
+	public void playSound(String ref) {
+		if (!musicPlaying) return;
+		try {
+			new Sound(ref).play();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

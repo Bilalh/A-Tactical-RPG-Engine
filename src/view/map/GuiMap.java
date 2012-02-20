@@ -6,12 +6,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.IOException;
 import java.util.*;
 
 import javax.swing.text.DefaultEditorKit.CutAction;
 
 import openal.Music;
 import openal.SlickException;
+import openal.Sound;
 
 import org.apache.log4j.Logger;
 
@@ -370,8 +372,21 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 
 	public void unitsBattle(IMapUnit attacker, IMapUnit target, int damage) {
-//		changeState(UnitState.FIGHT);
+
+		final AnimatedUnit atarget = unitMapping.get(target.getUuid());
+		atarget.setDamage(damage);
+
+		// End unit's turn
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				atarget.removeDamage();
+				changeState(UnitState.FINISHED);
+			}
+		}, 1200);
 		
+		setDrawn(false);
+		Gui.getMusicThread().playSound("music/sounds/2-39 Fanfare 1.ogg");
 	}
 	
 	Collection<LocationInfo> othersRange;
@@ -436,7 +451,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 	void changeState(UnitState newState) {
 		assert newState != null;
         
-		Logf.info(log, "State %s -> %s from %s", state, newState, Logf.getCallers(3));
+//		Logf.info(log, "State %s -> %s from %s", state, newState, Logf.getCallers(3));
+		Logf.info(log, "State %s -> %s", state, newState);
 		state = newState;
 		Logf.info(log, "stateEntered: %s", state);
 		state.stateEntered(null);

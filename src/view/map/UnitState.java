@@ -186,6 +186,7 @@ enum UnitState {
 
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
+			assert false : "Should not be called";
 			return FINISHED;
 		}
 

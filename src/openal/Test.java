@@ -33,7 +33,7 @@ public class Test {
 	private int volume = 10;
 
 
-	public Test() throws SlickException {
+	public Test() throws Exception {
 		SoundStore.get().setMaxSources(32);
 
 		sound = new Sound("test/restart.ogg");
@@ -57,7 +57,7 @@ public class Test {
 		else m.play();
 	}
     
-	public static void main(String[] args) throws SlickException, InterruptedException {
+	public static void main(String[] args) throws Exception, InterruptedException {
 		final Test t = new Test();
 		t.music.loop();
 		long old = System.nanoTime();
@@ -68,7 +68,7 @@ public class Test {
 			Music.poll((int) (now/1000000));
 			Thread.sleep(200);
 				if (now % 650 <= 10){
-//					t.sound.play();	
+					t.sound.play();	
 					// Play different Pice of music
 //					t.music.stop();
 //					t.playPause(t.music);

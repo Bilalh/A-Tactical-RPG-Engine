@@ -52,7 +52,7 @@ public class SoundStore {
 	private OpenALStreamPlayer stream;
 
 	/** The global music volume setting */
-	private float musicVolume = 1.0f;
+	private float musicVolume = 0.5f;
 	/** The global sound fx volume setting */
 	private float soundVolume = 1.0f;
 	/** The volume given for the last current music */
