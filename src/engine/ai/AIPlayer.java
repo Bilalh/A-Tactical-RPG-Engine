@@ -1,9 +1,6 @@
 package engine.ai;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 
@@ -38,6 +35,7 @@ public class AIPlayer extends MapPlayer {
 		});
 	}
 	
+	
 	public ILocation getMoveLocation(AIUnit a){
 		lowestHp.clear();
 		lowestHp.addAll(map.getPlayerUnits());
@@ -71,6 +69,24 @@ public class AIPlayer extends MapPlayer {
 		
 		Logf.info(log, "chosen %s", chosen);
 		return chosen;
+	}
+
+
+	// Return the target the ai is going to attack or null if there is not one.
+	public IMutableMapUnit getTarget(IMutableMapUnit u) {
+		Collection<Location> targets =  map.getVaildTargets(u);
+		if (targets.isEmpty()) return null;
+
+		Iterator<Location> it   = targets.iterator();
+		IMutableMapUnit current = map.getTile(it.next()).getCurrentUnit();
+		
+		while(it.hasNext()) {
+			IMutableMapUnit v = map.getTile(it.next()).getCurrentUnit();
+			if (v.getCurrentHp() < current.getCurrentHp()){
+				current = v;
+			}
+		}
+		return current;
 	}
 	
 }

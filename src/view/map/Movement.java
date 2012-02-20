@@ -95,7 +95,7 @@ public  class Movement extends MapActions{
 			}
         	
         	if (l != null){
-        		map.setSelectedTile(l.x, l.y);
+        		map.setSelectedTile(l);
         	}else{
 	            if (map.findAndSelectTile(e.getX(), e.getY()) == null){
 	            	return;

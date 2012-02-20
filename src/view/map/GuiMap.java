@@ -112,6 +112,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 	// unit replaced so that it does not get lost.
 	private AnimatedUnit replaced;
 
+	// Used to delay events
+	Timer timer = new Timer();
+
 	/** @category Constructor */
 	public GuiMap(MapController mapController, Component parent) {
 		assert actions.length == ActionsEnum.values().length;
@@ -119,13 +122,13 @@ public class GuiMap implements Observer, IMapRendererParent {
 		this.parent = parent;
 		this.mapController = mapController;
 
-		final Tile grid[][] = mapController.getGrid();
-		this.fieldWidth = grid.length;
+		final Tile grid[][] = mapController.getField();
+		this.fieldWidth  = grid.length;
 		this.fieldHeight = grid[0].length;
 
 		this.field = new IsoTile[fieldWidth][fieldHeight];
-		this.mapRenderer = new IsomertricMapRenderer(field, this);
-		this.unitMapping = new HashMap<UUID, AnimatedUnit>();
+		this.mapRenderer  = new IsomertricMapRenderer(this.field, this);
+		this.unitMapping  = new HashMap<UUID, AnimatedUnit>();
 		this.pathIterator = new ArrayDeque<LocationInfo>(0).iterator();
 
 		BufferSize s = mapRenderer.getMapDimensions();
@@ -312,7 +315,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		assert currentUnit != null;
 
 		changeState(UnitState.WAITING);
-		setSelectedTile(currentUnit.getGridX(), currentUnit.getGridY());
+		setSelectedTile(currentUnit.getLocation());
 		
 		
 		Location drawLocation  = getDrawLocation(currentUnit.getLocation());
@@ -329,9 +332,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setDrawLocation(drawX+bottom.y, drawY+bottom.y);			
 		
 	}
-
-	// To allow the user to see the ai's move
-	Timer timer = new Timer();
 
 	public void unitMoved(final IMapUnit u, Collection<LocationInfo> path) {
 		assert u    != null;
@@ -375,7 +375,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		final AnimatedUnit atarget = unitMapping.get(target.getUuid());
 		atarget.setDamage(damage);
-
+		setSelectedTile(target.getLocation());
+		
 		// End unit's turn
 		timer.schedule(new TimerTask() {
 			@Override
@@ -383,7 +384,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				atarget.removeDamage();
 				changeState(UnitState.FINISHED);
 			}
-		}, 1200);
+		}, 1300);
 		
 		setDrawn(false);
 		Gui.getMusicThread().playSound("music/sounds/Slash8-Bit.ogg");
@@ -548,11 +549,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 			}
 		}
 		if (xIndex > -1 && yIndex > -1) {
-			this.setSelectedTile(xIndex, yIndex);
-			// Logf.info(log,"(%d,%d)\n\n", xIndex, yIndex);
-			return new Location(xIndex, yIndex);
+			Location l = new Location(xIndex, yIndex);
+			setSelectedTile(l);
+			return l;
 		} else {
-			// Logf.info(log,"(%d,%d)\n\n", xIndex, yIndex);
 			return null;
 		}
 	}
@@ -566,15 +566,15 @@ public class GuiMap implements Observer, IMapRendererParent {
 			if (l.x < 0 || l.y < 0 || l.x >= fieldWidth || l.y >= fieldHeight) return;
 		} while (getTile(l).getOrientation() == Orientation.EMPTY);
 
-		setSelectedTile(l.x, l.y);
+		setSelectedTile(l);
 	}
 
 	public IsoTile getSelectedTile() {
 		return selectedTile;
 	}
 
-	public void setSelectedTile(int x, int y) {
-		if (x < 0 || y < 0 || x >= fieldWidth || y >= fieldHeight) {
+	public void setSelectedTile(ILocation l) {
+		if (l.getX() < 0 || l.getY() < 0 || l.getX() >= fieldWidth || l.getY() >= fieldHeight) {
 			assert false : "should not happen";
 			return;
 		}
@@ -583,7 +583,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			selectedTile.setSelected(false);
 		}
 
-		selectedTile = field[x][y];
+		selectedTile = field[l.getX()][l.getY()];
 		selectedTile.setSelected(true);
 	}
 

@@ -50,7 +50,7 @@ public class MapController extends Controller {
 		notifyObservers(n);
 	}
 
-	public Tile[][] getGrid() {
+	public Tile[][] getField() {
 		return map.getField();
 	}
 

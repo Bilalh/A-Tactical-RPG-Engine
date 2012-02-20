@@ -2,6 +2,8 @@ package engine.map;
 
 import java.util.Observable;
 
+import common.interfaces.ILocation;
+
 import config.Config;
 import config.xml.*;
 
@@ -66,15 +68,20 @@ public class BasicMap extends Observable {
 		return tileMapping.getSpriteSheetLocation();
 	}
 
-	public Tile getTile(int x, int y) {
+	public Tile getTile(ILocation l){
+		return field[l.getX()][l.getY()];
+	}
+	
+	public Tile getTile(int x, int y){
 		return field[x][y];
 	}
-
+	
 	/** @category Generated */
 	public Tile[][] getField() {
 		return field;
 	}
 
+	
 	/** @category Generated */
 	public int getFieldWidth() {
 		return width;

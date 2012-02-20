@@ -172,7 +172,13 @@ public class Map extends BasicMap implements IMap {
 	public void finishedMoving(IMutableMapUnit u) {
 		if (u.isAI()){
 			log.info("AI moved a unit");
-			unitTurnFinished(u);
+			IMutableMapUnit target = ai.getTarget(u);
+			
+			if (target == null){
+				unitTurnFinished(u);
+			}else{
+				targetChosen(u, target);
+			}
 		}
 	}
 
