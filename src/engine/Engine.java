@@ -38,7 +38,7 @@ public class Engine {
 		u.setName("Boy");
 		u.setMove(4);
 		u.setSpeed(60);
-		u.setStrength(10);
+		u.setStrength(30);
 		u.setDefence(10);
 		u.setMaxHp(30);
 		player.addUnit(u);

@@ -17,7 +17,7 @@ public class MapUnit extends AbstractMapUnit {
 
 	protected int readiness = 100;
 	protected EnumSet<UnitStatus> status = EnumSet.noneOf(UnitStatus.class);
-	
+
 	public MapUnit(IMutableUnit unit, ILocation l, MapPlayer player) {
 		this.gridX = l.getX();
 		this.gridY = l.getY();
@@ -28,15 +28,15 @@ public class MapUnit extends AbstractMapUnit {
 
 	@Override
 	public int getCost(Tile old, Tile next) {
-		
-		// Can't go though another player's units 
-		IMutableMapUnit uu =  next.getCurrentUnit();
-		if (uu != null && uu.getPlayer() != getPlayer()){
+
+		// Can't go though another player's units
+		IMutableMapUnit uu = next.getCurrentUnit();
+		if (uu != null && uu.getPlayer() != getPlayer()) {
 			return Integer.MAX_VALUE;
 		}
 		return unit.getCost(old, next);
 	}
-	
+
 	@Override
 	public boolean hasStatus(UnitStatus s) {
 		return status.contains(s);
@@ -69,7 +69,10 @@ public class MapUnit extends AbstractMapUnit {
 
 	@Override
 	public String toString() {
-		return String.format("MapUnit [name=%s, p=%s player=%s,  currentHp=%s, readiness=%s, status=%s, getMove()=%s, getSpeed()=%s]",
-				getName(),getLocation(),  player, currentHp, readiness, status, getMove(), getSpeed());
+		return String
+				.format("MapUnit[name=%s, hp=%s/%s, move=%s, str=%s, def=%s, L=%s, speed=%s, rs=%s, status=%s]",
+						getName(), getCurrentHp(), getMaxHp(), getMove(), getStrength(), getDefence(), getLocation(), getSpeed(),
+						readiness, status);
 	}
+
 }

@@ -30,6 +30,7 @@ import view.util.BufferSize;
 import view.util.MapActions;
 import view.util.MousePoxy;
 
+import common.IBattleInfo;
 import common.Location;
 import common.LocationInfo;
 import common.enums.Direction;
@@ -371,11 +372,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 
 
-	public void unitsBattle(IMapUnit attacker, IMapUnit target, int damage) {
+	public void unitsBattle(IBattleInfo battleInfo) {
 
-		final AnimatedUnit atarget = unitMapping.get(target.getUuid());
-		atarget.setDamage(damage);
-		setSelectedTile(target.getLocation());
+		final AnimatedUnit atarget = unitMapping.get(battleInfo.getTarget().getUuid());
+		atarget.setDamage(battleInfo.getDamage());
+		setSelectedTile(battleInfo.getTarget().getLocation());
 		
 		// End unit's turn
 		timer.schedule(new TimerTask() {

@@ -253,9 +253,11 @@ public class Map extends BasicMap implements IMap {
 
 	// Peforms the attack and notifies the Observers what the results were 
 	public void targetChosen(IMutableMapUnit u, IMutableMapUnit target){
-		int damage = 20;
-		boolean alive = target.removeHp(damage);
-		IMapNotification n = new FightNotification(u, target, damage);
+		
+		Battle battle = new Battle(u, target);
+		battle.performBattle();
+		
+		IMapNotification n = new BattleNotification(battle);
 		setChanged();
 		notifyObservers(n);
 	}
