@@ -165,7 +165,7 @@ public class IsoTile {
 				break;
 			case UP_TO_EAST:
 			case UP_TO_WEST:
-				drawEastWest(x, y, g, drawLeftSide, drawRightSide, false,false);
+				drawEastWest(x, y, g, false, false);
 				break;
 			case EMPTY:
 				break;
@@ -175,7 +175,7 @@ public class IsoTile {
 	}
 
 	Color lineColor = Color.BLACK;
-	public void drawEastWest(int x, int y, Graphics _g, boolean drawLeftSide, boolean drawRightSide, boolean topPloy,  boolean topOnly) {
+	public void drawEastWest(int x, int y, Graphics _g, boolean topPloy, boolean topOnly) {
 		Graphics2D g = (Graphics2D) _g;
 		final float finalHeight = (MapSettings.tileHeight * MapSettings.zoom);
 		final float horizontal  = (MapSettings.tileDiagonal * MapSettings.zoom);
@@ -247,7 +247,6 @@ public class IsoTile {
 		
 		if (topPloy) return;
 		
-		if (drawRightSide) {
 			Polygon poly = new Polygon(new int[] {
 					x,
 					x_hor_div_2,
@@ -277,10 +276,8 @@ public class IsoTile {
 //							y_vet_div_2,
 //							y_vet }
 //					, 4));
-		}
 
-		if (drawLeftSide) {
-			Polygon poly = new Polygon(new int[] {
+			poly = new Polygon(new int[] {
 					x,
 					neg_x_hor_div_2,
 					neg_x_hor_div_2,
@@ -309,7 +306,6 @@ public class IsoTile {
 //							y_vet }
 //					, 4));
 
-		}
 //
 //		g.setColor(lineColor); // Outline the top of the tile
 //		g.drawPolygon(new Polygon(new int[] {

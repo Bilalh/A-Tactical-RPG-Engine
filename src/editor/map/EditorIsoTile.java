@@ -32,7 +32,7 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 	@Override
 	public void draw(int x, int y, Graphics g, boolean drawLeftSide, boolean drawRightSide) {
 		if (orientation ==Orientation.EMPTY){
-			drawEastWest(x, y, g, drawLeftSide, drawRightSide, true,isSelected());
+			drawEastWest(x, y, g, true, isSelected());
 		}else{
 			super.draw(x, y, g, drawLeftSide, drawRightSide);
 		}

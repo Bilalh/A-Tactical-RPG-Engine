@@ -25,9 +25,10 @@ public class Unit implements IMutableUnit {
 	private int level;
 	private int exp;
 
-	final private UUID uuid;
+	private final transient UUID uuid;
+	private transient UnitImages imageData;
+	
 	private int weight;
-	private UnitImages imageData;
 	
 	public Unit(){
 		uuid = UUID.randomUUID();

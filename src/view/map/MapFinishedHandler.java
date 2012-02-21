@@ -45,6 +45,7 @@ public class MapFinishedHandler extends MapActions {
 		Rectangle2D rect = metrics.getStringBounds(message, g);
 		
 		g.drawString(message, (int) (width / 2  - rect.getWidth()/2) , (height / 2));
+		g.dispose();
 		shownMessage = true;
 	}
 
