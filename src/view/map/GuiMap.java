@@ -581,14 +581,15 @@ public class GuiMap implements Observer, IMapRendererParent {
 		scrollToLocation(l);
 	}
 
+	// Scroll the map so that the location on the map is visible.
 	void scrollToLocation(ILocation l){
 			Location drawLocation  = getDrawLocation(l);
-			//FIXME why add MapSettings.tileDiagonal?
+			//FIXME why add MapSettings.tileDiagonal/2?
 			int diffY = drawY + parent.getHeight() -  MapSettings.tileDiagonal/2;
 			drawLocation.translate(-drawX, -diffY);
 
-			System.out.printf("(%d,%d)\n", parent.getWidth(), parent.getHeight());
-			System.out.println(drawLocation);
+//			System.out.printf("(%d,%d)\n", parent.getWidth(), parent.getHeight());
+//			System.out.println(drawLocation);
 			boolean check = true;
 
 
@@ -599,9 +600,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 			if (check) {
 				setDrawLocation(drawX+topLeft.x, drawY+topLeft.y);
 			}else{
-				//FIXME need testing on larger maps
+				//FIXME need testing on larger maps  -- works?{
 				Location bottomRight  = drawLocation.copy().translate(-parent.getWidth()+ MapSettings.tileDiagonal, -parent.getHeight()+ MapSettings.tileDiagonal/2);
-				System.out.println("br:"+ bottomRight);
+//				System.out.println("br:"+ bottomRight);
 				check =  bottomRight.checkLower(0, 0);
 				if (check) setDrawLocation(drawX+bottomRight.x, drawY+bottomRight.y);
 			}
