@@ -79,6 +79,8 @@ public class PathFinder implements IMovementCostProvider {
 				}
 			}
 		}
+		
+		assert inRange != null;
 		return Collections.unmodifiableCollection(inRange);
 	}
 

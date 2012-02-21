@@ -225,7 +225,7 @@ public class Map extends BasicMap implements IMap {
 
 		pf = new PathFinder(u, this);
 		paths.put(u, pf);
-
+		
 		return pf.getMovementRange();
 	}
 

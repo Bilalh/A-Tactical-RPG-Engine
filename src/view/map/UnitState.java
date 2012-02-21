@@ -62,6 +62,8 @@ enum UnitState {
 			switch (index) {
 				case 0:
 					return MOVEMENT_RANGE;
+				case 1:
+					return SHOW_TARGETS;
 				case 2:
 					return FINISHED;
 				case 3:
@@ -86,6 +88,7 @@ enum UnitState {
 		void stateEntered(AnimatedUnit other) {
 			// Set up movement range
 			inRange =  map.highlightRange(map.getCurrentUnit(), TileState.MOVEMENT_RANGE);
+			assert inRange != null;
 			map.setActionHandler(GuiMap.ActionsEnum.MOVEMENT);
 		}
 
@@ -93,6 +96,8 @@ enum UnitState {
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 			assert other != null;
 			assert otherTile != null;
+			assert map.getSelectedTile() != null;
+			assert inRange != null;
 			
 			if (!map.getSelectedTile().isSelected()) return this;
 

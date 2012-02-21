@@ -84,7 +84,7 @@ public class AnimatedUnit extends GuiUnit {
 	
 	@Override
 	public String toString() {
-		return String.format("AnimatedUnit [frames=%s name=%s L=%s Dir=%s]", frames.length, unit.getName(), getLocation(),direction);
+		return String.format("AnimatedUnit [frames=%s name=%s L=%s Dir=%s ModelL=%s]", frames.length, unit.getName(), getLocation(),direction, unit.getLocation());
 	}
 
 	
