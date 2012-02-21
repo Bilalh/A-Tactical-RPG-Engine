@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import com.sun.tools.example.debug.gui.GUI;
 
 import view.Gui;
+import view.map.interfaces.IActions;
 
 import controller.MapController;
 

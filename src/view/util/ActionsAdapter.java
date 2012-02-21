@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import view.map.IActions;
+import view.map.interfaces.IActions;
 
 /**
  * Stub for all actions and mouse input

@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
 
 import common.enums.Orientation;
 
-import view.map.IMapRendererParent;
+import view.map.interfaces.IMapRendererParent;
 import config.XMLUtil;
 import config.xml.SavedMap;
 import config.xml.SavedTile;

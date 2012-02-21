@@ -20,6 +20,8 @@ import org.apache.log4j.Logger;
 import util.Logf;
 import view.Gui;
 import view.map.IsoTile.TileState;
+import view.map.interfaces.IActions;
+import view.map.interfaces.IMapRendererParent;
 import view.ui.Dialog;
 import view.ui.Menu;
 import view.ui.UnitInfoDisplay;
@@ -71,10 +73,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private Menu menu     = new Menu();
 	private Dialog dialog = new Dialog(0, 0);
 	
-	final MenuInput menuInput           = new MenuInput(this, menu);
-	final DialogHandler dialogHandler   = new DialogHandler(this, dialog);
-	private UnitInfoDisplay infoDisplay = new UnitInfoDisplay();
-
+	final MenuInput menuInput            = new MenuInput(this, menu);
+	final DialogHandler dialogHandler    = new DialogHandler(this, dialog);
+	final UnitInfoDisplay infoDisplay    = new UnitInfoDisplay();
+	final MapFinishedHandler mapFinished = new MapFinishedHandler(this);
+	
 	// The classes that with handed the input
 	private MousePoxy  MousePoxy;
 	private MapActions currentAction;
@@ -82,10 +85,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 	// Handles the input fpr each state
 	final private MapActions[] actions = {
 			new Movement(this), dialogHandler,
-			new MapActions(this), menuInput };
+			new MapActions(this), menuInput, mapFinished};
 
 	static enum ActionsEnum {
-		MOVEMENT, DIALOG, NONE, MENU
+		MOVEMENT, DIALOG, NONE, MENU, FINISHED
 	}
 
 	private UnitState state = UnitState.WAITING;
@@ -403,6 +406,18 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 		setDrawn(false);
 		Gui.getMusicThread().playSound("music/sounds/Slash8-Bit.ogg");
+	}
+
+	public void playerWon() {
+		Gui.getMusicThread().playSound("music/sounds/10-30 Medium Success.ogg");
+		mapFinished.setup(true);
+		setActionHandler(ActionsEnum.FINISHED);
+	}
+
+	public void playerLost() {
+		Gui.getMusicThread().playSound("music/sounds/20 Game Over.ogg");
+		mapFinished.setup(false);
+		setActionHandler(ActionsEnum.FINISHED);
 	}
 	
 	Collection<LocationInfo> othersRange;

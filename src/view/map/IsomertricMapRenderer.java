@@ -12,6 +12,8 @@ import common.interfaces.ILocation;
 
 
 import util.Logf;
+import view.map.interfaces.IMapRenderer;
+import view.map.interfaces.IMapRendererParent;
 import view.units.AnimatedUnit;
 import view.util.BufferSize;
 

@@ -1,4 +1,4 @@
-package view.map;
+package view.map.interfaces;
 
 import java.awt.Graphics;
 

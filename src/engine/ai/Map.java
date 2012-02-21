@@ -114,11 +114,14 @@ public class Map extends BasicMap implements IMap {
 		return player.getUnits();
 	}
 
-	@Override
-	public void start() {
-		INotification n = new ChooseUnitsNotifications(playerinfo.getUnits(), ai.getUnits());
+	private void sendNotification(IMapNotification n){
 		setChanged();
 		notifyObservers(n);
+	}
+	
+	@Override
+	public void start() {
+		sendNotification(new ChooseUnitsNotifications(playerinfo.getUnits(), ai.getUnits()));
 	}
 
 	@Override
@@ -134,15 +137,13 @@ public class Map extends BasicMap implements IMap {
 		}
 		player.setUnits(units);
 		
-		INotification n = new UnitsChosenNotification(new ArrayList<IMapUnit>(units));
-		setChanged();
-		notifyObservers(n);
-
+		sendNotification(new UnitsChosenNotification(new ArrayList<IMapUnit>(units)));
+		
 		Logf.debug(log, "ordering %s", order);
 		setChanged();
 		current = order.remove();
-		n = new UnitTurnNotification(current);
-		notifyObservers(n);
+		
+		sendNotification(new UnitTurnNotification(current));
 	}
 
 	// Precondition getMovementRange must have been called first
@@ -161,11 +162,9 @@ public class Map extends BasicMap implements IMap {
 
 		u.setReadiness(u.getReadiness() - 60);
 		order.add(u);
-		INotification n = new UnitMovedNotification(u, path);
 		paths.remove(u);
 
-		setChanged();
-		notifyObservers(n);
+		sendNotification(new UnitMovedNotification(u, path));
 	}
 
 
@@ -183,15 +182,25 @@ public class Map extends BasicMap implements IMap {
 	}
 
 	public void unitTurnFinished(IMutableMapUnit u) {
+		if (!checkForFinished()){
+			sendNextUnit();
+		}
+	}
+	
+	// returns true if the map is finished.
+	public boolean checkForFinished(){
 		if (ai.getUnits().isEmpty()) {
-			System.err.println("PLAYERS WINS");			
-			return;
+			System.err.println("PLAYERS WINS");	
+			sendNotification(new PlayerWonNotification());
+			return true;
 		}
 		if (player.getUnits().isEmpty()) {
 			System.err.println("AI WINS");
-			return;
+			sendNotification(new PlayerLostNotification());
+			return true;
 		}
-		sendNextUnit();
+		
+		return false;
 	}
 	
 	/**
@@ -212,9 +221,7 @@ public class Map extends BasicMap implements IMap {
 
 		}
 
-		setChanged();
-		INotification n = new UnitTurnNotification(current);
-		notifyObservers(n);
+		sendNotification(new UnitTurnNotification(current));
 		
 		if (current.isAI()) {
 			log.info("Next Unit is ai:" + current);
@@ -276,9 +283,7 @@ public class Map extends BasicMap implements IMap {
 			getTile(target.getLocation()).setCurrentUnit(null);
 		}
 		
-		IMapNotification n = new BattleNotification(battle);
-		setChanged();
-		notifyObservers(n);
+		sendNotification(new BattleNotification(battle));
 	}
 
 }

@@ -18,10 +18,5 @@ public class PlayersTurnNotification implements IMapNotification {
 	public void process(GuiMap map) {
 		map.playersTurn();
 	}
-	
-	@Override
-	public String toString() {
-		return String.format("PlayersTurnNotification []");
-	}
 
 }

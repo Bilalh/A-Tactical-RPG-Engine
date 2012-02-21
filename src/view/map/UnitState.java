@@ -12,7 +12,6 @@ import common.LocationInfo;
 import util.Logf;
 import view.map.GuiMap.ActionsEnum;
 import view.map.IsoTile.TileState;
-import view.map.UnitStatee.Waiting;
 import view.ui.Menu;
 import view.ui.MenuItem;
 import view.units.AnimatedUnit;
@@ -223,7 +222,8 @@ enum UnitState {
 			
 		}
 	},
-	
+
+	/** @category Unused**/
 	DEFEATED {
 		@Override
 		void stateEntered(AnimatedUnit other) {
