@@ -2,7 +2,7 @@ package engine;
 
 import config.Config;
 import engine.ai.Map;
-import engine.map.IMap;
+import engine.map.interfaces.IMap;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
 

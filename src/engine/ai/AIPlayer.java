@@ -10,8 +10,8 @@ import common.Location;
 import common.LocationInfo;
 import common.interfaces.ILocation;
 
-import engine.map.IMutableMapUnit;
 import engine.map.MapPlayer;
+import engine.map.interfaces.IMutableMapUnit;
 /**
  * @author bilalh
  */

@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import util.Logf;
 
 import common.interfaces.IMapUnit;
+import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.Unit;
 
 /**

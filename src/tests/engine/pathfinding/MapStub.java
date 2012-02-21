@@ -10,9 +10,9 @@ import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
 import config.xml.TileImageData;
 
-import engine.map.IMap;
-import engine.map.IMutableMapUnit;
 import engine.map.Tile;
+import engine.map.interfaces.IMap;
+import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 

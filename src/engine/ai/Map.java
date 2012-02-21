@@ -26,6 +26,8 @@ import engine.PathfindingEx.AStarPathFinder;
 import engine.PathfindingEx.Mover;
 import engine.PathfindingEx.TileBasedMap;
 import engine.map.*;
+import engine.map.interfaces.IMap;
+import engine.map.interfaces.IMutableMapUnit;
 import engine.pathfinding.PathFinder;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;

@@ -12,9 +12,9 @@ import org.junit.Test;
 import util.*;
 
 
-import engine.map.IMap;
-import engine.map.IMutableMapUnit;
 import engine.map.MapUnit;
+import engine.map.interfaces.IMap;
+import engine.map.interfaces.IMutableMapUnit;
 import engine.pathfinding.*;
 import engine.unit.Unit;
 import static org.junit.Test.*;

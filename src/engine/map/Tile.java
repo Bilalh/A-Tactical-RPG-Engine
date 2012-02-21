@@ -5,6 +5,7 @@ import common.Location;
 import common.enums.Orientation;
 import common.interfaces.IUnit;
 import config.xml.TileImageData;
+import engine.map.interfaces.IMutableMapUnit;
 
 /**
  * @author bilalh

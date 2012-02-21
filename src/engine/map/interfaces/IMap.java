@@ -1,4 +1,4 @@
-package engine.map;
+package engine.map.interfaces;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +10,7 @@ import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
 
 import config.xml.TileImageData;
+import engine.map.Tile;
 import engine.unit.IMutableUnit;
 
 /**

@@ -5,6 +5,7 @@ import java.util.UUID;
 import common.Location;
 import common.interfaces.ILocation;
 
+import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
 import engine.unit.UnitImages;
 

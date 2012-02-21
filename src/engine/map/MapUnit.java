@@ -6,6 +6,7 @@ import java.util.EnumSet;
 
 import common.interfaces.ILocation;
 
+import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
 
 /**

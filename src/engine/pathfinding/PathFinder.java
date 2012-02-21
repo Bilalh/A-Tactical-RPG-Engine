@@ -15,8 +15,8 @@ import common.enums.Orientation;
 import common.interfaces.ILocation;
 import common.interfaces.IUnit;
 
-import engine.map.IMap;
-import engine.map.IMutableMapUnit;
+import engine.map.interfaces.IMap;
+import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
 
 

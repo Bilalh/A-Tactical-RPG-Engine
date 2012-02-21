@@ -2,8 +2,8 @@ package editor.map;
 
 import common.enums.Orientation;
 
-import engine.map.IMutableMapUnit;
 import engine.map.Tile;
+import engine.map.interfaces.IMutableMapUnit;
 
 /**
  * @author Bilal Hussain

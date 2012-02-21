@@ -1,9 +1,11 @@
-package engine.map;
+package engine.map.interfaces;
 
 import common.Location;
 
 import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
+import engine.map.MapPlayer;
+import engine.map.UnitStatus;
 import engine.unit.IMutableUnit;
 
 /**

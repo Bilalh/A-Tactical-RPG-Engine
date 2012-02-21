@@ -3,6 +3,7 @@ package engine.map;
 import java.util.Comparator;
 
 import common.interfaces.IMapUnit;
+import engine.map.interfaces.IMutableMapUnit;
 
 /**
  * @author Bilal Hussain

@@ -7,7 +7,7 @@ import util.Logf;
 import common.IBattleInfo;
 import common.interfaces.IMapUnit;
 
-import engine.map.IMutableMapUnit;
+import engine.map.interfaces.IMutableMapUnit;
 
 /**
  * 
