@@ -72,7 +72,7 @@ public  class Movement extends MapActions{
         Logf.debug(log,"MousePressed MouseMoving:%s map.drawn:%s", mouseMoving,map.isDrawn());
     }
 
-    @Override
+	@Override
 	public void mouseReleased(MouseEvent e) {
     	mouseMoving = false;
     	log.trace("MousrReleased start");
@@ -82,6 +82,8 @@ public  class Movement extends MapActions{
         if (Math.sqrt(a * a + b * b) > 3) {
             
         } else {
+ 
+        	System.out.println(e.getPoint());
         	Location l = null;
         	for (AnimatedUnit u : map.getPlayersUnits()) {
         		if (l ==null){
@@ -94,12 +96,13 @@ public  class Movement extends MapActions{
         		}
 			}
         	
-        	if (l != null){
+        	if (l != null || false){
         		map.setSelectedTile(l);
         	}else{
 	            if (map.findAndSelectTile(e.getX(), e.getY()) == null){
 	            	return;
 	            }
+	            System.out.println(map.getSelectedTile());
         	}
         	
             tileSelected();

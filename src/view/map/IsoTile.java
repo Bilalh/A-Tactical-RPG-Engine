@@ -488,7 +488,11 @@ public class IsoTile {
 
 	@Override
 	public String toString() {
-		return String.format("IsoTile [%s, way=%s, state=%s height=%s,selected=%s, unit=%s]",
+		String s = String.format("IsoTile [%s, way=%s, state=%s height=%s,selected=%s, unit=%s]",
 				fieldLocation,orientation,state, height, selected, unit);
+		s += "\n" +  Arrays.toString(top.xpoints);
+		s += "\n" +  Arrays.toString(top.ypoints);
+		s += "\n" + top.getBounds();
+		return s;
 	}
 }

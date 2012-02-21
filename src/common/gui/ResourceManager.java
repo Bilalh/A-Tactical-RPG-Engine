@@ -62,7 +62,7 @@ public class ResourceManager {
 		if (tilesResized.containsKey(path)){
 			return tilesResized.get(path);
 		}
-		Logf.info(log, "%s %s %s", path, width,height);
+//		Logf.info(log, "%s %s %s", path, width,height);
 		GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
 		BufferedImage image = gc.createCompatibleImage(width, height, Transparency.BITMASK);
 		Graphics g = image.getGraphics();

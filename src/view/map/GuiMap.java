@@ -521,18 +521,18 @@ public class GuiMap implements Observer, IMapRendererParent {
 	 */
 	public ILocation findAndSelectTile(int x, int y) {
 		float highest = 0.0f;
-		Point p = new Point(x, y);
 		x += drawX;
 		y += drawY;
+		Point p = new Point(x, y);
+		Logf.info(log, "p:(%d,%d)\n", x, y);
 		int xIndex = -1, yIndex = -1;
 		
-		// Logf.info(log,"p:(%d,%d)\n", x, y);
 		for (int i = 0; i < fieldWidth; i++) {
 			for (int j = 0; j < fieldHeight; j++) {
 				if (field[i][j].getOrientation() != Orientation.EMPTY && field[i][j].contains(p)) {
-					// Logf.info(log,"Clicked(%d,%d)\n", i, j);
+					Logf.info(log, "Clicked(%d,%d)\n", i, j);
 					if (field[i][j].getHeight() > highest) {
-						// log.info("\t highest");
+						log.info("\t highest");
 						highest = field[i][j].getHeight();
 						xIndex = i;
 						yIndex = j;
@@ -541,6 +541,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				}
 			}
 		}
+		
 		if (xIndex > -1 && yIndex > -1) {
 			Location l = new Location(xIndex, yIndex);
 			setSelectedTile(l);
@@ -595,7 +596,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 			Location topLeft = drawLocation.copy().translate(-MapSettings.tileDiagonal, (int) (-MapSettings.tileDiagonal*1.5));
 			check = topLeft.checkUpper(1, 1);
-			System.out.println("tl:"+ topLeft);
+//			System.out.println("tl:"+ topLeft);
 			
 			if (check) {
 				setDrawLocation(drawX+topLeft.x, drawY+topLeft.y);
@@ -606,7 +607,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				check =  bottomRight.checkLower(0, 0);
 				if (check) setDrawLocation(drawX+bottomRight.x, drawY+bottomRight.y);
 			}
-			System.out.println();
+//			System.out.println();
 		}
 
 	public IsoTile getTile(ILocation l) {
@@ -713,7 +714,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				setActionHandler(ActionsEnum.DIALOG);
 				break;
 			case KeyEvent.VK_I:
-				Logf.info(log, "draw (%d,%d) selected %s unit:%s", drawX, drawY, selectedTile, selectedTile.getUnit());
+				Logf.info(log, "draw (%d,%d) selected %s", drawX, drawY, selectedTile);
 				break;
 		}
 
