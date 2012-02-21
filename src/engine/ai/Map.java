@@ -183,16 +183,13 @@ public class Map extends BasicMap implements IMap {
 	}
 
 	public void unitTurnFinished(IMutableMapUnit u) {
-		if (u.isAI()){
-			if (ai.getUnits().isEmpty()){
-				System.err.println("AI WINS");
-				return;
-			}
-		}else{
-			if (ai.getUnits().isEmpty()){
-				System.err.println("PLAYERS WINS");
-				return;
-			}
+		if (ai.getUnits().isEmpty()) {
+			System.err.println("PLAYERS WINS");			
+			return;
+		}
+		if (player.getUnits().isEmpty()) {
+			System.err.println("AI WINS");
+			return;
 		}
 		sendNextUnit();
 	}
@@ -270,9 +267,9 @@ public class Map extends BasicMap implements IMap {
 		
 		if (!battle.isTargetAlive()){
 			if (target.isAI()){
-				ai.unitDied(battle.target);
+				ai.unitDied(target);
 			}else{
-				player.unitDied(battle.target);
+				player.unitDied(target);
 			}
 			order.remove(target);
 			paths.remove(target);

@@ -361,6 +361,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setDrawn(false);
 	}
 
+	// Tells the controller that the unit has finished moving
 	private void finishedMoving(AnimatedUnit u) {
 		if (nextState == null) nextState = UnitState.WAITING;
 		changeState(nextState);
@@ -381,7 +382,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 			@Override
 			public void run() {
 				atarget.removeDamage();
-				changeState(UnitState.FINISHED);
+				
+				
 				if (!battleInfo.isTargetAlive()){
 					Logf.info(log, "Died:%s", battleInfo.getTarget());
 					unitMapping.remove(battleInfo.getTarget().getUuid());
@@ -395,6 +397,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 						Gui.getMusicThread().playSound("music/sounds/10-14 Death.ogg");
 					}
 				}
+				changeState(UnitState.FINISHED);
 			}
 		}, 1300);
 		
