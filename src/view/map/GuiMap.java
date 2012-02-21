@@ -128,14 +128,20 @@ public class GuiMap implements Observer, IMapRendererParent {
 		this.fieldHeight = grid[0].length;
 
 		this.field = new IsoTile[fieldWidth][fieldHeight];
-		this.mapRenderer  = new IsomertricMapRenderer(this.field, this);
 		this.unitMapping  = new HashMap<UUID, AnimatedUnit>();
 		this.pathIterator = new ArrayDeque<LocationInfo>(0).iterator();
-
+		
+		float multiplier = 1.3f;
+		this.mapRenderer  = new IsomertricMapRenderer(this.field, this, multiplier);
+		
 		BufferSize s = mapRenderer.getMapDimensions();
-		bufferWidth = s.width;
-		bufferHeight = s.height;
+		bufferWidth  = (int) (s.width  * multiplier);
+		bufferHeight = (int) (s.height * multiplier) + MapSettings.tileDiagonal;
 
+		drawX = (int) (Math.max(multiplier-1, 0) * s.width)/2;
+//		drawY = (int) (Math.max(multiplier-1, 0) * s.height)/2;
+		System.out.printf("(%d,%d)\n", drawX, drawY);
+		
 		currentAction = getActionHandler(ActionsEnum.MOVEMENT);
 		MousePoxy = new MousePoxy();
 		setActionHandler(ActionsEnum.MOVEMENT);
@@ -237,11 +243,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 	}
 
-	private Location getDrawLocation(Location l) {
-		int x = mapRenderer.getStartX() - (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - l.y - 1f));
-		int y = mapRenderer.getStartX() + (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom * (fieldHeight - l.y - 1));
-		x += (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom) * l.x;
-		y += (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom) * l.x;
+	private Location getDrawLocation(ILocation l) {
+		int x = mapRenderer.getStartX() - (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - l.getY() - 1f));
+		int y = mapRenderer.getStartX() + (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom * (fieldHeight - l.getY() - 1));
+		x += (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom) * l.getX();
+		y += (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom) * l.getX();
 		return new Location(x, y);
 	}
 
@@ -317,21 +323,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		changeState(UnitState.WAITING);
 		setSelectedTile(currentUnit.getLocation());
-		
-		
-		Location drawLocation  = getDrawLocation(currentUnit.getLocation());
-		//FIXME why add MapSettings.tileDiagonal?
-		int diffY = drawY + mapRenderer.getMapDimensions().heightOffset + MapSettings.tileDiagonal;
-		drawLocation.translate(-drawX, -diffY);
-		
-		//FIXME need testing on larger maps
-		Location bottom  = drawLocation.copy().translate(-parent.getWidth(), -parent.getHeight());
-//		System.out.printf("(%d,%d)\n", parent.getWidth(), parent.getHeight());
-//		System.out.println(drawLocation);
-//		System.out.println(bottom);
-		bottom.limitLower(0, 0);
-		setDrawLocation(drawX+bottom.y, drawY+bottom.y);			
-		
+//		scrollToLocation(currentUnit.getLocation());
 	}
 
 	public void unitMoved(final IMapUnit u, Collection<LocationInfo> path) {
@@ -586,7 +578,35 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		selectedTile = field[l.getX()][l.getY()];
 		selectedTile.setSelected(true);
+		scrollToLocation(l);
 	}
+
+	void scrollToLocation(ILocation l){
+			Location drawLocation  = getDrawLocation(l);
+			//FIXME why add MapSettings.tileDiagonal?
+			int diffY = drawY + parent.getHeight() -  MapSettings.tileDiagonal/2;
+			drawLocation.translate(-drawX, -diffY);
+
+			System.out.printf("(%d,%d)\n", parent.getWidth(), parent.getHeight());
+			
+			//FIXME need testing on larger maps
+			Location bottomRight  = drawLocation.copy().translate(-parent.getWidth()+ MapSettings.tileDiagonal, -parent.getHeight());
+			System.out.println("bottom");
+			System.out.println(drawLocation);
+			System.out.println(bottomRight);
+			boolean check =  bottomRight.checkLower(0, 0);
+			if (check) {
+//				setDrawLocation(drawX+bottom.y, drawY+bottom.y);
+			}else{
+//				System.out.println("top");
+//				//FIXME need testing on larger maps
+//				Location top = drawLocation.copy().translate(parent.getWidth(), parent.getHeight());
+//				System.out.println(drawLocation);
+//				System.out.println(top);
+//				check =  bottom.checkLower(0, 0);
+			}
+			System.out.println();
+		}
 
 	public IsoTile getTile(ILocation l) {
 		return field[l.getX()][l.getY()];
@@ -658,16 +678,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 				break;
 
 			case KeyEvent.VK_COMMA:
-				if (MapSettings.pitch < 0.6) break;
-				MapSettings.pitch *= 0.8;
-				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
+				if (MapSettings.pitch <= 0.5) break;
+				MapSettings.pitch -= 0.1;
+//				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
 				log.info(MapSettings.pitch);
 				afterMapSettingsChange();
 				break;
 			case KeyEvent.VK_PERIOD:
-				if (MapSettings.pitch > 0.8) break;
-				MapSettings.pitch *= 1.2;
-				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
+				if (MapSettings.pitch >= 0.7) break;
+				MapSettings.pitch += 0.1;
+//				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
 				log.info(MapSettings.pitch);
 				afterMapSettingsChange();
 				break;

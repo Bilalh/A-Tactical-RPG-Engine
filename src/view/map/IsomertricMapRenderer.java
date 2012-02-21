@@ -43,15 +43,21 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	int vertical;
 	
 	private Rotation rotation = Rotation.WEST;
+
 	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent) {
+		this(field, parent, 1);
+	}
+
+	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent, float multiplier) {
 		this.parent = parent;
-		this.field = field;
+		this.field  = field;
 
 		this.fieldWidth = field.length;
 		this.fieldHeight = field[0].length;
 		calculateSize();
-		startX = size.width/2 +(fieldHeight - fieldWidth)*MapSettings.tileDiagonal/4;
-		startY = size.heightOffset;
+		
+		startX = (int) ((size.width / 2 + (fieldHeight - fieldWidth) * MapSettings.tileDiagonal / 4) * multiplier);
+		startY = (int) ((size.heightOffset));
 		
 		invaildate();
 	}
@@ -68,7 +74,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	private BufferSize size;
 	private void calculateSize(){
         int max = Math.max(fieldWidth, fieldHeight);
-		int heightOffset  = (MapSettings.tileDiagonal)*3;
+		int heightOffset  = (MapSettings.tileDiagonal)*2;
 
 		int w = fieldWidth + (fieldHeight-fieldWidth)/2;
 		int bufferWidth   = MapSettings.tileDiagonal * w+ 5;

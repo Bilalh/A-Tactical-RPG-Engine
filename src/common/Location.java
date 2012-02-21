@@ -95,6 +95,17 @@ public class Location implements Serializable, ILocation {
 		return this;
 	}
 
+	public boolean checkLower(int limitX, int limitY) {
+		boolean b = false;
+		if (x < limitX) x = limitX;
+		else            b = true;
+		
+		if (y < limitY) y = limitY;
+		else            b = true;
+		
+		return b;
+	}
+	
 	/**
 	 * @return This Point for chaining.
 	 */

@@ -209,7 +209,7 @@ class EditorMapPanel extends JPanel {
 	public synchronized void setMap(EditorIsoTile[][] field){
 		this.field    = field;
 		buffer     = null;
-		mapRender  = new IsomertricMapRenderer(field, editor);
+		mapRender  = new IsomertricMapRenderer(field, editor, 1);
 		BufferSize s = mapRender.getMapDimensions();
 		setPreferredSize(mapRender.getMapDimensions());
 		bufferWidth  = s.width;
