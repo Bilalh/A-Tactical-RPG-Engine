@@ -732,7 +732,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				break;
 
 			case KeyEvent.VK_L:
-				mapController.mapFinished();
+				mapController.mapWon();
 				break;
 
 			case KeyEvent.VK_Y:

@@ -51,17 +51,17 @@ and create a playable tactic RPG.
 	\item \texttt{battles} which take place on grid and include:
 	\begin{itemize}
 		\tick  A set number of \texttt{units} for each player.
-		\cross A Winning \texttt{condition} such as defeat all of the other players units.
+		\item A Winning \texttt{condition} such as defeat all of the other players units.
 		\tick  Battles are \texttt{turn based} meaning that each player moves all their units (once) before the next player turn.   
-		\cross A combat system.
+		\item A combat system.
 	\end{itemize}
 	
 	\item A combat system that includes
 		\begin{itemize}
 			\item \texttt{combat} between adjacent units.
 			\begin{itemize}
-				\cross When the unit hit-points are reduced to zero they are \texttt{defeated} and are removed from the map
-			\tick A set of rules that govern the combat.
+				\tick When the unit hit-points are reduced to zero they are \texttt{defeated} and are removed from the map
+			\item A set of rules that govern the combat.
 			\end{itemize}
 			
 		\end{itemize}
@@ -76,6 +76,7 @@ and create a playable tactic RPG.
 		\tick Which is show the grid with all the units.
 		\tick Allow the user to move their units and see the opponents moves.
 		\tick Allows the user to attack the opponents units.
+		\tick Which allows the user to see a unit status (e.g current hit points).
 		\tick Text will be to describe the more complex actions such magic.
 	\end{itemize}
 \end{itemize}
@@ -90,7 +91,7 @@ The main goal of the secondary objectives is allow the user more customisability
 	
 	\tick Tiles have different movement costs associated with them.
 		
-	\item Long distance weapons\slash magic for player and AI.
+	\cross Long distance weapons\slash magic for player and AI.
 	
 	\cross Direction and height of the character's tile affects attack.
 	
@@ -128,8 +129,8 @@ The goal of the Tertiary objectives are provide the user with more customisabili
 	
 	\item A graphical editor for:
 	\begin{itemize}
-		\tick  making custom maps,
-		\tick  making animations.
+		\tick   making custom maps,
+		\tick   making animations.
 		\cross  specifying the input to the engine.
 		\cross  making events
 		\cross  Scripts for simple event such as `Defeat the leader' as a winning condition.

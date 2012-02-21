@@ -43,13 +43,6 @@ public class MapController extends Controller {
 
 	}
 
-	public void mapFinished() {
-		MapFinishedNotification n = new MapFinishedNotification();
-		setChanged();
-		log.info("mapFinished");
-		notifyObservers(n);
-	}
-
 	public Tile[][] getField() {
 		return map.getField();
 	}
@@ -95,6 +88,19 @@ public class MapController extends Controller {
 
 	public void targetChosen(IMapUnit u, IMapUnit target ){
 		map.targetChosen((IMutableMapUnit)u, (IMutableMapUnit)target);
+	}
+
+	public void mapWon() {
+		MapFinishedNotification n = new MapFinishedNotification();
+		setChanged();
+		log.info("mapWon");
+		notifyObservers(n);
+	}
+
+	public void mapLost() {
+		log.info("mapLost");
+		// FIXME mapLost method
+		mapWon();
 	}
 	
 }

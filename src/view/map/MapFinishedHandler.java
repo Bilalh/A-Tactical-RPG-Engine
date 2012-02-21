@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import view.util.MapActions;
 
 /**
+ *  Shows a Victory/Game Over
  * @author Bilal Hussain
  */
 public class MapFinishedHandler extends MapActions {
@@ -49,7 +50,8 @@ public class MapFinishedHandler extends MapActions {
 
 	private void finished() {
 		log.info("Finished Map");
-		map.getMapController().mapFinished();
+		if (won) map.getMapController().mapWon();
+		else     map.getMapController().mapLost();
 	}
 
 	@Override
