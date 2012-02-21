@@ -115,6 +115,17 @@ public class Location implements Serializable, ILocation {
 		return this;
 	}
 
+	public boolean checkUpper(int limitX, int limitY) {
+		boolean b = false;
+		if (x > limitX) x = limitX;
+		else            b = true;
+		
+		if (y > limitY) y = limitY;
+		else            b = true;
+		
+		return b;
+	}
+	
 	/**
 	 * True if p is next to this location
 	 */

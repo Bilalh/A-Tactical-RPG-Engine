@@ -588,22 +588,22 @@ public class GuiMap implements Observer, IMapRendererParent {
 			drawLocation.translate(-drawX, -diffY);
 
 			System.out.printf("(%d,%d)\n", parent.getWidth(), parent.getHeight());
-			
-			//FIXME need testing on larger maps
-			Location bottomRight  = drawLocation.copy().translate(-parent.getWidth()+ MapSettings.tileDiagonal, -parent.getHeight());
-			System.out.println("bottom");
 			System.out.println(drawLocation);
-			System.out.println(bottomRight);
-			boolean check =  bottomRight.checkLower(0, 0);
+			boolean check = true;
+
+
+			Location topLeft = drawLocation.copy().translate(-MapSettings.tileDiagonal, (int) (-MapSettings.tileDiagonal*1.5));
+			check = topLeft.checkUpper(1, 1);
+			System.out.println("tl:"+ topLeft);
+			
 			if (check) {
-//				setDrawLocation(drawX+bottom.y, drawY+bottom.y);
+				setDrawLocation(drawX+topLeft.x, drawY+topLeft.y);
 			}else{
-//				System.out.println("top");
-//				//FIXME need testing on larger maps
-//				Location top = drawLocation.copy().translate(parent.getWidth(), parent.getHeight());
-//				System.out.println(drawLocation);
-//				System.out.println(top);
-//				check =  bottom.checkLower(0, 0);
+				//FIXME need testing on larger maps
+				Location bottomRight  = drawLocation.copy().translate(-parent.getWidth()+ MapSettings.tileDiagonal, -parent.getHeight()+ MapSettings.tileDiagonal/2);
+				System.out.println("br:"+ bottomRight);
+				check =  bottomRight.checkLower(0, 0);
+				if (check) setDrawLocation(drawX+bottomRight.x, drawY+bottomRight.y);
 			}
 			System.out.println();
 		}
