@@ -57,7 +57,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		calculateSize();
 		
 		startX = (int) ((size.width / 2 + (fieldHeight - fieldWidth) * MapSettings.tileDiagonal / 4) * multiplier);
-		startY = (int) ((size.heightOffset));
+		startY = ((size.heightOffset));
 		
 		invaildate();
 	}

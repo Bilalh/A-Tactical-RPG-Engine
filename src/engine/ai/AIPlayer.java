@@ -88,5 +88,12 @@ public class AIPlayer extends MapPlayer {
 		}
 		return current;
 	}
+
+
+	@Override
+	public void unitDied(IMutableMapUnit u) {
+		super.unitDied(u);
+		lowestHp.remove(u);
+	}
 	
 }

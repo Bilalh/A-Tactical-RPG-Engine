@@ -67,4 +67,9 @@ public class Battle implements IBattleInfo {
 		return targetAlive;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Battle [attacker=%s, target=%s, damage=%s, targetAlive=%s]", attacker, target, damage, targetAlive);
+	}
+
 }

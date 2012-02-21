@@ -63,9 +63,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private static IsoTile selectedTile;
 
 	// The units
-	private AnimatedUnit[] plunits;
-	private AnimatedUnit[] aiUnits;
-
+	private ArrayList<AnimatedUnit> plunits;
+	private ArrayList<AnimatedUnit> aiUnits;
+	
 	private HashMap<UUID, AnimatedUnit> unitMapping;
 
 	private Menu menu     = new Menu();
@@ -281,32 +281,37 @@ public class GuiMap implements Observer, IMapRendererParent {
 		((IMapNotification) notification).process(this);
 	}
 
-	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IMapUnit> aiUnits) {
-		assetNonNull(allPlayerUnits, aiUnits);
+	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IMapUnit> allAiUnits) {
+		assetNonNull(allPlayerUnits, allAiUnits);
 
-		AnimatedUnit[] newUnits = new AnimatedUnit[allPlayerUnits.size()];
+		plunits = new ArrayList<AnimatedUnit>();
+		aiUnits = new ArrayList<AnimatedUnit>();
 		HashMap<IUnit, Location> selectedPostions = new HashMap<IUnit, Location>();
-		for (int i = 0; i < newUnits.length; i++) {
-			// //FIXME indies
-			final IUnit u = allPlayerUnits.get(i);
-			assert u != null;
-			Location p = new Location(2, i + 2);
-			newUnits[i] = new AnimatedUnit(p.x, p.y, u);
-			selectedPostions.put(u, p);
-			unitMapping.put(u.getUuid(), newUnits[i]);
-			field[p.x][p.y].setUnit(newUnits[i]);
-		}
-		this.plunits = newUnits;
 
-		AnimatedUnit[] newAiUnits = new AnimatedUnit[aiUnits.size()];
-		for (int i = 0; i < newAiUnits.length; i++) {
-			final IMapUnit u = aiUnits.get(i);
-			newAiUnits[i] = new AnimatedUnit(u.getGridX(), u.getGridY(), u);
-			newAiUnits[i].setMapUnit(u);
-			field[u.getGridX()][u.getGridY()].setUnit(newAiUnits[i]);
-			unitMapping.put(u.getUuid(), newAiUnits[i]);
+		//FIXME choose positions
+		int i =0;
+		for (IUnit u : allPlayerUnits) {
+			assert u != null;
+			
+			Location p = new Location(2, i + 2);
+			AnimatedUnit au = new AnimatedUnit(p.x, p.y, u);
+			plunits.add(au);
+			selectedPostions.put(u, p);
+			unitMapping.put(u.getUuid(), au);
+			field[p.x][p.y].setUnit(au);
+			i++;
 		}
-		this.aiUnits = newAiUnits;
+
+		for (IMapUnit u : allAiUnits) {
+			assert u != null;
+			
+			AnimatedUnit au = new AnimatedUnit(u.getGridX(), u.getGridY(), u);
+			au.setMapUnit(u);
+			aiUnits.add(au);
+			
+			field[u.getGridX()][u.getGridY()].setUnit(au);
+			unitMapping.put(u.getUuid(), au);
+		}
 
 		mapController.setUsersUnits(selectedPostions);
 	}
@@ -364,8 +369,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 
 
-	public void unitsBattle(IBattleInfo battleInfo) {
-
+	public void unitsBattle(final IBattleInfo battleInfo) {
+		log.info(battleInfo);
+		
 		final AnimatedUnit atarget = unitMapping.get(battleInfo.getTarget().getUuid());
 		atarget.setDamage(battleInfo.getDamage());
 		setSelectedTile(battleInfo.getTarget().getLocation());
@@ -376,6 +382,19 @@ public class GuiMap implements Observer, IMapRendererParent {
 			public void run() {
 				atarget.removeDamage();
 				changeState(UnitState.FINISHED);
+				if (!battleInfo.isTargetAlive()){
+					Logf.info(log, "Died:%s", battleInfo.getTarget());
+					unitMapping.remove(battleInfo.getTarget().getUuid());
+					getTile(atarget.getLocation()).removeUnit();
+					
+					if (battleInfo.getTarget().isAI()){
+						aiUnits.remove(atarget);
+						Gui.getMusicThread().playSound("music/sounds/19 - Battle Victory.ogg");
+					}else{
+						plunits.remove(atarget);
+						Gui.getMusicThread().playSound("music/sounds/10-14 Death.ogg");
+					}
+				}
 			}
 		}, 1300);
 		
@@ -739,12 +758,12 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 
 	/** @category Generated */
-	AnimatedUnit[] getPlayersUnits() {
+	ArrayList<AnimatedUnit> getPlayersUnits() {
 		return plunits;
 	}
 
 	/** @category Generated */
-	AnimatedUnit[] getAIUnits() {
+	ArrayList<AnimatedUnit> getAIUnits() {
 		return aiUnits;
 	}
 

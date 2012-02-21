@@ -24,7 +24,6 @@ import common.gui.ResourceManager;
  * @author Kevin Glass
  * @author Rockstar setVolume cleanup
  */
-@SuppressWarnings("unused")
 public class SoundStore {
 
 	/** The single instance of this class */
@@ -52,7 +51,7 @@ public class SoundStore {
 	private OpenALStreamPlayer stream;
 
 	/** The global music volume setting */
-	private float musicVolume = 0.5f;
+	private float musicVolume = 0.4f;
 	/** The global sound fx volume setting */
 	private float soundVolume = 1.0f;
 	/** The volume given for the last current music */

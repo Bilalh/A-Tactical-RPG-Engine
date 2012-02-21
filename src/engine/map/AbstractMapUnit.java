@@ -135,6 +135,7 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 	/** Removes the specifed number of hit points from the unit
 	 * @return True if the unit still alive otherwise false'
 	 */
+	@Override
 	public boolean removeHp(int value){
 		currentHp -= value;
 		return currentHp > 0; 
