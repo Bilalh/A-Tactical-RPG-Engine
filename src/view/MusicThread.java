@@ -51,6 +51,11 @@ public class MusicThread extends Thread {
 		musicPlaying = false;
 	}
 
+	public synchronized void removeMusic(){
+		music.stop();
+		music =null;
+	}
+	
 	@Override
 	public void run() {
 		super.run();

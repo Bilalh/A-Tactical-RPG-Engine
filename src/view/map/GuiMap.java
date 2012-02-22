@@ -409,12 +409,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 
 	public void playerWon() {
+		Gui.getMusicThread().removeMusic();
 		Gui.getMusicThread().playSound("music/sounds/10-30 Medium Success.ogg");
 		mapFinished.setup(true);
 		setActionHandler(ActionsEnum.FINISHED);
 	}
 
 	public void playerLost() {
+		Gui.getMusicThread().removeMusic();
 		Gui.getMusicThread().playSound("music/sounds/20 Game Over.ogg");
 		mapFinished.setup(false);
 		setActionHandler(ActionsEnum.FINISHED);
