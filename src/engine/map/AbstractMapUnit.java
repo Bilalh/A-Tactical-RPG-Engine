@@ -7,8 +7,8 @@ import common.interfaces.ILocation;
 
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
+import engine.unit.IWeapon;
 import engine.unit.UnitImages;
-import engine.unit.Weapon;
 
 /**
  * Keeps all the gets and setters so it does not clutter the mapUnit class
@@ -195,12 +195,12 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 	}
 
 	@Override
-	public Weapon getWeapon() {
+	public IWeapon getWeapon() {
 		return unit.getWeapon();
 	}
 
 	@Override
-	public void setWeapon(Weapon weapon) {
+	public void setWeapon(IWeapon weapon) {
 		unit.setWeapon(weapon);
 	}
 

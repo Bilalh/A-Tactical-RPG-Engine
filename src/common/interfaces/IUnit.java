@@ -3,8 +3,8 @@ package common.interfaces;
 import java.util.UUID;
 
 import engine.map.Tile;
+import engine.unit.IWeapon;
 import engine.unit.UnitImages;
-import engine.unit.Weapon;
 
 /**
  * @author Bilal Hussain
@@ -33,6 +33,6 @@ public interface IUnit {
 	
 	UnitImages getImageData();
 	
-	Weapon getWeapon();
+	IWeapon getWeapon();
 	
 }

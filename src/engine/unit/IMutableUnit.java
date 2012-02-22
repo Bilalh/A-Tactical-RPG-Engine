@@ -28,6 +28,6 @@ public interface IMutableUnit extends IUnit {
 
 	void setImageData(UnitImages imageData);
 	
-	void setWeapon(Weapon weapon);
+	void setWeapon(IWeapon weapon);
 	
 }

@@ -12,16 +12,19 @@ import common.Location;
 /**
  * @author Bilal Hussain
  */
-public class Weapon {
+public class Weapon implements IWeapon {
 
 	protected int strength;
 	protected int range;
 
+	public Weapon() {}
+	
 	public Weapon(int strength, int range) {
 		this.strength = strength;
-		this.range    = range;
+		this.range = range;
 	}
 
+	@Override
 	public Collection<Location> getAttackRange(Location start, int width, int height) {
 
 		HashSet<Location> set = new HashSet<Location>();
@@ -44,28 +47,37 @@ public class Weapon {
 		if (start.y - range >= 0) set.add(start.copy().translate(0, -range));
 
 		set.remove(start);
-		
+
 		return set;
 	}
 
-	
+	@Override
+	public String getDetails() {
+		return "" + range;
+	}
+
+	@Override
+	public int getStrength() {
+		return strength;
+	}
+
 	public static void main(String[] args) {
 		int width = 9, height = 15;
-		Weapon w = new Weapon(10, 6);
-		Collection<Location> c = w.getAttackRange(new Location(4,4),width,height);
-//		System.out.println(c);
+		IWeapon w = new Weapon(10, 6);
+		Collection<Location> c = w.getAttackRange(new Location(4, 4), width, height);
+		// System.out.println(c);
 
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				if (c.contains(new Location(i, j))){
+				if (c.contains(new Location(i, j))) {
 					System.out.print("+");
-				}else{
+				} else {
 					System.out.print(".");
 				}
 			}
 			System.out.println();
 		}
-		
+
 		char[][] arr = new char[width][height];
 		for (int i = 0; i < arr.length; i++) {
 			Arrays.fill(arr[i], ' ');
@@ -77,13 +89,21 @@ public class Weapon {
 	}
 
 	/** @category Generated */
-	public int getStrength() {
-		return strength;
-	}
-
-	/** @category Generated */
+	@Override
 	public int getRange() {
 		return range;
 	}
-	
+
+	/** @category Generated */
+	@Override
+	public void setRange(int range) {
+		this.range = range;
+	}
+
+	/** @category Generated */
+	@Override
+	public void setStrength(int strength) {
+		this.strength = strength;
+	}
+
 }

@@ -1,10 +1,18 @@
 package engine;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
+import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
+
+import view.Main;
 import config.Config;
 import engine.ai.Map;
 import engine.map.interfaces.IMap;
+import engine.unit.IWeapon;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
+import engine.unit.Weapon;
 
 /**
  * @author bilalh
@@ -26,12 +34,13 @@ public class Engine {
 		u.setName("Elena");
 		u.setMove(3);
 		u.setSpeed(20);
-		u.setStrength(30);
+		u.setStrength(25);
 		u.setDefence(20);
-		u.setMaxHp(20);
+		u.setMaxHp(15);
 		player.addUnit(u);
 //		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
+		u.setWeapon(new Weapon(3, 5));
 		
 		u  = new Unit();
 		ui = Config.loadPreference("images/characters/Boy-animations.xml");
@@ -43,7 +52,12 @@ public class Engine {
 		u.setMaxHp(30);
 		player.addUnit(u);
 		u.setImageData(ui);
+				
+		IWeapon w = util.Util.getClassInstancebyName("custom.spear");
+		w.setRange(3);
+		w.setStrength(2);
 		
+		u.setWeapon(w);
 	}
 
 

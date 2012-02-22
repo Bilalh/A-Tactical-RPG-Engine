@@ -16,7 +16,6 @@ public class AIUnit extends MapUnit {
 
 	public AIUnit(IMutableUnit unit, ILocation l, MapPlayer ai) {
 		super(unit, l, ai);
-		unit.setWeapon(new Weapon(5, 2));
 	}
 
 	@Override

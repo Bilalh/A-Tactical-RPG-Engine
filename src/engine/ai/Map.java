@@ -26,6 +26,7 @@ import engine.pathfinding.PathFinder;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
+import engine.unit.Weapon;
 
 /**
  * @author bilalh
@@ -79,6 +80,8 @@ public class Map extends BasicMap implements IMap {
 		u.setMaxHp(40);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
+		u.setWeapon(new Weapon(7, 1));
+
 		AIUnit au = new AIUnit(u, new Location(width - 1, 5), ai);
 		aiUnits.add(au);
 		field[width - 1][0].setCurrentUnit(au);
@@ -93,6 +96,8 @@ public class Map extends BasicMap implements IMap {
 		u.setMaxHp(30);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
+		u.setWeapon(new Weapon(7, 3));
+
 		au = new AIUnit(u, new Location(width - 1, 4), ai);
 		aiUnits.add(au);
 		field[width - 1][1].setCurrentUnit(au);
