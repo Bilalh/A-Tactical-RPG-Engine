@@ -8,11 +8,11 @@ import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
 import view.Main;
 import config.Config;
 import engine.ai.Map;
+import engine.items.RangedWeapon;
 import engine.map.interfaces.IMap;
 import engine.unit.IWeapon;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
-import engine.unit.Weapon;
 
 /**
  * @author bilalh
@@ -40,7 +40,7 @@ public class Engine {
 		player.addUnit(u);
 //		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
-		u.setWeapon(new Weapon(3, 5));
+		u.setWeapon(new RangedWeapon(6, 5,3));
 		
 		u  = new Unit();
 		ui = Config.loadPreference("images/characters/Boy-animations.xml");

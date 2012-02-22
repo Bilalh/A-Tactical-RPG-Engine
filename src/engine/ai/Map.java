@@ -19,6 +19,8 @@ import common.interfaces.IMapNotification;
 import common.interfaces.IMapUnit;
 
 import engine.Player;
+import engine.items.MeleeWeapon;
+import engine.items.RangedWeapon;
 import engine.map.*;
 import engine.map.interfaces.IMap;
 import engine.map.interfaces.IMutableMapUnit;
@@ -26,7 +28,6 @@ import engine.pathfinding.PathFinder;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
-import engine.unit.Weapon;
 
 /**
  * @author bilalh
@@ -80,7 +81,7 @@ public class Map extends BasicMap implements IMap {
 		u.setMaxHp(40);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
-		u.setWeapon(new Weapon(7, 1));
+		u.setWeapon(new MeleeWeapon(7));
 
 		AIUnit au = new AIUnit(u, new Location(width - 1, 5), ai);
 		aiUnits.add(au);
@@ -96,7 +97,7 @@ public class Map extends BasicMap implements IMap {
 		u.setMaxHp(30);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
-		u.setWeapon(new Weapon(7, 3));
+		u.setWeapon(new RangedWeapon(7, 2,0));
 
 		au = new AIUnit(u, new Location(width - 1, 4), ai);
 		aiUnits.add(au);

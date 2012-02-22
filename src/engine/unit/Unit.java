@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import common.enums.Orientation;
 
+import engine.items.MeleeWeapon;
+import engine.items.RangedWeapon;
 import engine.map.Tile;
 
 /**
@@ -36,7 +38,7 @@ public class Unit implements IMutableUnit {
 		uuid = UUID.randomUUID();
 		this.name = uuid.toString();
 		imageData = new UnitImages();
-		weapon = new Weapon(1, 1);
+		weapon = new MeleeWeapon(1);
 	}
 
 	public Unit(String name, int maxHp, int move, int strength, int speed) {

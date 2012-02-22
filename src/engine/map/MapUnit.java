@@ -8,9 +8,9 @@ import java.util.EnumSet;
 import common.Location;
 import common.interfaces.ILocation;
 
+import engine.items.RangedWeapon;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
-import engine.unit.Weapon;
 
 /**
  * Store data about unit specific to this map such as location on the map.
