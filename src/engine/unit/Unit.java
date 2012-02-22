@@ -36,7 +36,7 @@ public class Unit implements IMutableUnit {
 		uuid = UUID.randomUUID();
 		this.name = uuid.toString();
 		imageData = new UnitImages();
-		weapon = new Weapon(1, 3);
+		weapon = new Weapon(3, 3);
 	}
 
 	public Unit(String name, int maxHp, int move, int strength, int speed) {
