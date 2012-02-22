@@ -464,8 +464,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	void showAttackRange(){
 		AnimatedUnit u;
-		if (othersRange != null && (u=selectedTile.getUnit()) != null) {
-			removeRange(othersRange);
+		if (othersRange == null && (u=selectedTile.getUnit()) != null) {
+			othersRange = u.getAttackRange(fieldWidth, fieldHeight);
+			for (ILocation p : othersRange) {
+				getTile(p).setState(TileState.ATTACK_RANGE);
+			}
 			
 		}
 	}
