@@ -157,10 +157,9 @@ enum UnitState {
 	SHOW_TARGETS {
 		private Collection<Location> targets = null;
 
-		//FIXME refactor
 		@Override
 		void stateEntered(AnimatedUnit other) {
-			targets  = map.getCurrentUnit().getUnit().getWeapon().getAttackRange(map.getCurrentUnit().getLocation(), map.getFieldWidth(), map.getFieldHeight());
+			targets  = map.getCurrentUnit().getAttackRange(map.getFieldWidth(), map.getFieldHeight());
 			
 			for (Location p : targets) {
 				map.getTile(p).setState(TileState.ATTACK_RANGE);
@@ -174,7 +173,7 @@ enum UnitState {
 			IsoTile t =  map.getSelectedTile();
 			AnimatedUnit au = t.getUnit();
 			
-			if (t.getState() != IsoTile.TileState.ATTACK_RANGE || au == null || au.getUnit().isAI() == map.getCurrentUnit().getUnit().isAI() ) return null;
+			if (t.getState() != IsoTile.TileState.ATTACK_RANGE || au == null || map.getCurrentUnit().onSameTeam(au)) return null;
 			map.removeRange(targets);
 			return FIGHT;
 		}

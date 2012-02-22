@@ -77,4 +77,14 @@ public class ActionsAdapter implements IActions, MouseListener, MouseMotionListe
 
 	}
 
+	@Override
+	public void keyOther1() {
+		
+	}
+
+	@Override
+	public void keyOther2() {
+
+	}
+
 }

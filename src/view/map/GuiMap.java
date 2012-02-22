@@ -50,7 +50,7 @@ import engine.map.Tile;
 /**
  * The view
  * 
- * @author bilalh
+ * @author Bilal Hussain
  */
 public class GuiMap implements Observer, IMapRendererParent {
 	private static final Logger log = Logger.getLogger(GuiMap.class);
@@ -420,7 +420,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setActionHandler(ActionsEnum.FINISHED);
 	}
 	
-	Collection<LocationInfo> othersRange;
+	// Shows the movement range/attack range of other units.
+	Collection<? extends ILocation> othersRange;
 	void tileSelected() {
 		if (othersRange != null) return;
 
@@ -459,6 +460,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 	}
 
+	void showAttackRange(){
+		AnimatedUnit u;
+		if (othersRange != null && (u=selectedTile.getUnit()) != null) {
+			removeRange(othersRange);
+			
+		}
+	}
+	
 	Collection<LocationInfo> highlightRange(GuiUnit u, TileState tileState) {
 		Collection<LocationInfo> inRange = mapController.getMovementRange(u.getUnit());
 		for (LocationInfo p : inRange) {

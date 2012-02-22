@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.Collection;
 
 import org.apache.log4j.Logger;
 
@@ -101,6 +102,15 @@ public class GuiUnit {
 		final Point result =  tiles[gridX][gridY].calculateCentrePoint(x,y);
 		result.translate(-sprite.getWidth()/2, (int) (-sprite.getHeight()/1.5));
 		return result;
+	}
+	
+	
+	public Collection<Location> getAttackRange(int width, int height){
+		return getUnit().getWeapon().getAttackRange(getLocation(), width, height);
+	}
+	
+	public boolean onSameTeam(AnimatedUnit u){
+		return u != null && u.getUnit().isAI() == getUnit().isAI(); 
 	}
 	
 	public Location getLocation(){

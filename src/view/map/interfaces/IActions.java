@@ -11,4 +11,7 @@ public interface IActions {
 	void keyDown();
 	void keyLeft();
 	void keyRight();
+	
+	void keyOther1();
+	void keyOther2();
 }

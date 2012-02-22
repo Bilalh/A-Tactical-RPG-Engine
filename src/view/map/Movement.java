@@ -64,6 +64,8 @@ public  class Movement extends MapActions{
 		map.changeState(map.getState().cancel(null));
 	}
 	
+	
+	
     @Override
 	public void mousePressed(MouseEvent e) {
         mouseStart = e.getPoint();
@@ -122,5 +124,12 @@ public  class Movement extends MapActions{
         map.setDrawLocation(e.getX() - offsetX, e.getY() - offsetY);
 //        System.out.print((map.drawn ? "T" : "F") +  (mouseMoving ? ":" : "@"));
     }
+
+	@Override
+	public void keyOther1() {
+		if (map.getState() == UnitState.WAITING){
+			map.showAttackRange();
+		}
+	}
 	
 }
