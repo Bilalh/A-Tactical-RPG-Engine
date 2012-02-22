@@ -157,9 +157,9 @@ enum UnitState {
 	SHOW_TARGETS {
 		private Collection<Location> targets = null;
 
+		//FIXME refactor
 		@Override
 		void stateEntered(AnimatedUnit other) {
-//			targets = map.getMapController().getVaildTargets(map.getCurrentUnit().getUnit());
 			targets  = map.getCurrentUnit().getUnit().getWeapon().getAttackRange(map.getCurrentUnit().getLocation(), map.getFieldWidth(), map.getFieldHeight());
 			
 			for (Location p : targets) {
@@ -168,7 +168,6 @@ enum UnitState {
 			map.setActionHandler(GuiMap.ActionsEnum.MOVEMENT);
 		}
 
-		//TODO fight
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
 

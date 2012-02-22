@@ -244,19 +244,13 @@ public class Map extends BasicMap implements IMap {
 	public Collection<Location> getVaildTargets(IMutableMapUnit u) {
 		assert u != null;
 		
-		Location l = u.getLocation();
-		Tile t = field[l.x][l.y];
+		Collection<Location> attackRange = u.getWeapon().getAttackRange(u.getLocation(), width, height); 
+
 		Collection<Location> results = new ArrayList<Location>();
-		boolean opponent = !u.isAI();
-
-		for (Direction d : Direction.values()) {
-			final int nx = l.x + d.x, ny = l.y + d.y;
-			if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
-
-			final Tile tt = field[nx][ny];
-			final IMutableMapUnit v = tt.getCurrentUnit();
-			if (Math.abs(tt.getEndHeight() - t.getEndHeight()) <= 2 && v != null && v.isAI() == opponent) {
-				results.add(new Location(nx, ny));
+		for (Location l : attackRange) {
+			IMutableMapUnit m =getTile(l).getCurrentUnit();
+			if ( m != null && m.isAI() != u.isAI() ){
+				results.add(l);
 			}
 		}
 		return results;
