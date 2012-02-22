@@ -1,4 +1,4 @@
-package engine.ai;
+package engine.map;
 
 import org.apache.log4j.Logger;
 

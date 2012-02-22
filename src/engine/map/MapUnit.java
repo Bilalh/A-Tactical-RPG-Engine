@@ -2,8 +2,10 @@ package engine.map;
 
 import static engine.map.UnitStatus.MOVED;
 
+import java.util.Collection;
 import java.util.EnumSet;
 
+import common.Location;
 import common.interfaces.ILocation;
 
 import engine.map.interfaces.IMutableMapUnit;
@@ -27,6 +29,7 @@ public class MapUnit extends AbstractMapUnit {
 		this.currentHp = getMaxHp();
 	}
 
+	
 	@Override
 	public int getCost(Tile old, Tile next) {
 
@@ -38,6 +41,7 @@ public class MapUnit extends AbstractMapUnit {
 		return unit.getCost(old, next);
 	}
 
+	
 	@Override
 	public boolean hasStatus(UnitStatus s) {
 		return status.contains(s);
