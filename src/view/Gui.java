@@ -106,6 +106,8 @@ public class Gui {
 		frame.add(current);
 		frame.invalidate();
 		frame.repaint();
+		p.setFocusable(true);
+		p.requestFocus();
 	}
 
 	public void setVisible(boolean b) {
