@@ -54,14 +54,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>6</integer>
+				<integer>4</integer>
 				<key>line</key>
-				<integer>92</integer>
+				<integer>71</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>69</integer>
+			<integer>0</integer>
 		</dict>
 		<key>tex/Scripting.tex</key>
 		<dict>
@@ -85,8 +85,6 @@
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
-	<key>showFileHierarchyPanel</key>
-	<false/>
 	<key>treeState</key>
 	<dict>
 		<key>Dissertation</key>
@@ -94,18 +92,10 @@
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict>
-				<key>tex</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
-			</dict>
+			<dict/>
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{492, 135}, {886, 726}}</string>
+	<string>{{651, 139}, {886, 726}}</string>
 </dict>
 </plist>

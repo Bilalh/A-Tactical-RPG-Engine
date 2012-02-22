@@ -51,14 +51,14 @@ and create a playable tactic RPG.
 	\item \texttt{battles} which take place on grid and include:
 	\begin{itemize}
 		\tick  A set number of \texttt{units} for each player.
-		\item A Winning \texttt{condition} such as defeat all of the other players units.
+		\item  A Winning \texttt{condition} such as defeat all of the other players units.
 		\tick  Battles are \texttt{turn based} meaning that each player moves all their units (once) before the next player turn.   
-		\item A combat system.
+		\item  A combat system.
 	\end{itemize}
 	
 	\item A combat system that includes
 		\begin{itemize}
-			\item \texttt{combat} between adjacent units.
+			\tick \texttt{combat} between adjacent units.
 			\begin{itemize}
 				\tick When the unit hit-points are reduced to zero they are \texttt{defeated} and are removed from the map
 			\item A set of rules that govern the combat.
@@ -86,17 +86,19 @@ and create a playable tactic RPG.
 \label{secondary}
 The main goal of the secondary objectives is allow the user more customisability. 
 \begin{itemize}
-	\tick Tile have \texttt{height}, where units can only move to tiles of a smilier height.
+	\tick Tiles have \texttt{height}, where units can only move to tiles of a smilier height.
 	\cross Tiles that are not passable such as sea, lava, etc.
 	
 	\tick Tiles have different movement costs associated with them.
-		
-	\cross Long distance weapons\slash magic for player and AI.
+	
+	\item Players have items such as weapons that affect the result of combat between units. 
+	\begin{itemize}
+		\tick Including  Long distance weapons for the  player and AI.
+	\end{itemize}
 	
 	\cross Direction and height of the character's tile affects attack.
 	
 	\tick Sound effects.
-	
 	\tick Music.
 	
 	\cross Saving and loading games.
