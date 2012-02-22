@@ -24,6 +24,7 @@ import common.gui.ResourceManager;
  * @author Kevin Glass
  * @author Rockstar setVolume cleanup
  */
+@SuppressWarnings("all")
 public class SoundStore {
 
 	/** The single instance of this class */

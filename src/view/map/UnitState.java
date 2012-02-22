@@ -159,7 +159,9 @@ enum UnitState {
 
 		@Override
 		void stateEntered(AnimatedUnit other) {
-			targets = map.getMapController().getVaildTargets(map.getCurrentUnit().getUnit());
+//			targets = map.getMapController().getVaildTargets(map.getCurrentUnit().getUnit());
+			targets  = map.getCurrentUnit().getUnit().getWeapon().getAttackRange(map.getCurrentUnit().getLocation(), map.getFieldWidth(), map.getFieldHeight());
+			
 			for (Location p : targets) {
 				map.getTile(p).setState(TileState.ATTACK_RANGE);
 			}
@@ -169,7 +171,11 @@ enum UnitState {
 		//TODO fight
 		@Override
 		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			if (map.getSelectedTile().getState() != IsoTile.TileState.ATTACK_RANGE) return null;
+
+			IsoTile t =  map.getSelectedTile();
+			AnimatedUnit au = t.getUnit();
+			
+			if (t.getState() != IsoTile.TileState.ATTACK_RANGE || au == null || au.getUnit().isAI() == map.getCurrentUnit().getUnit().isAI() ) return null;
 			map.removeRange(targets);
 			return FIGHT;
 		}

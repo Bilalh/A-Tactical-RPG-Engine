@@ -23,6 +23,7 @@ import view.map.IsoTile;
  */
 public class A extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	IsoTile t; 
 	
 	A(){

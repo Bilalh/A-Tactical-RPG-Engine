@@ -444,7 +444,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 			case SHOW_TARGETS:
 				Logf.info(log, "exec: %s", state);
 				UnitState s = state.exec(null, null);
-				Logf.info(log, "newState: %s current:%s", s, state);
 				if (s != null) changeState(s);
 				break;
 			default:
@@ -813,6 +812,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 	/** @category Generated */
 	public Menu getMenu() {
 		return menu;
+	}
+
+	/** @category Generated */
+	public int getFieldWidth() {
+		return fieldWidth;
+	}
+
+	/** @category Generated */
+	public int getFieldHeight() {
+		return fieldHeight;
 	}
 
 }

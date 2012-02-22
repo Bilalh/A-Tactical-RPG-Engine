@@ -34,7 +34,7 @@ public class Battle implements IBattleInfo {
 	}
 
 	protected int calcuateDamage() {
-		int result = attacker.getStrength() - target.getDefence();
+		int result = attacker.getAttack() - target.getDefence();
 		if (result < 0) result = 0;
 		return result;
 	}

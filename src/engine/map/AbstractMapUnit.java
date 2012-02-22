@@ -8,6 +8,7 @@ import common.interfaces.ILocation;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
 import engine.unit.UnitImages;
+import engine.unit.Weapon;
 
 /**
  * Keeps all the gets and setters so it does not clutter the mapUnit class
@@ -22,6 +23,11 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 	protected int gridY = -1;
 	protected int currentHp;
 
+	@Override
+	public int getAttack(){
+		return getStrength() + getWeapon().getStrength();
+	}
+	
 	@Override
 	public String getName() {
 		return unit.getName();
@@ -133,15 +139,17 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 		this.currentHp = currentHp;
 	}
 
-	/** Removes the specifed number of hit points from the unit
+	/**
+	 * Removes the specifed number of hit points from the unit
+	 * 
 	 * @return True if the unit still alive otherwise false'
 	 */
 	@Override
-	public boolean removeHp(int value){
+	public boolean removeHp(int value) {
 		currentHp -= value;
-		return currentHp > 0; 
+		return currentHp > 0;
 	}
-	
+
 	public IMutableUnit getUnit() {
 		return unit;
 	}
@@ -185,5 +193,15 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 	public boolean isAI() {
 		return false;
 	}
-	
+
+	@Override
+	public Weapon getWeapon() {
+		return unit.getWeapon();
+	}
+
+	@Override
+	public void setWeapon(Weapon weapon) {
+		unit.setWeapon(weapon);
+	}
+
 }

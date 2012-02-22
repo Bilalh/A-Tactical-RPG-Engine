@@ -24,4 +24,9 @@ public interface IMapUnit extends IUnit {
 
 	boolean isAI();
 	
+	/**
+	 * Strength + weapons Strength +  any bonuses.
+	 */
+	int getAttack();
+	
 }

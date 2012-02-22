@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import engine.map.Tile;
 import engine.unit.UnitImages;
+import engine.unit.Weapon;
 
 /**
  * @author Bilal Hussain
@@ -31,4 +32,7 @@ public interface IUnit {
 	int getSpeed();
 	
 	UnitImages getImageData();
+	
+	Weapon getWeapon();
+	
 }

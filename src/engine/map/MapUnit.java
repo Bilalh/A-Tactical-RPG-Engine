@@ -10,6 +10,7 @@ import common.interfaces.ILocation;
 
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
+import engine.unit.Weapon;
 
 /**
  * Store data about unit specific to this map such as location on the map.
@@ -22,14 +23,14 @@ public class MapUnit extends AbstractMapUnit {
 	protected EnumSet<UnitStatus> status = EnumSet.noneOf(UnitStatus.class);
 
 	public MapUnit(IMutableUnit unit, ILocation l, MapPlayer player) {
-		this.gridX = l.getX();
-		this.gridY = l.getY();
-		this.unit = unit;
+		this.gridX  = l.getX();
+		this.gridY  = l.getY();
+		this.unit   = unit;
 		this.player = player;
+		
 		this.currentHp = getMaxHp();
 	}
 
-	
 	@Override
 	public int getCost(Tile old, Tile next) {
 
@@ -41,7 +42,6 @@ public class MapUnit extends AbstractMapUnit {
 		return unit.getCost(old, next);
 	}
 
-	
 	@Override
 	public boolean hasStatus(UnitStatus s) {
 		return status.contains(s);

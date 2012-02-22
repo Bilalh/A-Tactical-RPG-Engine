@@ -240,48 +240,6 @@ public class Map extends BasicMap implements IMap {
 		return pf.getMovementRange();
 	}
 
-	public static Collection<Location> getAttackRange(Location l, int range){
-		ArrayList<Location> list = new ArrayList<Location>();
-
-//		list.add(l.copy().translate(0, 1));
-		for (int i = range; i > 0; i--) {
-			for (int j = -1; j <= 1; j += 2) {
-				Location m = l.copy().translate(0, j * (range - i));
-				list.add(m);
-				for (int k = 1; k <= i; k++) {
-					list.add(m.copy().translate(k, 0));
-					list.add(m.copy().translate(-k, 0));
-				}
-			}
-		}
-		
-		list.add(l.copy().translate(0, range));
-		list.add(l.copy().translate(0, range));
-		
-		return list;
-	}
-	
-	public static void main(String[] args) {
-		Collection<Location> c = getAttackRange(new Location(4,4), 3);
-//		System.out.println(c);
-		
-		char[][] arr = new char[9][9];
-		
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if (c.contains(new Location(i, j))){
-					System.out.print("+");
-					arr[i][j]='+';
-				}else{
-					System.out.print(".");
-//					arr[i][j]=' ';
-				}
-			}
-			System.out.println();
-		}
-//		System.out.println(ArrayUtil.numberedArray2d(arr));
-	}
-	
 	// Returns the units that the specifed units can attack
 	public Collection<Location> getVaildTargets(IMutableMapUnit u) {
 		assert u != null;

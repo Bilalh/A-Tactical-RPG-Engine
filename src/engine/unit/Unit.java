@@ -29,20 +29,24 @@ public class Unit implements IMutableUnit {
 	private transient UnitImages imageData;
 	
 	private int weight;
+	private Weapon weapon;
+	
 	
 	public Unit(){
 		uuid = UUID.randomUUID();
 		this.name = uuid.toString();
 		imageData = new UnitImages();
+		weapon = new Weapon(1, 1);
 	}
-	
+
 	public Unit(String name, int maxHp, int move, int strength, int speed) {
 		this();
-		this.name=name;
-		this.maxHp = maxHp;
-		this.move = move;
+		this.name   = name;
+		this.maxHp  = maxHp;
+		this.move   = move;
+		this.speed  = speed;
+		
 		this.strength = strength;
-		this.speed    = speed;
 	}
 
 	@Override
@@ -182,4 +186,16 @@ public class Unit implements IMutableUnit {
 		this.imageData = imageData;
 	}
 
+	/** @category Generated */
+	@Override
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	/** @category Generated */
+	@Override
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+	
 }
