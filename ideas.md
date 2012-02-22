@@ -20,6 +20,7 @@ GUI
   * Units  -- done
 * refactor -- done
 * Skip empty tiles -- done
+* Wait util music is finished 
 
 Misc
 ----
@@ -31,7 +32,7 @@ Misc
 * Zoom  -- done
 * Pitch -- done
 * Selection above range -- done
-* Map scrolling to current units turn --  maybe
+* Map scrolling to current units turn --  maybe?
 
 State
 -----
