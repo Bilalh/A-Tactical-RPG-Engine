@@ -255,6 +255,7 @@ enum UnitState {
 			}
 			map.getSkillMovement().setSkill(selectedSkill);
 			map.getSkillMovement().setAttackRange(targets);
+			map.getSkillMovement().showSkillArea();
 			map.setActionHandler(GuiMap.ActionsEnum.SKILL_MOVEMENT);
 		}
 

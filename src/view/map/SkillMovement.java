@@ -23,7 +23,7 @@ public class SkillMovement extends Movement {
 		super(map);
 	}
 	
-	private void showSkillArea(){
+	public void showSkillArea(){
 		for (Location l : skillArea) {
 			map.getTile(l).setState(TileState.NONE);
 		}
