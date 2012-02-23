@@ -6,6 +6,7 @@ import java.util.Collection;
 import common.Location;
 import common.enums.Direction;
 
+import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IWeapon;
 
 /**
@@ -69,4 +70,11 @@ public class Spear implements IWeapon {
 		this.range = range;
 	}
 
+	@Override
+	public Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target) {
+		ArrayList<IMutableMapUnit> list = new ArrayList<IMutableMapUnit>();
+		list.add(target);
+		return list;
+	}
+	
 }

@@ -23,6 +23,23 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 	protected int gridY = -1;
 	protected int currentHp;
 
+
+	@Override
+	public boolean willDie(int damage) {
+		return (currentHp - damage) <= 0;
+	}
+	
+	/**
+	 * Removes the specifed number of hit points from the unit
+	 * 
+	 * @return True if the unit still alive otherwise false'
+	 */
+	@Override
+	public boolean removeHp(int value) {
+		currentHp -= value;
+		return currentHp > 0;
+	}
+	
 	@Override
 	public int getAttack(){
 		return getStrength() + getWeapon().getStrength();
@@ -137,17 +154,6 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 	@Override
 	public void setCurrentHp(int currentHp) {
 		this.currentHp = currentHp;
-	}
-
-	/**
-	 * Removes the specifed number of hit points from the unit
-	 * 
-	 * @return True if the unit still alive otherwise false'
-	 */
-	@Override
-	public boolean removeHp(int value) {
-		currentHp -= value;
-		return currentHp > 0;
 	}
 
 	public IMutableUnit getUnit() {

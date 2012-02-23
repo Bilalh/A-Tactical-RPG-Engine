@@ -1,5 +1,9 @@
 package engine.items;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IWeapon;
 
 /**
@@ -29,8 +33,15 @@ public abstract class AbstractWeapon  implements IWeapon {
 
 	/** @category Generated */
 	@Override
-	public void setStrength(int strength) {
+	public void setStrength(int strength) { 
 		this.strength = strength;
+	}
+
+	@Override
+	public Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target) {
+		ArrayList<IMutableMapUnit> list = new ArrayList<IMutableMapUnit>();
+		list.add(target);
+		return list;
 	}
 
 }

@@ -29,4 +29,6 @@ public interface IMapUnit extends IUnit {
 	 */
 	int getAttack();
 	
+	public boolean willDie(int damage);
+	
 }

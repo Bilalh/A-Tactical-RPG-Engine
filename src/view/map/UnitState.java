@@ -26,17 +26,17 @@ enum UnitState {
 	
 	WAITING {
 		@Override
-		void stateEntered(AnimatedUnit other) {
+		void stateEntered() {
 			map.setActionHandler(GuiMap.ActionsEnum.MOVEMENT);
 		}
 
 		@Override
-		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
+		UnitState exec() {
 			return MENU_SELECTED;
 		}
 
 		@Override
-		UnitState cancel(AnimatedUnit other) {
+		UnitState cancel() {
 			map.waitingCancel();
 			return this;
 		}
@@ -49,13 +49,13 @@ enum UnitState {
 		});
 		
 		@Override
-		void stateEntered(AnimatedUnit other) {
+		void stateEntered() {
 			map.getMenu().setCommands(commands);
 			map.setActionHandler(GuiMap.ActionsEnum.MENU);
 		}
 
 		@Override
-		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
+		UnitState exec() {
 			int index = map.getMenu().getSelectedIndex();
 
 			switch (index) {
@@ -66,7 +66,7 @@ enum UnitState {
 				case 2:
 					return FINISHED;
 				case 3:
-					return cancel(null);
+					return cancel();
 				default:
 					return this;
 			}
@@ -74,7 +74,7 @@ enum UnitState {
 		}
 
 		@Override
-		UnitState cancel(AnimatedUnit other) {
+		UnitState cancel() {
 			return WAITING;
 			
 		}
@@ -84,7 +84,7 @@ enum UnitState {
 		private Collection<LocationInfo> inRange = null;
 
 		@Override
-		void stateEntered(AnimatedUnit other) {
+		void stateEntered() {
 			// Set up movement range
 			inRange =  map.highlightRange(map.getCurrentUnit(), TileState.MOVEMENT_RANGE);
 			assert inRange != null;
@@ -92,9 +92,7 @@ enum UnitState {
 		}
 
 		@Override
-		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
-			assert other != null;
-			assert otherTile != null;
+		UnitState exec() {
 			assert map.getSelectedTile() != null;
 			assert inRange != null;
 			
@@ -105,7 +103,7 @@ enum UnitState {
 				return this;
 			}
 
-			map.getMapController().moveUnit(other.getUnit(), map.getSelectedTile().getLocation());
+			map.getMapController().moveUnit(map.getCurrentUnit().getUnit(), map.getSelectedTile().getLocation());
 			map.removeRange(inRange);
 			
 			inRange = null;
@@ -115,7 +113,7 @@ enum UnitState {
 		}
 
 		@Override
-		UnitState cancel(AnimatedUnit other) {
+		UnitState cancel() {
 			map.removeRange(inRange);
 			return MENU_SELECTED; 
 		}
@@ -128,13 +126,13 @@ enum UnitState {
 		});
 		
 		@Override
-		void stateEntered(AnimatedUnit other) {
+		void stateEntered() {
 			map.getMenu().setCommands(commands); 
 			map.setActionHandler(GuiMap.ActionsEnum.MENU);
 		}
 
 		@Override
-		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
+		UnitState exec() {
 			int index = map.getMenu().getSelectedIndex();
 
 			switch (index) {
@@ -148,17 +146,17 @@ enum UnitState {
 		}
 
 		@Override
-		UnitState cancel(AnimatedUnit other) {
+		UnitState cancel() {
 			return this;
 			
 		}
 	},
 	
 	SHOW_TARGETS {
-		private Collection<Location> targets = null;
+		Collection<Location> targets = null;
 
 		@Override
-		void stateEntered(AnimatedUnit other) {
+		void stateEntered() {
 			targets  = map.getCurrentUnit().getAttackRange(map.getFieldWidth(), map.getFieldHeight());
 			
 			for (Location p : targets) {
@@ -168,7 +166,7 @@ enum UnitState {
 		}
 
 		@Override
-		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
+		UnitState exec() {
 
 			IsoTile t =  map.getSelectedTile();
 			AnimatedUnit au = t.getUnit();
@@ -179,7 +177,7 @@ enum UnitState {
 		}
 
 		@Override
-		UnitState cancel(AnimatedUnit other) {
+		UnitState cancel() {
 			map.removeRange(targets);
 			return MENU_MOVED;
 		}
@@ -187,19 +185,19 @@ enum UnitState {
 	
 	FIGHT {
 		@Override
-		void stateEntered(AnimatedUnit other) {
+		void stateEntered() {
 			map.setActionHandler(ActionsEnum.NONE);
 			map.getMapController().targetChosen(map.getCurrentUnit().getUnit(), map.getSelectedTile().getUnit().getUnit());
 		}
 
 		@Override
-		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
+		UnitState exec() {
 			assert false : "Should not be called";
 			return FINISHED;
 		}
 
 		@Override
-		UnitState cancel(AnimatedUnit other) {
+		UnitState cancel() {
 			assert false : "Should not be called";
 			return this;
 			
@@ -208,19 +206,19 @@ enum UnitState {
 	
 	FINISHED {
 		@Override
-		void stateEntered(AnimatedUnit other) {
+		void stateEntered() {
 			map.getMapController().unitTurnFinished(map.getCurrentUnit().getUnit());
 		}
 
 		@Override
-		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
+		UnitState exec() {
 			assert false : "Should not be called";
 			return WAITING;
 			
 		}
 
 		@Override
-		UnitState cancel(AnimatedUnit other) {
+		UnitState cancel() {
 			assert false : "Should not be called";
 			return this;
 			
@@ -230,29 +228,29 @@ enum UnitState {
 	/** @category Unused**/
 	DEFEATED {
 		@Override
-		void stateEntered(AnimatedUnit other) {
+		void stateEntered() {
 			
 		}
 
 		@Override
-		UnitState exec(AnimatedUnit other, IsoTile otherTile) {
+		UnitState exec() {
 			return null;
 			
 		}
 
 		@Override
-		UnitState cancel(AnimatedUnit other) {
+		UnitState cancel() {
 			return this;
 			
 		}
 	};
 	
 	/** Peforms any actions when the state is entered */
-	abstract void stateEntered(AnimatedUnit other);
+	abstract void stateEntered();
 	/** Peform any actions of the state and return the next state */
-	abstract UnitState exec(AnimatedUnit other, IsoTile otherTile);
+	abstract UnitState exec();
 	/** Goes to the previous state */
-	abstract UnitState cancel(AnimatedUnit other);
+	abstract UnitState cancel();
 	
 	private static GuiMap map;
 	public static void setMap(GuiMap map) {UnitState.map = map;}

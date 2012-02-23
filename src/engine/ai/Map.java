@@ -262,21 +262,27 @@ public class Map extends BasicMap implements IMap {
 		return results;
 	}
 
+	private void unitDied(IMutableMapUnit target){
+		if (target.isAI()){
+			ai.unitDied(target);
+		}else{
+			player.unitDied(target);
+		}
+		order.remove(target);
+		paths.remove(target);
+		getTile(target.getLocation()).setCurrentUnit(null);		
+	}
+	
 	// Peforms the attack and notifies the Observers what the results were 
 	public void targetChosen(IMutableMapUnit u, IMutableMapUnit target){
 		
 		Battle battle = new Battle(u, target);
 		battle.performBattle();
 		
-		if (!battle.isTargetAlive()){
-			if (target.isAI()){
-				ai.unitDied(target);
-			}else{
-				player.unitDied(target);
+		for (BattleResult b : battle.getResults()) {
+			if (b.isTargetDead()){
+				unitDied(b.getTarget());
 			}
-			order.remove(target);
-			paths.remove(target);
-			getTile(target.getLocation()).setCurrentUnit(null);
 		}
 		
 		sendNotification(new BattleNotification(battle));

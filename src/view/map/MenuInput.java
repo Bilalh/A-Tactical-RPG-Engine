@@ -34,13 +34,13 @@ public class MenuInput extends MapActions {
 	@Override
 	public void keyComfirm() {
 		Logf.info(log, "exec: %s",map.getState());
-		map.changeState(map.getState().exec(null, null));
+		map.changeState(map.getState().exec());
 	}
 
 	@Override
 	public void keyCancel() {
 		Logf.info(log, "cancel: %s",map.getState());
-		map.changeState(map.getState().cancel(null));
+		map.changeState(map.getState().cancel());
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class MenuInput extends MapActions {
 		
 		if (mi != null){
 			Logf.info(log, "exec: %s",map.getState());
-			map.changeState(map.getState().exec(null, null));
+			map.changeState(map.getState().exec());
 		}else{
 			keyCancel();
 		}

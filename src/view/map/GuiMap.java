@@ -45,6 +45,7 @@ import common.interfaces.IUnit;
 
 import config.xml.TileImageData;
 import controller.MapController;
+import engine.map.BattleResult;
 import engine.map.Tile;
 
 /**
@@ -376,30 +377,45 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void unitsBattle(final IBattleInfo battleInfo) {
 		log.info(battleInfo);
 		
-		final AnimatedUnit atarget = unitMapping.get(battleInfo.getTarget().getUuid());
-		atarget.setDamage(battleInfo.getDamage());
-		setSelectedTile(battleInfo.getTarget().getLocation());
+		for (BattleResult battle : battleInfo.getResults()) {
+			AnimatedUnit atarget = unitMapping.get(battle.getTarget().getUuid());
+			atarget.setDamage(battle.getDamage());
+			setSelectedTile(battle.getTarget().getLocation());
+		}
+		
 		
 		// End unit's turn
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				atarget.removeDamage();
-				
-				
-				if (!battleInfo.isTargetAlive()){
-					Logf.info(log, "Died:%s", battleInfo.getTarget());
-					unitMapping.remove(battleInfo.getTarget().getUuid());
-					getTile(atarget.getLocation()).removeUnit();
+				int playLose = 0, playGain = 0;
+				for (BattleResult battle : battleInfo.getResults()) {
+					AnimatedUnit au =  unitMapping.get(battle.getTarget().getUuid());
+					au.removeDamage();
 					
-					if (battleInfo.getTarget().isAI()){
-						aiUnits.remove(atarget);
-						Gui.getMusicThread().playSound("music/sounds/19 - Battle Victory.ogg");
-					}else{
-						plunits.remove(atarget);
-						Gui.getMusicThread().playSound("music/sounds/10-14 Death.ogg");
+					if (battle.isTargetDead()){
+						Logf.info(log, "Died:%s", battle.getTarget());
+						unitMapping.remove(battle.getTarget().getUuid());
+						getTile(au.getLocation()).removeUnit();
+						if (battle.getTarget().isAI()){
+							aiUnits.remove(au);
+							playGain++;
+						}else{
+							plunits.remove(au);
+							playLose++;
+						}
 					}
 				}
+
+				int lose =  playLose - playGain;
+				if (playLose != 0 || playGain != 0){
+					if (lose >= 0){
+						Gui.getMusicThread().playSound("music/sounds/10-14 Death.ogg");
+					}else{
+						Gui.getMusicThread().playSound("music/sounds/19 - Battle Victory.ogg");	
+					}
+				}
+				
 				changeState(UnitState.FINISHED);
 			}
 		}, 1300);
@@ -438,15 +454,15 @@ public class GuiMap implements Observer, IMapRendererParent {
 		switch (state) {
 			case WAITING:
 				Logf.info(log, "exec: %s", state);
-				changeState(state.exec(null, null));
+				changeState(state.exec());
 				break;
 			case MOVEMENT_RANGE:
 				Logf.info(log, "exec: %s", state);
-				nextState = state.exec(currentUnit, selected);
+				nextState = state.exec();
 				break;
 			case SHOW_TARGETS:
 				Logf.info(log, "exec: %s", state);
-				UnitState s = state.exec(null, null);
+				UnitState s = state.exec();
 				if (s != null) changeState(s);
 				break;
 			default:
@@ -499,7 +515,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		Logf.info(log, "State %s -> %s", state, newState);
 		state = newState;
 		Logf.info(log, "stateEntered: %s", state);
-		state.stateEntered(null);
+		state.stateEntered();
 	}
 
 	private void displayMessage(String text) {

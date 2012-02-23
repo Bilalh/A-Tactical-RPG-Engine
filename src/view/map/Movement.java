@@ -61,7 +61,7 @@ public  class Movement extends MapActions{
 	@Override
 	public void keyCancel() {
 		Logf.info(log, "cancel: %s",map.getState());
-		map.changeState(map.getState().cancel(null));
+		map.changeState(map.getState().cancel());
 	}
 	
 	

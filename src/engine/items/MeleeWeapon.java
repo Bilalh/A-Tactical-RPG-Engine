@@ -45,4 +45,5 @@ public class MeleeWeapon extends AbstractWeapon {
 	public void setRange(int range) {
 		
 	}
+	
 }

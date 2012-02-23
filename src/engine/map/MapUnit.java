@@ -74,8 +74,7 @@ public class MapUnit extends AbstractMapUnit {
 
 	@Override
 	public String toString() {
-		return String
-				.format("MapUnit[name=%s, hp=%s/%s, move=%s, str=%s, def=%s, L=%s, speed=%s, rs=%s, status=%s]",
+		return String.format("MapUnit[name=%s, hp=%s/%s, move=%s, str=%s, def=%s, L=%s, speed=%s, rs=%s, status=%s]",
 						getName(), getCurrentHp(), getMaxHp(), getMove(), getStrength(), getDefence(), getLocation(), getSpeed(),
 						readiness, status);
 	}

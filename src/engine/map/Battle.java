@@ -1,5 +1,8 @@
 package engine.map;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 
 import util.Logf;
@@ -17,59 +20,48 @@ public class Battle implements IBattleInfo {
 	private static final Logger log = Logger.getLogger(Battle.class);
 
 	protected final IMutableMapUnit attacker;
-	protected final IMutableMapUnit target;
-
-	protected int damage;
-	protected boolean targetAlive;
-
+	protected final Collection<BattleResult> results;
+	
 	public Battle(IMutableMapUnit attacker, IMutableMapUnit target) {
 		this.attacker = attacker;
-		this.target = target;
-		calcuateBattle();
+		this.results  = calcuateBattles(attacker.getWeapon().getTarget(attacker, target));
 	}
 
-	protected void calcuateBattle() {
-		damage = calcuateDamage();
-		Logf.info(log, "%s taking %s of %s", attacker, damage, target);
+	protected Collection<BattleResult> calcuateBattles(Collection<IMutableMapUnit> targets) {
+		Collection<BattleResult> results = new ArrayList<BattleResult>();
+		for (IMutableMapUnit target : targets) {
+			int damage = calcuateDamage(target);
+			results.add(new BattleResult(target, damage, target.willDie(damage)));
+			Logf.info(log, "%s taking %s of %s", attacker, damage, target);
+		}
+		return results;
 	}
 
-	protected int calcuateDamage() {
+	protected int calcuateDamage(IMutableMapUnit target) {
 		int result = attacker.getAttack() - target.getDefence();
 		if (result < 0) result = 0;
 		return result;
 	}
 
 	public void performBattle() {
-		targetAlive = target.removeHp(damage);
+		for (BattleResult battle : results) {
+			battle.getTarget().removeHp(battle.getDamage());
+		}
 	}
 
-	/** @category Generated */
 	@Override
 	public IMapUnit getAttacker() {
 		return attacker;
 	}
 
-	/** @category Generated */
 	@Override
-	public IMapUnit getTarget() {
-		return target;
+	public Collection<BattleResult> getResults() {
+		return results;
 	}
-
-	/** @category Generated */
-	@Override
-	public int getDamage() {
-		return damage;
-	}
-
-	/** @category Generated */
-	@Override
-	public boolean isTargetAlive() {
-		return targetAlive;
-	}
-
+	
 	@Override
 	public String toString() {
-		return String.format("Battle [attacker=%s, target=%s, damage=%s, targetAlive=%s]", attacker, target, damage, targetAlive);
+		return String.format("Battle [attacker=%s, results=%s]", attacker, results);
 	}
 
 }
