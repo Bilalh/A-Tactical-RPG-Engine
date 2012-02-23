@@ -1,6 +1,6 @@
 package editor.map;
 
-import common.IListener;
+import common.interfaces.IListener;
 
 /**
  * @author Bilal Hussain

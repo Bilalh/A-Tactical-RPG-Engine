@@ -4,10 +4,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
+import common.interfaces.IWeapon;
 
 import view.Main;
 import config.Config;
-import engine.items.IWeapon;
 import engine.items.RangedWeapon;
 import engine.items.Spear;
 import engine.map.Map;

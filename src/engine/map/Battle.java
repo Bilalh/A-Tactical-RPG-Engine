@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import util.Logf;
 
-import common.IBattleInfo;
+import common.interfaces.IBattleInfo;
 import common.interfaces.IMapUnit;
 
 import engine.map.interfaces.IMutableMapUnit;

@@ -17,9 +17,9 @@ import common.enums.Direction;
 import common.interfaces.ILocation;
 import common.interfaces.IMapNotification;
 import common.interfaces.IMapUnit;
+import common.interfaces.IWeapon;
 
 import engine.Player;
-import engine.items.IWeapon;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
 import engine.map.*;

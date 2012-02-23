@@ -3,6 +3,8 @@ package engine.items;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import common.interfaces.IWeapon;
+
 import engine.map.Map;
 import engine.map.interfaces.IMutableMapUnit;
 

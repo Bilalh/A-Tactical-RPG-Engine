@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import common.Location;
 import common.interfaces.ILocation;
+import common.interfaces.IWeapon;
 
-import engine.items.IWeapon;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
 import engine.unit.UnitImages;

@@ -1,8 +1,8 @@
 package engine.map;
 
+import common.interfaces.IBattleResult;
 import common.interfaces.IMapUnit;
 
-import engine.map.interfaces.IBattleResult;
 import engine.map.interfaces.IMutableMapUnit;
 
 public class BattleResult implements IBattleResult {

@@ -8,6 +8,7 @@ import java.util.HashSet;
 import util.ArrayUtil;
 
 import common.Location;
+import common.interfaces.IWeapon;
 
 /**
  * @author Bilal Hussain

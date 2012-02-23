@@ -1,8 +1,7 @@
-package common;
+package common.interfaces;
 
 import java.util.Collection;
 
-import common.interfaces.IMapUnit;
 import engine.map.BattleResult;
 
 /**

@@ -1,7 +1,7 @@
 package editor.spritesheet;
 
-import common.IListener;
 import common.gui.Sprite;
+import common.interfaces.IListener;
 
 /**
  * @author Bilal Hussain

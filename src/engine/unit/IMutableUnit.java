@@ -1,7 +1,7 @@
 package engine.unit;
 
 import common.interfaces.IUnit;
-import engine.items.IWeapon;
+import common.interfaces.IWeapon;
 import engine.map.MapPlayer;
 
 /**

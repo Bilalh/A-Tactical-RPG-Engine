@@ -32,21 +32,16 @@ import view.util.BufferSize;
 import view.util.MapActions;
 import view.util.MousePoxy;
 
-import common.IBattleInfo;
 import common.Location;
 import common.LocationInfo;
 import common.enums.Direction;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
-import common.interfaces.ILocation;
-import common.interfaces.IMapNotification;
-import common.interfaces.IMapUnit;
-import common.interfaces.IUnit;
+import common.interfaces.*;
 
 import config.xml.TileImageData;
 import controller.MapController;
 import engine.map.Tile;
-import engine.map.interfaces.IBattleResult;
 
 /**
  * The view

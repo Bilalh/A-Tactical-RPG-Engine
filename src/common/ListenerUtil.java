@@ -2,6 +2,8 @@ package common;
 
 import java.util.List;
 
+import common.interfaces.IListener;
+
 import editor.spritesheet.ISpriteChangedListener;
 
 /**

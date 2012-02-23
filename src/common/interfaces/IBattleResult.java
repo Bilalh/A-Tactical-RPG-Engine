@@ -1,6 +1,5 @@
-package engine.map.interfaces;
+package common.interfaces;
 
-import common.interfaces.IMapUnit;
 
 /**
  * @author Bilal Hussain
