@@ -24,13 +24,17 @@ public class Menu implements IMenu {
 	private RoundRectangle2D.Float area = new RoundRectangle2D.Float();
 	private List<MenuItem> commands;
 
+	private int width = 80;
+	
+	
+	
 	@Override
 	public void draw(Graphics2D g, int drawX, int drawY) {
 		g = (Graphics2D) g.create();
 
 		area = new RoundRectangle2D.Float(drawX, drawY,
-				80,
-				25 * commands.size(),
+				width,
+				23 * commands.size(),
 				10, 10);
 
 		Composite oldC = g.getComposite();
@@ -105,5 +109,17 @@ public class Menu implements IMenu {
 	public int getSelectedIndex() {
 		return selected;
 	}
+
+	/** @category Generated */
+	@Override
+	public int getWidth() {
+		return width;
+	}
 	
+	/** @category Generated */
+	@Override
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
 }

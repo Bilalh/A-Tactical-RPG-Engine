@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import util.Logf;
 import view.map.GuiMap.ActionsEnum;
 import view.ui.Menu;
+import view.ui.interfaces.IMenu;
 import view.ui.interfaces.IMenuItem;
 import view.util.MapActions;
 
@@ -19,16 +20,16 @@ import view.util.MapActions;
 public class MenuInput extends MapActions {
 	private static final Logger log = Logger.getLogger(MenuInput.class);
 	
-	private Menu menu;
+	private IMenu menu;
 
-	public MenuInput(GuiMap map, Menu menu) {
+	public MenuInput(GuiMap map, IMenu menu) {
 		super(map);
 		this.menu = menu;
 	}
 
 	@Override
 	public void draw(Graphics2D g, int width, int height) {
-		menu.draw(g, width - 100, height - 200);
+		menu.draw(g, width - menu.getWidth()-5, height - 200);
 	}
 
 	@Override

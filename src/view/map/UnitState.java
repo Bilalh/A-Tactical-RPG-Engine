@@ -45,12 +45,13 @@ enum UnitState {
 	
 	MENU_SELECTED {
 		private final List<MenuItem> commands = Arrays.asList(new MenuItem[]{
-				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Wait"), new MenuItem("Cancel")
+				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Skill"), new MenuItem("Wait"), new MenuItem("Cancel")
 		});
 		
 		@Override
 		void stateEntered() {
 			map.getMenu().setCommands(commands);
+			map.getMenu().setWidth(80);
 			map.setActionHandler(GuiMap.ActionsEnum.MENU);
 		}
 
@@ -62,10 +63,12 @@ enum UnitState {
 				case 0:
 					return MOVEMENT_RANGE;
 				case 1:
-					return SHOW_TARGETS;
+					return SHOW_ATTACK_TARGETS;
 				case 2:
-					return FINISHED;
+					return MENU_SKILL;
 				case 3:
+					return FINISHED;
+				case 4:
 					return cancel();
 				default:
 					return this;
@@ -128,6 +131,7 @@ enum UnitState {
 		@Override
 		void stateEntered() {
 			map.getMenu().setCommands(commands); 
+			map.getMenu().setWidth(80);
 			map.setActionHandler(GuiMap.ActionsEnum.MENU);
 		}
 
@@ -137,8 +141,10 @@ enum UnitState {
 
 			switch (index) {
 				case 0:
-					return SHOW_TARGETS;
+					return SHOW_ATTACK_TARGETS;
 				case 1:
+					return MENU_SKILL;
+				case 2:
 					return FINISHED;
 				default:
 					return this;
@@ -152,7 +158,32 @@ enum UnitState {
 		}
 	},
 	
-	SHOW_TARGETS {
+	MENU_SKILL{
+
+		private List<MenuItem> commands = Arrays.asList(new MenuItem[]{
+				new MenuItem("Air Blade"), new MenuItem("Thunder Flare"), new MenuItem("Thunderbird")
+		});
+		
+		@Override
+		void stateEntered() {
+			map.getMenu().setCommands(commands);
+			map.getMenu().setWidth(120);
+			map.setActionHandler(GuiMap.ActionsEnum.MENU);
+		}
+
+		@Override
+		UnitState exec() {
+			return this;
+		}
+
+		@Override
+		UnitState cancel() {
+			return MENU_MOVED;
+		}
+		
+	},
+	
+	SHOW_ATTACK_TARGETS {
 		Collection<Location> targets = null;
 
 		@Override

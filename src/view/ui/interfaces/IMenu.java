@@ -30,4 +30,7 @@ public interface IMenu extends IDisplayable {
 
 	int getSelectedIndex();
 
+	int getWidth();
+	void setWidth(int width);
+
 }
