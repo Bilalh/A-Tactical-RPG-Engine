@@ -7,17 +7,18 @@ import java.util.HashSet;
 import common.Location;
 
 import engine.map.interfaces.IMutableMapUnit;
-import engine.skills.Skill;
+import engine.skills.ISkill;
 import engine.unit.Unit;
 
 /**
+ * Combat system for Skills
  * @author Bilal Hussain
  */
 public class SkillBattle extends Battle {
 
-	protected Skill skill;
+	protected ISkill skill;
 	
-	public SkillBattle(Skill skill, IMutableMapUnit attacker, Location target, Map map) {
+	public SkillBattle(ISkill skill, IMutableMapUnit attacker, Location target, Map map) {
 		super(attacker);
 		this.skill = skill;
 		results = calcuateBattles(getTargets(attacker, target, map));

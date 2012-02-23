@@ -8,6 +8,7 @@ import common.Location;
 import common.enums.Direction;
 
 /**
+ *  Close combat
  * @author Bilal Hussain
  */
 public class MeleeWeapon extends AbstractWeapon {

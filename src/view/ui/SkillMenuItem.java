@@ -1,21 +1,21 @@
 package view.ui;
 
-import engine.skills.Skill;
+import engine.skills.ISkill;
 
 /**
  * @author Bilal Hussain
  */
 public class SkillMenuItem extends MenuItem {
 
-	protected Skill skill;
+	protected ISkill skill;
 
-	public SkillMenuItem(Skill skill) {
+	public SkillMenuItem(ISkill skill) {
 		super(skill.getName());
 		this.skill = skill;
 	}
 
 	/** @category Generated */
-	public Skill getSkill() {
+	public ISkill getSkill() {
 		return skill;
 	}
 

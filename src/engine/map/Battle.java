@@ -13,7 +13,7 @@ import common.interfaces.IMapUnit;
 import engine.map.interfaces.IMutableMapUnit;
 
 /**
- * 
+ * Combat system for attacks
  * @author Bilal Hussain
  */
 public class Battle implements IBattleInfo {

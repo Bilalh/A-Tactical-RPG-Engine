@@ -52,9 +52,9 @@ public class Unit implements IMutableUnit {
 		imageData = new UnitImages();
 		weapon = new MeleeWeapon(1);
 		skills = new ArrayList<Skill>();
-		skills.add(new Skill("Air Blade",     10, 2, 0,true));
-		skills.add(new Skill("Thunder Flare", 20, 3, 1,true));
-		skills.add(new Skill("Thunderbird",   30, 30, 20,true));
+		skills.add(new Skill("Air Blade",     10, 2,  0, true));
+		skills.add(new Skill("Thunder Flare", 15, 3,  1, true));
+		skills.add(new Skill("Thunderbird",   40, 4,  2, true));
 	}
 
 	public Unit(String name, int maxHp, int move, int strength, int speed) {

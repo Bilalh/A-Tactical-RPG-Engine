@@ -8,7 +8,7 @@ import common.Location;
 /**
  * @author Bilal Hussain
  */
-public class Skill {
+public class Skill implements ISkill {
 
 	protected String name;
 	protected int power;
@@ -29,12 +29,14 @@ public class Skill {
 		this.targetOpposite = targetOpposite;
 	}
 
+	@Override
 	public Collection<Location> getAttackRange(Location start, int width, int height) {
 		HashSet<Location> set = makeRange(start, width, height, range);
 		set.remove(start);
 		return set;
 	}
 	
+	@Override
 	public Collection<Location> getArea(Location start, int width, int height){
 		Collection<Location> results =  makeRange(start, width, height, area);
 		results.add(start);
@@ -80,43 +82,61 @@ public class Skill {
 	}
 
 	/** @category Generated */
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	/** @category Generated */
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/** @category Generated */
+	@Override
 	public int getPower() {
 		return power;
 	}
 
 	/** @category Generated */
+	@Override
 	public void setPower(int power) {
 		this.power = power;
 	}
 
 	/** @category Generated */
+	@Override
 	public int getRange() {
 		return range;
 	}
 
 	/** @category Generated */
+	@Override
 	public void setRange(int range) {
 		this.range = range;
 	}
 
 	/** @category Generated */
+	@Override
 	public boolean isTargetOpposite() {
 		return targetOpposite;
 	}
 
 	/** @category Generated */
+	@Override
 	public void setTargetOpposite(boolean targetOpposite) {
 		this.targetOpposite = targetOpposite;
+	}
+
+	/** @category Generated */
+	public int getArea() {
+		return area;
+	}
+
+	/** @category Generated */
+	public void setArea(int area) {
+		this.area = area;
 	}
 	
 }

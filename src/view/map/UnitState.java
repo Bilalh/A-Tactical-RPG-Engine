@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import common.Location;
 import common.LocationInfo;
-import engine.skills.Skill;
+import engine.skills.ISkill;
 
 import util.Logf;
 import view.map.GuiMap.ActionsEnum;
@@ -220,7 +220,7 @@ enum UnitState {
 		void stateEntered() {
 			commands = new ArrayList<SkillMenuItem>();
 
-			for (Skill s : map.getCurrentUnit().getUnit().getSkills()) {
+			for (ISkill s : map.getCurrentUnit().getUnit().getSkills()) {
 				commands.add(new SkillMenuItem(s));
 			}
 			map.getMenu().setCommands(commands);
@@ -328,7 +328,7 @@ enum UnitState {
 	/** Goes to the previous state */
 	abstract UnitState cancel();
 
-	private static Skill selectedSkill;
+	private static ISkill selectedSkill;
 	
 	private static GuiMap map;
 	public static void setMap(GuiMap map) {UnitState.map = map;}

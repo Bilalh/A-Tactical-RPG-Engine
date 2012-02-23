@@ -13,6 +13,8 @@ import engine.map.Map;
 import engine.map.interfaces.IMutableMapUnit;
 
 /**
+ * A Spear attacks a specifed  number of tiles in one of the four directions. 
+ * Each unit that is in the range of the attack is damanged.
  * @author Bilal Hussain
  */
 public class Spear extends AbstractWeapon {

@@ -7,7 +7,7 @@ import java.util.HashSet;
 import view.map.IsoTile.TileState;
 
 import common.Location;
-import engine.skills.Skill;
+import engine.skills.ISkill;
 
 /**
  * Shows the area of effect of the skill as well as its range.
@@ -15,7 +15,7 @@ import engine.skills.Skill;
  */
 public class SkillMovement extends Movement {
 
-	Skill skill;
+	ISkill skill;
 	Collection<Location> skillArea   = new ArrayList<Location>();
 	HashSet<Location> attackRange;
 	
@@ -64,7 +64,7 @@ public class SkillMovement extends Movement {
 		showSkillArea();
 	}
 
-	public void setSkill(Skill skill) {
+	public void setSkill(ISkill skill) {
 		this.skill = skill;
 	}
 

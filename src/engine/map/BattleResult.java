@@ -5,6 +5,10 @@ import common.interfaces.IMapUnit;
 
 import engine.map.interfaces.IMutableMapUnit;
 
+/**
+ * Holds the results from a battle.
+ * @author Bilal Hussain
+ */
 public class BattleResult implements IBattleResult {
 
 	private IMutableMapUnit target;

@@ -9,6 +9,7 @@ import engine.map.Map;
 import engine.map.interfaces.IMutableMapUnit;
 
 /**
+ * Common methods for weapons 
  * @author Bilal Hussain
  */
 public abstract class AbstractWeapon  implements IWeapon {

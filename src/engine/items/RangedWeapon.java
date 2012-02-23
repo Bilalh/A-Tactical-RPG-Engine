@@ -11,6 +11,7 @@ import common.Location;
 import common.interfaces.IWeapon;
 
 /**
+ * Ranged combat
  * @author Bilal Hussain
  */
 public class RangedWeapon extends AbstractWeapon {
