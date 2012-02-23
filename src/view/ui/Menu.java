@@ -29,7 +29,7 @@ public class Menu implements IMenu {
 		g = (Graphics2D) g.create();
 
 		area = new RoundRectangle2D.Float(drawX, drawY,
-				70,
+				80,
 				25 * commands.size(),
 				10, 10);
 

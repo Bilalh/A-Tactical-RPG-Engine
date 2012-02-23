@@ -122,7 +122,7 @@ enum UnitState {
 	
 	MENU_MOVED {
 		private final List<MenuItem> commands = Arrays.asList(new MenuItem[]{
-				new MenuItem("Attack"), new MenuItem("Wait")
+				new MenuItem("Attack"), new MenuItem("Skill"), new MenuItem("Wait")
 		});
 		
 		@Override
@@ -220,26 +220,6 @@ enum UnitState {
 		@Override
 		UnitState cancel() {
 			assert false : "Should not be called";
-			return this;
-			
-		}
-	},
-
-	/** @category Unused**/
-	DEFEATED {
-		@Override
-		void stateEntered() {
-			
-		}
-
-		@Override
-		UnitState exec() {
-			return null;
-			
-		}
-
-		@Override
-		UnitState cancel() {
 			return this;
 			
 		}

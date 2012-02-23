@@ -1,4 +1,4 @@
-package engine.unit;
+package common.interfaces;
 
 import java.util.Collection;
 
@@ -13,6 +13,8 @@ public interface IWeapon {
 
 	Collection<Location> getAttackRange(Location start, int width, int height);
 
+	Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target, Map map);
+	
 	String getDetails();
 
 	int getStrength();
@@ -23,6 +25,9 @@ public interface IWeapon {
 
 	void setRange(int range);
 
-	Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target, Map map);
+	String getImageRef();
+
+	void setImageRef(String imageRef);
+
 	
 }
