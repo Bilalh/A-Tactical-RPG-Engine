@@ -10,8 +10,8 @@ import java.io.PrintStream;
 import view.ui.interfaces.IConsole;
 
 /**
- * A Console displays uneditable text graphically to the user. draw has to be called to draw the textarea
- * The textArea has a finite history which can scroll backwards and fowards. The number of lines shown is 
+ * A Console displays uneditable text graphically to the user. draw has to be called to draw the console
+ * The console has a finite history which can scroll backwards and fowards. The number of lines shown is 
  * specifed at creation and the resulting height of the textarea can be found using getHeight.
  * 
  * @author Bilal Hussain

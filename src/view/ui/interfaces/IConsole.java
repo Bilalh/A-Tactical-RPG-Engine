@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.io.PrintStream;
 
 /**
- * A Console displays uneditable text graphically to the user. paint has to be called to draw the textarea
+ * A Console displays uneditable text graphically to the user. paint has to be called to draw the console
  * The Console has a finite history which can scroll backwards and fowards.
  * @author Bilal Hussain
  */
