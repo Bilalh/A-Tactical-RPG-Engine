@@ -458,6 +458,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				nextState = state.exec();
 				break;
 			case SHOW_ATTACK_TARGETS:
+			case SHOW_SKILL_TARGETS:
 				Logf.info(log, "exec: %s", state);
 				UnitState s = state.exec();
 				if (s != null) changeState(s);

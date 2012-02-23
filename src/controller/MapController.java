@@ -90,6 +90,11 @@ public class MapController extends Controller {
 		map.attackTargetChosen((IMutableMapUnit)u, (IMutableMapUnit)target);
 	}
 
+
+	public void skillTargetChosen(IMapUnit u, IMapUnit target) {
+		map.skillTargetChosen((IMutableMapUnit) u, (IMutableMapUnit) target);
+	}
+	
 	public void mapWon() {
 		MapFinishedNotification n = new MapFinishedNotification();
 		setChanged();

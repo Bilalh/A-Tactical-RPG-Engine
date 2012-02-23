@@ -15,20 +15,23 @@ public class Skill {
 	protected int range;
 
 	protected int area; // Number of squares affected
+	protected boolean targetOpposite; 
 	
 	public Skill(){
 	}
 	
-	public Skill(String name, int power, int range, int area) {
+	public Skill(String name, int power, int range, int area, boolean targetOpposite) {
 		this();
 		this.name  = name;
 		this.power = power;
 		this.range = range;
 		this.area  = area;
+		this.targetOpposite = targetOpposite;
 	}
 
 	public Collection<Location> getAttackRange(Location start, int width, int height) {
 		HashSet<Location> set = makeRange(start, width, height, range);
+		set.remove(start);
 		return set;
 	}
 	
@@ -51,7 +54,7 @@ public class Skill {
 	 * 
 	 * Above shows the result for range of 2 around the start..
 	 * 
-	 * The result does <b>not</b> contain the starting point. 
+	 * The result does contain the starting point. 
 	 * 
 	 */
 	protected HashSet<Location> makeRange(Location start, int width, int height, int range){
@@ -104,6 +107,16 @@ public class Skill {
 	/** @category Generated */
 	public void setRange(int range) {
 		this.range = range;
+	}
+
+	/** @category Generated */
+	public boolean isTargetOpposite() {
+		return targetOpposite;
+	}
+
+	/** @category Generated */
+	public void setTargetOpposite(boolean targetOpposite) {
+		this.targetOpposite = targetOpposite;
 	}
 	
 }

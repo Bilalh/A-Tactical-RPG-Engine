@@ -290,4 +290,20 @@ public class Map extends BasicMap implements IMap {
 		sendNotification(new BattleNotification(battle));
 	}
 
+	// Peforms the attack and notifies the Observers what the results were 
+		public void skillTargetChosen(IMutableMapUnit u, IMutableMapUnit target){
+			System.err.println("SKILL chosen");
+//			Battle battle = new Battle(u, target,this);
+//			battle.performBattle();
+//			
+//			for (BattleResult b : battle.getResults()) {
+//				if (b.isTargetDead()){
+//					unitDied(b.getMutableTarget());
+//				}
+//			}
+//			
+//			sendNotification(new BattleNotification(battle));
+		}
+	
+	
 }

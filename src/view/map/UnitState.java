@@ -176,13 +176,12 @@ enum UnitState {
 
 		@Override
 		UnitState exec() {
-
 			IsoTile t =  map.getSelectedTile();
 			AnimatedUnit au = t.getUnit();
 			
 			if (t.getState() != IsoTile.TileState.ATTACK_RANGE || au == null || map.getCurrentUnit().onSameTeam(au)) return null;
 			map.removeRange(targets);
-			return FIGHT;
+			return FIGHT_ATTACK;
 		}
 
 		@Override
@@ -192,7 +191,7 @@ enum UnitState {
 		}
 	},
 	
-	FIGHT {
+	FIGHT_ATTACK {
 		@Override
 		void stateEntered() {
 			map.setActionHandler(ActionsEnum.NONE);
@@ -261,13 +260,13 @@ enum UnitState {
 
 		@Override
 		UnitState exec() {
-			return this;
-//			IsoTile t =  map.getSelectedTile();
-//			AnimatedUnit au = t.getUnit();
-//			
-//			if (t.getState() != IsoTile.TileState.ATTACK_RANGE || au == null || map.getCurrentUnit().onSameTeam(au)) return null;
-//			map.removeRange(targets);
-//			return FIGHT;
+			IsoTile t =  map.getSelectedTile();
+			AnimatedUnit au = t.getUnit();
+			
+			if (t.getState() != IsoTile.TileState.ATTACK_AREA || au == null || map.getCurrentUnit().onSameTeam(au)  == selectedSkill.isTargetOpposite()) return null;
+			map.removeRange(targets);
+			map.removeRange(map.getSkillMovement().getSkillArea());
+			return FIGHT_SKILL;
 		}
 
 		@Override
@@ -280,6 +279,26 @@ enum UnitState {
 		
 	},
 	
+	FIGHT_SKILL {
+		@Override
+		void stateEntered() {
+			map.setActionHandler(ActionsEnum.NONE);
+			map.getMapController().skillTargetChosen(map.getCurrentUnit().getUnit(), map.getSelectedTile().getUnit().getUnit());
+		}
+
+		@Override
+		UnitState exec() {
+			assert false : "Should not be called";
+			return FINISHED;
+		}
+
+		@Override
+		UnitState cancel() {
+			assert false : "Should not be called";
+			return this;
+			
+		}
+	},
 	
 	FINISHED {
 		@Override
