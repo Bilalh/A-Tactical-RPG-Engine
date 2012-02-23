@@ -39,7 +39,7 @@ public class IsoTile {
 	
 	public static enum TileState {
 		NONE(Color.BLACK), SELECTED(Color.BLACK), 
-		MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.ORANGE), ATTACK_RANGE(Color.RED);
+		MOVEMENT_RANGE(Color.BLUE), OTHERS_RANGE(Color.ORANGE), ATTACK_RANGE(Color.RED), ATTACK_AREA(Color.GREEN);
 		public Color colour;
 
 		TileState(Color c) {

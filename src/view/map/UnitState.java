@@ -253,7 +253,9 @@ enum UnitState {
 			for (Location p : targets) {
 				map.getTile(p).setState(TileState.ATTACK_RANGE);
 			}
-			map.setActionHandler(GuiMap.ActionsEnum.MOVEMENT);
+			map.getSkillMovement().setSkill(selectedSkill);
+			map.getSkillMovement().setAttackRange(targets);
+			map.setActionHandler(GuiMap.ActionsEnum.SKILL_MOVEMENT);
 		}
 
 		@Override
@@ -270,6 +272,7 @@ enum UnitState {
 		@Override
 		UnitState cancel() {
 			map.removeRange(targets);
+			map.removeRange(map.getSkillMovement().getSkillArea());
 			selectedSkill = null;
 			return MENU_SKILL;
 		}

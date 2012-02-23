@@ -73,6 +73,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	final DialogHandler dialogHandler    = new DialogHandler(this, dialog);
 	final UnitInfoDisplay infoDisplay    = new UnitInfoDisplay();
 	final MapFinishedHandler mapFinished = new MapFinishedHandler(this);
+	final SkillMovement skillMovement    = new SkillMovement(this);
 	
 	// The classes that with handed the input
 	private MousePoxy  MousePoxy;
@@ -80,11 +81,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	// Handles the input fpr each state
 	final private MapActions[] actions = {
-			new Movement(this), dialogHandler,
-			new MapActions(this), menuInput, mapFinished};
+			new Movement(this), dialogHandler, new MapActions(this), 
+			menuInput, mapFinished, skillMovement};
 
 	static enum ActionsEnum {
-		MOVEMENT, DIALOG, NONE, MENU, FINISHED
+		MOVEMENT, DIALOG, NONE, MENU, FINISHED, SKILL_MOVEMENT
 	}
 
 	private UnitState state = UnitState.WAITING;
@@ -848,6 +849,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	/** @category Generated */
 	public int getFieldHeight() {
 		return fieldHeight;
+	}
+
+	/** @category Generated */
+	SkillMovement getSkillMovement() {
+		return skillMovement;
 	}
 
 }
