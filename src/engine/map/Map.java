@@ -26,6 +26,7 @@ import engine.map.*;
 import engine.map.interfaces.IMap;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.pathfinding.PathFinder;
+import engine.skills.Skill;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
@@ -291,19 +292,19 @@ public class Map extends BasicMap implements IMap {
 	}
 
 	// Peforms the attack and notifies the Observers what the results were 
-		public void skillTargetChosen(IMutableMapUnit u, IMutableMapUnit target){
-			System.err.println("SKILL chosen");
-//			Battle battle = new Battle(u, target,this);
-//			battle.performBattle();
-//			
-//			for (BattleResult b : battle.getResults()) {
-//				if (b.isTargetDead()){
-//					unitDied(b.getMutableTarget());
-//				}
-//			}
-//			
-//			sendNotification(new BattleNotification(battle));
+	public void skillTargetChosen(Skill skill, IMutableMapUnit u, Location target) {
+		System.err.println("SKILL chosen");
+		Battle battle = new SkillBattle(skill, u, target, this);
+		battle.performBattle();
+
+		for (BattleResult b : battle.getResults()) {
+			if (b.isTargetDead()) {
+				unitDied(b.getMutableTarget());
+			}
 		}
+
+		sendNotification(new BattleNotification(battle));
+	}
 	
 	
 }

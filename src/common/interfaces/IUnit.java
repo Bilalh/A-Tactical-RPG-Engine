@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import engine.map.Tile;
-import engine.unit.Skill;
+import engine.skills.Skill;
 import engine.unit.UnitImages;
 
 /**

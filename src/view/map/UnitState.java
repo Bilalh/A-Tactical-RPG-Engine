@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import common.Location;
 import common.LocationInfo;
-import engine.unit.Skill;
+import engine.skills.Skill;
 
 import util.Logf;
 import view.map.GuiMap.ActionsEnum;
@@ -283,7 +283,7 @@ enum UnitState {
 		@Override
 		void stateEntered() {
 			map.setActionHandler(ActionsEnum.NONE);
-			map.getMapController().skillTargetChosen(map.getCurrentUnit().getUnit(), map.getSelectedTile().getUnit().getUnit());
+			map.getMapController().skillTargetChosen(selectedSkill, map.getCurrentUnit().getUnit(), map.getSelectedTile().getLocation());
 		}
 
 		@Override

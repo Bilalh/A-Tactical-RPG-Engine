@@ -1,4 +1,4 @@
-package engine.map;
+package engine.map.interfaces;
 
 /**
  * @author Bilal Hussain

@@ -20,6 +20,7 @@ import engine.map.Map;
 import engine.map.Tile;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.pathfinding.PathFinder;
+import engine.skills.Skill;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 
@@ -91,8 +92,8 @@ public class MapController extends Controller {
 	}
 
 
-	public void skillTargetChosen(IMapUnit u, IMapUnit target) {
-		map.skillTargetChosen((IMutableMapUnit) u, (IMutableMapUnit) target);
+	public void skillTargetChosen(Skill skill,IMapUnit u, Location target) {
+		map.skillTargetChosen(skill,(IMutableMapUnit) u, target);
 	}
 	
 	public void mapWon() {

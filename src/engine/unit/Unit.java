@@ -14,6 +14,7 @@ import common.interfaces.IWeapon;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
 import engine.map.Tile;
+import engine.skills.Skill;
 
 /**
  * Store details about the unit.
@@ -53,7 +54,7 @@ public class Unit implements IMutableUnit {
 		skills = new ArrayList<Skill>();
 		skills.add(new Skill("Air Blade",     10, 2, 0,true));
 		skills.add(new Skill("Thunder Flare", 20, 3, 1,true));
-		skills.add(new Skill("Thunderbird",   30, 4, 2,true));
+		skills.add(new Skill("Thunderbird",   30, 30, 20,true));
 	}
 
 	public Unit(String name, int maxHp, int move, int strength, int speed) {

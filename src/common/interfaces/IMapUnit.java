@@ -3,7 +3,7 @@ package common.interfaces;
 import common.Location;
 import java.util.Collection;
 
-import engine.map.UnitStatus;
+import engine.map.interfaces.UnitStatus;
 
 /**
  * @author Bilal Hussain

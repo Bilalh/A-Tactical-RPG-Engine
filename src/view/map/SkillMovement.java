@@ -7,7 +7,7 @@ import java.util.HashSet;
 import view.map.IsoTile.TileState;
 
 import common.Location;
-import engine.unit.Skill;
+import engine.skills.Skill;
 
 /**
  * Shows the area of effect of the skill as well as its range.

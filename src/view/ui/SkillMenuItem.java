@@ -1,6 +1,6 @@
 package view.ui;
 
-import engine.unit.Skill;
+import engine.skills.Skill;
 
 /**
  * @author Bilal Hussain

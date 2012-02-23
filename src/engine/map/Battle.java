@@ -20,10 +20,21 @@ public class Battle implements IBattleInfo {
 	private static final Logger log = Logger.getLogger(Battle.class);
 
 	protected final IMutableMapUnit attacker;
-	protected final Collection<BattleResult> results;
+	protected Collection<BattleResult> results;
+	
+	/**
+	 * Must initialise results if using this
+	 */
+	protected Battle(IMutableMapUnit attacker){
+		assert attacker != null;
+		this.attacker = attacker;
+	}
 	
 	public Battle(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
-		this.attacker = attacker;
+		this(attacker);
+
+		assert target   != null;
+		assert map      != null;
 		this.results  = calcuateBattles(getTargets(attacker, target, map));
 	}
 

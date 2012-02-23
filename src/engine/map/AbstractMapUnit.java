@@ -8,8 +8,8 @@ import common.interfaces.ILocation;
 import common.interfaces.IWeapon;
 
 import engine.map.interfaces.IMutableMapUnit;
+import engine.skills.Skill;
 import engine.unit.IMutableUnit;
-import engine.unit.Skill;
 import engine.unit.UnitImages;
 
 /**

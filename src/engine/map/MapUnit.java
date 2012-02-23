@@ -1,6 +1,6 @@
 package engine.map;
 
-import static engine.map.UnitStatus.MOVED;
+import static engine.map.interfaces.UnitStatus.MOVED;
 
 import java.util.Collection;
 import java.util.EnumSet;
@@ -10,6 +10,7 @@ import common.interfaces.ILocation;
 
 import engine.items.RangedWeapon;
 import engine.map.interfaces.IMutableMapUnit;
+import engine.map.interfaces.UnitStatus;
 import engine.unit.IMutableUnit;
 
 /**

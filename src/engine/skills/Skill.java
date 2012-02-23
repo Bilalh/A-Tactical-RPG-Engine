@@ -1,4 +1,4 @@
-package engine.unit;
+package engine.skills;
 
 import java.util.Collection;
 import java.util.HashSet;
