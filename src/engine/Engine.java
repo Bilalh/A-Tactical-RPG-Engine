@@ -7,11 +7,11 @@ import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
 
 import view.Main;
 import config.Config;
+import engine.items.IWeapon;
 import engine.items.RangedWeapon;
 import engine.items.Spear;
 import engine.map.Map;
 import engine.map.interfaces.IMap;
-import engine.unit.IWeapon;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
 

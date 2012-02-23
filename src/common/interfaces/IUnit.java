@@ -2,8 +2,8 @@ package common.interfaces;
 
 import java.util.UUID;
 
+import engine.items.IWeapon;
 import engine.map.Tile;
-import engine.unit.IWeapon;
 import engine.unit.UnitImages;
 
 /**

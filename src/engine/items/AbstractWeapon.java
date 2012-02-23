@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import engine.map.Map;
 import engine.map.interfaces.IMutableMapUnit;
-import engine.unit.IWeapon;
 
 /**
  * @author Bilal Hussain
@@ -15,6 +14,16 @@ public abstract class AbstractWeapon  implements IWeapon {
 	protected int strength = 1;
 	protected int range    = 1;
 
+	protected String imageRef = "0-1";
+
+
+	@Override
+	public Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
+		ArrayList<IMutableMapUnit> list = new ArrayList<IMutableMapUnit>();
+		list.add(target);
+		return list;
+	}
+	
 	@Override
 	public int getStrength() {
 		return strength;
@@ -38,11 +47,16 @@ public abstract class AbstractWeapon  implements IWeapon {
 		this.strength = strength;
 	}
 
+	/** @category Generated */
 	@Override
-	public Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
-		ArrayList<IMutableMapUnit> list = new ArrayList<IMutableMapUnit>();
-		list.add(target);
-		return list;
+	public String getImageRef() {
+		return imageRef;
+	}
+
+	/** @category Generated */
+	@Override
+	public void setImageRef(String imageRef) {
+		this.imageRef = imageRef;
 	}
 
 }

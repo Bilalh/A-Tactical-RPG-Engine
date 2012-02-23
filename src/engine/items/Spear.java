@@ -19,10 +19,12 @@ public class Spear extends AbstractWeapon {
 	private static final Logger log = Logger.getLogger(Spear.class);
 	
 	public Spear() {
+		this.imageRef="3-15";
 	}
 
 	/** @category Generated */
 	public Spear(int strength, int range) {
+		this();
 		this.strength = strength;
 		this.range = range;
 	}
@@ -32,6 +34,7 @@ public class Spear extends AbstractWeapon {
 		ArrayList<Location> list = new ArrayList<Location>();
 
 		for (Direction d : Direction.values()) {
+			if (d == Direction.STILL) continue;
 			for (int i = 1; i <= range; i++) {
 				Location t = new Location(d.x, d.y).mult(i).translate(l.x, l.y);
 				if (t.x >= 0 && t.x < width && t.y >= 0 && t.y < height) {
@@ -39,6 +42,8 @@ public class Spear extends AbstractWeapon {
 				}
 			}
 		}
+		
+		assert !list.contains(l);
 		return list;
 	}
 
@@ -48,14 +53,14 @@ public class Spear extends AbstractWeapon {
 		Location diff = target.getLocation().copy().sub(attacker.getLocation()).limitUpper(1, 1).limitLower(-1, -1);
 		Location t    = attacker.getLocation().copy().translate(diff.x * range, diff.y * range);
 		
-		Logf.debug(log, "Attacker:%s", attacker);
-		Logf.debug(log, "target:%s",    target);
-		Logf.debug(log, "diff:%s",    diff);
-		Logf.debug(log, "t:%s",    t);
+		Logf.trace(log, "Attacker:%s", attacker);
+		Logf.trace(log, "target:%s",    target);
+		Logf.trace(log, "diff:%s",    diff);
+		Logf.trace(log, "t:%s",    t);
 		
 		while(!t.equals(attacker.getLocation())){
 			IMutableMapUnit u =  map.getTile(t).getCurrentUnit();
-			log.debug("checking from " + t + ":" + u);
+			log.trace("checking from " + t + ":" + u);
 			if (u != null){
 				list.add(u);
 			}

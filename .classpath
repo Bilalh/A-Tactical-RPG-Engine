@@ -19,6 +19,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/jl1.0.1.jar"/>
-	<classpathentry kind="lib" path="libs/custom.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -41,7 +41,7 @@ public class EditorMap extends BasicMap {
 	private void loadEditorSettings() {
 		guiField    = new EditorIsoTile[width][height];
 		editorField = new EditorTile[width][height];
-		ResourceManager.instance().loadSpriteSheetFromResources(getTileSheetLocation());
+		ResourceManager.instance().loadTileSheetFromResources(getTileSheetLocation());
 		spriteSheet = new EditorSpriteSheet(ResourceManager.instance().getCurrentTileSheet());
 
 		for (int i = 0; i < field.length; i++) {

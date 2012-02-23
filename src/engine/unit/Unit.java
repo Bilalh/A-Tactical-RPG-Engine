@@ -7,6 +7,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 import common.enums.Orientation;
 
+import engine.items.IWeapon;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
 import engine.map.Tile;

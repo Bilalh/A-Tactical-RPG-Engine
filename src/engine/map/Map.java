@@ -19,6 +19,7 @@ import common.interfaces.IMapNotification;
 import common.interfaces.IMapUnit;
 
 import engine.Player;
+import engine.items.IWeapon;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
 import engine.map.*;
@@ -97,7 +98,9 @@ public class Map extends BasicMap implements IMap {
 		u.setMaxHp(30);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData(ui);
-		u.setWeapon(new RangedWeapon(7, 2,0));
+		IWeapon w = new RangedWeapon(7, 2,0);
+		w.setImageRef("4-11");
+		u.setWeapon(w);
 
 		au = new AIUnit(u, new Location(width - 1, 4), ai);
 		aiUnits.add(au);

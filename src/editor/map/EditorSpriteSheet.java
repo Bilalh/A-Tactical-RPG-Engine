@@ -37,7 +37,7 @@ public class EditorSpriteSheet implements ISpriteSheet {
 		}
 		if (this.spriteSheet != spriteSheet){
 			this.spriteSheet = spriteSheet;
-			ResourceManager.instance().loadSpriteSheet(spriteSheet);	
+			ResourceManager.instance().loadTileSheet(spriteSheet);	
 		}
 	}
 

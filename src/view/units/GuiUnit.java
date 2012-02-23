@@ -15,6 +15,7 @@ import view.map.IsoTile;
 
 import common.Location;
 import common.enums.Direction;
+import common.gui.ResourceManager;
 import common.interfaces.ILocation;
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
@@ -32,15 +33,16 @@ public class GuiUnit {
 	protected IMapUnit unit;
 	protected int gridX;
 	protected int gridY;
+	protected Direction direction;
 	
 	protected SpriteSheet spriteSheet;
 	protected UnitImages images;
 	
 	protected BufferedImage sprite;
-	protected Direction direction;
+	protected BufferedImage weaponSprite;
 	
 	protected Rectangle2D bounds;
-	
+		
 	// For drawing the damage when attacked.
 	protected static Font numbers = new Font("Helvetica", Font.BOLD,  15);
 	protected int damage = 0;
@@ -50,10 +52,15 @@ public class GuiUnit {
 		this.gridX = gridX;
 		this.gridY = gridY;
 		assert u != null;
+		
 		images = u.getImageData(); 
 		assert images != null;
 		Logf.info(log,"Using sheet %s", images.getSpriteSheetLocation());
 		spriteSheet = Config.loadSpriteSheet(images.getSpriteSheetLocation());
+		
+		weaponSprite = ResourceManager.instance().getItem(u.getWeapon().getImageRef());
+		assert weaponSprite != null;	
+		
 		setDirection(Direction.EAST);
 		assert direction != null : "Direction Should not be null";
 	} 
@@ -171,6 +178,11 @@ public class GuiUnit {
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 		sprite = spriteSheet.getSpriteImage(direction.reference()+"0");
+	}
+
+	/** @category Generated */
+	public BufferedImage getWeaponSprite() {
+		return weaponSprite;
 	}
 	
 }

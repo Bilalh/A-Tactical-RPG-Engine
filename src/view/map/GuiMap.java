@@ -154,9 +154,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 		dialog.setHeight(70);
 		UnitState.setMap(this);
 
-		// Load the tile images
-		ResourceManager.instance().loadSpriteSheetFromResources(mapController.getTileSheetLocation());
-
+		// Load the tiles and items images
+		ResourceManager.instance().loadTileSheetFromResources(mapController.getTileSheetLocation());
+		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");
+		
 		for (int i = 0; i < fieldWidth; i++) {
 			for (int j = 0; j < fieldHeight; j++) {
 				TileImageData d = mapController.getTileImageData(i, j);
@@ -212,7 +213,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		_g.drawImage(mapBuffer, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height, null);
 
 		if (selectedTile.getUnit() != null) {
-			infoDisplay.setUnit(selectedTile.getUnit().getUnit());
+			infoDisplay.setUnit(selectedTile.getUnit());
 			infoDisplay.draw((Graphics2D) _g, width - 100, 100);
 		}
 

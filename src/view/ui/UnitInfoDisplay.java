@@ -6,6 +6,7 @@ import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
 
+import view.units.AnimatedUnit;
 import view.units.GuiUnit;
 
 import common.interfaces.IMapUnit;
@@ -20,10 +21,11 @@ public class UnitInfoDisplay {
 	private int xOffset = 5;
 	private int yOffset = 20;
 
-	private IMapUnit unit;
+	private AnimatedUnit aunit;
 
 	public void draw(Graphics2D g, int drawX, int drawY) {
 		
+		IMapUnit unit= aunit.getUnit();
 		String[] arr = {
 				unit.getName(),
 				String.format("HP %3d/%3d", unit.getCurrentHp(), unit.getMaxHp()),
@@ -34,7 +36,7 @@ public class UnitInfoDisplay {
 		
 		RoundRectangle2D.Float area = new RoundRectangle2D.Float(drawX, drawY,
 				120,
-				10 + arr.length*20,
+				10 + (arr.length+1)*20,
 				10, 10);
 
 		Color old = g.getColor();
@@ -54,11 +56,15 @@ public class UnitInfoDisplay {
 			sDrawY +=20;
 		}
 		
+		String wpn = unit.getWeapon().getDetails();
+		g.drawString(wpn, drawX + xOffset+25, drawY + sDrawY);
+		g.drawImage(aunit.getWeaponSprite(), drawX + xOffset, drawY + sDrawY - 15, null);
+		
 	}
 
 	/** @category Generated */
-	public void setUnit(IMapUnit unit) {
-		this.unit = unit;
+	public void setUnit(AnimatedUnit aunit) {
+		this.aunit = aunit;
 	}
 
 }

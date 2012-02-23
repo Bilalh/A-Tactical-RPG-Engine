@@ -14,6 +14,7 @@ public class MeleeWeapon extends AbstractWeapon {
 
 	public MeleeWeapon() {
 		this.range = 1;
+		this.imageRef="0-12";
 	}
 
 	public MeleeWeapon(int strength) {
@@ -26,6 +27,7 @@ public class MeleeWeapon extends AbstractWeapon {
 
 		ArrayList<Location> list = new ArrayList<Location>();
 		for (Direction  d : Direction.values()) {
+			if (d == Direction.STILL) continue;
 			Location t = start.copy().translate(d.x, d.y);
 			if (t.x >= 0 && t.x < width && t.y >= 0 && t.y < height) {
 				list.add(t);

@@ -42,7 +42,7 @@ public class A extends JFrame {
 		BufferedImage  image = gc.createCompatibleImage(70,40,Transparency.BITMASK);
 		Graphics g = image.getGraphics();
 		
-		ResourceManager.instance().loadSpriteSheetFromResources("images/tilesets/fft2.png");
+		ResourceManager.instance().loadTileSheetFromResources("images/tilesets/fft2.png");
 		IsoTile t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED);
 		t.draw(40, 20, g, true, true);
 		System.out.println(t);

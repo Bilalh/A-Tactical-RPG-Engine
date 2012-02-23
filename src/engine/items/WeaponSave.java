@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import config.Config;
 import config.XMLUtil;
-import engine.unit.IWeapon;
 
 
 /**
@@ -15,9 +14,9 @@ public class WeaponSave {
 	public static void main(String[] args) {
 		config.Config.loadLoggingProperties();
 		
-		String  s = XMLUtil.makeFormattedXml(new custom.CustomSpear(7, 10));
-		System.out.println(s);
-		IWeapon w = XMLUtil.convertXml(s);
+//		String  s = XMLUtil.makeFormattedXml(new custom.CustomSpear(7, 10));
+//		System.out.println(s);
+//		IWeapon w = XMLUtil.convertXml(s);
 		
 		
 //		ClassLoader cl = Config.class.getClassLoader();

@@ -8,7 +8,6 @@ import java.util.HashSet;
 import util.ArrayUtil;
 
 import common.Location;
-import engine.unit.IWeapon;
 
 /**
  * @author Bilal Hussain
@@ -17,9 +16,12 @@ public class RangedWeapon extends AbstractWeapon {
 
 	int innerRange = 1;
 	
-	public RangedWeapon() {}
+	public RangedWeapon() {
+		this.imageRef="4-15";
+	}
 	
 	public RangedWeapon(int strength, int outerRange, int innerRange) {
+		this();
 		this.strength   = strength;
 		this.range      = outerRange;
 		this.innerRange = innerRange;
@@ -56,7 +58,7 @@ public class RangedWeapon extends AbstractWeapon {
 	
 	@Override
 	public String getDetails() {
-		return innerRange + "-" + range;
+		return Math.max(innerRange,1) + "-" + range;
 	}
 
 	/** @category Generated */

@@ -33,15 +33,27 @@ public class ResourceManager {
 
 	private Map<String, Sprite> sprites = Collections.synchronizedMap(new HashMap<String, Sprite>());
 	private static SpriteSheet currentTileSheet;
+	private static SpriteSheet currentItemSheet;
 	
-	public synchronized void loadSpriteSheetFromResources(String filepath){
+	
+	public synchronized void loadTileSheetFromResources(String filepath){
 		assert filepath != null;
 		currentTileSheet = Config.loadSpriteSheet(filepath);
 	}
 	
-	public  synchronized void loadSpriteSheet(SpriteSheet sheet){
+	public  synchronized void loadTileSheet(SpriteSheet sheet){
 		assert sheet != null;
 		currentTileSheet = sheet;
+	}
+
+	public synchronized void loadItemSheetFromResources(String filepath){
+		assert filepath != null;
+		currentItemSheet = Config.loadSpriteSheet(filepath);
+	}
+	
+	public  synchronized void loadItemSheet(SpriteSheet sheet){
+		assert sheet != null;
+		currentItemSheet = sheet;
 	}
 	
 	public BufferedImage getTile(String ref){
@@ -52,7 +64,15 @@ public class ResourceManager {
 		assert result != null;
 		return result;
 	}
-	
+
+	public BufferedImage getItem(String ref){
+		assert currentItemSheet != null;
+		assert ref != null;
+		
+		BufferedImage result = currentItemSheet.getSpriteImage(ref);
+		assert result != null;
+		return result;
+	}
 	
 	// TODO Prehash
 	private Map<String, BufferedImage> tilesResized = Collections.synchronizedMap(new HashMap<String, BufferedImage>());
