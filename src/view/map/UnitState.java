@@ -234,7 +234,7 @@ enum UnitState {
 			int index = map.getMenu().getSelectedIndex();
 			selectedSkill = commands.get(index).getSkill();
 			
-			return this;
+			return SHOW_SKILL_TARGETS;
 		}
 
 		@Override
@@ -270,11 +270,11 @@ enum UnitState {
 		@Override
 		UnitState cancel() {
 			map.removeRange(targets);
-			return MENU_MOVED;
+			selectedSkill = null;
+			return MENU_SKILL;
 		}
 		
 	},
-	
 	
 	
 	FINISHED {
