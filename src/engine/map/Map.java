@@ -181,7 +181,7 @@ public class Map extends BasicMap implements IMap {
 			if (target == null){
 				unitTurnFinished(u);
 			}else{
-				targetChosen(u, target);
+				attackTargetChosen(u, target);
 			}
 		}
 	}
@@ -277,7 +277,7 @@ public class Map extends BasicMap implements IMap {
 	}
 	
 	// Peforms the attack and notifies the Observers what the results were 
-	public void targetChosen(IMutableMapUnit u, IMutableMapUnit target){
+	public void attackTargetChosen(IMutableMapUnit u, IMutableMapUnit target){
 		Battle battle = new Battle(u, target,this);
 		battle.performBattle();
 		

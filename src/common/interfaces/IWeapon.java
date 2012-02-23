@@ -13,7 +13,7 @@ public interface IWeapon {
 
 	Collection<Location> getAttackRange(Location start, int width, int height);
 
-	Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target, Map map);
+	Collection<IMutableMapUnit> getTargets(IMutableMapUnit attacker, IMutableMapUnit target, Map map);
 	
 	String getDetails();
 

@@ -87,7 +87,7 @@ public class MapController extends Controller {
 	}
 
 	public void targetChosen(IMapUnit u, IMapUnit target ){
-		map.targetChosen((IMutableMapUnit)u, (IMutableMapUnit)target);
+		map.attackTargetChosen((IMutableMapUnit)u, (IMutableMapUnit)target);
 	}
 
 	public void mapWon() {

@@ -24,9 +24,13 @@ public class Battle implements IBattleInfo {
 	
 	public Battle(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
 		this.attacker = attacker;
-		this.results  = calcuateBattles(attacker.getWeapon().getTarget(attacker, target, map));
+		this.results  = calcuateBattles(getTargets(attacker, target, map));
 	}
 
+	protected Collection<IMutableMapUnit> getTargets(IMutableMapUnit attacker, IMutableMapUnit target, Map map){
+		return attacker.getWeapon().getTargets(attacker, target, map);
+	}
+	
 	protected Collection<BattleResult> calcuateBattles(Collection<IMutableMapUnit> targets) {
 		Collection<BattleResult> results = new ArrayList<BattleResult>();
 		for (IMutableMapUnit target : targets) {

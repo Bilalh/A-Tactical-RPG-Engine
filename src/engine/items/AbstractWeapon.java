@@ -20,7 +20,7 @@ public abstract class AbstractWeapon  implements IWeapon {
 
 
 	@Override
-	public Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
+	public Collection<IMutableMapUnit> getTargets(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
 		ArrayList<IMutableMapUnit> list = new ArrayList<IMutableMapUnit>();
 		list.add(target);
 		return list;

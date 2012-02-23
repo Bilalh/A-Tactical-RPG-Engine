@@ -48,7 +48,7 @@ public class Spear extends AbstractWeapon {
 	}
 
 	@Override
-	public Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
+	public Collection<IMutableMapUnit> getTargets(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
 		ArrayList<IMutableMapUnit> list = new ArrayList<IMutableMapUnit>();
 		Location diff = target.getLocation().copy().sub(attacker.getLocation()).limitUpper(1, 1).limitLower(-1, -1);
 		Location t    = attacker.getLocation().copy().translate(diff.x * range, diff.y * range);
