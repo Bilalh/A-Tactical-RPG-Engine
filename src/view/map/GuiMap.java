@@ -586,15 +586,15 @@ public class GuiMap implements Observer, IMapRendererParent {
 		x += drawX;
 		y += drawY;
 		Point p = new Point(x, y);
-		Logf.info(log, "p:(%d,%d)\n", x, y);
+//		Logf.info(log, "p:(%d,%d)\n", x, y);
 		int xIndex = -1, yIndex = -1;
 		
 		for (int i = 0; i < fieldWidth; i++) {
 			for (int j = 0; j < fieldHeight; j++) {
 				if (field[i][j].getOrientation() != Orientation.EMPTY && field[i][j].contains(p)) {
-					Logf.info(log, "Clicked(%d,%d)\n", i, j);
+//					Logf.info(log, "Clicked(%d,%d)\n", i, j);
 					if (field[i][j].getHeight() > highest) {
-						log.info("\t highest");
+//						log.info("\t highest");
 						highest = field[i][j].getHeight();
 						xIndex = i;
 						yIndex = j;

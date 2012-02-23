@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
+import org.lwjgl.input.Mouse;
 
 import util.Logf;
 import view.map.IsoTile.TileState;
@@ -64,8 +65,6 @@ public  class Movement extends MapActions{
 		map.changeState(map.getState().cancel());
 	}
 	
-	
-	
     @Override
 	public void mousePressed(MouseEvent e) {
         mouseStart = e.getPoint();
@@ -76,6 +75,14 @@ public  class Movement extends MapActions{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		System.out.println(e);
+		if (e.getButton() == MouseEvent.BUTTON3){
+			Logf.info(log, "mouse cancel: %s",map.getState());
+			keyCancel();
+			e.consume();
+			return;
+		}
+		
     	mouseMoving = false;
     	log.trace("MousrReleased start");
         mouseEnd = e.getPoint();

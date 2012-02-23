@@ -48,7 +48,7 @@ enum UnitState {
 	
 	MENU_SELECTED {
 		private final List<MenuItem> commands = Arrays.asList(new MenuItem[]{
-				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Skill"), new MenuItem("Wait"), new MenuItem("Cancel")
+				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Skill"), new MenuItem("Wait")//, new MenuItem("Cancel")
 		});
 		
 		@Override
@@ -71,8 +71,8 @@ enum UnitState {
 					return MENU_SKILL;
 				case 3:
 					return FINISHED;
-				case 4:
-					return cancel();
+//				case 4:
+//					return cancel();
 				default:
 					return this;
 			}
@@ -161,35 +161,6 @@ enum UnitState {
 		}
 	},
 	
-	MENU_SKILL{
-
-		private List<SkillMenuItem> commands;
-		
-		@Override
-		void stateEntered() {
-			commands = new ArrayList<SkillMenuItem>();
-
-			for (Skill s : map.getCurrentUnit().getUnit().getSkills()) {
-				commands.add(new SkillMenuItem(s));
-			}
-			
-			map.getMenu().setCommands(commands);
-			map.getMenu().setWidth(120);
-			map.setActionHandler(GuiMap.ActionsEnum.MENU);
-		}
-
-		@Override
-		UnitState exec() {
-			return this;
-		}
-
-		@Override
-		UnitState cancel() {
-			return MENU_MOVED;
-		}
-		
-	},
-	
 	SHOW_ATTACK_TARGETS {
 		Collection<Location> targets = null;
 
@@ -242,6 +213,70 @@ enum UnitState {
 		}
 	},
 	
+	MENU_SKILL {
+
+		private List<SkillMenuItem> commands;
+
+		@Override
+		void stateEntered() {
+			commands = new ArrayList<SkillMenuItem>();
+
+			for (Skill s : map.getCurrentUnit().getUnit().getSkills()) {
+				commands.add(new SkillMenuItem(s));
+			}
+			map.getMenu().setCommands(commands);
+			map.getMenu().setWidth(120);
+			map.setActionHandler(GuiMap.ActionsEnum.MENU);
+		}
+
+		@Override
+		UnitState exec() {
+			int index = map.getMenu().getSelectedIndex();
+			selectedSkill = commands.get(index).getSkill();
+			
+			return this;
+		}
+
+		@Override
+		UnitState cancel() {
+			return MENU_MOVED;
+		}
+	}, 
+	
+	SHOW_SKILL_TARGETS {
+		Collection<Location> targets = null;
+		@Override
+		void stateEntered() {
+			assert selectedSkill != null;
+			targets = selectedSkill.getAttackRange(map.getCurrentUnit().getLocation(), map.getFieldWidth(), map.getFieldHeight());
+			
+			for (Location p : targets) {
+				map.getTile(p).setState(TileState.ATTACK_RANGE);
+			}
+			map.setActionHandler(GuiMap.ActionsEnum.MOVEMENT);
+		}
+
+		@Override
+		UnitState exec() {
+			return this;
+//			IsoTile t =  map.getSelectedTile();
+//			AnimatedUnit au = t.getUnit();
+//			
+//			if (t.getState() != IsoTile.TileState.ATTACK_RANGE || au == null || map.getCurrentUnit().onSameTeam(au)) return null;
+//			map.removeRange(targets);
+//			return FIGHT;
+		}
+
+		@Override
+		UnitState cancel() {
+			map.removeRange(targets);
+			return MENU_MOVED;
+		}
+		
+	},
+	
+	
+	
 	FINISHED {
 		@Override
 		void stateEntered() {
@@ -252,14 +287,14 @@ enum UnitState {
 		UnitState exec() {
 			assert false : "Should not be called";
 			return WAITING;
-			
+
 		}
 
 		@Override
 		UnitState cancel() {
 			assert false : "Should not be called";
 			return this;
-			
+
 		}
 	};
 	
@@ -269,9 +304,11 @@ enum UnitState {
 	abstract UnitState exec();
 	/** Goes to the previous state */
 	abstract UnitState cancel();
+
+	private static Skill selectedSkill;
 	
 	private static GuiMap map;
 	public static void setMap(GuiMap map) {UnitState.map = map;}
-
+	
 	private static final Logger log = Logger.getLogger(UnitState.class);
 }

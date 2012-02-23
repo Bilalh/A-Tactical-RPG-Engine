@@ -60,9 +60,4 @@ public class MapFinishedHandler extends MapActions {
 		if (shownMessage) finished();
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if (shownMessage) finished();
-	}
-
 }

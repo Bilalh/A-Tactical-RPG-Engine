@@ -56,6 +56,13 @@ public class MenuInput extends MapActions {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		
+		if (e.getButton() == MouseEvent.BUTTON3){
+			Logf.info(log, "mouse cancel: %s",map.getState());
+			keyCancel();
+			return;
+		}
+		
 		IMenuItem mi = menu.getClickedItem(e.getPoint());
 		
 		if (mi != null){

@@ -4,6 +4,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import org.apache.log4j.Logger;
+
+import util.Logf;
 import view.map.interfaces.IActions;
 
 /**
@@ -11,7 +14,9 @@ import view.map.interfaces.IActions;
  * @author Bilal Hussain
  */
 public class ActionsAdapter implements IActions, MouseListener, MouseMotionListener {
-
+	private static final Logger log = Logger.getLogger(ActionsAdapter.class);
+	
+	
 	@Override
 	public void keyComfirm() {
 
@@ -74,7 +79,13 @@ public class ActionsAdapter implements IActions, MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
+		if (e.getButton() == MouseEvent.BUTTON3){
+			Logf.info(log, "mouse cancel: %s");
+			keyCancel();
+			return;
+		}else{
+			keyComfirm();
+		}
 	}
 
 	@Override
