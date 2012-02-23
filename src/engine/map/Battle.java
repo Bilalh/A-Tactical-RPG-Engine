@@ -22,9 +22,9 @@ public class Battle implements IBattleInfo {
 	protected final IMutableMapUnit attacker;
 	protected final Collection<BattleResult> results;
 	
-	public Battle(IMutableMapUnit attacker, IMutableMapUnit target) {
+	public Battle(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
 		this.attacker = attacker;
-		this.results  = calcuateBattles(attacker.getWeapon().getTarget(attacker, target));
+		this.results  = calcuateBattles(attacker.getWeapon().getTarget(attacker, target, map));
 	}
 
 	protected Collection<BattleResult> calcuateBattles(Collection<IMutableMapUnit> targets) {
@@ -45,7 +45,7 @@ public class Battle implements IBattleInfo {
 
 	public void performBattle() {
 		for (BattleResult battle : results) {
-			battle.getTarget().removeHp(battle.getDamage());
+			battle.getMutableTarget().removeHp(battle.getDamage());
 		}
 	}
 

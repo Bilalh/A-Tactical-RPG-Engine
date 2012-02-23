@@ -3,6 +3,7 @@ package engine.items;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import engine.map.Map;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IWeapon;
 
@@ -38,7 +39,7 @@ public abstract class AbstractWeapon  implements IWeapon {
 	}
 
 	@Override
-	public Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target) {
+	public Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
 		ArrayList<IMutableMapUnit> list = new ArrayList<IMutableMapUnit>();
 		list.add(target);
 		return list;

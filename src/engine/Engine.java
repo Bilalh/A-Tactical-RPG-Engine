@@ -7,8 +7,9 @@ import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
 
 import view.Main;
 import config.Config;
-import engine.ai.Map;
 import engine.items.RangedWeapon;
+import engine.items.Spear;
+import engine.map.Map;
 import engine.map.interfaces.IMap;
 import engine.unit.IWeapon;
 import engine.unit.Unit;
@@ -53,7 +54,8 @@ public class Engine {
 		player.addUnit(u);
 		u.setImageData(ui);
 				
-		IWeapon w = util.Util.getClassInstancebyName("custom.spear");
+//		IWeapon w = util.Util.getClassInstancebyName("custom.CustomSpear");
+		IWeapon w = new Spear();
 		w.setRange(3);
 		w.setStrength(2);
 		

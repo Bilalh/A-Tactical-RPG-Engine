@@ -89,9 +89,36 @@ public class Location implements Serializable, ILocation {
 	/**
 	 * @return This Point for chaining.
 	 */
+	public Location sub(ILocation l){
+		this.x -= l.getX();
+		this.y -= l.getY();
+		return this;
+	}
+	
+	/**
+	 * @return This Point for chaining.
+	 */
+	public Location negate(){
+		this.x = -this.x;
+		this.y = -this.y;
+		return this;
+	}
+	
+	/**
+	 * @return This Point for chaining.
+	 */
 	public Location limitLower(int limitX, int limitY) {
 		if (x < limitX) x = limitX;
 		if (y < limitY) y = limitY;
+		return this;
+	}
+
+	/**
+	 * @return This Point for chaining.
+	 */
+	public Location limitUpper(int limitX, int limitY) {
+		if (x > limitX) x = limitX;
+		if (y > limitY) y = limitY;
 		return this;
 	}
 
@@ -106,15 +133,6 @@ public class Location implements Serializable, ILocation {
 		return b;
 	}
 	
-	/**
-	 * @return This Point for chaining.
-	 */
-	public Location limitUpper(int limitX, int limitY) {
-		if (x > limitX) x = limitX;
-		if (y > limitY) y = limitY;
-		return this;
-	}
-
 	public boolean checkUpper(int limitX, int limitY) {
 		boolean b = false;
 		if (x > limitX) x = limitX;

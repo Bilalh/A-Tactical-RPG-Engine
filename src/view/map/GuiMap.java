@@ -45,8 +45,8 @@ import common.interfaces.IUnit;
 
 import config.xml.TileImageData;
 import controller.MapController;
-import engine.map.BattleResult;
 import engine.map.Tile;
+import engine.map.interfaces.IBattleResult;
 
 /**
  * The view
@@ -377,7 +377,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void unitsBattle(final IBattleInfo battleInfo) {
 		log.info(battleInfo);
 		
-		for (BattleResult battle : battleInfo.getResults()) {
+		for (IBattleResult battle : battleInfo.getResults()) {
 			AnimatedUnit atarget = unitMapping.get(battle.getTarget().getUuid());
 			atarget.setDamage(battle.getDamage());
 			setSelectedTile(battle.getTarget().getLocation());
@@ -389,7 +389,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			@Override
 			public void run() {
 				int playLose = 0, playGain = 0;
-				for (BattleResult battle : battleInfo.getResults()) {
+				for (IBattleResult battle : battleInfo.getResults()) {
 					AnimatedUnit au =  unitMapping.get(battle.getTarget().getUuid());
 					au.removeDamage();
 					

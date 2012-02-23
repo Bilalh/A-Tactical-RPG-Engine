@@ -1,4 +1,4 @@
-package engine.ai;
+package engine.map;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -85,7 +85,7 @@ public class Map extends BasicMap implements IMap {
 
 		AIUnit au = new AIUnit(u, new Location(width - 1, 5), ai);
 		aiUnits.add(au);
-		field[width - 1][0].setCurrentUnit(au);
+		field[au.getGridX()][au.getGridY()].setCurrentUnit(au); 
 	
 		u = new Unit();
 		ui = new UnitImages();
@@ -101,7 +101,7 @@ public class Map extends BasicMap implements IMap {
 
 		au = new AIUnit(u, new Location(width - 1, 4), ai);
 		aiUnits.add(au);
-		field[width - 1][1].setCurrentUnit(au);
+		field[au.getGridX()][au.getGridY()].setCurrentUnit(au);
 	
 		ai = new AIPlayer(this, aiUnits);
 	
@@ -275,13 +275,12 @@ public class Map extends BasicMap implements IMap {
 	
 	// Peforms the attack and notifies the Observers what the results were 
 	public void targetChosen(IMutableMapUnit u, IMutableMapUnit target){
-		
-		Battle battle = new Battle(u, target);
+		Battle battle = new Battle(u, target,this);
 		battle.performBattle();
 		
 		for (BattleResult b : battle.getResults()) {
 			if (b.isTargetDead()){
-				unitDied(b.getTarget());
+				unitDied(b.getMutableTarget());
 			}
 		}
 		

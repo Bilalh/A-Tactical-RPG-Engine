@@ -1,12 +1,10 @@
-package engine.ai;
+package engine.map;
 
 import java.util.UUID;
 
 import common.interfaces.ILocation;
 
 import engine.items.RangedWeapon;
-import engine.map.MapPlayer;
-import engine.map.MapUnit;
 import engine.unit.IMutableUnit;
 
 /**

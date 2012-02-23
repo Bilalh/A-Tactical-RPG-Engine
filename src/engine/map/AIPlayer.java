@@ -1,4 +1,4 @@
-package engine.ai;
+package engine.map;
 
 import java.util.*;
 
@@ -10,7 +10,6 @@ import common.Location;
 import common.LocationInfo;
 import common.interfaces.ILocation;
 
-import engine.map.MapPlayer;
 import engine.map.interfaces.IMutableMapUnit;
 /**
  * @author bilalh

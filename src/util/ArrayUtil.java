@@ -23,7 +23,7 @@ public class ArrayUtil {
 	}
 
 	// Convert an 2d array to a String, with each element numbered. 
-	public static String numberedArray2d(int[][] arr){
+	public static <E> String numberedArray2d(E[][] arr){
 		StringBuffer b = new StringBuffer(arr.length * arr[0].length * 10);
 		for (int i = 0; i < arr.length; i++) {
 			b.append("[");
@@ -38,20 +38,38 @@ public class ArrayUtil {
 		return b.toString();
 	}
 
-	// Convert an 2d array to a String, with each element numbered. 
-		public static String numberedArray2d(char[][] arr){
-			StringBuffer b = new StringBuffer(arr.length * arr[0].length * 10);
-			for (int i = 0; i < arr.length; i++) {
-				b.append("[");
-				for (int j = 0; j < arr[i].length; j++) {
-					b.append(String.format("(%s,%s) %2s", i,j, arr[i][j]));
-					if (j != arr[i].length){
-						b.append(", ");
-					}
-				}
-				b.append("]\n");
-			}
-			return b.toString();
-		}
+	// Extra version for primitive types since they are not generic. 
 	
+	// Convert an 2d array to a String, with each element numbered. 
+	public static String numberedArray2d(int[][] arr){
+		StringBuffer b = new StringBuffer(arr.length * arr[0].length * 10);
+		for (int i = 0; i < arr.length; i++) {
+			b.append("[");
+			for (int j = 0; j < arr[i].length; j++) {
+				b.append(String.format("(%s,%s) %2s", i,j, arr[i][j]));
+				if (j != arr[i].length){
+					b.append(", ");
+				}
+			}
+			b.append("]\n");
+		}
+		return b.toString();
+	}
+	
+	// Convert an 2d array to a String, with each element numbered.
+	public static String numberedArray2d(char[][] arr) {
+		StringBuffer b = new StringBuffer(arr.length * arr[0].length * 10);
+		for (int i = 0; i < arr.length; i++) {
+			b.append("[");
+			for (int j = 0; j < arr[i].length; j++) {
+				b.append(String.format("(%s,%s) %2s", i, j, arr[i][j]));
+				if (j != arr[i].length) {
+					b.append(", ");
+				}
+			}
+			b.append("]\n");
+		}
+		return b.toString();
+	}
+
 }

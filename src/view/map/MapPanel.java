@@ -24,7 +24,7 @@ import view.map.interfaces.IActions;
 
 import controller.MapController;
 
-import engine.ai.Map;
+import engine.map.Map;
 
 public class MapPanel extends JPanel implements Runnable {
 	private static final Logger log = Logger.getLogger(MapPanel.class);

@@ -11,7 +11,7 @@ public class Util {
 		ClassLoader cl = Config.class.getClassLoader();
 		Class c = null;
 		try {
-			c = cl.loadClass("custom.Spear");
+			c = cl.loadClass(name);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

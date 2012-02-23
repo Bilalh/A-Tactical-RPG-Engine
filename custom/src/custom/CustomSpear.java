@@ -6,28 +6,28 @@ import java.util.Collection;
 import common.Location;
 import common.enums.Direction;
 
+import engine.map.Map;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IWeapon;
 
 /**
  * @author Bilal Hussain
  */
-public class Spear implements IWeapon {
+public class CustomSpear implements IWeapon {
 
 	protected int strength;
 	protected int range;
 
-	public Spear(){}
+	public CustomSpear(){}
 	
 	/** @category Generated */
-	public Spear(int strength, int range) {
+	public CustomSpear(int strength, int range) {
 		this.strength = strength;
 		this.range = range;
 	}
 
 	@Override
 	public Collection<Location> getAttackRange(Location l, int width, int height) {
-
 		ArrayList<Location> list = new ArrayList<Location>();
 
 		for (Direction d : Direction.values()) {
@@ -71,7 +71,7 @@ public class Spear implements IWeapon {
 	}
 
 	@Override
-	public Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target) {
+	public Collection<IMutableMapUnit> getTarget(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
 		ArrayList<IMutableMapUnit> list = new ArrayList<IMutableMapUnit>();
 		list.add(target);
 		return list;

@@ -65,8 +65,9 @@ public class Tile {
 
 	@Override
 	public String toString() {
-		return String.format("Tile [current=%s, startHeight=%s, endHeight=%s, cost=%s, type=%s]",
-				current, startHeight, endHeight, cost, type);
+//		return String.format("Tile [current=%s, startHeight=%s, endHeight=%s, cost=%s, type=%s]",
+//				current, startHeight, endHeight, cost, type);
+		return "" + (current != null);
 	}
 
 }

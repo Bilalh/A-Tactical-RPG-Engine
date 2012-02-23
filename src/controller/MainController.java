@@ -11,7 +11,7 @@ import common.interfaces.INotification;
 import view.Gui;
 import view.map.MapPanel;
 import engine.Engine;
-import engine.ai.Map;
+import engine.map.Map;
 
 /**
  * @author Bilal Hussain

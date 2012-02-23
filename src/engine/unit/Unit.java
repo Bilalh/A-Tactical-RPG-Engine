@@ -2,6 +2,9 @@ package engine.unit;
 
 import java.util.UUID;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+
 import common.enums.Orientation;
 
 import engine.items.MeleeWeapon;
@@ -12,6 +15,7 @@ import engine.map.Tile;
  * Store details about the unit.
  * @author bilalh
  */
+@XStreamAlias("unit")
 public class Unit implements IMutableUnit {
 
 	private String name;
@@ -27,7 +31,8 @@ public class Unit implements IMutableUnit {
 	private int level;
 	private int exp;
 
-	private final transient UUID uuid;
+	@XStreamAsAttribute
+	private final UUID uuid;
 	private transient UnitImages imageData;
 	
 	private int weight;

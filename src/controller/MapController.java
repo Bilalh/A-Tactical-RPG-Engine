@@ -16,7 +16,7 @@ import config.xml.TileImageData;
 import util.Args;
 import view.units.AnimatedUnit;
 import view.units.GuiUnit;
-import engine.ai.Map;
+import engine.map.Map;
 import engine.map.Tile;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.pathfinding.PathFinder;
