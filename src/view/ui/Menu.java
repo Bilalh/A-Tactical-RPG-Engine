@@ -22,7 +22,7 @@ public class Menu implements IMenu {
 	private int selected = 0;
 
 	private RoundRectangle2D.Float area = new RoundRectangle2D.Float();
-	private List<MenuItem> commands;
+	private List<? extends IMenuItem> commands;
 
 	private int width = 80;
 	
@@ -79,15 +79,15 @@ public class Menu implements IMenu {
 	}
 
 	@Override
-	public void setCommands(List<MenuItem> commands) {
+	public void setCommands(List<? extends IMenuItem> commands) {
 		this.commands = commands;
 		reset();
 	}
 
-	@Override
-	public void addCommand(MenuItem m) {
-		commands.add(m);
-	}
+//	@Override
+//	public void addCommand(MenuItem m) {
+//		commands.add(m);
+//	}
 	
 	@Override
 	public void clearCommands() {

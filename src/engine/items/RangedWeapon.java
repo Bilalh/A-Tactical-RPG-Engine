@@ -32,7 +32,7 @@ public class RangedWeapon extends AbstractWeapon {
 	public Collection<Location> getAttackRange(Location start, int width, int height) {
 		HashSet<Location> set = makeRange(start, width, height, range);
 		set.removeAll(makeRange(start, width, height, innerRange));
-		set.remove(start);
+//		set.remove(start);
 		return set;
 	}
 
@@ -74,7 +74,7 @@ public class RangedWeapon extends AbstractWeapon {
 
 	public static void main(String[] args) {
 		int width = 10, height = 15;
-		IWeapon w = new RangedWeapon(10, 5,3);
+		IWeapon w = new RangedWeapon(10, 3,1);
 		Collection<Location> c = w.getAttackRange(new Location(3, 8), width, height);
 		// System.out.println(c);
 	

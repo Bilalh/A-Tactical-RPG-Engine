@@ -1,8 +1,10 @@
 package common.interfaces;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import engine.map.Tile;
+import engine.unit.Skill;
 import engine.unit.UnitImages;
 
 /**
@@ -33,5 +35,7 @@ public interface IUnit {
 	UnitImages getImageData();
 	
 	IWeapon getWeapon();
+
+	ArrayList<Skill> getSkills();
 	
 }

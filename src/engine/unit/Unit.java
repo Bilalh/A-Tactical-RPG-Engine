@@ -1,6 +1,9 @@
 package engine.unit;
 
+import java.util.ArrayList;
 import java.util.UUID;
+
+import view.ui.MenuItem;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -39,12 +42,18 @@ public class Unit implements IMutableUnit {
 	private int weight;
 	private IWeapon weapon;
 	
+	private ArrayList<Skill> skills;
+	
 	
 	public Unit(){
 		uuid = UUID.randomUUID();
 		this.name = uuid.toString();
 		imageData = new UnitImages();
 		weapon = new MeleeWeapon(1);
+		skills = new ArrayList<Skill>();
+		skills.add(new Skill("Air Blade",     10, 2));
+		skills.add(new Skill("Thunder Flare", 20, 3));
+		skills.add(new Skill("Thunderbird",   30, 4));
 	}
 
 	public Unit(String name, int maxHp, int move, int strength, int speed) {
@@ -61,6 +70,19 @@ public class Unit implements IMutableUnit {
 	public int getCost(Tile old, Tile next) {
 		if   (next.getOrientation() == Orientation.EMPTY) return Integer.MAX_VALUE;
 		else return 1 + Math.abs(next.getCost() - old.getCost());
+	}
+
+	
+	/** @category Generated */
+	@Override
+	public ArrayList<Skill> getSkills() {
+		return skills;
+	}
+
+	/** @category Generated */
+	@Override
+	public void setSkills(ArrayList<Skill> skills) {
+		this.skills = skills;
 	}
 	
 	/** @category Generated */

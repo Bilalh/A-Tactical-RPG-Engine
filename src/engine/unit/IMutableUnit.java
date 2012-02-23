@@ -1,5 +1,7 @@
 package engine.unit;
 
+import java.util.ArrayList;
+
 import common.interfaces.IUnit;
 import common.interfaces.IWeapon;
 import engine.map.MapPlayer;
@@ -30,5 +32,7 @@ public interface IMutableUnit extends IUnit {
 	void setImageData(UnitImages imageData);
 	
 	void setWeapon(IWeapon weapon);
+	
+	void setSkills(ArrayList<Skill> skills);
 	
 }

@@ -1,5 +1,6 @@
 package view.map;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -8,12 +9,14 @@ import org.apache.log4j.Logger;
 
 import common.Location;
 import common.LocationInfo;
+import engine.unit.Skill;
 
 import util.Logf;
 import view.map.GuiMap.ActionsEnum;
 import view.map.IsoTile.TileState;
 import view.ui.Menu;
 import view.ui.MenuItem;
+import view.ui.SkillMenuItem;
 import view.units.AnimatedUnit;
 
 /**
@@ -160,12 +163,16 @@ enum UnitState {
 	
 	MENU_SKILL{
 
-		private List<MenuItem> commands = Arrays.asList(new MenuItem[]{
-				new MenuItem("Air Blade"), new MenuItem("Thunder Flare"), new MenuItem("Thunderbird")
-		});
+		private List<SkillMenuItem> commands;
 		
 		@Override
 		void stateEntered() {
+			commands = new ArrayList<SkillMenuItem>();
+
+			for (Skill s : map.getCurrentUnit().getUnit().getSkills()) {
+				commands.add(new SkillMenuItem(s));
+			}
+			
 			map.getMenu().setCommands(commands);
 			map.getMenu().setWidth(120);
 			map.setActionHandler(GuiMap.ActionsEnum.MENU);

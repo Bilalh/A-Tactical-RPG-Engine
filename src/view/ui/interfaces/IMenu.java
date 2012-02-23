@@ -18,9 +18,9 @@ public interface IMenu extends IDisplayable {
 
 	IMenuItem getClickedItem(Point p);
 
-	void addCommand(MenuItem m);
+//	void addCommand(MenuItem m);
 
-	void setCommands(List<MenuItem> commands);
+	void setCommands(List<? extends IMenuItem> commands);
 
 	void reset();
 

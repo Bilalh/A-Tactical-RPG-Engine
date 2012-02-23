@@ -1,5 +1,6 @@
 package engine.map;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import common.Location;
@@ -8,6 +9,7 @@ import common.interfaces.IWeapon;
 
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
+import engine.unit.Skill;
 import engine.unit.UnitImages;
 
 /**
@@ -208,6 +210,18 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 	@Override
 	public void setWeapon(IWeapon weapon) {
 		unit.setWeapon(weapon);
+	}
+
+	/** @category Generated */
+	@Override
+	public ArrayList<Skill> getSkills() {
+		return unit.getSkills();
+	}
+
+	/** @category Generated */
+	@Override
+	public void setSkills(ArrayList<Skill> skills) {
+		unit.setSkills(skills);
 	}
 
 }
