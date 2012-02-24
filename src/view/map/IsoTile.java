@@ -72,16 +72,15 @@ public class IsoTile {
 	
 	protected AnimatedUnit unit;
 
-	// testing
-	BufferedImage iGrass = ResourceManager.instance().getSpriteFromClassPath("assets/gui/grass32.jpg").getImage();
-//	BufferedImage iGrass = SpriteManager.instance().getSprite("assets/gui/testTile.png").getImage();
-	Rectangle2D rGrass = new Rectangle2D.Double(0, 0, iGrass.getWidth(null), iGrass.getHeight(null));
-	TexturePaint tGrass = new TexturePaint(iGrass, rGrass);
+	// For safety e.g if a non textured tile is used for slanted tiles this is used instead.
+	static BufferedImage iGrass = ResourceManager.instance().getSpriteFromClassPath("assets/gui/grass32.jpg").getImage();
+	static Rectangle2D rGrass  = new Rectangle2D.Double(0, 0, iGrass.getWidth(null), iGrass.getHeight(null));
+	static TexturePaint tGrass = new TexturePaint(iGrass, rGrass);
 
-	// testing
-	static Image iWall = ResourceManager.instance().getSpriteFromClassPath("assets/gui/wallb16.jpg").getImage();
-	static Rectangle2D rWall = new Rectangle2D.Double(0, 0, iWall.getWidth(null),iWall.getHeight(null));
-	static TexturePaint tWall = new TexturePaint((BufferedImage) iWall, rWall);
+	// Default Walls
+	static BufferedImage iWall = ResourceManager.instance().getSpriteFromClassPath("assets/gui/wallb16.jpg").getImage();
+	static Rectangle2D rWall   = new Rectangle2D.Double(0, 0, iWall.getWidth(null),iWall.getHeight(null));
+	static TexturePaint tWall  = new TexturePaint( iWall, rWall);
 	
 	
 	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
@@ -217,10 +216,14 @@ public class IsoTile {
 		
 		if (topPloy && !topOnly) return;
 		
-		if (type == TEXTURED || type != TEXTURED && startHeight != endHeight) {
-			g.setPaint(tGrass);
+		if (type == TEXTURED) {
+			g.setPaint(ResourceManager.instance().getTexturedTile(name));
 			g.fillPolygon(top);
 			g.setPaint(old);
+		}else if(startHeight != endHeight){
+			g.setPaint(tGrass);
+			g.fillPolygon(top);
+			g.setPaint(old);			
 		} else {
 			int f = Math.round(x - horizontal / 2f);
 			g.drawImage(tileImage,  f, (int) (y - h2), null);

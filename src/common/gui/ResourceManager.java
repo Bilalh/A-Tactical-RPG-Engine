@@ -1,9 +1,7 @@
 package common.gui;
 
-import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
-import java.awt.Transparency;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
@@ -74,7 +72,27 @@ public class ResourceManager {
 		return result;
 	}
 	
-	// TODO Prehash
+	private Map<String, TexturePaint> texturedTiles = Collections.synchronizedMap(new HashMap<String, TexturePaint>());
+	public TexturePaint getTexturedTile(String ref){
+		if (texturedTiles.containsKey(ref)){
+			return texturedTiles.get(ref);
+		}
+		
+		assert currentTileSheet != null;
+		assert ref != null;
+		
+		BufferedImage tile = currentTileSheet.getSpriteImage(ref);
+		assert tile != null;
+		
+		Rectangle2D rTile   = new Rectangle2D.Double(0, 0, tile.getWidth(null),tile.getHeight(null));
+		TexturePaint tTile = new TexturePaint( tile, rTile);
+		assert tTile != null;
+		
+		texturedTiles.put(ref, tTile);
+		return tTile;
+	}
+
+	// TODO Prehash?
 	private Map<String, BufferedImage> tilesResized = Collections.synchronizedMap(new HashMap<String, BufferedImage>());
 	public BufferedImage getTile(String ref, int width, int height){
 		if (MapSettings.zoom == 1f && MapSettings.pitch ==0.5f ) return getTile(ref);
