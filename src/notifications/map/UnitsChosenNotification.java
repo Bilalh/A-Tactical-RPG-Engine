@@ -25,4 +25,17 @@ public class UnitsChosenNotification implements IMapNotification {
 		map.unitsChoosen(units);
 	}
 
+	@Override
+	public String readableInfo() {
+		StringBuffer b = new StringBuffer(units.size() *15);
+		b.append("Units Choosen: ");
+		for (int i = 0; i < units.size(); i++) {
+			b.append(units.get(i).getName());
+			if (i != units.size()-1){
+				b.append(", ");
+			}
+		}
+		return b.toString();
+	}
+
 }

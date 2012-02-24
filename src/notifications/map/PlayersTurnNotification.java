@@ -19,4 +19,9 @@ public class PlayersTurnNotification implements IMapNotification {
 		map.playersTurn();
 	}
 
+	@Override
+	public String readableInfo() {
+		return "Player's Turn";
+	}
+
 }

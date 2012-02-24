@@ -13,4 +13,9 @@ public class PlayerLostNotification  implements IMapNotification {
 		map.playerLost();
 	}
 
+	@Override
+	public String readableInfo() {
+		return "Player Lost";
+	}
+
 }

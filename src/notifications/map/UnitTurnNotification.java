@@ -26,5 +26,10 @@ public class UnitTurnNotification implements IMapNotification {
 	public String toString() {
 		return String.format("UnitTurnNotification [unit=%s]", unit);
 	}
+
+	@Override
+	public String readableInfo() {
+		return null;
+	}
 	
 }

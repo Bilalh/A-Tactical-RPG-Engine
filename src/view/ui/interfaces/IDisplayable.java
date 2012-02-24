@@ -3,7 +3,7 @@ package view.ui.interfaces;
 import java.awt.Graphics2D;
 
 /**
- * An Object that drawn at a specifed location
+ * An Object that can be drawn at a specifed location
  * @author Bilal Hussain
  */
 public interface IDisplayable {

@@ -7,4 +7,6 @@ import view.map.GuiMap;
  */
 public interface IMapNotification extends INotification<GuiMap> {
 
+	String readableInfo();
+
 }

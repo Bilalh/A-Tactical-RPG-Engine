@@ -4,6 +4,7 @@ import java.util.*;
 
 import view.map.GuiMap;
 import common.LocationInfo;
+import common.interfaces.ILocation;
 import common.interfaces.IMapNotification;
 import common.interfaces.IMapUnit;
 
@@ -11,7 +12,7 @@ import common.interfaces.IMapUnit;
 /**
  * @author Bilal Hussain
  */
-public class UnitMovedNotification  implements IMapNotification {
+public class UnitMovedNotification implements IMapNotification {
 	
 	final private IMapUnit u;
 	final private Collection<LocationInfo> path;
@@ -45,7 +46,11 @@ public class UnitMovedNotification  implements IMapNotification {
 		return builder.toString();
 	}
 
-
-	
-	
+	@Override
+	public String readableInfo() {
+		ILocation start =  path.iterator().next();
+		return String.format("%s's %s moved from (%s,%s) to (%s,%s)", u.isAI() ? "AI" : "Player", u.getName(),
+				start.getX(), start.getY(),
+				u.getLocation().getX(), u.getLocation().getY());
+	}
 }

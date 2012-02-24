@@ -12,13 +12,13 @@ public interface IConsole extends IDisplayable {
 
 
 	/**
-	 * Adds a string to the Text area, the string will be printed on a new line
+	 * Adds a string to the Console, the string will be printed on a new line
 	 * Note: Escape sequences such as \n are not honoured.
 	 */
 	void println(Object newObj);
 
 	/**
-	 * Adds a string to the Text area, the string will be printed on a new line
+	 * Adds a string to the Console, the string will be printed on a new line
 	 * Note: Escape sequences such as \n are not honoured.
 	 */
 	void printf(String format, Object... args);

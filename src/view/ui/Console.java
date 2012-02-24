@@ -40,11 +40,14 @@ public class Console implements IConsole {
 
 	/** If not null the text is printed the stream */
 	private PrintStream out;
-
+	
+	/** MonoSpace font */
 	private Font font = new Font("MONOSPACED", Font.PLAIN, 12);
+	private float lineheight = 17f;
+	
 	
 	public Console() {
-		this(1000, 7, true,null);
+		this(1000, 5, true,null);
 	}
 
 	public Console(int history, int linesToShow, boolean numberedLines, PrintStream stream) {
@@ -54,14 +57,14 @@ public class Console implements IConsole {
 		index  = head = lineIndex = 0;
 		around = false;
 		out    = stream;
-		height = (int) ((17f) * linesToShow);
+		height = (int) (lineheight * linesToShow);
 
 		this.numberedLines  = numberedLines;
 		numberOfLinesToShow = linesToShow;
 	}
 
 	/**
-	 * Adds a string to the Text area, the string will be printed on a new line
+	 * Adds a string to the Console, the string will be printed on a new line
 	 * Note: Escape sequences such as \n are not honoured.
 	 */
 	@Override
@@ -70,7 +73,7 @@ public class Console implements IConsole {
 
 		String newString = newObj.toString();
 		if (out != null) out.println(newString);
-		lines[index] = numberedLines ? newString : (lineIndex++) + " " + newString;
+		lines[index] = numberedLines ? (lineIndex++) + " " + newString : newString ;
 
 		index++;
 		if (index == lines.length) around = true;
@@ -86,7 +89,7 @@ public class Console implements IConsole {
 	}
 
 	/**
-	 * Adds a string to the Text area, the string will be printed on a new line
+	 * Adds a string to the Console, the string will be printed on a new line
 	 * Note: Escape sequences such as \n are not honoured.
 	 */
 	@Override

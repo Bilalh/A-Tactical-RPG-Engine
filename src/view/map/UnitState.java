@@ -12,6 +12,7 @@ import common.LocationInfo;
 import engine.skills.ISkill;
 
 import util.Logf;
+import view.Gui;
 import view.map.GuiMap.ActionsEnum;
 import view.map.IsoTile.TileState;
 import view.ui.Menu;
@@ -66,10 +67,13 @@ enum UnitState {
 				case 0:
 					return MOVEMENT_RANGE;
 				case 1:
+					Gui.console().printf("Player's %s did not move", map.getCurrentUnit().getUnit().getName());
 					return SHOW_ATTACK_TARGETS;
 				case 2:
+					Gui.console().printf("Player's %s did not move", map.getCurrentUnit().getUnit().getName());
 					return MENU_SKILL;
 				case 3:
+					Gui.console().printf("Player's %s waited", map.getCurrentUnit().getUnit().getName());
 					return FINISHED;
 //				case 4:
 //					return cancel();

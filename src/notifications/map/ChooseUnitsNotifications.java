@@ -42,5 +42,10 @@ public class ChooseUnitsNotifications implements IMapNotification {
 				units != null ? units.subList(0, Math.min(units.size(), maxLen)) : null,
 				aiUnits != null ? aiUnits.subList(0, Math.min(aiUnits.size(), maxLen)) : null);
 	}
+
+	@Override
+	public String readableInfo() {
+		return null; 
+	}
 	
 }

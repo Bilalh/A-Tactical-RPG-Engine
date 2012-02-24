@@ -278,8 +278,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	@Override
 	public void update(Observable map, Object notification) {
-		Gui.console().println(notification);
-		((IMapNotification) notification).process(this);
+		log.info(notification);
+		IMapNotification n = (IMapNotification) notification;
+		String s = n.readableInfo();
+		if (s != null) Gui.console().println(s);
+		n.process(this);
 	}
 
 	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IMapUnit> allAiUnits) {
@@ -379,7 +382,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 			atarget.setDamage(battle.getDamage());
 			setSelectedTile(battle.getTarget().getLocation());
 		}
-		
 		
 		// End unit's turn
 		timer.schedule(new TimerTask() {

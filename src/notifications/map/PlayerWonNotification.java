@@ -13,4 +13,9 @@ public class PlayerWonNotification implements IMapNotification {
 		map.playerWon();
 	}
 
+	@Override
+	public String readableInfo() {
+		return "Player Won";
+	}
+
 }
