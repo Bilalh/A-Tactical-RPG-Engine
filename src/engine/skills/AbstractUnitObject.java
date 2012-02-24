@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.UUID;
 
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+
 import common.Location;
 
 /**
@@ -15,6 +17,7 @@ import common.Location;
 public class AbstractUnitObject {
 
 	protected String name;
+	@XStreamAsAttribute
 	protected final UUID uuid;
 
 	public AbstractUnitObject() {

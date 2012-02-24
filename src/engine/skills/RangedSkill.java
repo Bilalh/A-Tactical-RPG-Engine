@@ -11,7 +11,6 @@ import common.Location;
 /**
  * @author Bilal Hussain
  */
-@XStreamAlias("rangedSkill")
 public class RangedSkill extends AbstractSkill {
 
 	protected int range;
