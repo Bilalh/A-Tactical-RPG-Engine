@@ -70,7 +70,6 @@ enum UnitState {
 					Gui.console().printf("Player's %s did not move", map.getCurrentUnit().getUnit().getName());
 					return SHOW_ATTACK_TARGETS;
 				case 2:
-					Gui.console().printf("Player's %s did not move", map.getCurrentUnit().getUnit().getName());
 					return MENU_SKILL;
 				case 3:
 					Gui.console().printf("Player's %s waited", map.getCurrentUnit().getUnit().getName());

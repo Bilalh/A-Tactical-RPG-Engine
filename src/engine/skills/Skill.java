@@ -16,30 +16,34 @@ public class Skill implements ISkill {
 
 	protected int area; // Number of squares affected
 	protected boolean targetOpposite; 
+	protected boolean includeCaster;
+	protected Location startLocation;
 	
 	public Skill(){
 	}
 	
-	public Skill(String name, int power, int range, int area, boolean targetOpposite) {
+	public Skill(String name, int power, int range, int area, boolean targetOpposite, boolean includeCaster) {
 		this();
 		this.name  = name;
 		this.power = power;
 		this.range = range;
 		this.area  = area;
 		this.targetOpposite = targetOpposite;
+		this.includeCaster = includeCaster;
 	}
 
 	@Override
 	public Collection<Location> getAttackRange(Location start, int width, int height) {
-		HashSet<Location> set = makeRange(start, width, height, range);
-		set.remove(start);
-		return set;
+		startLocation = start;
+		HashSet<Location> results = makeRange(start, width, height, range);
+		if (!includeCaster) results.remove(startLocation);
+		return results;
 	}
 	
 	@Override
 	public Collection<Location> getArea(Location start, int width, int height){
-		Collection<Location> results =  makeRange(start, width, height, area);
-		results.add(start);
+		HashSet<Location> results =  makeRange(start, width, height, area);
+		if (!includeCaster) results.remove(startLocation);
 		return results;
 	}
 	
@@ -88,7 +92,6 @@ public class Skill implements ISkill {
 	}
 
 	/** @category Generated */
-	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -100,19 +103,16 @@ public class Skill implements ISkill {
 	}
 
 	/** @category Generated */
-	@Override
 	public void setPower(int power) {
 		this.power = power;
 	}
 
 	/** @category Generated */
-	@Override
 	public int getRange() {
 		return range;
 	}
 
 	/** @category Generated */
-	@Override
 	public void setRange(int range) {
 		this.range = range;
 	}
@@ -124,7 +124,6 @@ public class Skill implements ISkill {
 	}
 
 	/** @category Generated */
-	@Override
 	public void setTargetOpposite(boolean targetOpposite) {
 		this.targetOpposite = targetOpposite;
 	}
@@ -137,6 +136,17 @@ public class Skill implements ISkill {
 	/** @category Generated */
 	public void setArea(int area) {
 		this.area = area;
+	}
+
+	/** @category Generated */
+	@Override
+	public boolean isIncludeCaster() {
+		return includeCaster;
+	}
+
+	/** @category Generated */
+	public void setIncludeCaster(boolean includeCaster) {
+		this.includeCaster = includeCaster;
 	}
 	
 }
