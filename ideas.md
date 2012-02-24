@@ -7,6 +7,11 @@ AI
 Editor
 -----
 * Added image to tilemap on save. -- done
+* Main editor for making game
+* Ai Unit placement
+* Unit creation
+* Item Creation
+* Dialog loading
 
 GUI
 ---
@@ -20,7 +25,17 @@ GUI
   * Units  -- done
 * refactor -- done
 * Skip empty tiles -- done
-* Wait util music is finished 
+* Wait util music is finished
+* Slanted tiles -- kind of 
+
+* World map
+
+Model 
+-----
+* Skills -- done
+* Healing skill 
+* spears -- done
+* bows   -- done
 
 Misc
 ----
@@ -33,6 +48,8 @@ Misc
 * Pitch -- done
 * Selection above range -- done
 * Map scrolling to current units turn --  maybe?
+* Right click as cancel -- done
+* Console as history of the game -- done
 
 State
 -----
