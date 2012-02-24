@@ -2,23 +2,30 @@ package engine.items;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
 import common.interfaces.IWeapon;
 
 import engine.map.Map;
 import engine.map.interfaces.IMutableMapUnit;
+import engine.skills.AbstractUnitObject;
 
 /**
- * Common methods for weapons 
+ * Provide reasonable defaults for a weapon
  * @author Bilal Hussain
  */
-public abstract class AbstractWeapon  implements IWeapon {
+public abstract class AbstractWeapon extends AbstractUnitObject  implements IWeapon {
 
-	protected int strength = 1;
-	protected int range    = 1;
+	protected int strength;
+	protected int range;
 
-	protected String imageRef = "0-1";
-
+	protected String imageRef;
+	
+	public AbstractWeapon(){
+		strength = 1;
+		range    = 1;
+		imageRef = "0-1";
+	}
 
 	@Override
 	public Collection<IMutableMapUnit> getTargets(IMutableMapUnit attacker, IMutableMapUnit target, Map map) {
@@ -61,5 +68,6 @@ public abstract class AbstractWeapon  implements IWeapon {
 	public void setImageRef(String imageRef) {
 		this.imageRef = imageRef;
 	}
+
 
 }

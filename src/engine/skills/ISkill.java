@@ -3,11 +3,12 @@ package engine.skills;
 import java.util.Collection;
 
 import common.Location;
+import common.interfaces.Identifiable;
 
 /**
  * @author Bilal Hussain
  */
-public interface ISkill {
+public interface ISkill extends Identifiable {
 
 	Collection<Location> getAttackRange(Location start, int width, int height);
 

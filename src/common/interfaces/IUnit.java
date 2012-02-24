@@ -1,7 +1,6 @@
 package common.interfaces;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import engine.map.Tile;
 import engine.skills.ISkill;
@@ -11,7 +10,7 @@ import engine.unit.UnitImages;
 /**
  * @author Bilal Hussain
  */
-public interface IUnit {
+public interface IUnit extends Identifiable {
 
 	int getMaxHp();
 
@@ -21,18 +20,16 @@ public interface IUnit {
 
 	String getName();
 
-	UUID getUuid();
-
 	int getExp();
 
 	int getLevel();
 
 	int getDefence();
 
-	int getCost(Tile old, Tile next);
-
 	int getSpeed();
 	
+	int getCost(Tile old, Tile next);
+
 	UnitImages getImageData();
 	
 	IWeapon getWeapon();

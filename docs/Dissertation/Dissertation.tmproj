@@ -18,7 +18,7 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>152</integer>
+	<integer>191</integer>
 	<key>metaData</key>
 	<dict>
 		<key>Project.tex</key>
@@ -26,9 +26,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>28</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>23</integer>
+				<integer>8</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -73,7 +73,7 @@
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>showFileHierarchyPanel</key>
-	<true/>
+	<false/>
 	<key>treeState</key>
 	<dict>
 		<key>Dissertation</key>
@@ -93,6 +93,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{1016, 193}, {881, 721}}</string>
+	<string>{{485, 157}, {881, 721}}</string>
 </dict>
 </plist>

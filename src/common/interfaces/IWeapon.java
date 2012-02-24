@@ -9,7 +9,7 @@ import engine.map.interfaces.IMutableMapUnit;
 /**
  * @author Bilal Hussain
  */
-public interface IWeapon {
+public interface IWeapon extends Identifiable {
 
 	Collection<Location> getAttackRange(Location start, int width, int height);
 
