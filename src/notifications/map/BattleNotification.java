@@ -31,7 +31,7 @@ public class BattleNotification implements IMapNotification {
 		Collection<BattleResult> results = battle.getResults();
 		StringBuffer sb = new StringBuffer(results.size()*70);
 		IMapUnit m = battle.getAttacker(); 
-		sb.append(String.format("%s' %s attacked: ", m.isAI() ? "AI" :"Player", m.getName()));
+		sb.append(String.format("%s's %s attacked: ", m.isAI() ? "AI" :"Player", m.getName()));
 		
 		for (Iterator<BattleResult> it = results.iterator(); it.hasNext();) {
 			BattleResult b = it.next();

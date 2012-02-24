@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>tex/Objectives.tex</string>
+	<string>Project.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -18,7 +18,7 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>212</integer>
+	<integer>152</integer>
 	<key>metaData</key>
 	<dict>
 		<key>Project.tex</key>
@@ -26,65 +26,54 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
+				<integer>28</integer>
+				<key>line</key>
+				<integer>23</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>settings/Setting.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
 				<integer>22</integer>
-				<key>line</key>
-				<integer>14</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>tex/Introduction.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>9</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>tex/Objectives.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>4</integer>
 				<key>line</key>
 				<integer>71</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>63</integer>
 		</dict>
-		<key>tex/Scripting.tex</key>
+		<key>tex/Abstract.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>13</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>57</integer>
+				<integer>12</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>40</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>tex/Objectives.tex</string>
 		<string>Project.tex</string>
+		<string>tex/Abstract.tex</string>
+		<string>settings/Setting.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
+	<key>showFileHierarchyPanel</key>
+	<true/>
 	<key>treeState</key>
 	<dict>
 		<key>Dissertation</key>
@@ -92,10 +81,18 @@
 			<key>isExpanded</key>
 			<true/>
 			<key>subItems</key>
-			<dict/>
+			<dict>
+				<key>settings</key>
+				<dict>
+					<key>isExpanded</key>
+					<true/>
+					<key>subItems</key>
+					<dict/>
+				</dict>
+			</dict>
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{651, 139}, {886, 726}}</string>
+	<string>{{1016, 193}, {881, 721}}</string>
 </dict>
 </plist>

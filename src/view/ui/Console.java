@@ -43,7 +43,7 @@ public class Console implements IConsole {
 	
 	/** MonoSpace font */
 	private Font font = new Font("MONOSPACED", Font.PLAIN, 12);
-	private float lineheight = 17f;
+	private float lineheight = 18f;
 	
 	
 	public Console() {

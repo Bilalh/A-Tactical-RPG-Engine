@@ -293,7 +293,6 @@ public class Map extends BasicMap implements IMap {
 
 	// Peforms the attack and notifies the Observers what the results were 
 	public void skillTargetChosen(ISkill skill, IMutableMapUnit u, Location target) {
-		System.err.println("SKILL chosen");
 		Battle battle = new SkillBattle(skill, u, target, this);
 		battle.performBattle();
 

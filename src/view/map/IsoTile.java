@@ -217,7 +217,7 @@ public class IsoTile {
 		
 		if (topPloy && !topOnly) return;
 		
-		if (type == TEXTURED) {
+		if (type == TEXTURED || type != TEXTURED && startHeight != endHeight) {
 			g.setPaint(tGrass);
 			g.fillPolygon(top);
 			g.setPaint(old);

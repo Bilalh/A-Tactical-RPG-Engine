@@ -40,7 +40,7 @@ public class BasicMap extends Observable {
 		for (SavedTile t : smap.getTiles()) {
 			// float h = ((t.getHeight())/max)*5;
 			// field[t.getX()][t.getY()] = new Tile((int)h, (int)h, t.getType());
-			field[t.getX()][t.getY()] = new Tile(t.getHeight(), t.getHeight(), t.getType(), t.getOrientation());
+			field[t.getX()][t.getY()] = new Tile(t.getStartingHeight(), t.getHeight(), t.getType(), t.getOrientation());
 		}
 
 		mapSettings = smap.getMapSettings();
