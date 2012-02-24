@@ -32,7 +32,7 @@ public class Engine {
 	
 	private void loadSettings() {
 		
-		Weapons ws = Config.loadPreference("assets/weapons.xml");
+		Weapons ws =  Config.loadPreference("assets/weapons.xml");
 		AssertStore.instance().loadWeapons(ws);
 		
 		player = new Player();

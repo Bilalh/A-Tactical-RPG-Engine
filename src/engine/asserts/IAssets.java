@@ -6,18 +6,19 @@ import java.util.UUID;
 
 import common.interfaces.IWeapon;
 import common.interfaces.Identifiable;
+import config.IPreference;
 
 /**
- * Stores assets by thier id
+ * Stores assets by thier id.
  * @author Bilal Hussain
  */
-public interface IAssets<E extends Identifiable> {
+public interface IAssets<E extends Identifiable> extends IPreference {
 
-	IWeapon put(E e);
+	E put(E e);
 
 	void putAll(Map<? extends UUID, ? extends E> e);
 
-	IWeapon remove(UUID id);
+	E remove(UUID id);
 
 	void clear();
 
