@@ -43,19 +43,25 @@ public class Unit implements IMutableUnit {
 	private transient UnitImages imageData;
 	
 	private int weight;
-	private IWeapon weapon;
+
+	// Only store the ids of the skill and weapons when saving. 
+	private UUID wepaonId;
+	private ArrayList<UUID> skillIds;
 	
-	private ArrayList<ISkill> skills;
+	private transient IWeapon weapon;
+	private transient ArrayList<ISkill> skills;
 	
 	public Unit(){
 		uuid = UUID.randomUUID();
 		this.name = uuid.toString();
 		imageData = new UnitImages();
 		weapon    = new MeleeWeapon(1);
-		skills    = new ArrayList<ISkill>();
+		
+		ArrayList<ISkill> skills = new ArrayList<ISkill>();
 		skills.add(new RangedSkill("Air Blade",     10, 2,  0, true,false));
 		skills.add(new RangedSkill("Thunder Flare", 15, 3,  1, true,false));
 		skills.add(new RangedSkill("Thunderbird",   40, 4,  2, true,false));
+		setSkills(skills);
 	}
 
 	public Unit(String name, int maxHp, int move, int strength, int speed) {
@@ -88,16 +94,20 @@ public class Unit implements IMutableUnit {
 		this.imageData = imageData;
 	}
 	
+
+	@Override
+	public void setSkills(ArrayList<ISkill> skills) {
+		this.skills = skills;
+		skillIds = new ArrayList<UUID>();
+		for (ISkill s : skills) {
+			skillIds.add(s.getUuid());
+		}
+	}
+	
 	/** @category Generated */
 	@Override
 	public ArrayList<ISkill> getSkills() {
 		return skills;
-	}
-
-	/** @category Generated */
-	@Override
-	public void setSkills(ArrayList<ISkill> skills) {
-		this.skills = skills;
 	}
 	
 	/** @category Generated */
@@ -228,7 +238,8 @@ public class Unit implements IMutableUnit {
 	/** @category Generated */
 	@Override
 	public void setWeapon(IWeapon weapon) {
-		this.weapon = weapon;
+		this.weapon   = weapon;
+		this.wepaonId = weapon.getUuid();
 	}
 
 

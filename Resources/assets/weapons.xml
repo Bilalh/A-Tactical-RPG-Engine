@@ -1,0 +1,21 @@
+<weapons>
+  <entry>
+    <uuid>55ff186f-7a30-41d7-aefb-035b0c882260</uuid>
+    <engine.items.RangedWeapon uuid="55ff186f-7a30-41d7-aefb-035b0c882260">
+      <name>55ff186f-7a30-41d7-aefb-035b0c882260</name>
+      <strength>6</strength>
+      <range>5</range>
+      <imageRef>4-15</imageRef>
+      <innerRange>3</innerRange>
+    </engine.items.RangedWeapon>
+  </entry>
+  <entry>
+    <uuid>0f0dee32-06de-4f25-ba3d-acb110afc52c</uuid>
+    <engine.items.Spear uuid="0f0dee32-06de-4f25-ba3d-acb110afc52c">
+      <name>0f0dee32-06de-4f25-ba3d-acb110afc52c</name>
+      <strength>5</strength>
+      <range>3</range>
+      <imageRef>3-15</imageRef>
+    </engine.items.Spear>
+  </entry>
+</weapons>

@@ -11,7 +11,7 @@ import engine.unit.UnitImages;
 /**
  * @author Bilal Hussain
  */
-public class WeaponSave {
+public class SaveIdeas {
 
 	public static void main(String[] args) {
 		config.Config.loadLoggingProperties();

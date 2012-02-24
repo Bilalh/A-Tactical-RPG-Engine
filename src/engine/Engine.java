@@ -2,12 +2,15 @@ package engine;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.UUID;
 
 import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
 import common.interfaces.IWeapon;
 
 import view.Main;
 import config.Config;
+import engine.asserts.AssertStore;
+import engine.asserts.Weapons;
 import engine.items.RangedWeapon;
 import engine.items.Spear;
 import engine.map.Map;
@@ -28,8 +31,11 @@ public class Engine {
 	}
 	
 	private void loadSettings() {
-		player = new Player();
 		
+		Weapons ws = Config.loadPreference("assets/weapons.xml");
+		AssertStore.instance().loadWeapons(ws);
+		
+		player = new Player();
 		Unit u        = new Unit();
 		UnitImages ui = Config.loadPreference("images/characters/princess-animations.xml");
 		u.setName("Elena");
@@ -40,7 +46,8 @@ public class Engine {
 		u.setMaxHp(15);
 //		ui.setSpriteSheetLocation("images/characters/Elena.png");
 		u.setImageData("images/characters/princess-animations.xml",ui);
-		u.setWeapon(new RangedWeapon(6, 5,3));
+//		u.setWeapon(new RangedWeapon(6, 5,3));
+		u.setWeapon(AssertStore.instance().getWeapon(UUID.fromString("55ff186f-7a30-41d7-aefb-035b0c882260")));
 		player.addUnit(u);
 
 		u  = new Unit();
@@ -63,13 +70,11 @@ public class Engine {
 
 	}
 
-
 	public Map startMap(String name){
 		currentMap = new Map(name, player);
 		return currentMap;
 	}
 
-	/** @category Generated */
 	public IMap getCurrentMap() {
 		return currentMap;
 	}

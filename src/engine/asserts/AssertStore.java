@@ -1,4 +1,4 @@
-package engine;
+package engine.asserts;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,7 +32,10 @@ public class AssertStore {
 		return s;
 	}
 	
-	//FIXME load weapons and skills
+	
+	public void loadWeapons(Weapons ws){
+		weapons.putAll(ws.getMap());
+	}
 	
 	private AssertStore() {
 	}

@@ -39,7 +39,7 @@ public class Config {
 	}
 
 	private static final String LOG_PROPERTIES_FILE = "./log4j.properties";
-	private static final String RESOURCE_DIRECTORY = "./Resources/";
+	private static String RESOURCE_DIRECTORY = "./Resources/";
 	
 	
 	private static Logger log = Logger.getLogger(Config.class);
@@ -81,15 +81,33 @@ public class Config {
 		return pref;
 	}
 
-	public static <E extends IPreference> E loadPreferenceFromPackage(String filepath){
-		InputStream io =  Config.class.getResourceAsStream(filepath);
+	public static <E extends IPreference> E loadPreferenceFromClassPath(String path){
+		InputStream io =  Config.class.getResourceAsStream(path);
 		assert io != null;
 		E pref = XMLUtil.convertXml(io);
 		return pref;
 	}
 	
+	public static void  savePreferences(IPreference p, OutputStreamWriter w) throws IOException{
+		String s = XMLUtil.makeFormattedXml(p);
+		w.write(s);
+	}
+
+	public static void savePreferencesToResources(IPreference p, String path){
+		String s = XMLUtil.makeXml(p);
+		try {
+			FileWriter fw = new FileWriter(new File(RESOURCE_DIRECTORY + path));
+			savePreferences(p, fw);
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			assert false : "Should not happen";
+		}
+	}
+	
+	
 	public static SpriteSheet loadSpriteSheet(String filepath){
-		File in = new File("Resources/"+filepath);
+		File in = new File(RESOURCE_DIRECTORY+filepath);
 		File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png", "\\.xml"));
 		Logf.debug(log, "Try to load '%s' and '%s", in.getAbsolutePath(), xml.getAbsolutePath());
 		SpriteSheet ss = null;
@@ -103,9 +121,13 @@ public class Config {
 		assert ss != null;
 		return ss;
 	}
+
+	public static void setResourceDirectory(String path) {
+		RESOURCE_DIRECTORY = path;
+	}
+	
 	
 	private static final ITileMapping defaultMapping;
-	
 	static{
 		HashMap<String, TileImageData> m = new HashMap<String, TileImageData>();
 		TileImageData d= new TileImageData("images/tiles/brown.png", ImageType.NON_TEXTURED);
@@ -117,7 +139,7 @@ public class Config {
 	public static ITileMapping defaultMapping(){
 		return defaultMapping;
 	}
-	
+
 	
 }
 

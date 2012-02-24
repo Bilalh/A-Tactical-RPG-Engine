@@ -22,13 +22,14 @@ public class Spear extends AbstractWeapon {
 	
 	public Spear() {
 		this.imageRef="3-15";
+		this.range = 2;
 	}
 
 	/** @category Generated */
 	public Spear(int strength, int range) {
 		this();
 		this.strength = strength;
-		this.range = range;
+		this.range   = range;
 	}
 
 	@Override
