@@ -18,6 +18,7 @@ import common.interfaces.ILocation;
 import common.interfaces.IMapNotification;
 import common.interfaces.IMapUnit;
 import common.interfaces.IWeapon;
+import config.Config;
 
 import engine.Player;
 import engine.items.MeleeWeapon;
@@ -73,16 +74,15 @@ public class Map extends BasicMap implements IMap {
 	private void setUpAI() {
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
 	
+		UnitImages ui = Config.loadPreference("images/characters/Elena-animations.xml");
 		Unit u = new Unit();
-		UnitImages ui = new UnitImages();
 		u.setName("ai-1");
 		u.setMove(5);
 		u.setSpeed(5);
 		u.setStrength(30);
 		u.setDefence(20);
 		u.setMaxHp(40);
-		ui.setSpriteSheetLocation("images/characters/Elena.png");
-		u.setImageData(ui);
+		u.setImageData("images/characters/Elena-animations.xml",ui);
 		u.setWeapon(new MeleeWeapon(7));
 
 		AIUnit au = new AIUnit(u, new Location(width - 1, 5), ai);
@@ -90,7 +90,6 @@ public class Map extends BasicMap implements IMap {
 		field[au.getGridX()][au.getGridY()].setCurrentUnit(au); 
 	
 		u = new Unit();
-		ui = new UnitImages();
 		u.setName("ai-2");
 		u.setMove(6);
 		u.setSpeed(10);
@@ -98,7 +97,7 @@ public class Map extends BasicMap implements IMap {
 		u.setDefence(10);
 		u.setMaxHp(30);
 		ui.setSpriteSheetLocation("images/characters/Elena.png");
-		u.setImageData(ui);
+		u.setImageData("images/characters/Elena-animations.xml",ui);
 		IWeapon w = new RangedWeapon(7, 2,0);
 		w.setImageRef("4-11");
 		u.setWeapon(w);

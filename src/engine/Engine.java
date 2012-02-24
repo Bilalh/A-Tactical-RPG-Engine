@@ -38,11 +38,11 @@ public class Engine {
 		u.setStrength(25);
 		u.setDefence(20);
 		u.setMaxHp(15);
-		player.addUnit(u);
 //		ui.setSpriteSheetLocation("images/characters/Elena.png");
-		u.setImageData(ui);
+		u.setImageData("images/characters/princess-animations.xml",ui);
 		u.setWeapon(new RangedWeapon(6, 5,3));
-		
+		player.addUnit(u);
+
 		u  = new Unit();
 		ui = Config.loadPreference("images/characters/Boy-animations.xml");
 		u.setName("Boy");
@@ -51,15 +51,16 @@ public class Engine {
 		u.setStrength(30);
 		u.setDefence(10);
 		u.setMaxHp(30);
-		player.addUnit(u);
-		u.setImageData(ui);
-				
+		u.setImageData("images/characters/princess-animations.xml",ui);
+		
 //		IWeapon w = util.Util.getClassInstancebyName("custom.CustomSpear");
 		IWeapon w = new Spear();
 		w.setRange(3);
 		w.setStrength(2);
-		
 		u.setWeapon(w);
+
+		player.addUnit(u);
+
 	}
 
 

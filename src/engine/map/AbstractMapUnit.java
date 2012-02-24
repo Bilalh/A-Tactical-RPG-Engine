@@ -8,7 +8,8 @@ import common.interfaces.ILocation;
 import common.interfaces.IWeapon;
 
 import engine.map.interfaces.IMutableMapUnit;
-import engine.skills.Skill;
+import engine.skills.ISkill;
+import engine.skills.RangedSkill;
 import engine.unit.IMutableUnit;
 import engine.unit.UnitImages;
 
@@ -188,8 +189,8 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 	}
 
 	@Override
-	public void setImageData(UnitImages imageData) {
-		unit.setImageData(imageData);
+	public void setImageData(String ref, UnitImages imageData) {
+		unit.setImageData(ref,imageData);
 	}
 
 	@Override
@@ -214,13 +215,13 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 
 	/** @category Generated */
 	@Override
-	public ArrayList<Skill> getSkills() {
+	public ArrayList<ISkill> getSkills() {
 		return unit.getSkills();
 	}
 
 	/** @category Generated */
 	@Override
-	public void setSkills(ArrayList<Skill> skills) {
+	public void setSkills(ArrayList<ISkill> skills) {
 		unit.setSkills(skills);
 	}
 

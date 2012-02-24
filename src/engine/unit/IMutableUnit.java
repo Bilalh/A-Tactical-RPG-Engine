@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import common.interfaces.IUnit;
 import common.interfaces.IWeapon;
 import engine.map.MapPlayer;
-import engine.skills.Skill;
+import engine.skills.ISkill;
+import engine.skills.RangedSkill;
 
 /**
  * @author Bilal Hussain
@@ -30,10 +31,10 @@ public interface IMutableUnit extends IUnit {
 
 	void setName(String name);
 
-	void setImageData(UnitImages imageData);
-	
 	void setWeapon(IWeapon weapon);
 	
-	void setSkills(ArrayList<Skill> skills);
+	void setSkills(ArrayList<ISkill> skills);
+
+	void setImageData(String ref, UnitImages imageData);
 	
 }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import engine.map.Tile;
-import engine.skills.Skill;
+import engine.skills.ISkill;
+import engine.skills.RangedSkill;
 import engine.unit.UnitImages;
 
 /**
@@ -36,6 +37,6 @@ public interface IUnit {
 	
 	IWeapon getWeapon();
 
-	ArrayList<Skill> getSkills();
+	ArrayList<ISkill> getSkills();
 	
 }

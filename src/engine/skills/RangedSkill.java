@@ -3,12 +3,15 @@ package engine.skills;
 import java.util.Collection;
 import java.util.HashSet;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import common.Location;
 
 /**
  * @author Bilal Hussain
  */
-public class Skill implements ISkill {
+@XStreamAlias("rangedSkill")
+public class RangedSkill implements ISkill {
 
 	protected String name;
 	protected int power;
@@ -19,10 +22,10 @@ public class Skill implements ISkill {
 	protected boolean includeCaster;
 	protected Location startLocation;
 	
-	public Skill(){
+	public RangedSkill(){
 	}
 	
-	public Skill(String name, int power, int range, int area, boolean targetOpposite, boolean includeCaster) {
+	public RangedSkill(String name, int power, int range, int area, boolean targetOpposite, boolean includeCaster) {
 		this();
 		this.name  = name;
 		this.power = power;
