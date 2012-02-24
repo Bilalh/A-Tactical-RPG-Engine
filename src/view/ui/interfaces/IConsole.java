@@ -23,10 +23,6 @@ public interface IConsole extends IDisplayable {
 	 */
 	void printf(String format, Object... args);
 
-	/** Draw the text area at the specifed point, with the specifed width. */
-	@Override
-	void draw(Graphics2D g, int drawX, int drawY);
-
 	/**
 	 * Scroll backwards by one line
 	 * Note: since the list is circular the list will wrap around if the start is reached.

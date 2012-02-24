@@ -47,7 +47,7 @@ public class Console implements IConsole {
 	
 	
 	public Console() {
-		this(1000, 5, true,null);
+		this(500, 5, true,null);
 	}
 
 	public Console(int history, int linesToShow, boolean numberedLines, PrintStream stream) {
@@ -97,7 +97,7 @@ public class Console implements IConsole {
 		println(String.format(format, args));
 	}
 
-	/** Draw the text area at the specifed point, with the specifed width. */
+	/** Draw the console at the specifed point, with the specifed width. */
 	@Override
 	public void draw(Graphics2D g, int drawX, int drawY) {
 		Color old = g.getColor();
@@ -127,7 +127,9 @@ public class Console implements IConsole {
 	 */
 	@Override
 	public void scrollUp() {
-		head = (head - 1 + lines.length) % lines.length;
+		int index = (head - 1 + lines.length) % lines.length;
+		if (lines[index] == null) return;
+		head = index;
 	}
 
 	/**
@@ -137,7 +139,9 @@ public class Console implements IConsole {
 	 */
 	@Override
 	public void scrollDown() {
-		head = (head + 1) % lines.length;
+		index =  (head + 1) % lines.length;
+		if (lines[index] == null) return;
+		head = index;
 	}
 
 	/**
@@ -147,6 +151,8 @@ public class Console implements IConsole {
 	 */
 	@Override
 	public void pageUp() {
+		int index = (head - numberOfLinesToShow + lines.length) % lines.length;
+		if (lines[index] == null) return;
 		head = (head - numberOfLinesToShow + lines.length) % lines.length;
 	}
 
@@ -156,6 +162,8 @@ public class Console implements IConsole {
 	 */
 	@Override
 	public void pageDown() {
+		int index = (head + numberOfLinesToShow) % lines.length;
+		if (lines[index] == null) return;
 		head = (head + numberOfLinesToShow) % lines.length;
 	}
 
