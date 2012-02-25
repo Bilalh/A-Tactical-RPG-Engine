@@ -28,7 +28,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 	private JSpinner   infoHeight;
 	
 	public WeaponsEditor() {
-		super("Weapons Editor", "Weapons");
+		super("Weapons Editor", "Weapons",10,10);
 	}
 
 	@Override

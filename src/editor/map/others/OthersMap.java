@@ -2,14 +2,20 @@ package editor.map.others;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
 
+import common.enums.Orientation;
 import common.gui.ResourceManager;
 
+import config.xml.MapData;
+import config.xml.MapSettings;
 import config.xml.TileImageData;
+import config.xml.TileMapping;
 
 import editor.map.EditorIsoTile;
 import editor.util.Resources;
 import engine.map.BasicMap;
+import engine.map.Tile;
 
 /**
  * @author Bilal Hussain
@@ -19,20 +25,30 @@ public class OthersMap extends BasicMap {
 	protected EditorIsoTile[][] guiField;
 	protected BufferedImage tileImage;
 
-	public OthersMap(String name) {
+	public OthersMap(int width, int height) {
 		try {
 			tileImage = Resources.getImage("defaults/tile.png");
 			OthersIsoTile.setTileImage(tileImage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		this.loadMap(name);
+		this.width  = width;
+		this.height = height;
+		loadMap("none");
 	}
 
 	@Override
 	public void loadMap(String name) {
-		super.loadMap(name);
+		
+		field = new Tile[width][height];
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				field[i][j] = new Tile(1, 1, "none", Orientation.UP_TO_EAST);
+			}
+		}
+		mapSettings = MapSettings.defaults();
+		tileMapping = new TileMapping("none", new HashMap<String, TileImageData>());
+		data = new MapData("none");
 		loadOtherSettings();
 	}
 

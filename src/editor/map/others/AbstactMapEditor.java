@@ -37,8 +37,12 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 	// The map view port 
 	protected JViewport mapViewport;
 	
-	public AbstactMapEditor(String tile, String prefsName){
+	protected int mapWidth, mapHeight;
+	
+	public AbstactMapEditor(String tile, String prefsName, int mapWidth, int mapHeight){
 		super(tile);
+		this.mapWidth   = mapWidth;
+		this.mapHeight  = mapHeight;
 		
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -81,7 +85,7 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 	
 	String filename = "fft2";
 	private void createMap() {
-		map = new OthersMap("maps/"+filename+".xml");
+		map = new OthersMap(mapWidth,mapHeight);
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
 	} 
 	
