@@ -13,7 +13,7 @@ Editor
 * Item Creation
 * Dialog loading
 
-GUI
+View
 ---
 * Unit crossing in gui -- done
 * Going to next map    -- done 
@@ -28,7 +28,17 @@ GUI
 * Wait util music is finished
 * Slanted tiles -- kind of 
 
+GUI
+---
 * World map
+* Dialog bugs -- fixed
+
+Save/Loading
+------------
+* Skills  -- done
+* Weapons -- done
+* Units   -- kind of
+* uuid    -- done
 
 Model 
 -----
