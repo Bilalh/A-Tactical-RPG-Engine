@@ -18,6 +18,7 @@ import engine.map.BasicMap;
 import engine.map.Tile;
 
 /**
+ * Provides a map of a specifed size, where the tiles have a height of 1 and the default tile image. 
  * @author Bilal Hussain
  */
 public class OthersMap extends BasicMap {
