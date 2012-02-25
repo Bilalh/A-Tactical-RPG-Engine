@@ -75,17 +75,6 @@ public class EditorMap extends BasicMap {
 		guiField[p.x][p.y].setOrientation(o);
 	}
 	
-	/** @category unused**/
-	public EditorIsoTile getGuiTile(int x, int y) {
-		return guiField[x][y];
-	}
-
-	/** @category unused**/
-	public MutableSprite getTileSpriteAt(int x, int y) {
-		Args.assetNonNull(guiField,spriteSheet);
-		return spriteSheet.getSpriteAt(x, y);
-	}
-	
 	/** @category Generated */
 	public EditorIsoTile[][] getGuiField() {
 		return guiField;

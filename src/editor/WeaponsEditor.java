@@ -3,11 +3,15 @@ package editor;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import view.map.IsoTile.TileState;
 import view.units.AnimatedUnit;
 
 import net.miginfocom.layout.CC;
@@ -18,6 +22,7 @@ import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
+import common.interfaces.IWeapon;
 import common.spritesheet.SpriteSheet;
 import config.Config;
 
@@ -26,6 +31,7 @@ import editor.map.others.OthersUnit;
 import editor.util.Resources;
 import engine.assets.AssertStore;
 import engine.assets.AssetsLocations;
+import engine.items.MeleeWeapon;
 import engine.map.MapPlayer;
 import engine.map.MapUnit;
 import engine.map.interfaces.IMutableMapUnit;
@@ -47,10 +53,15 @@ public class WeaponsEditor extends AbstactMapEditor {
 	private IMutableMapUnit mapUnit;
 	private OthersUnit guiUnit;
 	
+	private IWeapon weapon;
+	private Collection<Location> attackRange = new ArrayList<Location>(1);
+	
+	
 	public WeaponsEditor() {
 		super("Weapons Editor", "Weapons", 11, 11);
-		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 		
+		//TODO change
+		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 		
 		String path = "defaults/Boy.xml";
 		
@@ -68,7 +79,8 @@ public class WeaponsEditor extends AbstactMapEditor {
 		ui.setSpriteSheetLocation(path);
 		u.setImageData(path, ui);
 		
-		
+		weapon = new MeleeWeapon(10);
+		u.setWeapon(weapon);
 		
 		Location l = new Location(5,5);
 		mapUnit = new MapUnit(u, l, new MapPlayer());
@@ -78,8 +90,23 @@ public class WeaponsEditor extends AbstactMapEditor {
 		
 		map.getGuiField()[5][5].setUnit(guiUnit);
 		map.setUnitAt(l, guiUnit);
+		showAttackRange();
 	}
 
+	Collection<Location> getAttackRange(){
+		return weapon.getAttackRange(guiUnit.getLocation(), mapWidth, mapHeight);
+	}
+	
+	void showAttackRange(){
+		for (Location l : attackRange) {
+			map.getGuiTile(l).setState(TileState.NONE);
+		}
+		attackRange = getAttackRange();
+		for (Location l : attackRange) {
+			map.getGuiTile(l).setState(TileState.ATTACK_RANGE);
+		}		
+	}
+	
 	@Override
 	protected JPanel createInfoPanel() {
 		JPanel p = new JPanel(new MigLayout("", "[right]"));

@@ -72,8 +72,12 @@ public class OthersMap extends BasicMap {
 		return guiField;
 	}
 
+	public EditorIsoTile getGuiTile(Location l) {
+		return guiField[l.x][l.y];
+	}
+	
 	public void setUnitAt(Location l, AnimatedUnit au){
-		guiField[l.x][l.y].setUnit(au);
+		getGuiTile(l).setUnit(au);
 		au.setLocation(l);
 	}
 	
