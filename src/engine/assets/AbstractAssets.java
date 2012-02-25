@@ -13,7 +13,7 @@ import common.interfaces.Identifiable;
 import config.IPreference;
 
 /**
- * Stores assets by thier id. Default implemnation of IAssets
+ * Stores assets by their id. Default implemnation of IAssets
  * 
  * @param E  The type of the Identifiable assert. 
  * 

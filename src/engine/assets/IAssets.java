@@ -9,7 +9,10 @@ import common.interfaces.Identifiable;
 import config.IPreference;
 
 /**
- * Stores assets by thier id.
+ * Stores assets by their id.
+ * 
+ * @param E  The type of the Identifiable assert. 
+ * 
  * @author Bilal Hussain
  */
 public interface IAssets<E extends Identifiable> extends IPreference {
