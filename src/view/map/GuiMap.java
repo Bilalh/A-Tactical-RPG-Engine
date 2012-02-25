@@ -146,8 +146,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 		MousePoxy = new MousePoxy();
 		setActionHandler(ActionsEnum.MOVEMENT);
 
-		dialog.setWidth(665);
-		dialog.setHeight(70);
+		dialog.setWidth(parent.getWidth());
+		dialog.setHeight(90);
 		UnitState.setMap(this);
 
 		// Load the tiles and items images
@@ -769,7 +769,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				setActionHandler(ActionsEnum.MENU);
 				break;
 			case KeyEvent.VK_T:
-				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("assets/gui/mage.png"));
+				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("defaults/gui/mage.png"));
 				dialog.setName("Mage");
 				dialog.setText(
 						"Many people believe that Vincent van Gogh painted his best works " +

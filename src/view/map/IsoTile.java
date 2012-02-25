@@ -73,12 +73,12 @@ public class IsoTile {
 	protected AnimatedUnit unit;
 
 	// For safety e.g if a non textured tile is used for slanted tiles this is used instead.
-	static BufferedImage iGrass = ResourceManager.instance().getSpriteFromClassPath("assets/gui/grass32.jpg").getImage();
+	static BufferedImage iGrass = ResourceManager.instance().getSpriteFromClassPath("defaults/gui/grass32.jpg").getImage();
 	static Rectangle2D rGrass  = new Rectangle2D.Double(0, 0, iGrass.getWidth(null), iGrass.getHeight(null));
 	static TexturePaint tGrass = new TexturePaint(iGrass, rGrass);
 
 	// Default Walls
-	static BufferedImage iWall = ResourceManager.instance().getSpriteFromClassPath("assets/gui/wallb16.jpg").getImage();
+	static BufferedImage iWall = ResourceManager.instance().getSpriteFromClassPath("defaults/gui/wallb16.jpg").getImage();
 	static Rectangle2D rWall   = new Rectangle2D.Double(0, 0, iWall.getWidth(null),iWall.getHeight(null));
 	static TexturePaint tWall  = new TexturePaint( iWall, rWall);
 	
