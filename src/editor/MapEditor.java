@@ -28,10 +28,7 @@ import common.enums.Orientation;
 import config.XMLUtil;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
-import editor.map.EditorIsoTile;
-import editor.map.EditorMap;
-import editor.map.EditorMapPanel;
-import editor.map.EditorSpriteSheet;
+import editor.map.*;
 import editor.spritesheet.*;
 import editor.ui.FloatablePanel;
 import editor.ui.TButton;
@@ -40,10 +37,10 @@ import editor.util.Resources;
 import engine.map.Tile;
 
 /**
- * Editor for the engine
+ * Map Editor for the engine
  * @author Bilal Hussain
  */
-public class MapEditor implements ActionListener, IMapRendererParent, ISpriteProvider<MutableSprite> {
+public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>, IEditorMapPanelListener {
 	private static final Logger log = Logger.getLogger(MapEditor.class);
 
 	private JFrame frame;
@@ -51,7 +48,7 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 	private AbstractButton drawButton, drawInfoButton,  eraseButton, fillButton;
 	private AbstractButton eyeButton,  selectionButton, moveButton;
 	private final Action zoomInAction, zoomOutAction,   zoomNormalAction;
-	private State state = State.DRAW;
+	private MapState state = MapState.DRAW;
 
 	private JScrollPane mapScrollPane;
 	private JPanel infoPanel;
@@ -89,7 +86,7 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 		frame.setContentPane(createContentPane());
 		frame.setJMenuBar(createMenubar());
 
-		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+//		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 //		frame.addWindowListener(new WindowAdapter() {
 //			@Override
 //			public void windowClosing(WindowEvent event) {
@@ -179,11 +176,12 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 
 	
 	private EditorIsoTile old;
+	@Override
 	public void tileEntered(EditorIsoTile tile) {
 		if (old != null) {
 			old.setSelected(false);
 		}
-		if (showOnHover && state != State.SELECTION && state != State.MOVE){
+		if (showOnHover && state != MapState.SELECTION && state != MapState.MOVE){
 			tile.setSelected(true);
 			editorMapPanel.repaintMap();
 			old = tile;
@@ -192,19 +190,20 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 	}
 	
 	/** @category Callback **/
+	@Override
 	public void tileClicked(EditorIsoTile tile) {
 		boolean repaint = false;
 		selectedTile = tile;
 		switch (state) {
 			case DRAW:
 				if (selectedTileSprite != null){
-					map.setSprite(tile.getLocation(), selectedTileSprite);
+					map.setTileSprite(tile.getLocation(), selectedTileSprite);
 					repaint = true;
 				}
 				break;
 			case DRAW_INFO:
 				if (selectedTileSprite != null){
-					map.setSprite(tile.getLocation(), selectedTileSprite);
+					map.setTileSprite(tile.getLocation(), selectedTileSprite);
 					repaint = true;
 				}
 				
@@ -227,7 +226,7 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 			case FILL:
 				if (selectedTileSprite != null && selection.contains(tile)){
 					for (EditorIsoTile t : selection) {
-						map.setSprite(t.getLocation(), selectedTileSprite);
+						map.setTileSprite(t.getLocation(), selectedTileSprite);
 					}
 				}
 				repaint = true;
@@ -235,13 +234,13 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 		}
 
 		//FIXME rethink this 
-		if (state==State.SELECTION){
+		if (state==MapState.SELECTION){
 			removeSelection(selection);
 			selection.clear();
 			selection.add(tile);	
 		}
 		
-		if (state == State.DRAW_INFO || state == State.DRAW || state == State.EYE ){
+		if (state == MapState.DRAW_INFO || state == MapState.DRAW || state == MapState.EYE ){
 			infoHeight.setValue(tile.getHeight());
 			//FIXME hack type name
 			infoType.setText(tile.getSprite().getName());
@@ -260,6 +259,7 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 	}
 
 	 /** @category Callback **/
+	@Override
 	public void tilesSelected(ArrayList<EditorIsoTile> tiles, boolean shiftDown){
 		
 		System.out.println();
@@ -313,7 +313,7 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 		mapScrollPane.setViewportView(editorMapPanel);
 		mapViewport = mapScrollPane.getViewport();
 		
-		MouseAdapter mapScroller = new MapScroller();
+		MouseAdapter mapScroller = new MapScroller(mapViewport,editorMapPanel, this);
         editorMapPanel.addMouseMotionListener(mapScroller);
         editorMapPanel.addMouseListener(mapScroller);
 		
@@ -325,8 +325,6 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
         statusLabel = new JLabel("");
         statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
         statusPanel.add(statusLabel);
-
-        
 		return main;
 	}
 	
@@ -356,7 +354,7 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 		        if (e.getStateChange() != ItemEvent.SELECTED) return;
-		        if (state == State.DRAW || state == State.DRAW_INFO || state == State.EYE){
+		        if (state == MapState.DRAW || state == MapState.DRAW_INFO || state == MapState.EYE){
 					map.setOrientation(selectedTile.getLocation(), (Orientation) infoOrientation.getSelectedItem());	
 		        }else{
 					for (EditorIsoTile tile : selection) {
@@ -374,7 +372,7 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				//TODO deal with no tile selected.
-				if (state == State.DRAW || state == State.DRAW_INFO || state == State.EYE){
+				if (state == MapState.DRAW || state == MapState.DRAW_INFO || state == MapState.EYE){
 					map.setHeight(selectedTile.getLocation(), ((Number)infoHeight.getValue()).intValue());	
 		        }else{
 					for (EditorIsoTile tile : selection) {
@@ -399,15 +397,15 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 		ImageIcon iconEyed      = Resources.getIcon("images/gimp-tool-color-picker-22.png");
 		ImageIcon iconSelection = Resources.getIcon("images/gimp-tool-rect-select-22.png");
 
-		drawButton     = makeToggleButton(iconDraw,  State.DRAW.name(),       State.DRAW.description);
-		drawInfoButton = makeToggleButton(iconDraw,  State.DRAW_INFO.name(),  State.DRAW_INFO.description);
+		drawButton     = makeToggleButton(iconDraw,  MapState.DRAW.name(),       MapState.DRAW.description);
+		drawInfoButton = makeToggleButton(iconDraw,  MapState.DRAW_INFO.name(),  MapState.DRAW_INFO.description);
 		
-		eraseButton    = makeToggleButton(iconErase, State.ERASE.name(), State.ERASE.description);
-		fillButton     = makeToggleButton(iconFill,  State.FILL.name(),  State.FILL.description);
-		eyeButton      = makeToggleButton(iconEyed,  State.EYE.name(),   State.ERASE.description);
-		moveButton     = makeToggleButton(iconMove,  State.MOVE.name(),  State.MOVE.description);
+		eraseButton    = makeToggleButton(iconErase, MapState.ERASE.name(), MapState.ERASE.description);
+		fillButton     = makeToggleButton(iconFill,  MapState.FILL.name(),  MapState.FILL.description);
+		eyeButton      = makeToggleButton(iconEyed,  MapState.EYE.name(),   MapState.ERASE.description);
+		moveButton     = makeToggleButton(iconMove,  MapState.MOVE.name(),  MapState.MOVE.description);
 
-		selectionButton = makeToggleButton(iconSelection, State.SELECTION.name(), State.SELECTION.description);
+		selectionButton = makeToggleButton(iconSelection, MapState.SELECTION.name(), MapState.SELECTION.description);
 		
 		JToolBar toolBar = new JToolBar(SwingConstants.VERTICAL);
 		toolBar.setFloatable(true);
@@ -574,55 +572,27 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		State s = State.valueOf(e.getActionCommand());
+		MapState s = MapState.valueOf(e.getActionCommand());
 		setState(s);
 	}
 
-	public State getState(){
+	@Override
+	public MapState getEditorState(){
 		return state;
 	}
 	
-	private void setState(State s) {
+	private void setState(MapState s) {
 		state = s;
-		drawButton.setSelected(state == State.DRAW);
-		drawInfoButton.setSelected(state == State.DRAW_INFO);
-		eraseButton.setSelected(state == State.ERASE);
-		fillButton.setSelected(state == State.FILL);
-		eyeButton.setSelected(state == State.EYE);
-		selectionButton.setSelected(state == State.SELECTION);
-		moveButton.setSelected(state == State.MOVE);
+		drawButton.setSelected(state == MapState.DRAW);
+		drawInfoButton.setSelected(state == MapState.DRAW_INFO);
+		eraseButton.setSelected(state == MapState.ERASE);
+		fillButton.setSelected(state == MapState.FILL);
+		eyeButton.setSelected(state == MapState.EYE);
+		selectionButton.setSelected(state == MapState.SELECTION);
+		moveButton.setSelected(state == MapState.MOVE);
 	}
 
 	
-	class MapScroller extends MouseAdapter {
-		private final Cursor normal   = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
-		private final Cursor movement = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
-		private final Point start = new Point();
-	
-		@Override
-		public void mouseDragged(MouseEvent e) {
-			if (state != State.MOVE) return;
-			Point p = e.getPoint();
-			Point vp = mapViewport.getViewPosition();
-			vp.translate(start.x - p.x, start.y - p.y);
-			editorMapPanel.scrollRectToVisible(new Rectangle(vp, mapViewport.getSize()));
-			start.setLocation(p);
-		}
-	
-		@Override
-		public void mousePressed(MouseEvent e) {
-			if (state != State.MOVE) return;
-			((JComponent) e.getSource()).setCursor(movement);
-			start.setLocation(e.getPoint());
-		}
-	
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			if (state != State.MOVE) return;
-			((JComponent) e.getSource()).setCursor(normal);
-		}
-	}
-
 	private class ZoomInAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
@@ -666,24 +636,6 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 		}
 	}
 
-	public static enum State {
-
-		DRAW("Draw"),
-		DRAW_INFO( "Draw With Current info"),
-		ERASE("ERASE"),
-		FILL("FILL"),
-		EYE("Eye Dropper"),
-		SELECTION("Select Area"),
-		MOVE("Move");
-		
-		public final String description;
-		
-		State(String description){
-			this.description = description;
-		}
-		
-	}
-	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		config.Config.loadLoggingProperties();

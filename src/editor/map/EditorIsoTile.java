@@ -34,8 +34,7 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		if (orientation ==Orientation.EMPTY){
 			drawEastWest(x, y, g, true, isSelected());
 		}else{
-//			super.draw(x, y, g);
-			drawEastWest(x, y, g, false, isSelected());
+			super.draw(x, y, g);
 		}
 	}
 	
@@ -63,15 +62,15 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		listeners.add(listener);
 	}
 
+	@Override
+	public void notifyChanged(MutableSprite newValue) {
+		setSprite(sprite);
+	}
 
 	public String toFormatedString() {
 		return String.format("Tile(%s,%s)[height=%s]", fieldLocation.x, fieldLocation.y, height, type);
 	}
 	
-	@Override
-	public void notifyChanged(MutableSprite newValue) {
-		setSprite(sprite);
-	}
 
 	public MutableSprite getSprite() {
 		return sprite;

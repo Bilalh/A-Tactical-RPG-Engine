@@ -1,7 +1,9 @@
 Libs/Classes
 ------------
-* Junit                         -- Testing 
-* log4java                      -- Logging 
-* xstream with xpp3             -- Reading/Writing xml
-* FloatablePanel                -- JPanel that can float above other element in the gui 
-* openal wrapper from slick 2d  -- For playing music (ogg/wav) and sounds 
+* Junit (CPL)                  -- Testing 
+* log4java (Apache)            -- Logging 
+* xstream with xpp3 (BSD)      -- Reading/Writing xml
+* FloatablePanel (GPL 2+)      -- JPanel that can float above other element in the gui
+                                   based on FloatablePanel by 
+                                   
+* openal wrapper from Slick 2d (BSD)  -- For playing music (ogg/wav) and sounds 

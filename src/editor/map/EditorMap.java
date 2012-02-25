@@ -59,7 +59,7 @@ public class EditorMap extends BasicMap {
 		tileMapping = new MutableTileMapping(tileMapping);
 	}
 
-	public void setSprite(Location p, MutableSprite sprite) {
+	public void setTileSprite(Location p, MutableSprite sprite) {
 		editorField[p.x][p.y].setType(sprite.getName());
 		guiField[p.x][p.y].setSprite(sprite);		
 	}
@@ -81,7 +81,7 @@ public class EditorMap extends BasicMap {
 	}
 
 	/** @category unused**/
-	public MutableSprite getSpriteAt(int x, int y) {
+	public MutableSprite getTileSpriteAt(int x, int y) {
 		Args.assetNonNull(guiField,spriteSheet);
 		return spriteSheet.getSpriteAt(x, y);
 	}

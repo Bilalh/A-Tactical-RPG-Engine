@@ -18,7 +18,6 @@ import view.util.BufferSize;
 import common.Location;
 
 import editor.MapEditor;
-import editor.MapEditor.State;
 
 /**
  * Contains the view of the map and handles mouse input for the map.
@@ -29,7 +28,7 @@ public class EditorMapPanel extends JPanel {
 
 	private static final long serialVersionUID = 3779345216980490025L;
 
-	private MapEditor editor;
+	private IEditorMapPanelListener editor;
 	private IsomertricMapRenderer mapRender;
 	private EditorIsoTile[][] field;
 
@@ -69,7 +68,7 @@ public class EditorMapPanel extends JPanel {
 };
 
 	
-	public EditorMapPanel(final MapEditor editor, final EditorIsoTile[][] field) {
+	public EditorMapPanel(final IEditorMapPanelListener editor, final EditorIsoTile[][] field) {
 		this.editor = editor;
 		setMap(field);
 		
@@ -119,32 +118,11 @@ public class EditorMapPanel extends JPanel {
 			}
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				if (current!=null && (editor.getState() == State.DRAW ||editor.getState() == State.DRAW_INFO) ){
+				if (current!=null && (editor.getEditorState() == MapState.DRAW ||editor.getEditorState() == MapState.DRAW_INFO) ){
 					findNext(e.getPoint(),true);
-//					if (e.getPoint().distance(old) > MapSettings.tileDiagonal/6){
-//						findCurrent(e.getPoint());
-//						editor.tileClicked(current);
-//					}
-//					
-//					Location start = current.getFieldLocation().copy();
-//					for (int[] ii : dirs) {
-//						Location l = start.copy().translate(ii[0], ii[1]);
-//
-//						if (l.x < 0 || l.x >= field.length || l.y < 0 || l.y >= field[0].length) {
-//							continue;
-//						}
-//
-//						if (field[l.x][l.y].contains(e.getPoint())) {
-//							editor.tileClicked(field[l.x][l.y]);
-//							current = field[l.x][l.y];
-//							break;
-//						}
-//						
-//					}
-//					old = e.getPoint();
 				}
 				
-				if (editor.getState() != State.SELECTION) return;
+				if (editor.getEditorState() != MapState.SELECTION) return;
 				Point end = e.getPoint();
 				int y_max = Math.max(mouseStart.y, end.y);
 				int y_min = Math.min(mouseStart.y, end.y);
@@ -163,7 +141,7 @@ public class EditorMapPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				EditorMapPanel.this.mousePressed(e);
 				mouseStart = e.getPoint();
-				if (editor.getState() == State.DRAW || editor.getState() == State.DRAW_INFO){
+				if (editor.getEditorState() == MapState.DRAW || editor.getEditorState() == MapState.DRAW_INFO){
 					findCurrent(mouseStart);
 					old = mouseStart;
 				}
@@ -171,7 +149,7 @@ public class EditorMapPanel extends JPanel {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (mouseArea != null && editor.getState() == State.SELECTION) {
+				if (mouseArea != null && editor.getEditorState() == MapState.SELECTION) {
 					ArrayList<EditorIsoTile> selection = selection();
 					editor.tilesSelected(selection,e.isShiftDown());
 				}
@@ -215,7 +193,7 @@ public class EditorMapPanel extends JPanel {
 	}
 	
 	public void mousePressed(MouseEvent e) {
-		if (editor.getState()==State.SELECTION) return;
+		if (editor.getEditorState()==MapState.SELECTION) return;
 		EditorIsoTile current = null;
 		double highest = 0.0;
 
@@ -254,7 +232,7 @@ public class EditorMapPanel extends JPanel {
 		}
 		_g.drawImage(buffer, 0, 0, null);
 		g.dispose();
-		if (editor.getState() == State.SELECTION && mouseArea != null){
+		if (editor.getEditorState() == MapState.SELECTION && mouseArea != null){
 			Color old = _g.getColor();
 			_g.setColor(Color.BLUE);
 			_g.drawRect(mouseArea.x, mouseArea.y, mouseArea.width, mouseArea.height);

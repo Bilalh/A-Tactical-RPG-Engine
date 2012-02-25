@@ -4,10 +4,8 @@
  *  Adam Turk <aturk@biggeruniverse.com>
  *  Bjorn Lindeijer <bjorn@lindeijer.nl>
  *
- *  Changes: added a float button, also made it more customisable 
- *
+ * Changes by Bilal Hussain: added a float button, also made it more customisable, and savable 
  */
-
 package editor.ui;
 
 import java.awt.*;
@@ -64,8 +62,7 @@ public class FloatablePanel extends JPanel
 		this.child = child;
 		this.parent = parent;
 		titleLabel = new JLabel(title);
-		prefs = Prefs.getNode("map/dock/" + preferencesId);
-
+		prefs = Prefs.getNode("floating/dock/" + preferencesId);
 		final JButton floatButton = new TButton(new FloatAction());
 
 		JPanel topPanel = new HeaderPanel(new BorderLayout());
