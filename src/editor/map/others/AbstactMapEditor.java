@@ -1,4 +1,4 @@
-package editor.map;
+package editor.map.others;
 
 import java.awt.BorderLayout;
 import java.awt.event.*;
@@ -26,7 +26,7 @@ import editor.ui.FloatablePanel;
 public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanelListener {
 	private static final long serialVersionUID = -8019374138498647481L;
 
-	protected EditorMap map;
+	protected OthersMap map;
 	protected EditorMapPanel editorMapPanel;
 	protected EditorSpriteSheet editorSpriteSheet;
 
@@ -81,7 +81,7 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 	
 	String filename = "fft2";
 	private void createMap() {
-		map = new EditorMap("maps/"+filename+".xml");
+		map = new OthersMap("maps/"+filename+".xml");
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
 	} 
 	

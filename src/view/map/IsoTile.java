@@ -115,14 +115,18 @@ public class IsoTile {
 						0 - h2 + vertical,
 						0 - h1 + vertical / 2 }, 4);
 		
-		
-		tileImage = ResourceManager.instance().getTile(ref,horizontal,vertical);
+		tileImage = getTileImage(horizontal, vertical);
 	}
 	
 	public void invaildate(){
 		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
 		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
 		tileImage = ResourceManager.instance().getTile(name,horizontal,vertical);
+		tileImage = getTileImage(horizontal, vertical);
+	}
+	
+	protected BufferedImage getTileImage(int horizontal, int vertical){
+		return ResourceManager.instance().getTile(name,horizontal,vertical);
 	}
 	
 	public boolean contains(Point p) {

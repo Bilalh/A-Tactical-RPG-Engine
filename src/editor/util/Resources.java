@@ -1,6 +1,7 @@
 package editor.util;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -16,9 +17,8 @@ public final class Resources {
 
 	private Resources() {
 	}
-
 	
-	public static Image getImage(String filename) throws IOException, IllegalArgumentException {
+	public static BufferedImage getImage(String filename) throws IOException, IllegalArgumentException {
 		return ImageIO.read(MapEditor.class.getResourceAsStream("resources/" + filename));
 	}
 

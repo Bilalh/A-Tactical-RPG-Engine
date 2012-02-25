@@ -13,7 +13,7 @@ import net.miginfocom.swing.MigLayout;
 import common.enums.Orientation;
 import config.Config;
 
-import editor.map.AbstactMapEditor;
+import editor.map.others.AbstactMapEditor;
 
 /**
  * @author Bilal Hussain
@@ -24,8 +24,8 @@ public class WeaponsEditor extends AbstactMapEditor {
 	// Infopanel controls 
 	private JLabel     infoLocation;
 	private JTextField infoType;
-	private JComboBox  infoOrientation = new JComboBox(Orientation.values());
-	private JSpinner   infoHeight      = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
+	private JComboBox  infoOrientation;
+	private JSpinner   infoHeight;
 	
 	public WeaponsEditor() {
 		super("Weapons Editor", "Weapons");
@@ -35,6 +35,9 @@ public class WeaponsEditor extends AbstactMapEditor {
 	protected JPanel createInfoPanel() {
 		JPanel p = new JPanel(new MigLayout("", "[right]"));
 
+		infoOrientation = new JComboBox(Orientation.values());
+		infoHeight      = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
+		
 		p.add(new JLabel("General"), new CC().split().spanX().gapTop("4"));
 		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
 

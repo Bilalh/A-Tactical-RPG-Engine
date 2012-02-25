@@ -3,6 +3,7 @@ package editor.map;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import common.ListenerUtil;
@@ -46,6 +47,10 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		this.sprite = sprite;
 	}
 
+	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight,int x, int y) {
+		super(orientation, startHeight, endHeight, x, y, "none", ImageType.NON_TEXTURED);
+	}
+	
 	public void setSprite(MutableSprite sprite) {
 		this.sprite = sprite;
 		tileImage = ResourceManager.instance().getTile(sprite.getName());
