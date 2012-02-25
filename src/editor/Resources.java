@@ -17,7 +17,7 @@ public final class Resources {
 
 	
 	public static Image getImage(String filename) throws IOException, IllegalArgumentException {
-		return ImageIO.read(Editor.class.getResourceAsStream("resources/" + filename));
+		return ImageIO.read(MapEditor.class.getResourceAsStream("resources/" + filename));
 	}
 
 	public static ImageIcon getIcon(String filename) {

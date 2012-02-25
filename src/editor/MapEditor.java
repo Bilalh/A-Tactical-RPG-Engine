@@ -2,12 +2,11 @@ package editor;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
@@ -38,8 +37,8 @@ import engine.map.Tile;
  * Editor for the engine
  * @author Bilal Hussain
  */
-public class Editor implements ActionListener, IMapRendererParent, ISpriteProvider<MutableSprite> {
-	private static final Logger log = Logger.getLogger(Editor.class);
+public class MapEditor implements ActionListener, IMapRendererParent, ISpriteProvider<MutableSprite> {
+	private static final Logger log = Logger.getLogger(MapEditor.class);
 
 	private JFrame frame;
 
@@ -71,7 +70,7 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	private EditorIsoTile selectedTile;
 
 	
-	public Editor() {
+	public MapEditor() {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
@@ -85,14 +84,15 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		frame.setJMenuBar(createMenubar());
 
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent event) {
-				onQuit();
-				System.exit(0);
-			}
-		});
-
+//		frame.addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent event) {
+//				onQuit();
+//				System.exit(0);
+//			}
+//		});
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -103,7 +103,8 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		infoPanelContainer.restore();
 		tilesetsPanelContainer.restore();
 
-		Preferences pref = Prefs.getNode("panels/main");
+		Preferences pref = Prefs.getNode("map/panels/main");
+		System.out.println(pref);
 		int width = pref.getInt("width", 1280);
 		int height = pref.getInt("height", 800);
 		
@@ -113,8 +114,9 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 
 	/** @category Gui **/
 	private void onQuit() {
+		log.info("Quiting");
 		final int extendedState = frame.getExtendedState();
-		final Preferences pref = Prefs.getNode("panels/main");
+		final Preferences pref = Prefs.getNode("map/panels/main");
 		pref.putInt("state", extendedState);
 		if (extendedState == Frame.NORMAL) {
 			pref.putInt("width", frame.getWidth());
@@ -124,6 +126,13 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 		// Allow the floatable panels to save their position and size
 		infoPanelContainer.save();
 		tilesetsPanelContainer.save();
+		
+		try {
+			Prefs.root().sync();
+		} catch (BackingStoreException e) {
+			e.printStackTrace();
+		}
+		log.info("Saved prefs" + Prefs.root());
 	}
 
 	/** @category ISpriteProvider**/
@@ -654,6 +663,6 @@ public class Editor implements ActionListener, IMapRendererParent, ISpriteProvid
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		config.Config.loadLoggingProperties();
-		new Editor();
+		new MapEditor();
 	}
 }

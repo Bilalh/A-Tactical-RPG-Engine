@@ -31,7 +31,7 @@ class EditorMapPanel extends JPanel {
 
 	private static final long serialVersionUID = 3779345216980490025L;
 
-	private Editor editor;
+	private MapEditor editor;
 	private IsomertricMapRenderer mapRender;
 	private EditorIsoTile[][] field;
 
@@ -71,7 +71,7 @@ class EditorMapPanel extends JPanel {
 };
 
 	
-	public EditorMapPanel(final Editor editor, final EditorIsoTile[][] field) {
+	public EditorMapPanel(final MapEditor editor, final EditorIsoTile[][] field) {
 		this.editor = editor;
 		setMap(field);
 		

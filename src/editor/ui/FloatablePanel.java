@@ -64,7 +64,7 @@ public class FloatablePanel extends JPanel
 		this.child = child;
 		this.parent = parent;
 		titleLabel = new JLabel(title);
-		prefs = Prefs.getNode("dock/" + preferencesId);
+		prefs = Prefs.getNode("map/dock/" + preferencesId);
 
 		final JButton floatButton = new TButton(new FloatAction());
 
