@@ -107,7 +107,10 @@ public class Config {
 	
 	
 	public static SpriteSheet loadSpriteSheet(String filepath){
-		File in = new File(RESOURCE_DIRECTORY+filepath);
+		return loadSpriteSheet(new File(RESOURCE_DIRECTORY+filepath));
+	}
+
+	public static SpriteSheet loadSpriteSheet(File in){
 		File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png", "\\.xml"));
 		Logf.debug(log, "Try to load '%s' and '%s", in.getAbsolutePath(), xml.getAbsolutePath());
 		SpriteSheet ss = null;
@@ -115,13 +118,12 @@ public class Config {
 			BufferedImage b = ImageIO.read(in);
 			ss = new SpriteSheet(b, new FileInputStream(xml));
 		} catch (IOException e) {
-			// TODO catch block in loadSpriteSheet
 			e.printStackTrace();
 		}
 		assert ss != null;
 		return ss;
 	}
-
+	
 	public static void setResourceDirectory(String path) {
 		RESOURCE_DIRECTORY = path;
 	}

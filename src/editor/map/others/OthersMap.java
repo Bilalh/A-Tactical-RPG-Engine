@@ -4,6 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 
+import view.units.AnimatedUnit;
+
+import common.Location;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 
@@ -69,4 +72,9 @@ public class OthersMap extends BasicMap {
 		return guiField;
 	}
 
+	public void setUnitAt(Location l, AnimatedUnit au){
+		guiField[l.x][l.y].setUnit(au);
+		au.setLocation(l);
+	}
+	
 }

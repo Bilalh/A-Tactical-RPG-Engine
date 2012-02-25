@@ -56,14 +56,22 @@ public class GuiUnit {
 		images = u.getImageData(); 
 		assert images != null;
 		Logf.info(log,"Using sheet %s", images.getSpriteSheetLocation());
-		spriteSheet = Config.loadSpriteSheet(images.getSpriteSheetLocation());
+		spriteSheet = makeSpriteSheet();
 		
-		weaponSprite = ResourceManager.instance().getItem(u.getWeapon().getImageRef());
+		weaponSprite = makeWeaponImage(u.getWeapon().getImageRef());
 		assert weaponSprite != null;	
 		
 		setDirection(Direction.EAST);
 		assert direction != null : "Direction Should not be null";
 	} 
+	
+	protected SpriteSheet makeSpriteSheet(){
+		return Config.loadSpriteSheet(images.getSpriteSheetLocation());
+	}
+	
+	protected BufferedImage makeWeaponImage(String ref){
+		 return ResourceManager.instance().getItem(ref);
+	}
 	
 	public void draw(Graphics g, final IsoTile[][] tiles, int drawX, int drawY) {
 		final Point centrePoint =  tiles[gridX][gridY].calculateCentrePoint(drawX,drawY);

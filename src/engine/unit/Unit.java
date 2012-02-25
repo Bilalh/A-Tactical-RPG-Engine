@@ -63,9 +63,9 @@ public class Unit implements IMutableUnit {
 //		skills.add(new RangedSkill("Thunder Flare", 15, 3,  1, true,false));
 //		skills.add(new RangedSkill("Thunderbird",   40, 4,  2, true,false));
 		
-		skills.add(AssertStore.instance().getSkill(UUID.fromString("79485114-2559-4964-9cbd-f0841bd2e916")));
-		skills.add(AssertStore.instance().getSkill(UUID.fromString("5ed5181c-4acf-46e6-89f4-6dba90421889")));
-		skills.add(AssertStore.instance().getSkill(UUID.fromString("6617a65e-6ef4-44b5-96b7-3e7184416eaf")));
+//		skills.add(AssertStore.instance().getSkill(UUID.fromString("79485114-2559-4964-9cbd-f0841bd2e916")));
+//		skills.add(AssertStore.instance().getSkill(UUID.fromString("5ed5181c-4acf-46e6-89f4-6dba90421889")));
+//		skills.add(AssertStore.instance().getSkill(UUID.fromString("6617a65e-6ef4-44b5-96b7-3e7184416eaf")));
 		setSkills(skills);
 	}
 
