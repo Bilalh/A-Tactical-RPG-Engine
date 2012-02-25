@@ -39,6 +39,7 @@ import engine.assets.AssertStore;
 import engine.assets.AssetsLocations;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
+import engine.items.Spear;
 import engine.map.MapPlayer;
 import engine.map.MapUnit;
 import engine.map.interfaces.IMutableMapUnit;
@@ -67,13 +68,59 @@ public class WeaponsEditor extends AbstactMapEditor {
 	private JSpinner   infoStrength;
 	private JSpinner   infoRange;
 	private JSpinner   infoInnerRange;
-
+	private JLabel     infoRangeL;
+	private JLabel     infoInnerRangeL;
+	
 	private WeaponTypes currentType;
 	
 	static enum WeaponTypes {
-		RANGED("Ranged"),
-		MELEE("Melee"),
-		SPEAR("Spear");
+		RANGED("Ranged") {
+			@Override
+			IWeapon newWeapon(WeaponsEditor we) {
+				RangedWeapon w = new RangedWeapon();
+				w.setName(we.infoName.getText());
+				
+				int range = ((Number) we.infoRange.getValue()).intValue();
+				w.setRange(range);
+				int inner = ((Number) we.infoInnerRange.getValue()).intValue();
+				w.setRange(inner < range ? inner : range-1);
+				
+				we.infoInnerRange.setVisible(true);
+				we.infoInnerRangeL.setVisible(true);
+				we.infoRange.setVisible(true);
+				we.infoRangeL.setVisible(true);
+				
+				return w;
+			}
+		},
+		MELEE("Melee") {
+			@Override
+			IWeapon newWeapon(WeaponsEditor we) {
+				MeleeWeapon w = new MeleeWeapon();
+				w.setName(we.infoName.getText());
+				
+				we.infoRange.setVisible(false);
+				we.infoRangeL.setVisible(false);
+				we.infoInnerRange.setVisible(false);
+				we.infoInnerRangeL.setVisible(false);
+				return w;
+			}
+		},
+		SPEAR("Spear") {
+			@Override
+			IWeapon newWeapon(WeaponsEditor we) {
+				Spear w = new Spear();
+				w.setName(we.infoName.getText());
+				
+				int range = ((Number) we.infoRange.getValue()).intValue();
+				w.setRange(range);
+				we.infoInnerRange.setVisible(false);
+				we.infoInnerRangeL.setVisible(false);
+				we.infoRange.setVisible(true);
+				we.infoRangeL.setVisible(true);
+				return w;
+			}
+		};
 
 		private final String name;
 
@@ -82,6 +129,8 @@ public class WeaponsEditor extends AbstactMapEditor {
 			return name;
 		}
 
+		abstract IWeapon newWeapon(WeaponsEditor we);
+		
 		private WeaponTypes(String name) {
 			this.name = name;
 		}
@@ -132,7 +181,6 @@ public class WeaponsEditor extends AbstactMapEditor {
 			map.getGuiTile(l).setState(TileState.NONE);
 		}
 		attackRange = getAttackRange();
-		System.out.println(attackRange);
 		for (Location l : attackRange) {
 			map.getGuiTile(l).setState(TileState.ATTACK_RANGE);
 		}
@@ -156,17 +204,23 @@ public class WeaponsEditor extends AbstactMapEditor {
 		editorMapPanel.repaintMap();
 	}
 	
+	private void changeType(WeaponTypes t) {
+		if (t == currentType) return;
+		weapon = t.newWeapon(this);
+		currentType = t;
+		showAttackRange();
+		editorMapPanel.repaintMap();
+	}
+	
 	@Override
 	protected JPanel createInfoPanel() {
 		JPanel p = new JPanel(new MigLayout("", "[right]"));
-
 
 		p.add(new JLabel("Location:"), "gap 4");
 		p.add((infoIcon = new JLabel("        ")), "span, growx");
 		
 		p.add(new JLabel("Name:"), "gap 4");
 		p.add((infoName = new JTextField(15)), "span, growx");
-		
 
 		infoType = new JComboBox(WeaponTypes.values());
 		infoType.setEditable(false);
@@ -174,7 +228,8 @@ public class WeaponsEditor extends AbstactMapEditor {
 		infoType.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				// TODO
+				WeaponTypes t= (WeaponTypes) e.getItem();
+				changeType(t);
 			}
 		});
 		p.add(infoType, "span, growx");
@@ -192,7 +247,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 		
 		p.add(infoStrength, "alignx leading, span, wrap");
 		
-		p.add(new JLabel("Range:"), "gap 4");
+		p.add((infoRangeL = new JLabel("Range:")), "gap 4");
 		infoRange = new JSpinner(new SpinnerNumberModel(1, 1, 9, 1));
 		
 		infoRange.addChangeListener(new ChangeListener() {
@@ -204,7 +259,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 		p.add(infoRange, "alignx leading, span, wrap");
 
 		
-		p.add(new JLabel("Inner Range:"), "gap 4");
+		p.add((infoInnerRangeL = new JLabel("Inner Range:")), "gap 4");
 		infoInnerRange = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));
 		infoInnerRange.addChangeListener(new ChangeListener() {
 			@Override
