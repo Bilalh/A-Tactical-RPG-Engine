@@ -29,5 +29,7 @@ public interface IWeapon extends Identifiable {
 
 	void setImageRef(String imageRef);
 
+	String getName();
+	void setName(String name);
 	
 }

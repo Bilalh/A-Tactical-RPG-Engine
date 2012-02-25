@@ -93,4 +93,9 @@ public class AbstractUnitObject {
 		this.name = name;
 	}
 
+	/** @category Generated */
+	public String getName() {
+		return name;
+	}
+
 }

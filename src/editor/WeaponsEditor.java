@@ -157,6 +157,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 		u.setImageData(path, ui);
 		
 		weapon = new RangedWeapon(1,1,0);
+		weapon.setName("New Weapon");
 		u.setWeapon(weapon);
 		currentType = WeaponTypes.RANGED;
 		
@@ -221,7 +222,8 @@ public class WeaponsEditor extends AbstactMapEditor {
 		
 		p.add(new JLabel("Name:"), "gap 4");
 		p.add((infoName = new JTextField(15)), "span, growx");
-
+		infoName.setText("New Weapon");
+		
 		infoType = new JComboBox(WeaponTypes.values());
 		infoType.setEditable(false);
 		p.add(new JLabel("Type:"), "gap 4");

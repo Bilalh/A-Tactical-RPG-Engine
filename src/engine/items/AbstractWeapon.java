@@ -18,8 +18,9 @@ public abstract class AbstractWeapon extends AbstractUnitObject  implements IWea
 
 	protected int strength;
 	protected int range;
-
+	
 	protected String imageRef;
+
 	
 	public AbstractWeapon(){
 		strength = 1;
