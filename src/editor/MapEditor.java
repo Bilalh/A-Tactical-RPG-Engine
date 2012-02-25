@@ -2,7 +2,9 @@ package editor;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,18 +21,22 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
+import view.map.interfaces.IMapRendererParent;
+
 import common.enums.Orientation;
 
-import view.map.interfaces.IMapRendererParent;
 import config.XMLUtil;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
 import editor.map.EditorIsoTile;
 import editor.map.EditorMap;
+import editor.map.EditorMapPanel;
 import editor.map.EditorSpriteSheet;
 import editor.spritesheet.*;
 import editor.ui.FloatablePanel;
 import editor.ui.TButton;
+import editor.util.Prefs;
+import editor.util.Resources;
 import engine.map.Tile;
 
 /**
@@ -446,7 +452,7 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 			bar.add(edit);
 			
 			JMenu view = new JMenu("View");
-			final JCheckBoxMenuItem number = new JCheckBoxMenuItem("Show numbering on tiles", editorMapPanel.hasNumbering());
+			final JCheckBoxMenuItem number = new JCheckBoxMenuItem("Show Numbering on Tiles", editorMapPanel.hasNumbering());
 			number.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1,mask));
 			number.addActionListener(new ActionListener() {
 				@Override
@@ -458,7 +464,7 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 			});
 			view.add(number);
 			
-			final JCheckBoxMenuItem hover = new JCheckBoxMenuItem("Highlight tiles when ended", false);
+			final JCheckBoxMenuItem hover = new JCheckBoxMenuItem("Highlight Tile on Hover", false);
 			hover.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,mask));
 			hover.addActionListener(new ActionListener() {
 				@Override
@@ -660,6 +666,24 @@ public class MapEditor implements ActionListener, IMapRendererParent, ISpritePro
 		}
 	}
 
+	public static enum State {
+
+		DRAW("Draw"),
+		DRAW_INFO( "Draw With Current info"),
+		ERASE("ERASE"),
+		FILL("FILL"),
+		EYE("Eye Dropper"),
+		SELECTION("Select Area"),
+		MOVE("Move");
+		
+		public final String description;
+		
+		State(String description){
+			this.description = description;
+		}
+		
+	}
+	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		config.Config.loadLoggingProperties();

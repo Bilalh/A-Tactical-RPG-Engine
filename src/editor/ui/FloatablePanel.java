@@ -19,8 +19,8 @@ import java.util.prefs.Preferences;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import editor.Prefs;
-import editor.Resources;
+import editor.util.Prefs;
+import editor.util.Resources;
 
 /**
  * A floatable panel. The panel has a titlebar which displays the panel title plus a small button which can be used to turn the panel into a

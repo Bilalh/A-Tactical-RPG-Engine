@@ -1,4 +1,4 @@
-package editor;
+package editor.util;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+
+import editor.MapEditor;
 
 /**
  * @author Bilal Hussain

@@ -155,7 +155,7 @@ public class IsoTile {
 		return temp;
 	}
 
-	public void draw(int x, int y, Graphics g, boolean drawLeftSide, boolean drawRightSide) {
+	public void draw(int x, int y, Graphics g) {
 		assert orientation != null: orientation + " is null";
 		switch (orientation) {
 			case UP_TO_NORTH:

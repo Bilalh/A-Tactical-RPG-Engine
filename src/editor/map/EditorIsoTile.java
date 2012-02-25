@@ -30,11 +30,12 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 	}
 
 	@Override
-	public void draw(int x, int y, Graphics g, boolean drawLeftSide, boolean drawRightSide) {
+	public void draw(int x, int y, Graphics g) {
 		if (orientation ==Orientation.EMPTY){
 			drawEastWest(x, y, g, true, isSelected());
 		}else{
-			super.draw(x, y, g, drawLeftSide, drawRightSide);
+//			super.draw(x, y, g);
+			drawEastWest(x, y, g, false, isSelected());
 		}
 	}
 	
@@ -72,13 +73,10 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		setSprite(sprite);
 	}
 
-	/** @category Generated */
 	public MutableSprite getSprite() {
 		return sprite;
 	}
 
-
-	/** @category Generated */
 	public void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
 	}
@@ -96,7 +94,7 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		if (this == obj) return true;
 		if (obj == null) return false;
 		if (!(obj instanceof EditorIsoTile)) return false;
-		IsoTile other = (EditorIsoTile) obj;
+		EditorIsoTile other = (EditorIsoTile) obj;
 		if (fieldLocation == null) {
 			if (other.getLocation() != null) return false;
 		} else if (!fieldLocation.equals(other.getLocation())) return false;

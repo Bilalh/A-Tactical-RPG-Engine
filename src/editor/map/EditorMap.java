@@ -9,8 +9,8 @@ import common.gui.ResourceManager;
 import config.Config;
 import config.xml.SavedMap;
 import config.xml.TileImageData;
-import editor.Resources;
 import editor.spritesheet.MutableSprite;
+import editor.util.Resources;
 import engine.map.BasicMap;
 
 /**

@@ -199,7 +199,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 						&& y - vertical   - drawY <=  height + MapSettings.tileDiagonal * 3
 						&& x + horizontal - drawX >= -MapSettings.tileDiagonal * 3
 						&& y + vertical   - drawY >= -MapSettings.tileDiagonal * 3)) {
-			field[j][i].draw(x, y, g, true, true);
+			field[j][i].draw(x, y, g);
 
 			if (showNumbering) {
 				Color old = g.getColor();

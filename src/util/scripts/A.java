@@ -33,7 +33,7 @@ public class A extends JFrame {
 	
 	@Override
 	public void paint(Graphics g) {
-		t.draw(50, 50, g, true, true);
+		t.draw(50, 50, g);
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -44,7 +44,7 @@ public class A extends JFrame {
 		
 		ResourceManager.instance().loadTileSheetFromResources("images/tilesets/fft2.png");
 		IsoTile t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED);
-		t.draw(40, 20, g, true, true);
+		t.draw(40, 20, g);
 		System.out.println(t);
 		ImageIO.write(image, "PNG", new File("out2.png"));
 		

@@ -1,32 +1,30 @@
-package editor;
+package editor.map;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-import common.Location;
-
-import editor.map.EditorIsoTile;
-
 import util.Logf;
-import view.map.IsoTile;
 import view.map.IsomertricMapRenderer;
 import view.map.MapSettings;
 import view.util.BufferSize;
+
+import common.Location;
+
+import editor.MapEditor;
+import editor.MapEditor.State;
 
 /**
  * Contains the view of the map and handles mouse input for the map.
  * @author Bilal Hussain
  */
-class EditorMapPanel extends JPanel {
+public class EditorMapPanel extends JPanel {
 	private static final Logger log = Logger.getLogger(EditorMapPanel.class);
 
 	private static final long serialVersionUID = 3779345216980490025L;
