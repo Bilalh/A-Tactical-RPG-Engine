@@ -33,7 +33,10 @@ public class Engine {
 	
 	private void loadSettings() {
 		
-		AssertStore.instance().loadAssets(new AssetsLocations("assets/weapons.xml"));
+		AssetsLocations as = new AssetsLocations(
+				"assets/weapons.xml", 
+				"assets/skills.xml");
+		AssertStore.instance().loadAssets(as);
 		
 		player = new Player();
 		Unit u        = new Unit();
