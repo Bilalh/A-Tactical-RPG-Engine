@@ -1,9 +1,10 @@
-package engine.items;
+package engine.assets;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import config.Config;
 import config.XMLUtil;
+import engine.items.RangedWeapon;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
 
@@ -14,28 +15,28 @@ import engine.unit.UnitImages;
 public class SaveIdeas {
 
 	public static void main(String[] args) {
-		config.Config.loadLoggingProperties();
-		
-		Unit u        = new Unit();
-		String uString = u.toString();
-		UnitImages ui = Config.loadPreference("images/characters/princess-animations.xml");
-		u.setName("Elena");
-		u.setMove(3);
-		u.setSpeed(20);
-		u.setStrength(25);
-		u.setDefence(20);
-		u.setMaxHp(15);
-		u.setImageData("images/characters/princess-animations.xml",ui);
-		u.setWeapon(new RangedWeapon(6, 5,3));
-		
-		String  s = XMLUtil.makeFormattedXml(u);
-		System.out.println(s);
-		
-		Unit u2 = XMLUtil.convertXml(s);
-		String u2String = u2.toString();
-		
-		System.out.println(u);
-		System.out.println(u2);
+//		config.Config.loadLoggingProperties();
+//		
+//		Unit u        = new Unit();
+//		String uString = u.toString();
+//		UnitImages ui = Config.loadPreference("images/characters/princess-animations.xml");
+//		u.setName("Elena");
+//		u.setMove(3);
+//		u.setSpeed(20);
+//		u.setStrength(25);
+//		u.setDefence(20);
+//		u.setMaxHp(15);
+//		u.setImageData("images/characters/princess-animations.xml",ui);
+//		u.setWeapon(new RangedWeapon(6, 5,3));
+//		
+//		String  s = XMLUtil.makeFormattedXml(u);
+//		System.out.println(s);
+//		
+//		Unit u2 = XMLUtil.convertXml(s);
+//		String u2String = u2.toString();
+//		
+//		System.out.println(u);
+//		System.out.println(u2);
 		
 //		String  s = XMLUtil.makeFormattedXml(new custom.CustomSpear(7, 10));
 //		System.out.println(s);

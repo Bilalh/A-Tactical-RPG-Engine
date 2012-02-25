@@ -1,4 +1,4 @@
-package engine.asserts;
+package engine.assets;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,6 +8,7 @@ import java.util.UUID;
 import common.gui.ResourceManager;
 import common.gui.Sprite;
 import common.interfaces.IWeapon;
+import config.Config;
 import engine.skills.ISkill;
 
 /**
@@ -33,7 +34,8 @@ public class AssertStore {
 	}
 	
 	
-	public void loadWeapons(Weapons ws){
+	public void loadAssets(AssetsLocations paths){
+		Weapons ws = Config.loadPreference(paths.weaponsPath);
 		weapons.putAll(ws.getMap());
 	}
 	

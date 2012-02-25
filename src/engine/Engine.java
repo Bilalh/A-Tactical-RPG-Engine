@@ -9,8 +9,9 @@ import common.interfaces.IWeapon;
 
 import view.Main;
 import config.Config;
-import engine.asserts.AssertStore;
-import engine.asserts.Weapons;
+import engine.assets.AssertStore;
+import engine.assets.AssetsLocations;
+import engine.assets.Weapons;
 import engine.items.RangedWeapon;
 import engine.items.Spear;
 import engine.map.Map;
@@ -32,8 +33,7 @@ public class Engine {
 	
 	private void loadSettings() {
 		
-		Weapons ws =  Config.loadPreference("assets/weapons.xml");
-		AssertStore.instance().loadWeapons(ws);
+		AssertStore.instance().loadAssets(new AssetsLocations("assets/weapons.xml"));
 		
 		player = new Player();
 		Unit u        = new Unit();

@@ -1,4 +1,4 @@
-package engine.asserts;
+package engine.assets;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -14,7 +14,7 @@ import engine.items.RangedWeapon;
 import engine.items.Spear;
 
 /**
- * Weapon assets -- to make the xml easier to read
+ * A subclass is used since the generic type is lost due to type erasure. 
  * @author Bilal Hussain
  */
 @XStreamAlias("weapons")

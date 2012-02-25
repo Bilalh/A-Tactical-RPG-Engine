@@ -15,7 +15,9 @@ import common.spritesheet.SpriteInfo;
 import config.xml.*;
 import editor.map.MutableTileMapping;
 import editor.spritesheet.MutableSprite;
-import engine.asserts.Weapons;
+import engine.assets.Skills;
+import engine.assets.Units;
+import engine.assets.Weapons;
 import engine.skills.AbstractUnitObject;
 import engine.skills.RangedSkill;
 import engine.unit.Unit;
@@ -118,7 +120,11 @@ public abstract class XMLUtil {
 				//Model 
 				Unit.class,
 				AbstractUnitObject.class,
+				
+				// Model assets
 				Weapons.class,
+				Skills.class,
+				Units.class,
 				
 				// Editor
 				MutableSprite.class,

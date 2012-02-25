@@ -1,4 +1,4 @@
-package engine.asserts;
+package engine.assets;
 
 import java.util.Collection;
 import java.util.HashMap;
