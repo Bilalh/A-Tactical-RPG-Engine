@@ -1,15 +1,20 @@
 package editor;
 
+import java.awt.Frame;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import org.apache.log4j.Logger;
 
 import view.map.IsoTile.TileState;
 import view.units.AnimatedUnit;
@@ -28,6 +33,7 @@ import config.Config;
 
 import editor.map.others.AbstactMapEditor;
 import editor.map.others.OthersUnit;
+import editor.util.Prefs;
 import editor.util.Resources;
 import engine.assets.AssertStore;
 import engine.assets.AssetsLocations;
@@ -39,28 +45,49 @@ import engine.unit.Unit;
 import engine.unit.UnitImages;
 
 /**
+ * Editor for weapons
  * @author Bilal Hussain
  */
 public class WeaponsEditor extends AbstactMapEditor {
+	private static final Logger log = Logger.getLogger(WeaponsEditor.class);
 	private static final long serialVersionUID = -7965140392208111973L;
-
-	// Infopanel controls
-	private JLabel infoLocation;
-	private JTextField infoType;
-	private JComboBox infoOrientation;
-	private JSpinner infoHeight;
 
 	private IMutableMapUnit mapUnit;
 	private OthersUnit guiUnit;
 	
 	private IWeapon weapon;
 	private Collection<Location> attackRange = new ArrayList<Location>(1);
+
 	
+	// Infopanel controls
+	private JLabel     infoIcon;
+	private JTextField infoName;
+	private JComboBox  infoType;
+	private JSpinner   infoStrength;
+	private JSpinner   infoRange;
+	
+	
+	static enum WeaponTypes {
+		RANGED("Ranged"),
+		MELEE("Melee"),
+		SPEAR("Spear");
+
+		private final String name;
+
+		@Override
+		public String toString() {
+			return name;
+		}
+
+		/** @category Generated */
+		private WeaponTypes(String name) {
+			this.name = name;
+		}
+	}
 	
 	public WeaponsEditor() {
 		super("Weapons Editor", "Weapons", 11, 11);
-		
-		//TODO change
+
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 		
 		String path = "defaults/Boy.xml";
@@ -72,7 +99,6 @@ public class WeaponsEditor extends AbstactMapEditor {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		
 		Unit u  = new Unit();
 		UnitImages ui = new UnitImages();
@@ -97,6 +123,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 		return weapon.getAttackRange(guiUnit.getLocation(), mapWidth, mapHeight);
 	}
 	
+	// Displays the attack range.
 	void showAttackRange(){
 		for (Location l : attackRange) {
 			map.getGuiTile(l).setState(TileState.NONE);
@@ -111,36 +138,48 @@ public class WeaponsEditor extends AbstactMapEditor {
 	protected JPanel createInfoPanel() {
 		JPanel p = new JPanel(new MigLayout("", "[right]"));
 
-		infoOrientation = new JComboBox(Orientation.values());
-		infoHeight = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
-
-		p.add(new JLabel("General"), new CC().split().spanX().gapTop("4"));
-		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
 
 		p.add(new JLabel("Location:"), "gap 4");
-		p.add((infoLocation = new JLabel("        ")), "span, growx");
+		p.add((infoIcon = new JLabel("        ")), "span, growx");
+		
+		p.add(new JLabel("Name:"), "gap 4");
+		p.add((infoName = new JTextField(15)), "span, growx");
+		
 
+		infoType = new JComboBox(WeaponTypes.values());
+		infoType.setEditable(false);
 		p.add(new JLabel("Type:"), "gap 4");
-		p.add((infoType = new JTextField(15)), "span, growx");
-
-		infoOrientation.setEditable(false);
-		p.add(new JLabel("Orientation:"), "gap 4");
-		infoOrientation.addItemListener(new ItemListener() {
+		infoType.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO
 			}
 		});
-		p.add(infoOrientation, "span, growx");
+		p.add(infoType, "span, growx");
 
-		p.add(new JLabel("Height:"), "gap 4");
-		infoHeight.addChangeListener(new ChangeListener() {
+		
+		p.add(new JLabel("Strength:"), "gap 4");
+		infoStrength = new JSpinner(new SpinnerNumberModel(1, 0, 1000, 1));
+		
+		infoStrength.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// TODO
 			}
 		});
-		p.add(infoHeight, "alignx leading, span, wrap");
+		
+		p.add(infoStrength, "alignx leading, span, wrap");
+		
+		p.add(new JLabel("Range:"), "gap 4");
+		infoRange = new JSpinner(new SpinnerNumberModel(1, 0, 9, 1));
+		
+		infoRange.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO
+			}
+		});
+		p.add(infoRange, "alignx leading, span, wrap");
 
 		return p;
 	}
