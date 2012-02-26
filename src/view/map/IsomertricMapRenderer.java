@@ -74,7 +74,6 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		size = new BufferSize(heightOffset, bufferWidth, bufferHeight);
 	}
 
-
 	@Override
 	public void invaildate(){
 		 horizontal = (int) (mapSettings.tileDiagonal * mapSettings.zoom);
