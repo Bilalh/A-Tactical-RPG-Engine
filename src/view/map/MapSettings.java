@@ -1,11 +1,6 @@
 package view.map;
 
 
-
-import common.Location;
-import common.interfaces.ILocation;
-
-
 public final class MapSettings {
 
 	// tileDiagonal * zoom should be whole number 

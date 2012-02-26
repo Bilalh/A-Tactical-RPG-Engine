@@ -82,6 +82,12 @@ public class IsoTile {
 	static Rectangle2D rWall   = new Rectangle2D.Double(0, 0, iWall.getWidth(null),iWall.getHeight(null));
 	static TexturePaint tWall  = new TexturePaint( iWall, rWall);
 	
+	// Cached calculations
+	int finalHeight;
+	int horizontal;
+	int vertical;
+	int h1;
+	int h2;
 	
 	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
 			int x, int y, String ref, ImageType type ) {
@@ -96,14 +102,7 @@ public class IsoTile {
 		this.state  = TileState.NONE;
 		this.name   = ref;
 		
-		final int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
-		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		final int h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight)
-				: (int) (finalHeight * endHeight);
-		final int h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight)
-				: (int) (finalHeight * startHeight);
-
+		invaildate();
 		top = new Polygon(new int[] {
 				0,
 				horizontal / 2,
@@ -114,14 +113,18 @@ public class IsoTile {
 						0 - h2 + vertical / 2,
 						0 - h2 + vertical,
 						0 - h1 + vertical / 2 }, 4);
-		
-		tileImage = getTileImage(horizontal, vertical);
 	}
 	
 	public void invaildate(){
-		final int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		tileImage = ResourceManager.instance().getTile(name,horizontal,vertical);
+		finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
+		horizontal  = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
+		vertical    = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+		
+		h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight)
+				: (int) (finalHeight * endHeight);
+		h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight)
+				: (int) (finalHeight * startHeight);
+		
 		tileImage = getTileImage(horizontal, vertical);
 	}
 	
@@ -134,16 +137,12 @@ public class IsoTile {
 	}
 
 	public Point calculateCentrePoint(Point p) {
-		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
 		return new Point(
 				p.x,
 				p.y + vertical / 2 - finalHeight);
 	}
 
 	public Point calculateCentrePoint(int x, int y) {
-		final int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom * height);
 		return new Point(
 				x,
 				y + vertical / 2 - finalHeight);
@@ -180,13 +179,6 @@ public class IsoTile {
 	Color lineColor = Color.BLACK;
 	public void drawEastWest(int x, int y, Graphics _g, boolean topPloy, boolean topOnly) {
 		Graphics2D g = (Graphics2D) _g;
-		final float finalHeight = (MapSettings.tileHeight * MapSettings.zoom);
-		final float horizontal  = (MapSettings.tileDiagonal * MapSettings.zoom);
-		final float vertical    = (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
-		
-		final float h1 = orientation == UP_TO_EAST ? (finalHeight * startHeight) : (finalHeight * endHeight);
-		final float h2 = orientation == UP_TO_EAST ? (finalHeight * endHeight)   : (finalHeight * startHeight);
-
 		Color oldColor = g.getColor();
 		Paint old = g.getPaint();
 
@@ -338,9 +330,6 @@ public class IsoTile {
 	 */
 	public void drawNorthSouth(int x, int y, Graphics g, boolean toponly) {
 
-		int finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
-		int horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-		int vertical = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
 		int HEIGHT1 = orientation == Orientation.UP_TO_NORTH ? (int) (finalHeight * startHeight)
 				: (int) (finalHeight * endHeight);
 		int HEIGHT2 = orientation == UP_TO_NORTH ? (int) (finalHeight * endHeight)

@@ -22,21 +22,28 @@ public class SavedMap implements IPreference {
 	@XStreamAsAttribute
 	final int height;
 
-	final MapSettings mapSettings;
+	MapSettings mapSettings;
 	final MapData mapData;
 
 	@XStreamImplicit
 	final SavedTile[] tiles;
 
-	/** @category Generated */
 	public SavedMap(int width, int height, SavedTile[] tiles, MapSettings mapSettings, MapData mapData) {
-		this.width = width;
-		this.height = height;
-		this.tiles = tiles;
-		this.mapSettings = mapSettings;
+		this.width   = width;
+		this.height  = height;
+		this.tiles   = tiles;
 		this.mapData = mapData;
+		this.mapSettings = mapSettings;
 	}
 
+	// to give default values
+	private Object readResolve() {
+		if (mapSettings == null){
+			mapSettings  = MapSettings.defaults();
+		}
+		return this;
+	}
+	
 	/** @category Generated */
 	public int getFieldWidth() {
 		return width;
