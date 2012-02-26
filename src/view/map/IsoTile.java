@@ -120,10 +120,19 @@ public class IsoTile {
 		horizontal  = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
 		vertical    = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
 		
-		h1 = orientation == UP_TO_EAST ? (int) (finalHeight * startHeight)
-				: (int) (finalHeight * endHeight);
-		h2 = orientation == UP_TO_EAST ? (int) (finalHeight * endHeight)
-				: (int) (finalHeight * startHeight);
+		switch (orientation){
+			case EMPTY:
+			case UP_TO_EAST:
+			case UP_TO_NORTH:
+				h1 =  (int) (finalHeight * startHeight);
+				h2 =  (int) (finalHeight * endHeight);
+				break;
+			case UP_TO_WEST:
+			case UP_TO_SOUTH:
+				h1 =  (int) (finalHeight * endHeight);
+				h2 =  (int) (finalHeight * startHeight);
+				break;
+		}
 		
 		tileImage = getTileImage(horizontal, vertical);
 	}
@@ -330,9 +339,9 @@ public class IsoTile {
 	 */
 	public void drawNorthSouth(int x, int y, Graphics g, boolean toponly) {
 
-		int HEIGHT1 = orientation == Orientation.UP_TO_NORTH ? (int) (finalHeight * startHeight)
+		int h1 = orientation == Orientation.UP_TO_NORTH ? (int) (finalHeight * startHeight)
 				: (int) (finalHeight * endHeight);
-		int HEIGHT2 = orientation == UP_TO_NORTH ? (int) (finalHeight * endHeight)
+		int h2 = orientation == UP_TO_NORTH ? (int) (finalHeight * endHeight)
 				: (int) (finalHeight * startHeight);
 
 		Color oldColor = g.getColor();
@@ -342,10 +351,10 @@ public class IsoTile {
 				x + horizontal / 2,
 				x, x - horizontal / 2 },
 				new int[] {
-						y - HEIGHT2,
-						y - HEIGHT2 + vertical / 2,
-						y - HEIGHT1 + vertical,
-						y - HEIGHT1 + vertical / 2 }
+						y - h2,
+						y - h2 + vertical / 2,
+						y - h1 + vertical,
+						y - h1 + vertical / 2 }
 				, 4);
 		if (toponly) return;
 		
@@ -357,8 +366,8 @@ public class IsoTile {
 				x + horizontal / 2,
 				x },
 				new int[] {
-						y - HEIGHT1 + vertical,
-						y - HEIGHT2 + vertical / 2,
+						y - h1 + vertical,
+						y - h2 + vertical / 2,
 						y + vertical / 2,
 						y + vertical }
 				, 4));
@@ -369,8 +378,8 @@ public class IsoTile {
 				x - horizontal / 2,
 				x },
 				new int[] {
-						y - HEIGHT1 + vertical,
-						y - HEIGHT1 + vertical / 2,
+						y - h1 + vertical,
+						y - h1 + vertical / 2,
 						y + vertical / 2,
 						y + vertical }
 				, 4));
@@ -381,10 +390,10 @@ public class IsoTile {
 				x,
 				x - horizontal / 2 },
 				new int[] {
-						y - HEIGHT2,
-						y - HEIGHT2 + vertical / 2,
-						y - HEIGHT1 + vertical,
-						y - HEIGHT1 + vertical / 2 }
+						y - h2,
+						y - h2 + vertical / 2,
+						y - h1 + vertical,
+						y - h1 + vertical / 2 }
 				, 4));
 		// Outline the right side
 		g.drawPolygon(new Polygon(new int[] {
@@ -393,8 +402,8 @@ public class IsoTile {
 				x + horizontal / 2,
 				x },
 				new int[] {
-						y - HEIGHT1 + vertical,
-						y - HEIGHT2 + vertical / 2,
+						y - h1 + vertical,
+						y - h2 + vertical / 2,
 						y + vertical / 2,
 						y + vertical }
 				, 4));
@@ -404,8 +413,8 @@ public class IsoTile {
 				x - horizontal / 2,
 				x - horizontal / 2,
 				x },
-				new int[] { y - HEIGHT1 + vertical,
-						y - HEIGHT1 + vertical / 2,
+				new int[] { y - h1 + vertical,
+						y - h1 + vertical / 2,
 						y + vertical / 2,
 						y + vertical }
 				, 4));
