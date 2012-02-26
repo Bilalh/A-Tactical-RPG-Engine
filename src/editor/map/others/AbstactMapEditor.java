@@ -211,7 +211,12 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 	/** @category ISpriteProvider**/
 	@Override
 	public void select(List<MutableSprite> selection) {
-		System.out.println("Selcted");
+		if (selection.size() > 1){
+			ArrayList<MutableSprite>  a = new ArrayList<MutableSprite>();
+			a.add(selection.get(0));
+			selection =a;
+		}
+		tilesetPanel.setSelectedSprites(selection);
 	}
 
 	/** @category ISpriteProvider**/
