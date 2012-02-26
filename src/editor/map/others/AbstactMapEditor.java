@@ -62,8 +62,11 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 	
 	// Prefences Node name
 	protected String prefsName;
+	
+	
 	protected SpriteSheet _sheet;
 	protected EditorSpriteSheet sheet;
+	protected MutableSprite currentIconImage;
 	
 	public AbstactMapEditor(String tile, String prefsName, int mapWidth, int mapHeight){
 		super(tile);
@@ -82,10 +85,10 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 		
 		this.setContentPane(createContentPane(prefsName));
 		
-		Preferences pref = Prefs.getNode(prefsName+ "/panels/main");
+		Preferences pref = Prefs.getNode(prefsName+ "/panels/main2");
 		System.out.println(pref);
-		int width = pref.getInt("width", 900);
-		int height = pref.getInt("height", 550);
+		int width = pref.getInt("width", 930);
+		int height = pref.getInt("height", 680);
 		
 		this.setSize(width, height);
 		infoPanelContainer.restore();
@@ -205,25 +208,26 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 		return 0;
 	}
 
-	// Subclass can override these  methods to get events
+	// Subclass can override these methods to get events
 	
 
 	/** @category ISpriteProvider**/
 	@Override
 	public void select(List<MutableSprite> selection) {
+		// Only Allow one icon to be selected
 		if (selection.size() > 1){
 			ArrayList<MutableSprite>  a = new ArrayList<MutableSprite>();
 			a.add(selection.get(0));
 			selection =a;
 		}
 		tilesetPanel.setSelectedSprites(selection);
+		if (selection.size() == 0) return;
+		currentIconImage = selection.get(0);
 	}
 
 	/** @category ISpriteProvider**/
 	@Override
 	public void delete(List<MutableSprite> selected) {
-		// FIXME delete method
-		
 	}
 	
 	/** @category IEditorMapPanelListener **/

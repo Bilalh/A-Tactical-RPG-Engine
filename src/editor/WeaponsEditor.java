@@ -177,7 +177,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 	protected JPanel createInfoPanel() {
 		JPanel p = new JPanel(new MigLayout("", "[right]"));
 
-		p.add(new JLabel("Location:"), "gap 4");
+		p.add(new JLabel("Icon:"), "gap 4");
 		p.add((infoIcon = new JLabel("        ")), "span, growx");
 		
 		p.add(new JLabel("Name:"), "gap 4");
@@ -242,6 +242,15 @@ public class WeaponsEditor extends AbstactMapEditor {
 		return p;
 	}
 
+
+	@Override
+	public void select(List<MutableSprite> selection) {
+		super.select(selection);
+		if (currentIconImage == null) return;
+		infoIcon.setIcon(new ImageIcon(currentIconImage.getImage()));
+		weapon.setImageRef(currentIconImage.getName());
+	}
+	
 	@Override
 	protected void onQuit() {
 		super.onQuit();
@@ -358,4 +367,5 @@ public class WeaponsEditor extends AbstactMapEditor {
 		Config.loadLoggingProperties();
 		new WeaponsEditor().setVisible(true);
 	}
+
 }
