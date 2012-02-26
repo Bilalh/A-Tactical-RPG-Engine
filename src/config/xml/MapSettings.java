@@ -35,7 +35,7 @@ public class MapSettings {
 	}
 	
 	public static MapSettings defaults() {
-		MapSettings s = new MapSettings(60, 20, .5f,1);
+		MapSettings s = new MapSettings(60, 10, .5f,1);
 		assert s != null;
 		return s;
 	}

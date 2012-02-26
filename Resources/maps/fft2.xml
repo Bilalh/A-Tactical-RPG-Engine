@@ -1,9 +1,4 @@
 <map width="13" height="15">
-  <mapSettings>
-    <tileDiagonal>60</tileDiagonal>
-    <tileHeight>20</tileHeight>
-    <pitch>0.5</pitch>
-  </mapSettings>
   <mapData>
     <tileMappingLocation>maps/fft2-mapping.xml</tileMappingLocation>
   </mapData>
