@@ -151,7 +151,10 @@
 
 
 \newcommand{\currentSection}{
-	\ifthenelse{\equal{\rightmark}{}}{\leftmark}{\rightmark}
+	% Inculdes subsections
+	% \ifthenelse{\equal{\rightmark}{}}{\leftmark}{\rightmark}
+	% Only topmost sections
+	\leftmark	
 }
 
 \ifthenelse{\boolean{@twoside}{false}}
@@ -162,13 +165,12 @@
 	\reversemarginpar
 	\fancyhead[LO,RE]{\slshape \nouppercase{\currentSection}} 
 	\fancyhead[LE,RO]{\thepage} 
-	\fancyhead[CO]{\hspace{30pt}  \theTitle}
 	\fancyhead[CE]{\hspace{-30pt} \theAuthor}
 }{
 	\fancyhead[LO,RE]{\slshape \nouppercase{\currentSection}} 
 	\fancyhead[LE,RO]{\thepage} 
-	\fancyhead[CO]{\hspace{30pt}  \theAuthor  \hspace{5pt}-- \theTitle}
-	\fancyhead[CE]{\hspace{-50pt} \theAuthor  \hspace{5pt}-- \theTitle}
+	\fancyhead[CO]{\hspace{30pt}  \theAuthor  \hspace{5pt}}
+	\fancyhead[CE]{\hspace{-50pt} \theAuthor  \hspace{5pt}}
 }
 
 % (end)      
