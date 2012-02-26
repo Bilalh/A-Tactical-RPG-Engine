@@ -107,7 +107,9 @@ public class WeaponsEditor extends AbstactMapEditor {
 		map.getGuiField()[5][5].setUnit(guiUnit);
 		map.setUnitAt(l, guiUnit);
 		
-		setWeapon(new Spear(10,3));
+		IWeapon ww= new Spear(10,3);
+		ww.setName("New Weapon");
+		setWeapon(ww);
 	}
 
 	Collection<Location> getAttackRange(){

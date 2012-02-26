@@ -77,7 +77,7 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
-		frame = new JFrame("Tacical Engine Editor");
+		frame = new JFrame("Map Editor");
 
 		zoomInAction = new ZoomInAction();
 		zoomOutAction = new ZoomOutAction();

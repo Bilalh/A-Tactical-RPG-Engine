@@ -85,7 +85,7 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 		
 		this.setContentPane(createContentPane(prefsName));
 		
-		Preferences pref = Prefs.getNode(prefsName+ "/panels/main2");
+		Preferences pref = Prefs.getNode(prefsName+ "/panels/main");
 		System.out.println(pref);
 		int width = pref.getInt("width", 930);
 		int height = pref.getInt("height", 680);
