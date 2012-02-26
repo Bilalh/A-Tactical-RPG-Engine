@@ -22,6 +22,7 @@ import common.gui.ResourceManager;
 import common.spritesheet.SpriteSheet;
 
 import config.Config;
+import config.xml.MapSettings;
 
 import view.map.interfaces.IMapRendererParent;
 import editor.map.*;
@@ -184,8 +185,8 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 	}
 	
 	// Creates the map
-	private void createMap() {
-		map = new OthersMap(mapWidth,mapHeight);
+	protected void createMap() {
+		map = new OthersMap(mapWidth,mapHeight, MapSettings.defaults());
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
 	} 
 	

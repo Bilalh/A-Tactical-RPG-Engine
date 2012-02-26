@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import common.enums.ImageType;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
+import config.xml.MapSettings;
 
 import view.map.IsoTile;
 
@@ -28,7 +29,7 @@ public class A extends JFrame {
 	
 	A(){
 		
-		t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED);
+		t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED,MapSettings.defaults());
 	}
 	
 	@Override
@@ -43,7 +44,7 @@ public class A extends JFrame {
 		Graphics g = image.getGraphics();
 		
 		ResourceManager.instance().loadTileSheetFromResources("images/tilesets/fft2.png");
-		IsoTile t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED);
+		IsoTile t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED,MapSettings.defaults());
 		t.draw(40, 20, g);
 		System.out.println(t);
 		ImageIO.write(image, "PNG", new File("out2.png"));

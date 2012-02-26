@@ -52,7 +52,7 @@ public class EditorMap extends BasicMap {
 				guiField[i][j]    = new EditorIsoTile(editorField[i][j].getOrientation(),
 						editorField[i][j].getStartHeight(),
 						editorField[i][j].getEndHeight(), i, j,
-						spriteSheet.getSprite(d.getLocation()), d.getType());
+						spriteSheet.getSprite(d.getLocation()), d.getType(),mapSettings);
 			}
 		}
 		field = editorField;

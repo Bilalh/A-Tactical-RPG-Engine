@@ -90,15 +90,6 @@ public class IsoTile {
 	int h1;
 	int h2;
 	
-	/**
-	 * @deprecated Use {@link #IsoTile(Orientation,float,float,int,int,String,ImageType,MapSettings)} instead
-	 */
-	@Deprecated
-	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
-			int x, int y, String ref, ImageType type ) {
-				this(orientation, startHeight, endHeight, x, y, ref, type, MapSettings.defaults());
-	}
-
 	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
 			int x, int y, String ref, ImageType type, MapSettings settings ) {
 		assert settings != null;

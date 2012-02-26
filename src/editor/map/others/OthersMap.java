@@ -28,16 +28,18 @@ public class OthersMap extends BasicMap {
 
 	protected EditorIsoTile[][] guiField;
 	protected BufferedImage tileImage;
-
-	public OthersMap(int width, int height) {
+	protected MapSettings settings;
+	
+	public OthersMap(int width, int height, MapSettings settings) {
 		try {
 			tileImage = Resources.getImage("defaults/tile.png");
 			OthersIsoTile.setTileImage(tileImage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.width  = width;
-		this.height = height;
+		this.width    = width;
+		this.height   = height;
+		this.settings = settings;
 		loadMap("none");
 	}
 
@@ -63,7 +65,7 @@ public class OthersMap extends BasicMap {
 			for (int j = 0; j < field[i].length; j++) {
 				guiField[i][j] = new OthersIsoTile(field[i][j].getOrientation(),
 						field[i][j].getStartHeight(),
-						field[i][j].getEndHeight(), i, j);
+						field[i][j].getEndHeight(), i, j, settings);
 			}
 		}
 	}

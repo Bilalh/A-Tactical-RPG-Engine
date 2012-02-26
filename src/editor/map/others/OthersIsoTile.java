@@ -3,6 +3,7 @@ package editor.map.others;
 import java.awt.image.BufferedImage;
 
 import common.enums.Orientation;
+import config.xml.MapSettings;
 import editor.map.EditorIsoTile;
 
 /**
@@ -13,8 +14,8 @@ public class OthersIsoTile extends EditorIsoTile {
 
 	protected static BufferedImage allTiles = null;
 
-	public OthersIsoTile(Orientation orientation, float startHeight, float endHeight, int x, int y) {
-		super(orientation, startHeight, endHeight, x, y);
+	public OthersIsoTile(Orientation orientation, float startHeight, float endHeight, int x, int y,  MapSettings settings) {
+		super(orientation, startHeight, endHeight, x, y, settings);
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import common.enums.ImageType;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.gui.Sprite;
+import config.xml.MapSettings;
 import editor.spritesheet.ISpriteChangedListener;
 import editor.spritesheet.MutableSprite;
 
@@ -41,14 +42,14 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 	
 	/** @category Generated */
 	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight,
-			int x, int y, MutableSprite sprite, ImageType type) {
-		super(orientation, startHeight, endHeight, x, y, sprite.getName(), type);
+			int x, int y, MutableSprite sprite, ImageType type,MapSettings settings) {
+		super(orientation, startHeight, endHeight, x, y, sprite.getName(), type,settings);
 		sprite.addSpriteChangedListener(this);
 		this.sprite = sprite;
 	}
 
-	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight,int x, int y) {
-		super(orientation, startHeight, endHeight, x, y, "none", ImageType.NON_TEXTURED);
+	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight,int x, int y,MapSettings settings) {
+		super(orientation, startHeight, endHeight, x, y, "none", ImageType.NON_TEXTURED,settings);
 	}
 	
 	public void setSprite(MutableSprite sprite) {
