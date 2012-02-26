@@ -1,3 +1,8 @@
+FIXME 
+-----
+Check that finalHeight was always the same.
+
+
 AI
 --
 * Pathfinding -- done 
