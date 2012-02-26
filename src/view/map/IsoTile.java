@@ -32,6 +32,7 @@ import common.Location;
 import common.Location;
 
 import common.Location;
+import config.xml.MapSettings;
 import config.xml.TileImageData;
 
 public class IsoTile {
@@ -89,8 +90,19 @@ public class IsoTile {
 	int h1;
 	int h2;
 	
+	/**
+	 * @deprecated Use {@link #IsoTile(Orientation,float,float,int,int,String,ImageType,MapSettings)} instead
+	 */
+	@Deprecated
 	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
 			int x, int y, String ref, ImageType type ) {
+				this(orientation, startHeight, endHeight, x, y, ref, type, MapSettings.defaults());
+	}
+
+	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
+			int x, int y, String ref, ImageType type, MapSettings settings ) {
+		assert settings != null;
+		
 		this.fieldLocation = new Location(x, y);
 		this.orientation   = orientation;
 
@@ -102,7 +114,8 @@ public class IsoTile {
 		this.state  = TileState.NONE;
 		this.name   = ref;
 		
-		invaildate();
+		//FIXME
+		invaildate(settings);
 		top = new Polygon(new int[] {
 				0,
 				horizontal / 2,
@@ -115,10 +128,11 @@ public class IsoTile {
 						0 - h1 + vertical / 2 }, 4);
 	}
 	
-	public void invaildate(){
-		finalHeight = (int) (MapSettings.tileHeight * MapSettings.zoom);
-		horizontal  = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-		vertical    = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+	public void invaildate(MapSettings settings){
+		assert settings != null;
+		finalHeight = (int) (settings.tileHeight   * settings.zoom);
+		horizontal  = (int) (settings.tileDiagonal * settings.zoom);
+		vertical    = (int) (settings.tileDiagonal * settings.pitch * settings.zoom);
 		
 		switch (orientation){
 			case EMPTY:
@@ -214,7 +228,7 @@ public class IsoTile {
 				x,
 				neg_x_hor_div_2},
 				new int[] {
-						(int) (y - h1),
+						(y - h1),
 						neg_y_h2_vet_div_2,
 						neg_y_h2_vet,
 						neg_y_h1_vet_div_2 }, 4);
@@ -231,7 +245,7 @@ public class IsoTile {
 			g.setPaint(old);			
 		} else {
 			int f = Math.round(x - horizontal / 2f);
-			g.drawImage(tileImage,  f, (int) (y - h2), null);
+			g.drawImage(tileImage,  f, (y - h2), null);
 		}
 
 		

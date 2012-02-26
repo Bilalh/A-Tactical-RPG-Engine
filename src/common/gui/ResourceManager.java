@@ -18,7 +18,6 @@ import config.Config;
 
 import util.Args;
 import util.Logf;
-import view.map.MapSettings;
 
 /**
  * Keeps track of loaded sprites. The sprites are only loaded once.

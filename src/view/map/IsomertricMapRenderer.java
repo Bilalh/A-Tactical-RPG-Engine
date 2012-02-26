@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import common.Location;
 import common.enums.Direction;
 import common.interfaces.ILocation;
+import config.xml.MapSettings;
 
 
 import util.Logf;
@@ -24,16 +25,16 @@ import view.util.BufferSize;
 public class IsomertricMapRenderer implements IMapRenderer {
 	private static final Logger log = Logger.getLogger(IsomertricMapRenderer.class);
 	
-	private IMapRendererParent parent;
-	private IsoTile[][] field;
+	IMapRendererParent parent;
+	IsoTile[][] field;
 
 	// For drawing	 
-	private final int fieldWidth, fieldHeight;
-	private final int startX, startY;
-	private boolean drawn = false;
+	final int fieldWidth, fieldHeight;
+	final int startX, startY;
+	boolean drawn = false;
 	
 	// For numbering the tiles (for debuging).
-	private boolean showNumbering = false;
+	boolean showNumbering = false;
 	Font numbers = new Font("Helvetica", Font.PLAIN,  10);
 	
 	int animationDuration = 750 * 1000000;
@@ -44,21 +45,21 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	int horizontal;
 	int vertical;
 	
-	private Rotation rotation = Rotation.WEST;
+	Rotation rotation = Rotation.WEST;
 
-	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent) {
-		this(field, parent, 1);
-	}
+	MapSettings mapSettings;
 
-	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent, float multiplier) {
+
+	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent, float multiplier, MapSettings mapSettings) {
 		this.parent = parent;
 		this.field  = field;
 
-		this.fieldWidth = field.length;
+		this.fieldWidth  = field.length;
 		this.fieldHeight = field[0].length;
+		this.mapSettings = mapSettings;
 		calculateSize();
 		
-		startX = (int) ((size.width / 2 + (fieldHeight - fieldWidth) * MapSettings.tileDiagonal / 4) * multiplier);
+		startX = (int) ((size.width / 2 + (fieldHeight - fieldWidth) * mapSettings.tileDiagonal / 4) * multiplier);
 		startY = ((size.heightOffset));
 		
 		invaildate();
@@ -66,21 +67,21 @@ public class IsomertricMapRenderer implements IMapRenderer {
 
 	public void invaildate(){
 
-		 horizontal = (int) (MapSettings.tileDiagonal * MapSettings.zoom);
-		 vertical   = (int) (MapSettings.tileDiagonal * MapSettings.pitch * MapSettings.zoom);
+		 horizontal = (int) (mapSettings.tileDiagonal * mapSettings.zoom);
+		 vertical   = (int) (mapSettings.tileDiagonal * mapSettings.pitch * mapSettings.zoom);
 		
-		 xCalc =  horizontal/2;
-		 yCalc =  vertical /2;
+		 xCalc = horizontal/2;
+		 yCalc = vertical /2;
 	}
 	
 	private BufferSize size;
 	private void calculateSize(){
         int max = Math.max(fieldWidth, fieldHeight);
-		int heightOffset  = (MapSettings.tileDiagonal)*2;
+		int heightOffset  = (mapSettings.tileDiagonal)*2;
 
 		int w = fieldWidth + (fieldHeight-fieldWidth)/2;
-		int bufferWidth   = MapSettings.tileDiagonal * w+ 5;
-		int bufferHeight  = (int) (MapSettings.tileDiagonal / 2f *w+ heightOffset);
+		int bufferWidth    = mapSettings.tileDiagonal * w+ 5;
+		int bufferHeight  = (int) (mapSettings.tileDiagonal / 2f *w+ heightOffset);
 		size = new BufferSize(heightOffset, bufferWidth, bufferHeight);
 	}
 
@@ -195,17 +196,17 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	// Actual drawing 
 	private boolean drawSub(Graphics g, int width, int height, final int drawX, final int drawY, int x, int y, int i, int j) {
 		if (parent.isMouseMoving() ||
-				(x - horizontal - drawX  <= width +   MapSettings.tileDiagonal * 3
-						&& y - vertical   - drawY <=  height + MapSettings.tileDiagonal * 3
-						&& x + horizontal - drawX >= -MapSettings.tileDiagonal * 3
-						&& y + vertical   - drawY >= -MapSettings.tileDiagonal * 3)) {
+				(x - horizontal - drawX  <= width +   mapSettings.tileDiagonal * 3
+						&& y - vertical   - drawY <=  height + mapSettings.tileDiagonal * 3
+						&& x + horizontal - drawX >= -mapSettings.tileDiagonal * 3
+						&& y + vertical   - drawY >= -mapSettings.tileDiagonal * 3)) {
 			field[j][i].draw(x, y, g);
 
 			if (showNumbering) {
 				Color old = g.getColor();
 				g.setColor(Color.RED);
 				Point pp =field[j][i].calculateCentrePoint(x,y);
-				g.drawString(String.format("%d,%d", j,i),pp.x - MapSettings.tileDiagonal/4 ,pp.y);
+				g.drawString(String.format("%d,%d", j,i),pp.x - mapSettings.tileDiagonal/4 ,pp.y);
 				
 				g.setColor(old);
 			}

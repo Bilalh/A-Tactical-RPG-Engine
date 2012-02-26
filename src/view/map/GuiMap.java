@@ -54,9 +54,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private Component parent;
 	private MapController mapController;
 
+	// The map, it renderer and its data
 	private IsomertricMapRenderer mapRenderer;
 	private IsoTile[][] field;
 
+	private config.xml.MapSettings mapSettings;
 	private int fieldWidth, fieldHeight;
 	private static IsoTile selectedTile;
 
@@ -66,6 +68,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	private HashMap<UUID, AnimatedUnit> unitMapping;
 
+	// UI elements
 	private Menu menu     = new Menu();
 	private Dialog dialog = new Dialog(0, 0);
 	
@@ -88,6 +91,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		MOVEMENT, DIALOG, NONE, MENU, FINISHED, SKILL_MOVEMENT
 	}
 
+	// The state of the current units state machine.
 	private UnitState state = UnitState.WAITING;
 
 	// For unit movement
@@ -116,7 +120,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 	// Used to delay events
 	Timer timer = new Timer();
 
-	/** @category Constructor */
 	public GuiMap(MapController mapController, Component parent) {
 		assert actions.length == ActionsEnum.values().length;
 
@@ -126,24 +129,25 @@ public class GuiMap implements Observer, IMapRendererParent {
 		final Tile grid[][] = mapController.getField();
 		this.fieldWidth  = grid.length;
 		this.fieldHeight = grid[0].length;
-
+		this.mapSettings = mapController.getMapSettings();
+		
 		this.field = new IsoTile[fieldWidth][fieldHeight];
 		this.unitMapping  = new HashMap<UUID, AnimatedUnit>();
 		this.pathIterator = new ArrayDeque<LocationInfo>(0).iterator();
 		
 		float multiplier = 1.3f;
-		this.mapRenderer  = new IsomertricMapRenderer(this.field, this, multiplier);
+		this.mapRenderer  = new IsomertricMapRenderer(this.field, this, multiplier, mapSettings);
 		
 		BufferSize s = mapRenderer.getMapDimensions();
 		bufferWidth  = (int) (s.width  * multiplier);
-		bufferHeight = (int) (s.height * multiplier) + MapSettings.tileDiagonal;
+		bufferHeight = (int) (s.height * multiplier) + mapSettings.tileDiagonal;
 
 		drawX = (int) (Math.max(multiplier-1, 0) * s.width)/2;
 //		drawY = (int) (Math.max(multiplier-1, 0) * s.height)/2;
 		System.out.printf("(%d,%d)\n", drawX, drawY);
 		
 		currentAction = getActionHandler(ActionsEnum.MOVEMENT);
-		MousePoxy = new MousePoxy();
+		MousePoxy     = new MousePoxy();
 		setActionHandler(ActionsEnum.MOVEMENT);
 
 		dialog.setWidth(parent.getWidth());
@@ -162,7 +166,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 						grid[i][j].getStartHeight(),
 						grid[i][j].getEndHeight(),
 						i, j,
-						d.getLocation(), d.getType());
+						d.getLocation(), d.getType(), mapSettings);
 			}
 		}
 
@@ -245,10 +249,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 
 	private Location getDrawLocation(ILocation l) {
-		int x = mapRenderer.getStartX() - (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom * (fieldHeight - l.getY() - 1f));
-		int y = mapRenderer.getStartX() + (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom * (fieldHeight - l.getY() - 1));
-		x += (int) (MapSettings.tileDiagonal / 2f * MapSettings.zoom) * l.getX();
-		y += (int) (MapSettings.tileDiagonal / 2f * MapSettings.pitch * MapSettings.zoom) * l.getX();
+		int x = mapRenderer.getStartX() - (int) (mapSettings.tileDiagonal / 2f * mapSettings.zoom * (fieldHeight - l.getY() - 1f));
+		int y = mapRenderer.getStartX() + (int) (mapSettings.tileDiagonal / 2f * mapSettings.pitch * mapSettings.zoom * (fieldHeight - l.getY() - 1));
+		x += (int) (mapSettings.tileDiagonal / 2f * mapSettings.zoom) * l.getX();
+		y += (int) (mapSettings.tileDiagonal / 2f * mapSettings.pitch * mapSettings.zoom) * l.getX();
 		return new Location(x, y);
 	}
 
@@ -652,7 +656,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	void scrollToLocation(ILocation l){
 			Location drawLocation  = getDrawLocation(l);
 			//FIXME why add MapSettings.tileDiagonal/2?
-			int diffY = drawY + parent.getHeight() -  MapSettings.tileDiagonal/2;
+			int diffY = drawY + parent.getHeight() -  mapSettings.tileDiagonal/2;
 			drawLocation.translate(-drawX, -diffY);
 
 //			System.out.printf("(%d,%d)\n", parent.getWidth(), parent.getHeight());
@@ -660,7 +664,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			boolean check = true;
 
 
-			Location topLeft = drawLocation.copy().translate(-MapSettings.tileDiagonal, (int) (-MapSettings.tileDiagonal*1.5));
+			Location topLeft = drawLocation.copy().translate(-mapSettings.tileDiagonal, (int) (-mapSettings.tileDiagonal*1.5));
 			check = topLeft.checkUpper(1, 1);
 //			System.out.println("tl:"+ topLeft);
 			
@@ -668,7 +672,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				setDrawLocation(drawX+topLeft.x, drawY+topLeft.y);
 			}else{
 				//FIXME need testing on larger maps  -- works?{
-				Location bottomRight  = drawLocation.copy().translate(-parent.getWidth()+ MapSettings.tileDiagonal, -parent.getHeight()+ MapSettings.tileDiagonal/2);
+				Location bottomRight  = drawLocation.copy().translate(-parent.getWidth()+ mapSettings.tileDiagonal, -parent.getHeight()+ mapSettings.tileDiagonal/2);
 //				System.out.println("br:"+ bottomRight);
 				check =  bottomRight.checkLower(0, 0);
 				if (check) setDrawLocation(drawX+bottomRight.x, drawY+bottomRight.y);
@@ -713,7 +717,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		mapRenderer.invaildate();
 		for (IsoTile[] arr : field) {
 			for (IsoTile t : arr) {
-				t.invaildate();
+				t.invaildate(mapSettings);
 			}
 		}
 		setDrawn(false);
@@ -732,31 +736,31 @@ public class GuiMap implements Observer, IMapRendererParent {
 				break;
 			}
 			case KeyEvent.VK_MINUS:
-				if (MapSettings.zoom <= 0.8) break;
-				MapSettings.zoom -= 0.2;
-				log.info(MapSettings.zoom);
+				if (mapSettings.zoom <= 0.8) break;
+				mapSettings.zoom -= 0.2;
+				log.info(mapSettings.zoom);
 				afterMapSettingsChange();
 				break;
 
 			case KeyEvent.VK_EQUALS:
-				if (MapSettings.zoom > 1.2) break;
-				MapSettings.zoom += 0.2;
-				log.info(MapSettings.zoom);
+				if (mapSettings.zoom > 1.2) break;
+				mapSettings.zoom += 0.2;
+				log.info(mapSettings.zoom);
 				afterMapSettingsChange();
 				break;
 
 			case KeyEvent.VK_COMMA:
-				if (MapSettings.pitch <= 0.5) break;
-				MapSettings.pitch -= 0.1;
+				if (mapSettings.pitch <= 0.5) break;
+				mapSettings.pitch -= 0.1;
 //				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
-				log.info(MapSettings.pitch);
+				log.info(mapSettings.pitch);
 				afterMapSettingsChange();
 				break;
 			case KeyEvent.VK_PERIOD:
-				if (MapSettings.pitch >= 0.7) break;
-				MapSettings.pitch += 0.1;
+				if (mapSettings.pitch >= 0.7) break;
+				mapSettings.pitch += 0.1;
 //				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
-				log.info(MapSettings.pitch);
+				log.info(mapSettings.pitch);
 				afterMapSettingsChange();
 				break;
 

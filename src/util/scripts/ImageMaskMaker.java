@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import view.map.MapSettings;
 import common.gui.Sprite;
 import common.gui.ResourceManager;
 

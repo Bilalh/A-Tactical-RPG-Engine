@@ -12,10 +12,10 @@ import org.apache.log4j.Logger;
 
 import util.Logf;
 import view.map.IsomertricMapRenderer;
-import view.map.MapSettings;
 import view.util.BufferSize;
 
 import common.Location;
+import config.xml.MapSettings;
 
 import editor.MapEditor;
 
@@ -91,7 +91,8 @@ public class EditorMapPanel extends JPanel {
 				if (sendClicked) editor.tileClicked(current);
 				else             editor.tileEntered(current);
 				
-				if (e.distance(old) > MapSettings.tileDiagonal / 6) {
+				//FIXME change 
+				if (e.distance(old) > MapSettings.defaults().tileDiagonal / 6) {
 					if (findCurrent(e) ==null) return;
 					if (sendClicked) editor.tileClicked(current);
 					else             editor.tileEntered(current);
@@ -185,7 +186,8 @@ public class EditorMapPanel extends JPanel {
 	public synchronized void setMap(EditorIsoTile[][] field){
 		this.field    = field;
 		buffer     = null;
-		mapRender  = new IsomertricMapRenderer(field, editor, 1);
+		// FIXME change
+		mapRender  = new IsomertricMapRenderer(field, editor, 1, MapSettings.defaults());
 		BufferSize s = mapRender.getMapDimensions();
 		setPreferredSize(mapRender.getMapDimensions());
 		bufferWidth  = s.width;

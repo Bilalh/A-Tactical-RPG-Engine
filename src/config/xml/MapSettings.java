@@ -12,19 +12,32 @@ public class MapSettings {
 	// Example value  when using zoom 0,6 0.8 1.0 and 1.2 are
 	// 60  80 100
 	
-	public final int tileDiagonal;
-	public final int tileHeight;
-	public final float pitch;
+	public int tileDiagonal;
+	public int tileHeight;
+	public float pitch;
+    public float zoom;
 
+	
 	/** @category Generated */
-	public MapSettings(int tileDiagonal, int tileHeight, float pitch) {
+	private MapSettings(int tileDiagonal, int tileHeight, float pitch, float zoom) {
 		this.tileDiagonal = tileDiagonal;
 		this.tileHeight = tileHeight;
 		this.pitch = pitch;
+		this.zoom = zoom;
 	}
 
+
+	// to give default values
+	private Object readResolve() {
+		// FIXME change
+		zoom = 1;
+		return this;
+	}
+	
 	public static MapSettings defaults() {
-		return new MapSettings(60, 20, .5f);
+		MapSettings s = new MapSettings(60, 20, .5f,1);
+		assert s != null;
+		return s;
 	}
 
 	@Override

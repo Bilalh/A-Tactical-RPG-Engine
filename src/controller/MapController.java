@@ -11,6 +11,7 @@ import notifications.map.MapFinishedNotification;
 
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
+import config.xml.MapSettings;
 import config.xml.TileImageData;
 
 import util.Args;
@@ -107,6 +108,11 @@ public class MapController extends Controller {
 		log.info("mapLost");
 		// FIXME mapLost method
 		mapWon();
+	}
+
+	/** @category Generated */
+	public MapSettings getMapSettings() {
+		return map.getMapSettings();
 	}
 	
 }

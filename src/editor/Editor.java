@@ -88,6 +88,7 @@ public class Editor {
 		log.info("Saved prefs" + Prefs.root());
 	}
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Config.loadLoggingProperties();
 		new Editor();
