@@ -26,17 +26,22 @@ import editor.ui.FloatablePanel;
 import editor.util.Prefs;
 
 /**
- * Infrastructure for editor that need a map renderer. 
+ * Infrastructure for an editor that need a map renderer. 
  * @author Bilal Hussain
  */
 public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanelListener {
 	private static final Logger log = Logger.getLogger(AbstactMapEditor.class);
 	private static final long serialVersionUID = -8019374138498647481L;
 
+	// Map 
 	protected OthersMap map;
 	protected EditorMapPanel editorMapPanel;
 	protected EditorSpriteSheet editorSpriteSheet;
-
+	
+	// Map
+	protected int mapWidth, mapHeight;
+	
+	// Gui elements
 	protected JScrollPane mapScrollPane;
 	protected JPanel infoPanel;
 	protected FloatablePanel infoPanelContainer;
@@ -44,8 +49,7 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 	// The map view port 
 	protected JViewport mapViewport;
 	
-	protected int mapWidth, mapHeight;
-	
+	// Prefences Node name
 	protected String prefsName;
 	
 	public AbstactMapEditor(String tile, String prefsName, int mapWidth, int mapHeight){
@@ -77,6 +81,7 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 		
 	}
 	
+	// Create Gui.
 	private JPanel createContentPane(String prefName) {
 		mapScrollPane = new JScrollPane(
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
@@ -109,8 +114,8 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 	// Subclasses make the infomation panel.
 	protected abstract JPanel createInfoPanel();
 	
-	/** @category Gui **/
-	private void onQuit() {
+	// Save window size and panel size 
+	protected void onQuit() {
 		log.info("Quiting");
 		final int extendedState = this.getExtendedState();
 		final Preferences pref = Prefs.getNode(prefsName+ "/panels/main");
@@ -131,7 +136,7 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 		log.info("Saved prefs" + Prefs.root());
 	}
 	
-	String filename = "fft2";
+	// Creates the map
 	private void createMap() {
 		map = new OthersMap(mapWidth,mapHeight);
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
@@ -156,21 +161,23 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 		return 0;
 	}
 
+	// Subclass can override these  methods to get Mouse events
+	
 	/** @category IEditorMapPanelListener **/
 	@Override
 	public void tileClicked(EditorIsoTile tile) {
-		
 	}
 
 	/** @category IEditorMapPanelListener **/
 	@Override
 	public void tileEntered(EditorIsoTile tile) {
-
+		
 	}
 
 	/** @category IEditorMapPanelListener **/
 	@Override
 	public void tilesSelected(ArrayList<EditorIsoTile> tiles, boolean shiftDown) {
+
 	}
 	
 	/** @category IEditorMapPanelListener **/

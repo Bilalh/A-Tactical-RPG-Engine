@@ -73,69 +73,6 @@ public class WeaponsEditor extends AbstactMapEditor {
 	
 	private WeaponTypes currentType;
 	
-	static enum WeaponTypes {
-		RANGED("Ranged") {
-			@Override
-			IWeapon newWeapon(WeaponsEditor we) {
-				RangedWeapon w = new RangedWeapon();
-				w.setName(we.infoName.getText());
-				
-				int range = ((Number) we.infoRange.getValue()).intValue();
-				w.setRange(range);
-				int inner = ((Number) we.infoInnerRange.getValue()).intValue();
-				w.setRange(inner < range ? inner : range-1);
-				
-				we.infoInnerRange.setVisible(true);
-				we.infoInnerRangeL.setVisible(true);
-				we.infoRange.setVisible(true);
-				we.infoRangeL.setVisible(true);
-				
-				return w;
-			}
-		},
-		MELEE("Melee") {
-			@Override
-			IWeapon newWeapon(WeaponsEditor we) {
-				MeleeWeapon w = new MeleeWeapon();
-				w.setName(we.infoName.getText());
-				
-				we.infoRange.setVisible(false);
-				we.infoRangeL.setVisible(false);
-				we.infoInnerRange.setVisible(false);
-				we.infoInnerRangeL.setVisible(false);
-				return w;
-			}
-		},
-		SPEAR("Spear") {
-			@Override
-			IWeapon newWeapon(WeaponsEditor we) {
-				Spear w = new Spear();
-				w.setName(we.infoName.getText());
-				
-				int range = ((Number) we.infoRange.getValue()).intValue();
-				w.setRange(range);
-				we.infoInnerRange.setVisible(false);
-				we.infoInnerRangeL.setVisible(false);
-				we.infoRange.setVisible(true);
-				we.infoRangeL.setVisible(true);
-				return w;
-			}
-		};
-
-		private final String name;
-
-		@Override
-		public String toString() {
-			return name;
-		}
-
-		abstract IWeapon newWeapon(WeaponsEditor we);
-		
-		private WeaponTypes(String name) {
-			this.name = name;
-		}
-	}
-	
 	public WeaponsEditor() {
 		super("Weapons Editor", "Weapons", 11, 11);
 
@@ -156,11 +93,6 @@ public class WeaponsEditor extends AbstactMapEditor {
 		ui.setSpriteSheetLocation(path);
 		u.setImageData(path, ui);
 		
-		weapon = new RangedWeapon(1,1,0);
-		weapon.setName("New Weapon");
-		u.setWeapon(weapon);
-		currentType = WeaponTypes.RANGED;
-		
 		Location l = new Location(5,5);
 		mapUnit = new MapUnit(u, l, new MapPlayer());
 		
@@ -169,10 +101,15 @@ public class WeaponsEditor extends AbstactMapEditor {
 		
 		map.getGuiField()[5][5].setUnit(guiUnit);
 		map.setUnitAt(l, guiUnit);
-		showAttackRange();
+		
+		setWeapon(new Spear(10,3));
 	}
 
 	Collection<Location> getAttackRange(){
+		assert weapon   != null;
+		assert guiUnit  != null;
+		assert mapWidth  > 0;
+		assert mapHeight > 0;
 		return weapon.getAttackRange(guiUnit.getLocation(), mapWidth, mapHeight);
 	}
 	
@@ -185,6 +122,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 		for (Location l : attackRange) {
 			map.getGuiTile(l).setState(TileState.ATTACK_RANGE);
 		}
+		editorMapPanel.repaintMap();
 	}
 	
 	private void changeStength(int intValue) {
@@ -194,7 +132,6 @@ public class WeaponsEditor extends AbstactMapEditor {
 	private void changeRange(int intValue) {
 		weapon.setRange(intValue);
 		showAttackRange();
-		editorMapPanel.repaintMap();
 	}
 
 	private void changeInnerRange(int intValue) {
@@ -202,7 +139,6 @@ public class WeaponsEditor extends AbstactMapEditor {
 		assert weapon instanceof RangedWeapon;
 		((RangedWeapon) weapon).setInnerRange(intValue);
 		showAttackRange();
-		editorMapPanel.repaintMap();
 	}
 	
 	private void changeType(WeaponTypes t) {
@@ -210,7 +146,26 @@ public class WeaponsEditor extends AbstactMapEditor {
 		weapon = t.newWeapon(this);
 		currentType = t;
 		showAttackRange();
-		editorMapPanel.repaintMap();
+	}
+	
+	public IWeapon getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(IWeapon weapon) {
+		this.weapon = weapon;
+		this.mapUnit.setWeapon(weapon);
+		if (weapon instanceof RangedWeapon){
+			currentType = WeaponTypes.RANGED;
+			WeaponTypes.RANGED.updateEditor(this, weapon);
+		}else if (weapon instanceof MeleeWeapon){
+			currentType = WeaponTypes.MELEE;
+			WeaponTypes.MELEE.updateEditor(this, weapon);
+		}else if (weapon instanceof Spear){
+			currentType = WeaponTypes.SPEAR;
+			WeaponTypes.SPEAR.updateEditor(this, weapon);
+		}
+		showAttackRange();
 	}
 	
 	@Override
@@ -282,9 +237,115 @@ public class WeaponsEditor extends AbstactMapEditor {
 		return p;
 	}
 
+	// The current Weapon type. Also has methods for updating the editor and creating a new weapon.
+	static enum WeaponTypes {
+		MELEE("Melee") {
+			@Override
+			IWeapon newWeapon(WeaponsEditor we) {
+				MeleeWeapon w = new MeleeWeapon();
+				w.setName(we.infoName.getText());
+				
+				we.infoRange.setVisible(false);
+				we.infoRangeL.setVisible(false);
+				we.infoInnerRange.setVisible(false);
+				we.infoInnerRangeL.setVisible(false);
+				return w;
+			}
+
+			@Override
+			void updateEditor(WeaponsEditor we, IWeapon w) {
+				updateCommon(we, w);
+				we.infoRange.setVisible(false);
+				we.infoRangeL.setVisible(false);
+				we.infoInnerRange.setVisible(false);
+				we.infoInnerRangeL.setVisible(false);
+			}
+		},
+		
+		RANGED("Ranged") {
+			@Override
+			IWeapon newWeapon(WeaponsEditor we) {
+				RangedWeapon w = new RangedWeapon();
+				w.setName(we.infoName.getText());
+				
+				int range = ((Number) we.infoRange.getValue()).intValue();
+				w.setRange(range);
+				int inner = ((Number) we.infoInnerRange.getValue()).intValue();
+				w.setRange(inner < range ? inner : range-1);
+				
+				we.infoInnerRange.setVisible(true);
+				we.infoInnerRangeL.setVisible(true);
+				we.infoRange.setVisible(true);
+				we.infoRangeL.setVisible(true);
+				
+				return w;
+			}
+
+			@Override
+			void updateEditor(WeaponsEditor we, IWeapon w) {
+				updateCommon(we, w);
+				RangedWeapon ww = (RangedWeapon) w;
+				we.infoInnerRange.setValue(ww.getInnerRange());
+				we.infoInnerRange.setVisible(true);
+				we.infoInnerRangeL.setVisible(true);
+				we.infoRange.setVisible(true);
+				we.infoRangeL.setVisible(true);
+			}
+		},
+		
+		SPEAR("Spear") {
+			@Override
+			IWeapon newWeapon(WeaponsEditor we) {
+				Spear w = new Spear();
+				w.setName(we.infoName.getText());
+				
+				int range = ((Number) we.infoRange.getValue()).intValue();
+				w.setRange(range);
+				we.infoInnerRange.setVisible(false);
+				we.infoInnerRangeL.setVisible(false);
+				we.infoRange.setVisible(true);
+				we.infoRangeL.setVisible(true);
+				return w;
+			}
+
+			@Override
+			void updateEditor(WeaponsEditor we, IWeapon w) {
+				updateCommon(we, w);
+				we.infoInnerRange.setVisible(false);
+				we.infoInnerRangeL.setVisible(false);
+				we.infoRange.setVisible(true);
+				we.infoRangeL.setVisible(true);
+			}
+		};
+
+		private final String name;
+
+		@Override
+		public String toString() {
+			return name;
+		}
+
+		public void updateCommon(WeaponsEditor we, IWeapon w){
+			we.infoRange.setValue(w.getRange());
+			we.infoName.setText(w.getName());
+			we.infoStrength.setValue(w.getStrength());
+			ItemListener il = we.infoType.getItemListeners()[0];
+			we.infoType.removeItemListener(il);
+			we.infoType.setSelectedItem(this);
+			we.infoType.addItemListener(il);
+		}
+		
+		abstract IWeapon newWeapon(WeaponsEditor we);
+		abstract void updateEditor(WeaponsEditor we, IWeapon w);
+
+		private WeaponTypes(String name) {
+			this.name = name;
+		}
+	}
+	
+	
 	public static void main(String[] args) {
 		Config.loadLoggingProperties();
 		new WeaponsEditor().setVisible(true);
 	}
-
 }
