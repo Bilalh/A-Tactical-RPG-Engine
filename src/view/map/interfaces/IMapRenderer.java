@@ -5,16 +5,18 @@ import java.awt.Graphics;
 import view.util.BufferSize;
 
 /**
- * Renders a map.
+ * Renderers a map.
  * @author Bilal Hussain
  */
 public interface IMapRenderer {
 
 	/**
 	 * Draws the map on the specific graphics object.
-	 * @param   width  The width of viewport.
-	 * @param   height The height of the viewport.
-	 * @return  True if completely drawn. 
+	 * 
+	 * @param  width  The width of viewport.
+	 * @param  height The height of the viewport.
+	 * 
+	 * @return True if completely drawn. 
 	 */
 	boolean draw(Graphics g, int width, int height);
 
@@ -23,4 +25,9 @@ public interface IMapRenderer {
 	 */
 	BufferSize getMapDimensions();
 
+	/**
+	 * Invaildate any cached data.
+	 */
+	void invaildate();
+	
 }

@@ -19,7 +19,7 @@ import view.units.AnimatedUnit;
 import view.util.BufferSize;
 
 /**
- * Draws a isomertricMap
+ * Renders a isomertric map 
  * @author Bilal Hussain
  */
 public class IsomertricMapRenderer implements IMapRenderer {
@@ -28,26 +28,25 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	IMapRendererParent parent;
 	IsoTile[][] field;
 
+	// Map data
+	MapSettings mapSettings;
+	Rotation rotation = Rotation.WEST;
+	
 	// For drawing	 
 	final int fieldWidth, fieldHeight;
 	final int startX, startY;
 	boolean drawn = false;
+
 	
 	// For numbering the tiles (for debuging).
 	boolean showNumbering = false;
 	Font numbers = new Font("Helvetica", Font.PLAIN,  10);
-	
 	int animationDuration = 750 * 1000000;
-
-	// expression used for all x/y cond calculations 
+	
+	// Cached values for calcuations 
 	float xCalc, yCalc;
-
 	int horizontal;
 	int vertical;
-	
-	Rotation rotation = Rotation.WEST;
-
-	MapSettings mapSettings;
 
 
 	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent, float multiplier, MapSettings mapSettings) {
@@ -66,7 +65,6 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	}
 
 	public void invaildate(){
-
 		 horizontal = (int) (mapSettings.tileDiagonal * mapSettings.zoom);
 		 vertical   = (int) (mapSettings.tileDiagonal * mapSettings.pitch * mapSettings.zoom);
 		
@@ -114,7 +112,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		return  (parent.isMouseMoving() && drawnEverything) || !parent.isMouseMoving();
 	}
 
-	// Methods to rotate the map 
+	// Methods to draw a rotated the map
 	
 	private boolean drawWest(Graphics g, int width, int height) {
 
@@ -195,11 +193,11 @@ public class IsomertricMapRenderer implements IMapRenderer {
 
 	// Actual drawing 
 	private boolean drawSub(Graphics g, int width, int height, final int drawX, final int drawY, int x, int y, int i, int j) {
-		if (parent.isMouseMoving() ||
-				(x - horizontal - drawX  <= width +   mapSettings.tileDiagonal * 3
+		if (parent.isMouseMoving() || (x - horizontal - drawX  <= width +   mapSettings.tileDiagonal * 3
 						&& y - vertical   - drawY <=  height + mapSettings.tileDiagonal * 3
 						&& x + horizontal - drawX >= -mapSettings.tileDiagonal * 3
 						&& y + vertical   - drawY >= -mapSettings.tileDiagonal * 3)) {
+			
 			field[j][i].draw(x, y, g);
 
 			if (showNumbering) {
@@ -207,13 +205,12 @@ public class IsomertricMapRenderer implements IMapRenderer {
 				g.setColor(Color.RED);
 				Point pp =field[j][i].calculateCentrePoint(x,y);
 				g.drawString(String.format("%d,%d", j,i),pp.x - mapSettings.tileDiagonal/4 ,pp.y);
-				
 				g.setColor(old);
 			}
 
 			AnimatedUnit u = field[j][i].getUnit();
 			if (u != null) {
-//						Logf.debug(log,"(%s,%s) unit:%s",j,i, u);
+				//Logf.debug(log,"(%s,%s) unit:%s",j,i, u);
 				u.draw(g, field, x, y, animationDuration);
 			}
 			return true;
