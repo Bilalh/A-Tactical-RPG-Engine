@@ -1,4 +1,4 @@
-package editor.ui;
+package editor.util;
 
 /*
  * The Alphanum Algorithm is an improved sorting algorithm for strings

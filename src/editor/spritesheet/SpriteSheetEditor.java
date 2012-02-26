@@ -37,7 +37,7 @@ import config.xml.ITileMapping;
 import config.xml.TileImageData;
 import config.xml.TileMapping;
 import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
-import editor.ui.AlphanumComparator;
+import editor.util.AlphanumComparator;
 import engine.unit.UnitAnimation;
 import engine.unit.UnitImages;
 

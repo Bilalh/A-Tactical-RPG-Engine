@@ -36,6 +36,7 @@ import config.Config;
 import editor.map.others.AbstactMapEditor;
 import editor.map.others.OthersUnit;
 import editor.spritesheet.MutableSprite;
+import editor.util.IWeaponListener;
 import editor.util.Prefs;
 import editor.util.Resources;
 import engine.assets.AssertStore;
@@ -77,7 +78,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 	private JLabel     infoInnerRangeL;
 	
 	
-	public WeaponsEditor() {
+	public WeaponsEditor(IWeaponListener w) {
 		super("Weapons Editor", "Weapons", 11, 11);
 
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
@@ -365,7 +366,11 @@ public class WeaponsEditor extends AbstactMapEditor {
 	
 	public static void main(String[] args) {
 		Config.loadLoggingProperties();
-		new WeaponsEditor().setVisible(true);
+		new WeaponsEditor(new IWeaponListener() {
+			@Override
+			public void editingFinished(IWeapon weapon) {
+			}
+		}).setVisible(true);
 	}
 
 }
