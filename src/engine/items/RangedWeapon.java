@@ -78,4 +78,10 @@ public class RangedWeapon extends AbstractWeapon {
 		System.out.println(ArrayUtil.numberedArray2d(arr));
 	}
 
+	@Override
+	public String toString() {
+		return String.format("RangedWeapon [innerRange=%s, strength=%s, range=%s, imageRef=%s, name=%s, uuid=%s]", innerRange, strength,
+				range, imageRef, name, uuid);
+	}
+
 }

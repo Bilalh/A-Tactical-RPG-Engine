@@ -16,6 +16,7 @@ import javax.swing.event.ChangeListener;
 
 import org.apache.log4j.Logger;
 
+import util.Logf;
 import view.map.IsoTile.TileState;
 import view.units.AnimatedUnit;
 
@@ -54,13 +55,15 @@ public class WeaponsEditor extends AbstactMapEditor {
 	private static final Logger log = Logger.getLogger(WeaponsEditor.class);
 	private static final long serialVersionUID = -7965140392208111973L;
 
+	// Unit
 	private IMutableMapUnit mapUnit;
 	private OthersUnit guiUnit;
 	
+	// Weapons
 	private IWeapon weapon;
+	private WeaponTypes currentType;
 	private Collection<Location> attackRange = new ArrayList<Location>(1);
 
-	
 	// Infopanel controls
 	private JLabel     infoIcon;
 	private JTextField infoName;
@@ -71,7 +74,6 @@ public class WeaponsEditor extends AbstactMapEditor {
 	private JLabel     infoRangeL;
 	private JLabel     infoInnerRangeL;
 	
-	private WeaponTypes currentType;
 	
 	public WeaponsEditor() {
 		super("Weapons Editor", "Weapons", 11, 11);
@@ -119,6 +121,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 			map.getGuiTile(l).setState(TileState.NONE);
 		}
 		attackRange = getAttackRange();
+		Logf.trace(log,"attack range %s of %s +", attackRange ,weapon);
 		for (Location l : attackRange) {
 			map.getGuiTile(l).setState(TileState.ATTACK_RANGE);
 		}
@@ -143,8 +146,8 @@ public class WeaponsEditor extends AbstactMapEditor {
 	
 	private void changeType(WeaponTypes t) {
 		if (t == currentType) return;
-		weapon = t.newWeapon(this);
 		currentType = t;
+		weapon = t.newWeapon(this);
 		showAttackRange();
 	}
 	
@@ -237,6 +240,12 @@ public class WeaponsEditor extends AbstactMapEditor {
 		return p;
 	}
 
+	@Override
+	protected void onQuit() {
+		super.onQuit();
+		// FIXME tell editor that editing of weapon has finished
+	}
+
 	// The current Weapon type. Also has methods for updating the editor and creating a new weapon.
 	static enum WeaponTypes {
 		MELEE("Melee") {
@@ -271,7 +280,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 				int range = ((Number) we.infoRange.getValue()).intValue();
 				w.setRange(range);
 				int inner = ((Number) we.infoInnerRange.getValue()).intValue();
-				w.setRange(inner < range ? inner : range-1);
+				w.setInnerRange(inner < range ? inner : range-1);
 				
 				we.infoInnerRange.setVisible(true);
 				we.infoInnerRangeL.setVisible(true);
@@ -342,7 +351,6 @@ public class WeaponsEditor extends AbstactMapEditor {
 			this.name = name;
 		}
 	}
-	
 	
 	public static void main(String[] args) {
 		Config.loadLoggingProperties();

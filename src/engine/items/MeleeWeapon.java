@@ -46,7 +46,12 @@ public class MeleeWeapon extends AbstractWeapon {
 	// Melee Weapon range is always one.
 	@Override
 	public void setRange(int range) {
-		
+
 	}
-	
+
+	@Override
+	public String toString() {
+		return String.format("MeleeWeapon [strength=%s, range=%s, imageRef=%s, name=%s, uuid=%s]", strength, range, imageRef, name, uuid);
+	}
+
 }

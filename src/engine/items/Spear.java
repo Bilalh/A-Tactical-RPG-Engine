@@ -78,4 +78,9 @@ public class Spear extends AbstractWeapon {
 		return "1-" + range;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Spear [strength=%s, range=%s, imageRef=%s, name=%s, uuid=%s]", strength, range, imageRef, name, uuid);
+	}
+
 }
