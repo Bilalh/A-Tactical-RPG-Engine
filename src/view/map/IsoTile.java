@@ -162,13 +162,13 @@ public class IsoTile {
 	public Point calculateCentrePoint(Point p) {
 		return new Point(
 				p.x,
-				p.y + vertical / 2 - finalHeight);
+				p.y + vertical / 2 - (int)(finalHeight*height));
 	}
 
 	public Point calculateCentrePoint(int x, int y) {
 		return new Point(
 				x,
-				y + vertical / 2 - finalHeight);
+				y + vertical / 2 - (int)(finalHeight*height));
 	}
 
 	public Rectangle getBounds(){
