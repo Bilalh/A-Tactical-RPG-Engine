@@ -2,21 +2,27 @@ package editor;
 
 import java.awt.Container;
 import java.awt.Frame;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
+import net.miginfocom.layout.AC;
+import net.miginfocom.layout.CC;
+import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
 import config.Config;
 
+import editor.WeaponsEditor.WeaponTypes;
 import editor.util.Prefs;
 
 /**
@@ -26,7 +32,7 @@ public class Editor {
 	private static final Logger log = Logger.getLogger(Editor.class);
 	
 	JFrame frame;
-	JPanel weaponsPanel;
+	WeaponsPanel weaponsPanel;
 	
 	public Editor() {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
@@ -52,22 +58,10 @@ public class Editor {
 
 	private Container createContentPane() {
 		JTabbedPane tabs  = new JTabbedPane();
-		tabs.addTab("Weapons", (weaponsPanel=createWeaponsPanel()));
+		tabs.addTab("Weapons",new WeaponsPanel());
 		return tabs;
 	}
-	
-	private JPanel createWeaponsPanel() {
-		JPanel p = new JPanel(new MigLayout("", "[right]"));
-		
-		// Jlist of weapons 
-		// Side pane of infomation
-		
-		// Add Weapon
-		// Edit Weapon
-		// Copy Weapons 
-		
-		return p;
-	} 
+
 
 	// Save window size and panel size 
 	protected void onQuit() {
