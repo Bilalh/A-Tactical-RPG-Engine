@@ -2,6 +2,7 @@ package editor;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -47,13 +48,11 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 	protected SpriteSheetPanel tilesetPanel;
 	protected Packer packer = new Packer();
 
-	
 	// The map view port 
 	protected JViewport mapViewport;
 	
 	// Prefences Node name
 	protected String prefsName;
-	
 	
 	protected SpriteSheet _sheet;
 	protected EditorSpriteSheet sheet;
@@ -74,7 +73,7 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		_sheet = ResourceManager.instance().getCurrentItemSheet();
 		sheet  = new EditorSpriteSheet(_sheet);
 		
-		createContentPane(prefsName);
+		createMainPane(prefsName);
 		
 		Preferences pref = Prefs.getNode(prefsName+ "/panels/main");
 		System.out.println(pref);
@@ -92,8 +91,7 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		
 	}
 	
-	// Create Gui.
-	protected JPanel createContentPane(String prefName) {
+	protected JPanel createMainPane(String prefName) {
 		mapScrollPane = new JScrollPane(
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -113,6 +111,7 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 				refreashSprites();
 			}
 		});
+		tilesetPanel.setMinimumSize(new Dimension(150, 500));
 		
 		JSplitPane paletteSplit = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, true, mainSplit, tilesetPanel);
@@ -120,7 +119,7 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		paletteSplit.setResizeWeight(1.0);
 	
 		JSplitPane aa = new JSplitPane(
-				JSplitPane.HORIZONTAL_SPLIT, true, createLeft(), paletteSplit);
+				JSplitPane.HORIZONTAL_SPLIT, true, createLeftPane(), paletteSplit);
 		aa.setOneTouchExpandable(true);
 		aa.setResizeWeight(0);
 		aa.setBorder(null);
@@ -144,17 +143,15 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 				tilesetPanel.getHeight(), 2));
 	}
 	
-	
 	// Creates the map
 	protected void createMap() {
 		map = new OthersMap(mapWidth,mapHeight, MapSettings.defaults());
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField(),map.getMapSettings());
 	} 
 	
-	// Subclasses make the infomation panel.
+	// Subclasses make the infomation panel and left pane.
 	protected abstract JPanel createInfoPanel();
-	
-	protected abstract JComponent createLeft();
+	protected abstract JComponent createLeftPane();
 
 	
 //	// Save window size and panel size 
@@ -179,8 +176,6 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 //		}
 //		log.info("Saved prefs" + Prefs.root());
 //	}
-	
-
 	
 	// Since we allways want to redraw the map
 	/** @category IMapRendererParent **/
