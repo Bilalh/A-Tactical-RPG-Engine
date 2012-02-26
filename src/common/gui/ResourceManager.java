@@ -198,4 +198,9 @@ public class ResourceManager {
 		return currentTileSheet;
 	}
 
+	/** @category Generated */
+	public SpriteSheet getCurrentItemSheet() {
+		return currentItemSheet;
+	}
+
 }

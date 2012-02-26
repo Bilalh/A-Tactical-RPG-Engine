@@ -38,6 +38,11 @@ public class Packer {
 	 */
 	public Sheet packImages(ArrayList<MutableSprite> images, int width, int height, int border) {
 		Collections.sort(images);
+		BufferedImage buf = _packImages(images, width, height, border);
+		return new Sheet(buf, images);
+	}
+
+	private BufferedImage _packImages(ArrayList<MutableSprite> images, int width, int height, int border) {
 		int x = 0, y = 0;
 
 		BufferedImage buf = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -61,9 +66,22 @@ public class Packer {
 		}
 
 		g.dispose();
-		return new Sheet(buf, images);
+		return buf;
 	}
 
+
+	public Sheet packImagesByName(ArrayList<MutableSprite> images, int width, int height, int border) {
+		Collections.sort(images, new Comparator<MutableSprite>() {
+
+			@Override
+			public int compare(MutableSprite o1, MutableSprite o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+			
+		});
+		BufferedImage buf = _packImages(images, width, height, border);
+		return new Sheet(buf, images);
+	}
 	
 	public ISpriteSheet pack(ArrayList<File> files, int width, int height, int border, File out) throws IOException {
 		ArrayList<MutableSprite> images = new ArrayList<MutableSprite>();

@@ -133,7 +133,6 @@ public class SpriteSheetPanel extends JPanel {
 		}
 	}
 
-	/** @category Generated */
 	public List<MutableSprite> getSelectedSprites() {
 		return selected;
 	}

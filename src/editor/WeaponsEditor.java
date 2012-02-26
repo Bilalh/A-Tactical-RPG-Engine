@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -34,6 +35,7 @@ import config.Config;
 
 import editor.map.others.AbstactMapEditor;
 import editor.map.others.OthersUnit;
+import editor.spritesheet.MutableSprite;
 import editor.util.Prefs;
 import editor.util.Resources;
 import engine.assets.AssertStore;

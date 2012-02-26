@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -17,11 +18,17 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.swing.MigLayout;
 
 import common.enums.Orientation;
+import common.gui.ResourceManager;
+import common.spritesheet.SpriteSheet;
 
 import config.Config;
 
 import view.map.interfaces.IMapRendererParent;
 import editor.map.*;
+import editor.spritesheet.ISpriteProvider;
+import editor.spritesheet.MutableSprite;
+import editor.spritesheet.Packer;
+import editor.spritesheet.SpriteSheetPanel;
 import editor.ui.FloatablePanel;
 import editor.util.Prefs;
 
@@ -29,7 +36,7 @@ import editor.util.Prefs;
  * Infrastructure for an editor that need a map renderer. 
  * @author Bilal Hussain
  */
-public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanelListener {
+public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanelListener, ISpriteProvider<MutableSprite> {
 	private static final Logger log = Logger.getLogger(AbstactMapEditor.class);
 	private static final long serialVersionUID = -8019374138498647481L;
 
@@ -45,12 +52,18 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 	protected JScrollPane mapScrollPane;
 	protected JPanel infoPanel;
 	protected FloatablePanel infoPanelContainer;
+	protected SpriteSheetPanel tilesetPanel;
+	protected FloatablePanel tilesetsPanelContainer;
+	protected Packer packer = new Packer();
+
 	
 	// The map view port 
 	protected JViewport mapViewport;
 	
 	// Prefences Node name
 	protected String prefsName;
+	protected SpriteSheet _sheet;
+	protected EditorSpriteSheet sheet;
 	
 	public AbstactMapEditor(String tile, String prefsName, int mapWidth, int mapHeight){
 		super(tile);
@@ -62,6 +75,11 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
 
+		// FIXME change
+		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");
+		_sheet = ResourceManager.instance().getCurrentItemSheet();
+		sheet  = new EditorSpriteSheet(_sheet);
+		
 		this.setContentPane(createContentPane(prefsName));
 		
 		Preferences pref = Prefs.getNode(prefsName+ "/panels/main");
@@ -71,6 +89,7 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 		
 		this.setSize(width, height);
 		infoPanelContainer.restore();
+		tilesetsPanelContainer.restore();
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -92,14 +111,31 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 		infoPanelContainer = new FloatablePanel(this, infoPanel, "Info", prefName);
 		
 		
+		
 		JSplitPane mainSplit = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, true, mapScrollPane, infoPanelContainer);
 		mainSplit.setOneTouchExpandable(true);
 		mainSplit.setResizeWeight(1.0);
 		mainSplit.setBorder(null);
 		
+		tilesetPanel = new SpriteSheetPanel(this);
+		tilesetsPanelContainer = new FloatablePanel(this, tilesetPanel, "Icons", prefName+"-tilesets");
+		
+		tilesetPanel.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				refreashSprites();
+			}
+		});
+		
+		JSplitPane paletteSplit = new JSplitPane(
+				JSplitPane.VERTICAL_SPLIT, true, mainSplit, tilesetsPanelContainer);
+		paletteSplit.setOneTouchExpandable(true);
+		paletteSplit.setResizeWeight(1.0);
+	
+		
 		JPanel main = new JPanel(new BorderLayout());
-		main.add(mainSplit, BorderLayout.CENTER);
+		main.add(paletteSplit, BorderLayout.CENTER);
 		createMap();
 		
 		mapScrollPane.setViewportView(editorMapPanel);
@@ -109,6 +145,13 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
         editorMapPanel.addMouseMotionListener(mapScroller);
         editorMapPanel.addMouseListener(mapScroller);
 		return main;
+	}
+	
+	protected void refreashSprites(){
+		if (tilesetPanel.getHeight() <=0 || tilesetPanel.getWidth() <=0 ) return;
+		tilesetPanel.setSpriteSheet(packer.packImagesByName(sheet.getSprites(),
+				tilesetPanel.getWidth(), 
+				tilesetPanel.getHeight(), 2));
 	}
 	
 	// Subclasses make the infomation panel.
@@ -127,7 +170,8 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 
 		// Allow the floatable panels to save their position and size
 		infoPanelContainer.save();
-		
+		tilesetsPanelContainer.save();
+
 		try {
 			Prefs.root().sync();
 		} catch (BackingStoreException e) {
@@ -161,7 +205,21 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 		return 0;
 	}
 
-	// Subclass can override these  methods to get Mouse events
+	// Subclass can override these  methods to get events
+	
+
+	/** @category ISpriteProvider**/
+	@Override
+	public void select(List<MutableSprite> selection) {
+		System.out.println("Selcted");
+	}
+
+	/** @category ISpriteProvider**/
+	@Override
+	public void delete(List<MutableSprite> selected) {
+		// FIXME delete method
+		
+	}
 	
 	/** @category IEditorMapPanelListener **/
 	@Override
