@@ -9,6 +9,9 @@ import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+
+import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
@@ -21,7 +24,9 @@ import editor.util.Prefs;
  */
 public class Editor {
 	private static final Logger log = Logger.getLogger(Editor.class);
+	
 	JFrame frame;
+	JPanel weaponsPanel;
 	
 	public Editor() {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
@@ -46,9 +51,24 @@ public class Editor {
 	}
 
 	private Container createContentPane() {
-		return new JPanel();
+		JTabbedPane tabs  = new JTabbedPane();
+		tabs.addTab("Weapons", (weaponsPanel=createWeaponsPanel()));
+		return tabs;
 	}
 	
+	private JPanel createWeaponsPanel() {
+		JPanel p = new JPanel(new MigLayout("", "[right]"));
+		
+		// Jlist of weapons 
+		// Side pane of infomation
+		
+		// Add Weapon
+		// Edit Weapon
+		// Copy Weapons 
+		
+		return p;
+	} 
+
 	// Save window size and panel size 
 	protected void onQuit() {
 		log.info("Quiting");
