@@ -32,8 +32,11 @@ import common.interfaces.IUnit;
 import common.interfaces.IWeapon;
 import common.spritesheet.SpriteSheet;
 import config.Config;
+import config.xml.MapSettings;
 
+import editor.map.EditorMapPanel;
 import editor.map.others.AbstactMapEditor;
+import editor.map.others.OthersMap;
 import editor.map.others.OthersUnit;
 import editor.spritesheet.MutableSprite;
 import editor.util.IWeaponListener;
@@ -112,6 +115,14 @@ public class WeaponsEditor extends AbstactMapEditor {
 		setWeapon(ww);
 	}
 
+	@Override
+	protected void createMap() {
+		MapSettings m = MapSettings.defaults();
+		m.tileDiagonal = 40;
+		map = new OthersMap(mapWidth,mapHeight, m);
+		editorMapPanel = new EditorMapPanel(this, map.getGuiField(),m);
+	} 
+	
 	Collection<Location> getAttackRange(){
 		assert weapon   != null;
 		assert guiUnit  != null;

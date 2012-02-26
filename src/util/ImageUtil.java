@@ -25,6 +25,15 @@ public class ImageUtil {
 
 	}
 
+	public static BufferedImage resizeImage(Image image, int width, int height){
+		GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+		BufferedImage buff = gc.createCompatibleImage(width, height, Transparency.BITMASK);
+		Graphics g = buff.getGraphics();
+		g.drawImage(image, 0, 0, width,height, null);
+		g.dispose();
+		return buff;
+	}
+	
 	static class ColorToTransparent extends RGBImageFilter{
 		
 		private Color colour;

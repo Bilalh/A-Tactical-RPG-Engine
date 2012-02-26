@@ -105,7 +105,7 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 	}
 	
 	// Create Gui.
-	private JPanel createContentPane(String prefName) {
+	protected JPanel createContentPane(String prefName) {
 		mapScrollPane = new JScrollPane(
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -158,6 +158,13 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 				tilesetPanel.getHeight(), 2));
 	}
 	
+	
+	// Creates the map
+	protected void createMap() {
+		map = new OthersMap(mapWidth,mapHeight, MapSettings.defaults());
+		editorMapPanel = new EditorMapPanel(this, map.getGuiField(),map.getMapSettings());
+	} 
+	
 	// Subclasses make the infomation panel.
 	protected abstract JPanel createInfoPanel();
 	
@@ -184,11 +191,7 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 		log.info("Saved prefs" + Prefs.root());
 	}
 	
-	// Creates the map
-	protected void createMap() {
-		map = new OthersMap(mapWidth,mapHeight, MapSettings.defaults());
-		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
-	} 
+
 	
 	// Since we allways want to redraw the map
 	/** @category IMapRendererParent **/

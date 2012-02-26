@@ -504,7 +504,7 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 	String filename = "fft2";
 	private void createMap() {
 		map = new EditorMap("maps/"+filename+".xml");
-		editorMapPanel = new EditorMapPanel(this, map.getGuiField());
+		editorMapPanel = new EditorMapPanel(this, map.getGuiField(),map.getMapSettings());
 
 		// Relayout the sprites to fill the whole panel.
 		frame.addWindowListener(new WindowAdapter() {

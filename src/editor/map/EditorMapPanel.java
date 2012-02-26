@@ -31,7 +31,8 @@ public class EditorMapPanel extends JPanel {
 	private IEditorMapPanelListener editor;
 	private IsomertricMapRenderer mapRender;
 	private EditorIsoTile[][] field;
-
+	private MapSettings settings;
+	
 	private int bufferWidth  =-2;
 	private int bufferHeight =-3;
 
@@ -65,12 +66,12 @@ public class EditorMapPanel extends JPanel {
 		{ 0, -1 }, // down
 		{ -1, 0 }, // left
 		{ 1, 0 },  // right
-};
+	};
 
-	
-	public EditorMapPanel(final IEditorMapPanelListener editor, final EditorIsoTile[][] field) {
+		
+	public EditorMapPanel(final IEditorMapPanelListener editor, final EditorIsoTile[][] field, MapSettings settings) {
 		this.editor = editor;
-		setMap(field);
+		setMap(field,settings);
 		
 		this.addMouseMotionListener(new MouseMotionAdapter() {
 
@@ -86,37 +87,6 @@ public class EditorMapPanel extends JPanel {
 				findNext(e.getPoint(), false);
 			}
 
-			private void findNext(Point e, boolean sendClicked) {
-				assert current !=null : "current null";
-				if (sendClicked) editor.tileClicked(current);
-				else             editor.tileEntered(current);
-				
-				//FIXME change 
-				if (e.distance(old) > MapSettings.defaults().tileDiagonal / 6) {
-					if (findCurrent(e) ==null) return;
-					if (sendClicked) editor.tileClicked(current);
-					else             editor.tileEntered(current);
-				}
-
-				
-				Location start = current.getLocation().copy();
-				for (int[] ii : dirs) {
-					Location l = start.copy().translate(ii[0], ii[1]);
-
-					if (l.x < 0 || l.x >= field.length || l.y < 0 || l.y >= field[0].length) {
-						continue;
-					}
-
-					if (field[l.x][l.y].contains(e)) {
-						if (sendClicked) editor.tileClicked(current);
-						else             editor.tileEntered(current);
-						break;
-					}
-				}
-				if (sendClicked) editor.tileClicked(current);
-				else             editor.tileEntered(current);
-				
-			}
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				if (current!=null && (editor.getEditorState() == MapState.DRAW ||editor.getEditorState() == MapState.DRAW_INFO) ){
@@ -183,11 +153,43 @@ public class EditorMapPanel extends JPanel {
         return current;
 	}
 	
-	public synchronized void setMap(EditorIsoTile[][] field){
+	private void findNext(Point e, boolean sendClicked) {
+		assert current !=null : "current null";
+		if (sendClicked) editor.tileClicked(current);
+		else             editor.tileEntered(current);
+		
+		if (e.distance(old) > settings.tileDiagonal / 6) {
+			if (findCurrent(e) ==null) return;
+			if (sendClicked) editor.tileClicked(current);
+			else             editor.tileEntered(current);
+		}
+
+		
+		Location start = current.getLocation().copy();
+		for (int[] ii : dirs) {
+			Location l = start.copy().translate(ii[0], ii[1]);
+
+			if (l.x < 0 || l.x >= field.length || l.y < 0 || l.y >= field[0].length) {
+				continue;
+			}
+
+			if (field[l.x][l.y].contains(e)) {
+				if (sendClicked) editor.tileClicked(current);
+				else             editor.tileEntered(current);
+				break;
+			}
+		}
+		if (sendClicked) editor.tileClicked(current);
+		else             editor.tileEntered(current);
+		
+	}
+
+	public synchronized void setMap(EditorIsoTile[][] field, MapSettings settings){
 		this.field    = field;
+		this.settings = settings;
+		
 		buffer     = null;
-		// FIXME change
-		mapRender  = new IsomertricMapRenderer(field, editor, 1, MapSettings.defaults());
+		mapRender  = new IsomertricMapRenderer(field, editor, 1, settings);
 		BufferSize s = mapRender.getMapDimensions();
 		setPreferredSize(mapRender.getMapDimensions());
 		bufferWidth  = s.width;

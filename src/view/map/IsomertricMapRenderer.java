@@ -26,11 +26,12 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	private static final Logger log = Logger.getLogger(IsomertricMapRenderer.class);
 	
 	IMapRendererParent parent;
-	IsoTile[][] field;
 
 	// Map data
+	IsoTile[][] field;
 	MapSettings mapSettings;
 	Rotation rotation = Rotation.WEST;
+	BufferSize size;
 	
 	// For drawing	 
 	final int fieldWidth, fieldHeight;
@@ -48,7 +49,6 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	int horizontal;
 	int vertical;
 
-
 	public IsomertricMapRenderer(IsoTile[][] field, IMapRendererParent parent, float multiplier, MapSettings mapSettings) {
 		this.parent = parent;
 		this.field  = field;
@@ -63,16 +63,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		
 		invaildate();
 	}
-
-	public void invaildate(){
-		 horizontal = (int) (mapSettings.tileDiagonal * mapSettings.zoom);
-		 vertical   = (int) (mapSettings.tileDiagonal * mapSettings.pitch * mapSettings.zoom);
-		
-		 xCalc = horizontal/2;
-		 yCalc = vertical /2;
-	}
 	
-	private BufferSize size;
 	private void calculateSize(){
         int max = Math.max(fieldWidth, fieldHeight);
 		int heightOffset  = (mapSettings.tileDiagonal)*2;
@@ -83,6 +74,16 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		size = new BufferSize(heightOffset, bufferWidth, bufferHeight);
 	}
 
+
+	@Override
+	public void invaildate(){
+		 horizontal = (int) (mapSettings.tileDiagonal * mapSettings.zoom);
+		 vertical   = (int) (mapSettings.tileDiagonal * mapSettings.pitch * mapSettings.zoom);
+		
+		 xCalc = horizontal/2;
+		 yCalc = vertical /2;
+	}
+	
 	@Override
 	public boolean draw(Graphics g, int width, int height) {
 	
@@ -219,7 +220,6 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		}
 		
 	}
-
 
 	public void rotateMap(){
 		rotation = rotation.next();

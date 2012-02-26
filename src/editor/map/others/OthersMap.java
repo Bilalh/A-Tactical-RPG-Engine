@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 
+import util.ImageUtil;
 import view.units.AnimatedUnit;
 
 import common.Location;
@@ -28,18 +29,17 @@ public class OthersMap extends BasicMap {
 
 	protected EditorIsoTile[][] guiField;
 	protected BufferedImage tileImage;
-	protected MapSettings settings;
 	
 	public OthersMap(int width, int height, MapSettings settings) {
+		this.width       = width;
+		this.height      = height;
+		this.mapSettings = settings;
 		try {
-			tileImage = Resources.getImage("defaults/tile.png");
+			tileImage =  ImageUtil.resizeImage(Resources.getImage("defaults/tile.png"), mapSettings.tileDiagonal, mapSettings.tileDiagonal/2);
 			OthersIsoTile.setTileImage(tileImage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.width    = width;
-		this.height   = height;
-		this.settings = settings;
 		loadMap("none");
 	}
 
@@ -52,7 +52,6 @@ public class OthersMap extends BasicMap {
 				field[i][j] = new Tile(1, 1, "none", Orientation.UP_TO_EAST);
 			}
 		}
-		mapSettings = MapSettings.defaults();
 		tileMapping = new TileMapping("none", new HashMap<String, TileImageData>());
 		data = new MapData("none");
 		loadOtherSettings();
@@ -65,7 +64,7 @@ public class OthersMap extends BasicMap {
 			for (int j = 0; j < field[i].length; j++) {
 				guiField[i][j] = new OthersIsoTile(field[i][j].getOrientation(),
 						field[i][j].getStartHeight(),
-						field[i][j].getEndHeight(), i, j, settings);
+						field[i][j].getEndHeight(), i, j, mapSettings);
 			}
 		}
 	}
