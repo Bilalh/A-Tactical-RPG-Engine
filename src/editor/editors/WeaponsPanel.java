@@ -1,4 +1,4 @@
-package editor;
+package editor.editors;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -42,6 +42,7 @@ import editor.ui.TButton;
 import editor.util.IWeaponListener;
 import editor.util.Resources;
 import engine.assets.Weapons;
+import engine.items.Around;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
 import engine.items.Spear;
@@ -164,6 +165,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		currentWeapon = t.newWeapon(this);
 		weaponslistModel.remove(index);
 		weaponslistModel.add(index, currentWeapon);
+		weaponslist.setSelectedIndex(index);
 		showAttackRange();
 	}
 	
@@ -204,6 +206,9 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		}else if (weapon instanceof Spear){
 			currentType = WeaponTypes.SPEAR;
 			WeaponTypes.SPEAR.updateEditor(this, weapon);
+		}else if (weapon instanceof Around){
+			currentType = WeaponTypes.AROUND;
+			WeaponTypes.AROUND.updateEditor(this, weapon);
 		}
 		showAttackRange();
 	}
@@ -472,8 +477,31 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 				we.infoRange.setVisible(true);
 				we.infoRangeL.setVisible(true);
 			}
-		};
+		},
 
+		AROUND("Around") {
+			@Override
+			IWeapon newWeapon(WeaponsPanel we) {
+				Around w = new Around();
+				w.setName(we.infoName.getText());
+				
+				we.infoRange.setVisible(false);
+				we.infoRangeL.setVisible(false);
+				we.infoInnerRange.setVisible(false);
+				we.infoInnerRangeL.setVisible(false);
+				return w;
+			}
+
+			@Override
+			void updateEditor(WeaponsPanel we, IWeapon w) {
+				updateCommon(we, w);
+				we.infoRange.setVisible(false);
+				we.infoRangeL.setVisible(false);
+				we.infoInnerRange.setVisible(false);
+				we.infoInnerRangeL.setVisible(false);
+			}
+		};
+		
 		private final String name;
 
 		@Override

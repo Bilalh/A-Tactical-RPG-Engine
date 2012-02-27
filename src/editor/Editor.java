@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 
 import config.Config;
 
+import editor.editors.WeaponsPanel;
 import editor.util.Prefs;
 import engine.assets.Weapons;
 
@@ -65,11 +66,12 @@ public class Editor {
 	private Container createContentPane() {
 		JTabbedPane tabs  = new JTabbedPane();
 		tabs.addTab("Weapons", (weaponsPanel = new WeaponsPanel()));
-		tabs.addTab("Skills",  new JPanel());
-		tabs.addTab("Units",   new JPanel());
-		tabs.addTab("Maps",    new JPanel());
-		tabs.addTab("Story",   new JPanel());
-		tabs.addTab("Project", new JPanel());
+		tabs.addTab("Skills",       new JPanel());
+		tabs.addTab("Units",        new JPanel());
+		tabs.addTab("Maps",         new JPanel());
+		tabs.addTab("Story",        new JPanel());
+		tabs.addTab("Spritesheets", new JPanel());
+		tabs.addTab("Project",      new JPanel());
 		return tabs;
 	}
 

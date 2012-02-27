@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import editor.Editor;
 import editor.MapEditor;
 
 /**
@@ -24,7 +25,7 @@ public final class Resources {
 	}
 	
 	public static BufferedImage getImage(String filename) throws IOException {
-		return ImageIO.read(MapEditor.class.getResourceAsStream("resources/" + filename));
+		return ImageIO.read(Editor.class.getResourceAsStream("resources/" + filename));
 	}
 
 	public static ImageIcon getIcon(String filename) {
