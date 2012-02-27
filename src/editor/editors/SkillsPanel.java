@@ -62,6 +62,8 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	// Unit
 	private IMutableMapUnit mapUnit;
 	private OthersUnit guiUnit;
+
+	//FIXME finish
 	
 	// Weapons
 	private IWeapon currentWeapon;
@@ -201,15 +203,6 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		if (weapon instanceof RangedWeapon){
 			currentType = WeaponTypes.RANGED;
 			WeaponTypes.RANGED.updateEditor(this, weapon);
-		}else if (weapon instanceof MeleeWeapon){
-			currentType = WeaponTypes.MELEE;
-			WeaponTypes.MELEE.updateEditor(this, weapon);
-		}else if (weapon instanceof Spear){
-			currentType = WeaponTypes.SPEAR;
-			WeaponTypes.SPEAR.updateEditor(this, weapon);
-		}else if (weapon instanceof Around){
-			currentType = WeaponTypes.AROUND;
-			WeaponTypes.AROUND.updateEditor(this, weapon);
 		}
 		showAttackRange();
 	}
@@ -233,7 +226,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	
 	@Override
 	protected  JComponent createLeftPane(){
-		IWeapon ww= new Spear(10,3);
+		IWeapon ww= new RangedWeapon(10,3,1);
 		ww.setName("New Weapon");
 		weaponslistModel = new DefaultListModel();
 		weaponslist = new JList(weaponslistModel);
@@ -305,7 +298,6 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 			w.setName("New Weapon " +index);
 			weaponslistModel.addElement(w);
 			weaponslist.setSelectedIndex(index);
-//			setWeapon(w);
 		}
 	}
 	
@@ -405,34 +397,6 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	 * @author Bilal Hussain
 	 */
 	static enum WeaponTypes {
-		MELEE("Melee") {
-			@Override
-			IWeapon newWeapon(SkillsPanel we) {
-				MeleeWeapon w = new MeleeWeapon();
-				w.setName(we.infoName.getText());
-				
-				we.infoRange.setVisible(false);
-				we.infoRangeL.setVisible(false);
-				we.infoInnerRange.setVisible(false);
-				we.infoInnerRangeL.setVisible(false);
-				return w;
-			}
-
-			@Override
-			void updateEditor(SkillsPanel we, IWeapon w) {
-				updateCommon(we, w);
-				we.infoRange.setVisible(false);
-				we.infoRangeL.setVisible(false);
-				we.infoInnerRange.setVisible(false);
-				we.infoInnerRangeL.setVisible(false);
-			}
-
-			@Override
-			String getInfo() {
-				return "Damages a single target in the attack range.";
-			}
-		},
-		
 		RANGED("Ranged") {
 			@Override
 			IWeapon newWeapon(SkillsPanel we) {
@@ -468,68 +432,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 				return "Damages a single target in the attack range.";
 			}
 			
-		},
-		
-		SPEAR("Spear") {
-			@Override
-			IWeapon newWeapon(SkillsPanel we) {
-				Spear w = new Spear();
-				w.setName(we.infoName.getText());
-				
-				int range = ((Number) we.infoRange.getValue()).intValue();
-				w.setRange(range);
-				we.infoInnerRange.setVisible(false);
-				we.infoInnerRangeL.setVisible(false);
-				we.infoRange.setVisible(true);
-				we.infoRangeL.setVisible(true);
-				return w;
-			}
-
-			@Override
-			void updateEditor(SkillsPanel we, IWeapon w) {
-				updateCommon(we, w);
-				we.infoInnerRange.setVisible(false);
-				we.infoInnerRangeL.setVisible(false);
-				we.infoRange.setVisible(true);
-				we.infoRangeL.setVisible(true);
-			}
-			
-			@Override
-			String getInfo() {
-				return "Damages all targets in one direction.";
-			}
-			
-		},
-
-		AROUND("Around") {
-			@Override
-			IWeapon newWeapon(SkillsPanel we) {
-				Around w = new Around();
-				w.setName(we.infoName.getText());
-				
-				we.infoRange.setVisible(false);
-				we.infoRangeL.setVisible(false);
-				we.infoInnerRange.setVisible(false);
-				we.infoInnerRangeL.setVisible(false);
-				return w;
-			}
-
-			@Override
-			void updateEditor(SkillsPanel we, IWeapon w) {
-				updateCommon(we, w);
-				we.infoRange.setVisible(false);
-				we.infoRangeL.setVisible(false);
-				we.infoInnerRange.setVisible(false);
-				we.infoInnerRangeL.setVisible(false);
-			}
-			
-			@Override
-			String getInfo() {
-				return "Damages all targets in range.";
-			}
-			
-		};
-		
+		};		
 		private final String name;
 
 		@Override

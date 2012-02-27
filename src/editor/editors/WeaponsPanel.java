@@ -305,7 +305,6 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			w.setName("New Weapon " +index);
 			weaponslistModel.addElement(w);
 			weaponslist.setSelectedIndex(index);
-//			setWeapon(w);
 		}
 	}
 	
