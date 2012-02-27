@@ -109,7 +109,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		map.getGuiField()[5][5].setUnit(guiUnit);
 		map.setUnitAt(l, guiUnit);
 		
-		setWeapon((IWeapon) weaponslistModel.getElementAt(0));
+		setCurrentWeapon((IWeapon) weaponslistModel.getElementAt(0));
 	}
 	
 	@Override
@@ -181,7 +181,18 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		return ws;
 	}
 	
-	public void setWeapon(IWeapon weapon) {
+	public void setWeapons(Weapons ws){
+		ListSelectionListener lsl =  weaponslist.getListSelectionListeners()[0];
+		weaponslist.removeListSelectionListener(lsl);
+		weaponslistModel.clear();
+		for (IWeapon w : ws.values()) {
+			weaponslistModel.addElement(w);
+		}
+		weaponslist.addListSelectionListener(lsl);
+		weaponslist.setSelectedIndex(0);
+	}
+	
+	public void setCurrentWeapon(IWeapon weapon) {
 		this.currentWeapon = weapon;
 		this.mapUnit.setWeapon(weapon);
 		if (weapon instanceof RangedWeapon){
@@ -229,7 +240,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			public void valueChanged(ListSelectionEvent e) {
 				IWeapon w =  (IWeapon) weaponslist.getSelectedValue();
 				if (w == null) return;
-				setWeapon(w);
+				setCurrentWeapon(w);
 			}
 		});
 		
@@ -495,7 +506,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
 			IWeapon w= (IWeapon) value;
 			label.setText(w.getName());
-			label.setIcon(infoIcon.getIcon());
+			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
 			return label;
 		}
 	}

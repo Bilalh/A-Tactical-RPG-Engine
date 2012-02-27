@@ -81,8 +81,18 @@ public class Editor {
 				save();
 			}
 		});
-		
 		file.add(save);
+
+		JMenuItem open = new JMenuItem("Open");
+		open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,mask));
+		open.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				load();
+			}
+		});
+		file.add(open);
+		
 		bar.add(file);
 		return bar;
 	}
@@ -110,6 +120,18 @@ public class Editor {
 		
 		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
 		Config.savePreferencesToResources(ws, "assets/weapons.xml");
+	}
+	
+	void load(){
+		File f = new File(projectPath);
+		File resources = new File(f,"Resources");
+		File assets = new File(resources, "assets");
+		File mainXml  = new File(f, "tactical-project.xml");
+		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
+		
+		Weapons ws = Config.loadPreference("assets/weapons.xml");
+		weaponsPanel.setWeapons(ws);
+		log.info(ws);
 	}
 	
 	// Save window size and panel size 

@@ -1,11 +1,30 @@
 <weapons>
   <entry>
-    <uuid>5600ffc6-873c-4617-88e0-2c3ce5838c1b</uuid>
-    <engine.items.Spear uuid="5600ffc6-873c-4617-88e0-2c3ce5838c1b">
-      <name>New Weapon</name>
+    <uuid>64295f0f-ccc4-4c92-a61b-21ab691ac624</uuid>
+    <engine.items.RangedWeapon uuid="64295f0f-ccc4-4c92-a61b-21ab691ac624">
+      <name>New Weapon 2</name>
+      <strength>1</strength>
+      <range>4</range>
+      <imageRef>4-15</imageRef>
+      <innerRange>1</innerRange>
+    </engine.items.RangedWeapon>
+  </entry>
+  <entry>
+    <uuid>ac8a7bff-10cb-47e2-aeaf-9b4c77ee1eca</uuid>
+    <engine.items.Spear uuid="ac8a7bff-10cb-47e2-aeaf-9b4c77ee1eca">
+      <name>Spear</name>
       <strength>10</strength>
       <range>3</range>
-      <imageRef>3-15</imageRef>
+      <imageRef>4-6</imageRef>
     </engine.items.Spear>
+  </entry>
+  <entry>
+    <uuid>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</uuid>
+    <engine.items.MeleeWeapon uuid="fd54889b-0031-40e2-8a21-b5f2f7d9bb39">
+      <name>New Weapon 1</name>
+      <strength>1</strength>
+      <range>1</range>
+      <imageRef>14-4</imageRef>
+    </engine.items.MeleeWeapon>
   </entry>
 </weapons>
