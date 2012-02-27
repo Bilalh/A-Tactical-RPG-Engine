@@ -80,7 +80,8 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	private JSpinner   infoInnerRange;
 	private JLabel     infoRangeL;
 	private JLabel     infoInnerRangeL;
-	
+	private JLabel     infoInnerAbout;
+
 	public WeaponsPanel(){
 		super("Weapons Editor", "Weapon", 11, 11);
 
@@ -391,6 +392,10 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		});
 		p.add(infoInnerRange,  new CC().alignX("leading").maxWidth("70").wrap());
 		
+
+		p.add(new JLabel("Infomation:"),  new CC().newline("30px").gap("4"));
+		p.add((infoInnerAbout = new JLabel("Info")), new CC().gap("4"));
+
 		p.add(new JPanel());
 		return p;
 	}
@@ -420,6 +425,11 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 				we.infoRangeL.setVisible(false);
 				we.infoInnerRange.setVisible(false);
 				we.infoInnerRangeL.setVisible(false);
+			}
+
+			@Override
+			String getInfo() {
+				return "Damages a single target in the attack range.";
 			}
 		},
 		
@@ -452,6 +462,12 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 				we.infoRange.setVisible(true);
 				we.infoRangeL.setVisible(true);
 			}
+			
+			@Override
+			String getInfo() {
+				return "Damages a single target in the attack range.";
+			}
+			
 		},
 		
 		SPEAR("Spear") {
@@ -477,6 +493,12 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 				we.infoRange.setVisible(true);
 				we.infoRangeL.setVisible(true);
 			}
+			
+			@Override
+			String getInfo() {
+				return "Damages all targets in one direction.";
+			}
+			
 		},
 
 		AROUND("Around") {
@@ -500,6 +522,12 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 				we.infoInnerRange.setVisible(false);
 				we.infoInnerRangeL.setVisible(false);
 			}
+			
+			@Override
+			String getInfo() {
+				return "Damages all targets in range.";
+			}
+			
 		};
 		
 		private final String name;
@@ -513,6 +541,8 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			we.infoRange.setValue(w.getRange());
 			we.infoName.setText(w.getName());
 			we.infoStrength.setValue(w.getStrength());
+			we.infoInnerAbout.setText(this.getInfo());
+			
 			ItemListener il = we.infoType.getItemListeners()[0];
 			we.infoType.removeItemListener(il);
 			we.infoType.setSelectedItem(this);
@@ -520,6 +550,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		}
 		
 		abstract IWeapon newWeapon(WeaponsPanel we);
+		abstract String getInfo();
 		abstract void updateEditor(WeaponsPanel we, IWeapon w);
 
 		private WeaponTypes(String name) {
