@@ -27,6 +27,7 @@ import editor.util.Prefs;
 import engine.assets.Weapons;
 
 /**
+ * Editor for the engine
  * @author Bilal Hussain
  */
 public class Editor {
@@ -64,6 +65,11 @@ public class Editor {
 	private Container createContentPane() {
 		JTabbedPane tabs  = new JTabbedPane();
 		tabs.addTab("Weapons", (weaponsPanel = new WeaponsPanel()));
+		tabs.addTab("Skills",  new JPanel());
+		tabs.addTab("Units",   new JPanel());
+		tabs.addTab("Maps",    new JPanel());
+		tabs.addTab("Story",   new JPanel());
+		tabs.addTab("Project", new JPanel());
 		return tabs;
 	}
 
@@ -97,6 +103,7 @@ public class Editor {
 		return bar;
 	}
 
+	// Save the project
 	void save(){
 		Weapons ws =  weaponsPanel.getWeapons();
 		log.info(ws);
@@ -122,6 +129,7 @@ public class Editor {
 		Config.savePreferencesToResources(ws, "assets/weapons.xml");
 	}
 	
+	// Load the project
 	void load(){
 		File f = new File(projectPath);
 		File resources = new File(f,"Resources");
