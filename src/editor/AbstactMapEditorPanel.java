@@ -28,7 +28,7 @@ import editor.ui.FloatablePanel;
 import editor.util.Prefs;
 
 /**
- * Infrastructure for an editor that need a map renderer. 
+ * Infrastructure for an editor panel that need a map renderer. 
  * @author Bilal Hussain
  */
 public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMapPanelListener, ISpriteProvider<MutableSprite> {
@@ -121,7 +121,7 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		JSplitPane aa = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, true, createLeftPane(), paletteSplit);
 		aa.setOneTouchExpandable(true);
-		aa.setResizeWeight(0);
+		aa.setResizeWeight(0.1);
 		aa.setBorder(null);
 		
 		this.add(aa, BorderLayout.CENTER);

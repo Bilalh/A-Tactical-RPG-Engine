@@ -1,4 +1,4 @@
-package editor.map.others;
+package editor.prototype;
 
 import java.awt.BorderLayout;
 import java.awt.Frame;
@@ -26,6 +26,7 @@ import config.xml.MapSettings;
 
 import view.map.interfaces.IMapRendererParent;
 import editor.map.*;
+import editor.map.others.OthersMap;
 import editor.spritesheet.ISpriteProvider;
 import editor.spritesheet.MutableSprite;
 import editor.spritesheet.Packer;
@@ -34,7 +35,8 @@ import editor.ui.FloatablePanel;
 import editor.util.Prefs;
 
 /**
- * Infrastructure for an editor that need a map renderer. 
+ * Infrastructure for an editor that need a map renderer.
+ * @category Protype 
  * @author Bilal Hussain
  */
 public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanelListener, ISpriteProvider<MutableSprite> {

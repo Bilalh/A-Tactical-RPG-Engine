@@ -10,10 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.event.*;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.apache.log4j.Logger;
@@ -35,7 +32,6 @@ import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
-import editor.WeaponsEditor.WeaponTypes;
 import editor.map.EditorMapPanel;
 import editor.map.others.OthersMap;
 import editor.map.others.OthersUnit;
@@ -162,7 +158,10 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	private void changeType(WeaponTypes t) {
 		if (t == currentType) return;
 		currentType = t;
+		int index =weaponslist.getSelectedIndex();
 		currentWeapon = t.newWeapon(this);
+		weaponslistModel.remove(index);
+		weaponslistModel.add(index, currentWeapon);
 		showAttackRange();
 	}
 	
@@ -217,6 +216,16 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		weaponslist = new JList(weaponslistModel);
 		weaponslist.setCellRenderer(new WeaponsListRenderer());
 		weaponslistModel.addElement(ww);
+		weaponslist.setSelectedIndex(0);
+		weaponslist.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				IWeapon w =  (IWeapon) weaponslist.getSelectedValue();
+				if (w == null) return;
+				setWeapon(w);
+			}
+		});
 		
 		JScrollPane slist = new JScrollPane(weaponslist);
 		
@@ -242,6 +251,16 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			// Must have at lest one weapon
+			if (weaponslistModel.size() <=1){
+				return;
+			}
+			int index = weaponslist.getSelectedIndex();
+			assert index != -1;
+			int nextIndex = index == 0 ? weaponslistModel.size()-1 : index -1;
+			weaponslist.setSelectedIndex(nextIndex);
+			weaponslistModel.remove(index);
+			
 		}
 	}
 	
@@ -256,6 +275,12 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			MeleeWeapon w  = new MeleeWeapon();
+			int index = weaponslistModel.size();
+			w.setName("New Weapon " +index);
+			weaponslistModel.addElement(w);
+			weaponslist.setSelectedIndex(index);
+//			setWeapon(w);
 		}
 	}
 	

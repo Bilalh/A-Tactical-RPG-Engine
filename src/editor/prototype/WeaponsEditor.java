@@ -1,4 +1,4 @@
-package editor;
+package editor.prototype;
 
 import java.awt.Frame;
 import java.awt.event.ItemEvent;
@@ -35,7 +35,6 @@ import config.Config;
 import config.xml.MapSettings;
 
 import editor.map.EditorMapPanel;
-import editor.map.others.AbstactMapEditor;
 import editor.map.others.OthersMap;
 import editor.map.others.OthersUnit;
 import editor.spritesheet.MutableSprite;
@@ -55,6 +54,7 @@ import engine.unit.UnitImages;
 
 /**
  * Editor for weapons
+ * @category Protype 
  * @author Bilal Hussain
  */
 public class WeaponsEditor extends AbstactMapEditor {
