@@ -37,6 +37,7 @@ import editor.map.others.OthersMap;
 import editor.map.others.OthersUnit;
 import editor.spritesheet.MutableSprite;
 import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
+import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import editor.util.IWeaponListener;
 import editor.util.Resources;
@@ -79,7 +80,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	private JLabel     infoInnerRangeL;
 	
 	public WeaponsPanel(){
-		super("Weapons Editor", "Weapons", 11, 11);
+		super("Weapons Editor", "Weapon", 11, 11);
 
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 		
@@ -232,13 +233,15 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		JPanel p  = new JPanel(new BorderLayout());
 		p.add(slist, BorderLayout.CENTER);
 		
-		JPanel buutons  =new JPanel();
-		buutons.add(new TButton(new DeleteAction()));
-		buutons.add(new TButton(new AddAction()));
-
-		p.add(buutons, BorderLayout.SOUTH);
+		JPanel buttons =new JPanel();
+		buttons.add(new TButton(new DeleteAction()));
+		buttons.add(new TButton(new AddAction()));
+		p.add(buttons, BorderLayout.SOUTH);
+		p.add(createHeader("All Weapons"),BorderLayout.NORTH);
 		return p;
 	}
+	
+
 	
 	private class DeleteAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
@@ -371,7 +374,10 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		return p;
 	}
 	
-	// The current Weapon type. Also has methods for updating the editor and creating a new weapon.
+	/**
+	 * The current Weapon type. Also has methods for updating the editor and creating a new weapon
+	 * @author Bilal Hussain
+	 */
 	static enum WeaponTypes {
 		MELEE("Melee") {
 			@Override

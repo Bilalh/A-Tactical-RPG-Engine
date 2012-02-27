@@ -25,6 +25,7 @@ import editor.spritesheet.MutableSprite;
 import editor.spritesheet.Packer;
 import editor.spritesheet.SpriteSheetPanel;
 import editor.ui.FloatablePanel;
+import editor.ui.HeaderPanel;
 import editor.util.Prefs;
 
 /**
@@ -97,8 +98,12 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		mapScrollPane.setBorder(null);
 		
+		JPanel p = new JPanel(new BorderLayout());
+		p.add(mapScrollPane, BorderLayout.CENTER);
+		p.add(createHeader(prefName + "'s Range"),BorderLayout.NORTH);
+		
 		JSplitPane mainSplit = new JSplitPane(
-				JSplitPane.VERTICAL_SPLIT, true, createInfoPanel(), mapScrollPane);
+				JSplitPane.VERTICAL_SPLIT, true, createInfoPanel(), p);
 		mainSplit.setOneTouchExpandable(true);
 		mainSplit.setResizeWeight(1.0);
 		mainSplit.setBorder(null);
@@ -112,9 +117,14 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 			}
 		});
 		tilesetPanel.setMinimumSize(new Dimension(150, 500));
+	
+		JPanel tileHeader = new JPanel(new BorderLayout());
+		tileHeader.add(tilesetPanel, BorderLayout.CENTER);
+		tileHeader.add(createHeader("Icons"),BorderLayout.NORTH);
+
 		
 		JSplitPane paletteSplit = new JSplitPane(
-				JSplitPane.HORIZONTAL_SPLIT, true, mainSplit, tilesetPanel);
+				JSplitPane.HORIZONTAL_SPLIT, true, mainSplit, tileHeader);
 		paletteSplit.setOneTouchExpandable(true);
 		paletteSplit.setResizeWeight(1.0);
 	
@@ -148,6 +158,14 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		map = new OthersMap(mapWidth,mapHeight, MapSettings.defaults());
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField(),map.getMapSettings());
 	} 
+	
+	
+	// creates a header for the panel.
+	protected JPanel createHeader(String text){
+		JPanel header = new HeaderPanel(new BorderLayout());
+		header.add(new JLabel("<HTML>"+text+"<BR></HTML>"), BorderLayout.CENTER);
+		return header;
+	}
 	
 	// Subclasses make the infomation panel and left pane.
 	protected abstract JPanel createInfoPanel();
