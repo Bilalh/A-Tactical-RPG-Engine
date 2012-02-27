@@ -73,4 +73,9 @@ public abstract class AbstractAssets<E extends Identifiable> implements  IAssets
 		return assets.isEmpty();
 	}
 
+	@Override
+	public String toString() {
+		return String.format("AbstractAssets [assets=%s]", assets);
+	}
+
 }

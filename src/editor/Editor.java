@@ -4,6 +4,9 @@ import java.awt.Container;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -21,6 +24,7 @@ import org.apache.log4j.Logger;
 import config.Config;
 
 import editor.util.Prefs;
+import engine.assets.Weapons;
 
 /**
  * @author Bilal Hussain
@@ -30,6 +34,9 @@ public class Editor {
 	
 	JFrame frame;
 	WeaponsPanel weaponsPanel;
+	
+	String projectPath = "projects/Test";
+	String projectName = "Test";
 	
 	public Editor() {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
@@ -81,7 +88,28 @@ public class Editor {
 	}
 
 	void save(){
+		Weapons ws =  weaponsPanel.getWeapons();
+		log.info(ws);
 		
+		File f = new File(projectPath);
+		f.mkdir();
+		File resources = new File(f,"Resources");
+		resources.mkdir();
+		File assets = new File(resources, "assets");
+		assets.mkdir();
+		
+		File mainXml  = new File(f, "tactical-project.xml");
+		FileWriter fw;
+		try {
+			fw = new FileWriter(mainXml);
+			fw.write("");
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
+		Config.savePreferencesToResources(ws, "assets/weapons.xml");
 	}
 	
 	// Save window size and panel size 

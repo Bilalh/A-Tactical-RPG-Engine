@@ -96,7 +96,8 @@ public class Config {
 	public static void savePreferencesToResources(IPreference p, String path){
 		String s = XMLUtil.makeXml(p);
 		try {
-			FileWriter fw = new FileWriter(new File(RESOURCE_DIRECTORY + path));
+			File f  = new File(RESOURCE_DIRECTORY + path);
+			FileWriter fw = new FileWriter(f);
 			savePreferences(p, fw);
 			fw.close();
 		} catch (IOException e) {

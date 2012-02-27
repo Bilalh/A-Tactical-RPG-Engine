@@ -41,6 +41,7 @@ import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import editor.util.IWeaponListener;
 import editor.util.Resources;
+import engine.assets.Weapons;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
 import engine.items.Spear;
@@ -171,11 +172,15 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		weaponslist.repaint();
 	}
 	
-	/** @category unused**/
-	public IWeapon getWeapon() {
-		return currentWeapon;
-	}
 
+	public Weapons getWeapons(){
+		Weapons ws = new Weapons();
+		for (Object o: weaponslistModel.toArray()) {
+			ws.put((IWeapon) o);
+		}
+		return ws;
+	}
+	
 	public void setWeapon(IWeapon weapon) {
 		this.currentWeapon = weapon;
 		this.mapUnit.setWeapon(weapon);

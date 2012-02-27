@@ -1,0 +1,11 @@
+<weapons>
+  <entry>
+    <uuid>5600ffc6-873c-4617-88e0-2c3ce5838c1b</uuid>
+    <engine.items.Spear uuid="5600ffc6-873c-4617-88e0-2c3ce5838c1b">
+      <name>New Weapon</name>
+      <strength>10</strength>
+      <range>3</range>
+      <imageRef>3-15</imageRef>
+    </engine.items.Spear>
+  </entry>
+</weapons>
