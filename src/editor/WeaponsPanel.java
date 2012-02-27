@@ -1,8 +1,7 @@
 package editor;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.LayoutManager;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
@@ -13,9 +12,13 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.apache.log4j.Logger;
+
+import com.javarichclient.icon.tango.actions.*;
 
 import util.Logf;
 import view.map.IsoTile.TileState;
@@ -37,6 +40,8 @@ import editor.map.EditorMapPanel;
 import editor.map.others.OthersMap;
 import editor.map.others.OthersUnit;
 import editor.spritesheet.MutableSprite;
+import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
+import editor.ui.TButton;
 import editor.util.IWeaponListener;
 import editor.util.Resources;
 import engine.items.MeleeWeapon;
@@ -60,11 +65,12 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	private OthersUnit guiUnit;
 	
 	// Weapons
-	private IWeapon weapon;
+	private IWeapon currentWeapon;
 	private WeaponTypes currentType;
 	private Collection<Location> attackRange = new ArrayList<Location>(1);
 
 	private JList weaponslist;
+	private DefaultListModel weaponslistModel;
 	
 	// Infopanel controls
 	private JLabel     infoIcon;
@@ -105,9 +111,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		map.getGuiField()[5][5].setUnit(guiUnit);
 		map.setUnitAt(l, guiUnit);
 		
-		IWeapon ww= new Spear(10,3);
-		ww.setName("New Weapon");
-		setWeapon(ww);
+		setWeapon((IWeapon) weaponslistModel.getElementAt(0));
 	}
 	
 	@Override
@@ -119,11 +123,11 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	} 
 	
 	Collection<Location> getAttackRange(){
-		assert weapon   != null;
+		assert currentWeapon   != null;
 		assert guiUnit  != null;
 		assert mapWidth  > 0;
 		assert mapHeight > 0;
-		return weapon.getAttackRange(guiUnit.getLocation(), mapWidth, mapHeight);
+		return currentWeapon.getAttackRange(guiUnit.getLocation(), mapWidth, mapHeight);
 	}
 	
 	// Displays the attack range.
@@ -132,7 +136,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			map.getGuiTile(l).setState(TileState.NONE);
 		}
 		attackRange = getAttackRange();
-		Logf.trace(log,"attack range %s of %s +", attackRange ,weapon);
+		Logf.trace(log,"attack range %s of %s +", attackRange ,currentWeapon);
 		for (Location l : attackRange) {
 			map.getGuiTile(l).setState(TileState.ATTACK_RANGE);
 		}
@@ -140,34 +144,40 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	}
 	
 	private void changeStength(int intValue) {
-		weapon.setStrength(intValue);
+		currentWeapon.setStrength(intValue);
 	}
 	
 	private void changeRange(int intValue) {
-		weapon.setRange(intValue);
+		currentWeapon.setRange(intValue);
 		showAttackRange();
 	}
 
 	private void changeInnerRange(int intValue) {
 		assert currentType == WeaponTypes.RANGED;
-		assert weapon instanceof RangedWeapon;
-		((RangedWeapon) weapon).setInnerRange(intValue);
+		assert currentWeapon instanceof RangedWeapon;
+		((RangedWeapon) currentWeapon).setInnerRange(intValue);
 		showAttackRange();
 	}
 	
 	private void changeType(WeaponTypes t) {
 		if (t == currentType) return;
 		currentType = t;
-		weapon = t.newWeapon(this);
+		currentWeapon = t.newWeapon(this);
 		showAttackRange();
 	}
 	
+	private void changeName(){
+		currentWeapon.setName(infoName.getText());
+		weaponslist.repaint();
+	}
+	
+	/** @category unused**/
 	public IWeapon getWeapon() {
-		return weapon;
+		return currentWeapon;
 	}
 
 	public void setWeapon(IWeapon weapon) {
-		this.weapon = weapon;
+		this.currentWeapon = weapon;
 		this.mapUnit.setWeapon(weapon);
 		if (weapon instanceof RangedWeapon){
 			currentType = WeaponTypes.RANGED;
@@ -187,7 +197,8 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		super.select(selection);
 		if (currentIconImage == null) return;
 		infoIcon.setIcon(new ImageIcon(currentIconImage.getImage()));
-		weapon.setImageRef(currentIconImage.getName());
+		currentWeapon.setImageRef(currentIconImage.getName());
+		weaponslist.repaint();
 	}
 
 	private LayoutManager createLayout() {
@@ -200,9 +211,52 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	
 	@Override
 	protected  JComponent createLeftPane(){
-		weaponslist = new JList(new String[] {"Mouse, Mickey    "});
+		IWeapon ww= new Spear(10,3);
+		ww.setName("New Weapon");
+		weaponslistModel = new DefaultListModel();
+		weaponslist = new JList(weaponslistModel);
+		weaponslist.setCellRenderer(new WeaponsListRenderer());
+		weaponslistModel.addElement(ww);
+		
 		JScrollPane slist = new JScrollPane(weaponslist);
-		return slist;
+		
+		JPanel p  = new JPanel(new BorderLayout());
+		p.add(slist, BorderLayout.CENTER);
+		
+		JPanel buutons  =new JPanel();
+		buutons.add(new TButton(new DeleteAction()));
+		buutons.add(new TButton(new AddAction()));
+
+		p.add(buutons, BorderLayout.SOUTH);
+		return p;
+	}
+	
+	private class DeleteAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public DeleteAction() {
+			putValue(NAME, "Delete the selected weapon");
+//			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			putValue(SMALL_ICON,new ListRemoveIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
+	
+	private class AddAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public AddAction() {
+			putValue(NAME, "Add a new Weapon");
+//			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			putValue(SMALL_ICON,new ListAllIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		}
 	}
 	
 	@Override
@@ -215,6 +269,23 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		p.add(new JLabel("Name:"), "gap 4");
 		p.add((infoName = new JTextField(15)), "span, growx");
 		infoName.setText("New Weapon");
+		infoName.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				changeName();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				changeName();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				changeName();
+			}
+		});
 		
 		infoType = new JComboBox(WeaponTypes.values());
 		infoType.setEditable(false);
@@ -378,6 +449,18 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 
 		private WeaponTypes(String name) {
 			this.name = name;
+		}
+	}
+	
+	class WeaponsListRenderer extends  DefaultListCellRenderer {
+		private static final long serialVersionUID = 5874522377321012662L;
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+			IWeapon w= (IWeapon) value;
+			label.setText(w.getName());
+			label.setIcon(infoIcon.getIcon());
+			return label;
 		}
 	}
 	

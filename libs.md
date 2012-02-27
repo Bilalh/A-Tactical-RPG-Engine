@@ -8,3 +8,5 @@ Libs/Classes
 * AlphanumComparator (LGPL 2.1+) -- Sorting                                 
                                                                       
 * openal from Slick 2d (BSD)     -- For playing music (ogg/wav) and sounds 
+
+* Icons from http://www.javarichclient.com/68-vector-based-java-icons/ (public domain)

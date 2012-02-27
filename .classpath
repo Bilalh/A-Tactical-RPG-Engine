@@ -23,5 +23,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/javarichclient_icon_tango_action_1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
