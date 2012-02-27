@@ -59,11 +59,11 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 	protected EditorSpriteSheet sheet;
 	protected MutableSprite currentIconImage;
 	
-	public AbstactMapEditorPanel(String tile, String prefsName, int mapWidth, int mapHeight){
+	public AbstactMapEditorPanel(String tile, int mapWidth, int mapHeight){
 		super(new BorderLayout());
 		this.mapWidth   = mapWidth;
 		this.mapHeight  = mapHeight;
-		this.prefsName  = prefsName;
+		this.prefsName  = tile;
 		
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -74,9 +74,9 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		_sheet = ResourceManager.instance().getCurrentItemSheet();
 		sheet  = new EditorSpriteSheet(_sheet);
 		
-		createMainPane(prefsName);
+		createMainPane(tile);
 		
-		Preferences pref = Prefs.getNode(prefsName+ "/panels/main");
+		Preferences pref = Prefs.getNode(tile+ "/panels/main");
 		System.out.println(pref);
 		int width = pref.getInt("width", 930);
 		int height = pref.getInt("height", 680);

@@ -55,9 +55,9 @@ import engine.unit.UnitImages;
 /**
  * @author Bilal Hussain
  */
-public class WeaponsPanel extends AbstactMapEditorPanel {
+public class SkillsPanel extends AbstactMapEditorPanel {
 	private static final long serialVersionUID = -4663464965056461703L;
-	private static final Logger log = Logger.getLogger(WeaponsPanel.class);
+	private static final Logger log = Logger.getLogger(SkillsPanel.class);
 
 	// Unit
 	private IMutableMapUnit mapUnit;
@@ -82,8 +82,8 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	private JLabel     infoInnerRangeL;
 	private JLabel     infoInnerAbout;
 
-	public WeaponsPanel(){
-		super("Weapon", 11, 11);
+	public SkillsPanel(){
+		super("Skill", 11, 11);
 
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 		
@@ -259,7 +259,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		buttons.add(new TButton(new DeleteAction()));
 		buttons.add(new TButton(new AddAction()));
 		p.add(buttons, BorderLayout.SOUTH);
-		p.add(createHeader("All Weapons"),BorderLayout.NORTH);
+		p.add(createHeader("All Skills"),BorderLayout.NORTH);
 		return p;
 	}
 	
@@ -407,7 +407,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	static enum WeaponTypes {
 		MELEE("Melee") {
 			@Override
-			IWeapon newWeapon(WeaponsPanel we) {
+			IWeapon newWeapon(SkillsPanel we) {
 				MeleeWeapon w = new MeleeWeapon();
 				w.setName(we.infoName.getText());
 				
@@ -419,7 +419,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			}
 
 			@Override
-			void updateEditor(WeaponsPanel we, IWeapon w) {
+			void updateEditor(SkillsPanel we, IWeapon w) {
 				updateCommon(we, w);
 				we.infoRange.setVisible(false);
 				we.infoRangeL.setVisible(false);
@@ -435,7 +435,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		
 		RANGED("Ranged") {
 			@Override
-			IWeapon newWeapon(WeaponsPanel we) {
+			IWeapon newWeapon(SkillsPanel we) {
 				RangedWeapon w = new RangedWeapon();
 				w.setName(we.infoName.getText());
 				
@@ -453,7 +453,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			}
 
 			@Override
-			void updateEditor(WeaponsPanel we, IWeapon w) {
+			void updateEditor(SkillsPanel we, IWeapon w) {
 				updateCommon(we, w);
 				RangedWeapon ww = (RangedWeapon) w;
 				we.infoInnerRange.setValue(ww.getInnerRange());
@@ -472,7 +472,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		
 		SPEAR("Spear") {
 			@Override
-			IWeapon newWeapon(WeaponsPanel we) {
+			IWeapon newWeapon(SkillsPanel we) {
 				Spear w = new Spear();
 				w.setName(we.infoName.getText());
 				
@@ -486,7 +486,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			}
 
 			@Override
-			void updateEditor(WeaponsPanel we, IWeapon w) {
+			void updateEditor(SkillsPanel we, IWeapon w) {
 				updateCommon(we, w);
 				we.infoInnerRange.setVisible(false);
 				we.infoInnerRangeL.setVisible(false);
@@ -503,7 +503,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 
 		AROUND("Around") {
 			@Override
-			IWeapon newWeapon(WeaponsPanel we) {
+			IWeapon newWeapon(SkillsPanel we) {
 				Around w = new Around();
 				w.setName(we.infoName.getText());
 				
@@ -515,7 +515,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			}
 
 			@Override
-			void updateEditor(WeaponsPanel we, IWeapon w) {
+			void updateEditor(SkillsPanel we, IWeapon w) {
 				updateCommon(we, w);
 				we.infoRange.setVisible(false);
 				we.infoRangeL.setVisible(false);
@@ -537,7 +537,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			return name;
 		}
 
-		public void updateCommon(WeaponsPanel we, IWeapon w){
+		public void updateCommon(SkillsPanel we, IWeapon w){
 			we.infoRange.setValue(w.getRange());
 			we.infoName.setText(w.getName());
 			we.infoStrength.setValue(w.getStrength());
@@ -549,9 +549,9 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			we.infoType.addItemListener(il);
 		}
 		
-		abstract IWeapon newWeapon(WeaponsPanel we);
+		abstract IWeapon newWeapon(SkillsPanel we);
 		abstract String getInfo();
-		abstract void updateEditor(WeaponsPanel we, IWeapon w);
+		abstract void updateEditor(SkillsPanel we, IWeapon w);
 
 		private WeaponTypes(String name) {
 			this.name = name;

@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 
 import config.Config;
 
+import editor.editors.SkillsPanel;
 import editor.editors.WeaponsPanel;
 import editor.util.Prefs;
 import engine.assets.Weapons;
@@ -36,6 +37,7 @@ public class Editor {
 	
 	JFrame frame;
 	WeaponsPanel weaponsPanel;
+	SkillsPanel  skillsPanel;
 	
 	String projectPath = "projects/Test";
 	String projectName = "Test";
@@ -65,8 +67,8 @@ public class Editor {
 
 	private Container createContentPane() {
 		JTabbedPane tabs  = new JTabbedPane();
-		tabs.addTab("Weapons", (weaponsPanel = new WeaponsPanel()));
-		tabs.addTab("Skills",       new JPanel());
+		tabs.addTab("Weapons",      (weaponsPanel = new WeaponsPanel()));
+		tabs.addTab("Skills",       (skillsPanel  = new SkillsPanel()));
 		tabs.addTab("Units",        new JPanel());
 		tabs.addTab("Maps",         new JPanel());
 		tabs.addTab("Story",        new JPanel());
@@ -107,15 +109,28 @@ public class Editor {
 
 	// Save the project
 	void save(){
-		Weapons ws =  weaponsPanel.getWeapons();
-		log.info(ws);
 		
 		File f = new File(projectPath);
 		f.mkdir();
+		
 		File resources = new File(f,"Resources");
 		resources.mkdir();
+		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
+		
+		
 		File assets = new File(resources, "assets");
 		assets.mkdir();
+
+		Weapons ws =  weaponsPanel.getWeapons();
+		Config.savePreferencesToResources(ws, "assets/weapons.xml");
+		log.info(ws);
+		
+		
+		File images = new File(resources, "images");
+		images.mkdir();
+		File items = new File(images, "items");
+		items.mkdir();
+		
 		
 		File mainXml  = new File(f, "tactical-project.xml");
 		FileWriter fw;
@@ -127,20 +142,23 @@ public class Editor {
 			e.printStackTrace();
 		}
 		
-		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
-		Config.savePreferencesToResources(ws, "assets/weapons.xml");
+		
 	}
 	
 	// Load the project
 	void load(){
 		File f = new File(projectPath);
+		File mainXml  = new File(f, "tactical-project.xml");
 		File resources = new File(f,"Resources");
 		File assets = new File(resources, "assets");
-		File mainXml  = new File(f, "tactical-project.xml");
+		
 		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
 		
 		Weapons ws = Config.loadPreference("assets/weapons.xml");
 		weaponsPanel.setWeapons(ws);
+		
+		
+		
 		log.info(ws);
 	}
 	
