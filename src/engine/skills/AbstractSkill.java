@@ -21,17 +21,12 @@ public abstract class AbstractSkill extends AbstractUnitObject implements ISkill
 
 	/** @category Generated */
 	@Override
-	public String getName() {
-		return name;
-	}
-
-	/** @category Generated */
-	@Override
 	public int getPower() {
 		return power;
 	}
 
 	/** @category Generated */
+	@Override
 	public void setPower(int power) {
 		this.power = power;
 	}
@@ -43,6 +38,7 @@ public abstract class AbstractSkill extends AbstractUnitObject implements ISkill
 	}
 
 	/** @category Generated */
+	@Override
 	public void setTargetOpposite(boolean targetOpposite) {
 		this.targetOpposite = targetOpposite;
 	}
@@ -54,6 +50,7 @@ public abstract class AbstractSkill extends AbstractUnitObject implements ISkill
 	}
 
 	/** @category Generated */
+	@Override
 	public void setIncludeCaster(boolean includeCaster) {
 		this.includeCaster = includeCaster;
 	}

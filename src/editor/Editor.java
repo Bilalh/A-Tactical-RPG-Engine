@@ -26,6 +26,7 @@ import config.Config;
 import editor.editors.SkillsPanel;
 import editor.editors.WeaponsPanel;
 import editor.util.Prefs;
+import engine.assets.Skills;
 import engine.assets.Weapons;
 
 /**
@@ -117,31 +118,33 @@ public class Editor {
 		resources.mkdir();
 		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
 		
-		
+		// Assets
 		File assets = new File(resources, "assets");
 		assets.mkdir();
 
 		Weapons ws =  weaponsPanel.getWeapons();
 		Config.savePreferencesToResources(ws, "assets/weapons.xml");
 		log.info(ws);
+
+		Skills ss = skillsPanel.getSkills();
+		Config.savePreferencesToResources(ss, "assets/skills.xml");
+		log.info(ss);
 		
-		
+		// Images
 		File images = new File(resources, "images");
 		images.mkdir();
 		File items = new File(images, "items");
 		items.mkdir();
 		
-		
+		// Main project file
 		File mainXml  = new File(f, "tactical-project.xml");
-		FileWriter fw;
 		try {
-			fw = new FileWriter(mainXml);
+			FileWriter fw = new FileWriter(mainXml);
 			fw.write("");
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		
 	}
 	
@@ -156,10 +159,11 @@ public class Editor {
 		
 		Weapons ws = Config.loadPreference("assets/weapons.xml");
 		weaponsPanel.setWeapons(ws);
+		log.debug(ws);
 		
-		
-		
-		log.info(ws);
+		Skills ss = Config.loadPreference("assets/skills.xml");
+		skillsPanel.setSkills(ss);
+		log.info(ss);
 	}
 	
 	// Save window size and panel size 

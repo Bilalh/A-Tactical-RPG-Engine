@@ -32,6 +32,7 @@ import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
+import editor.map.EditorIsoTile;
 import editor.map.EditorMapPanel;
 import editor.map.others.OthersMap;
 import editor.map.others.OthersUnit;
@@ -41,6 +42,7 @@ import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import editor.util.IWeaponListener;
 import editor.util.Resources;
+import engine.assets.Skills;
 import engine.assets.Weapons;
 import engine.items.Around;
 import engine.items.MeleeWeapon;
@@ -49,6 +51,8 @@ import engine.items.Spear;
 import engine.map.MapPlayer;
 import engine.map.MapUnit;
 import engine.map.interfaces.IMutableMapUnit;
+import engine.skills.ISkill;
+import engine.skills.RangedSkill;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
 
@@ -66,12 +70,14 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	//FIXME finish
 	
 	// Weapons
-	private IWeapon currentWeapon;
-	private WeaponTypes currentType;
-	private Collection<Location> attackRange = new ArrayList<Location>(1);
+	private Location currentLocation;
+	private ISkill currentSkill;
+	private SkillTypes currentType;
+	private Collection<Location> attackArea = new ArrayList<Location>(1);
+	private Collection<Location> attackRange  = new ArrayList<Location>(1);
 
-	private JList weaponslist;
-	private DefaultListModel weaponslistModel;
+	private JList skillList;
+	private DefaultListModel skillListModel;
 	
 	// Infopanel controls
 	private JLabel     infoIcon;
@@ -79,10 +85,12 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	private JComboBox  infoType;
 	private JSpinner   infoStrength;
 	private JSpinner   infoRange;
-	private JSpinner   infoInnerRange;
+	private JSpinner   infoArea;
 	private JLabel     infoRangeL;
-	private JLabel     infoInnerRangeL;
-	private JLabel     infoInnerAbout;
+	private JLabel     infoAreaL;
+	
+	private JComboBox   infoIncludeCaster;
+	private JLabel     infoAbout;
 
 	public SkillsPanel(){
 		super("Skill", 11, 11);
@@ -104,16 +112,16 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		ui.setSpriteSheetLocation(path);
 		u.setImageData(path, ui);
 		
-		Location l = new Location(5,5);
-		mapUnit = new MapUnit(u, l, new MapPlayer());
+		currentLocation = new Location(5,5);
+		mapUnit = new MapUnit(u, currentLocation, new MapPlayer());
 		
-		guiUnit = new OthersUnit(l.x, l.y, u);
+		guiUnit = new OthersUnit(currentLocation.x, currentLocation.y, u);
 		guiUnit.setMapUnit(mapUnit);
 		
 		map.getGuiField()[5][5].setUnit(guiUnit);
-		map.setUnitAt(l, guiUnit);
+		map.setUnitAt(currentLocation, guiUnit);
 		
-		setCurrentWeapon((IWeapon) weaponslistModel.getElementAt(0));
+		setCurrentSkill((ISkill) skillListModel.getElementAt(0));
 	}
 	
 	@Override
@@ -125,86 +133,113 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	} 
 	
 	Collection<Location> getAttackRange(){
-		assert currentWeapon   != null;
-		assert guiUnit  != null;
+		assert currentSkill   != null;
+		assert guiUnit        != null;
 		assert mapWidth  > 0;
 		assert mapHeight > 0;
-		return currentWeapon.getAttackRange(guiUnit.getLocation(), mapWidth, mapHeight);
+		return currentSkill.getAttackRange(guiUnit.getLocation(), mapWidth, mapHeight);
+	}
+	
+	Collection<Location> getAttackArea(){
+		assert currentSkill   != null;
+		assert guiUnit        != null;
+		assert mapWidth  > 0;
+		assert mapHeight > 0;
+		return currentSkill.getArea(currentLocation, mapWidth, mapHeight);
 	}
 	
 	// Displays the attack range.
-	void showAttackRange(){
+	void showAttackRangeAndArea(){
+		
+		for (Location l : attackArea) {
+			map.getGuiTile(l).setState(TileState.NONE);
+		}
 		for (Location l : attackRange) {
 			map.getGuiTile(l).setState(TileState.NONE);
 		}
+		
 		attackRange = getAttackRange();
-		Logf.trace(log,"attack range %s of %s +", attackRange ,currentWeapon);
+		Logf.trace(log,"attack range %s of %s +", attackRange ,currentSkill);
 		for (Location l : attackRange) {
 			map.getGuiTile(l).setState(TileState.ATTACK_RANGE);
 		}
+		
+		attackArea = getAttackArea();
+		Logf.trace(log,"attack area %s of %s +", attackArea ,currentSkill);
+		for (Location l : attackArea) {
+			map.getGuiTile(l).setState(TileState.ATTACK_AREA);
+		}
+		
 		editorMapPanel.repaintMap();
 	}
 	
 	private void changeStength(int intValue) {
-		currentWeapon.setStrength(intValue);
+		currentSkill.setPower(intValue);
 	}
 	
 	private void changeRange(int intValue) {
-		currentWeapon.setRange(intValue);
-		showAttackRange();
+		assert currentSkill instanceof RangedSkill;
+		((RangedSkill) currentSkill).setRange(intValue);
+		showAttackRangeAndArea();
 	}
 
-	private void changeInnerRange(int intValue) {
-		assert currentType == WeaponTypes.RANGED;
-		assert currentWeapon instanceof RangedWeapon;
-		((RangedWeapon) currentWeapon).setInnerRange(intValue);
-		showAttackRange();
+	private void changeArea(int intValue) {
+		assert currentType == SkillTypes.RANGED;
+		assert currentSkill instanceof RangedSkill;
+		((RangedSkill) currentSkill).setArea(intValue);
+		showAttackRangeAndArea();
 	}
 	
-	private void changeType(WeaponTypes t) {
+	private void changeType(SkillTypes t) {
 		if (t == currentType) return;
 		currentType = t;
-		int index =weaponslist.getSelectedIndex();
-		currentWeapon = t.newWeapon(this);
-		weaponslistModel.remove(index);
-		weaponslistModel.add(index, currentWeapon);
-		weaponslist.setSelectedIndex(index);
-		showAttackRange();
+		int index =skillList.getSelectedIndex();
+		currentSkill = t.newSkill(this);
+		skillListModel.remove(index);
+		skillListModel.add(index, currentSkill);
+		skillList.setSelectedIndex(index);
+		showAttackRangeAndArea();
 	}
 	
 	private void changeName(){
-		currentWeapon.setName(infoName.getText());
-		weaponslist.repaint();
+		currentSkill.setName(infoName.getText());
+		skillList.repaint();
 	}
 	
+	private void changeIncludeCaster(boolean b) {
+		currentSkill.setIncludeCaster(b);
+		showAttackRangeAndArea();
+	}
 
-	public Weapons getWeapons(){
-		Weapons ws = new Weapons();
-		for (Object o: weaponslistModel.toArray()) {
-			ws.put((IWeapon) o);
+	public Skills getSkills(){
+		Skills ws = new Skills();
+		for (Object o: skillListModel.toArray()) {
+			ws.put((ISkill) o);
 		}
 		return ws;
 	}
 	
-	public void setWeapons(Weapons ws){
-		ListSelectionListener lsl =  weaponslist.getListSelectionListeners()[0];
-		weaponslist.removeListSelectionListener(lsl);
-		weaponslistModel.clear();
-		for (IWeapon w : ws.values()) {
-			weaponslistModel.addElement(w);
+	public void setSkills(Skills ws){
+		ListSelectionListener lsl =  skillList.getListSelectionListeners()[0];
+		skillList.removeListSelectionListener(lsl);
+		skillListModel.clear();
+		for (ISkill w : ws.values()) {
+			skillListModel.addElement(w);
 		}
-		weaponslist.addListSelectionListener(lsl);
-		weaponslist.setSelectedIndex(0);
+		skillList.addListSelectionListener(lsl);
+		skillList.setSelectedIndex(0);
 	}
 	
-	public void setCurrentWeapon(IWeapon weapon) {
-		this.currentWeapon = weapon;
-		this.mapUnit.setWeapon(weapon);
-		if (weapon instanceof RangedWeapon){
-			currentType = WeaponTypes.RANGED;
-			WeaponTypes.RANGED.updateEditor(this, weapon);
+	public void setCurrentSkill(ISkill skill) {
+		this.currentSkill = skill;
+		
+		ArrayList<ISkill> list = new ArrayList<ISkill>();
+		this.mapUnit.setSkills(list);
+		if (skill instanceof RangedSkill){
+			currentType = SkillTypes.RANGED;
+			SkillTypes.RANGED.updateEditor(this, skill);
 		}
-		showAttackRange();
+		showAttackRangeAndArea();
 	}
 	
 	@Override
@@ -212,8 +247,16 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		super.select(selection);
 		if (currentIconImage == null) return;
 		infoIcon.setIcon(new ImageIcon(currentIconImage.getImage()));
-		currentWeapon.setImageRef(currentIconImage.getName());
-		weaponslist.repaint();
+//		currentWeapon.setImageRef(currentIconImage.getName());
+		skillList.repaint();
+	}
+
+	@Override
+	public void tileClicked(EditorIsoTile tile) {
+		map.getGuiTile(currentLocation).setSelected(false);
+		tile.setSelected(true);
+		currentLocation = tile.getLocation();
+		showAttackRangeAndArea();
 	}
 
 	private LayoutManager createLayout() {
@@ -226,24 +269,23 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	
 	@Override
 	protected  JComponent createLeftPane(){
-		IWeapon ww= new RangedWeapon(10,3,1);
-		ww.setName("New Weapon");
-		weaponslistModel = new DefaultListModel();
-		weaponslist = new JList(weaponslistModel);
-		weaponslist.setCellRenderer(new WeaponsListRenderer());
-		weaponslistModel.addElement(ww);
-		weaponslist.setSelectedIndex(0);
-		weaponslist.addListSelectionListener(new ListSelectionListener() {
+		ISkill ww= new RangedSkill("New Skill", 10, 5, 2, true, false);
+		skillListModel = new DefaultListModel();
+		skillList = new JList(skillListModel);
+		skillList.setCellRenderer(new SkillListRenderer());
+		skillListModel.addElement(ww);
+		skillList.setSelectedIndex(0);
+		skillList.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				IWeapon w =  (IWeapon) weaponslist.getSelectedValue();
+				ISkill w =  (ISkill) skillList.getSelectedValue();
 				if (w == null) return;
-				setCurrentWeapon(w);
+				setCurrentSkill(w);
 			}
 		});
 		
-		JScrollPane slist = new JScrollPane(weaponslist);
+		JScrollPane slist = new JScrollPane(skillList);
 		
 		JPanel p  = new JPanel(new BorderLayout());
 		p.add(slist, BorderLayout.CENTER);
@@ -262,7 +304,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		private static final long serialVersionUID = 4069963919157697524L;
 
 		public DeleteAction() {
-			putValue(NAME, "Delete the selected weapon");
+			putValue(NAME, "Delete the selected Skill");
 //			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON,new ListRemoveIcon(16, 16));
 		}
@@ -270,14 +312,14 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// Must have at lest one weapon
-			if (weaponslistModel.size() <=1){
+			if (skillListModel.size() <=1){
 				return;
 			}
-			int index = weaponslist.getSelectedIndex();
+			int index = skillList.getSelectedIndex();
 			assert index != -1;
-			int nextIndex = index == 0 ? weaponslistModel.size()-1 : index -1;
-			weaponslist.setSelectedIndex(nextIndex);
-			weaponslistModel.remove(index);
+			int nextIndex = index == 0 ? skillListModel.size()-1 : index -1;
+			skillList.setSelectedIndex(nextIndex);
+			skillListModel.remove(index);
 			
 		}
 	}
@@ -293,11 +335,11 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			MeleeWeapon w  = new MeleeWeapon();
-			int index = weaponslistModel.size();
-			w.setName("New Weapon " +index);
-			weaponslistModel.addElement(w);
-			weaponslist.setSelectedIndex(index);
+			RangedSkill w  = new RangedSkill();
+			int index = skillListModel.size();
+			w.setName("New Skill " +index);
+			skillListModel.addElement(w);
+			skillList.setSelectedIndex(index);
 		}
 	}
 	
@@ -329,13 +371,13 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 			}
 		});
 		
-		infoType = new JComboBox(WeaponTypes.values());
+		infoType = new JComboBox(SkillTypes.values());
 		infoType.setEditable(false);
 		p.add(new JLabel("Type:"), "gap 4");
 		infoType.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				WeaponTypes t= (WeaponTypes) e.getItem();
+				SkillTypes t= (SkillTypes) e.getItem();
 				changeType(t);
 			}
 		});
@@ -366,27 +408,33 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		p.add(infoRange,new CC().alignX("leading").maxWidth("70").wrap());
 
 		
-		p.add((infoInnerRangeL = new JLabel("Inner Range:")), "gap 4");
-		infoInnerRange = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));
-		infoInnerRange.addChangeListener(new ChangeListener() {
+		p.add((infoAreaL = new JLabel("Area:")), "gap 4");
+		infoArea = new JSpinner(new SpinnerNumberModel(1, 1, 8, 1));
+		infoArea.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				int inner = ((Number)infoInnerRange.getValue()).intValue();
-				int outer = ((Number)infoRange.getValue()).intValue();
-				if (inner >= outer){
-					inner  = outer-1;
-					infoInnerRange.setValue(inner);
-					return;
-				}
-				changeInnerRange(inner);
+				int inner = ((Number)infoArea.getValue()).intValue();
+				changeArea(inner);
 			}
 
 		});
-		p.add(infoInnerRange,  new CC().alignX("leading").maxWidth("70").wrap());
+		p.add(infoArea,  new CC().alignX("leading").maxWidth("70").wrap());
 		
+		infoIncludeCaster = new JComboBox(new Boolean[]{Boolean.FALSE, Boolean.TRUE});
+		infoIncludeCaster.setEditable(false);
+		p.add(new JLabel("Include Caster:"), "gap 4");
+		infoIncludeCaster.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				boolean b= (Boolean) e.getItem();
+				changeIncludeCaster(b);
+			}
+		});
+		p.add(infoIncludeCaster,  new CC().alignX("leading").maxWidth("200").wrap());
+
 
 		p.add(new JLabel("Infomation:"),  new CC().newline("30px").gap("4"));
-		p.add((infoInnerAbout = new JLabel("Info")), new CC().gap("4"));
+		p.add((infoAbout = new JLabel("Info")), new CC().gap("4"));
 
 		p.add(new JPanel());
 		return p;
@@ -396,20 +444,20 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	 * The current Weapon type. Also has methods for updating the editor and creating a new weapon
 	 * @author Bilal Hussain
 	 */
-	static enum WeaponTypes {
+	static enum SkillTypes {
 		RANGED("Ranged") {
 			@Override
-			IWeapon newWeapon(SkillsPanel we) {
-				RangedWeapon w = new RangedWeapon();
+			ISkill newSkill(SkillsPanel we) {
+				RangedSkill w = new RangedSkill();
 				w.setName(we.infoName.getText());
 				
 				int range = ((Number) we.infoRange.getValue()).intValue();
 				w.setRange(range);
-				int inner = ((Number) we.infoInnerRange.getValue()).intValue();
-				w.setInnerRange(inner < range ? inner : range-1);
+				int area = ((Number) we.infoArea.getValue()).intValue();
+				w.setArea(area);
 				
-				we.infoInnerRange.setVisible(true);
-				we.infoInnerRangeL.setVisible(true);
+				we.infoArea.setVisible(true);
+				we.infoAreaL.setVisible(true);
 				we.infoRange.setVisible(true);
 				we.infoRangeL.setVisible(true);
 				
@@ -417,19 +465,20 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 			}
 
 			@Override
-			void updateEditor(SkillsPanel we, IWeapon w) {
+			void updateEditor(SkillsPanel we, ISkill w) {
 				updateCommon(we, w);
-				RangedWeapon ww = (RangedWeapon) w;
-				we.infoInnerRange.setValue(ww.getInnerRange());
-				we.infoInnerRange.setVisible(true);
-				we.infoInnerRangeL.setVisible(true);
+				RangedSkill ww = (RangedSkill) w;
+				we.infoRange.setValue(ww.getRange());
+				we.infoArea.setValue(ww.getArea());
+				we.infoArea.setVisible(true);
+				we.infoAreaL.setVisible(true);
 				we.infoRange.setVisible(true);
 				we.infoRangeL.setVisible(true);
 			}
 			
 			@Override
 			String getInfo() {
-				return "Damages a single target in the attack range.";
+				return "Damages all the targets in the attack area";
 			}
 			
 		};		
@@ -440,11 +489,10 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 			return name;
 		}
 
-		public void updateCommon(SkillsPanel we, IWeapon w){
-			we.infoRange.setValue(w.getRange());
+		public void updateCommon(SkillsPanel we, ISkill w){
 			we.infoName.setText(w.getName());
-			we.infoStrength.setValue(w.getStrength());
-			we.infoInnerAbout.setText(this.getInfo());
+			we.infoStrength.setValue(w.getPower());
+			we.infoAbout.setText(this.getInfo());
 			
 			ItemListener il = we.infoType.getItemListeners()[0];
 			we.infoType.removeItemListener(il);
@@ -452,23 +500,23 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 			we.infoType.addItemListener(il);
 		}
 		
-		abstract IWeapon newWeapon(SkillsPanel we);
+		abstract ISkill newSkill(SkillsPanel we);
 		abstract String getInfo();
-		abstract void updateEditor(SkillsPanel we, IWeapon w);
+		abstract void updateEditor(SkillsPanel we, ISkill w);
 
-		private WeaponTypes(String name) {
+		private SkillTypes(String name) {
 			this.name = name;
 		}
 	}
 	
-	class WeaponsListRenderer extends  DefaultListCellRenderer {
+	class SkillListRenderer extends  DefaultListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-			IWeapon w= (IWeapon) value;
-			label.setText(w.getName());
-			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
+			ISkill s= (ISkill) value;
+			label.setText(s.getName());
+//			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
 			return label;
 		}
 	}

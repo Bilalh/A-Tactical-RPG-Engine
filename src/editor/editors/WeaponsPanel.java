@@ -80,7 +80,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	private JSpinner   infoInnerRange;
 	private JLabel     infoRangeL;
 	private JLabel     infoInnerRangeL;
-	private JLabel     infoInnerAbout;
+	private JLabel     infoAbout;
 
 	public WeaponsPanel(){
 		super("Weapon", 11, 11);
@@ -393,7 +393,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		
 
 		p.add(new JLabel("Infomation:"),  new CC().newline("30px").gap("4"));
-		p.add((infoInnerAbout = new JLabel("Info")), new CC().gap("4"));
+		p.add((infoAbout = new JLabel("Info")), new CC().gap("4"));
 
 		p.add(new JPanel());
 		return p;
@@ -540,7 +540,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			we.infoRange.setValue(w.getRange());
 			we.infoName.setText(w.getName());
 			we.infoStrength.setValue(w.getStrength());
-			we.infoInnerAbout.setText(this.getInfo());
+			we.infoAbout.setText(this.getInfo());
 			
 			ItemListener il = we.infoType.getItemListeners()[0];
 			we.infoType.removeItemListener(il);

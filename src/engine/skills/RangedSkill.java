@@ -15,15 +15,19 @@ public class RangedSkill extends AbstractSkill {
 
 	protected int range;
 
-	protected int numberOfTilesEffected; // Number of squares affected
+	protected int area; // Number of squares affected
 	protected Location startLocation;
 	
-	public RangedSkill(String name, int power, int range, int area, boolean targetOpposite, boolean includeCaster) {
+	public RangedSkill(){
 		super();
+	}
+	
+	public RangedSkill(String name, int power, int range, int area, boolean targetOpposite, boolean includeCaster) {
+		this();
 		this.name  = name;
 		this.power = power;
 		this.range = range;
-		this.numberOfTilesEffected  = area;
+		this.area  = area;
 		this.targetOpposite = targetOpposite;
 		this.includeCaster = includeCaster;
 	}
@@ -39,7 +43,7 @@ public class RangedSkill extends AbstractSkill {
 	
 	@Override
 	public Collection<Location> getArea(Location start, int width, int height){
-		HashSet<Location> results =  makeRange(start, width, height, numberOfTilesEffected);
+		HashSet<Location> results =  makeRange(start, width, height, area);
 		if (!includeCaster) results.remove(startLocation);
 		return results;
 	}
@@ -55,13 +59,13 @@ public class RangedSkill extends AbstractSkill {
 	}
 
 	/** @category Generated */
-	public int getNumberOfTilesEffected() {
-		return numberOfTilesEffected;
+	public int getArea() {
+		return area;
 	}
 
 	/** @category Generated */
-	public void setNumberOfTilesEffected(int area) {
-		this.numberOfTilesEffected = area;
+	public void setArea(int area) {
+		this.area = area;
 	}
 	
 }

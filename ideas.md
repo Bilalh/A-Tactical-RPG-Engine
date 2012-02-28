@@ -2,9 +2,8 @@ FIXME
 -----
 Check that finalHeight was always the same.
 
-
 AI
---
+---
 * Pathfinding -- done 
   * targets the unit with lowest hp for now.
 
@@ -15,8 +14,13 @@ Editor
 * Main editor for making game
 * Ai Unit placement
 * Unit creation
-* Item Creation
+* Item Creation -- done
 * Dialog loading
+
+ideas
+-----
+* Use ref counting for resources in editor, this allows checking e.g if a weapon is used, before it deleted 
+* Use base64 encoding.
 
 View
 ---

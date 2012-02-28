@@ -14,12 +14,23 @@ public interface ISkill extends Identifiable {
 
 	Collection<Location> getArea(Location start, int width, int height);
 
-	String getName();
-
-	int getPower();
-
 	boolean isTargetOpposite();
 
+	void setTargetOpposite(boolean targetOpposite);
+	
 	boolean isIncludeCaster();
+	
+	void setIncludeCaster(boolean includeCaster);
+	
+	String getName();
+	
+	void setName(String name);
+	
+	int getPower();
+
+	void setPower(int power);
+	 
+	 
+	
 	
 }
