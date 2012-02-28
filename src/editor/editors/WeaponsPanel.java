@@ -223,14 +223,6 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		weaponslist.repaint();
 	}
 
-	private LayoutManager createLayout() {
-		LC layC = new LC().fill().wrap();
-		AC colC = new AC().align("right", 1).fill(2, 4).grow(100, 2, 4).align("right", 3).gap("15", 2);
-		AC rowC = new AC().align("top", 7).gap("15!", 6).grow(100, 8);
-		return new MigLayout(layC, colC, rowC);
-	}
-
-	
 	@Override
 	protected  JComponent createLeftPane(){
 		IWeapon ww= new Spear(10,3);
@@ -308,6 +300,13 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		}
 	}
 	
+	protected LayoutManager createLayout() {
+		LC layC = new LC().fill().wrap();
+		AC colC = new AC().align("right", 1).fill(2, 4).grow(100, 2, 4).align("right", 3).gap("15", 2);
+		AC rowC = new AC().align("top", 7).gap("15!", 6).grow(100, 8);
+		return new MigLayout(layC, colC, rowC);
+	}
+
 	@Override
 	protected JPanel createInfoPanel() {
 		JPanel p = new JPanel(createLayout());

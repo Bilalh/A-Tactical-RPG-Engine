@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 import config.Config;
 
 import editor.editors.SkillsPanel;
+import editor.editors.UnitPanel;
 import editor.editors.WeaponsPanel;
 import editor.util.Prefs;
 import engine.assets.Skills;
@@ -39,6 +40,7 @@ public class Editor {
 	JFrame frame;
 	WeaponsPanel weaponsPanel;
 	SkillsPanel  skillsPanel;
+	UnitPanel    unitPanel;
 	
 	String projectPath = "projects/Test";
 	String projectName = "Test";
@@ -70,7 +72,7 @@ public class Editor {
 		JTabbedPane tabs  = new JTabbedPane();
 		tabs.addTab("Weapons",      (weaponsPanel = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel  = new SkillsPanel()));
-		tabs.addTab("Units",        new JPanel());
+		tabs.addTab("Units",        (unitPanel    = new UnitPanel()));
 		tabs.addTab("Maps",         new JPanel());
 		tabs.addTab("Story",        new JPanel());
 		tabs.addTab("Spritesheets", new JPanel());

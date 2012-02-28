@@ -66,19 +66,15 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		this.mapHeight  = mapHeight;
 		this.prefsName  = tile;
 		
-		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-			System.setProperty("apple.laf.useScreenMenuBar", "true");
-		}
-
 		// FIXME change
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");
 		_sheet = ResourceManager.instance().getCurrentItemSheet();
 		sheet  = new EditorSpriteSheet(_sheet);
 		
 		createMainPane(tile);
-		
+
+		// TODO change
 		Preferences pref = Prefs.getNode(tile+ "/panels/main");
-		System.out.println(pref);
 		int width = pref.getInt("width", 930);
 		int height = pref.getInt("height", 680);
 		
@@ -109,23 +105,8 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		mainSplit.setResizeWeight(1.0);
 		mainSplit.setBorder(null);
 		
-		tilesetPanel = new SpriteSheetPanel(this);
-		
-		tilesetPanel.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				refreashSprites();
-			}
-		});
-		tilesetPanel.setMinimumSize(new Dimension(150, 500));
-	
-		tilesetPanelWithHeader = new JPanel(new BorderLayout());
-		tilesetPanelWithHeader.add(tilesetPanel, BorderLayout.CENTER);
-		tilesetPanelWithHeader.add(createHeader("Icons"),BorderLayout.NORTH);
-
-		
 		JSplitPane paletteSplit = new JSplitPane(
-				JSplitPane.HORIZONTAL_SPLIT, true, mainSplit, tilesetPanelWithHeader);
+				JSplitPane.HORIZONTAL_SPLIT, true, mainSplit, createRightPanel());
 		paletteSplit.setOneTouchExpandable(true);
 		paletteSplit.setResizeWeight(1.0);
 	
@@ -168,10 +149,28 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		return header;
 	}
 	
+	protected JPanel createRightPanel(){
+		tilesetPanel = new SpriteSheetPanel(this);
+		
+		tilesetPanel.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				refreashSprites();
+			}
+		});
+		tilesetPanel.setMinimumSize(new Dimension(150, 500));
+	
+		tilesetPanelWithHeader = new JPanel(new BorderLayout());
+		tilesetPanelWithHeader.add(tilesetPanel, BorderLayout.CENTER);
+		tilesetPanelWithHeader.add(createHeader("Icons"),BorderLayout.NORTH);
+		return tilesetPanelWithHeader;
+	}
+	
 	// Subclasses make the infomation panel and left pane.
 	protected abstract JPanel createInfoPanel();
 	protected abstract JComponent createLeftPane();
 
+	
 	
 //	// Save window size and panel size 
 //	protected void onQuit() {
