@@ -57,6 +57,7 @@ import engine.unit.Unit;
 import engine.unit.UnitImages;
 
 /**
+ * Editor for skills
  * @author Bilal Hussain
  */
 public class SkillsPanel extends AbstactMapEditorPanel {
@@ -67,8 +68,6 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	private IMutableMapUnit mapUnit;
 	private OthersUnit guiUnit;
 
-	//FIXME finish
-	
 	// Weapons
 	private Location currentLocation;
 	private ISkill currentSkill;
@@ -122,6 +121,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		map.setUnitAt(currentLocation, guiUnit);
 		
 		setCurrentSkill((ISkill) skillListModel.getElementAt(0));
+		tilesetPanelWithHeader.setVisible(false);
 	}
 	
 	@Override
@@ -347,8 +347,9 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	protected JPanel createInfoPanel() {
 		JPanel p = new JPanel(createLayout());
 		
-		p.add(new JLabel("Icon:"), "gap 4");
-		p.add((infoIcon = new JLabel("        ")), "span, growx");
+		infoIcon = new JLabel("        ");
+//		p.add(new JLabel("Icon:"), "gap 4");
+//		p.add(infoIcon, "span, growx");
 		
 		p.add(new JLabel("Name:"), "gap 4");
 		p.add((infoName = new JTextField(15)), "span, growx");
@@ -441,7 +442,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	}
 	
 	/**
-	 * The current Weapon type. Also has methods for updating the editor and creating a new weapon
+	 * The current Skill type. Also has methods for updating the editor and creating a new skill.
 	 * @author Bilal Hussain
 	 */
 	static enum SkillTypes {

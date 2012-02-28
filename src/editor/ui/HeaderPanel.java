@@ -17,10 +17,11 @@ public class HeaderPanel extends JPanel {
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
+	protected void paintComponent(Graphics _g) {
+		Graphics2D g = (Graphics2D) _g;
 		Color backgroundColor = new Color(200, 200, 240);
 		g.setColor(backgroundColor);
-		((Graphics2D) g).fill(g.getClip());
+		g.fill(g.getClip());
 		g.setColor(backgroundColor.darker());
 		g.drawLine(0, getHeight() - 1, getWidth() - 1, getHeight() - 1);
 	}

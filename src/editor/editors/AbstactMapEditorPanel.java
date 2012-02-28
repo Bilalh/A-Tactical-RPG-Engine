@@ -47,6 +47,7 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 	// Gui elements
 	protected JScrollPane mapScrollPane;
 	protected SpriteSheetPanel tilesetPanel;
+	protected JPanel tilesetPanelWithHeader;
 	protected Packer packer = new Packer();
 
 	// The map view port 
@@ -118,13 +119,13 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		});
 		tilesetPanel.setMinimumSize(new Dimension(150, 500));
 	
-		JPanel tileHeader = new JPanel(new BorderLayout());
-		tileHeader.add(tilesetPanel, BorderLayout.CENTER);
-		tileHeader.add(createHeader("Icons"),BorderLayout.NORTH);
+		tilesetPanelWithHeader = new JPanel(new BorderLayout());
+		tilesetPanelWithHeader.add(tilesetPanel, BorderLayout.CENTER);
+		tilesetPanelWithHeader.add(createHeader("Icons"),BorderLayout.NORTH);
 
 		
 		JSplitPane paletteSplit = new JSplitPane(
-				JSplitPane.HORIZONTAL_SPLIT, true, mainSplit, tileHeader);
+				JSplitPane.HORIZONTAL_SPLIT, true, mainSplit, tilesetPanelWithHeader);
 		paletteSplit.setOneTouchExpandable(true);
 		paletteSplit.setResizeWeight(1.0);
 	
