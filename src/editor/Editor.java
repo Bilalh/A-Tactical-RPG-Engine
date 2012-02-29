@@ -42,15 +42,16 @@ import engine.assets.Weapons;
 public class Editor {
 	private static final Logger log = Logger.getLogger(Editor.class);
 	
-	JFrame frame;
+	JFrame       frame;
 	JTabbedPane  tabs;
 	WeaponsPanel weaponsPanel;
 	SkillsPanel  skillsPanel;
 	UnitsPanel   unitPanel;
+	MapsPanel    mapsPanel;
 	
 	String projectPath = "projects/Test";
 	String projectName = "Test";
-	
+
 	public Editor() {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -87,7 +88,7 @@ public class Editor {
 		tabs.addTab("Weapons",      (weaponsPanel = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel  = new SkillsPanel()));
 		tabs.addTab("Units",        (unitPanel    = new UnitsPanel()));
-//		tabs.addTab("Maps",         new JPanel());
+		tabs.addTab("Maps",         (mapsPanel    = new MapsPanel()));
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Spritesheets", new JPanel());
 //		tabs.addTab("Project",      new JPanel());
