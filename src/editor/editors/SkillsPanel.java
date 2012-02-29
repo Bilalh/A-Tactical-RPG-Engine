@@ -521,7 +521,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		}
 	}
 	
-	class SkillListRenderer extends  DefaultListCellRenderer {
+	public static class SkillListRenderer extends  DefaultListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
