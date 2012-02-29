@@ -3,9 +3,7 @@ package editor.editors;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.*;
 
 import javax.swing.*;
@@ -38,7 +36,7 @@ import engine.unit.Unit;
 public class UnitsPanel extends JPanel implements IRefreshable {
 	private static final long serialVersionUID = 6590057554995017334L;
 
-	private JList unitList;
+	private JList unitsList;
 	private DefaultListModel unitsListModel;
 	private IMutableUnit currentUnit;
 	
@@ -69,14 +67,14 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	}
 	
 	public void setUnits(Units ws){
-		ListSelectionListener lsl =  unitList.getListSelectionListeners()[0];
-		unitList.removeListSelectionListener(lsl);
+		ListSelectionListener lsl =  unitsList.getListSelectionListeners()[0];
+		unitsList.removeListSelectionListener(lsl);
 		unitsListModel.clear();
 		for (IMutableUnit w : ws.values()) {
 			unitsListModel.addElement(w);
 		}
-		unitList.addListSelectionListener(lsl);
-		unitList.setSelectedIndex(0);
+		unitsList.addListSelectionListener(lsl);
+		unitsList.setSelectedIndex(0);
 	}
 	
 	public void setCurrentUnit(IMutableUnit u){
@@ -92,7 +90,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	
 	private void changeName(){
 		currentUnit.setName(infoName.getText());
-		unitList.repaint();
+		unitsList.repaint();
 	}	
 	
 	private void changeWeapon(IWeapon w){
@@ -164,21 +162,31 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		uu.setName("New Unit");
 		
 		unitsListModel = new DefaultListModel();
-		unitList       = new JList(unitsListModel);
-		unitList.setCellRenderer(new UnitListRenderer());
+		unitsList       = new JList(unitsListModel);
+		unitsList.setCellRenderer(new UnitListRenderer());
 		unitsListModel.addElement(uu);
-		unitList.addListSelectionListener(new ListSelectionListener() {
+		unitsList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				IMutableUnit u =  (IMutableUnit) unitList.getSelectedValue();
+				IMutableUnit u =  (IMutableUnit) unitsList.getSelectedValue();
 				if (u == null) return;
 				setCurrentUnit(u);
 			}
 		});
-		unitList.setSelectedIndex(0);
+		unitsList.setSelectedIndex(0);
 
+		unitsList.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (unitsListModel.size() <= 1) return;
 
-		JScrollPane slist = new JScrollPane(unitList);
+				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+					deleteFromList(unitsList.getSelectedIndex());
+				}
+			}
+		});
+
+		JScrollPane slist = new JScrollPane(unitsList);
 		
 		JPanel p  = new JPanel(new BorderLayout());
 		p.add(slist, BorderLayout.CENTER);
@@ -189,6 +197,15 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		p.add(buttons, BorderLayout.SOUTH);
 		p.add(createHeader("All Units"),BorderLayout.NORTH);
 		return p;
+	}
+	
+	private void deleteFromList(int index){
+		assert unitsListModel.size() >=2;
+		assert index != -1;
+		int nextIndex = index == 0 ? unitsListModel.size()-1 : index - 1;
+		System.out.printf("(%d,%d)\n", index, nextIndex );
+		unitsList.setSelectedIndex(nextIndex);
+		unitsListModel.remove(index);
 	}
 	
 	private class DeleteAction extends AbstractAction {
@@ -206,12 +223,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 				if (unitsListModel.size() <=1){
 					return;
 				}
-				int index = unitList.getSelectedIndex();
-				assert index != -1;
-				int nextIndex = index == 0 ? unitsListModel.size()-1 : index -1;
-				unitList.setSelectedIndex(nextIndex);
-				unitsListModel.remove(index);
-				
+				deleteFromList(unitsList.getSelectedIndex());
 			}
 		}
 
@@ -230,7 +242,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 				int index = unitsListModel.size();
 				w.setName("New Unit " + (index +1));
 				unitsListModel.addElement(w);
-				unitList.setSelectedIndex(index);
+				unitsList.setSelectedIndex(index);
 			}
 		}
 

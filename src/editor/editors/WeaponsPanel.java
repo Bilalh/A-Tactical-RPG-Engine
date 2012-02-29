@@ -1,9 +1,7 @@
 package editor.editors;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -243,6 +241,17 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			}
 		});
 		
+		weaponslist.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (weaponslistModel.size() <= 1) return;
+
+				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+					deleteFromList(weaponslist.getSelectedIndex());
+				}
+			}
+		});
+
 		JScrollPane slist = new JScrollPane(weaponslist);
 		
 		JPanel p  = new JPanel(new BorderLayout());
@@ -256,7 +265,12 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		return p;
 	}
 	
-
+	private void deleteFromList(int index){
+		assert index != -1;
+		int nextIndex = index == 0 ? weaponslistModel.size()-1 : index -1;
+		weaponslist.setSelectedIndex(nextIndex);
+		weaponslistModel.remove(index);
+	}
 	
 	private class DeleteAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;

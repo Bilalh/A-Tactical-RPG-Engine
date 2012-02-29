@@ -187,6 +187,7 @@ public class Editor {
 		
 		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
 		
+		//TODO paths
 		Weapons ws = Config.loadPreference("assets/weapons.xml");
 		AssertStore.instance().loadWeapons(ws);
 		weaponsPanel.setWeapons(ws);

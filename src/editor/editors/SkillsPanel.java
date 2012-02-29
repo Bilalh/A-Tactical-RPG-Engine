@@ -1,9 +1,7 @@
 package editor.editors;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -89,7 +87,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	private JLabel     infoRangeL;
 	private JLabel     infoAreaL;
 	
-	private JComboBox   infoIncludeCaster;
+	private JComboBox  infoIncludeCaster;
 	private JLabel     infoAbout;
 
 	public SkillsPanel(){
@@ -282,7 +280,6 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		skillListModel.addElement(ww);
 		skillList.setSelectedIndex(0);
 		skillList.addListSelectionListener(new ListSelectionListener() {
-
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				ISkill w =  (ISkill) skillList.getSelectedValue();
@@ -291,17 +288,35 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 			}
 		});
 		
-		JScrollPane slist = new JScrollPane(skillList);
+		skillList.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (skillListModel.size() <= 1) return;
+
+				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+					deleteFromList(skillList.getSelectedIndex());
+				}
+			}
+		});
 		
+		JScrollPane slist = new JScrollPane(skillList);
 		JPanel p  = new JPanel(new BorderLayout());
 		p.add(slist, BorderLayout.CENTER);
-		
+
 		JPanel buttons =new JPanel();
 		buttons.add(new TButton(new DeleteAction()));
 		buttons.add(new TButton(new AddAction()));
 		p.add(buttons, BorderLayout.SOUTH);
 		p.add(createHeader("All Skills"),BorderLayout.NORTH);
 		return p;
+	}
+	
+	
+	private void deleteFromList(int index){
+		assert index != -1;
+		int nextIndex = index == 0 ? skillListModel.size()-1 : index -1;
+		skillList.setSelectedIndex(nextIndex);
+		skillListModel.remove(index);
 	}
 	
 	private class DeleteAction extends AbstractAction {
@@ -315,16 +330,8 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// Must have at lest one weapon
-			if (skillListModel.size() <=1){
-				return;
-			}
-			int index = skillList.getSelectedIndex();
-			assert index != -1;
-			int nextIndex = index == 0 ? skillListModel.size()-1 : index -1;
-			skillList.setSelectedIndex(nextIndex);
-			skillListModel.remove(index);
-			
+			// Must have at lest one skill
+			deleteFromList(skillList.getSelectedIndex());
 		}
 	}
 	
