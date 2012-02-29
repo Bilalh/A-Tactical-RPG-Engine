@@ -30,7 +30,7 @@ import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 
 /**
- * Editor for untis
+ * Editor for units
  * @author Bilal Hussain
  */
 public class UnitsPanel extends JPanel implements IRefreshable {
