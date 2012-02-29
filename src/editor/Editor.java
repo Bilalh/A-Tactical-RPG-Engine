@@ -30,7 +30,9 @@ import editor.editors.SkillsPanel;
 import editor.editors.UnitsPanel;
 import editor.editors.WeaponsPanel;
 import editor.util.Prefs;
+import engine.assets.AssertStore;
 import engine.assets.Skills;
+import engine.assets.Units;
 import engine.assets.Weapons;
 
 /**
@@ -41,9 +43,10 @@ public class Editor {
 	private static final Logger log = Logger.getLogger(Editor.class);
 	
 	JFrame frame;
+	JTabbedPane  tabs;
 	WeaponsPanel weaponsPanel;
 	SkillsPanel  skillsPanel;
-	UnitsPanel    unitPanel;
+	UnitsPanel   unitPanel;
 	
 	String projectPath = "projects/Test";
 	String projectName = "Test";
@@ -53,7 +56,7 @@ public class Editor {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
 		frame = new JFrame("Tacical Engine Editor");
-		frame.setContentPane(createContentPane());
+		frame.setContentPane((tabs = createTabs()));
 		frame.setJMenuBar(createMenubar());
 		
 		Preferences pref = Prefs.getNode("main/panels/main");
@@ -76,8 +79,7 @@ public class Editor {
 		return weaponsPanel.getWeapons();
 	}
 	
-	private Container createContentPane() {
-
+	private JTabbedPane createTabs() {
 		//TODO change
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 
@@ -154,6 +156,10 @@ public class Editor {
 		Config.savePreferencesToResources(ss, "assets/skills.xml");
 		log.info(ss);
 		
+		Units us = unitPanel.getUnits();
+		Config.savePreferencesToResources(us, "assets/units.xml");
+		log.info(us);
+		
 		// Images
 		File images = new File(resources, "images");
 		images.mkdir();
@@ -182,12 +188,20 @@ public class Editor {
 		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
 		
 		Weapons ws = Config.loadPreference("assets/weapons.xml");
+		AssertStore.instance().loadWeapons(ws);
 		weaponsPanel.setWeapons(ws);
 		log.debug(ws);
 		
 		Skills ss = Config.loadPreference("assets/skills.xml");
 		skillsPanel.setSkills(ss);
 		log.info(ss);
+		
+		Units uu = Config.loadPreference("assets/units.xml");
+		unitPanel.setUnits(uu, this);
+		log.info(uu);
+		
+		IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
+        panel.panelSelected(Editor.this);
 	}
 	
 	// Save window size and panel size 

@@ -28,15 +28,15 @@ public class Unit implements IMutableUnit {
 
 	private String name;
 
-	private int maxHp;
-	private int move;
+	private int maxHp    = 1;
+	private int move     = 1;
 	
-	private int strength;
-	private int defence;	
-	private int speed;
+	private int strength = 1;
+	private int defence  = 1;	
+	private int speed    = 1;
 	
-	private int level;
-	private int exp;
+	private int level    = 1;
+	private int exp      = 0;
 
 	@XStreamAsAttribute
 	private final UUID uuid;
@@ -53,7 +53,7 @@ public class Unit implements IMutableUnit {
 	private transient ArrayList<ISkill> skills;
 	
 	public Unit(){
-		uuid = UUID.randomUUID();
+		uuid      = UUID.randomUUID();
 		this.name = uuid.toString();
 		imageData = new UnitImages();
 		weapon    = new MeleeWeapon(1);

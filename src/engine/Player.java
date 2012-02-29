@@ -3,6 +3,7 @@ package engine;
 import java.util.ArrayList;
 
 import common.interfaces.IUnit;
+import engine.unit.IMutableUnit;
 
 
 /**
@@ -10,18 +11,18 @@ import common.interfaces.IUnit;
  */
 public class Player {
 
-	protected ArrayList<IUnit> units = new ArrayList<IUnit>();
+	protected ArrayList<IMutableUnit> units = new ArrayList<IMutableUnit>();
 	
 	public Player(){
 		
 	}
 
-	public void addUnit(IUnit u){
+	public void addUnit(IMutableUnit u){
 		units.add(u);
 	}
 
 	/** @category Generated */
-	public ArrayList<IUnit> getUnits() {
+	public ArrayList<IMutableUnit> getUnits() {
 		return units;
 	}
 	

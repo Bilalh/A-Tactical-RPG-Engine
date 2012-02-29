@@ -1,0 +1,12 @@
+<unitImages>
+  <spriteSheetLocation>images/characters/Boy.png</spriteSheetLocation>
+  <animations>
+    <entry>
+      <string>west</string>
+      <unitAnimation>
+        <name>west</name>
+        <numberOfFrames>4</numberOfFrames>
+      </unitAnimation>
+    </entry>
+  </animations>
+</unitImages>

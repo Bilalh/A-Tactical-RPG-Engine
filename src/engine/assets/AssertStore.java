@@ -2,6 +2,8 @@ package engine.assets;
 
 import java.util.*;
 
+import org.apache.log4j.Logger;
+
 import common.gui.ResourceManager;
 import common.gui.Sprite;
 import common.interfaces.IWeapon;
@@ -13,7 +15,8 @@ import engine.skills.ISkill;
  * @author Bilal Hussain
  */
 public class AssertStore {
-
+	private static final Logger log = Logger.getLogger(AssertStore.class);
+	
 	private static AssertStore singleton = new AssertStore();
 	private Map<UUID, IWeapon> weapons   = Collections.synchronizedMap(new HashMap<UUID, IWeapon>());
 	private Map<UUID, ISkill>  skills    = Collections.synchronizedMap(new HashMap<UUID, ISkill>());
@@ -39,11 +42,23 @@ public class AssertStore {
 	}
 	
 	public void loadAssets(AssetsLocations paths){
+		weapons.clear();
+		skills.clear();
+		
 		Weapons ws = Config.loadPreference(paths.weaponsPath);
 		weapons.putAll(ws.getMap());
 		
 		Skills ss  = Config.loadPreference(paths.skillsPath);
 		skills.putAll(ss.getMap());
+	}
+
+	
+	// For editor 
+	
+	public void loadWeapons(Weapons w){
+		weapons.clear();
+		weapons.putAll(w.getMap());
+		log.info("Loaded weapons");
 	}
 	
 	private AssertStore() {

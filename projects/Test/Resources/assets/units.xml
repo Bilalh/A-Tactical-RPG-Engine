@@ -1,0 +1,36 @@
+<units>
+  <entry>
+    <uuid>620482ab-3a91-49a8-b65d-e9507e2c5dbb</uuid>
+    <unit uuid="620482ab-3a91-49a8-b65d-e9507e2c5dbb">
+      <name>Elena</name>
+      <maxHp>15</maxHp>
+      <move>3</move>
+      <strength>25</strength>
+      <defence>20</defence>
+      <speed>20</speed>
+      <level>1</level>
+      <exp>0</exp>
+      <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
+      <weight>0</weight>
+      <wepaonId>64295f0f-ccc4-4c92-a61b-21ab691ac624</wepaonId>
+      <skillIds/>
+    </unit>
+  </entry>
+  <entry>
+    <uuid>876ff026-d02d-4883-a76a-bf39ce94e7e2</uuid>
+    <unit uuid="876ff026-d02d-4883-a76a-bf39ce94e7e2">
+      <name>Boy</name>
+      <maxHp>30</maxHp>
+      <move>4</move>
+      <strength>30</strength>
+      <defence>10</defence>
+      <speed>60</speed>
+      <level>1</level>
+      <exp>0</exp>
+      <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
+      <weight>0</weight>
+      <skillIds/>
+	  <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
+    </unit>
+  </entry>
+</units>

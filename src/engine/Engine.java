@@ -11,11 +11,13 @@ import view.Main;
 import config.Config;
 import engine.assets.AssertStore;
 import engine.assets.AssetsLocations;
+import engine.assets.Units;
 import engine.assets.Weapons;
 import engine.items.RangedWeapon;
 import engine.items.Spear;
 import engine.map.Map;
 import engine.map.interfaces.IMap;
+import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
 
@@ -62,8 +64,8 @@ public class Engine {
 		u.setDefence(10);
 		u.setMaxHp(30);
 		u.setImageData("images/characters/princess-animations.xml",ui);
-		
-//		IWeapon w = util.Util.getClassInstancebyName("custom.CustomSpear");
+
+		//		IWeapon w = util.Util.getClassInstancebyName("custom.CustomSpear");
 		IWeapon w = new Spear();
 		w.setRange(3);
 		w.setStrength(2);
