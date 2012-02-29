@@ -32,6 +32,7 @@ import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
+import editor.Editor;
 import editor.map.EditorIsoTile;
 import editor.map.EditorMapPanel;
 import editor.map.others.OthersMap;
@@ -259,13 +260,18 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		showAttackRangeAndArea();
 	}
 
+	@Override
+	public void panelSelected(Editor editor) {
+		// FIXME panelSelected method
+		
+	}
+	
 	private LayoutManager createLayout() {
 		LC layC = new LC().fill().wrap();
 		AC colC = new AC().align("right", 1).fill(2, 4).grow(100, 2, 4).align("right", 3).gap("15", 2);
 		AC rowC = new AC().align("top", 7).gap("15!", 6).grow(100, 8);
 		return new MigLayout(layC, colC, rowC);
 	}
-
 	
 	@Override
 	protected  JComponent createLeftPane(){
@@ -297,8 +303,6 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		p.add(createHeader("All Skills"),BorderLayout.NORTH);
 		return p;
 	}
-	
-
 	
 	private class DeleteAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;

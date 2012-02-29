@@ -32,7 +32,7 @@ import editor.util.Prefs;
  * Infrastructure for an editor panel that need a map renderer. 
  * @author Bilal Hussain
  */
-public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMapPanelListener, ISpriteProvider<MutableSprite> {
+public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMapPanelListener, ISpriteProvider<MutableSprite>, IRefreshable {
 	private static final Logger log = Logger.getLogger(AbstactMapEditorPanel.class);
 	private static final long serialVersionUID = -8019374138498647481L;
 

@@ -32,6 +32,7 @@ import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
+import editor.Editor;
 import editor.map.EditorMapPanel;
 import editor.map.others.OthersMap;
 import editor.map.others.OthersUnit;
@@ -298,6 +299,12 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			weaponslistModel.addElement(w);
 			weaponslist.setSelectedIndex(index);
 		}
+	}
+	
+	@Override
+	public void panelSelected(Editor editor) {
+		// FIXME panelSelected method
+		
 	}
 	
 	protected LayoutManager createLayout() {

@@ -25,8 +25,9 @@ import common.gui.ResourceManager;
 
 import config.Config;
 
+import editor.editors.IRefreshable;
 import editor.editors.SkillsPanel;
-import editor.editors.UnitPanel;
+import editor.editors.UnitsPanel;
 import editor.editors.WeaponsPanel;
 import editor.util.Prefs;
 import engine.assets.Skills;
@@ -42,7 +43,7 @@ public class Editor {
 	JFrame frame;
 	WeaponsPanel weaponsPanel;
 	SkillsPanel  skillsPanel;
-	UnitPanel    unitPanel;
+	UnitsPanel    unitPanel;
 	
 	String projectPath = "projects/Test";
 	String projectName = "Test";
@@ -70,19 +71,34 @@ public class Editor {
 		frame.setVisible(true);
 	}
 
+	
+	public Weapons getWeapons(){
+		return weaponsPanel.getWeapons();
+	}
+	
 	private Container createContentPane() {
 
 		//TODO change
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 
 		JTabbedPane tabs  = new JTabbedPane();
-		tabs.addTab("Units",        (unitPanel    = new UnitPanel()));
 		tabs.addTab("Weapons",      (weaponsPanel = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel  = new SkillsPanel()));
-		tabs.addTab("Maps",         new JPanel());
-		tabs.addTab("Story",        new JPanel());
-		tabs.addTab("Spritesheets", new JPanel());
-		tabs.addTab("Project",      new JPanel());
+		tabs.addTab("Units",        (unitPanel    = new UnitsPanel()));
+//		tabs.addTab("Maps",         new JPanel());
+//		tabs.addTab("Story",        new JPanel());
+//		tabs.addTab("Spritesheets", new JPanel());
+//		tabs.addTab("Project",      new JPanel());
+		
+		tabs.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+		          JTabbedPane tabs   = (JTabbedPane) e.getSource();
+		          IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
+		          panel.panelSelected(Editor.this);
+			}
+		});
+		
 		return tabs;
 	}
 
