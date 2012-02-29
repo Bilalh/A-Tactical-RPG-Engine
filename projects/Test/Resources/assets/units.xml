@@ -29,8 +29,8 @@
       <exp>0</exp>
       <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
       <weight>0</weight>
+      <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
       <skillIds/>
-	  <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
     </unit>
   </entry>
 </units>

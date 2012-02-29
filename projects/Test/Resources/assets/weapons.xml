@@ -10,6 +10,15 @@
     </engine.items.RangedWeapon>
   </entry>
   <entry>
+    <uuid>0f0dee32-06de-4f25-ba3d-acb110afc52c</uuid>
+    <engine.items.Spear uuid="0f0dee32-06de-4f25-ba3d-acb110afc52c">
+      <name>Longicolnis</name>
+      <strength>5</strength>
+      <range>3</range>
+      <imageRef>3-15</imageRef>
+    </engine.items.Spear>
+  </entry>
+  <entry>
     <uuid>3e07fa06-184b-41a1-9d2a-5ae87d97f01d</uuid>
     <engine.items.Around uuid="3e07fa06-184b-41a1-9d2a-5ae87d97f01d">
       <name>Ball</name>
@@ -31,10 +40,10 @@
   <entry>
     <uuid>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</uuid>
     <engine.items.MeleeWeapon uuid="fd54889b-0031-40e2-8a21-b5f2f7d9bb39">
-      <name>Short Sword</name>
-      <strength>1</strength>
+      <name>Oracion</name>
+      <strength>4</strength>
       <range>1</range>
-      <imageRef>0-0</imageRef>
+      <imageRef>0-12</imageRef>
     </engine.items.MeleeWeapon>
   </entry>
 </weapons>

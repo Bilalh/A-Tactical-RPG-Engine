@@ -68,7 +68,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		return ws;
 	}
 	
-	public void setUnits(Units ws, Editor editor){
+	public void setUnits(Units ws){
 		ListSelectionListener lsl =  unitList.getListSelectionListeners()[0];
 		unitList.removeListSelectionListener(lsl);
 		unitsListModel.clear();
@@ -77,6 +77,16 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		}
 		unitList.addListSelectionListener(lsl);
 		unitList.setSelectedIndex(0);
+	}
+	
+	public void setCurrentUnit(IMutableUnit u){
+		infoName.setName(u.getName());
+		infoWeapon.setSelectedItem(u.getWeapon());
+		infoStrength.setValue(u.getStrength());
+		infoDefence.setValue(u.getDefence());
+		infoSpeed.setValue(u.getSpeed());
+		infoMove.setValue(u.getMove());
+		infoHp.setValue(u.getMaxHp());
 	}
 	
 	@Override
@@ -115,16 +125,16 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		uu.setName("New Unit");
 		
 		unitsListModel = new DefaultListModel();
-		unitList = new JList(unitsListModel);
+		unitList       = new JList(unitsListModel);
 		unitList.setCellRenderer(new UnitListRenderer());
 		unitsListModel.addElement(uu);
 		unitList.setSelectedIndex(0);
 		unitList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				IMutableUnit w =  (IMutableUnit) unitList.getSelectedValue();
-				if (w == null) return;
-//				setCurrentWeapon(w);
+				IMutableUnit u =  (IMutableUnit) unitList.getSelectedValue();
+				if (u == null) return;
+				setCurrentUnit(u);
 			}
 		});
 		

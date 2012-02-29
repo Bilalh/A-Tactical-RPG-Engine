@@ -197,7 +197,7 @@ public class Editor {
 		log.info(ss);
 		
 		Units uu = Config.loadPreference("assets/units.xml");
-		unitPanel.setUnits(uu, this);
+		unitPanel.setUnits(uu);
 		log.info(uu);
 		
 		IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
