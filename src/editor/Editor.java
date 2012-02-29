@@ -21,6 +21,8 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
+import common.gui.ResourceManager;
+
 import config.Config;
 
 import editor.editors.SkillsPanel;
@@ -69,10 +71,14 @@ public class Editor {
 	}
 
 	private Container createContentPane() {
+
+		//TODO change
+		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
+
 		JTabbedPane tabs  = new JTabbedPane();
+		tabs.addTab("Units",        (unitPanel    = new UnitPanel()));
 		tabs.addTab("Weapons",      (weaponsPanel = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel  = new SkillsPanel()));
-		tabs.addTab("Units",        (unitPanel    = new UnitPanel()));
 		tabs.addTab("Maps",         new JPanel());
 		tabs.addTab("Story",        new JPanel());
 		tabs.addTab("Spritesheets", new JPanel());

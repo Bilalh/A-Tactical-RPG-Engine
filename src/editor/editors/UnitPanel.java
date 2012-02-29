@@ -39,16 +39,14 @@ public class UnitPanel extends JPanel {
 	private DefaultListModel weaponslistModel;
 	
 	// Infopanel controls
-	private JLabel     infoIcon;
 	private JTextField infoName;
-	private JComboBox  infoType;
+	private JComboBox  infoWeapon;
 	private JSpinner   infoStrength;
-	private JSpinner   infoRange;
-	private JSpinner   infoInnerRange;
-	private JLabel     infoRangeL;
-	private JLabel     infoInnerRangeL;
-	private JLabel     infoAbout;
+	private JSpinner   infoDefence;
+	private JSpinner   infoSpeed;
+	private JSpinner   infoMove;
 
+	
 	public UnitPanel(){
 		super(new BorderLayout());
 		createMainPane();
@@ -97,16 +95,13 @@ public class UnitPanel extends JPanel {
 	
 	protected LayoutManager createLayout() {
 		LC layC = new LC().fill().wrap();
-		AC colC = new AC().align("right", 1).fill(2, 4).grow(100, 2, 4).align("right", 3).gap("15", 2);
+		AC colC = new AC().align("right", 1).fill(1, 3).grow(100, 1, 3).align("right", 3).gap("15", 1,3);
 		AC rowC = new AC().align("top", 7).gap("15!", 6).grow(100, 8);
 		return new MigLayout(layC, colC, rowC);
 	}
 
 	protected JPanel createInfoPanel() {
 		JPanel p = new JPanel(createLayout());
-		
-		p.add(new JLabel("Icon:"), "gap 4");
-		p.add((infoIcon = new JLabel("        ")), "span, growx");
 		
 		p.add(new JLabel("Name:"), "gap 4");
 		p.add((infoName = new JTextField(15)), "span, growx");
@@ -129,20 +124,20 @@ public class UnitPanel extends JPanel {
 			}
 		});
 		
-		infoType = new JComboBox(WeaponTypes.values());
-		infoType.setEditable(false);
+		infoWeapon = new JComboBox(WeaponTypes.values());
+		infoWeapon.setEditable(false);
 		p.add(new JLabel("Type:"), "gap 4");
-		infoType.addItemListener(new ItemListener() {
+		infoWeapon.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				WeaponTypes t= (WeaponTypes) e.getItem();
 //				changeType(t);
 			}
 		});
-		p.add(infoType, "span, growx");
+		p.add(infoWeapon, "span, growx");
 
 		
-		p.add(new JLabel("Strength:"), "gap 4");
+		p.add(new JLabel("Strength:"));
 		infoStrength = new JSpinner(new SpinnerNumberModel(1, 0, 1000, 1));
 		
 		infoStrength.addChangeListener(new ChangeListener() {
@@ -151,44 +146,45 @@ public class UnitPanel extends JPanel {
 //				changeStength(((Number)infoStrength.getValue()).intValue());
 			}
 		});
+		p.add(infoStrength, new CC().alignX("leading").maxWidth("70"));
+
 		
-		p.add(infoStrength, new CC().alignX("leading").maxWidth("70").wrap());
+		p.add(new JLabel("Defence:"));
+		infoDefence = new JSpinner(new SpinnerNumberModel(1, 0, 1000, 1));
 		
-		p.add((infoRangeL = new JLabel("Range:")), "gap 4");
-		infoRange = new JSpinner(new SpinnerNumberModel(1, 1, 9, 1));
-		
-		infoRange.addChangeListener(new ChangeListener() {
+		infoDefence.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-//				changeRange(((Number)infoRange.getValue()).intValue());
+//				changeStength(((Number)infoStrength.getValue()).intValue());
 			}
 		});
-		p.add(infoRange,new CC().alignX("leading").maxWidth("70").wrap());
-
+		p.add(infoDefence, new CC().alignX("leading").maxWidth("70").wrap());
 		
-		p.add((infoInnerRangeL = new JLabel("Inner Range:")), "gap 4");
-		infoInnerRange = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));
-		infoInnerRange.addChangeListener(new ChangeListener() {
+		p.add(new JLabel("Speed:"));
+		infoSpeed = new JSpinner(new SpinnerNumberModel(1, 0, 1000, 1));
+		
+		infoSpeed.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				int inner = ((Number)infoInnerRange.getValue()).intValue();
-				int outer = ((Number)infoRange.getValue()).intValue();
-				if (inner >= outer){
-					inner  = outer-1;
-					infoInnerRange.setValue(inner);
-					return;
-				}
-//				changeInnerRange(inner);
+//				changeStength(((Number)infoStrength.getValue()).intValue());
 			}
-
 		});
-		p.add(infoInnerRange,  new CC().alignX("leading").maxWidth("70").wrap());
+		p.add(infoSpeed, new CC().alignX("leading").maxWidth("70"));
+
 		
-
-		p.add(new JLabel("Infomation:"),  new CC().newline("30px").gap("4"));
-		p.add((infoAbout = new JLabel("Info")), new CC().gap("4"));
-
-		p.add(new JPanel());
+		p.add(new JLabel("Move:"));
+		infoMove = new JSpinner(new SpinnerNumberModel(1, 0, 1000, 1));
+		
+		infoMove.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+//				changeStength(((Number)infoStrength.getValue()).intValue());
+			}
+		});
+		p.add(infoMove, new CC().alignX("leading").maxWidth("70").wrap());
+		
+		
+		
 		return p;
 	}
 	
