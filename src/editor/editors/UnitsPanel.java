@@ -80,7 +80,8 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	}
 	
 	public void setCurrentUnit(IMutableUnit u){
-		infoName.setName(u.getName());
+		currentUnit = u;
+		infoName.setText(u.getName());
 		infoWeapon.setSelectedItem(u.getWeapon());
 		infoStrength.setValue(u.getStrength());
 		infoDefence.setValue(u.getDefence());
@@ -89,10 +90,44 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoHp.setValue(u.getMaxHp());
 	}
 	
+	private void changeName(){
+		currentUnit.setName(infoName.getText());
+		unitList.repaint();
+	}	
+	
+	private void changeWeapon(IWeapon w){
+		assert w != null;
+		assert currentUnit != null;
+		currentUnit.setWeapon(w);
+	}	
+
+	private void changeStrength(int value){
+		currentUnit.setStrength(value);
+	}	
+	
+	private void changeDefence(int value){
+		currentUnit.setDefence(value);
+	}	
+
+	private void changeSpeed(int value){
+		currentUnit.setSpeed(value);
+	}	
+
+	private void changeMove(int value){
+		currentUnit.setMove(value);
+	}	
+
+	private void changeHp(int value){
+		currentUnit.setMaxHp(value);
+	}	
+	
+	
 	@Override
-	public void panelSelected(Editor editor) {
+	public synchronized void panelSelected(Editor editor) {
 		// FIXME panelSelected method
 		DefaultComboBoxModel cbm = new DefaultComboBoxModel(editor.getWeapons().values().toArray());
+		ItemListener il =  infoWeapon.getItemListeners()[0];
+		infoWeapon.removeItemListener(il);
 		infoWeapon.removeAllItems();
 		
 		Weapons ww = editor.getWeapons();
@@ -109,11 +144,15 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		for (IWeapon w : editor.getWeapons().values()) {
 			infoWeapon.addItem(w);
 		}
+		if (currentUnit != null)
+		infoWeapon.addItemListener(il);
+		setCurrentUnit(currentUnit);
 	}
 
 	protected void createMainPane() {
+		JPanel p = createInfoPanel();
 		JSplitPane mainSplit = new JSplitPane(
-				JSplitPane.HORIZONTAL_SPLIT, true, createLeftPane(), createInfoPanel());
+				JSplitPane.HORIZONTAL_SPLIT, true, createLeftPane(), p);
 		mainSplit.setOneTouchExpandable(true);
 		mainSplit.setResizeWeight(0.05);
 		mainSplit.setBorder(null);
@@ -128,7 +167,6 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		unitList       = new JList(unitsListModel);
 		unitList.setCellRenderer(new UnitListRenderer());
 		unitsListModel.addElement(uu);
-		unitList.setSelectedIndex(0);
 		unitList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -137,7 +175,9 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 				setCurrentUnit(u);
 			}
 		});
-		
+		unitList.setSelectedIndex(0);
+
+
 		JScrollPane slist = new JScrollPane(unitList);
 		
 		JPanel p  = new JPanel(new BorderLayout());
@@ -155,7 +195,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			private static final long serialVersionUID = 4069963919157697524L;
 	
 			public DeleteAction() {
-				putValue(NAME, "Delete the selected weapon");
+				putValue(NAME, "Delete the selected Unit");
 	//			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 				putValue(SMALL_ICON,new ListRemoveIcon(16, 16));
 			}
@@ -179,7 +219,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			private static final long serialVersionUID = 4069963919157697524L;
 	
 			public AddAction() {
-				putValue(NAME, "Add a new Weapon");
+				putValue(NAME, "Add a new Unit");
 	//			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 				putValue(SMALL_ICON,new ListAllIcon(16, 16));
 			}
@@ -188,7 +228,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			public void actionPerformed(ActionEvent e) {
 				IMutableUnit w  = new Unit();
 				int index = unitsListModel.size();
-				w.setName("New Unit " +index);
+				w.setName("New Unit " + (index +1));
 				unitsListModel.addElement(w);
 				unitList.setSelectedIndex(index);
 			}
@@ -206,22 +246,22 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		
 		p.add(new JLabel("Name:"), "gap 4");
 		p.add((infoName = new JTextField(15)), "span, growx");
-		infoName.setText("New Weapon");
+		infoName.setText("New Unit");
 		infoName.getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-//				changeName();
+				changeName();
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-//				changeName();
+				changeName();
 			}
 			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-//				changeName();
+				changeName();
 			}
 		});
 		
@@ -232,8 +272,10 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoWeapon.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
+				if (infoWeapon.getItemCount() <= 0) return;
+				
 				IWeapon w= (IWeapon) e.getItem();
-//				changeType(t);
+				changeWeapon(w);
 			}
 		});
 		p.add(infoWeapon, "span, growx");
@@ -245,7 +287,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoStrength.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-//				changeStength(((Number)infoStrength.getValue()).intValue());
+				changeStrength(((Number)infoStrength.getValue()).intValue());
 			}
 		});
 		p.add(infoStrength, new CC().alignX("leading").maxWidth("70"));
@@ -257,7 +299,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoDefence.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-//				changeStength(((Number)infoStrength.getValue()).intValue());
+				changeDefence(((Number)infoDefence.getValue()).intValue());
 			}
 		});
 		p.add(infoDefence, new CC().alignX("leading").maxWidth("70").wrap());
@@ -268,7 +310,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoSpeed.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-//				changeStength(((Number)infoStrength.getValue()).intValue());
+				changeSpeed(((Number)infoSpeed.getValue()).intValue());
 			}
 		});
 		p.add(infoSpeed, new CC().alignX("leading").maxWidth("70"));
@@ -280,7 +322,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoMove.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-//				changeStength(((Number)infoStrength.getValue()).intValue());
+				changeMove(((Number)infoMove.getValue()).intValue());
 			}
 		});
 		p.add(infoMove, new CC().alignX("leading").maxWidth("70").wrap());
@@ -292,13 +334,11 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoHp.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-//				changeStength(((Number)infoStrength.getValue()).intValue());
+				changeHp(((Number)infoHp.getValue()).intValue());
 			}
 		});
 		p.add(infoHp, new CC().alignX("leading").maxWidth("70").wrap());
-	
-		
-		
+		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 		return p;
 	}
 	

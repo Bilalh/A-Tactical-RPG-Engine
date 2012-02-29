@@ -58,7 +58,7 @@ public class AssertStore {
 	public void loadWeapons(Weapons w){
 		weapons.clear();
 		weapons.putAll(w.getMap());
-		log.info("Loaded weapons");
+		log.debug("Loaded weapons");
 	}
 	
 	private AssertStore() {

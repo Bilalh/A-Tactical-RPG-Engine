@@ -174,7 +174,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		editorMapPanel.repaintMap();
 	}
 	
-	private void changeStength(int intValue) {
+	private void changeStrength(int intValue) {
 		currentSkill.setPower(intValue);
 	}
 	
@@ -341,7 +341,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		public void actionPerformed(ActionEvent e) {
 			RangedSkill w  = new RangedSkill();
 			int index = skillListModel.size();
-			w.setName("New Skill " +index);
+			w.setName("New Skill " + (index +1));
 			skillListModel.addElement(w);
 			skillList.setSelectedIndex(index);
 		}
@@ -395,7 +395,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		infoStrength.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				changeStength(((Number)infoStrength.getValue()).intValue());
+				changeStrength(((Number)infoStrength.getValue()).intValue());
 			}
 		});
 		

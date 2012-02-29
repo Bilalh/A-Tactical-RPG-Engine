@@ -144,7 +144,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		editorMapPanel.repaintMap();
 	}
 	
-	private void changeStength(int intValue) {
+	private void changeStrength(int intValue) {
 		currentWeapon.setStrength(intValue);
 	}
 	
@@ -295,7 +295,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		public void actionPerformed(ActionEvent e) {
 			MeleeWeapon w  = new MeleeWeapon();
 			int index = weaponslistModel.size();
-			w.setName("New Weapon " +index);
+			w.setName("New Weapon " + (index +1));
 			weaponslistModel.addElement(w);
 			weaponslist.setSelectedIndex(index);
 		}
@@ -361,7 +361,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		infoStrength.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				changeStength(((Number)infoStrength.getValue()).intValue());
+				changeStrength(((Number)infoStrength.getValue()).intValue());
 			}
 		});
 		
