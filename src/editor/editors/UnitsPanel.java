@@ -54,10 +54,12 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	private JSpinner   infoHp;
 //	private JSpinner   infoMp;
 	
-	
 	private JList skillsList;
 	private DefaultListModel skillsListModel;
 
+	private JList allSkillsList;
+	private DefaultListModel allSkillsListModel;
+	
 	private JComboBox  infoSpriteSheet;
 
 
@@ -368,9 +370,14 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		
 		addSeparator(p,"Skills");
 		skillsListModel = new DefaultListModel();
-		skillsList      = new JList(new String[]{"dsd","dsdsdsds","zaasas"});
+		skillsList      = new JList(skillsListModel);
 		
-		p.add(skillsList, new CC().alignX("leading").spanX(2).grow().wrap());
+		p.add(skillsList, new CC().alignX("leading").spanX(2).grow());
+		
+		allSkillsListModel = new DefaultListModel();
+		allSkillsList      = new JList(allSkillsListModel);
+		
+		p.add(allSkillsList, new CC().gap("unrelated").alignX("leading").spanX(2).grow().wrap());
 		
 		
 		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border

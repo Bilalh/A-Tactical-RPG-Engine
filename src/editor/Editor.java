@@ -1,6 +1,7 @@
 package editor;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.*;
@@ -62,7 +63,9 @@ public class Editor {
 		
 		Preferences pref = Prefs.getNode("main/panels/main");
 		int width  = pref.getInt("width", 930);
-		int height = pref.getInt("height", 680);
+		int height = pref.getInt("height", 700);
+		
+		frame.setMinimumSize(new Dimension(850, 700));
 		
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
