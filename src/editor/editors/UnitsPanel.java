@@ -138,7 +138,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 //			currentUnit.setImageData("images/characters/Boy-animations.xml", defaultImages);
 		}else{
 			infoSpriteSheet.setSelectedItem(ui);
-			assert ((DefaultComboBoxModel)infoSpriteSheet.getModel()).getIndexOf(ui) >=0 : ui.getUuid() + "\n" + ((DefaultComboBoxModel)infoSpriteSheet.getModel());
+			assert ((DefaultComboBoxModel)infoSpriteSheet.getModel()).getIndexOf(ui) >=0 : ui.getUuid() + "\n" + infoSpriteSheet.getModel();
 		}
 		
 		assert infoSprites != null;

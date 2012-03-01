@@ -112,7 +112,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	@Override
 	protected void createMap() {
 		MapSettings m = MapSettings.defaults();
-		m.tileDiagonal = 45;
+		m.tileDiagonal = 40;
 		map = new OthersMap(mapWidth,mapHeight, m);
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField(),m);
 	} 
