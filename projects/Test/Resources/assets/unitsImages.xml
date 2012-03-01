@@ -1,0 +1,16 @@
+<engine.assets.UnitsImages>
+  <entry>
+    <uuid>c711fb7c-9bec-44b0-9aa5-67c2ad3ee15d</uuid>
+    <unitImages uuid="c711fb7c-9bec-44b0-9aa5-67c2ad3ee15d">
+      <spriteSheetLocation>images/characters/defaultImages.png</spriteSheetLocation>
+      <animations/>
+    </unitImages>
+  </entry>
+  <entry>
+  	<uuid>4802526c-5b05-4573-abcf-2ff33613c76d</uuid>
+  	<unitImages uuid="4802526c-5b05-4573-abcf-2ff33613c76d">
+  		<spriteSheetLocation>images/characters/Elena.png</spriteSheetLocation>
+  		<animations/>
+	</unitImages>
+  </entry>
+</engine.assets.UnitsImages>

@@ -33,6 +33,8 @@ import editor.map.EditorSpriteSheet;
 import editor.spritesheet.*;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
+import engine.assets.Units;
+import engine.assets.UnitsImages;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 import engine.unit.UnitImages;
@@ -60,6 +62,23 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	public UnitsImagesPanel(){
 		super(new BorderLayout());
 		createMainPane();
+	}
+	
+	public UnitsImages getUnitsImages(){
+		UnitsImages ws = new UnitsImages();
+		for (int i = 0; i < imagesListModel.size(); i++) {
+			ws.put((UnitImages) imagesListModel.get(i));
+		}
+		return ws;
+	}
+
+	public void setUnits(){
+		assert false : "Not done yet";
+	}
+	
+	@Override
+	public void panelSelected(Editor editor) {
+		// FIXME panelSelected method
 	}
 	
 	protected void createMainPane() {
@@ -220,12 +239,14 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 				tilesetPanel.getHeight(), 2));
 	}
 	
-
+	
+	/** @category ISpriteProvider**/
 	@Override
 	public void select(List<MutableSprite> selection) {
 		// FIXME select method
 	}
 
+	/** @category ISpriteProvider**/
 	@Override
 	public void delete(List<MutableSprite> selected) {
 	}
@@ -235,11 +256,6 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 		JPanel header = new HeaderPanel(new BorderLayout());
 		header.add(new JLabel("<HTML>"+text+"<BR></HTML>"), BorderLayout.CENTER);
 		return header;
-	}
-	
-	@Override
-	public void panelSelected(Editor editor) {
-		// FIXME panelSelected method
 	}
 
 	static class ImageListRenderer extends DefaultListCellRenderer {

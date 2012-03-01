@@ -125,6 +125,7 @@ public abstract class XMLUtil {
 				Weapons.class,
 				Skills.class,
 				Units.class,
+				UnitImages.class,
 				
 				// Editor
 				MutableSprite.class,

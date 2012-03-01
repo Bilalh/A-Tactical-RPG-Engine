@@ -196,6 +196,11 @@ public class Editor {
 		Config.savePreferencesToResources(us, "assets/units.xml");
 		log.info(us);
 		
+		UnitsImages  ui = unitImagesPanel.getUnitsImages();
+		Config.savePreferencesToResources(ui, "assets/unitsImages.xml");
+		log.info(ui);
+		
+		
 		// Images
 		File images = new File(resources, "images");
 		images.mkdir();
@@ -237,6 +242,10 @@ public class Editor {
 		Units uu = Config.loadPreference("assets/units.xml");
 		unitPanel.setUnits(uu);
 		log.info(uu);
+		
+		UnitsImages  ui = Config.loadPreference("assets/unitsImages.xml");
+		log.info(ui);
+		//FIXME todo
 		
 		IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
         panel.panelSelected(Editor.this);
