@@ -82,6 +82,10 @@ public class Editor {
 	public Weapons getWeapons(){
 		return weaponsPanel.getWeapons();
 	}
+
+	public Skills getSkills(){
+		return skillsPanel.getSkills();
+	}
 	
 	private JTabbedPane createTabs() {
 		//TODO change
@@ -198,6 +202,7 @@ public class Editor {
 		log.debug(ws);
 		
 		Skills ss = Config.loadPreference("assets/skills.xml");
+		AssertStore.instance().loadSkill(ss);
 		skillsPanel.setSkills(ss);
 		log.info(ss);
 		

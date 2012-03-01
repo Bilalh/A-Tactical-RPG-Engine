@@ -60,6 +60,13 @@ public class AssertStore {
 		weapons.putAll(w.getMap());
 		log.debug("Loaded weapons");
 	}
+
+	public void loadSkill(Skills s){
+		skills.clear();
+		skills.putAll(s.getMap());
+		log.debug("Loaded skills");
+	}
+
 	
 	private AssertStore() {
 	}

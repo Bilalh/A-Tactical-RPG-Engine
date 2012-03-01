@@ -25,8 +25,10 @@ import editor.MapEditor;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import engine.assets.AssertStore;
+import engine.assets.Skills;
 import engine.assets.Units;
 import engine.assets.Weapons;
+import engine.skills.ISkill;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 
@@ -138,7 +140,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		
 		Weapons ww = editor.getWeapons();
 		AssertStore.instance().loadWeapons(ww); // TODO chanage
-		List s = new ArrayList<IWeapon>(ww.values());
+		List<IWeapon> s = new ArrayList<IWeapon>(ww.values());
 		
 		Collections.sort(s,new Comparator<IWeapon>() {
 			@Override
@@ -147,7 +149,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			}
 			
 		});
-		for (IWeapon w : editor.getWeapons().values()) {
+		for (IWeapon w : s) {
 			infoWeapon.addItem(w);
 		}
 		
@@ -155,6 +157,24 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		if (currentUnit != null){
 			setCurrentUnit(currentUnit);
 		}
+		
+		allSkillsListModel.removeAllElements();
+		
+		Skills ss = editor.getSkills();
+		AssertStore.instance().loadSkill(ss);
+		List<ISkill> l = new ArrayList<ISkill>(ss.values());
+		
+		Collections.sort(l,new Comparator<ISkill>() {
+			@Override
+			public int compare(ISkill o1, ISkill o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+			
+		});
+		for (ISkill is :l) {
+			allSkillsListModel.addElement(is);
+		}
+		
 	}
 
 	protected void createMainPane() {
@@ -172,7 +192,8 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		uu.setName("New Unit");
 		
 		unitsListModel = new DefaultListModel();
-		unitsList       = new JList(unitsListModel);
+		
+		unitsList = new JList(unitsListModel);
 		unitsList.setCellRenderer(new UnitListRenderer());
 		unitsListModel.addElement(uu);
 		unitsList.addListSelectionListener(new ListSelectionListener() {
@@ -376,6 +397,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		
 		allSkillsListModel = new DefaultListModel();
 		allSkillsList      = new JList(allSkillsListModel);
+		allSkillsList.setCellRenderer(new SkillsPanel.SkillListRenderer());
 		
 		p.add(allSkillsList, new CC().gap("unrelated").alignX("leading").spanX(2).grow().wrap());
 		
