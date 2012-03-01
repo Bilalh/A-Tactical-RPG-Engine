@@ -412,6 +412,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			
 			infoSprites[d.ordinal()].setHorizontalTextPosition(SwingConstants.CENTER);
 			infoSprites[d.ordinal()].setVerticalTextPosition(SwingConstants.BOTTOM);
+			//FIXME change
 			infoSprites[d.ordinal()].setIcon(new ImageIcon(ss.getSpriteImage(d.getImageRef())));
 			p.add(infoSprites[d.ordinal()]);
 		}
@@ -426,14 +427,17 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		skillsListModel = new DefaultListModel();
 		skillsList      = new JList(skillsListModel);
 		
-		p.add(skillsList, new CC().alignX("leading").spanX(2).grow());
+		JScrollPane ssp = new JScrollPane(skillsList);
+		ssp.setColumnHeaderView(createHeader("Unit's Skills"));
+		p.add(ssp, new CC().alignX("leading").spanX(2).grow());
 		
 		allSkillsListModel = new DefaultListModel();
 		allSkillsList      = new JList(allSkillsListModel);
 		allSkillsList.setCellRenderer(new SkillsPanel.SkillListRenderer());
 		
-		p.add(allSkillsList, new CC().gap("unrelated").alignX("leading").spanX(2).grow().wrap());
-		
+		JScrollPane assp = new JScrollPane(allSkillsList);
+		assp.setColumnHeaderView(createHeader("All Skills"));
+		p.add(assp, new CC().gap("unrelated").alignX("leading").spanX(2).grow().wrap());
 		
 		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 		return p;
