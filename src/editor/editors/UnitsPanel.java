@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.LayoutManager;
 import java.awt.event.*;
+import java.io.File;
 import java.util.*;
 
 import javax.swing.*;
@@ -17,13 +18,17 @@ import net.miginfocom.swing.MigLayout;
 
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 import com.javarichclient.icon.tango.actions.ListRemoveIcon;
+
+import common.enums.Direction;
 import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
+import common.spritesheet.SpriteSheet;
 
 import editor.Editor;
 import editor.MapEditor;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
+import editor.util.Resources;
 import engine.assets.AssertStore;
 import engine.assets.Skills;
 import engine.assets.Units;
@@ -31,6 +36,7 @@ import engine.assets.Weapons;
 import engine.skills.ISkill;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
+import engine.unit.UnitImages;
 
 /**
  * Editor for units
@@ -63,8 +69,13 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	private DefaultListModel allSkillsListModel;
 	
 	private JComboBox  infoSpriteSheet;
-
-
+	
+	private JLabel[] infoSprites;
+	
+	
+	SpriteSheet ss = new SpriteSheet(Resources.getImage("defaults/Boy.png"), 
+			Resources.getFileAsStream("defaults/Boy.xml"));
+	
 	public UnitsPanel(){
 		super(new BorderLayout());
 		createMainPane();
@@ -175,6 +186,15 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			allSkillsListModel.addElement(is);
 		}
 		
+		il =  infoSpriteSheet.getItemListeners()[0];
+		infoSpriteSheet.removeItemListener(il);
+		infoSpriteSheet.removeAllItems();
+		List<UnitImages> images = editor.getUnitImages();
+		for (UnitImages ui :images) {
+			infoSpriteSheet.addItem(ui);
+		}
+		infoSpriteSheet.addItemListener(il);
+		
 	}
 
 	protected void createMainPane() {
@@ -280,7 +300,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	protected LayoutManager createLayout() {
 		LC layC = new LC().fill().wrap();
 		AC colC = new AC().align("right", 1).fill(1, 3).grow(100, 1, 3).align("right", 3).gap("15", 1,3);
-		AC rowC = new AC().align("top", 9).gap("15!", 9).grow(100, 9);
+		AC rowC = new AC().align("top", 10).gap("15!", 10).grow(100, 10);
 		return new MigLayout(layC, colC, rowC);
 	}
 
@@ -288,7 +308,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		JPanel p = new JPanel(createLayout());
 		
 		addSeparator(p,"General");
-		p.add(new JLabel("Name:"), "gap 4");
+		p.add(new JLabel("Name:"));
 		p.add((infoName = new JTextField(15)), "span, growx");
 		infoName.setText("New Unit");
 		infoName.getDocument().addDocumentListener(new DocumentListener() {
@@ -310,9 +330,9 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		});
 		
 		infoWeapon = new JComboBox(new IWeapon[]{});
-		infoWeapon.setRenderer(new WeaponDropDownList());
+		infoWeapon.setRenderer(new WeaponDropDownListRenderer());
 		infoWeapon.setEditable(false);
-		p.add(new JLabel("Weapon:"), "gap 4");
+		p.add(new JLabel("Weapon:"));
 		infoWeapon.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -384,9 +404,22 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		p.add(infoHp, new CC().alignX("leading").maxWidth("70").wrap());
 		
 		addSeparator(p,"Sprites");
+		
+		infoSprites = new JLabel[ImageDirection.values().length];
+		for (ImageDirection d : ImageDirection.values()) {
+			String s = d.toString().toLowerCase();
+			infoSprites[d.ordinal()] = new JLabel(Character.toUpperCase(s.charAt(0)) + s.substring(1));
+			
+			infoSprites[d.ordinal()].setHorizontalTextPosition(SwingConstants.CENTER);
+			infoSprites[d.ordinal()].setVerticalTextPosition(SwingConstants.BOTTOM);
+			infoSprites[d.ordinal()].setIcon(new ImageIcon(ss.getSpriteImage(d.getImageRef())));
+			p.add(infoSprites[d.ordinal()]);
+		}
+		
+		
 		infoSpriteSheet = new JComboBox(new IWeapon[]{});
+		infoSpriteSheet.setRenderer(new SpriteListRenderer());
 		infoSpriteSheet.setEditable(false);
-		p.add(new JLabel("Weapon:"), "gap 4");
 		p.add(infoSpriteSheet, "span, growx, wrap");
 		
 		addSeparator(p,"Skills");
@@ -423,7 +456,21 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	
 	// Gui elements to display information about a asset. 
 	
-	class WeaponDropDownList extends DefaultListCellRenderer {
+	class SpriteListRenderer extends DefaultListCellRenderer {
+
+		private static final long serialVersionUID = 5874522377321012662L;
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+			UnitImages w= (UnitImages) value;
+			String name = new File(w.getSpriteSheetLocation()).getName();
+			label.setText(name);
+//			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
+			return label;
+		}
+	}
+	
+	class WeaponDropDownListRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 7730726867980301916L;
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -435,7 +482,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		}
 	}
 	
-	class UnitListRenderer extends  DefaultListCellRenderer {
+	class UnitListRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -445,6 +492,25 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 //			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
 			return label;
 		}
+	}
+	
+	enum ImageDirection {
+		NORTH ("north0"),
+		SOUTH ("south0"),
+		
+		EAST  ("east0"),
+		WEST  ("west0");
+		
+		final String imageRef;
+		
+		private ImageDirection(String name) {
+			this.imageRef = name;
+		}
+
+		public String getImageRef() {
+			return imageRef;
+		}
+		
 	}
 	
 }

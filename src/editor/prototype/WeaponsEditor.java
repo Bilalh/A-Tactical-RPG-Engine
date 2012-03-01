@@ -88,13 +88,9 @@ public class WeaponsEditor extends AbstactMapEditor {
 		
 		String path = "defaults/Boy.xml";
 		
-		try {
 			SpriteSheet ss = new SpriteSheet(Resources.getImage("defaults/Boy.png"), 
 					Resources.getFileAsStream(path));
 			OthersUnit.setSpriteSheet(ss);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		Unit u  = new Unit();
 		UnitImages ui = new UnitImages();

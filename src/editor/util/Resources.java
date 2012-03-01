@@ -24,21 +24,19 @@ public final class Resources {
 		return MapEditor.class.getResourceAsStream("resources/" + filename);
 	}
 	
-	public static BufferedImage getImage(String filename) throws IOException {
-		return ImageIO.read(Editor.class.getResourceAsStream("resources/" + filename));
-	}
-
-	public static ImageIcon getIcon(String filename) {
+	public static BufferedImage getImage(String filename) {
 		try {
-			return new ImageIcon(getImage(filename));
+			return ImageIO.read(Editor.class.getResourceAsStream("resources/" + filename));
 		} catch (IOException e) {
 			System.err.println("Failed to load  image: " + filename);
 			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			System.err.println("Failed to load resource: " + filename);
-			e.printStackTrace();
+			assert false;
 		}
 		return null;
+	}
+
+	public static ImageIcon getIcon(String filename) {
+		return new ImageIcon(getImage(filename));
 	}
 
 }

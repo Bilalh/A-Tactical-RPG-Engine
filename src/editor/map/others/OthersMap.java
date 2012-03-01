@@ -34,12 +34,8 @@ public class OthersMap extends BasicMap {
 		this.width       = width;
 		this.height      = height;
 		this.mapSettings = settings;
-		try {
 			tileImage =  ImageUtil.resizeImage(Resources.getImage("defaults/tile.png"), mapSettings.tileDiagonal, mapSettings.tileDiagonal/2);
 			OthersIsoTile.setTileImage(tileImage);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		loadMap("none");
 	}
 

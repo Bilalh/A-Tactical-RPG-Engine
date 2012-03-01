@@ -17,8 +17,14 @@ public class UnitImages implements IPreference {
 	private String spriteSheetLocation;
 	private HashMap<String, UnitAnimation> animations;
 
+
 	public UnitImages(){
 		animations = new HashMap<String, UnitAnimation>();
+	}
+	
+	public UnitImages(String spriteSheetLocation) {
+		this();
+		this.spriteSheetLocation = spriteSheetLocation;
 	}
 	
 	/** @category Generated */

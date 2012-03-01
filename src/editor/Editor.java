@@ -8,6 +8,8 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -23,6 +25,7 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 
 import common.gui.ResourceManager;
+import common.spritesheet.SpriteSheet;
 
 import config.Config;
 
@@ -31,10 +34,12 @@ import editor.editors.SkillsPanel;
 import editor.editors.UnitsPanel;
 import editor.editors.WeaponsPanel;
 import editor.util.Prefs;
+import editor.util.Resources;
 import engine.assets.AssertStore;
 import engine.assets.Skills;
 import engine.assets.Units;
 import engine.assets.Weapons;
+import engine.unit.UnitImages;
 
 /**
  * Editor for the engine
@@ -85,6 +90,14 @@ public class Editor {
 
 	public Skills getSkills(){
 		return skillsPanel.getSkills();
+	}
+	
+	UnitImages uu = new UnitImages("defaults/Boy.xml");
+	
+	public List<UnitImages> getUnitImages(){
+		ArrayList<UnitImages> images = new ArrayList<UnitImages>();
+		images.add(uu);
+		return images;
 	}
 	
 	private JTabbedPane createTabs() {
