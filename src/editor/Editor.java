@@ -31,10 +31,7 @@ import common.spritesheet.SpriteSheet;
 
 import config.Config;
 
-import editor.editors.IRefreshable;
-import editor.editors.SkillsPanel;
-import editor.editors.UnitsPanel;
-import editor.editors.WeaponsPanel;
+import editor.editors.*;
 import editor.util.Prefs;
 import editor.util.Resources;
 import engine.assets.*;
@@ -52,7 +49,10 @@ public class Editor {
 	WeaponsPanel weaponsPanel;
 	SkillsPanel  skillsPanel;
 	UnitsPanel   unitPanel;
-	MapsPanel    mapsPanel;
+	
+	UnitsImagesPanel unitImagesPanel;
+	MapsPanel       mapsPanel;
+	
 	
 	String projectPath = "projects/Test";
 	String projectName = "Test";
@@ -93,7 +93,6 @@ public class Editor {
 	
 	java.util.Map<UUID, SpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, SpriteSheet>());
 	
-	
 	public UnitsImages getUnitImages(){
 		UnitsImages images = new UnitsImages();
 		images.put(Config.<UnitImages>loadPreference("images/characters/Boy-animations.xml"));
@@ -120,10 +119,11 @@ public class Editor {
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 
 		JTabbedPane tabs  = new JTabbedPane();
-		tabs.addTab("Weapons",      (weaponsPanel = new WeaponsPanel()));
-		tabs.addTab("Skills",       (skillsPanel  = new SkillsPanel()));
-		tabs.addTab("Units",        (unitPanel    = new UnitsPanel(spriteSheets)));
-		tabs.addTab("Maps",         (mapsPanel    = new MapsPanel()));
+		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
+		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));
+		tabs.addTab("Units",        (unitPanel       = new UnitsPanel(spriteSheets)));
+		tabs.addTab("Unit Images",  (unitImagesPanel = new UnitsImagesPanel()));
+		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel()));
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Spritesheets", new JPanel());
 //		tabs.addTab("Project",      new JPanel());

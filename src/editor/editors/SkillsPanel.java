@@ -95,9 +95,9 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 		
-		String path = "defaults/Boy.xml";
+		String path = "defaults/defaultImages.xml";
 		
-			SpriteSheet ss = new SpriteSheet(Resources.getImage("defaults/Boy.png"), 
+			SpriteSheet ss = new SpriteSheet(Resources.getImage("defaults/defaultImages.png"), 
 					Resources.getFileAsStream(path));
 			OthersUnit.setSpriteSheet(ss);
 		

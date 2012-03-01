@@ -74,9 +74,9 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	private JLabel[] infoSprites;
 
 	private java.util.Map<UUID, SpriteSheet> spriteSheets;
-	private UnitImages  defaultImages = Config.loadPreferenceFromClassPath("/editor/resources/defaults/Boy-animations.xml");
-	private SpriteSheet defaultSheet = new SpriteSheet(Resources.getImage("defaults/Boy.png"), 
-			Resources.getFileAsStream("defaults/Boy.xml"));
+	private UnitImages  defaultImages = Config.loadPreferenceFromClassPath("/editor/resources/defaults/defaultImages-animations.xml");
+	private SpriteSheet defaultSheet = new SpriteSheet(Resources.getImage("defaults/defaultImages.png"), 
+			Resources.getFileAsStream("defaults/defaultImages.xml"));
 	private SpriteSheet unitSprites;
 	
 	public UnitsPanel(java.util.Map<UUID, SpriteSheet> spriteSheets){
@@ -587,44 +587,6 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	
 	// Gui elements to display information about a asset. 
 	
-	class SpriteListRenderer extends DefaultListCellRenderer {
-
-		private static final long serialVersionUID = 5874522377321012662L;
-		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-			UnitImages w= (UnitImages) value;
-			String name = new File(w.getSpriteSheetLocation()).getName();
-			label.setText(name);
-//			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
-			return label;
-		}
-	}
-	
-	class WeaponDropDownListRenderer extends DefaultListCellRenderer {
-		private static final long serialVersionUID = 7730726867980301916L;
-		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-			IWeapon w    = (IWeapon) value;
-			label.setText(String.format("%s - Strength:%s Range:%s", w.getName(), w.getStrength(), w.getDetails() ));
-			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
-			return label;
-		}
-	}
-	
-	class UnitListRenderer extends DefaultListCellRenderer {
-		private static final long serialVersionUID = 5874522377321012662L;
-		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-			IMutableUnit w= (IMutableUnit) value;
-			label.setText(w.getName());
-//			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
-			return label;
-		}
-	}
-	
 	enum ImageDirection {
 		NORTH ("north0"),
 		SOUTH ("south0"),
@@ -643,5 +605,44 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		}
 		
 	}
+	
+	static class SpriteListRenderer extends DefaultListCellRenderer {
+
+		private static final long serialVersionUID = 5874522377321012662L;
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+			UnitImages w= (UnitImages) value;
+			String name = new File(w.getSpriteSheetLocation()).getName();
+			label.setText(name);
+//			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
+			return label;
+		}
+	}
+	
+	static class WeaponDropDownListRenderer extends DefaultListCellRenderer {
+		private static final long serialVersionUID = 7730726867980301916L;
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+			IWeapon w    = (IWeapon) value;
+			label.setText(String.format("%s - Strength:%s Range:%s", w.getName(), w.getStrength(), w.getDetails() ));
+			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
+			return label;
+		}
+	}
+	
+	static class UnitListRenderer extends DefaultListCellRenderer {
+		private static final long serialVersionUID = 5874522377321012662L;
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+			IMutableUnit w= (IMutableUnit) value;
+			label.setText(w.getName());
+//			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
+			return label;
+		}
+	}
+	
 	
 }
