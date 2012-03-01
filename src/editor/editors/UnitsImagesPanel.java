@@ -30,10 +30,7 @@ import config.Config;
 import editor.Editor;
 import editor.editors.UnitsPanel.*;
 import editor.map.EditorSpriteSheet;
-import editor.spritesheet.ISpriteProvider;
-import editor.spritesheet.MutableSprite;
-import editor.spritesheet.Packer;
-import editor.spritesheet.SpriteSheetPanel;
+import editor.spritesheet.*;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import engine.unit.IMutableUnit;
@@ -48,15 +45,17 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 
 	private JList imagesList;
 	private DefaultListModel imagesListModel;
-	private UnitImages currentImages;
-	protected EditorSpriteSheet currentSheet;
 	
 	private java.util.Map<UUID, SpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, SpriteSheet>());
 	
-	protected SpriteSheetPanel tilesetPanel;
-	protected JPanel tilesetPanelWithHeader;
-	protected Packer packer = new Packer();
-
+	private SpriteSheetPanel tilesetPanel;
+	private JPanel tilesetPanelWithHeader;
+	private Packer packer = new Packer();
+	
+	private UnitImages currentImages;
+	private EditorSpriteSheet currentSheet;
+	
+	private SpriteSheetEditor spriteSheetEditor;
 	
 	public UnitsImagesPanel(){
 		super(new BorderLayout());
@@ -207,11 +206,10 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			IMutableUnit w = new Unit();
-//			int index = imagesListModel.size();
-//			w.setName("New Unit " + (index + 1));
-//			imagesListModel.addElement(w);
-//			imagesList.setSelectedIndex(index);
+			spriteSheetEditor = new SpriteSheetEditor(WindowConstants.DISPOSE_ON_CLOSE,"projects/Test/Resources/images/characters/defaultImages.png");
+			spriteSheetEditor.setVisible(true);
+			//FIXME add listers for spritesheet editing finished
+			//FIXME finish
 		}
 	}
 	

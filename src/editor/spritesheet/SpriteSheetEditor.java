@@ -75,8 +75,15 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private Packer packer = new Packer();
 	private UnitImages animations = new UnitImages();
 	
+	private String savePath;
+
 	public SpriteSheetEditor(int frameClosingValue) {
+		this(frameClosingValue, null);
+	}
+
+	public SpriteSheetEditor(int frameClosingValue, String savePath) {
 		super("Sprite Sheet Editor");
+		this.savePath = savePath;
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
@@ -85,8 +92,11 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		initGui();
 		setJMenuBar(createMenubar());
 		this.setDefaultCloseOperation(frameClosingValue);
+		if (savePath != null){
+			loadSheetFromFile(new File(savePath), true);
+		}
 	}
-
+	
 	private void initGui() {
 		this.setLayout(new BorderLayout());
 		dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -116,10 +126,16 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		p.add(new JLabel("General"), new CC().split().spanX().gapTop("4"));
 		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
 
-		p.add(new JLabel("Sheet Name:"), "gap 4");
-		p.add((sheetName = new JTextField(10)), "span, growx");
+		sheetName = new JTextField(10);
 		sheetName.setText("Untitled Sheet");
-
+		JLabel name =new JLabel("Sheet Name:"); 
+		p.add(name, "gap 4");
+		p.add(sheetName, "span, growx");
+		if (savePath != null){
+			name.setVisible(false);
+			sheetName.setVisible(false);
+		}
+		
 		ActionListener aSizes = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -338,8 +354,10 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			}
 		});
 
-		file.add(neww);		
-		file.add(open);		
+		if (savePath == null){
+			file.add(neww);		
+			file.add(open);	
+		}		
 		file.add(save);
 		file.addSeparator();
 		file.add(split);
@@ -482,6 +500,10 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	 * Saves a Sprite sheet
 	 */
 	private int save() {
+		if (savePath != null){
+			saveToFile(new File(savePath));
+			return JFileChooser.APPROVE_OPTION;
+		}
 		String name = sheetName.getText();
 		if (!name.endsWith(".png")) name += ".png";
 		saveChooser.setSelectedFile(new File(name));
@@ -489,30 +511,34 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		int rst = saveChooser.showSaveDialog(this);
 		if (rst == JFileChooser.APPROVE_OPTION) {
 			File out = saveChooser.getSelectedFile();
-			if (!out.getName().endsWith(".png")){
-				out = new File(out.getParent(), out.getName()+".png");
-			}
-			
-			ArrayList<MutableSprite> list = new ArrayList<MutableSprite>();
-			for (int i = 0; i < sprites.size(); i++) {
-				list.add((MutableSprite) sprites.elementAt(i));
-			}
-
-			try {
-				int b = ((Integer) border.getValue());
-				packer.packImages(list, sWidth, sHeight, b, out);
-					String aname = out.getName().replaceAll("\\.png$", "") + "-animations.xml"; 
-					
-					String shortaName = out.getAbsolutePath().replaceFirst(".*Resources/", "");
-					animations.setSpriteSheetLocation(shortaName);
-					
-					PrintStream pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(),aname)));
-					pout.print(XMLUtil.makeFormattedXml(animations));					
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			saveToFile(out);
 		}
 		return rst;
+	}
+
+	private void saveToFile(File out) {
+		if (!out.getName().endsWith(".png")){
+			out = new File(out.getParent(), out.getName()+".png");
+		}
+		
+		ArrayList<MutableSprite> list = new ArrayList<MutableSprite>();
+		for (int i = 0; i < sprites.size(); i++) {
+			list.add((MutableSprite) sprites.elementAt(i));
+		}
+
+		try {
+			int b = ((Integer) border.getValue());
+			packer.packImages(list, sWidth, sHeight, b, out);
+				String aname = out.getName().replaceAll("\\.png$", "") + "-animations.xml"; 
+				
+				String shortaName = out.getAbsolutePath().replaceFirst(".*Resources/", "");
+				animations.setSpriteSheetLocation(shortaName);
+				
+				PrintStream pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(),aname)));
+				pout.print(XMLUtil.makeFormattedXml(animations));					
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 
@@ -554,37 +580,41 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		int rst = chooser.showOpenDialog(SpriteSheetEditor.this);
 		if (rst == JFileChooser.APPROVE_OPTION) {
 			File in = chooser.getSelectedFile();
-			File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "\\.xml"));
-			try {
-				BufferedImage b = ImageIO.read(in);
-				SpriteSheet ss = new SpriteSheet(b, new FileInputStream(xml));
-				if (reset){
-					sprites.clear();
-					sheetName.setText(in.getName());
-				}
-				for (Entry<String, BufferedImage> e : ss.getSpritesMap().entrySet()) {
-					sprites.addElement(new MutableSprite(e.getKey(), e.getValue()));
-				}
-				
-				File a = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "") + "-animations.xml");
-				if (a.exists()){
-					UnitImages temp = XMLUtil.convertXml(new FileInputStream(a));
-					if (temp != null){
-						animations = temp;
-						for (Entry<String, UnitAnimation> e: animations.entrySet()) {
-							lmanimations.addElement(e.getValue());
-							lanimations.repaint();
-						}
-					}else{
-						animations = new UnitImages();
-					}
-				}
-				
-				renew();
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(this, "xml file " + xml.getName() + " not found",
-						"File Not found", JOptionPane.ERROR_MESSAGE);
+			loadSheetFromFile(in, reset);
+		}
+	}
+
+	private void loadSheetFromFile(File in, boolean reset) {
+		File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "\\.xml"));
+		try {
+			BufferedImage b = ImageIO.read(in);
+			SpriteSheet ss = new SpriteSheet(b, new FileInputStream(xml));
+			if (reset){
+				sprites.clear();
+				sheetName.setText(in.getName());
 			}
+			for (Entry<String, BufferedImage> e : ss.getSpritesMap().entrySet()) {
+				sprites.addElement(new MutableSprite(e.getKey(), e.getValue()));
+			}
+			
+			File a = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "") + "-animations.xml");
+			if (a.exists()){
+				UnitImages temp = XMLUtil.convertXml(new FileInputStream(a));
+				if (temp != null){
+					animations = temp;
+					for (Entry<String, UnitAnimation> e: animations.entrySet()) {
+						lmanimations.addElement(e.getValue());
+						lanimations.repaint();
+					}
+				}else{
+					animations = new UnitImages();
+				}
+			}
+			
+			renew();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(this, "xml file " + xml.getName() + " not found",
+					"File Not found", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
