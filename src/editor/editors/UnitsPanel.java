@@ -185,8 +185,16 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	}
 
 	private void changeUnitImages(UnitImages images){
-		//FIXME FIXME change units to using uuids 
-//		currentUnit.setImageData(null,images);
+		
+		//FIXME FIXME massive hack
+		String path = images.getSpriteSheetLocation();
+		// remove the file extension
+		path = path.substring(0, path.lastIndexOf('.'));
+		// Add the unitImages path
+		path += "-animations.xml";
+
+		currentUnit.setImageData(path,images);
+		
 		unitSprites = spriteSheets.get(images.getUuid());
 		loadUnitImages();
 	}
