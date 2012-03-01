@@ -249,7 +249,8 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		});
 
 		JScrollPane slist = new JScrollPane(weaponslist);
-		
+		slist.setColumnHeaderView(createHeader("All Weapons"));
+
 		JPanel p  = new JPanel(new BorderLayout());
 		p.add(slist, BorderLayout.CENTER);
 		
@@ -257,7 +258,6 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		buttons.add(new TButton(new DeleteAction()));
 		buttons.add(new TButton(new AddAction()));
 		p.add(buttons, BorderLayout.SOUTH);
-		p.add(createHeader("All Weapons"),BorderLayout.NORTH);
 		return p;
 	}
 	

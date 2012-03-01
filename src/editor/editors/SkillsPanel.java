@@ -296,6 +296,8 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		});
 		
 		JScrollPane slist = new JScrollPane(skillList);
+		slist.setColumnHeaderView(createHeader("All Skills"));
+
 		JPanel p  = new JPanel(new BorderLayout());
 		p.add(slist, BorderLayout.CENTER);
 
@@ -303,7 +305,6 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		buttons.add(new TButton(new DeleteAction()));
 		buttons.add(new TButton(new AddAction()));
 		p.add(buttons, BorderLayout.SOUTH);
-		p.add(createHeader("All Skills"),BorderLayout.NORTH);
 		return p;
 	}
 	
