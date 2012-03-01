@@ -11,6 +11,10 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import org.apache.log4j.Logger;
+
+import sun.util.logging.resources.logging;
+
 import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
@@ -40,6 +44,7 @@ import engine.unit.UnitImages;
  * @author Bilal Hussain
  */
 public class UnitsPanel extends JPanel implements IRefreshable {
+	private static final Logger log = Logger.getLogger(UnitsPanel.class);
 	private static final long serialVersionUID = 6590057554995017334L;
 
 	private JList unitsList;
@@ -123,10 +128,14 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			allSkillsListModel.removeElement(s);
 		}
 
-		unitSprites = spriteSheets.get(currentUnit.getImageData().getUuid());
-		if (unitSprites == null){
+		UnitImages ui =currentUnit.getImageData();
+		log.debug(u);
+		log.debug(spriteSheets);
+		if (ui == null || (unitSprites = spriteSheets.get(ui.getUuid())) == null){
+			log.error("Using default images");
 			unitSprites = defaultSheet;
-			currentUnit.setImageData("images/characters/Boy-animations.xml", defaultImages);
+			//FIXME ?
+//			currentUnit.setImageData("images/characters/Boy-animations.xml", defaultImages);
 		}
 		
 		assert infoSprites != null;
@@ -199,6 +208,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		
 		infoWeapon.addItemListener(il);
 		if (currentUnit != null){
+			log.error("");
 			setCurrentUnit(currentUnit);
 		}
 		

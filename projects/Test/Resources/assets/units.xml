@@ -10,7 +10,7 @@
       <speed>20</speed>
       <level>1</level>
       <exp>0</exp>
-      <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
+      <imageDataRef>images/characters/Elena-animations.xml</imageDataRef>
       <weight>0</weight>
       <wepaonId>64295f0f-ccc4-4c92-a61b-21ab691ac624</wepaonId>
       <skillIds>
@@ -29,7 +29,7 @@
       <speed>60</speed>
       <level>1</level>
       <exp>0</exp>
-      <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
+      <imageDataRef>images/characters/Boy-animations.xml</imageDataRef>
       <weight>0</weight>
       <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
       <skillIds>

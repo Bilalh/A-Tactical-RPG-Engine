@@ -96,10 +96,10 @@ public class Editor {
 	
 	public UnitsImages getUnitImages(){
 		UnitsImages images = new UnitsImages();
-		images.put(new UnitImages("images/characters/Boy.png"));
-		images.put(new UnitImages("images/characters/Elena.png"));
-		images.put(new UnitImages("images/characters/princess.png"));
-		
+		images.put(Config.<UnitImages>loadPreference("images/characters/Boy-animations.xml"));
+		images.put(Config.<UnitImages>loadPreference("images/characters/Elena-animations.xml"));
+		images.put(Config.<UnitImages>loadPreference("images/characters/princess-animations.xml"));
+		spriteSheets.clear();
 		for (UnitImages ui : images.values()) {
 			spriteSheets.put(ui.getUuid(), Config.loadSpriteSheet(ui.getSpriteSheetLocation()));
 		}

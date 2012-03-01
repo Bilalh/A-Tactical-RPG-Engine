@@ -35,7 +35,10 @@ public class UnitImages implements IPreference, Identifiable {
 	}
 	
 	private Object readResolve() {
-		if (uuid ==null) uuid = UUID.randomUUID();
+		if (uuid ==null){
+			assert false : spriteSheetLocation + "has no UUID"; 
+			uuid = UUID.randomUUID();
+		}
 		return this;
 	}
 	
@@ -93,6 +96,11 @@ public class UnitImages implements IPreference, Identifiable {
 	@Override
 	public UUID getUuid() {
 		return uuid;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("UnitImages [spriteSheetLocation=%s, animations=%s, uuid=%s]", spriteSheetLocation, animations, uuid);
 	}
 	
 }

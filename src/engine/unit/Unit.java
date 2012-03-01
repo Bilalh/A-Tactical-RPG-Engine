@@ -55,7 +55,7 @@ public class Unit implements IMutableUnit {
 	public Unit(){
 		uuid      = UUID.randomUUID();
 		this.name = uuid.toString();
-		imageData = new UnitImages();
+//		imageData = new UnitImages();
 		weapon    = new MeleeWeapon(1);
 		
 		ArrayList<ISkill> skills = new ArrayList<ISkill>();
@@ -83,6 +83,7 @@ public class Unit implements IMutableUnit {
 	private Object readResolve() {
 		if (imageData == null){
 			imageData = Config.loadPreference(imageDataRef);
+			assert imageData != null;
 		}
 		if (weapon == null){
 			weapon = AssertStore.instance().getWeapon(wepaonId);

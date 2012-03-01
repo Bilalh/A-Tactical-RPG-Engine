@@ -53,5 +53,5 @@ public class SpriteSheet implements ISpriteSheet {
 	public BufferedImage getSheetImage() {
 		return sheet;
 	}
-	
+
 }
