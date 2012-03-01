@@ -23,6 +23,10 @@
       <includeCaster>false</includeCaster>
       <range>2</range>
       <area>0</area>
+      <startLocation>
+        <x>5</x>
+        <y>5</y>
+      </startLocation>
     </engine.skills.RangedSkill>
   </entry>
   <entry>

@@ -128,7 +128,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			allSkillsListModel.removeElement(s);
 		}
 
-		UnitImages ui =currentUnit.getImageData();
+		UnitImages ui = currentUnit.getImageData();
 		log.debug(u);
 		log.debug(spriteSheets);
 		if (ui == null || (unitSprites = spriteSheets.get(ui.getUuid())) == null){
@@ -136,14 +136,13 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			unitSprites = defaultSheet;
 			//FIXME ?
 //			currentUnit.setImageData("images/characters/Boy-animations.xml", defaultImages);
+		}else{
+			infoSpriteSheet.setSelectedItem(ui);
+			assert ((DefaultComboBoxModel)infoSpriteSheet.getModel()).getIndexOf(ui) >=0 : ui.getUuid() + "\n" + ((DefaultComboBoxModel)infoSpriteSheet.getModel());
 		}
 		
 		assert infoSprites != null;
-		for (ImageDirection d : ImageDirection.values()) {
-			assert unitSprites.getSpriteImage(d.getImageRef()) != null;
-			assert infoSprites[d.ordinal()] != null;
-			infoSprites[d.ordinal()].setIcon(new ImageIcon(unitSprites.getSpriteImage(d.getImageRef())));
-		}
+		loadUnitImages();
 	}
 	
 	private void changeName(){
@@ -154,7 +153,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	private void changeWeapon(IWeapon w){
 		assert currentUnit != null;
 		currentUnit.setWeapon(w);
-	}	
+	}	 
 
 	private void changeStrength(int value){
 		currentUnit.setStrength(value);
@@ -185,6 +184,21 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		currentUnit.setSkills(skills);
 	}
 
+	private void changeUnitImages(UnitImages images){
+		//FIXME FIXME change units to using uuids 
+//		currentUnit.setImageData(null,images);
+		unitSprites = spriteSheets.get(images.getUuid());
+		loadUnitImages();
+	}
+	
+	private void loadUnitImages(){
+		for (ImageDirection d : ImageDirection.values()) {
+			assert unitSprites.getSpriteImage(d.getImageRef()) != null;
+			assert infoSprites[d.ordinal()] != null;
+			infoSprites[d.ordinal()].setIcon(new ImageIcon(unitSprites.getSpriteImage(d.getImageRef())));
+		}
+	}
+	
 	@Override
 	public synchronized void panelSelected(Editor editor) {
 		ItemListener il =  infoWeapon.getItemListeners()[0];
@@ -233,7 +247,16 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoSpriteSheet.removeItemListener(il);
 		infoSpriteSheet.removeAllItems();
 		UnitsImages images = editor.getUnitImages();
-		for (UnitImages ui :images.values()) {
+		
+		ArrayList<UnitImages> ll = new ArrayList(images.values());
+		Collections.sort(ll,new Comparator<UnitImages>() {
+			@Override
+			public int compare(UnitImages o1, UnitImages o2) {
+				return o1.getSpriteSheetLocation().compareTo(o2.getSpriteSheetLocation());
+			}
+			
+		});
+		for (UnitImages ui :ll) {
 			infoSpriteSheet.addItem(ui);
 		}
 		infoSpriteSheet.addItemListener(il);
@@ -465,6 +488,16 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoSpriteSheet = new JComboBox(new IWeapon[]{});
 		infoSpriteSheet.setRenderer(new SpriteListRenderer());
 		infoSpriteSheet.setEditable(false);
+		infoSpriteSheet.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (infoSpriteSheet.getItemCount() <= 0) return;
+				
+				UnitImages w= (UnitImages) e.getItem();
+				changeUnitImages(w);
+			}
+		});
+		
 		p.add(infoSpriteSheet, "span, growx, wrap");
 		
 		addSeparator(p,"Skills");
