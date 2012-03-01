@@ -7,10 +7,7 @@ import java.awt.dnd.DragSourceDropEvent;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
@@ -501,6 +498,22 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	 */
 	private int save() {
 		if (savePath != null){
+
+			HashSet<String> needed  = new HashSet<String>(Arrays.asList(new String[]{"north0","south0","east0","west0"}));
+			HashSet<String> have    = new HashSet<String>();	
+			
+			for (int i = 0; i < sprites.size(); i++) {
+				MutableSprite s =  (MutableSprite) sprites.get(i);
+				if (needed.contains(s.getName())){
+					have.add(s.getName());
+				}
+			}
+				
+			if (needed.size() != have.size()){
+				JOptionPane.showMessageDialog(this,"Must have images (north0, south0, east0 and west0) in the sheet", "Invaild", JOptionPane.ERROR_MESSAGE);
+				return JFileChooser.ERROR_OPTION;
+			}
+			
 			saveToFile(new File(savePath));
 			return JFileChooser.APPROVE_OPTION;
 		}
