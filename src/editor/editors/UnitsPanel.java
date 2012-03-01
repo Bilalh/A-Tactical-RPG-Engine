@@ -16,23 +16,20 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
-import com.javarichclient.icon.tango.actions.ListAllIcon;
-import com.javarichclient.icon.tango.actions.ListRemoveIcon;
+import com.javarichclient.icon.tango.actions.*;
 
 import common.enums.Direction;
 import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
 import common.spritesheet.SpriteSheet;
+import config.Config;
 
 import editor.Editor;
 import editor.MapEditor;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import editor.util.Resources;
-import engine.assets.AssertStore;
-import engine.assets.Skills;
-import engine.assets.Units;
-import engine.assets.Weapons;
+import engine.assets.*;
 import engine.skills.ISkill;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
@@ -69,15 +66,17 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	private DefaultListModel allSkillsListModel;
 	
 	private JComboBox  infoSpriteSheet;
-	
 	private JLabel[] infoSprites;
-	
-	
-	SpriteSheet ss = new SpriteSheet(Resources.getImage("defaults/Boy.png"), 
+
+	private java.util.Map<UUID, SpriteSheet> spriteSheets;
+	private UnitImages  defaultImages = Config.loadPreferenceFromClassPath("/editor/resources/defaults/Boy-animations.xml");
+	private SpriteSheet defaultSheet = new SpriteSheet(Resources.getImage("defaults/Boy.png"), 
 			Resources.getFileAsStream("defaults/Boy.xml"));
+	private SpriteSheet unitSprites;
 	
-	public UnitsPanel(){
+	public UnitsPanel(java.util.Map<UUID, SpriteSheet> spriteSheets){
 		super(new BorderLayout());
+		this.spriteSheets = spriteSheets;
 		createMainPane();
 //		panelSelected();
 	}
@@ -102,6 +101,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	}
 	
 	public void setCurrentUnit(IMutableUnit u){
+		assert u != null;
 		currentUnit = u;
 		infoName.setText(u.getName());
 		infoWeapon.setSelectedItem(u.getWeapon());
@@ -111,14 +111,30 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoMove.setValue(u.getMove());
 		infoHp.setValue(u.getMaxHp());
 
-//		ListSelectionListener lsl =  skillsList.getListSelectionListeners()[0];
+		for (int i = 0; i < skillsListModel.size(); i++) {
+			Object o = skillsListModel.get(i);
+			if (!allSkillsListModel.contains(o)) allSkillsListModel.addElement(o);
+		}
+		
 		skillsListModel.clear();
 		for (ISkill	s : u.getSkills()) {
 			skillsListModel.addElement(s);
+			// FIXME n^2  but n is about 4
+			allSkillsListModel.removeElement(s);
 		}
-//		skillsList.addListSelectionListener(lsl);
+
+		unitSprites = spriteSheets.get(currentUnit.getImageData().getUuid());
+		if (unitSprites == null){
+			unitSprites = defaultSheet;
+			currentUnit.setImageData("images/characters/Boy-animations.xml", defaultImages);
+		}
 		
-		//FIXME sprites 
+		assert infoSprites != null;
+		for (ImageDirection d : ImageDirection.values()) {
+			assert unitSprites.getSpriteImage(d.getImageRef()) != null;
+			assert infoSprites[d.ordinal()] != null;
+			infoSprites[d.ordinal()].setIcon(new ImageIcon(unitSprites.getSpriteImage(d.getImageRef())));
+		}
 	}
 	
 	private void changeName(){
@@ -152,6 +168,14 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	}	
 	
 	
+	private void changeSkills(){
+		ArrayList<ISkill> skills =new ArrayList<ISkill>();
+		for (int i = 0; i < skillsListModel.size(); i++) {
+			skills.add((ISkill) skillsListModel.get(i));
+		}
+		currentUnit.setSkills(skills);
+	}
+
 	@Override
 	public synchronized void panelSelected(Editor editor) {
 		ItemListener il =  infoWeapon.getItemListeners()[0];
@@ -198,8 +222,8 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		il =  infoSpriteSheet.getItemListeners()[0];
 		infoSpriteSheet.removeItemListener(il);
 		infoSpriteSheet.removeAllItems();
-		List<UnitImages> images = editor.getUnitImages();
-		for (UnitImages ui :images) {
+		UnitsImages images = editor.getUnitImages();
+		for (UnitImages ui :images.values()) {
 			infoSpriteSheet.addItem(ui);
 		}
 		infoSpriteSheet.addItemListener(il);
@@ -422,8 +446,8 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			
 			infoSprites[d.ordinal()].setHorizontalTextPosition(SwingConstants.CENTER);
 			infoSprites[d.ordinal()].setVerticalTextPosition(SwingConstants.BOTTOM);
-			//FIXME change
-			infoSprites[d.ordinal()].setIcon(new ImageIcon(ss.getSpriteImage(d.getImageRef())));
+//			//FIXME change
+//			infoSprites[d.ordinal()].setIcon(new ImageIcon(unitSprites.getSpriteImage(d.getImageRef())));
 			p.add(infoSprites[d.ordinal()]);
 		}
 		
@@ -436,10 +460,14 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		addSeparator(p,"Skills");
 		skillsListModel = new DefaultListModel();
 		skillsList      = new JList(skillsListModel);
-		
+		skillsList.setCellRenderer(new SkillsPanel.SkillListRenderer());
+
 		JScrollPane ssp = new JScrollPane(skillsList);
 		ssp.setColumnHeaderView(createHeader("Unit's Skills"));
 		p.add(ssp, new CC().alignX("leading").spanX(2).grow());
+		
+		p.add(new TButton(new AddSkillAction()),new CC().alignY("center").alignX("center").split(2).flowY());
+		p.add(new TButton(new RemoveSkillAction()),new CC().alignY("center").alignX("center"));
 		
 		allSkillsListModel = new DefaultListModel();
 		allSkillsList      = new JList(allSkillsListModel);
@@ -452,6 +480,46 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 		return p;
 	}
+	
+	private class AddSkillAction extends AbstractAction {
+		private static final long serialVersionUID = -6538170935544736252L;
+
+		public AddSkillAction() {
+			putValue(NAME, "Add to Unit's Skills");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			putValue(SMALL_ICON, new GoPreviousIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ISkill s = (ISkill) allSkillsList.getSelectedValue();
+			if (s == null) return;
+			skillsListModel.addElement(s);
+			allSkillsListModel.removeElement(s);
+			changeSkills();
+		}
+	}
+
+	private class RemoveSkillAction extends AbstractAction {
+		private static final long serialVersionUID = -8604147798296984257L;
+
+		public RemoveSkillAction() {
+			putValue(NAME, "Add to Unit's Skills");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			putValue(SMALL_ICON, new GoNextIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ISkill s = (ISkill) skillsList.getSelectedValue();
+			if (s == null) return;
+			
+			allSkillsListModel.addElement(s);
+			skillsListModel.removeElement(s);
+			changeSkills();
+		}
+	}
+	
 	
 	void addSeparator(JPanel p, String title){
 		JLabel pTitle = new JLabel(title);

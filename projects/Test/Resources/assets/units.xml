@@ -13,7 +13,9 @@
       <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
       <weight>0</weight>
       <wepaonId>64295f0f-ccc4-4c92-a61b-21ab691ac624</wepaonId>
-      <skillIds/>
+      <skillIds>
+        <uuid>6617a65e-6ef4-44b5-96b7-3e7184416eaf</uuid>
+      </skillIds>
     </unit>
   </entry>
   <entry>
@@ -30,7 +32,10 @@
       <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
       <weight>0</weight>
       <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
-      <skillIds/>
+      <skillIds>
+        <uuid>79485114-2559-4964-9cbd-f0841bd2e916</uuid>
+        <uuid>5ed5181c-4acf-46e6-89f4-6dba90421889</uuid>
+      </skillIds>
     </unit>
   </entry>
 </units>

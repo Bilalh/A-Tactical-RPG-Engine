@@ -3,8 +3,12 @@ package engine.unit;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+
+import common.interfaces.Identifiable;
 
 import config.IPreference;
 
@@ -12,19 +16,27 @@ import config.IPreference;
  * @author Bilal Hussain
  */
 @XStreamAlias("unitImages")
-public class UnitImages implements IPreference {
+public class UnitImages implements IPreference, Identifiable {
 
 	private String spriteSheetLocation;
 	private HashMap<String, UnitAnimation> animations;
-
+	
+	@XStreamAsAttribute
+	private UUID uuid;
 
 	public UnitImages(){
 		animations = new HashMap<String, UnitAnimation>();
+		uuid = UUID.randomUUID();
 	}
 	
 	public UnitImages(String spriteSheetLocation) {
 		this();
 		this.spriteSheetLocation = spriteSheetLocation;
+	}
+	
+	private Object readResolve() {
+		if (uuid ==null) uuid = UUID.randomUUID();
+		return this;
 	}
 	
 	/** @category Generated */
@@ -76,4 +88,11 @@ public class UnitImages implements IPreference {
 	public Set<Entry<String, UnitAnimation>> entrySet() {
 		return animations.entrySet();
 	}
+
+	/** @category Generated */
+	@Override
+	public UUID getUuid() {
+		return uuid;
+	}
+	
 }

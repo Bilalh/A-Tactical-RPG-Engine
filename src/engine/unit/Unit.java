@@ -82,7 +82,7 @@ public class Unit implements IMutableUnit {
 	// to give default values
 	private Object readResolve() {
 		if (imageData == null){
-			imageData =Config.loadPreference(imageDataRef);
+			imageData = Config.loadPreference(imageDataRef);
 		}
 		if (weapon == null){
 			weapon = AssertStore.instance().getWeapon(wepaonId);

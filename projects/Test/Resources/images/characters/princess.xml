@@ -1,4 +1,4 @@
-<sprite-array>
+<sprite-array uuid="24303dc5-d344-4ee6-ac3b-188205a0a6ac">
   <sprite name="west0" x="0" y="0" width="29" height="47"/>
   <sprite name="north0" x="32" y="0" width="29" height="47"/>
   <sprite name="east1" x="64" y="0" width="29" height="47"/>

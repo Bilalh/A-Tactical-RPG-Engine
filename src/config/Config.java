@@ -108,15 +108,19 @@ public class Config {
 	
 	
 	public static SpriteSheet loadSpriteSheet(String filepath){
-		return loadSpriteSheet(new File(RESOURCE_DIRECTORY+filepath));
+		File f = new File(RESOURCE_DIRECTORY+filepath);
+		assert f.exists() : filepath + "does not exists";
+		return loadSpriteSheet(f);
 	}
 
 	public static SpriteSheet loadSpriteSheet(File in){
 		File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png", "\\.xml"));
+		assert xml.exists() : "xml not found";
 		Logf.debug(log, "Try to load '%s' and '%s", in.getAbsolutePath(), xml.getAbsolutePath());
 		SpriteSheet ss = null;
 		try {
 			BufferedImage b = ImageIO.read(in);
+			assert b != null : in.getAbsolutePath();
 			ss = new SpriteSheet(b, new FileInputStream(xml));
 		} catch (IOException e) {
 			e.printStackTrace();

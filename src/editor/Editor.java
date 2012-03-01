@@ -8,8 +8,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -24,6 +23,9 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
+
 import common.gui.ResourceManager;
 import common.spritesheet.SpriteSheet;
 
@@ -35,10 +37,7 @@ import editor.editors.UnitsPanel;
 import editor.editors.WeaponsPanel;
 import editor.util.Prefs;
 import editor.util.Resources;
-import engine.assets.AssertStore;
-import engine.assets.Skills;
-import engine.assets.Units;
-import engine.assets.Weapons;
+import engine.assets.*;
 import engine.unit.UnitImages;
 
 /**
@@ -68,7 +67,7 @@ public class Editor {
 		
 		Preferences pref = Prefs.getNode("main/panels/main");
 		int width  = pref.getInt("width", 930);
-		int height = pref.getInt("height", 700);
+		int height = pref.getInt("height", 800);
 		
 		frame.setMinimumSize(new Dimension(850, 700));
 		
@@ -92,22 +91,38 @@ public class Editor {
 		return skillsPanel.getSkills();
 	}
 	
-	UnitImages uu = new UnitImages("defaults/Boy.xml");
+	java.util.Map<UUID, SpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, SpriteSheet>());
 	
-	public List<UnitImages> getUnitImages(){
-		ArrayList<UnitImages> images = new ArrayList<UnitImages>();
-		images.add(uu);
+	
+	public UnitsImages getUnitImages(){
+		UnitsImages images = new UnitsImages();
+		images.put(new UnitImages("images/characters/Boy.png"));
+		images.put(new UnitImages("images/characters/Elena.png"));
+		images.put(new UnitImages("images/characters/princess.png"));
+		
+		for (UnitImages ui : images.values()) {
+			spriteSheets.put(ui.getUuid(), Config.loadSpriteSheet(ui.getSpriteSheetLocation()));
+		}
 		return images;
+	}
+	
+	public java.util.Map<UUID, SpriteSheet> getSpriteSheets(){
+		return Collections.unmodifiableMap(spriteSheets);
 	}
 	
 	private JTabbedPane createTabs() {
 		//TODO change
+		File f = new File(projectPath);
+		File mainXml  = new File(f, "tactical-project.xml");
+		File resources = new File(f,"Resources");
+		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
+		
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 
 		JTabbedPane tabs  = new JTabbedPane();
 		tabs.addTab("Weapons",      (weaponsPanel = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel  = new SkillsPanel()));
-		tabs.addTab("Units",        (unitPanel    = new UnitsPanel()));
+		tabs.addTab("Units",        (unitPanel    = new UnitsPanel(spriteSheets)));
 		tabs.addTab("Maps",         (mapsPanel    = new MapsPanel()));
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Spritesheets", new JPanel());

@@ -21,7 +21,7 @@ public class SpriteSheet implements ISpriteSheet {
 	protected HashMap<String, BufferedImage> sprites;
 	
 	public SpriteSheet(BufferedImage sheet, InputStream xmldef){
-		assert sheet   != null;
+		assert sheet    != null;
 		assert xmldef   != null;
 
 		this.sheet = sheet;
