@@ -264,7 +264,6 @@ public class WeaponsEditor extends AbstactMapEditor {
 	@Override
 	protected void onQuit() {
 		super.onQuit();
-		// FIXME tell editor that editing of weapon has finished
 	}
 
 	// The current Weapon type. Also has methods for updating the editor and creating a new weapon.

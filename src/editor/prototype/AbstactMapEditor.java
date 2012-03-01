@@ -81,7 +81,6 @@ public abstract class AbstactMapEditor extends JFrame implements IEditorMapPanel
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
 
-		// FIXME change
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");
 		_sheet = ResourceManager.instance().getCurrentItemSheet();
 		sheet  = new EditorSpriteSheet(_sheet);

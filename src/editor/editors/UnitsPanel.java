@@ -186,7 +186,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 
 	private void changeUnitImages(UnitImages images){
 		
-		//FIXME FIXME massive hack
+		//FIXME  massive hack
 		String path = images.getSpriteSheetLocation();
 		// remove the file extension
 		path = path.substring(0, path.lastIndexOf('.'));
@@ -487,8 +487,6 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			
 			infoSprites[d.ordinal()].setHorizontalTextPosition(SwingConstants.CENTER);
 			infoSprites[d.ordinal()].setVerticalTextPosition(SwingConstants.BOTTOM);
-//			//FIXME change
-//			infoSprites[d.ordinal()].setIcon(new ImageIcon(unitSprites.getSpriteImage(d.getImageRef())));
 			p.add(infoSprites[d.ordinal()]);
 		}
 		
