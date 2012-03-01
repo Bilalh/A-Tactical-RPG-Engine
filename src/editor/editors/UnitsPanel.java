@@ -110,6 +110,15 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoSpeed.setValue(u.getSpeed());
 		infoMove.setValue(u.getMove());
 		infoHp.setValue(u.getMaxHp());
+
+//		ListSelectionListener lsl =  skillsList.getListSelectionListeners()[0];
+		skillsListModel.clear();
+		for (ISkill	s : u.getSkills()) {
+			skillsListModel.addElement(s);
+		}
+//		skillsList.addListSelectionListener(lsl);
+		
+		//FIXME sprites 
 	}
 	
 	private void changeName(){
@@ -238,6 +247,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		});
 
 		JScrollPane slist = new JScrollPane(unitsList);
+		slist.setColumnHeaderView(createHeader("All Units"));
 		
 		JPanel p  = new JPanel(new BorderLayout());
 		p.add(slist, BorderLayout.CENTER);
@@ -246,7 +256,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		buttons.add(new TButton(new DeleteAction()));
 		buttons.add(new TButton(new AddAction()));
 		p.add(buttons, BorderLayout.SOUTH);
-		p.add(createHeader("All Units"),BorderLayout.NORTH);
+		
 		return p;
 	}
 	
