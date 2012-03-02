@@ -73,14 +73,17 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private UnitImages animations = new UnitImages();
 	
 	private String savePath;
-
+	private ISpriteEditorListener listener; 
+	
 	public SpriteSheetEditor(int frameClosingValue) {
-		this(frameClosingValue, null);
+		this(frameClosingValue, null,null);
 	}
 
-	public SpriteSheetEditor(int frameClosingValue, String savePath) {
+	public SpriteSheetEditor(int frameClosingValue, String savePath, ISpriteEditorListener listener) {
 		super("Sprite Sheet Editor");
 		this.savePath = savePath;
+		this.listener = listener;
+		
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
@@ -91,6 +94,20 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		this.setDefaultCloseOperation(frameClosingValue);
 		if (savePath != null){
 			loadSheetFromFile(new File(savePath), true);
+		}
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				finished();
+			}
+		});
+		
+	}
+	
+	private void finished(){
+		if (listener != null){
+			listener.spriteEditingFinished();
 		}
 	}
 	
@@ -599,6 +616,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 
 	private void loadSheetFromFile(File in, boolean reset) {
 		File xml = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "\\.xml"));
+		File ani = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "") + "-animations.xml");
 		try {
 			BufferedImage b = ImageIO.read(in);
 			SpriteSheet ss = new SpriteSheet(b, new FileInputStream(xml));
@@ -610,9 +628,8 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				sprites.addElement(new MutableSprite(e.getKey(), e.getValue()));
 			}
 			
-			File a = new File(in.getParentFile(), in.getName().replaceAll("\\.png$", "") + "-animations.xml");
-			if (a.exists()){
-				UnitImages temp = XMLUtil.convertXml(new FileInputStream(a));
+			if (ani.exists()){
+				UnitImages temp = XMLUtil.convertXml(new FileInputStream(ani));
 				if (temp != null){
 					animations = temp;
 					for (Entry<String, UnitAnimation> e: animations.entrySet()) {
@@ -626,7 +643,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			
 			renew();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(this, "xml file " + xml.getName() + " not found",
+			JOptionPane.showMessageDialog(this, "xml file " + xml.getAbsolutePath() + " not found",
 					"File Not found", JOptionPane.ERROR_MESSAGE);
 		}
 	}

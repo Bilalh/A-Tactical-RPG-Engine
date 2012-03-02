@@ -44,7 +44,7 @@ import engine.unit.UnitImages;
 /**
  * @author Bilal Hussain
  */
-public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpriteProvider<MutableSprite> {
+public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpriteProvider<MutableSprite>, ISpriteEditorListener {
 	private static final Logger log = Logger.getLogger(UnitsImagesPanel.class);
 	private static final long serialVersionUID = -6821378708781154897L;
 
@@ -61,9 +61,11 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	private EditorSpriteSheet currentSheet;
 	
 	private SpriteSheetEditor spriteSheetEditor;
+	private Editor editor;
 	
-	public UnitsImagesPanel(){
+	public UnitsImagesPanel(Editor editor){
 		super(new BorderLayout());
+		this.editor = editor;
 		createMainPane();
 	}
 	
@@ -109,6 +111,12 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 		// FIXME panelSelected method
 	}
 	
+	@Override
+	public void spriteEditingFinished() {
+		spriteSheets.remove(currentImages.getUuid());
+		setCurrentUnitImages(currentImages);
+	}
+	
 	protected void createMainPane() {
 		JPanel p = createInfoPanel();
 		JSplitPane mainSplit = new JSplitPane(
@@ -120,7 +128,6 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	}
 	
 	protected JComponent createLeftPane(){
-		
 		UnitImages uu = Config.loadPreference("images/characters/defaultImages-animations.xml");
 		setCurrentUnitImages(uu);
 		
@@ -252,14 +259,15 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			spriteSheetEditor = new SpriteSheetEditor(WindowConstants.DISPOSE_ON_CLOSE,"projects/Test/Resources/images/characters/defaultImages.png");
+			spriteSheetEditor = new SpriteSheetEditor(WindowConstants.DISPOSE_ON_CLOSE,
+					new File ("").getAbsolutePath()+ "/"+ editor.getProjectPath() + "/Resources/"+ currentImages.getSpriteSheetLocation(),
+					UnitsImagesPanel.this);
 			spriteSheetEditor.setVisible(true);
-			//FIXME add listers for spritesheet editing finished
 			//FIXME finish
 		}
 	}
 	
-	protected void refreashSprites(){
+	public void refreashSprites(){
 		if (tilesetPanel.getHeight() <=0 || tilesetPanel.getWidth() <=0 ) return;
 		tilesetPanel.setSpriteSheet(packer.packImagesByName(currentSheet.getSprites(),
 				tilesetPanel.getWidth(), 

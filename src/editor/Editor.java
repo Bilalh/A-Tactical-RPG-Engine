@@ -122,7 +122,7 @@ public class Editor {
 		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));
 		tabs.addTab("Units",        (unitPanel       = new UnitsPanel(spriteSheets)));
-		tabs.addTab("Unit Images",  (unitImagesPanel = new UnitsImagesPanel()));
+		tabs.addTab("Unit Images",  (unitImagesPanel = new UnitsImagesPanel(this)));
 		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel()));
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Spritesheets", new JPanel());
@@ -274,5 +274,11 @@ public class Editor {
 	public static void main(String[] args) {
 		Config.loadLoggingProperties();
 		new Editor();
+	}
+
+
+	/** @category Generated */
+	public String getProjectPath() {
+		return projectPath;
 	}
 }
