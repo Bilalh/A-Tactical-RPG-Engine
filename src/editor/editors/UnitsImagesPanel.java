@@ -14,6 +14,8 @@ import java.util.UUID;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import org.apache.log4j.Logger;
+
 import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
@@ -43,12 +45,13 @@ import engine.unit.UnitImages;
  * @author Bilal Hussain
  */
 public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpriteProvider<MutableSprite> {
+	private static final Logger log = Logger.getLogger(UnitsImagesPanel.class);
 	private static final long serialVersionUID = -6821378708781154897L;
 
 	private JList imagesList;
 	private DefaultListModel imagesListModel;
 	
-	private java.util.Map<UUID, SpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, SpriteSheet>());
+	private java.util.Map<UUID, EditorSpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, EditorSpriteSheet>());
 	
 	private SpriteSheetPanel tilesetPanel;
 	private JPanel tilesetPanelWithHeader;
@@ -72,8 +75,33 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 		return ws;
 	}
 
-	public void setUnits(){
-		assert false : "Not done yet";
+	public void setUnitsImages(UnitsImages images){
+		ListSelectionListener lsl =  imagesList.getListSelectionListeners()[0];
+		imagesList.removeListSelectionListener(lsl);
+		spriteSheets.clear();
+		imagesListModel.clear();
+		for (UnitImages ui : images.values()) {
+			EditorSpriteSheet sheet = spriteSheets.get(ui.getUuid());
+			SpriteSheet _sheet = Config.loadSpriteSheet(ui.getSpriteSheetLocation());
+			spriteSheets.put(ui.getUuid(), new EditorSpriteSheet(_sheet));
+			imagesListModel.addElement(ui);
+		}
+		imagesList.addListSelectionListener(lsl);
+		imagesList.setSelectedIndex(0);
+	}
+	
+	public void setCurrentUnitImages(UnitImages ui){
+		log.info("selecting" + ui.getSpriteSheetLocation());
+		currentImages = ui;
+		EditorSpriteSheet sheet = spriteSheets.get(ui.getUuid());
+		if (sheet == null){
+			SpriteSheet _sheet = Config.loadSpriteSheet(ui.getSpriteSheetLocation());
+			currentSheet  = new EditorSpriteSheet(_sheet);
+			spriteSheets.put(ui.getUuid(), sheet);	
+		}else{
+			currentSheet = sheet;
+		}
+		refreashSprites();
 	}
 	
 	@Override
@@ -94,9 +122,7 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	protected JComponent createLeftPane(){
 		
 		UnitImages uu = Config.loadPreference("images/characters/defaultImages-animations.xml");
-		SpriteSheet _sheet = Config.loadSpriteSheet(uu.getSpriteSheetLocation());
-		spriteSheets.put(uu.getUuid(), _sheet);
-		currentSheet  = new EditorSpriteSheet(_sheet);
+		setCurrentUnitImages(uu);
 		
 		imagesListModel = new DefaultListModel();
 		
@@ -106,9 +132,9 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 		imagesList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				UnitImages u =  (UnitImages) imagesList.getSelectedValue();
-				if (u == null) return;
-//				setCurrentUnit(u);
+				UnitImages ui =  (UnitImages) imagesList.getSelectedValue();
+				if (ui == null) return;
+				setCurrentUnitImages(ui);
 			}
 		});
 		imagesList.setSelectedIndex(0);
@@ -179,6 +205,7 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			assert false : "not done yet";
 			IMutableUnit w = new Unit();
 			int index = imagesListModel.size();
 			w.setName("New Unit " + (index + 1));

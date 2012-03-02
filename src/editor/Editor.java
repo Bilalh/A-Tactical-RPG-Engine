@@ -244,8 +244,8 @@ public class Editor {
 		log.info(uu);
 		
 		UnitsImages  ui = Config.loadPreference("assets/unitsImages.xml");
+		unitImagesPanel.setUnitsImages(ui);
 		log.info(ui);
-		//FIXME todo
 		
 		IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
         panel.panelSelected(Editor.this);
