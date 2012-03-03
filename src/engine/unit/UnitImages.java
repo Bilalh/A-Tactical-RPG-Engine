@@ -31,6 +31,7 @@ public class UnitImages implements IPreference, Identifiable {
 	
 	public UnitImages(String spriteSheetLocation) {
 		this();
+		assert spriteSheetLocation.endsWith(".png");
 		this.spriteSheetLocation = spriteSheetLocation;
 	}
 	
@@ -54,6 +55,7 @@ public class UnitImages implements IPreference, Identifiable {
 	
 	/** @category Generated */
 	public String getSpriteSheetLocation() {
+		assert spriteSheetLocation.endsWith(".png"): spriteSheetLocation;
 		return spriteSheetLocation;
 	}
 

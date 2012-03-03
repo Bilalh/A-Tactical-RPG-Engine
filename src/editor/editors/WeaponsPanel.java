@@ -94,7 +94,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		
 		Unit u  = new Unit();
 		UnitImages ui = new UnitImages();
-		ui.setSpriteSheetLocation(path);
+		ui.setSpriteSheetLocation("defaults/defaultImages.png");
 		u.setImageData(path, ui);
 		
 		Location l = new Location(5,5);

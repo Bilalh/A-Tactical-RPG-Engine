@@ -103,7 +103,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		
 		Unit u  = new Unit();
 		UnitImages ui = new UnitImages();
-		ui.setSpriteSheetLocation(path);
+		ui.setSpriteSheetLocation("defaults/defaultImages.png");
 		u.setImageData(path, ui);
 		
 		currentLocation = new Location(5,5);
