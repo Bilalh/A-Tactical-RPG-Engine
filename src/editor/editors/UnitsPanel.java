@@ -490,7 +490,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		
 		
 		infoSpriteSheet = new JComboBox(new IWeapon[]{});
-		infoSpriteSheet.setRenderer(new UnitsImagesPanel.ImageListRenderer());
+		infoSpriteSheet.setRenderer(new AbstractSpriteSheetOrganiser.ImageListRenderer());
 		infoSpriteSheet.setEditable(false);
 		infoSpriteSheet.addItemListener(new ItemListener() {
 			@Override

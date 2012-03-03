@@ -544,7 +544,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				
 			if (needed.size() != have.size()){
 				//TODO using help String
-				JOptionPane.showMessageDialog(this,"Must have the images (north0, south0, east0 and west0) in the sheet", "Invaild", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this,helpString, "Invaild", JOptionPane.ERROR_MESSAGE);
 				return JFileChooser.ERROR_OPTION;
 			}
 			
