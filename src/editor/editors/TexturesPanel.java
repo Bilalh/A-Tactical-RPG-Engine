@@ -40,7 +40,7 @@ public class TexturesPanel extends AbstractSpriteSheetOrganiser {
 
 	@Override
 	protected UnitImages defaultImages() {
-		return Config.loadPreference("images/textures/defaultTextures-animations.xml");
+		return Config.loadPreference("images/textures/default-animations.xml");
 	}
 
 	@Override

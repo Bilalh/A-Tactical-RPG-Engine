@@ -40,7 +40,7 @@ public class TilesetPanel extends AbstractSpriteSheetOrganiser {
 
 	@Override
 	protected UnitImages defaultImages() {
-		return Config.loadPreference("images/tilesets/defaultTileset-animations.xml");
+		return Config.loadPreference("images/tilesets/default-animations.xml");
 	}
 
 	@Override

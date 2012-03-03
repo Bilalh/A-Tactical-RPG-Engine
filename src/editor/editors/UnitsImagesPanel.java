@@ -39,7 +39,7 @@ public class UnitsImagesPanel extends AbstractSpriteSheetOrganiser {
 
 	@Override
 	protected UnitImages defaultImages() {
-		return Config.loadPreference("images/characters/defaultImages-animations.xml");
+		return Config.loadPreference("images/characters/default-animations.xml");
 	}
 
 	@Override

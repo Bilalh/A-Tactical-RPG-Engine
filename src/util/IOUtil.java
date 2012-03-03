@@ -9,6 +9,14 @@ import javax.swing.filechooser.FileFilter;
  */
 public class IOUtil {
 
+	public static String removeExtension(String name){
+		final int index  = name.lastIndexOf('.');
+		if(index == -1 ) return name;
+		return name.substring(0, index);
+	}
+	
+	 
+	
 	public static FileFilter makeFileFilter(final boolean allowDirectories, final String extension, final String description){
 		return new FileFilter() {
 			@Override

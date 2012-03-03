@@ -277,7 +277,8 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	protected JComponent createLeftPane(){
 		IMutableUnit uu = new Unit();
 		uu.setName("New Unit");
-		UnitImages ui = Config.loadPreference("images/characters/defaultImages-animations.xml");
+		//FIXME change?
+		UnitImages ui = Config.loadPreference("images/characters/default-animations.xml");
 		uu.setImageData(ui.getAnimationPath(), ui);
 		
 		unitsListModel = new DefaultListModel();

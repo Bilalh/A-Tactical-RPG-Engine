@@ -17,6 +17,8 @@ import javax.swing.event.ListSelectionListener;
 
 import org.apache.log4j.Logger;
 
+import util.IOUtil;
+
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 import com.javarichclient.icon.tango.actions.ListRemoveIcon;
 
@@ -329,7 +331,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
             UnitImages w= (UnitImages) value;
-            label.setText(new File(w.getSpriteSheetLocation()).getName().replace("\\.png$", ""));
+            label.setText(IOUtil.removeExtension(new File(w.getSpriteSheetLocation()).getName()));
             return label;
         }
     }
