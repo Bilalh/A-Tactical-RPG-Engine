@@ -10,6 +10,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @XStreamAlias("MapData")
 public class MapData {
 	
+	//TODO add texture fields
 	final String tileMappingLocation;
 	
 	/** @category Generated */

@@ -231,6 +231,7 @@ public class IsoTile {
 			g.fillPolygon(top);
 			g.setPaint(old);
 		}else if(startHeight != endHeight){
+			log.error("Using safety textured tile, since heights differ");
 			g.setPaint(tGrass);
 			g.fillPolygon(top);
 			g.setPaint(old);			
