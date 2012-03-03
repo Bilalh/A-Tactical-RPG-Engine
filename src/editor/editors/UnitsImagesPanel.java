@@ -15,6 +15,7 @@ import com.javarichclient.icon.tango.actions.ListRemoveIcon;
 
 import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
+import config.Config;
 
 import editor.Editor;
 import editor.editors.UnitsPanel.*;
@@ -22,6 +23,7 @@ import editor.spritesheet.*;
 import engine.assets.Units;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
+import engine.unit.UnitImages;
 
 /**
  * Editor for units images
@@ -33,6 +35,21 @@ public class UnitsImagesPanel extends AbstractSpriteSheetOrganiser {
 
 	public UnitsImagesPanel(Editor editor){
 		super(editor, new BorderLayout());
+	}
+
+	@Override
+	protected UnitImages defaultImages() {
+		return Config.loadPreference("images/characters/defaultImages-animations.xml");
+	}
+
+	@Override
+	protected String createInfoPanelTitle() {
+		return "Sprites";
+	}
+	
+	@Override
+	protected String spriteSheetBasePath() {
+		return "images/characters/";
 	}
 	
 }

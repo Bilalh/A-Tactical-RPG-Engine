@@ -37,9 +37,10 @@ import engine.assets.UnitsImages;
 import engine.unit.UnitImages;
 
 /**
+ * Infrastructure for an editor panel that manages spritesheets. 
  * @author Bilal Hussain
  */
-public class AbstractSpriteSheetOrganiser extends JPanel  implements IRefreshable, ISpriteProvider<MutableSprite>, ISpriteEditorListener {
+public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IRefreshable, ISpriteProvider<MutableSprite>, ISpriteEditorListener {
 	private static final Logger log = Logger.getLogger(AbstractSpriteSheetOrganiser.class);
 	private static final long serialVersionUID = 4482937708670082834L;
 	
@@ -52,7 +53,7 @@ public class AbstractSpriteSheetOrganiser extends JPanel  implements IRefreshabl
 	protected UnitImages currentImages;
 	protected EditorSpriteSheet currentSheet;
 	protected String justCreated = null;
-	protected String spriteSheetHelpString = "Must have the images (north0, south0, east0 and west0) in the sheet";
+	protected String spriteSheetHelpString = "Must have the images (north0, south0, east0 and west0) in the sheet.";
 
 	
 	public AbstractSpriteSheetOrganiser(Editor editor){
@@ -131,9 +132,7 @@ public class AbstractSpriteSheetOrganiser extends JPanel  implements IRefreshabl
 		this.add(mainSplit, BorderLayout.CENTER);
 	}
 
-	protected UnitImages defaultImages() {
-		return Config.loadPreference("images/characters/defaultImages-animations.xml");
-	}
+	protected abstract UnitImages defaultImages();
 
 	protected JComponent createLeftPane() {
 		UnitImages uu = defaultImages();
@@ -198,9 +197,7 @@ public class AbstractSpriteSheetOrganiser extends JPanel  implements IRefreshabl
 		return tilesetPanelWithHeader;
 	}
 
-	protected String createInfoPanelTitle() {
-		return "Sprites";
-	}
+	protected abstract String createInfoPanelTitle();
 
 	protected LayoutManager createLayout() {
 		LC layC = new LC().fill().wrap();
@@ -271,9 +268,7 @@ public class AbstractSpriteSheetOrganiser extends JPanel  implements IRefreshabl
 		}
 	}
 
-	protected String spriteSheetBasePath() {
-		return "images/characters/";
-	}
+	protected abstract String spriteSheetBasePath();
 
 	protected class EditAction extends AbstractAction {
 			private static final long serialVersionUID = 4069963919157697524L;
@@ -308,7 +303,7 @@ public class AbstractSpriteSheetOrganiser extends JPanel  implements IRefreshabl
 	/** @category ISpriteProvider**/
 	@Override
 	public void select(List<MutableSprite> selection) {
-		// FIXME select method
+		// FIXME select method needed?
 	}
 
 	/** @category ISpriteProvider**/
@@ -332,8 +327,7 @@ public class AbstractSpriteSheetOrganiser extends JPanel  implements IRefreshabl
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
             UnitImages w= (UnitImages) value;
-            label.setText(new File(w.getSpriteSheetLocation()).getName());
-//            label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
+            label.setText(new File(w.getSpriteSheetLocation()).getName().replace("\\.png$", ""));
             return label;
         }
     }
