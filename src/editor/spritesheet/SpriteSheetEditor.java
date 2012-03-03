@@ -72,18 +72,21 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private Packer packer = new Packer();
 	private UnitImages animations = new UnitImages();
 	
+	// For editor
 	private String savePath;
 	private ISpriteEditorListener listener; 
 	
+	private String helpString;
+	
 	public SpriteSheetEditor(int frameClosingValue) {
-		this(frameClosingValue, null,null);
+		this(frameClosingValue, null,null,"");
 	}
 
-	public SpriteSheetEditor(int frameClosingValue, String savePath, ISpriteEditorListener listener) {
+	public SpriteSheetEditor(int frameClosingValue, String savePath, ISpriteEditorListener listener, String helpString) {
 		super("Sprite Sheet Editor");
-		this.savePath = savePath;
-		this.listener = listener;
-		
+		this.savePath   = savePath;
+		this.listener   = listener;
+		this.helpString = helpString;
 		STARTING_PATH = Config.getResourceDirectory() +  "/images";
 		chooser = new JFileChooser(STARTING_PATH);
 		saveChooser = new JFileChooser(STARTING_PATH);
@@ -99,9 +102,12 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		this.setDefaultCloseOperation(frameClosingValue);
 
 		this.addWindowListener(new WindowAdapter() {
+			
 			@Override
-			public void windowClosed(WindowEvent e) {
-				finished();
+			public void windowClosing(WindowEvent e) {
+				if (finished()){
+					SpriteSheetEditor.this.dispose();
+				}
 			}
 		});
 		
@@ -111,13 +117,14 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		}
 	}
 	
-	private void finished(){
+	private boolean finished(){
 		if (savePath != null){
-			saveToFile(new File(savePath));
-		}
-		if (listener != null){
+			if (save() == JFileChooser.ERROR_OPTION) return false;
+			assert listener != null;
 			listener.spriteEditingFinished();
+			return true;
 		}
+		return false;
 	}
 	
 	private void initGui() {
@@ -133,7 +140,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		
 		this.add(tab, BorderLayout.EAST);
 		this.add(createPanel(""), BorderLayout.WEST);
-		this.add(createPanel(""), BorderLayout.SOUTH);
+		this.add(createPanel(helpString), BorderLayout.SOUTH);
 		this.add(createPanel(""), BorderLayout.NORTH);
 
 		sheetPanel = new SpriteSheetPanel(this);
@@ -536,7 +543,8 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			}
 				
 			if (needed.size() != have.size()){
-				JOptionPane.showMessageDialog(this,"Must have images (north0, south0, east0 and west0) in the sheet", "Invaild", JOptionPane.ERROR_MESSAGE);
+				//TODO using help String
+				JOptionPane.showMessageDialog(this,"Must have the images (north0, south0, east0 and west0) in the sheet", "Invaild", JOptionPane.ERROR_MESSAGE);
 				return JFileChooser.ERROR_OPTION;
 			}
 			

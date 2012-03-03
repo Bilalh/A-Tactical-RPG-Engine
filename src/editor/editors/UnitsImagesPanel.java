@@ -63,7 +63,8 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	private UnitImages currentImages;
 	private EditorSpriteSheet currentSheet;
 	
-	String justCreated = null;
+	private String justCreated = null;
+	protected String spriteSheetHelpString = "Must the have images (north0, south0, east0 and west0) in the sheet";
 	
 	public UnitsImagesPanel(Editor editor){
 		super(new BorderLayout());
@@ -259,8 +260,7 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 		tilesetPanelWithHeader = new JPanel(new BorderLayout());
 		tilesetPanelWithHeader.add(tilesetPanel,BorderLayout.CENTER);
 		tilesetPanelWithHeader.add(createHeader("Sprites"),BorderLayout.NORTH);
-		tilesetPanelWithHeader.add(new JButton(new EditAction()), BorderLayout.SOUTH);
-
+		tilesetPanelWithHeader.add(new JButton(new EditAction()), BorderLayout.SOUTH);		
 		tilesetPanelWithHeader.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 		return tilesetPanelWithHeader;
 	}
@@ -282,9 +282,10 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	
 	private void editSpriteSheet(String path){
 		editor.setVisible(false);
-		new SpriteSheetEditor(WindowConstants.DISPOSE_ON_CLOSE,
+		new SpriteSheetEditor(WindowConstants.DO_NOTHING_ON_CLOSE,
 				new File ("").getAbsolutePath()+ "/"+ editor.getProjectPath() + "/Resources/"+ path,
-				UnitsImagesPanel.this
+				UnitsImagesPanel.this,
+				spriteSheetHelpString
 				).setVisible(true);
 	}
 	
