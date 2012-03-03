@@ -29,7 +29,7 @@
       <speed>60</speed>
       <level>1</level>
       <exp>0</exp>
-      <imageDataRef>images/characters/Boy-animations.xml</imageDataRef>
+      <imageDataRef>images/characters/Elena-animations.xml</imageDataRef>
       <weight>0</weight>
       <wepaonId>0f0dee32-06de-4f25-ba3d-acb110afc52c</wepaonId>
       <skillIds>

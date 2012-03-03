@@ -55,7 +55,6 @@ public class Unit implements IMutableUnit {
 	public Unit(){
 		uuid      = UUID.randomUUID();
 		this.name = uuid.toString();
-//		imageData = new UnitImages();
 		weapon    = new MeleeWeapon(1);
 		
 		ArrayList<ISkill> skills = new ArrayList<ISkill>();
@@ -269,6 +268,24 @@ public class Unit implements IMutableUnit {
 						name, maxHp, move, strength, defence, speed, level, exp, uuid, imageDataRef, imageData, weight, weapon, skills);
 	}
 
-	
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (!(obj instanceof Unit)) return false;
+		Unit other = (Unit) obj;
+		if (uuid == null) {
+			if (other.uuid != null) return false;
+		} else if (!uuid.equals(other.uuid)) return false;
+		return true;
+	}
+
 }

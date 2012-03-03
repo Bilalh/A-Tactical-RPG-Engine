@@ -1,24 +1,24 @@
-<engine.assets.UnitsImages>
-  <entry>
-    <uuid>9e6b3a84-49bf-474e-8879-1f2dfbce4a1e</uuid>
-<unitImages uuid="9e6b3a84-49bf-474e-8879-1f2dfbce4a1e">
-  <spriteSheetLocation>images/characters/Boy.png</spriteSheetLocation>
-  <animations>
-    <entry>
-      <string>west</string>
-      <unitAnimation>
-        <name>west</name>
-        <numberOfFrames>4</numberOfFrames>
-      </unitAnimation>
-    </entry>
-  </animations>
-</unitImages>
-  </entry>
+<unitsImages>
   <entry>
     <uuid>4802526c-5b05-4573-abcf-2ff33613c76d</uuid>
     <unitImages uuid="4802526c-5b05-4573-abcf-2ff33613c76d">
       <spriteSheetLocation>images/characters/Elena.png</spriteSheetLocation>
       <animations/>
+    </unitImages>
+  </entry>
+  <entry>
+    <uuid>9e6b3a84-49bf-474e-8879-1f2dfbce4a1e</uuid>
+    <unitImages uuid="9e6b3a84-49bf-474e-8879-1f2dfbce4a1e">
+      <spriteSheetLocation>images/characters/Boy.png</spriteSheetLocation>
+      <animations>
+        <entry>
+          <string>west</string>
+          <unitAnimation>
+            <name>west</name>
+            <numberOfFrames>4</numberOfFrames>
+          </unitAnimation>
+        </entry>
+      </animations>
     </unitImages>
   </entry>
   <entry>
@@ -29,39 +29,39 @@
     </unitImages>
   </entry>
   <entry>
-  	<uuid>cc4b04c9-25f8-4111-bac7-6db0177c0035</uuid>
-  	<unitImages uuid="cc4b04c9-25f8-4111-bac7-6db0177c0035">
-  <spriteSheetLocation>images/characters/princess.png</spriteSheetLocation>
-  <animations>
-    <entry>
-      <string>south</string>
-      <unitAnimation>
-        <name>south</name>
-        <numberOfFrames>4</numberOfFrames>
-      </unitAnimation>
-    </entry>
-    <entry>
-      <string>east</string>
-      <unitAnimation>
-        <name>east</name>
-        <numberOfFrames>4</numberOfFrames>
-      </unitAnimation>
-    </entry>
-    <entry>
-      <string>north</string>
-      <unitAnimation>
-        <name>north</name>
-        <numberOfFrames>4</numberOfFrames>
-      </unitAnimation>
-    </entry>
-    <entry>
-      <string>west</string>
-      <unitAnimation>
-        <name>west</name>
-        <numberOfFrames>4</numberOfFrames>
-      </unitAnimation>
-    </entry>
-  </animations>
-</unitImages>
+    <uuid>cc4b04c9-25f8-4111-bac7-6db0177c0035</uuid>
+    <unitImages uuid="cc4b04c9-25f8-4111-bac7-6db0177c0035">
+      <spriteSheetLocation>images/characters/princess.png</spriteSheetLocation>
+      <animations>
+        <entry>
+          <string>south</string>
+          <unitAnimation>
+            <name>south</name>
+            <numberOfFrames>4</numberOfFrames>
+          </unitAnimation>
+        </entry>
+        <entry>
+          <string>north</string>
+          <unitAnimation>
+            <name>north</name>
+            <numberOfFrames>4</numberOfFrames>
+          </unitAnimation>
+        </entry>
+        <entry>
+          <string>east</string>
+          <unitAnimation>
+            <name>east</name>
+            <numberOfFrames>4</numberOfFrames>
+          </unitAnimation>
+        </entry>
+        <entry>
+          <string>west</string>
+          <unitAnimation>
+            <name>west</name>
+            <numberOfFrames>4</numberOfFrames>
+          </unitAnimation>
+        </entry>
+      </animations>
+    </unitImages>
   </entry>
-</engine.assets.UnitsImages>
+</unitsImages>

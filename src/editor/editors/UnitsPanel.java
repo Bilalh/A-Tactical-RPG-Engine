@@ -72,7 +72,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	private DefaultListModel allSkillsListModel;
 	
 	private JComboBox  infoSpriteSheet;
-	private JLabel[] infoSprites;
+	private JLabel[]   infoSprites;
 
 	private java.util.Map<UUID, EditorSpriteSheet> spriteSheets;
 	private SpriteSheet unitSprites;
@@ -92,7 +92,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		return ws;
 	}
 	
-	public void setUnits(Units ws){
+	public synchronized void setUnits(Units ws){
 		ListSelectionListener lsl =  unitsList.getListSelectionListeners()[0];
 		unitsList.removeListSelectionListener(lsl);
 		unitsListModel.clear();
@@ -105,6 +105,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	
 	public void setCurrentUnit(IMutableUnit u){
 		assert u != null;
+		
 		currentUnit = u;
 		infoName.setText(u.getName());
 		infoWeapon.setSelectedItem(u.getWeapon());
@@ -221,7 +222,6 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		
 		infoWeapon.addItemListener(il);
 		if (currentUnit != null){
-			log.error("");
 			setCurrentUnit(currentUnit);
 		}
 		
@@ -258,8 +258,11 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		for (UnitImages ui :ll) {
 			infoSpriteSheet.addItem(ui);
 		}
+		infoSpriteSheet.setSelectedItem(currentUnit.getImageData());
 		infoSpriteSheet.addItemListener(il);
 		
+		assert ((DefaultComboBoxModel) infoSpriteSheet.getModel()).getIndexOf(currentUnit.getImageData()) != -1;
+		assert currentUnit.getImageData() == infoSpriteSheet.getSelectedItem();
 	}
 
 	protected void createMainPane() {
@@ -287,7 +290,10 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				IMutableUnit u =  (IMutableUnit) unitsList.getSelectedValue();
-				if (u == null) return;
+				if (u == null){
+					log.debug("unit" + u);
+					return;
+				}
 				setCurrentUnit(u);
 			}
 		});
