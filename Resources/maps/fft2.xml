@@ -1106,6 +1106,8 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>ice</leftWall>
+    <rightWall>blue</rightWall>
   </tile>
   <tile x="12" y="4">
     <type>2</type>

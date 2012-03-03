@@ -20,7 +20,7 @@ import util.Args;
 import util.Logf;
 
 /**
- * Keeps track of loaded sprites. The sprites are only loaded once.
+ * Keeps track of loaded tiles, which only loaded once
  * 
  * @author bilalh
  */
@@ -31,6 +31,7 @@ public class ResourceManager {
 	private Map<String, Sprite> sprites = Collections.synchronizedMap(new HashMap<String, Sprite>());
 	private static SpriteSheet currentTileSheet;
 	private static SpriteSheet currentItemSheet;
+	private static SpriteSheet currentTextureSheet;
 	
 	
 	public synchronized void loadTileSheetFromResources(String filepath){
@@ -53,6 +54,17 @@ public class ResourceManager {
 		currentItemSheet = sheet;
 	}
 	
+	public synchronized void loadTextureSheetFromResources(String filepath){
+		if (filepath == null) return;
+		currentTextureSheet = Config.loadSpriteSheet(filepath);
+	}
+	
+	public  synchronized void loadTextureSheet(SpriteSheet sheet){
+		assert sheet != null;
+		currentTextureSheet = sheet;
+	}
+	
+	
 	public BufferedImage getTile(String ref){
 		assert currentTileSheet != null;
 		assert ref != null;
@@ -73,18 +85,18 @@ public class ResourceManager {
 	
 	private Map<String, TexturePaint> texturedTiles = Collections.synchronizedMap(new HashMap<String, TexturePaint>());
 	public TexturePaint getTexturedTile(String ref){
+		assert ref != null;
+		assert currentTextureSheet != null;
+		
 		if (texturedTiles.containsKey(ref)){
 			return texturedTiles.get(ref);
 		}
 		
-		assert currentTileSheet != null;
-		assert ref != null;
-		
-		BufferedImage tile = currentTileSheet.getSpriteImage(ref);
+		BufferedImage tile = currentTextureSheet.getSpriteImage(ref);
 		assert tile != null;
 		
 		Rectangle2D rTile   = new Rectangle2D.Double(0, 0, tile.getWidth(null),tile.getHeight(null));
-		TexturePaint tTile = new TexturePaint( tile, rTile);
+		TexturePaint tTile  = new TexturePaint( tile, rTile);
 		assert tTile != null;
 		
 		texturedTiles.put(ref, tTile);

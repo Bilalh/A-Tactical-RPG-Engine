@@ -59,39 +59,50 @@ public class IsoTile {
 	protected float startHeight;
 	protected float endHeight;
 
-	protected Polygon top; // For mouse testing 
+	protected Polygon  top; // For mouse testing 
 	protected Location fieldLocation;
 
 	protected TileState state;
 	// TODO use enumSet?
 	protected boolean selected = false;
 
-	// The Tiles image 
-	protected BufferedImage tileImage;
-	protected ImageType type;
-	protected String name;
-	
 	protected AnimatedUnit unit;
+	
+	// The Tiles image 
+	protected ImageType type;
+	protected String tileName;
+	protected BufferedImage tileImage;
+	
+	// Walls
+	protected String leftWallName, rightWallName;
+	protected TexturePaint leftWall, rightWall;
+	
 
 	// For safety e.g if a non textured tile is used for slanted tiles this is used instead.
-	static BufferedImage iGrass = ResourceManager.instance().getSpriteFromClassPath("defaults/gui/grass32.jpg").getImage();
-	static Rectangle2D rGrass  = new Rectangle2D.Double(0, 0, iGrass.getWidth(null), iGrass.getHeight(null));
-	static TexturePaint tGrass = new TexturePaint(iGrass, rGrass);
+	protected static BufferedImage iGrass = ResourceManager.instance().getSpriteFromClassPath("defaults/gui/grass32.jpg").getImage();
+	protected static Rectangle2D   rGrass = new Rectangle2D.Double(0, 0, iGrass.getWidth(null), iGrass.getHeight(null));
+	protected static TexturePaint  tGrass = new TexturePaint(iGrass, rGrass);
 
 	// Default Walls
-	static BufferedImage iWall = ResourceManager.instance().getSpriteFromClassPath("defaults/gui/wallb16.jpg").getImage();
-	static Rectangle2D rWall   = new Rectangle2D.Double(0, 0, iWall.getWidth(null),iWall.getHeight(null));
-	static TexturePaint tWall  = new TexturePaint( iWall, rWall);
+	protected static BufferedImage iWall = ResourceManager.instance().getSpriteFromClassPath("defaults/gui/wallb16.jpg").getImage();
+	protected static Rectangle2D   rWall = new Rectangle2D.Double(0, 0, iWall.getWidth(null),iWall.getHeight(null));
+	protected static TexturePaint  tWall = new TexturePaint( iWall, rWall);
 	
-	// Cached calculations
+	// For cached calculations
 	int finalHeight;
 	int horizontal;
 	int vertical;
 	int h1;
 	int h2;
+
+	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
+			int x, int y, String ref, ImageType type, MapSettings settings ){
+		this(orientation, startHeight, endHeight, x, y, ref, type, settings, null, null);
+	}
 	
 	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
-			int x, int y, String ref, ImageType type, MapSettings settings ) {
+			int x, int y, String ref, ImageType type, MapSettings settings, 
+			String leftWallRef, String rightWallRef ) {
 		assert settings != null;
 		
 		this.fieldLocation = new Location(x, y);
@@ -103,7 +114,10 @@ public class IsoTile {
 		this.height = (startHeight + endHeight) / 2;
 		this.type   = type;
 		this.state  = TileState.NONE;
-		this.name   = ref;
+		
+		this.tileName      = ref;
+		this.leftWallName  = leftWallRef;
+		this.rightWallName = rightWallRef;
 		
 		//FIXME
 		invaildate(settings);
@@ -119,6 +133,9 @@ public class IsoTile {
 						0 - h1 + vertical / 2 }, 4);
 	}
 	
+	/**
+	 * Recalculate any cached data and reloads the the images
+	 */
 	public void invaildate(MapSettings settings){
 		assert settings != null;
 		finalHeight = (int) (settings.tileHeight   * settings.zoom);
@@ -139,11 +156,13 @@ public class IsoTile {
 				break;
 		}
 		
-		tileImage = getTileImage(horizontal, vertical);
+		tileImage  = makeTileImage(horizontal, vertical);
+		leftWall   = leftWallName  == null ? tWall : ResourceManager.instance().getTexturedTile(leftWallName);
+		rightWall  = rightWallName == null ? tWall : ResourceManager.instance().getTexturedTile(rightWallName);
 	}
 	
-	protected BufferedImage getTileImage(int horizontal, int vertical){
-		return ResourceManager.instance().getTile(name,horizontal,vertical);
+	protected BufferedImage makeTileImage(int horizontal, int vertical){
+		return ResourceManager.instance().getTile(tileName,horizontal,vertical);
 	}
 	
 	public boolean contains(Point p) {
@@ -227,11 +246,11 @@ public class IsoTile {
 		if (topPloy && !topOnly) return;
 		
 		if (type == TEXTURED) {
-			g.setPaint(ResourceManager.instance().getTexturedTile(name));
+			g.setPaint(ResourceManager.instance().getTexturedTile(tileName));
 			g.fillPolygon(top);
 			g.setPaint(old);
 		}else if(startHeight != endHeight){
-			log.error("Using safety textured tile, since heights differ");
+			log.trace("Using safety textured tile, since heights differ");
 			g.setPaint(tGrass);
 			g.fillPolygon(top);
 			g.setPaint(old);			
@@ -240,7 +259,8 @@ public class IsoTile {
 			g.drawImage(tileImage,  f, (y - h2), null);
 		}
 
-		
+
+		// Draw highlighting
 		if (state != TileState.NONE) {
 			Composite oldC = g.getComposite();
 			AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
@@ -250,6 +270,7 @@ public class IsoTile {
 			g.setComposite(oldC);
 		}
 		
+		// highlighting tile if selected
 		if (isSelected() || topOnly) {
 			Composite oldC = g.getComposite();
 			AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
@@ -259,24 +280,26 @@ public class IsoTile {
 			g.setComposite(oldC);
 		}
 		
+		// return if we are only the top polygon (for editor)
 		if (topPloy) return;
-		
-			Polygon poly = new Polygon(new int[] {
-					x,
-					x_hor_div_2,
-					x_hor_div_2,
-					x },
-					new int[] {
-							neg_y_h2_vet,
-							neg_y_h2_vet_div_2,
-							y_vet_div_2,
-							y_vet }
-					, 4);
 
-			old = g.getPaint();
-			g.setPaint(tWall);
-			g.fillPolygon(poly);
-			g.setPaint(old);
+		// draw the right wall
+		Polygon poly = new Polygon(new int[] {
+				x,
+				x_hor_div_2,
+				x_hor_div_2,
+				x },
+				new int[] {
+						neg_y_h2_vet,
+						neg_y_h2_vet_div_2,
+						y_vet_div_2,
+						y_vet }
+				, 4);
+
+		old = g.getPaint();
+		g.setPaint(rightWall);
+		g.fillPolygon(poly);
+		g.setPaint(old);
 
 //			g.setColor(lineColor); // Outline
 //			g.drawPolygon(new Polygon(new int[] {
@@ -291,21 +314,22 @@ public class IsoTile {
 //							y_vet }
 //					, 4));
 
-			poly = new Polygon(new int[] {
-					x,
-					neg_x_hor_div_2,
-					neg_x_hor_div_2,
-					x },
-					new int[] {
-							neg_y_h2_vet,
-							neg_y_h1_vet_div_2,
-							y_vet_div_2,
-							y_vet }
-					, 4);
-			old = g.getPaint();
-			g.setPaint(tWall);
-			g.fillPolygon(poly);
-			g.setPaint(old);
+		// Draw the left wall
+		poly = new Polygon(new int[] {
+				x,
+				neg_x_hor_div_2,
+				neg_x_hor_div_2,
+				x },
+				new int[] {
+						neg_y_h2_vet,
+						neg_y_h1_vet_div_2,
+						y_vet_div_2,
+						y_vet }
+				, 4);
+		old = g.getPaint();
+		g.setPaint(leftWall);
+		g.fillPolygon(poly);
+		g.setPaint(old);
 
 //			g.setColor(lineColor); // Outline
 //			g.drawPolygon(new Polygon(new int[] {

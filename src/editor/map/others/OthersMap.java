@@ -49,7 +49,7 @@ public class OthersMap extends BasicMap {
 			}
 		}
 		tileMapping = new TileMapping("none", new HashMap<String, TileImageData>());
-		data = new MapData("none");
+		data = new MapData("none",null);
 		loadOtherSettings();
 	}
 

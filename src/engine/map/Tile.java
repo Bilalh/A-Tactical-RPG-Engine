@@ -4,6 +4,7 @@ import common.Location;
 
 import common.enums.Orientation;
 import common.interfaces.IUnit;
+import config.xml.SavedTile;
 import config.xml.TileImageData;
 import engine.map.interfaces.IMutableMapUnit;
 
@@ -19,13 +20,29 @@ public class Tile {
 
 	protected String type;
 	protected Orientation orientation;
-
-	public Tile(int startHeight, int endHeight, String type, Orientation orientation) {
-		this.startHeight = startHeight;
-		this.endHeight = endHeight;
-		this.type = type;
+	
+	protected String leftWall;
+	protected String rightWall;
+	
+	private Tile(int startHeight, int endHeight, String type, Orientation orientation, 
+			String leftWall, String rightWall) {
 		this.orientation = orientation;
-		this.cost = endHeight;
+		this.startHeight = startHeight;
+		this.endHeight   = endHeight;
+		this.rightWall   = rightWall;
+		this.leftWall    = leftWall;
+		this.type        = type;
+		this.cost        = endHeight;
+	}
+
+
+	public Tile(SavedTile t) {
+		this(t.getStartingHeight(), t.getHeight(), t.getType(), t.getOrientation(), 
+				t.getLeftWallName(), t.getRightWallName());
+	}
+	
+	public Tile(int startHeight, int endHeight, String type, Orientation orientation) {
+		this(startHeight, endHeight, type, orientation, null, null);
 	}
 
 	/** @category Generated */
@@ -68,6 +85,26 @@ public class Tile {
 //		return String.format("Tile [current=%s, startHeight=%s, endHeight=%s, cost=%s, type=%s]",
 //				current, startHeight, endHeight, cost, type);
 		return "" + (current != null);
+	}
+
+	/** @category Generated */
+	public String getLeftWall() {
+		return leftWall;
+	}
+
+	/** @category Generated */
+	public void setLeftWall(String leftWall) {
+		this.leftWall = leftWall;
+	}
+
+	/** @category Generated */
+	public String getRightWall() {
+		return rightWall;
+	}
+
+	/** @category Generated */
+	public void setRightWall(String rightWall) {
+		this.rightWall = rightWall;
 	}
 
 }

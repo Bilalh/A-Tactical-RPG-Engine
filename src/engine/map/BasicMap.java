@@ -24,6 +24,9 @@ public class BasicMap extends Observable {
 	protected MapData data;
 
 
+	/**
+	 * Loads a map from resources
+	 */
 	public void loadMap(String name) {
 		SavedMap smap = Config.loadPreference(name);
 		assert smap != null;
@@ -40,7 +43,7 @@ public class BasicMap extends Observable {
 		for (SavedTile t : smap.getTiles()) {
 			// float h = ((t.getHeight())/max)*5;
 			// field[t.getX()][t.getY()] = new Tile((int)h, (int)h, t.getType());
-			field[t.getX()][t.getY()] = new Tile(t.getStartingHeight(), t.getHeight(), t.getType(), t.getOrientation());
+			field[t.getX()][t.getY()] = new Tile(t);
 		}
 
 		mapSettings = smap.getMapSettings();
@@ -105,6 +108,11 @@ public class BasicMap extends Observable {
 	/** @category Generated */
 	public MapData getData() {
 		return data;
+	}
+
+	/** @category Generated */
+	public String getTexturesLocation() {
+		return data.getTexturesLocation();
 	}
 
 }

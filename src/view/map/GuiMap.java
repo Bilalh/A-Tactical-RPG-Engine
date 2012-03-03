@@ -156,7 +156,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		// Load the tiles and items images
 		ResourceManager.instance().loadTileSheetFromResources(mapController.getTileSheetLocation());
+		ResourceManager.instance().loadTextureSheetFromResources(mapController.getTexturesLocation());
+		
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");
+
 		
 		for (int i = 0; i < fieldWidth; i++) {
 			for (int j = 0; j < fieldHeight; j++) {
@@ -166,7 +169,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 						grid[i][j].getStartHeight(),
 						grid[i][j].getEndHeight(),
 						i, j,
-						d.getLocation(), d.getType(), mapSettings);
+						d.getLocation(), 
+						d.getType(), 
+						mapSettings,
+						grid[i][j].getLeftWall(),
+						grid[i][j].getRightWall());
 			}
 		}
 

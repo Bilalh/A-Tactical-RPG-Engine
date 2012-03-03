@@ -19,7 +19,7 @@ public class OthersIsoTile extends EditorIsoTile {
 	}
 
 	@Override
-	protected BufferedImage getTileImage(int horizontal, int vertical) {
+	protected BufferedImage makeTileImage(int horizontal, int vertical) {
 		assert allTiles != null;
 		return allTiles;
 	}

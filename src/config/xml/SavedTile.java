@@ -13,18 +13,21 @@ import config.IPreference;
  */
 @XStreamAlias("tile")
 public class SavedTile {
-	final String type;
+	protected final String type;
 	
-	final int height; 
-	int startingHeight; // for the gui
+	protected final int height; 
+	protected int startingHeight; // for the gui
 	
 	@XStreamAsAttribute
-	final int x;
+	protected final int x;
 	@XStreamAsAttribute
-	final int y;
+	protected final int y;
 
-	Orientation orientation;
+	protected Orientation orientation;
 
+	protected String leftWall;
+	protected String rightWall;
+	
 	// to give default values
 	private Object readResolve() {
 		if (orientation == null)  orientation = Orientation.UP_TO_EAST;
@@ -58,6 +61,11 @@ public class SavedTile {
 		return height;
 	}
 
+	/** @category Generated */
+	public int getStartingHeight() {
+		return startingHeight;
+	}
+	
 	/** @category Generated */
 	public int getX() {
 		return x;
@@ -107,8 +115,14 @@ public class SavedTile {
 	}
 
 	/** @category Generated */
-	public int getStartingHeight() {
-		return startingHeight;
+	public String getLeftWallName() {
+		return leftWall;
 	}
+
+	/** @category Generated */
+	public String getRightWallName() {
+		return rightWall;
+	}
+
 
 }
