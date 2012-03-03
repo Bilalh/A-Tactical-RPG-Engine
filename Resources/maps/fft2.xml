@@ -1,6 +1,7 @@
 <map width="13" height="15">
   <mapData>
     <tileMappingLocation>maps/fft2-mapping.xml</tileMappingLocation>
+    <texturesLocation>images/textures/textures.png</texturesLocation>
   </mapData>
   <tile x="0" y="0">
     <type>5</type>
