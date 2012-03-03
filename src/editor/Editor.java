@@ -53,6 +53,7 @@ public class Editor {
 	
 	UnitsImagesPanel unitImagesPanel;
 	TilesetPanel     tilesetPanel;
+	TexturesPanel    texturesPanel;
 	
 	MapsPanel       mapsPanel;
 	
@@ -113,6 +114,7 @@ public class Editor {
 
 		unitImagesPanel = new UnitsImagesPanel(this);
 		tilesetPanel    = new TilesetPanel(this);
+		texturesPanel   = new TexturesPanel(this);
 		
 		JTabbedPane tabs  = new JTabbedPane();
 		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
@@ -120,6 +122,8 @@ public class Editor {
 		tabs.addTab("Units",        (unitPanel       = new UnitsPanel(unitImagesPanel.getSpriteSheets())));
 		tabs.addTab("Sprites",      (unitImagesPanel ));
 		tabs.addTab("Tilesets",     (tilesetPanel    ));
+		tabs.addTab("Textures",     (texturesPanel   ));
+
 		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel()));
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Spritesheets", new JPanel());
@@ -200,14 +204,21 @@ public class Editor {
 		UnitsImages tiles = tilesetPanel.getUnitsImages();
 		Config.savePreferencesToResources(tiles, "assets/tilesets.xml");
 		log.info(tiles);
+
+		UnitsImages textures = texturesPanel.getUnitsImages();
+		Config.savePreferencesToResources(textures, "assets/textures.xml");
+		log.info(textures);
 		
-		// Images
-		File images = new File(resources, "images");
-		images.mkdir();
-		File items = new File(images, "items");
-		items.mkdir();
-		File tilesets = new File(images, "tilesets");
-		tilesets.mkdir();
+//		// Images
+//		File images = new File(resources, "images");
+//		images.mkdir();
+//		File items = new File(images, "items");
+//		items.mkdir();
+//		File tilesets = new File(images, "tilesets");
+//		tilesets.mkdir();
+//		
+//		File textures = new File(images, "textures");
+//		textures.mkdir();
 		
 		// Main project file
 		File mainXml  = new File(f, "tactical-project.xml");
@@ -241,13 +252,17 @@ public class Editor {
 		skillsPanel.setSkills(ss);
 		log.info(ss);
 		
-		UnitsImages  ui = Config.loadPreference("assets/unitsImages.xml");
+		UnitsImages ui = Config.loadPreference("assets/unitsImages.xml");
 		unitImagesPanel.setUnitsImages(ui);
 		log.info(ui);
 		
-		UnitsImages  tiles = Config.loadPreference("assets/tilesets.xml");
+		UnitsImages tiles = Config.loadPreference("assets/tilesets.xml");
 		tilesetPanel.setUnitsImages(tiles);
 		log.info(tiles);
+
+		UnitsImages textures = Config.loadPreference("assets/textures.xml");
+		texturesPanel.setUnitsImages(textures);
+		log.info(textures);
 		
 		Units uu = Config.loadPreference("assets/units.xml");
 		unitPanel.setUnits(uu);
