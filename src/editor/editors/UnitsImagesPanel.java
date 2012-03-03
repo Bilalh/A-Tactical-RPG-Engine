@@ -99,7 +99,8 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 		if (sheet == null){
 			SpriteSheet _sheet = Config.loadSpriteSheet(ui.getSpriteSheetLocation());
 			currentSheet  = new EditorSpriteSheet(_sheet);
-			spriteSheets.put(ui.getUuid(), sheet);	
+			assert currentSheet != null;
+			spriteSheets.put(ui.getUuid(), currentSheet);	
 		}else{
 			currentSheet = sheet;
 		}
@@ -302,6 +303,16 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 //			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
 			return label;
 		}
+	}
+
+	/** @category Generated */
+	public java.util.Map<UUID, EditorSpriteSheet> getSpriteSheets() {
+		return spriteSheets;
+	}
+
+	/** @category Generated */
+	public void setSpriteSheets(java.util.Map<UUID, EditorSpriteSheet> spriteSheets) {
+		this.spriteSheets = spriteSheets;
 	}
 
 	

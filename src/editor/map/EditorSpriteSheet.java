@@ -62,5 +62,10 @@ public class EditorSpriteSheet implements ISpriteSheet {
 		return new ArrayList(sprites.values());
 		
 	}
+
+	/** @category Generated */
+	public SpriteSheet getSpriteSheet() {
+		return spriteSheet;
+	}
 	
 }

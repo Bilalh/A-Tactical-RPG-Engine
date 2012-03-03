@@ -30,6 +30,7 @@ import config.Config;
 
 import editor.Editor;
 import editor.MapEditor;
+import editor.map.EditorSpriteSheet;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import editor.util.Resources;
@@ -73,13 +74,10 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	private JComboBox  infoSpriteSheet;
 	private JLabel[] infoSprites;
 
-	private java.util.Map<UUID, SpriteSheet> spriteSheets;
-	private UnitImages  defaultImages = Config.loadPreferenceFromClassPath("/editor/resources/defaults/defaultImages-animations.xml");
-	private SpriteSheet defaultSheet = new SpriteSheet(Resources.getImage("defaults/defaultImages.png"), 
-			Resources.getFileAsStream("defaults/defaultImages.xml"));
+	private java.util.Map<UUID, EditorSpriteSheet> spriteSheets;
 	private SpriteSheet unitSprites;
 	
-	public UnitsPanel(java.util.Map<UUID, SpriteSheet> spriteSheets){
+	public UnitsPanel(java.util.Map<UUID, EditorSpriteSheet> spriteSheets){
 		super(new BorderLayout());
 		this.spriteSheets = spriteSheets;
 		createMainPane();
@@ -131,14 +129,13 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		UnitImages ui = currentUnit.getImageData();
 		log.debug(u);
 		log.debug(spriteSheets);
-		if (ui == null || (unitSprites = spriteSheets.get(ui.getUuid())) == null){
-			log.error("Using default images");
-			unitSprites = defaultSheet;
-			//FIXME ?
-//			currentUnit.setImageData("images/characters/Boy-animations.xml", defaultImages);
+		EditorSpriteSheet ess;
+		if (ui == null || (ess = spriteSheets.get(ui.getUuid())) == null){
+			assert false : spriteSheets.size() + " "+ ui.getUuid() + "\n" + spriteSheets;
+			throw new IllegalStateException("No spritesheets");
 		}else{
+			unitSprites = ess.getSpriteSheet();
 			infoSpriteSheet.setSelectedItem(ui);
-			assert ((DefaultComboBoxModel)infoSpriteSheet.getModel()).getIndexOf(ui) >=0 : ui.getUuid() + "\n" + infoSpriteSheet.getModel();
 		}
 		
 		assert infoSprites != null;
@@ -186,16 +183,10 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 
 	private void changeUnitImages(UnitImages images){
 		
-		//FIXME  massive hack
-		String path = images.getSpriteSheetLocation();
-		// remove the file extension
-		path = path.substring(0, path.lastIndexOf('.'));
-		// Add the unitImages path
-		path += "-animations.xml";
-
+		String path = images.getAnimationPath();
 		currentUnit.setImageData(path,images);
 		
-		unitSprites = spriteSheets.get(images.getUuid());
+		unitSprites = spriteSheets.get(images.getUuid()).getSpriteSheet();
 		loadUnitImages();
 	}
 	
@@ -284,6 +275,8 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	protected JComponent createLeftPane(){
 		IMutableUnit uu = new Unit();
 		uu.setName("New Unit");
+		UnitImages ui = Config.loadPreference("images/characters/defaultImages-animations.xml");
+		uu.setImageData(ui.getAnimationPath(), ui);
 		
 		unitsListModel = new DefaultListModel();
 		

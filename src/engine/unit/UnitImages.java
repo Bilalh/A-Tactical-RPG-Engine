@@ -42,6 +42,16 @@ public class UnitImages implements IPreference, Identifiable {
 		return this;
 	}
 	
+	public String getAnimationPath(){
+		//FIXME  massive hack
+		String path = getSpriteSheetLocation();
+		// remove the file extension
+		path = path.substring(0, path.lastIndexOf('.'));
+		// Add the unitImages path
+		path += "-animations.xml";
+		return path;
+	}
+	
 	/** @category Generated */
 	public String getSpriteSheetLocation() {
 		return spriteSheetLocation;
@@ -99,11 +109,6 @@ public class UnitImages implements IPreference, Identifiable {
 	}
 
 	@Override
-	public String toString() {
-		return String.format("UnitImages [spriteSheetLocation=%s, animations=%s, uuid=%s]", spriteSheetLocation, animations, uuid);
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -122,5 +127,11 @@ public class UnitImages implements IPreference, Identifiable {
 		} else if (!uuid.equals(other.uuid)) return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("UnitImages [spriteSheetLocation=%s, animations=%s, uuid=%s]", spriteSheetLocation, animations, uuid);
+	}
+	
 	
 }

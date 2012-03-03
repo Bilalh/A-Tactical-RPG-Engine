@@ -32,6 +32,7 @@ import common.spritesheet.SpriteSheet;
 import config.Config;
 
 import editor.editors.*;
+import editor.map.EditorSpriteSheet;
 import editor.util.Prefs;
 import editor.util.Resources;
 import engine.assets.*;
@@ -91,22 +92,12 @@ public class Editor {
 		return skillsPanel.getSkills();
 	}
 	
-	java.util.Map<UUID, SpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, SpriteSheet>());
-	
 	public UnitsImages getUnitImages(){
-		UnitsImages images = new UnitsImages();
-		images.put(Config.<UnitImages>loadPreference("images/characters/Boy-animations.xml"));
-		images.put(Config.<UnitImages>loadPreference("images/characters/Elena-animations.xml"));
-		images.put(Config.<UnitImages>loadPreference("images/characters/princess-animations.xml"));
-		spriteSheets.clear();
-		for (UnitImages ui : images.values()) {
-			spriteSheets.put(ui.getUuid(), Config.loadSpriteSheet(ui.getSpriteSheetLocation()));
-		}
-		return images;
+		return unitImagesPanel.getUnitsImages();
 	}
 	
-	public java.util.Map<UUID, SpriteSheet> getSpriteSheets(){
-		return Collections.unmodifiableMap(spriteSheets);
+	public java.util.Map<UUID, EditorSpriteSheet> getSpriteSheets(){
+		return Collections.unmodifiableMap(unitImagesPanel.getSpriteSheets());
 	}
 	
 	private JTabbedPane createTabs() {
@@ -118,11 +109,12 @@ public class Editor {
 		
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 
+		unitImagesPanel = new UnitsImagesPanel(this);
 		JTabbedPane tabs  = new JTabbedPane();
 		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));
-		tabs.addTab("Units",        (unitPanel       = new UnitsPanel(spriteSheets)));
-		tabs.addTab("Unit Images",  (unitImagesPanel = new UnitsImagesPanel(this)));
+		tabs.addTab("Units",        (unitPanel       = new UnitsPanel(unitImagesPanel.getSpriteSheets())));
+		tabs.addTab("Unit Images",  (unitImagesPanel));
 		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel()));
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Spritesheets", new JPanel());
