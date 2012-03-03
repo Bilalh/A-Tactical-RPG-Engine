@@ -1,8 +1,8 @@
-package editor;
+package editor.editors;
 
 import javax.swing.JPanel;
 
-import editor.editors.IRefreshable;
+import editor.Editor;
 
 /**
  * @author Bilal Hussain

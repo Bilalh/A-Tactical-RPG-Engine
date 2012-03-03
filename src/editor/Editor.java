@@ -52,6 +52,8 @@ public class Editor {
 	UnitsPanel   unitPanel;
 	
 	UnitsImagesPanel unitImagesPanel;
+	TilesetPanel     tilesetPanel;
+	
 	MapsPanel       mapsPanel;
 	
 	
@@ -110,11 +112,14 @@ public class Editor {
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 
 		unitImagesPanel = new UnitsImagesPanel(this);
+		tilesetPanel    = new TilesetPanel(this);
+		
 		JTabbedPane tabs  = new JTabbedPane();
 		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));
 		tabs.addTab("Units",        (unitPanel       = new UnitsPanel(unitImagesPanel.getSpriteSheets())));
-		tabs.addTab("Unit Images",  (unitImagesPanel));
+		tabs.addTab("Unit Images",  (unitImagesPanel ));
+		tabs.addTab("Tilesets",     (tilesetPanel    ));
 		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel()));
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Spritesheets", new JPanel());
@@ -191,13 +196,18 @@ public class Editor {
 		UnitsImages  ui = unitImagesPanel.getUnitsImages();
 		Config.savePreferencesToResources(ui, "assets/unitsImages.xml");
 		log.info(ui);
-		
+
+		UnitsImages tiles = tilesetPanel.getUnitsImages();
+		Config.savePreferencesToResources(tiles, "assets/tilesets.xml");
+		log.info(tiles);
 		
 		// Images
 		File images = new File(resources, "images");
 		images.mkdir();
 		File items = new File(images, "items");
 		items.mkdir();
+		File tilesets = new File(images, "tilesets");
+		tilesets.mkdir();
 		
 		// Main project file
 		File mainXml  = new File(f, "tactical-project.xml");
@@ -234,6 +244,10 @@ public class Editor {
 		UnitsImages  ui = Config.loadPreference("assets/unitsImages.xml");
 		unitImagesPanel.setUnitsImages(ui);
 		log.info(ui);
+		
+		UnitsImages  tiles = Config.loadPreference("assets/tilesets.xml");
+		tilesetPanel.setUnitsImages(tiles);
+		log.info(tiles);
 		
 		Units uu = Config.loadPreference("assets/units.xml");
 		unitPanel.setUnits(uu);

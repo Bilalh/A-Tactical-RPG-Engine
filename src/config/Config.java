@@ -109,7 +109,7 @@ public class Config {
 	
 	public static SpriteSheet loadSpriteSheet(String filepath){
 		File f = new File(RESOURCE_DIRECTORY+filepath);
-		assert f.exists() : filepath + "does not exists";
+		assert f.exists() : filepath + " does not exists";
 		return loadSpriteSheet(f);
 	}
 

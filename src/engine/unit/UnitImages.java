@@ -36,7 +36,7 @@ public class UnitImages implements IPreference, Identifiable {
 	
 	private Object readResolve() {
 		if (uuid ==null){
-			assert false : spriteSheetLocation + "has no UUID"; 
+			assert false : spriteSheetLocation + " has no UUID"; 
 			uuid = UUID.randomUUID();
 		}
 		return this;
