@@ -231,13 +231,13 @@ public class Editor {
 		skillsPanel.setSkills(ss);
 		log.info(ss);
 		
-		Units uu = Config.loadPreference("assets/units.xml");
-		unitPanel.setUnits(uu);
-		log.info(uu);
-		
 		UnitsImages  ui = Config.loadPreference("assets/unitsImages.xml");
 		unitImagesPanel.setUnitsImages(ui);
 		log.info(ui);
+		
+		Units uu = Config.loadPreference("assets/units.xml");
+		unitPanel.setUnits(uu);
+		log.info(uu);
 		
 		IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
         panel.panelSelected(Editor.this);

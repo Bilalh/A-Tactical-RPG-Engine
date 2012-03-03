@@ -131,7 +131,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		log.debug(spriteSheets);
 		EditorSpriteSheet ess;
 		if (ui == null || (ess = spriteSheets.get(ui.getUuid())) == null){
-			assert false : spriteSheets.size() + " "+ ui.getUuid() + "\n" + spriteSheets;
+			assert false : spriteSheets.size() + " "+ ui.getUuid() + "\n" + spriteSheets + "\n" + currentUnit;
 			throw new IllegalStateException("No spritesheets");
 		}else{
 			unitSprites = ess.getSpriteSheet();

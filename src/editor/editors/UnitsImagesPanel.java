@@ -60,8 +60,9 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	private UnitImages currentImages;
 	private EditorSpriteSheet currentSheet;
 	
-	private SpriteSheetEditor spriteSheetEditor;
 	private Editor editor;
+	
+	String justCreated = null;
 	
 	public UnitsImagesPanel(Editor editor){
 		super(new BorderLayout());
@@ -83,7 +84,6 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 		spriteSheets.clear();
 		imagesListModel.clear();
 		for (UnitImages ui : images.values()) {
-			EditorSpriteSheet sheet = spriteSheets.get(ui.getUuid());
 			SpriteSheet _sheet = Config.loadSpriteSheet(ui.getSpriteSheetLocation());
 			spriteSheets.put(ui.getUuid(), new EditorSpriteSheet(_sheet));
 			imagesListModel.addElement(ui);
@@ -114,8 +114,15 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	
 	@Override
 	public void spriteEditingFinished() {
-		spriteSheets.remove(currentImages.getUuid());
-		setCurrentUnitImages(currentImages);
+		if (justCreated != null){
+			UnitImages ui =  Config.loadPreference(justCreated);
+			SpriteSheet _sheet = Config.loadSpriteSheet(ui.getSpriteSheetLocation());
+			spriteSheets.put(ui.getUuid(), new EditorSpriteSheet(_sheet));
+			imagesListModel.addElement(ui);
+		}else{
+			spriteSheets.remove(currentImages.getUuid());
+			setCurrentUnitImages(currentImages);	
+		}
 		editor.setVisible(true);
 	}
 	
@@ -213,12 +220,8 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			assert false : "not done yet";
-			IMutableUnit w = new Unit();
-			int index = imagesListModel.size();
-			w.setName("New Unit " + (index + 1));
-			imagesListModel.addElement(w);
-			imagesList.setSelectedIndex(index);
+			justCreated = "images/characters/test.png";
+			editSpriteSheet(justCreated);
 		}
 	}
 
@@ -260,12 +263,16 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			spriteSheetEditor = new SpriteSheetEditor(WindowConstants.DISPOSE_ON_CLOSE,
-					new File ("").getAbsolutePath()+ "/"+ editor.getProjectPath() + "/Resources/"+ currentImages.getSpriteSheetLocation(),
-					UnitsImagesPanel.this);
-			editor.setVisible(false);
-			spriteSheetEditor.setVisible(true);
+			editSpriteSheet(currentImages.getSpriteSheetLocation());
 		}
+	}
+	
+	private void editSpriteSheet(String path){
+		editor.setVisible(false);
+		new SpriteSheetEditor(WindowConstants.DISPOSE_ON_CLOSE,
+				new File ("").getAbsolutePath()+ "/"+ editor.getProjectPath() + "/Resources/"+ path,
+				UnitsImagesPanel.this
+				).setVisible(true);
 	}
 	
 	public void refreashSprites(){
