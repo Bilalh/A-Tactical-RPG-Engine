@@ -76,17 +76,21 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private String savePath;
 	private ISpriteEditorListener listener; 
 	
+	private boolean showAnimations;
 	private String helpString;
 	
+	
 	public SpriteSheetEditor(int frameClosingValue) {
-		this(frameClosingValue, null,null,"");
+		this(frameClosingValue, null,null,"",true);
 	}
 
-	public SpriteSheetEditor(int frameClosingValue, String savePath, ISpriteEditorListener listener, String helpString) {
+	public SpriteSheetEditor(int frameClosingValue, String savePath, ISpriteEditorListener listener, String helpString, boolean showAnimations) {
 		super("Sprite Sheet Editor");
-		this.savePath   = savePath;
-		this.listener   = listener;
-		this.helpString = helpString;
+		this.savePath      = savePath;
+		this.listener       = listener;
+		this.helpString     = helpString;
+		this.showAnimations = showAnimations;
+		
 		STARTING_PATH = Config.getResourceDirectory() +  "/images";
 		chooser = new JFileChooser(STARTING_PATH);
 		saveChooser = new JFileChooser(STARTING_PATH);
@@ -136,7 +140,11 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		JTabbedPane tab = new JTabbedPane();
 		tab.add("Data",       createDataPanel());
 		tab.add("Listing",    createFileListPanel());
-		tab.add("Animations", createAnimationPanel());
+		
+		JScrollPane ani = createAnimationPanel();
+		if (showAnimations){
+			tab.add("Animations", ani);			
+		}
 		
 		this.add(tab, BorderLayout.EAST);
 		this.add(createPanel(""), BorderLayout.WEST);
@@ -452,7 +460,6 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			}
 		});
 		
-		
 		JMenuItem animation = new JMenuItem("Make Animation from Selected");
 		animation.addActionListener(new ActionListener() {
 			@Override
@@ -462,7 +469,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		});
 		
 		JMenuItem tileMapping = new JMenuItem("Make Tile Mapping from Sheet");
-		animation.addActionListener(new ActionListener() {
+		tileMapping.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				makeTileMapping();
@@ -473,8 +480,11 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		edit.add(sort);
 		edit.add(removeExt);
 		edit.addSeparator();
-		edit.add(animation);
-		edit.add(tileMapping);
+		if (showAnimations){
+			edit.add(animation);
+		}else{
+			edit.add(tileMapping);	
+		}
 		
 		return bar;
 	}

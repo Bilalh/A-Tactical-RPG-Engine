@@ -118,7 +118,7 @@ public class Editor {
 		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));
 		tabs.addTab("Units",        (unitPanel       = new UnitsPanel(unitImagesPanel.getSpriteSheets())));
-		tabs.addTab("Unit Images",  (unitImagesPanel ));
+		tabs.addTab("Sprites",      (unitImagesPanel ));
 		tabs.addTab("Tilesets",     (tilesetPanel    ));
 		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel()));
 //		tabs.addTab("Story",        new JPanel());

@@ -35,6 +35,7 @@ public class TilesetPanel extends AbstractSpriteSheetOrganiser {
 
 	public TilesetPanel(Editor editor){
 		super(editor, new BorderLayout());
+		showAnimations = false;
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class TilesetPanel extends AbstractSpriteSheetOrganiser {
 	}
 
 	@Override
-	protected String createInfoPanelTitle() {
+	protected String infoPanelTitle() {
 		return "Tiles";
 	}
 	

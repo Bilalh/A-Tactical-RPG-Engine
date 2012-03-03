@@ -53,7 +53,9 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	protected UnitImages currentImages;
 	protected EditorSpriteSheet currentSheet;
 	protected String justCreated = null;
+	
 	protected String spriteSheetHelpString = "Must have the images (north0, south0, east0 and west0) in the sheet.";
+	protected boolean showAnimations = true;
 
 	
 	public AbstractSpriteSheetOrganiser(Editor editor){
@@ -165,7 +167,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 		});
 	
 		JScrollPane slist = new JScrollPane(imagesList);
-		slist.setColumnHeaderView(createHeader("All Images"));
+		slist.setColumnHeaderView(createHeader("All " + infoPanelTitle()));
 		
 		JPanel p  = new JPanel(new BorderLayout());
 		p.add(slist, BorderLayout.CENTER);
@@ -191,13 +193,13 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	
 		JPanel tilesetPanelWithHeader = new JPanel(new BorderLayout());
 		tilesetPanelWithHeader.add(spriteSheetPanel,BorderLayout.CENTER);
-		tilesetPanelWithHeader.add(createHeader(createInfoPanelTitle()),BorderLayout.NORTH);
+		tilesetPanelWithHeader.add(createHeader(infoPanelTitle()),BorderLayout.NORTH);
 		tilesetPanelWithHeader.add(new JButton(new EditAction()), BorderLayout.SOUTH);		
 		tilesetPanelWithHeader.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 		return tilesetPanelWithHeader;
 	}
 
-	protected abstract String createInfoPanelTitle();
+	protected abstract String infoPanelTitle();
 
 	protected LayoutManager createLayout() {
 		LC layC = new LC().fill().wrap();
@@ -290,8 +292,8 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 		new SpriteSheetEditor(WindowConstants.DO_NOTHING_ON_CLOSE,
 				new File ("").getAbsolutePath()+ "/"+ editor.getProjectPath() + "/Resources/"+ path,
 				AbstractSpriteSheetOrganiser.this,
-				spriteSheetHelpString
-				).setVisible(true);
+				spriteSheetHelpString,
+				showAnimations ).setVisible(true);
 	}
 	public void refreashSprites() {
 		if (spriteSheetPanel.getHeight() <=0 || spriteSheetPanel.getWidth() <=0 ) return;

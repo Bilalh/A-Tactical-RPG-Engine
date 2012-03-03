@@ -43,7 +43,7 @@ public class UnitsImagesPanel extends AbstractSpriteSheetOrganiser {
 	}
 
 	@Override
-	protected String createInfoPanelTitle() {
+	protected String infoPanelTitle() {
 		return "Sprites";
 	}
 	
