@@ -55,10 +55,10 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private int sWidth = sizes[0], sHeight = sizes[0];
 
 	// For IO
-	private final String STARTING_PATH = "Resources/images";
-	private JFileChooser chooser = new JFileChooser(STARTING_PATH);
-	private JFileChooser saveChooser = new JFileChooser(STARTING_PATH);
-	private JFileChooser dirChooser = new JFileChooser(STARTING_PATH);
+	private String STARTING_PATH;
+	private JFileChooser chooser;
+	private JFileChooser saveChooser;
+	private JFileChooser dirChooser;
 	
 	private JSpinner border = new JSpinner(new SpinnerNumberModel(0, 0, 50, 1));
 
@@ -83,6 +83,11 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		super("Sprite Sheet Editor");
 		this.savePath = savePath;
 		this.listener = listener;
+		
+		STARTING_PATH = Config.getResourceDirectory() +  "/images";
+		chooser = new JFileChooser(STARTING_PATH);
+		saveChooser = new JFileChooser(STARTING_PATH);
+		dirChooser = new JFileChooser(STARTING_PATH);
 		
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");

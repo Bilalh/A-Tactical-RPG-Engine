@@ -42,12 +42,15 @@ import engine.unit.Unit;
 import engine.unit.UnitImages;
 
 /**
+ * Editor for units images
  * @author Bilal Hussain
  */
 public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpriteProvider<MutableSprite>, ISpriteEditorListener {
 	private static final Logger log = Logger.getLogger(UnitsImagesPanel.class);
 	private static final long serialVersionUID = -6821378708781154897L;
 
+	private Editor editor;
+	
 	private JList imagesList;
 	private DefaultListModel imagesListModel;
 	
@@ -59,8 +62,6 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	
 	private UnitImages currentImages;
 	private EditorSpriteSheet currentSheet;
-	
-	private Editor editor;
 	
 	String justCreated = null;
 	
@@ -109,13 +110,13 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	
 	@Override
 	public void panelSelected(Editor editor) {
-		// FIXME panelSelected method
+		// FIXME panelSelected method  needed?
 	}
 	
 	@Override
 	public void spriteEditingFinished() {
 		if (justCreated != null){
-			UnitImages ui =  Config.loadPreference(justCreated);
+			UnitImages ui =  Config.loadPreference(justCreated.replaceAll("\\.png$", "-animations.xml"));
 			SpriteSheet _sheet = Config.loadSpriteSheet(ui.getSpriteSheetLocation());
 			spriteSheets.put(ui.getUuid(), new EditorSpriteSheet(_sheet));
 			imagesListModel.addElement(ui);
@@ -220,8 +221,20 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			justCreated = "images/characters/test.png";
-			editSpriteSheet(justCreated);
+			justCreated =(String) JOptionPane.showInputDialog(UnitsImagesPanel.this,
+					"Name for new Spritesheet", 
+					"Adding new Spritesheet", 
+					JOptionPane.INFORMATION_MESSAGE, 
+					null, null, 
+					"Spritesheet" +  (imagesListModel.size() + 1));
+			if (justCreated != null){
+				if (justCreated.lastIndexOf(".png") == -1){
+					justCreated += ".png";
+				}
+				justCreated ="images/characters/" + justCreated;
+				editSpriteSheet(justCreated);
+			}
+
 		}
 	}
 

@@ -132,7 +132,10 @@ public class Config {
 	public static void setResourceDirectory(String path) {
 		RESOURCE_DIRECTORY = path;
 	}
-	
+
+	public static String getResourceDirectory(){
+		return RESOURCE_DIRECTORY;
+	}
 	
 	private static final ITileMapping defaultMapping;
 	static{

@@ -261,7 +261,6 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoSpriteSheet.setSelectedItem(currentUnit.getImageData());
 		infoSpriteSheet.addItemListener(il);
 		
-		assert ((DefaultComboBoxModel) infoSpriteSheet.getModel()).getIndexOf(currentUnit.getImageData()) != -1;
 		assert currentUnit.getImageData() == infoSpriteSheet.getSelectedItem();
 	}
 
