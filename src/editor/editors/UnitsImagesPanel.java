@@ -172,14 +172,13 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	}
 	
 	private void deleteFromList(int index){
-		assert false : "not done yet";
-
 		assert imagesListModel.size() >=2;
 		assert index != -1;
 		int nextIndex = index == 0 ? imagesListModel.size()-1 : index - 1;
 		System.out.printf("(%d,%d)\n", index, nextIndex );
 		imagesList.setSelectedIndex(nextIndex);
-		imagesListModel.remove(index);
+		UnitImages s=  (UnitImages) imagesListModel.remove(index);
+		spriteSheets.remove(s);
 	}
 	
 	private class DeleteAction extends AbstractAction {
@@ -193,7 +192,7 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// Must have at lest one unit
+			// Must have at lest one SpriteSheet
 			if (imagesListModel.size() <= 1) {
 				return;
 			}

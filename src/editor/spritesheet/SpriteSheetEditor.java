@@ -92,10 +92,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		initGui();
 		setJMenuBar(createMenubar());
 		this.setDefaultCloseOperation(frameClosingValue);
-		if (savePath != null){
-			loadSheetFromFile(new File(savePath), true);
-		}
-		
+
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
@@ -103,9 +100,16 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			}
 		});
 		
+		if (savePath != null){
+			File f = new File(savePath);
+			if (f.exists()) loadSheetFromFile(f, true);
+		}
 	}
 	
 	private void finished(){
+		if (savePath != null){
+			saveToFile(new File(savePath));
+		}
 		if (listener != null){
 			listener.spriteEditingFinished();
 		}
@@ -692,7 +696,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		int rst =JOptionPane.showConfirmDialog(SpriteSheetEditor.this, "Save current sheet?");
 		if      (rst == JOptionPane.CANCEL_OPTION) return false;
 		else if (rst == JOptionPane.YES_OPTION){
-			if (rst == JOptionPane.CANCEL_OPTION) return false;
+			if  (rst == JOptionPane.CANCEL_OPTION) return false;
 		}
 		return true;
 	}
