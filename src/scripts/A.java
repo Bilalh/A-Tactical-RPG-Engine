@@ -1,4 +1,4 @@
-package util.scripts;
+package scripts;
 
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;

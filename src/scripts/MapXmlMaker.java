@@ -1,4 +1,4 @@
-package util.scripts;
+package scripts;
 
 import java.io.File;
 import java.io.FileWriter;
