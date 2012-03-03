@@ -49,21 +49,20 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	private static final Logger log = Logger.getLogger(UnitsImagesPanel.class);
 	private static final long serialVersionUID = -6821378708781154897L;
 
-	private Editor editor;
+	protected Editor editor;
 	
-	private JList imagesList;
-	private DefaultListModel imagesListModel;
+	protected JList imagesList;
+	protected DefaultListModel imagesListModel;
 	
-	private java.util.Map<UUID, EditorSpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, EditorSpriteSheet>());
+	protected java.util.Map<UUID, EditorSpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, EditorSpriteSheet>());
 	
-	private SpriteSheetPanel tilesetPanel;
-	private JPanel tilesetPanelWithHeader;
-	private Packer packer = new Packer();
+	protected SpriteSheetPanel spriteSheetPanel;
+	protected Packer packer = new Packer();
 	
-	private UnitImages currentImages;
-	private EditorSpriteSheet currentSheet;
+	protected UnitImages currentImages;
+	protected EditorSpriteSheet currentSheet;
 	
-	private String justCreated = null;
+	protected String justCreated = null;
 	protected String spriteSheetHelpString = "Must the have images (north0, south0, east0 and west0) in the sheet";
 	
 	public UnitsImagesPanel(Editor editor){
@@ -247,18 +246,18 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	}
 
 	protected JPanel createInfoPanel() {
-		tilesetPanel = new SpriteSheetPanel(this);
+		spriteSheetPanel = new SpriteSheetPanel(this);
 		
-		tilesetPanel.addComponentListener(new ComponentAdapter() {
+		spriteSheetPanel.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				refreashSprites();
 			}
 		});
-		tilesetPanel.setMinimumSize(new Dimension(512, 512));
+		spriteSheetPanel.setMinimumSize(new Dimension(512, 512));
 	
-		tilesetPanelWithHeader = new JPanel(new BorderLayout());
-		tilesetPanelWithHeader.add(tilesetPanel,BorderLayout.CENTER);
+		JPanel tilesetPanelWithHeader = new JPanel(new BorderLayout());
+		tilesetPanelWithHeader.add(spriteSheetPanel,BorderLayout.CENTER);
 		tilesetPanelWithHeader.add(createHeader("Sprites"),BorderLayout.NORTH);
 		tilesetPanelWithHeader.add(new JButton(new EditAction()), BorderLayout.SOUTH);		
 		tilesetPanelWithHeader.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
@@ -290,10 +289,10 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	}
 	
 	public void refreashSprites(){
-		if (tilesetPanel.getHeight() <=0 || tilesetPanel.getWidth() <=0 ) return;
-		tilesetPanel.setSpriteSheet(packer.packImagesByName(currentSheet.getSprites(),
-				tilesetPanel.getWidth(), 
-				tilesetPanel.getHeight(), 2));
+		if (spriteSheetPanel.getHeight() <=0 || spriteSheetPanel.getWidth() <=0 ) return;
+		spriteSheetPanel.setSpriteSheet(packer.packImagesByName(currentSheet.getSprites(),
+				spriteSheetPanel.getWidth(), 
+				spriteSheetPanel.getHeight(), 2));
 	}
 	
 	
@@ -315,14 +314,13 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 		return header;
 	}
 
-	static class ImageListRenderer extends DefaultListCellRenderer {
+	public static class ImageListRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
 			UnitImages w= (UnitImages) value;
-			label.setText(new File(w.getSpriteSheetLocation()).getName());
-//			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
+			label.setText(new File(w.getSpriteSheetLocation()).getName().replaceAll("\\.png$", ""));
 			return label;
 		}
 	}

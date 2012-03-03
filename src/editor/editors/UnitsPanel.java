@@ -261,7 +261,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoSpriteSheet.setSelectedItem(currentUnit.getImageData());
 		infoSpriteSheet.addItemListener(il);
 		
-		assert currentUnit.getImageData() == infoSpriteSheet.getSelectedItem();
+		assert currentUnit.getImageData().equals(infoSpriteSheet.getSelectedItem());
 	}
 
 	protected void createMainPane() {
@@ -490,7 +490,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		
 		
 		infoSpriteSheet = new JComboBox(new IWeapon[]{});
-		infoSpriteSheet.setRenderer(new SpriteListRenderer());
+		infoSpriteSheet.setRenderer(new UnitsImagesPanel.ImageListRenderer());
 		infoSpriteSheet.setEditable(false);
 		infoSpriteSheet.addItemListener(new ItemListener() {
 			@Override
@@ -602,20 +602,6 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			return imageRef;
 		}
 		
-	}
-	
-	static class SpriteListRenderer extends DefaultListCellRenderer {
-
-		private static final long serialVersionUID = 5874522377321012662L;
-		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-			UnitImages w= (UnitImages) value;
-			String name = new File(w.getSpriteSheetLocation()).getName();
-			label.setText(name);
-//			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
-			return label;
-		}
 	}
 	
 	static class WeaponDropDownListRenderer extends DefaultListCellRenderer {
