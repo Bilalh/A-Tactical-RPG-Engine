@@ -116,6 +116,7 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 	public void spriteEditingFinished() {
 		spriteSheets.remove(currentImages.getUuid());
 		setCurrentUnitImages(currentImages);
+		editor.setVisible(true);
 	}
 	
 	protected void createMainPane() {
@@ -262,8 +263,8 @@ public class UnitsImagesPanel extends JPanel implements IRefreshable, ISpritePro
 			spriteSheetEditor = new SpriteSheetEditor(WindowConstants.DISPOSE_ON_CLOSE,
 					new File ("").getAbsolutePath()+ "/"+ editor.getProjectPath() + "/Resources/"+ currentImages.getSpriteSheetLocation(),
 					UnitsImagesPanel.this);
+			editor.setVisible(false);
 			spriteSheetEditor.setVisible(true);
-			//FIXME finish
 		}
 	}
 	

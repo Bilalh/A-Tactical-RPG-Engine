@@ -273,4 +273,10 @@ public class Editor {
 	public String getProjectPath() {
 		return projectPath;
 	}
+
+
+	/** @category Generated */
+	public void setVisible(boolean arg0) {
+		frame.setVisible(arg0);
+	}
 }
