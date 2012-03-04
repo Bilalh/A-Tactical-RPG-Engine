@@ -5,7 +5,7 @@
     <pitch>0.5</pitch>
   </mapSettings>
   <mapData>
-    <tileMappingLocation>maps/default-mapping.xml</tileMappingLocation>
+    <tileMappingLocation>images/tilesets/default-mapping.xml</tileMappingLocation>
   </mapData>
   <tile x="0" y="0">
     <type>lime</type>

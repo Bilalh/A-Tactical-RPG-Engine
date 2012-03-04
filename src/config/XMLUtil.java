@@ -25,9 +25,11 @@ import engine.unit.SpriteSheetData;
 
 /**
  * Xml utilities to create and parse xml
+ * 
  * @author Bilal Hussain
  */
 public abstract class XMLUtil {
+	//Based on code I wrote for the JH project.
 	private static final Logger log = Logger.getLogger(XMLUtil.class);
 
 	public static XStream xs;
@@ -35,7 +37,7 @@ public abstract class XMLUtil {
 	static {
 		xs = new XStream(new DomDriver());
 		xs.processAnnotations(getClassesForAnnotations());
-		// xs.addDefaultImplementation(Card.class,ICard.class);
+		 xs.addDefaultImplementation(TileMapping.class,ITileMapping.class);
 		// xs.setMode(XStream.NO_REFERENCES);
 	}
 
@@ -133,6 +135,9 @@ public abstract class XMLUtil {
 				MutableSprite.class,
 				SpriteInfo.class,
 				MutableTileMapping.class,
+				
+				DeferredResource.class
+				
 				
 		};
 	}

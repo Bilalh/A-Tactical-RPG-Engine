@@ -6,6 +6,7 @@
   </mapSettings>
   <mapData>
     <tileMappingLocation>images/tilesets/nicer-mapping.xml</tileMappingLocation>
+    <texturesLocation>images/textures/default.png</texturesLocation>
   </mapData>
   <tile x="0" y="0">
     <type>90</type>

@@ -14,6 +14,12 @@ public class IOUtil {
 		if(index == -1 ) return name;
 		return name.substring(0, index);
 	}
+
+	public static String replaceExtension(String name, String ext){
+		final int index  = name.lastIndexOf('.');
+		if(index == -1 ) return name + ext;
+		return name.substring(0, index) + ext;
+	}
 	
 	 
 	

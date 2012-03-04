@@ -30,7 +30,9 @@ import com.javarichclient.icon.tango.actions.ListRemoveIcon;
 import common.interfaces.IWeapon;
 
 import config.Config;
+import config.xml.ITileMapping;
 import config.xml.SavedMap;
+import config.xml.TileMapping;
 
 import editor.Editor;
 import editor.editors.UnitsPanel.WeaponDropDownListRenderer;
@@ -42,6 +44,7 @@ import engine.unit.IMutableUnit;
 import engine.unit.SpriteSheetData;
 
 import static editor.editors.AbstractSpriteSheetOrganiser.*;
+import static util.IOUtil.*;
 
 /**
  * @author Bilal Hussain
@@ -61,6 +64,9 @@ public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
 	private JComboBox  infoTileset;
 	private JComboBox  infoTextures;
 
+	private SavedMap currentMap;
+	private ITileMapping currentMapping;
+	
 	
 	public MapsPanel(Editor editor) {
 		super(editor);
@@ -88,10 +94,13 @@ public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
 		}
 		infoTextures.addItemListener(il);
 		
+		setCurrentResource(currentMap);
 	}
 
 	@Override
 	protected void setCurrentResource(SavedMap map) {
+		currentMap = map;
+		
 		infoName.setText(map.getUuid().toString());
 		
 		infoWidth.setValue(map.getFieldWidth());
@@ -99,6 +108,19 @@ public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
 		
 		infoTileDiagonal.setValue(map.getMapSettings().tileDiagonal);
 		infoTileHeight.setValue(map.getMapSettings().tileHeight);
+		
+		SpriteSheetData d =  Config.loadPreference(replaceExtension(map.getMapData().getTexturesLocation(),"-animations.xml"));
+		assert d != null;
+		infoTextures.setSelectedItem(d);
+//		assert infoTextures.getSelectedItem() != null;
+//		infoTileset.setSelectedItem()
+
+		currentMapping= Config.loadPreference(map.getMapData().getTileMappingLocation());
+		d = Config.loadPreference(replaceExtension(currentMapping.getSpriteSheetLocation(),"-animations.xml"));
+		assert d != null;
+//		log.info("needed " + d);
+		infoTileset.setSelectedItem(d);
+//		log.info("actual " + infoTileset.getSelectedItem());
 	}
 
 	@Override
