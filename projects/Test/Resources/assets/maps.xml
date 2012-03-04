@@ -5,4 +5,16 @@
       <resouceLocation>maps/default.xml</resouceLocation>
     </deferredMap>
   </entry>
+  <entry>
+    <uuid>a54f2739-5db2-4261-be1b-75b81188276a</uuid>
+    <deferredMap uuid="a54f2739-5db2-4261-be1b-75b81188276a">
+      <resouceLocation>maps/fft2.xml</resouceLocation>
+    </deferredMap>
+  </entry>
+  <entry>
+    <uuid>3bde9257-8c9b-4849-9493-8318cdb6d523</uuid>
+    <deferredMap uuid="3bde9257-8c9b-4849-9493-8318cdb6d523">
+      <resouceLocation>maps/nicer.xml</resouceLocation>
+    </deferredMap>
+  </entry>
 </maps>

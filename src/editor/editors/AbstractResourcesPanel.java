@@ -70,6 +70,8 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 			assert u != null;
 			resourceListModel.addElement(u);
 		}
+		
+		assert assets.size() == resourceListModel.size();
 		resourceList.addListSelectionListener(lsl);
 		resourceList.setSelectedIndex(0);
 	}

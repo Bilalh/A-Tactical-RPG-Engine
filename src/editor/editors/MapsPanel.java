@@ -101,6 +101,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 
 	@Override
 	public Maps getResouces() {
+		// Save the new mapping
 		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());
 		return super.getResouces();
 	}
