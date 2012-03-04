@@ -1,5 +1,5 @@
 <unitImages uuid="c711fb7c-9bec-44b0-9aa5-67c2ad3ee15d">
-  <spriteSheetLocation>images/characters/Boy.png</spriteSheetLocation>
+  <spriteSheetLocation>panels/unitSprites</spriteSheetLocation>
   <animations>
     <entry>
       <string>west</string>

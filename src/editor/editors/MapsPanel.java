@@ -110,8 +110,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 	protected void setCurrentResource(DeferredMap _map) {
 		currentMap = _map;
 		SavedMap map = currentMap.getAsset();
+		assert map != null;
+		assert map.getMapData().getName() != null;
 		
-		infoName.setText(map.getUuid().toString());
+		infoName.setText(map.getMapData().getName());
 		
 		infoWidth.setValue(map.getFieldWidth());
 		infoHeight.setValue(map.getFieldHeight());
@@ -122,15 +124,12 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 		SpriteSheetData d =  Config.loadPreference(replaceExtension(map.getMapData().getTexturesLocation(),"-animations.xml"));
 		assert d != null;
 		infoTextures.setSelectedItem(d);
-//		assert infoTextures.getSelectedItem() != null;
-//		infoTileset.setSelectedItem()
 
 		currentMapping= Config.loadPreference(map.getMapData().getTileMappingLocation());
 		d = Config.loadPreference(replaceExtension(currentMapping.getSpriteSheetLocation(),"-animations.xml"));
 		assert d != null;
-//		log.info("needed " + d);
 		infoTileset.setSelectedItem(d);
-//		log.info("actual " + infoTileset.getSelectedItem());
+		
 	}
 
 	@Override
@@ -139,7 +138,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 	}
 
 	private void changeName(){
-//		currentUnit.setName(infoName.getText());
+		currentMap.getAsset().changeName(infoName.getText());
 		resourceList.repaint();
 	}	
 	
@@ -148,7 +147,16 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 	}
 
 	private void changeTextures(SpriteSheetData ui){
-		
+		currentMap.getAsset().changeTexturesLocation(ui.getSpriteSheetLocation());
+	}
+
+
+	private void changeTileDiagonal(int value) {
+		currentMap.getAsset().getMapSettings().tileDiagonal = value;
+	}
+	
+	private void changeTileHeight(int value) {
+		currentMap.getAsset().getMapSettings().tileHeight = value;
 	}
 	
 	private void editMap(){
@@ -198,11 +206,12 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 		p.add(new JLabel("Map Width:"),new CC().alignX("leading"));
 		infoWidth = new JSpinner(new SpinnerNumberModel(15, 5, 50, 1));
 		p.add(infoWidth, new CC().alignX("leading").maxWidth("70"));
-
+		infoWidth.setEnabled(false);
 		
 		p.add(new JLabel("Map Height:"), "gap unrelated");
 		infoHeight = new JSpinner(new SpinnerNumberModel(15, 5, 50, 1));
 		p.add(infoHeight, new CC().alignX("leading").maxWidth("70").wrap());
+		infoHeight.setEnabled(false);
 		
 		addSeparator(p,"Tiles");
 
@@ -210,10 +219,23 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 		infoTileDiagonal = new JSpinner(new SpinnerNumberModel(60, 40, 256, 5));
 		p.add(infoTileDiagonal, new CC().alignX("leading").maxWidth("70"));
 
+		infoTileDiagonal.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				changeTileDiagonal(((Number)infoTileDiagonal.getValue()).intValue());
+			}
+		});
+		
 		p.add(new JLabel("Tile Height:"), "gap unrelated");
 		infoTileHeight = new JSpinner(new SpinnerNumberModel(10, 10, 50, 1));
 		p.add(infoTileHeight, new CC().alignX("leading").maxWidth("70").wrap());
 		
+		infoTileHeight.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				changeTileHeight(((Number)infoTileHeight.getValue()).intValue());
+			}
+		});
 		
 		infoTileset = new JComboBox(new SpriteSheetData[]{});
 		System.out.println(infoTileset.getRenderer());
@@ -269,7 +291,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 	@Override
 	protected String resourceDisplayName(DeferredMap map){
 		assert map != null;
-		return map.getUuid().toString();
+		return map.getAsset().getMapData().getName();
 	}
 	
 	@Override

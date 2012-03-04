@@ -1,5 +1,6 @@
 <map width="13" height="15" uuid="f0698cb1-9b52-4228-80d2-ed1f3a11ec5e">
   <mapData>
+  	<name>fft2 test</name>
     <tileMappingLocation>images/tilesets/fft2-mapping.xml</tileMappingLocation>
     <texturesLocation>images/textures/default.png</texturesLocation>
   </mapData>

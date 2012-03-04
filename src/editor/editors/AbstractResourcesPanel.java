@@ -51,7 +51,6 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		createMainPane();
 	}
 
-
 	protected abstract A createAssetsInstance(); 
 	
 	public A getResouces() {

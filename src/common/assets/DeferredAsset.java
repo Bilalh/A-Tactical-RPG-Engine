@@ -17,10 +17,12 @@ import engine.items.MeleeWeapon;
  * A deferred assert stores a location of assert. 
  * 
  * When this object is serialised only the location is saved. 
- * The asset is loaded when the this object is deserialised.
+ * 
+ * The asset is loaded when the  it is requested.
  * 
  * @author Bilal Hussain
  */
+//The asset is loaded when the this object is deserialised.
 @XStreamAlias("deferredAsset")
 public class DeferredAsset<E extends Identifiable> implements Identifiable {
 
@@ -35,11 +37,11 @@ public class DeferredAsset<E extends Identifiable> implements Identifiable {
 		this.resouceLocation = resouceLocation;
 	}
 
-	// to load resource
-	private Object readResolve() {
-		asset = (E) Config.loadPreference(resouceLocation);
-		return this;
-	}
+//	// to load resource
+//	private Object readResolve() {
+//		asset = (E) Config.loadPreference(resouceLocation);
+//		return this;
+//	}
 	
 	public void reloadAsset(){
 		asset = (E) Config.loadPreference(resouceLocation);
@@ -47,6 +49,7 @@ public class DeferredAsset<E extends Identifiable> implements Identifiable {
 	
 	/** @category Generated */
 	public E getAsset() {
+		if (asset == null) reloadAsset();
 		return asset;
 	}
 

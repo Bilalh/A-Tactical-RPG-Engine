@@ -11,14 +11,15 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @XStreamAlias("MapData")
 public class MapData {
 
-	// TODO add texture fields
+	final String name;
 	final String tileMappingLocation;
 	final String texturesLocation;
 
 	/** @category Generated */
-	public MapData(String tileMappingLocation, String texturesLocation) {
+	public MapData(String tileMappingLocation, String texturesLocation,String name) {
 		this.tileMappingLocation = tileMappingLocation;
 		this.texturesLocation = texturesLocation;
+		this.name = name;
 	}
 
 	/** @category Generated */
@@ -29,6 +30,12 @@ public class MapData {
 	/** @category Generated */
 	public String getTexturesLocation() {
 		return texturesLocation;
+	}
+
+	/** @category Generated */
+	public String getName() {
+		assert name != null;
+		return name;
 	}
 
 }

@@ -28,7 +28,7 @@ public class SavedMap implements Identifiable, IPreference {
 	final int height;
 
 	MapSettings mapSettings;
-	final MapData mapData;
+	MapData mapData;
 
 	@XStreamImplicit
 	final SavedTile[] tiles;
@@ -67,6 +67,7 @@ public class SavedMap implements Identifiable, IPreference {
 
 	/** @category Generated */
 	public MapData getMapData() {
+		assert mapData != null;
 		return mapData;
 	}
 
@@ -81,4 +82,14 @@ public class SavedMap implements Identifiable, IPreference {
 		return uuid;
 	}
 
+	public void changeTexturesLocation(String texturesLocation) {
+		assert texturesLocation != null;
+		mapData = new MapData(mapData.getTileMappingLocation(), texturesLocation, mapData.getName());
+	}
+
+	public void changeName(String name) {
+		assert name != null;
+		mapData = new MapData(mapData.getTileMappingLocation(), mapData.getTexturesLocation(), name);
+	}
+	
 }

@@ -34,7 +34,7 @@ public class OthersMap extends BasicMap {
 		this.width       = width;
 		this.height      = height;
 		this.mapSettings = settings;
-			tileImage =  ImageUtil.resizeImage(Resources.getImage("defaults/tile.png"), mapSettings.tileDiagonal, mapSettings.tileDiagonal/2);
+			tileImage =  ImageUtil.resizeImage(Resources.getImage("panels/tile.png"), mapSettings.tileDiagonal, mapSettings.tileDiagonal/2);
 			OthersIsoTile.setTileImage(tileImage);
 		loadMap("none");
 	}
@@ -49,7 +49,7 @@ public class OthersMap extends BasicMap {
 			}
 		}
 		tileMapping = new TileMapping("none", new HashMap<String, TileImageData>());
-		data = new MapData("none",null);
+		data = new MapData("none",null,"none");
 		loadOtherSettings();
 	}
 
