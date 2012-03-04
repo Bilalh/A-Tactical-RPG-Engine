@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
 
+import common.assets.*;
 import common.gui.ResourceManager;
 import common.spritesheet.SpriteSheet;
 

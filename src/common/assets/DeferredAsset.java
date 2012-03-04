@@ -1,4 +1,6 @@
-package config.xml;
+package common.assets;
+
+import java.util.UUID;
 
 import com.sun.org.apache.xml.internal.security.utils.XMLUtils;
 import com.sun.tools.internal.ws.util.xml.XmlUtil;
@@ -9,38 +11,44 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import common.interfaces.Identifiable;
 import config.Config;
 import config.XMLUtil;
-import engine.assets.AssertStore;
 import engine.items.MeleeWeapon;
 
 /**
  * @author Bilal Hussain
  */
-@XStreamAlias("deferredResouce")
-public class DeferredResource<E extends Identifiable> {
+@XStreamAlias("deferredAsset")
+public class DeferredAsset<E extends Identifiable> implements Identifiable {
 
-	private transient E resource;
-	private String resouceLocation;
-
-	/** @category Generated */
-	private DeferredResource(E resource, String resouceLocation) {
-		this.resource = resource;
+	@XStreamAsAttribute
+	protected UUID uuid;
+	protected transient E asset;
+	protected String resouceLocation;
+	
+	public DeferredAsset(E asset, String resouceLocation) {
+		uuid = UUID.randomUUID();
+		this.asset = asset;
 		this.resouceLocation = resouceLocation;
 	}
 
 	// to load resource
 	private Object readResolve() {
-		
-		resource = (E) Config.loadPreference(resouceLocation);
+		asset = (E) Config.loadPreference(resouceLocation);
 		return this;
 	}
 	
 	/** @category Generated */
-	public E getResource() {
-		return resource;
+	public E getAsset() {
+		return asset;
 	}
 
 	/** @category Generated */
 	public String getResouceLocation() {
 		return resouceLocation;
+	}
+
+	/** @category Generated */
+	@Override
+	public UUID getUuid() {
+		return uuid;
 	}
 }

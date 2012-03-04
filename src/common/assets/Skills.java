@@ -1,4 +1,4 @@
-package engine.assets;
+package common.assets;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

@@ -22,6 +22,7 @@ import net.miginfocom.swing.MigLayout;
 
 import com.javarichclient.icon.tango.actions.*;
 
+import common.assets.*;
 import common.enums.Direction;
 import common.gui.ResourceManager;
 import common.interfaces.IWeapon;

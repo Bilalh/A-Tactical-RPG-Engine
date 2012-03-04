@@ -19,6 +19,8 @@ import util.Logf;
 import view.map.IsoTile.TileState;
 
 import common.Location;
+import common.assets.Skills;
+import common.assets.Weapons;
 import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
 import common.spritesheet.SpriteSheet;
@@ -40,8 +42,6 @@ import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import editor.util.Resources;
-import engine.assets.Skills;
-import engine.assets.Weapons;
 import engine.items.Around;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;

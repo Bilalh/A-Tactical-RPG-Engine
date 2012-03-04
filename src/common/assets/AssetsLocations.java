@@ -1,4 +1,4 @@
-package engine.assets;
+package common.assets;
 
 /**
  * Stores the location of all the assets.

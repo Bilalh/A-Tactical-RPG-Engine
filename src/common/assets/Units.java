@@ -1,16 +1,14 @@
-package engine.assets;
+package common.assets;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import config.xml.SavedMap;
-
-import engine.skills.ISkill;
+import engine.unit.IMutableUnit;
 
 /**
  * A subclass is used since the generic type is lost due to type erasure.
  * @author Bilal Hussain
  */
-@XStreamAlias("maps")
-public class Maps extends AbstractAssets<SavedMap> {
+@XStreamAlias("units")
+public class Units extends AbstractAssets<IMutableUnit> {
 
 }

@@ -10,6 +10,8 @@ import util.Logf;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import common.assets.*;
 import common.spritesheet.SpriteInfo;
 import common.spritesheet.Sprites;
 
@@ -136,8 +138,8 @@ public abstract class XMLUtil {
 				SpriteInfo.class,
 				MutableTileMapping.class,
 				
-				DeferredResource.class
-				
+				DeferredAsset.class,
+				DeferredMap.class
 				
 		};
 	}

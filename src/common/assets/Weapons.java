@@ -1,4 +1,4 @@
-package engine.assets;
+package common.assets;
 
 import java.util.*;
 import java.util.Map.Entry;

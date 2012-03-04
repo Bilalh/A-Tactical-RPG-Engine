@@ -8,11 +8,11 @@ import view.ui.MenuItem;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
+import common.assets.AssertStore;
 import common.enums.Orientation;
 import common.interfaces.IWeapon;
 import config.Config;
 
-import engine.assets.AssertStore;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
 import engine.map.Tile;

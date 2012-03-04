@@ -7,7 +7,7 @@ import java.util.UUID;
  */
 public class GenrateUUIDs {
 
-	static int number = 10;
+	static int number = 8;
 	
 	public static void main(String[] args) {
 		for (int i = 0; i < number; i++) {

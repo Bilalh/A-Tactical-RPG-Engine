@@ -25,6 +25,8 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.swing.MigLayout;
 
 import common.Location;
+import common.assets.AssertStore;
+import common.assets.AssetsLocations;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.IMapUnit;
@@ -41,8 +43,6 @@ import editor.map.others.OthersUnit;
 import editor.spritesheet.MutableSprite;
 import editor.util.Prefs;
 import editor.util.Resources;
-import engine.assets.AssertStore;
-import engine.assets.AssetsLocations;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
 import engine.items.Spear;

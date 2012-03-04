@@ -27,6 +27,11 @@ import util.IOUtil;
 
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 import com.javarichclient.icon.tango.actions.ListRemoveIcon;
+
+import common.assets.DeferredMap;
+import common.assets.Maps;
+import common.assets.SpriteSheetsData;
+import common.assets.Units;
 import common.interfaces.IWeapon;
 
 import config.Config;
@@ -36,9 +41,6 @@ import config.xml.TileMapping;
 
 import editor.Editor;
 import editor.editors.UnitsPanel.WeaponDropDownListRenderer;
-import engine.assets.Maps;
-import engine.assets.Units;
-import engine.assets.SpriteSheetsData;
 import engine.map.Map;
 import engine.unit.IMutableUnit;
 import engine.unit.SpriteSheetData;
@@ -49,7 +51,7 @@ import static util.IOUtil.*;
 /**
  * @author Bilal Hussain
  */
-public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
+public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 	private static final long serialVersionUID = -6885584804612641268L;
 	private static final Logger log = Logger.getLogger(MapsPanel.class);
 
@@ -64,7 +66,7 @@ public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
 	private JComboBox  infoTileset;
 	private JComboBox  infoTextures;
 
-	private SavedMap currentMap;
+	private DeferredMap currentMap;	
 	private ITileMapping currentMapping;
 	
 	
@@ -98,8 +100,9 @@ public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
 	}
 
 	@Override
-	protected void setCurrentResource(SavedMap map) {
-		currentMap = map;
+	protected void setCurrentResource(DeferredMap _map) {
+		currentMap = _map;
+		SavedMap map = currentMap.getAsset();
 		
 		infoName.setText(map.getUuid().toString());
 		
@@ -257,7 +260,8 @@ public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
 	}
 	
 	@Override
-	protected String resourceDisplayName(SavedMap map){
+	protected String resourceDisplayName(DeferredMap map){
+		assert map != null;
 		return map.getUuid().toString();
 	}
 	
@@ -272,8 +276,8 @@ public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
 	}
 
 	@Override
-	protected SavedMap defaultResource() {
-		return Config.loadPreference("maps/default.xml");
+	protected DeferredMap defaultResource() {
+		return new DeferredMap(Config.<SavedMap>loadPreference("maps/default.xml"),"maps/default.xml");
 	}
 
 }

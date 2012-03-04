@@ -1,5 +1,7 @@
 package editor.editors;
 
+import static org.jvnet.inflector.Noun.pluralOf;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -7,7 +9,6 @@ import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -19,23 +20,15 @@ import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
-import static org.jvnet.inflector.Noun.pluralOf;
-
-import util.IOUtil;
 
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 import com.javarichclient.icon.tango.actions.ListRemoveIcon;
+import common.assets.AbstractAssets;
 import common.interfaces.Identifiable;
 
-import config.Config;
-import config.xml.SavedMap;
 import editor.Editor;
-import editor.editors.AbstractSpriteSheetOrganiser.ImageListRenderer;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
-import engine.assets.AbstractAssets;
-import engine.assets.Maps;
-import engine.unit.SpriteSheetData;
 
 /**
  * Infrastructure for an panel that manages resources
@@ -74,6 +67,7 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		resourceList.removeListSelectionListener(lsl);
 		resourceListModel.clear();
 		for (R u : assets.values()) {
+			assert u != null;
 			resourceListModel.addElement(u);
 		}
 		resourceList.addListSelectionListener(lsl);

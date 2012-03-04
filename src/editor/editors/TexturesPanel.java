@@ -13,6 +13,7 @@ import net.miginfocom.layout.CC;
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 import com.javarichclient.icon.tango.actions.ListRemoveIcon;
 
+import common.assets.Units;
 import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
 import config.Config;
@@ -20,7 +21,6 @@ import config.Config;
 import editor.Editor;
 import editor.editors.UnitsPanel.*;
 import editor.spritesheet.*;
-import engine.assets.Units;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 import engine.unit.SpriteSheetData;

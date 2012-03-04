@@ -23,6 +23,7 @@ import net.miginfocom.layout.AC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
+import common.assets.SpriteSheetsData;
 import common.spritesheet.SpriteSheet;
 
 import config.Config;
@@ -32,7 +33,6 @@ import editor.map.EditorSpriteSheet;
 import editor.spritesheet.*;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
-import engine.assets.SpriteSheetsData;
 import engine.unit.SpriteSheetData;
 
 /**
