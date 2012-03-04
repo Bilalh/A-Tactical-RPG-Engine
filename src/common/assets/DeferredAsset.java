@@ -36,6 +36,10 @@ public class DeferredAsset<E extends Identifiable> implements Identifiable {
 		return this;
 	}
 	
+	public void reloadAsset(){
+		asset = (E) Config.loadPreference(resouceLocation);
+	}
+	
 	/** @category Generated */
 	public E getAsset() {
 		return asset;
