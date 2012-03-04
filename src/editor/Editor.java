@@ -186,28 +186,32 @@ public class Editor {
 		assets.mkdir();
 
 		Weapons ws =  weaponsPanel.getWeapons();
-		Config.savePreferencesToResources(ws, "assets/weapons.xml");
+		Config.savePreferences(ws, "assets/weapons.xml");
 		log.info(ws);
 
 		Skills ss = skillsPanel.getSkills();
-		Config.savePreferencesToResources(ss, "assets/skills.xml");
+		Config.savePreferences(ss, "assets/skills.xml");
 		log.info(ss);
 		
 		Units us = unitPanel.getUnits();
-		Config.savePreferencesToResources(us, "assets/units.xml");
+		Config.savePreferences(us, "assets/units.xml");
 		log.info(us);
 		
 		UnitsImages  ui = unitImagesPanel.getUnitsImages();
-		Config.savePreferencesToResources(ui, "assets/unitsImages.xml");
+		Config.savePreferences(ui, "assets/unitsImages.xml");
 		log.info(ui);
 
 		UnitsImages tiles = tilesetPanel.getUnitsImages();
-		Config.savePreferencesToResources(tiles, "assets/tilesets.xml");
+		Config.savePreferences(tiles, "assets/tilesets.xml");
 		log.info(tiles);
 
 		UnitsImages textures = texturesPanel.getUnitsImages();
-		Config.savePreferencesToResources(textures, "assets/textures.xml");
+		Config.savePreferences(textures, "assets/textures.xml");
 		log.info(textures);
+		
+		Maps maps = mapsPanel.getResouces();
+		Config.savePreferences(maps, "assets/maps.xml");
+		log.info(maps);
 		
 //		// Images
 //		File images = new File(resources, "images");
@@ -267,6 +271,10 @@ public class Editor {
 		Units uu = Config.loadPreference("assets/units.xml");
 		unitPanel.setUnits(uu);
 		log.info(uu);
+		
+		Maps maps = Config.loadPreference("assets/maps.xml");
+		mapsPanel.setResources(maps);
+		log.info(maps);
 		
 		IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
         panel.panelSelected(Editor.this);

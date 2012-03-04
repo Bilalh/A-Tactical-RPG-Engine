@@ -2,8 +2,16 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="libs/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="libs/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="libs/junit-4.10.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://kentbeck.github.com/junit/javadoc/4.10/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/log4j-1.2.16.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://logging.apache.org/log4j/1.2/apidocs/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="libs/xpp3_min-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="libs/xstream-1.4.2.jar">
 		<attributes>
@@ -24,5 +32,10 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/jl1.0.1.jar"/>
 	<classpathentry kind="lib" path="libs/javarichclient_icon_tango_action_1.0.jar"/>
+	<classpathentry kind="lib" path="libs/inflector-0.7.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/CS4099-SH/libs/inflector-0.7.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

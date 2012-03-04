@@ -125,6 +125,7 @@ public abstract class XMLUtil {
 				Units.class,
 				UnitsImages.class,
 				Textures.class,
+				Maps.class,
 				
 				// Editor
 				MutableSprite.class,

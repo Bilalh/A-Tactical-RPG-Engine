@@ -88,17 +88,17 @@ public class Config {
 		return pref;
 	}
 	
-	public static void  savePreferences(IPreference p, OutputStreamWriter w) throws IOException{
+	public static void  savePreferencesToStream(IPreference p, OutputStreamWriter w) throws IOException{
 		String s = XMLUtil.makeFormattedXml(p);
 		w.write(s);
 	}
 
-	public static void savePreferencesToResources(IPreference p, String path){
+	public static void savePreferences(IPreference p, String path){
 		String s = XMLUtil.makeXml(p);
 		try {
 			File f  = new File(RESOURCE_DIRECTORY + path);
 			FileWriter fw = new FileWriter(f);
-			savePreferences(p, fw);
+			savePreferencesToStream(p, fw);
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();

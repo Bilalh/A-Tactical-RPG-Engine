@@ -35,7 +35,7 @@ public class Weapons extends AbstractAssets<IWeapon>{
 		String s = XMLUtil.makeFormattedXml(ss);
 		System.out.println(s);
 	
-		Config.savePreferencesToResources(ss, "assets/skills.xml");
+		Config.savePreferences(ss, "assets/skills.xml");
 		
 	}
 	
