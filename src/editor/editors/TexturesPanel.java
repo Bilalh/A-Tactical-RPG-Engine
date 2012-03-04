@@ -36,6 +36,7 @@ public class TexturesPanel extends AbstractSpriteSheetOrganiser {
 	public TexturesPanel(Editor editor){
 		super(editor, new BorderLayout());
 		showAnimations = false;
+		spriteSheetHelpString = "The texures should be square. The width and the height should be a power of 2";
 	}
 
 	@Override

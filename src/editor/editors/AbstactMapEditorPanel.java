@@ -29,7 +29,7 @@ import editor.ui.HeaderPanel;
 import editor.util.Prefs;
 
 /**
- * Infrastructure for an editor panel that need a map renderer. 
+ * Infrastructure for an editor panel that need a map renderer and spritesheet render. 
  * @author Bilal Hussain
  */
 public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMapPanelListener, ISpriteProvider<MutableSprite>, IRefreshable {

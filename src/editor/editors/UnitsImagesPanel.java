@@ -35,6 +35,7 @@ public class UnitsImagesPanel extends AbstractSpriteSheetOrganiser {
 
 	public UnitsImagesPanel(Editor editor){
 		super(editor, new BorderLayout());
+		validationForUnits = true;
 	}
 
 	@Override

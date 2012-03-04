@@ -49,16 +49,18 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	protected Editor editor;
 	protected JList imagesList;
 	protected DefaultListModel imagesListModel;
-	protected java.util.Map<UUID, EditorSpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, EditorSpriteSheet>());
 	protected SpriteSheetPanel spriteSheetPanel;
+	
+	protected java.util.Map<UUID, EditorSpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, EditorSpriteSheet>());
 	protected Packer packer = new Packer();
+	
 	protected UnitImages currentImages;
 	protected EditorSpriteSheet currentSheet;
 	protected String justCreated = null;
 	
 	protected String spriteSheetHelpString = "Must have the images (north0, south0, east0 and west0) in the sheet.";
-	protected boolean showAnimations = true;
-
+	protected boolean showAnimations       = true;
+	protected boolean validationForUnits   = false;
 	
 	public AbstractSpriteSheetOrganiser(Editor editor){
 		this(editor, new BorderLayout());
@@ -295,7 +297,8 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 				new File ("").getAbsolutePath()+ "/"+ editor.getProjectPath() + "/Resources/"+ path,
 				AbstractSpriteSheetOrganiser.this,
 				spriteSheetHelpString,
-				showAnimations ).setVisible(true);
+				showAnimations,
+				validationForUnits).setVisible(true);
 	}
 	public void refreashSprites() {
 		if (spriteSheetPanel.getHeight() <=0 || spriteSheetPanel.getWidth() <=0 ) return;

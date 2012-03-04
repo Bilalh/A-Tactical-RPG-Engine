@@ -1,4 +1,4 @@
 <sprite-array>
   <sprite name="blue" x="0" y="0" width="128" height="128"/>
-  <sprite name="ice" x="128" y="0" width="128" height="128"/>
+  <sprite name="ice" x="0" y="128" width="128" height="128"/>
 </sprite-array>

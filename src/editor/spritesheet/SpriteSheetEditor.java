@@ -78,18 +78,20 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	
 	private boolean showAnimations;
 	private String helpString;
-	
+	private boolean validationForUnits;
 	
 	public SpriteSheetEditor(int frameClosingValue) {
-		this(frameClosingValue, null,null,"",true);
+		this(frameClosingValue, null,null,"",true,false);
 	}
 
-	public SpriteSheetEditor(int frameClosingValue, String savePath, ISpriteEditorListener listener, String helpString, boolean showAnimations) {
+	public SpriteSheetEditor(int frameClosingValue, String savePath, ISpriteEditorListener listener, 
+			String helpString, boolean showAnimations,boolean validationForUnits) {
 		super("Sprite Sheet Editor");
-		this.savePath      = savePath;
-		this.listener       = listener;
-		this.helpString     = helpString;
-		this.showAnimations = showAnimations;
+		this.savePath          = savePath;
+		this.listener          = listener;
+		this.helpString        = helpString;
+		this.showAnimations    = showAnimations;
+		this.validationForUnits = validationForUnits;
 		
 		STARTING_PATH = Config.getResourceDirectory() +  "/images";
 		chooser = new JFileChooser(STARTING_PATH);
@@ -480,11 +482,8 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		edit.add(sort);
 		edit.add(removeExt);
 		edit.addSeparator();
-		if (showAnimations){
-			edit.add(animation);
-		}else{
-			edit.add(tileMapping);	
-		}
+		if (showAnimations)   edit.add(animation);
+		if (savePath == null) edit.add(tileMapping);	
 		
 		return bar;
 	}
@@ -541,26 +540,28 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	 */
 	private int save() {
 		if (savePath != null){
+			if (validationForUnits) {
 
-			HashSet<String> needed  = new HashSet<String>(Arrays.asList(new String[]{"north0","south0","east0","west0"}));
-			HashSet<String> have    = new HashSet<String>();	
-			
-			for (int i = 0; i < sprites.size(); i++) {
-				MutableSprite s =  (MutableSprite) sprites.get(i);
-				if (needed.contains(s.getName())){
-					have.add(s.getName());
+				HashSet<String> needed = new HashSet<String>(Arrays.asList(new String[] { "north0", "south0", "east0", "west0" }));
+				HashSet<String> have   = new HashSet<String>();
+
+				for (int i = 0; i < sprites.size(); i++) {
+					MutableSprite s = (MutableSprite) sprites.get(i);
+					if (needed.contains(s.getName())) {
+						have.add(s.getName());
+					}
+				}
+
+				if (needed.size() != have.size()) {
+					JOptionPane.showMessageDialog(this, helpString, "Invaild", JOptionPane.ERROR_MESSAGE);
+					return JFileChooser.ERROR_OPTION;
 				}
 			}
-				
-			if (needed.size() != have.size()){
-				//TODO using help String
-				JOptionPane.showMessageDialog(this,helpString, "Invaild", JOptionPane.ERROR_MESSAGE);
-				return JFileChooser.ERROR_OPTION;
-			}
-			
+
 			saveToFile(new File(savePath));
 			return JFileChooser.APPROVE_OPTION;
 		}
+		
 		String name = sheetName.getText();
 		if (!name.endsWith(".png")) name += ".png";
 		saveChooser.setSelectedFile(new File(name));
