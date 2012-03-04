@@ -23,6 +23,8 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
+import util.Logf;
+
 import com.sun.org.apache.bcel.internal.generic.LMUL;
 
 import common.enums.ImageType;
@@ -544,6 +546,21 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	 * Saves a Sprite sheet
 	 */
 	private int save() {
+		
+		int border = (Integer) this.border.getValue();
+		int totalArea =0;
+		for (int i = 0; i < sprites.size(); i++) {
+			MutableSprite s = (MutableSprite) sprites.get(i);
+			totalArea += (s.getWidth()  + border) * (s.getHeight() + border);
+		}
+		
+		Logf.info(log,"Needed %s, have %s %dx%d\n",totalArea, sWidth, sHeight, sWidth*sHeight);
+		if (totalArea > sWidth * sHeight ){
+			JOptionPane.showMessageDialog(this, "Selected sheet sizes not large enough to fit all the sprites",
+					"Invaild", JOptionPane.ERROR_MESSAGE);
+			return JFileChooser.ERROR_OPTION;
+		}
+		
 		if (savePath != null){
 			if (validationForUnits) {
 
