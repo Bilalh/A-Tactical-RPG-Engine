@@ -39,40 +39,10 @@ public class Engine {
 				"assets/weapons.xml", 
 				"assets/skills.xml");
 		AssertStore.instance().loadAssets(as);
-		
 		player = new Player();
-		Unit u        = new Unit();
-		UnitImages ui = Config.loadPreference("images/characters/princess-animations.xml");
-		u.setName("Elena");
-		u.setMove(3);
-		u.setSpeed(20);
-		u.setStrength(25);
-		u.setDefence(20);
-		u.setMaxHp(15);
-//		ui.setSpriteSheetLocation("images/characters/Elena.png");
-		u.setImageData("images/characters/princess-animations.xml",ui);
-//		u.setWeapon(new RangedWeapon(6, 5,3));
-		u.setWeapon(AssertStore.instance().getWeapon(UUID.fromString("55ff186f-7a30-41d7-aefb-035b0c882260")));
-		player.addUnit(u);
-
-		u  = new Unit();
-		ui = Config.loadPreference("images/characters/Boy-animations.xml");
-		u.setName("Boy");
-		u.setMove(4);
-		u.setSpeed(60);
-		u.setStrength(30);
-		u.setDefence(10);
-		u.setMaxHp(30);
-		u.setImageData("images/characters/princess-animations.xml",ui);
-
-		//		IWeapon w = util.Util.getClassInstancebyName("custom.CustomSpear");
-		IWeapon w = new Spear();
-		w.setRange(3);
-		w.setStrength(2);
-		u.setWeapon(w);
-
-		player.addUnit(u);
-
+		
+		Units uu = Config.loadPreference("assets/units.xml");
+		player.addUnits(uu.values());
 	}
 
 	public Map startMap(String name){

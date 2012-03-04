@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import common.interfaces.IUnit;
 import engine.unit.IMutableUnit;
@@ -24,6 +25,11 @@ public class Player {
 	/** @category Generated */
 	public ArrayList<IMutableUnit> getUnits() {
 		return units;
+	}
+
+	/** @category Generated */
+	public boolean addUnits(Collection<? extends IMutableUnit> us) {
+		return units.addAll(us);
 	}
 	
 }
