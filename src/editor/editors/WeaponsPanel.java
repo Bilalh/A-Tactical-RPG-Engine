@@ -48,7 +48,7 @@ import engine.map.MapPlayer;
 import engine.map.MapUnit;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.Unit;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * @author Bilal Hussain
@@ -92,7 +92,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 			OthersUnit.setSpriteSheet(ss);
 		
 		Unit u  = new Unit();
-		UnitImages ui = new UnitImages();
+		SpriteSheetData ui = new SpriteSheetData();
 		ui.setSpriteSheetLocation("defaults/defaultImages.png");
 		u.setImageData(path, ui);
 		

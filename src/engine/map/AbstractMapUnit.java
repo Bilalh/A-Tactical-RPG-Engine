@@ -11,7 +11,7 @@ import engine.map.interfaces.IMutableMapUnit;
 import engine.skills.ISkill;
 import engine.skills.RangedSkill;
 import engine.unit.IMutableUnit;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * Keeps all the gets and setters so it does not clutter the mapUnit class
@@ -184,12 +184,12 @@ public abstract class AbstractMapUnit implements IMutableMapUnit {
 	}
 
 	@Override
-	public UnitImages getImageData() {
+	public SpriteSheetData getImageData() {
 		return unit.getImageData();
 	}
 
 	@Override
-	public void setImageData(String ref, UnitImages imageData) {
+	public void setImageData(String ref, SpriteSheetData imageData) {
 		unit.setImageData(ref,imageData);
 	}
 

@@ -35,7 +35,7 @@ import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import engine.assets.AbstractAssets;
 import engine.assets.Maps;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * Infrastructure for an panel that manages resources

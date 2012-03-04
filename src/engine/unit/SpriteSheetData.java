@@ -1,9 +1,12 @@
 package engine.unit;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
+
+import util.IOUtil;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -16,7 +19,7 @@ import config.IPreference;
  * @author Bilal Hussain
  */
 @XStreamAlias("unitImages")
-public class UnitImages implements IPreference, Identifiable {
+public class SpriteSheetData implements IPreference, Identifiable {
 
 	private String spriteSheetLocation;
 	private HashMap<String, UnitAnimation> animations;
@@ -24,12 +27,12 @@ public class UnitImages implements IPreference, Identifiable {
 	@XStreamAsAttribute
 	private UUID uuid;
 
-	public UnitImages(){
+	public SpriteSheetData(){
 		animations = new HashMap<String, UnitAnimation>();
 		uuid = UUID.randomUUID();
 	}
 	
-	public UnitImages(String spriteSheetLocation) {
+	public SpriteSheetData(String spriteSheetLocation) {
 		this();
 		assert spriteSheetLocation.endsWith(".png");
 		this.spriteSheetLocation = spriteSheetLocation;
@@ -122,8 +125,8 @@ public class UnitImages implements IPreference, Identifiable {
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null) return false;
-		if (!(obj instanceof UnitImages)) return false;
-		UnitImages other = (UnitImages) obj;
+		if (!(obj instanceof SpriteSheetData)) return false;
+		SpriteSheetData other = (SpriteSheetData) obj;
 		if (uuid == null) {
 			if (other.uuid != null) return false;
 		} else if (!uuid.equals(other.uuid)) return false;
@@ -132,7 +135,7 @@ public class UnitImages implements IPreference, Identifiable {
 
 	@Override
 	public String toString() {
-		return String.format("UnitImages [spriteSheetLocation=%s, animations=%s, uuid=%s]", spriteSheetLocation, animations, uuid);
+		return IOUtil.removeExtension(new File(getSpriteSheetLocation()).getName());
 	}
 	
 	

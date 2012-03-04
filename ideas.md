@@ -20,13 +20,12 @@ Editor
 ideas
 -----
 * Use ref counting for resources in editor, this allows checking e.g if a weapon is used, before it deleted 
-* Use base64 encoding.
 
 View
 ---
 * Unit crossing in gui -- done
 * Going to next map    -- done 
-* Rare bug when click unit
+* Rare bug when click unit -- fixed?
 * Zoom  -- done
 * Pitch -- done
 * Resize images -- done
@@ -46,7 +45,7 @@ Save/Loading
 ------------
 * Skills  -- done
 * Weapons -- done
-* Units   -- kind of
+* Units   -- done
 * uuid    -- done
 
 Model 

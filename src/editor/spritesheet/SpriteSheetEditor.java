@@ -38,7 +38,7 @@ import config.xml.TileMapping;
 import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
 import editor.util.AlphanumComparator;
 import engine.unit.UnitAnimation;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * A Editor for spritesheets that can create, modify or split them. It can also create animations. 
@@ -74,7 +74,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 
 	// Stores the data.	
 	private Packer packer = new Packer();
-	private UnitImages animations = new UnitImages();
+	private SpriteSheetData animations = new SpriteSheetData();
 	
 	// For editor
 	private String savePath;
@@ -687,7 +687,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			}
 			
 			if (ani.exists()){
-				UnitImages temp = XMLUtil.convertXml(new FileInputStream(ani));
+				SpriteSheetData temp = XMLUtil.convertXml(new FileInputStream(ani));
 				if (temp != null){
 					animations = temp;
 					for (Entry<String, UnitAnimation> e: animations.entrySet()) {
@@ -695,7 +695,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 						lanimations.repaint();
 					}
 				}else{
-					animations = new UnitImages();
+					animations = new SpriteSheetData();
 				}
 			}
 			
@@ -747,7 +747,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private void clear() {
 		if (sprites.isEmpty() || !askToSave() ) return;
 		sprites.clear();
-		animations = new UnitImages();
+		animations = new SpriteSheetData();
 		lmanimations.clear();
 		renew();
 	}

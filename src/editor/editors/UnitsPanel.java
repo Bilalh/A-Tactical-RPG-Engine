@@ -38,7 +38,7 @@ import engine.assets.*;
 import engine.skills.ISkill;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * Editor for units
@@ -127,7 +127,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			allSkillsListModel.removeElement(s);
 		}
 
-		UnitImages ui = currentUnit.getImageData();
+		SpriteSheetData ui = currentUnit.getImageData();
 		log.debug(u);
 		log.debug(spriteSheets);
 		EditorSpriteSheet ess;
@@ -182,7 +182,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		currentUnit.setSkills(skills);
 	}
 
-	private void changeUnitImages(UnitImages images){
+	private void changeUnitImages(SpriteSheetData images){
 		
 		String path = images.getAnimationPath();
 		currentUnit.setImageData(path,images);
@@ -245,17 +245,10 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		il =  infoSpriteSheet.getItemListeners()[0];
 		infoSpriteSheet.removeItemListener(il);
 		infoSpriteSheet.removeAllItems();
-		UnitsImages images = editor.getUnitImages();
+		SpriteSheetsData images = editor.getUnitImages();
 		
-		ArrayList<UnitImages> ll = new ArrayList(images.values());
-		Collections.sort(ll,new Comparator<UnitImages>() {
-			@Override
-			public int compare(UnitImages o1, UnitImages o2) {
-				return o1.getSpriteSheetLocation().compareTo(o2.getSpriteSheetLocation());
-			}
-			
-		});
-		for (UnitImages ui :ll) {
+		List<SpriteSheetData> ll = AbstractSpriteSheetOrganiser.sortedSprites(images.values());
+		for (SpriteSheetData ui :ll) {
 			infoSpriteSheet.addItem(ui);
 		}
 		infoSpriteSheet.setSelectedItem(currentUnit.getImageData());
@@ -278,7 +271,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		IMutableUnit uu = new Unit();
 		uu.setName("New Unit");
 		//FIXME change?
-		UnitImages ui = Config.loadPreference("images/characters/default-animations.xml");
+		SpriteSheetData ui = Config.loadPreference("images/characters/default-animations.xml");
 		uu.setImageData(ui.getAnimationPath(), ui);
 		
 		unitsListModel = new DefaultListModel();
@@ -491,14 +484,13 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		
 		
 		infoSpriteSheet = new JComboBox(new IWeapon[]{});
-		infoSpriteSheet.setRenderer(new AbstractSpriteSheetOrganiser.ImageListRenderer());
 		infoSpriteSheet.setEditable(false);
 		infoSpriteSheet.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (infoSpriteSheet.getItemCount() <= 0) return;
 				
-				UnitImages w= (UnitImages) e.getItem();
+				SpriteSheetData w= (SpriteSheetData) e.getItem();
 				changeUnitImages(w);
 			}
 		});

@@ -50,7 +50,7 @@ import engine.map.MapPlayer;
 import engine.map.MapUnit;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.Unit;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * Editor for weapons
@@ -93,7 +93,7 @@ public class WeaponsEditor extends AbstactMapEditor {
 			OthersUnit.setSpriteSheet(ss);
 		
 		Unit u  = new Unit();
-		UnitImages ui = new UnitImages();
+		SpriteSheetData ui = new SpriteSheetData();
 		ui.setSpriteSheetLocation(path);
 		u.setImageData(path, ui);
 		

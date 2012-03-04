@@ -6,10 +6,7 @@ import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.*;
 import java.io.File;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -35,8 +32,8 @@ import editor.map.EditorSpriteSheet;
 import editor.spritesheet.*;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
-import engine.assets.UnitsImages;
-import engine.unit.UnitImages;
+import engine.assets.SpriteSheetsData;
+import engine.unit.SpriteSheetData;
 
 /**
  * Infrastructure for an editor panel that manages spritesheets. 
@@ -54,7 +51,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	protected java.util.Map<UUID, EditorSpriteSheet> spriteSheets = Collections.synchronizedMap(new HashMap<UUID, EditorSpriteSheet>());
 	protected Packer packer = new Packer();
 	
-	protected UnitImages currentImages;
+	protected SpriteSheetData currentImages;
 	protected EditorSpriteSheet currentSheet;
 	protected String justCreated = null;
 	
@@ -73,20 +70,23 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	}
 
 	
-	public UnitsImages getUnitsImages() {
-		UnitsImages ws = new UnitsImages();
+	public SpriteSheetsData getSpriteSheetData() {
+		SpriteSheetsData ws = new SpriteSheetsData();
+		
+		System.out.println(Arrays.toString(imagesListModel.toArray()));
 		for (int i = 0; i < imagesListModel.size(); i++) {
-			ws.put((UnitImages) imagesListModel.get(i));
+			ws.put((SpriteSheetData) imagesListModel.get(i));
 		}
+		System.out.println(ws);
 		return ws;
 	}
 
-	public void setUnitsImages(UnitsImages images) {
+	public void setSpriteSheetData(SpriteSheetsData images) {
 		ListSelectionListener lsl =  imagesList.getListSelectionListeners()[0];
 		imagesList.removeListSelectionListener(lsl);
 		spriteSheets.clear();
 		imagesListModel.clear();
-		for (UnitImages ui : images.values()) {
+		for (SpriteSheetData ui : images.values()) {
 			SpriteSheet _sheet = Config.loadSpriteSheet(ui.getSpriteSheetLocation());
 			spriteSheets.put(ui.getUuid(), new EditorSpriteSheet(_sheet));
 			imagesListModel.addElement(ui);
@@ -95,7 +95,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 		imagesList.setSelectedIndex(0);
 	}
 
-	public void setCurrentUnitImages(UnitImages ui) {
+	public void setCurrentSpriteSheetData(SpriteSheetData ui) {
 		log.info("selecting" + ui.getSpriteSheetLocation());
 		currentImages = ui;
 		EditorSpriteSheet sheet = spriteSheets.get(ui.getUuid());
@@ -118,13 +118,13 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	@Override
 	public void spriteEditingFinished() {
 		if (justCreated != null){
-			UnitImages ui =  Config.loadPreference(justCreated.replaceAll("\\.png$", "-animations.xml"));
+			SpriteSheetData ui =  Config.loadPreference(justCreated.replaceAll("\\.png$", "-animations.xml"));
 			SpriteSheet _sheet = Config.loadSpriteSheet(ui.getSpriteSheetLocation());
 			spriteSheets.put(ui.getUuid(), new EditorSpriteSheet(_sheet));
 			imagesListModel.addElement(ui);
 		}else{
 			spriteSheets.remove(currentImages.getUuid());
-			setCurrentUnitImages(currentImages);	
+			setCurrentSpriteSheetData(currentImages);	
 		}
 		editor.setVisible(true);
 	}
@@ -139,11 +139,11 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 		this.add(mainSplit, BorderLayout.CENTER);
 	}
 
-	protected abstract UnitImages defaultImages();
+	protected abstract SpriteSheetData defaultImages();
 
 	protected JComponent createLeftPane() {
-		UnitImages uu = defaultImages();
-		setCurrentUnitImages(uu);
+		SpriteSheetData uu = defaultImages();
+		setCurrentSpriteSheetData(uu);
 		
 		imagesListModel = new DefaultListModel();
 		
@@ -153,9 +153,9 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 		imagesList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				UnitImages ui =  (UnitImages) imagesList.getSelectedValue();
+				SpriteSheetData ui =  (SpriteSheetData) imagesList.getSelectedValue();
 				if (ui == null) return;
-				setCurrentUnitImages(ui);
+				setCurrentSpriteSheetData(ui);
 			}
 		});
 		imagesList.setSelectedIndex(0);
@@ -243,7 +243,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 		assert index != -1;
 		int nextIndex = index == 0 ? imagesListModel.size()-1 : index - 1;
 		imagesList.setSelectedIndex(nextIndex);
-		UnitImages s=  (UnitImages) imagesListModel.remove(index);
+		SpriteSheetData s=  (SpriteSheetData) imagesListModel.remove(index);
 		spriteSheets.remove(s);
 	}
 
@@ -329,13 +329,26 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	public void setSpriteSheets(java.util.Map<UUID, EditorSpriteSheet> spriteSheets) {
 		this.spriteSheets = spriteSheets;
 	}
+
+	public static List<SpriteSheetData> sortedSprites(Collection<SpriteSheetData> data){
+		ArrayList<SpriteSheetData> ll = new ArrayList(data);
+		Collections.sort(ll,new Comparator<SpriteSheetData>() {
+			@Override
+			public int compare(SpriteSheetData o1, SpriteSheetData o2) {
+				return o1.getSpriteSheetLocation().compareTo(o2.getSpriteSheetLocation());
+			}
+			
+		});
+		return ll;
+	}
 	
 	static class ImageListRenderer extends DefaultListCellRenderer {
         private static final long serialVersionUID = 5874522377321012662L;
         @Override
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-            UnitImages w= (UnitImages) value;
+            
+            SpriteSheetData w= (SpriteSheetData) value;
             label.setText(IOUtil.removeExtension(new File(w.getSpriteSheetLocation()).getName()));
             return label;
         }

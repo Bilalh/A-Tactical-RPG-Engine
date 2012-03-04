@@ -41,7 +41,7 @@ public class Unit implements IMutableUnit {
 	@XStreamAsAttribute
 	private final UUID uuid;
 	private String imageDataRef;
-	private transient UnitImages imageData;
+	private transient SpriteSheetData imageData;
 	
 	private int weight;
 
@@ -93,7 +93,7 @@ public class Unit implements IMutableUnit {
 	}
 
 	@Override
-	public void setImageData(String ref, UnitImages imageData) {
+	public void setImageData(String ref, SpriteSheetData imageData) {
 		this.imageDataRef = ref;
 		this.imageData = imageData;
 	}
@@ -229,7 +229,7 @@ public class Unit implements IMutableUnit {
 
 	/** @category Generated */
 	@Override
-	public UnitImages getImageData() {
+	public SpriteSheetData getImageData() {
 		return imageData;
 	}
 

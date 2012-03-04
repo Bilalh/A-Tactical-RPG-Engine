@@ -19,7 +19,7 @@ import engine.map.Map;
 import engine.map.interfaces.IMap;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * @author bilalh

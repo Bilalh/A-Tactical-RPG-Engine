@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+import javax.rmi.CORBA.Tie;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -36,7 +37,7 @@ import editor.map.EditorSpriteSheet;
 import editor.util.Prefs;
 import editor.util.Resources;
 import engine.assets.*;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * Editor for the engine
@@ -95,12 +96,29 @@ public class Editor {
 		return skillsPanel.getSkills();
 	}
 	
-	public UnitsImages getUnitImages(){
-		return unitImagesPanel.getUnitsImages();
+	public SpriteSheetsData getUnitImages(){
+		return unitImagesPanel.getSpriteSheetData();
+	}
+
+	public java.util.Map<UUID, EditorSpriteSheet> getUnitsSprites(){
+		return Collections.unmodifiableMap(unitImagesPanel.getSpriteSheets());
 	}
 	
-	public java.util.Map<UUID, EditorSpriteSheet> getSpriteSheets(){
-		return Collections.unmodifiableMap(unitImagesPanel.getSpriteSheets());
+	public SpriteSheetsData getTilesets(){
+		return tilesetPanel.getSpriteSheetData();
+	} 
+
+	public java.util.Map<UUID, EditorSpriteSheet> getTilesetsSprites(){
+		return Collections.unmodifiableMap(tilesetPanel.getSpriteSheets());
+	}
+
+	//TODO rename?
+	public SpriteSheetsData getTextures(){
+		return texturesPanel.getSpriteSheetData();
+	}
+	
+	public java.util.Map<UUID, EditorSpriteSheet> getTexturesSprites(){
+		return Collections.unmodifiableMap(texturesPanel.getSpriteSheets());
 	}
 	
 	private JTabbedPane createTabs() {
@@ -196,15 +214,15 @@ public class Editor {
 		Config.savePreferences(us, "assets/units.xml");
 		log.info(us);
 		
-		UnitsImages  ui = unitImagesPanel.getUnitsImages();
+		SpriteSheetsData  ui = unitImagesPanel.getSpriteSheetData();
 		Config.savePreferences(ui, "assets/unitsImages.xml");
 		log.info(ui);
 
-		UnitsImages tiles = tilesetPanel.getUnitsImages();
+		SpriteSheetsData tiles = tilesetPanel.getSpriteSheetData();
 		Config.savePreferences(tiles, "assets/tilesets.xml");
 		log.info(tiles);
 
-		UnitsImages textures = texturesPanel.getUnitsImages();
+		SpriteSheetsData textures = texturesPanel.getSpriteSheetData();
 		Config.savePreferences(textures, "assets/textures.xml");
 		log.info(textures);
 		
@@ -255,16 +273,16 @@ public class Editor {
 		skillsPanel.setSkills(ss);
 		log.info(ss);
 		
-		UnitsImages ui = Config.loadPreference("assets/unitsImages.xml");
-		unitImagesPanel.setUnitsImages(ui);
+		SpriteSheetsData ui = Config.loadPreference("assets/unitsImages.xml");
+		unitImagesPanel.setSpriteSheetData(ui);
 		log.info(ui);
 		
-		UnitsImages tiles = Config.loadPreference("assets/tilesets.xml");
-		tilesetPanel.setUnitsImages(tiles);
+		SpriteSheetsData tiles = Config.loadPreference("assets/tilesets.xml");
+		tilesetPanel.setSpriteSheetData(tiles);
 		log.info(tiles);
 
-		UnitsImages textures = Config.loadPreference("assets/textures.xml");
-		texturesPanel.setUnitsImages(textures);
+		SpriteSheetsData textures = Config.loadPreference("assets/textures.xml");
+		texturesPanel.setSpriteSheetData(textures);
 		log.info(textures);
 		
 		Units uu = Config.loadPreference("assets/units.xml");

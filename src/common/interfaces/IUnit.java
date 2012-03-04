@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import engine.map.Tile;
 import engine.skills.ISkill;
 import engine.skills.RangedSkill;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * @author Bilal Hussain
@@ -30,7 +30,7 @@ public interface IUnit extends Identifiable {
 	
 	int getCost(Tile old, Tile next);
 
-	UnitImages getImageData();
+	SpriteSheetData getImageData();
 	
 	IWeapon getWeapon();
 

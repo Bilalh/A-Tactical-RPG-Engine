@@ -52,7 +52,7 @@ import engine.map.interfaces.IMutableMapUnit;
 import engine.skills.ISkill;
 import engine.skills.RangedSkill;
 import engine.unit.Unit;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * Editor for skills
@@ -101,7 +101,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 			OthersUnit.setSpriteSheet(ss);
 		
 		Unit u  = new Unit();
-		UnitImages ui = new UnitImages();
+		SpriteSheetData ui = new SpriteSheetData();
 		ui.setSpriteSheetLocation("defaults/defaultImages.png");
 		u.setImageData(path, ui);
 		

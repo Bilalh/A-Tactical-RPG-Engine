@@ -6,7 +6,7 @@ import config.Config;
 import config.XMLUtil;
 import engine.items.RangedWeapon;
 import engine.unit.Unit;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 
 /**

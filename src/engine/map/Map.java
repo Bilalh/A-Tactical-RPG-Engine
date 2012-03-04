@@ -30,7 +30,7 @@ import engine.pathfinding.PathFinder;
 import engine.skills.ISkill;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * @author bilalh
@@ -74,7 +74,7 @@ public class Map extends BasicMap implements IMap {
 	private void setUpAI() {
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
 	
-		UnitImages ui = Config.loadPreference("images/characters/Elena-animations.xml");
+		SpriteSheetData ui = Config.loadPreference("images/characters/Elena-animations.xml");
 		Unit u = new Unit();
 		u.setName("ai-1");
 		u.setMove(5);

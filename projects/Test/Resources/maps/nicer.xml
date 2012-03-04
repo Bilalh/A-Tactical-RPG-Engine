@@ -5,7 +5,7 @@
     <pitch>0.5</pitch>
   </mapSettings>
   <mapData>
-    <tileMappingLocation>maps/nicer-mapping.xml</tileMappingLocation>
+    <tileMappingLocation>images/tilesets/nicer-mapping.xml</tileMappingLocation>
   </mapData>
   <tile x="0" y="0">
     <type>90</type>

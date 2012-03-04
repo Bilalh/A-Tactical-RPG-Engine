@@ -23,7 +23,7 @@ import editor.spritesheet.*;
 import engine.assets.Units;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * Editor for units images
@@ -43,7 +43,7 @@ public class TilesetPanel extends AbstractSpriteSheetOrganiser {
 	}
 
 	@Override
-	protected UnitImages defaultImages() {
+	protected SpriteSheetData defaultImages() {
 		return Config.loadPreference("images/tilesets/default-animations.xml");
 	}
 

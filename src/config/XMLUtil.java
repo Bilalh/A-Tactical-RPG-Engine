@@ -21,7 +21,7 @@ import engine.skills.AbstractUnitObject;
 import engine.skills.RangedSkill;
 import engine.unit.Unit;
 import engine.unit.UnitAnimation;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * Xml utilities to create and parse xml
@@ -114,7 +114,7 @@ public abstract class XMLUtil {
 				TileMapping.class,
 				TileImageData.class,
 				UnitAnimation.class,
-				UnitImages.class,
+				SpriteSheetData.class,
 				Sprites.class,
 				
 				//Model 
@@ -125,7 +125,7 @@ public abstract class XMLUtil {
 				Weapons.class,
 				Skills.class,
 				Units.class,
-				UnitsImages.class,
+				SpriteSheetsData.class,
 				Textures.class,
 				Maps.class,
 				

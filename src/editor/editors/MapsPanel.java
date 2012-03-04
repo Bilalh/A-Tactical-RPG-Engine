@@ -1,16 +1,20 @@
 package editor.editors;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
@@ -18,6 +22,8 @@ import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
+
+import util.IOUtil;
 
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 import com.javarichclient.icon.tango.actions.ListRemoveIcon;
@@ -27,15 +33,15 @@ import config.Config;
 import config.xml.SavedMap;
 
 import editor.Editor;
-import editor.editors.AbstractSpriteSheetOrganiser.AddAction;
-import editor.editors.AbstractSpriteSheetOrganiser.DeleteAction;
 import editor.editors.UnitsPanel.WeaponDropDownListRenderer;
 import engine.assets.Maps;
 import engine.assets.Units;
-import engine.assets.UnitsImages;
+import engine.assets.SpriteSheetsData;
 import engine.map.Map;
 import engine.unit.IMutableUnit;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
+
+import static editor.editors.AbstractSpriteSheetOrganiser.*;
 
 /**
  * @author Bilal Hussain
@@ -63,7 +69,25 @@ public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
 	@Override
 	public void panelSelected(Editor editor) {
 		// FIXME panelSelected method
+		ItemListener il =  infoTileset.getItemListeners()[0];
+		infoTileset.removeItemListener(il);
+		infoTileset.removeAllItems();
 
+
+		for (SpriteSheetData u : sortedSprites(editor.getTilesets().values())) {
+			infoTileset.addItem(u);
+		}
+		infoTileset.addItemListener(il);
+
+		il =  infoTextures.getItemListeners()[0];
+		infoTextures.removeItemListener(il);
+		infoTextures.removeAllItems();
+
+		for (SpriteSheetData u : sortedSprites(editor.getTextures().values())) {
+			infoTextures.addItem(u);
+		}
+		infoTextures.addItemListener(il);
+		
 	}
 
 	@Override
@@ -87,7 +111,29 @@ public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
 		resourceList.repaint();
 	}	
 	
+	private void changeTileset(SpriteSheetData ui){
+		
+	}
+
+	private void changeTextures(SpriteSheetData ui){
+		
+	}
+	
 	private void editMap(){
+		
+	}
+	
+	class ImageComboBoxRenderer extends BasicComboBoxRenderer{
+		private static final long serialVersionUID = 5419860419890213604L;
+		
+        @Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+            
+            SpriteSheetData w= (SpriteSheetData) value;
+            label.setText(IOUtil.removeExtension(new File(w.getSpriteSheetLocation()).getName()));
+            return label;
+        }
 		
 	}
 	
@@ -137,30 +183,30 @@ public class MapsPanel extends AbstractResourcesPanel<SavedMap, Maps> {
 		p.add(infoTileHeight, new CC().alignX("leading").maxWidth("70").wrap());
 		
 		
-		infoTileset = new JComboBox(new IWeapon[]{});
-//		infoWeapon.setRenderer(new WeaponDropDownListRenderer());
+		infoTileset = new JComboBox(new SpriteSheetData[]{});
+		System.out.println(infoTileset.getRenderer());
+		
 		infoTileset.setEditable(false);
 		p.add(new JLabel("Tileset:"), new CC().alignX("leading"));
 		infoTileset.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (infoTileset.getItemCount() <= 0) return;
-//				IWeapon w= (IWeapon) e.getItem();
-//				changeWeapon(w);
+				SpriteSheetData w= (SpriteSheetData) e.getItem();
+				changeTileset(w);
 			}
 		});
 		p.add(infoTileset, "span, growx");
 		
 		infoTextures = new JComboBox(new IWeapon[]{});
-//		infoWeapon.setRenderer(new WeaponDropDownListRenderer());
 		infoTextures.setEditable(false);
 		p.add(new JLabel("Textures:"), new CC().alignX("leading"));
 		infoTextures.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (infoTileset.getItemCount() <= 0) return;
-//				IWeapon w= (IWeapon) e.getItem();
-//				changeWeapon(w);
+				SpriteSheetData w= (SpriteSheetData) e.getItem();
+				changeTextures(w);
 			}
 		});
 		p.add(infoTextures, "span, growx");

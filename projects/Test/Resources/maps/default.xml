@@ -1,6 +1,6 @@
 <map width="13" height="15" uuid="f0698cb1-9b52-4228-80d2-ed1f3a11ec5e">
   <mapData>
-    <tileMappingLocation>maps/default-mapping.xml</tileMappingLocation>
+    <tileMappingLocation>images/tilesets/default-mapping.xml</tileMappingLocation>
     <texturesLocation>images/textures/default.png</texturesLocation>
   </mapData>
   <tile x="0" y="0">

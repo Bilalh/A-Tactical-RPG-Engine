@@ -35,6 +35,6 @@ public interface IMutableUnit extends IUnit {
 	
 	void setSkills(ArrayList<ISkill> skills);
 
-	void setImageData(String ref, UnitImages imageData);
+	void setImageData(String ref, SpriteSheetData imageData);
 	
 }

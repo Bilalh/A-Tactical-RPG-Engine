@@ -22,7 +22,7 @@ import common.interfaces.IUnit;
 import common.spritesheet.SpriteSheet;
 
 import config.Config;
-import engine.unit.UnitImages;
+import engine.unit.SpriteSheetData;
 
 /**
  * @author bilalh
@@ -36,7 +36,7 @@ public class GuiUnit {
 	protected Direction direction;
 	
 	protected SpriteSheet spriteSheet;
-	protected UnitImages images;
+	protected SpriteSheetData images;
 	
 	protected BufferedImage sprite;
 	protected BufferedImage weaponSprite;
