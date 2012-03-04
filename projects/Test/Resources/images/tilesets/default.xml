@@ -1,4 +1,4 @@
-<sprite-array>
+<sprites width="256" height="128">
   <sprite name="8-4" x="0" y="0" width="60" height="30"/>
   <sprite name="3" x="60" y="0" width="60" height="30"/>
   <sprite name="2" x="120" y="0" width="60" height="30"/>
@@ -8,4 +8,4 @@
   <sprite name="4" x="120" y="30" width="60" height="30"/>
   <sprite name="mask" x="180" y="30" width="60" height="30"/>
   <sprite name="8" x="0" y="60" width="60" height="30"/>
-</sprite-array>
+</sprites>

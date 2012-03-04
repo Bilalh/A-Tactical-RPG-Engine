@@ -159,29 +159,6 @@ public class ReorderableJList extends JList
 	public void dropActionChanged(DropTargetDragEvent dtde) {
 	}
 
-	// test
-	public static void main(String[] args) {
-		JList list = new ReorderableJList(new DefaultListModel(), null);
-		DefaultListModel defModel = new DefaultListModel();
-		list.setModel(defModel);
-		String[] listItems = {
-				"Chris", "Joshua", "Daniel", "Michael",
-				"Don", "Kimi", "Kelly", "Keagan"
-		};
-		Iterator it = Arrays.asList(listItems).iterator();
-		while (it.hasNext())
-			defModel.addElement(it.next());
-		// show list
-		JScrollPane scroller =
-				new JScrollPane(list,
-						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-						ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		JFrame frame = new JFrame("Checkbox JList");
-		frame.getContentPane().add(scroller);
-		frame.pack();
-		frame.setVisible(true);
-	}
-
 	class RJLTransferable implements Transferable {
 		Object object;
 
@@ -238,15 +215,9 @@ public class ReorderableJList extends JList
 			boolean showSelected = isSelected &
 					(dropTargetCell == null);
 			return super.getListCellRendererComponent(list, value,
-					index, showSelected,
-					hasFocus);
+					index, showSelected, hasFocus);
 		}
 
-		/*
-		 * // this isn't helping, neither does overriding getSize() public Insets getInsets(Insets in) { Insets useInsets = (isLastItem ?
-		 * lastItemInsets : normalInsets); in.top = useInsets.top; in.bottom = useInsets.bottom; in.left = useInsets.left; in.right =
-		 * useInsets.right; return in; }
-		 */
 		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);

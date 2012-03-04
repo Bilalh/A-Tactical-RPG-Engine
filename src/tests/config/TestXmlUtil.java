@@ -31,6 +31,7 @@ public class TestXmlUtil {
 			}
 		}
 		fail();
+		//FIXME?
 //		
 //		SavedMap m = new SavedMap(width,height,tiles, "basic-mapping.xml");
 //		

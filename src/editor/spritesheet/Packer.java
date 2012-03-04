@@ -12,6 +12,8 @@ import java.util.Comparator;
 
 import javax.imageio.ImageIO;
 
+import common.spritesheet.Sprites;
+
 import config.XMLUtil;
 
 public class Packer {
@@ -24,9 +26,10 @@ public class Packer {
 		Sheet sheet = packImages(images, width, height, border);
 
 		assert out !=null;
-		PrintStream pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(),
+		PrintStream pout = new PrintStream(new FileOutputStream(new File(
+				out.getParentFile(),
 				out.getName().replaceAll("\\.png$", "") + ".xml")));
-		pout.print(XMLUtil.makeFormattedXml(images.toArray(new MutableSprite[0])));
+		pout.print(XMLUtil.makeFormattedXml(new Sprites(images.toArray(new MutableSprite[0]), width, height)));
 		pout.close();
 		ImageIO.write(sheet.getSheetImage(), "PNG", out);
 
@@ -38,6 +41,22 @@ public class Packer {
 	 */
 	public Sheet packImages(ArrayList<MutableSprite> images, int width, int height, int border) {
 		Collections.sort(images);
+		BufferedImage buf = _packImages(images, width, height, border);
+		return new Sheet(buf, images);
+	}
+
+	/**
+	 * Packs the sprites into a image of the specifed size, sorted by name.
+	 */
+	public Sheet packImagesByName(ArrayList<MutableSprite> images, int width, int height, int border) {
+		Collections.sort(images, new Comparator<MutableSprite>() {
+
+			@Override
+			public int compare(MutableSprite o1, MutableSprite o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+			
+		});
 		BufferedImage buf = _packImages(images, width, height, border);
 		return new Sheet(buf, images);
 	}
@@ -69,19 +88,6 @@ public class Packer {
 		return buf;
 	}
 
-
-	public Sheet packImagesByName(ArrayList<MutableSprite> images, int width, int height, int border) {
-		Collections.sort(images, new Comparator<MutableSprite>() {
-
-			@Override
-			public int compare(MutableSprite o1, MutableSprite o2) {
-				return o1.getName().compareTo(o2.getName());
-			}
-			
-		});
-		BufferedImage buf = _packImages(images, width, height, border);
-		return new Sheet(buf, images);
-	}
 	
 	public ISpriteSheet pack(ArrayList<File> files, int width, int height, int border, File out) throws IOException {
 		ArrayList<MutableSprite> images = new ArrayList<MutableSprite>();

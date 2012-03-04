@@ -9,16 +9,16 @@
       </unitAnimation>
     </entry>
     <entry>
-      <string>east</string>
+      <string>north</string>
       <unitAnimation>
-        <name>east</name>
+        <name>north</name>
         <numberOfFrames>4</numberOfFrames>
       </unitAnimation>
     </entry>
     <entry>
-      <string>north</string>
+      <string>east</string>
       <unitAnimation>
-        <name>north</name>
+        <name>east</name>
         <numberOfFrames>4</numberOfFrames>
       </unitAnimation>
     </entry>

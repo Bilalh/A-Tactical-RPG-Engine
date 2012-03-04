@@ -20,6 +20,8 @@ public class SpriteSheet implements ISpriteSheet {
 	protected BufferedImage sheet;
 	protected HashMap<String, BufferedImage> sprites;
 	
+	protected int width, height;
+	
 	public SpriteSheet(BufferedImage sheet, InputStream xmldef){
 		assert sheet    != null;
 		assert xmldef   != null;
@@ -27,8 +29,13 @@ public class SpriteSheet implements ISpriteSheet {
 		this.sheet = sheet;
 		this.sprites = new HashMap<String, BufferedImage>();
 		
-		SpriteInfo[] arr = XMLUtil.convertXml(xmldef);
-		load(arr);
+		Sprites ss = XMLUtil.convertXml(xmldef);
+		load(ss.getSprites());
+		width  = ss.getWidth();
+		height = ss.getHeight();
+		
+		assert width  > 0;
+		assert height > 0;
 	}
 	
 	protected void load(SpriteInfo[] arr){

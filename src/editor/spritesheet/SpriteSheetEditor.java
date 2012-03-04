@@ -590,18 +590,18 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		try {
 			int b = ((Integer) border.getValue());
 			packer.packImages(list, sWidth, sHeight, b, out);
-				String aname = out.getName().replaceAll("\\.png$", "") + "-animations.xml"; 
-				
-				String shortaName = out.getAbsolutePath().replaceFirst(".*Resources/", "");
-				animations.setSpriteSheetLocation(shortaName);
-				
-				PrintStream pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(),aname)));
-				pout.print(XMLUtil.makeFormattedXml(animations));		
-				
-				if (makeTileMapping){
-					String tname = out.getName().replaceAll("\\.png$", "") + "-mapping.xml"; 
-					saveTileMappingToFile(new File(out.getParent(), tname));
-				}
+			String aname = out.getName().replaceAll("\\.png$", "") + "-animations.xml";
+
+			String shortaName = out.getAbsolutePath().replaceFirst(".*Resources/", "");
+			animations.setSpriteSheetLocation(shortaName);
+
+			PrintStream pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(), aname)));
+			pout.print(XMLUtil.makeFormattedXml(animations));
+
+			if (makeTileMapping) {
+				String tname = out.getName().replaceAll("\\.png$", "") + "-mapping.xml";
+				saveTileMappingToFile(new File(out.getParent(), tname));
+			}
 				
 		} catch (IOException e) {
 			e.printStackTrace();

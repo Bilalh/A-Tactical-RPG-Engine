@@ -11,6 +11,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import common.spritesheet.SpriteInfo;
+import common.spritesheet.Sprites;
 
 import config.xml.*;
 import editor.map.MutableTileMapping;
@@ -114,7 +115,8 @@ public abstract class XMLUtil {
 				TileImageData.class,
 				UnitAnimation.class,
 				UnitImages.class,
-
+				Sprites.class,
+				
 				//Model 
 				Unit.class,
 				AbstractUnitObject.class,
