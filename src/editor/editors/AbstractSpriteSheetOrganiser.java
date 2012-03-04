@@ -209,6 +209,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 		AC rowC = new AC().align("top", 10).gap("15!", 10).grow(100, 10);
 		return new MigLayout(layC, colC, rowC);
 	}
+	
 	protected JPanel createHeader(String text) {
 		JPanel header = new HeaderPanel(new BorderLayout());
 		header.add(new JLabel("<HTML>"+text+"<BR></HTML>"), BorderLayout.CENTER);
@@ -238,7 +239,6 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 		assert imagesListModel.size() >=2;
 		assert index != -1;
 		int nextIndex = index == 0 ? imagesListModel.size()-1 : index - 1;
-		System.out.printf("(%d,%d)\n", index, nextIndex );
 		imagesList.setSelectedIndex(nextIndex);
 		UnitImages s=  (UnitImages) imagesListModel.remove(index);
 		spriteSheets.remove(s);

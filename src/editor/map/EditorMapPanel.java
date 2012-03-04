@@ -17,7 +17,6 @@ import view.util.BufferSize;
 import common.Location;
 import config.xml.MapSettings;
 
-import editor.MapEditor;
 
 /**
  * Contains the view of the map and handles mouse input for the map.

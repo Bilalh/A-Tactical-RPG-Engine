@@ -124,7 +124,7 @@ public class Editor {
 		tabs.addTab("Tilesets",     (tilesetPanel    ));
 		tabs.addTab("Textures",     (texturesPanel   ));
 
-		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel()));
+		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel(this)));
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Spritesheets", new JPanel());
 //		tabs.addTab("Project",      new JPanel());

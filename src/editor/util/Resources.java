@@ -10,7 +10,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import editor.Editor;
-import editor.MapEditor;
+import editor.map.MapEditor;
 
 /**
  * @author Bilal Hussain
@@ -21,7 +21,7 @@ public final class Resources {
 	}
 
 	public static InputStream getFileAsStream(String filename) {
-		return MapEditor.class.getResourceAsStream("resources/" + filename);
+		return Editor.class.getResourceAsStream("resources/" + filename);
 	}
 	
 	public static BufferedImage getImage(String filename) {

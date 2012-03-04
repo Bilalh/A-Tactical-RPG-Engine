@@ -34,11 +34,11 @@ import common.spritesheet.SpriteSheet;
 import config.Config;
 import config.xml.MapSettings;
 
+import editor.editors.IWeaponListener;
 import editor.map.EditorMapPanel;
 import editor.map.others.OthersMap;
 import editor.map.others.OthersUnit;
 import editor.spritesheet.MutableSprite;
-import editor.util.IWeaponListener;
 import editor.util.Prefs;
 import editor.util.Resources;
 import engine.assets.AssertStore;

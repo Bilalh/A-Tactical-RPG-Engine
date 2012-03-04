@@ -29,8 +29,8 @@ import common.spritesheet.SpriteSheet;
 import config.Config;
 
 import editor.Editor;
-import editor.MapEditor;
 import editor.map.EditorSpriteSheet;
+import editor.map.MapEditor;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import editor.util.Resources;

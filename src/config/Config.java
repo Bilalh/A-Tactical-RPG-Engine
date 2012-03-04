@@ -22,7 +22,7 @@ import common.spritesheet.SpriteSheet;
 import config.xml.ITileMapping;
 import config.xml.TileImageData;
 import config.xml.TileMapping;
-import editor.MapEditor;
+import editor.map.MapEditor;
 
 /**
  * Class for loading preferences and spritesheets.  It also store the defaults 

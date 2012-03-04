@@ -3,7 +3,6 @@ package editor.map;
 import java.util.ArrayList;
 
 import view.map.interfaces.IMapRendererParent;
-import editor.MapEditor;
 
 /**
  * @author Bilal Hussain

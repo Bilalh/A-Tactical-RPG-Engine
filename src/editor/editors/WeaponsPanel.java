@@ -38,7 +38,6 @@ import editor.spritesheet.MutableSprite;
 import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
-import editor.util.IWeaponListener;
 import editor.util.Resources;
 import engine.assets.Weapons;
 import engine.items.Around;

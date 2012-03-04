@@ -1,4 +1,4 @@
-package editor.util;
+package editor.editors;
 
 import common.interfaces.IWeapon;
 
