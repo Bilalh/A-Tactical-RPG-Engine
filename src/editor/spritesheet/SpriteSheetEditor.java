@@ -52,6 +52,8 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private JTextField sheetName;
 	private JTextField selectedName;
 	private SpriteSheetPanel sheetPanel;
+
+	private JComboBox widths, heights;
 	private int sWidth = sizes[0], sHeight = sizes[0];
 
 	// For IO
@@ -195,13 +197,13 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		};
 
 		p.add(new JLabel("Width:"), "gap 4");
-		JComboBox widths = new JComboBox(sizes);
+		widths = new JComboBox(sizes);
 		widths.setActionCommand("width");
 		widths.addActionListener(aSizes);
 		p.add(widths, "alignx leading, span, wrap");
 
 		p.add(new JLabel("Height:"), "gap 4");
-		JComboBox heights = new JComboBox(sizes);
+		heights = new JComboBox(sizes);
 		heights.setActionCommand("heights");
 		heights.addActionListener(aSizes);
 		p.add(heights, "alignx leading, span, wrap");
@@ -680,6 +682,12 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				}
 			}
 			
+			widths.setSelectedItem(ss.getWidth());
+			heights.setSelectedItem(ss.getHeight());
+			
+			assert ((Number) widths.getSelectedItem()).intValue()  == ss.getWidth();
+			assert ((Number) heights.getSelectedItem()).intValue() == ss.getHeight();
+			// For safety
 			renew();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(this, "xml file " + xml.getAbsolutePath() + " not found",
