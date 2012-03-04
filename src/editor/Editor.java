@@ -112,17 +112,17 @@ public class Editor {
 		
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 
-		unitImagesPanel = new UnitsImagesPanel(this);
-		tilesetPanel    = new TilesetPanel(this);
-		texturesPanel   = new TexturesPanel(this);
-		
+//		unitImagesPanel = new UnitsImagesPanel(this);
+//		tilesetPanel    = new TilesetPanel(this);
+//		texturesPanel   = new TexturesPanel(this);
+//		
 		JTabbedPane tabs  = new JTabbedPane();
-		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
-		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));
-		tabs.addTab("Units",        (unitPanel       = new UnitsPanel(unitImagesPanel.getSpriteSheets())));
-		tabs.addTab("Sprites",      (unitImagesPanel ));
-		tabs.addTab("Tilesets",     (tilesetPanel    ));
-		tabs.addTab("Textures",     (texturesPanel   ));
+//		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
+//		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));
+//		tabs.addTab("Units",        (unitPanel       = new UnitsPanel(unitImagesPanel.getSpriteSheets())));
+//		tabs.addTab("Sprites",      (unitImagesPanel ));
+//		tabs.addTab("Tilesets",     (tilesetPanel    ));
+//		tabs.addTab("Textures",     (texturesPanel   ));
 
 		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel(this)));
 //		tabs.addTab("Story",        new JPanel());

@@ -275,19 +275,19 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	protected abstract String spriteSheetBasePath();
 
 	protected class EditAction extends AbstractAction {
-			private static final long serialVersionUID = 4069963919157697524L;
-	
-			public EditAction() {
-				putValue(NAME, "Edit");
-				// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
-	//			putValue(SMALL_ICON, new ListAllIcon(16, 16));
-			}
-	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				editSpriteSheet(currentImages.getSpriteSheetLocation());
-			}
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public EditAction() {
+			putValue(NAME, "Edit");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			// putValue(SMALL_ICON, new ListAllIcon(16, 16));
 		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			editSpriteSheet(currentImages.getSpriteSheetLocation());
+		}
+	}
 
 	protected void editSpriteSheet(String path) {
 		editor.setVisible(false);

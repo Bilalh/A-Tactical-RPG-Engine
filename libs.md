@@ -9,4 +9,6 @@ Libs/Classes
                                                                       
 * openal from Slick 2d (BSD)     -- For playing music (ogg/wav) and sounds 
 
+* inflector                      -- Makes purals of a word
+
 * Icons from http://www.javarichclient.com/68-vector-based-java-icons/ (public domain)
