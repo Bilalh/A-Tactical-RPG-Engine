@@ -61,6 +61,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	protected String spriteSheetHelpString = "Must have the images (north0, south0, east0 and west0) in the sheet.";
 	protected boolean showAnimations       = true;
 	protected boolean validationForUnits   = false;
+	protected boolean makeTileMapping      = false;
 	
 	public AbstractSpriteSheetOrganiser(Editor editor){
 		this(editor, new BorderLayout());
@@ -298,7 +299,8 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 				AbstractSpriteSheetOrganiser.this,
 				spriteSheetHelpString,
 				showAnimations,
-				validationForUnits).setVisible(true);
+				validationForUnits,
+				makeTileMapping).setVisible(true);
 	}
 	public void refreashSprites() {
 		if (spriteSheetPanel.getHeight() <=0 || spriteSheetPanel.getWidth() <=0 ) return;

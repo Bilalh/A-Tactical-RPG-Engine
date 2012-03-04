@@ -79,19 +79,22 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private boolean showAnimations;
 	private String helpString;
 	private boolean validationForUnits;
+	private boolean makeTileMapping;
 	
 	public SpriteSheetEditor(int frameClosingValue) {
-		this(frameClosingValue, null,null,"",true,false);
+		this(frameClosingValue, null,null,"",true,false,false);
 	}
 
 	public SpriteSheetEditor(int frameClosingValue, String savePath, ISpriteEditorListener listener, 
-			String helpString, boolean showAnimations,boolean validationForUnits) {
+			String helpString, boolean showAnimations,
+			boolean validationForUnits, boolean makeTileMapping) {
 		super("Sprite Sheet Editor");
-		this.savePath          = savePath;
-		this.listener          = listener;
-		this.helpString        = helpString;
-		this.showAnimations    = showAnimations;
+		this.savePath           = savePath;
+		this.listener           = listener;
+		this.helpString         = helpString;
+		this.showAnimations     = showAnimations;
 		this.validationForUnits = validationForUnits;
+		this.makeTileMapping    = makeTileMapping;
 		
 		STARTING_PATH = Config.getResourceDirectory() +  "/images";
 		chooser = new JFileChooser(STARTING_PATH);
@@ -474,7 +477,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		tileMapping.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				makeTileMapping();
+				saveTileMapping();
 			}
 		});		
 		
@@ -484,7 +487,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		edit.addSeparator();
 		if (showAnimations)   edit.add(animation);
 		if (savePath == null) edit.add(tileMapping);	
-		
+
 		return bar;
 	}
 
@@ -593,36 +596,44 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 				animations.setSpriteSheetLocation(shortaName);
 				
 				PrintStream pout = new PrintStream(new FileOutputStream(new File(out.getParentFile(),aname)));
-				pout.print(XMLUtil.makeFormattedXml(animations));					
+				pout.print(XMLUtil.makeFormattedXml(animations));		
+				
+				if (makeTileMapping){
+					String tname = out.getName().replaceAll("\\.png$", "") + "-mapping.xml"; 
+					saveTileMappingToFile(new File(out.getParent(), tname));
+				}
+				
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 
-	private void makeTileMapping(){
+	private void saveTileMapping(){
 		saveChooser.setSelectedFile(new File("mapping.xml"));
 		int rst = saveChooser.showSaveDialog(SpriteSheetEditor.this);
 		if (rst == JFileChooser.APPROVE_OPTION) {
-			
-			HashMap<String, TileImageData> mapping = new HashMap<String, TileImageData>();
-			for (int i = 0; i < sprites.size(); i++) {
-				MutableSprite m = (MutableSprite) sprites.elementAt(i);
-				mapping.put(m.getName(), new TileImageData(m.getName(), ImageType.NON_TEXTURED));	
-			}
-			String name = sheetName.getText();
-			if (!name.endsWith(".png")) name += ".png";
-			ITileMapping map = new TileMapping("images/tilesets/"+name, mapping);
-			String s2 = XMLUtil.makeFormattedXml(map);
-			FileWriter fw;
-			try {
-				fw = new FileWriter(saveChooser.getSelectedFile());
-				fw.write(s2);
-				fw.close();
-			} catch (IOException e) {
-				// FIXME catch block in makeTileMapping
-				e.printStackTrace();
-			}
+			saveTileMappingToFile(saveChooser.getSelectedFile());
+		}
+	}
+
+	private void saveTileMappingToFile(File out) {
+		HashMap<String, TileImageData> mapping = new HashMap<String, TileImageData>();
+		for (int i = 0; i < sprites.size(); i++) {
+			MutableSprite m = (MutableSprite) sprites.elementAt(i);
+			mapping.put(m.getName(), new TileImageData(m.getName(), ImageType.NON_TEXTURED));	
+		}
+		String name = sheetName.getText();
+		if (!name.endsWith(".png")) name += ".png";
+		ITileMapping map = new TileMapping("images/tilesets/"+name, mapping);
+		String s2 = XMLUtil.makeFormattedXml(map);
+		FileWriter fw;
+		try {
+			fw = new FileWriter(out);
+			fw.write(s2);
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	

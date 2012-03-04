@@ -35,7 +35,10 @@ public class TilesetPanel extends AbstractSpriteSheetOrganiser {
 
 	public TilesetPanel(Editor editor){
 		super(editor, new BorderLayout());
-		showAnimations = false;
+		
+		showAnimations  = false;
+		makeTileMapping = true;
+		
 		spriteSheetHelpString = "A tile's height should be half its width (isometric)";
 	}
 
