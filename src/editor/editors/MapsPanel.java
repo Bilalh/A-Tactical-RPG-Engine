@@ -100,6 +100,12 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 	}
 
 	@Override
+	public Maps getResouces() {
+		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());
+		return super.getResouces();
+	}
+	
+	@Override
 	protected void setCurrentResource(DeferredMap _map) {
 		currentMap = _map;
 		SavedMap map = currentMap.getAsset();
@@ -137,7 +143,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 	}	
 	
 	private void changeTileset(SpriteSheetData ui){
-		
+		currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
 	}
 
 	private void changeTextures(SpriteSheetData ui){

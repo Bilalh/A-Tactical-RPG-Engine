@@ -19,14 +19,17 @@ import config.IPreference;
 public class TileMapping implements ITileMapping {
 
 	@XStreamAsAttribute
-	final private String spriteSheetLocation;
+	final protected String spriteSheetLocation;
 	@XStreamImplicit
-	final private HashMap<String, TileImageData> tilemapping;
+	final protected HashMap<String, TileImageData> tilemapping;
 
-	/** @category Generated */
-	public TileMapping(String spriteSheet, HashMap<String, TileImageData> tilemapping) {
-		this.spriteSheetLocation = spriteSheet;
-		this.tilemapping = tilemapping;
+	public TileMapping(String spriteSheetLocation, HashMap<String, TileImageData> tilemapping) {
+		this.spriteSheetLocation = spriteSheetLocation;
+		this.tilemapping         = tilemapping;
+	}
+	
+	public TileMapping(ITileMapping t){
+		this(t.getSpriteSheetLocation(), t.getTilemapping());
 	}
 
 	/** @category Generated */

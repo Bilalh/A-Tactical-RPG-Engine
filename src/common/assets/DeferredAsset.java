@@ -14,6 +14,11 @@ import config.XMLUtil;
 import engine.items.MeleeWeapon;
 
 /**
+ * A deferred assert stores a location of assert. 
+ * 
+ * When this object is serialised only the location is saved. 
+ * The asset is loaded when the this object is deserialised.
+ * 
  * @author Bilal Hussain
  */
 @XStreamAlias("deferredAsset")
