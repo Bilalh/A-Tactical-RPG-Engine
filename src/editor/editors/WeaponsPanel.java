@@ -85,9 +85,9 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 
 		String path = "panels/unitSprites.xml";
 		
-			SpriteSheet ss = new SpriteSheet(Resources.getImage("panels/unitSprites.png"), 
-					Resources.getFileAsStream(path));
-			OthersUnit.setSpriteSheet(ss);
+		SpriteSheet ss = new SpriteSheet(Resources.getImage("panels/unitSprites.png"),
+				Resources.getFileAsStream(path));
+		OthersUnit.setSpriteSheet(ss);
 		
 		Unit u  = new Unit();
 		SpriteSheetData ui = new SpriteSheetData();
