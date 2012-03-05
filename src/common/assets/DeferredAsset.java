@@ -10,6 +10,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 import common.interfaces.Identifiable;
 import config.Config;
+import config.IPreference;
 import config.XMLUtil;
 import engine.items.MeleeWeapon;
 
@@ -24,7 +25,7 @@ import engine.items.MeleeWeapon;
  */
 //The asset is loaded when the this object is deserialised.
 @XStreamAlias("deferredAsset")
-public class DeferredAsset<E extends Identifiable> implements Identifiable {
+public class DeferredAsset<E extends Identifiable & IPreference> implements Identifiable {
 
 	@XStreamAsAttribute
 	protected UUID uuid;
@@ -39,7 +40,7 @@ public class DeferredAsset<E extends Identifiable> implements Identifiable {
 
 //	// to load resource
 //	private Object readResolve() {
-//		asset = (E) Config.loadPreference(resouceLocation);
+//		asset = (E) Config.loadPreference(resouceLocation);  
 //		return this;
 //	}
 	
@@ -47,7 +48,10 @@ public class DeferredAsset<E extends Identifiable> implements Identifiable {
 		asset = (E) Config.loadPreference(resouceLocation);
 	}
 	
-	/** @category Generated */
+	public void saveAsset(){
+		Config.savePreferences(asset, resouceLocation);
+	}
+	
 	public E getAsset() {
 		if (asset == null) reloadAsset();
 		return asset;

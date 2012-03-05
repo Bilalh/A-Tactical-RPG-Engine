@@ -35,19 +35,15 @@ public class SavedTile {
 		return this;
 	}
 
-	public SavedTile(String type, int height, int x, int y, Orientation orientation) {
-		this(type, height, height, x, y, orientation);
-	}
-
-	public SavedTile(String type, int startingHeight, int height, int x, int y, Orientation orientation) {
+	public SavedTile(String type, int startingHeight, int endHeight, int x, int y, Orientation orientation) {
 		this.x = x;
 		this.y = y;
 		
-		this.type = type;
+		this.type         = type;
 		this.orientation  = orientation;
 		
-		this.height = height;
-		this.startingHeight = height;
+		this.height         = endHeight;
+		this.startingHeight = startingHeight;
 		
 	}
 	
@@ -57,7 +53,7 @@ public class SavedTile {
 	}
 
 	/** @category Generated */
-	public int getHeight() {
+	public int getEndHeight() {
 		return height;
 	}
 
@@ -109,10 +105,6 @@ public class SavedTile {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("SavedTile [type=%s, height=%s, x=%s, y=%s, orientation=%s]", type, height, x, y, orientation);
-	}
 
 	/** @category Generated */
 	public String getLeftWallName() {
@@ -122,6 +114,12 @@ public class SavedTile {
 	/** @category Generated */
 	public String getRightWallName() {
 		return rightWall;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("SavedTile [type=%s, height=%s, startingHeight=%s, x=%s, y=%s, orientation=%s, leftWall=%s, rightWall=%s]",
+				type, height, startingHeight, x, y, orientation, leftWall, rightWall);
 	}
 
 

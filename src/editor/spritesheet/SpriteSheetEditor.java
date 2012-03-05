@@ -233,7 +233,8 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 							sprites.addElement(new MutableSprite(selected[i]));
 						} catch (IOException x) {
 							x.printStackTrace();
-							JOptionPane.showMessageDialog(SpriteSheetEditor.this, "Unable to load: " + selected[i].getName());
+							JOptionPane.showMessageDialog(SpriteSheetEditor.this, 
+									"Unable to load: " + selected[i].getName());
 						}
 					}
 				}
@@ -565,7 +566,8 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		if (savePath != null){
 			if (validationForUnits) {
 
-				HashSet<String> needed = new HashSet<String>(Arrays.asList(new String[] { "north0", "south0", "east0", "west0" }));
+				HashSet<String> needed = new HashSet<String>(Arrays.asList(new String[] { 
+						"north0", "south0", "east0", "west0" }));
 				HashSet<String> have   = new HashSet<String>();
 
 				for (int i = 0; i < sprites.size(); i++) {
@@ -780,7 +782,10 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		if (list.getSelectedIndex() == -1) return;
 		String base;
 		base =(String) JOptionPane.showInputDialog(SpriteSheetEditor.this, "Base name for animation", 
-				"Animation" , JOptionPane.INFORMATION_MESSAGE, null, null, ((MutableSprite) list.getSelectedValue()).getName());
+				"Animation" , JOptionPane.INFORMATION_MESSAGE, 
+				null, null, 
+				((MutableSprite) list.getSelectedValue()).getName());
+		
 		if (base!=null){
 			int i=0;
 			for (Object o : list.getSelectedValues()) {
@@ -802,7 +807,8 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	private class FileListRenderer extends  ReorderableListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
 		@Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		public Component getListCellRendererComponent(JList list, Object value, int index, 
+				boolean isSelected, boolean cellHasFocus) {
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
 			MutableSprite sprite = (MutableSprite) value;
 			label.setText(sprite.getName());

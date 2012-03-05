@@ -166,7 +166,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				TileImageData d = mapController.getTileImageData(i, j);
 				field[i][j] = new IsoTile(
 						grid[i][j].getOrientation(),
-						grid[i][j].getStartHeight(),
+						grid[i][j].getStartingHeight(),
 						grid[i][j].getEndHeight(),
 						i, j,
 						d.getLocation(), 

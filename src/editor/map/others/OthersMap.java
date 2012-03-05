@@ -59,7 +59,7 @@ public class OthersMap extends BasicMap {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				guiField[i][j] = new OthersIsoTile(field[i][j].getOrientation(),
-						field[i][j].getStartHeight(),
+						field[i][j].getStartingHeight(),
 						field[i][j].getEndHeight(), i, j, mapSettings);
 			}
 		}

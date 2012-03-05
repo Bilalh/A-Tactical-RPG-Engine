@@ -37,7 +37,7 @@ public class Tile {
 
 
 	public Tile(SavedTile t) {
-		this(t.getStartingHeight(), t.getHeight(), t.getType(), t.getOrientation(), 
+		this(t.getStartingHeight(), t.getEndHeight(), t.getType(), t.getOrientation(), 
 				t.getLeftWallName(), t.getRightWallName());
 	}
 	
@@ -56,7 +56,7 @@ public class Tile {
 	}
 
 	/** @category Generated */
-	public int getStartHeight() {
+	public int getStartingHeight() {
 		return startHeight;
 	}
 
@@ -82,9 +82,8 @@ public class Tile {
 
 	@Override
 	public String toString() {
-//		return String.format("Tile [current=%s, startHeight=%s, endHeight=%s, cost=%s, type=%s]",
-//				current, startHeight, endHeight, cost, type);
-		return "" + (current != null);
+		return String.format("Tile [current=%s, startHeight=%s, endHeight=%s, cost=%s, type=%s]",
+				current, startHeight, endHeight, cost, type);
 	}
 
 	/** @category Generated */

@@ -27,6 +27,7 @@ import common.enums.Orientation;
 
 import config.Config;
 import config.XMLUtil;
+import config.xml.MapData;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
 import editor.map.*;
@@ -102,13 +103,16 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		frame.setJMenuBar(createMenubar());
 		frame.setDefaultCloseOperation(frameClosingValue);
 		
-		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+		frame.addWindowListener(new WindowAdapter() {
 			@Override
-			public void run() {
-				onQuit();
+			public void windowClosing(WindowEvent e) {
+				if (onQuit()){
+					MapEditor.this.listener.mapEditingFinished();
+					MapEditor.this.frame.dispose();
+				}
 			}
-		}));
-
+		});
+		
 		infoPanelContainer.restore();
 		tilesetsPanelContainer.restore();
 
@@ -121,8 +125,8 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		frame.setVisible(true);
 	}
 
-	/** @category Gui **/
-	private void onQuit() {
+	 /** @category Gui **/
+	private boolean onQuit() {
 		log.info("Quiting");
 		final int extendedState = frame.getExtendedState();
 		final Preferences pref = Prefs.getNode("map/panels/main");
@@ -142,6 +146,10 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 			e.printStackTrace();
 		}
 		log.info("Saved prefs" + Prefs.root());
+		
+		save();
+		
+		return true;
 	}
 
 	/** @category ISpriteProvider**/
@@ -448,7 +456,10 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 			bar.add(edit);
 			
 			JMenu view = new JMenu("View");
-			final JCheckBoxMenuItem number = new JCheckBoxMenuItem("Show Numbering on Tiles", editorMapPanel.hasNumbering());
+			final JCheckBoxMenuItem number = new JCheckBoxMenuItem(
+					"Show Numbering on Tiles", 
+					editorMapPanel.hasNumbering());
+			
 			number.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1,mask));
 			number.addActionListener(new ActionListener() {
 				@Override
@@ -505,12 +516,21 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 	private void save(){
 		SavedTile[] tiles = new SavedTile[map.getFieldWidth() * map.getFieldHeight()]; 
 		Tile[][] field = map.getField();
-		for (int i = 0, k=0; i < field.length; i++) {
-			for (int j = 0; j < field[i].length; j++,k++) {
-				tiles[k] = new SavedTile(field[i][j].getType(),field[i][j].getEndHeight(),i,j,field[i][j].getOrientation()); 
+		
+		for (int i = 0, k = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++, k++) {
+				tiles[k] = new SavedTile(
+						field[i][j].getType(),
+						field[i][j].getStartingHeight(),
+						field[i][j].getEndHeight(),	
+						i, j, 
+						field[i][j].getOrientation());
 			}
 		}
-		SavedMap m = new SavedMap(map.getFieldWidth(), map.getFieldHeight(),tiles , map.getMapSettings(), map.getData());
+		
+		SavedMap m = new SavedMap(
+				map.getFieldWidth(), map.getFieldHeight(), tiles,
+				map.getMapSettings(), map.getData());
 	
 		Config.savePreferences(m, savePath);
 		Config.savePreferences(map.getTileMapping(), m.getMapData().getTileMappingLocation());

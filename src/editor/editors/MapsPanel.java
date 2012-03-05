@@ -66,10 +66,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private JSpinner infoTileDiagonal;
 	private JSpinner infoTileHeight;	
 
-	private JComboBox  infoTileset;
-	private JComboBox  infoTextures;
+	private JComboBox infoTileset;
+	private JComboBox infoTextures;
 
-	private DeferredMap currentMap;	
+	private DeferredMap  currentMap;	
 	private ITileMapping currentMapping;
 	
 	
@@ -165,18 +165,17 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	@SuppressWarnings("unused")
 	private void editMap(){
 		editor.setVisible(false);
-		
-		new MapEditor(WindowConstants.DO_NOTHING_ON_CLOSE, 
-				currentMap.getResouceLocation(), 
-				this);
+		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());
+		currentMap.saveAsset();
+		new MapEditor(WindowConstants.DO_NOTHING_ON_CLOSE,  currentMap.getResouceLocation(), this);
 		
 	}
 
 	@Override
 	public void mapEditingFinished() {
-		// FIXME mapEditingFinished method
+		currentMap.reloadAsset();
+		setCurrentResource(currentMap);
 		editor.setVisible(true);
-		
 	}
 	
 	class ImageComboBoxRenderer extends BasicComboBoxRenderer{

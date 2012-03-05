@@ -12,6 +12,7 @@ import config.xml.TileImageData;
 import editor.spritesheet.MutableSprite;
 import editor.util.Resources;
 import engine.map.BasicMap;
+import engine.map.Tile;
 
 /**
  * Stores the map and keeps the model and gui map in sync.
@@ -48,9 +49,10 @@ public class EditorMap extends BasicMap {
 			for (int j = 0; j < field[i].length; j++) {
 				TileImageData d = getTileImageData(i, j);
 				assert d !=null :  String.format("TileImageData not found (%s,%s) %s",i,j, field[i][j]);
-				editorField[i][j] = new EditorTile(field[i][j]);				
+				editorField[i][j] = new EditorTile(field[i][j]);
+				field[i][j]       = editorField[i][j];
 				guiField[i][j]    = new EditorIsoTile(editorField[i][j].getOrientation(),
-						editorField[i][j].getStartHeight(),
+						editorField[i][j].getStartingHeight(),
 						editorField[i][j].getEndHeight(), i, j,
 						spriteSheet.getSprite(d.getLocation()), d.getType(),mapSettings);
 			}
@@ -79,11 +81,11 @@ public class EditorMap extends BasicMap {
 	public EditorIsoTile[][] getGuiField() {
 		return guiField;
 	}
-
 	
 	/** @category Generated */
 	public EditorSpriteSheet getSpriteSheet() {
 		return spriteSheet;
 	}
+
 
 }

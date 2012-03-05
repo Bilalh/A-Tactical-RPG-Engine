@@ -1,7 +1,7 @@
-<map uuid="2a36c2c6-0a34-4471-8b0d-b01ea6b8dc16" width="13" height="15">
+<map uuid="efb8219d-fdef-4322-af50-c67dd505de5f" width="13" height="15">
   <mapSettings>
-    <tileDiagonal>60</tileDiagonal>
-    <tileHeight>10</tileHeight>
+    <tileDiagonal>100</tileDiagonal>
+    <tileHeight>15</tileHeight>
     <pitch>0.5</pitch>
     <zoom>1.0</zoom>
   </mapSettings>
@@ -11,7 +11,7 @@
     <texturesLocation>images/textures/default.png</texturesLocation>
   </mapData>
   <tile x="0" y="0">
-    <type>6</type>
+    <type>5</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
@@ -289,7 +289,7 @@
   <tile x="3" y="1">
     <type>8-4</type>
     <height>2</height>
-    <startingHeight>2</startingHeight>
+    <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="3" y="2">
