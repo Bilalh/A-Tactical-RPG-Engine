@@ -68,9 +68,19 @@ public class BasicMap extends Observable {
 	}
 
 	public String getTileSheetLocation() {
+		assert tileMapping.getSpriteSheetLocation() != null;
+		assert data.getTexturesLocation() != tileMapping.getSpriteSheetLocation();
+		
 		return tileMapping.getSpriteSheetLocation();
 	}
 
+	public String getTexturesLocation() {
+		assert data.getTexturesLocation() != null;
+		assert data.getTexturesLocation() != tileMapping.getSpriteSheetLocation();
+		
+		return data.getTexturesLocation();
+	}
+	
 	public Tile getTile(ILocation l){
 		return field[l.getX()][l.getY()];
 	}
@@ -108,11 +118,6 @@ public class BasicMap extends Observable {
 	/** @category Generated */
 	public MapData getData() {
 		return data;
-	}
-
-	/** @category Generated */
-	public String getTexturesLocation() {
-		return data.getTexturesLocation();
 	}
 
 }

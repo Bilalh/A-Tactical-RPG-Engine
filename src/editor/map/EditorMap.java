@@ -21,8 +21,10 @@ import engine.map.Tile;
 public class EditorMap extends BasicMap {
 
 	protected EditorIsoTile[][] guiField;
-	protected EditorSpriteSheet spriteSheet;
 	protected EditorTile[][] editorField;
+
+	protected EditorSpriteSheet tiles;
+	protected EditorSpriteSheet textures;
 	
 	public EditorMap(String name) {
 		this.loadMap(name);
@@ -35,12 +37,14 @@ public class EditorMap extends BasicMap {
 	}
 
 	private void loadEditorSettings() {
-		guiField    = new EditorIsoTile[width][height];
-		editorField = new EditorTile[width][height];
 		ResourceManager.instance().loadTileSheetFromResources(getTileSheetLocation());
 		ResourceManager.instance().loadTextureSheetFromResources(getTexturesLocation());
-		spriteSheet = new EditorSpriteSheet(ResourceManager.instance().getCurrentTileSheet());
-
+		
+		guiField    = new EditorIsoTile[width][height];
+		editorField = new EditorTile[width][height];
+		tiles    = new EditorSpriteSheet(ResourceManager.instance().getCurrentTileSheet(),false);
+		textures = new EditorSpriteSheet(ResourceManager.instance().getCurrentTextureSheet(),true);
+		
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				TileImageData d = getTileImageData(i, j);
@@ -50,7 +54,7 @@ public class EditorMap extends BasicMap {
 				guiField[i][j]    = new EditorIsoTile(editorField[i][j].getOrientation(),
 						editorField[i][j].getStartingHeight(),
 						editorField[i][j].getEndHeight(), i, j,
-						spriteSheet.getSprite(d.getLocation()), 
+						tiles.getSprite(d.getLocation()), 
 						d.getType(),mapSettings,
 						editorField[i][j].getLeftWallName(),
 						editorField[i][j].getRightWallName());
@@ -69,21 +73,25 @@ public class EditorMap extends BasicMap {
 		editorField[p.x][p.y].setStartHeight(height);
 		editorField[p.x][p.y].setEndHeight(height);
 		guiField[p.x][p.y].setHeight(height);
+		guiField[p.x][p.y].invaildate(getMapSettings());
 	}
 	
 	public void setOrientation(Location p, Orientation o) {
 		editorField[p.x][p.y].setOrientation(o);
 		guiField[p.x][p.y].setOrientation(o);
+		guiField[p.x][p.y].invaildate(getMapSettings());
 	}
 	
-	/** @category Generated */
 	public EditorIsoTile[][] getGuiField() {
 		return guiField;
 	}
-	
-	/** @category Generated */
-	public EditorSpriteSheet getSpriteSheet() {
-		return spriteSheet;
+
+	public EditorSpriteSheet getTileset() {
+		return tiles;
+	}
+
+	public EditorSpriteSheet getTextures() {
+		return textures;
 	}
 
 

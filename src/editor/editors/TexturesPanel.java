@@ -43,7 +43,7 @@ public class TexturesPanel extends AbstractSpriteSheetOrganiser {
 	protected SpriteSheetData defaultImages() {
 		return Config.loadPreference("images/textures/default-animations.xml");
 	}
-
+ 
 	@Override
 	protected String infoPanelTitle() {
 		return "Textures";

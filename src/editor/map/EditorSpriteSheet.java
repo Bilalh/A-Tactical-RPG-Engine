@@ -20,8 +20,14 @@ public class EditorSpriteSheet implements ISpriteSheet {
 
 	HashMap<String, MutableSprite> sprites = new HashMap<String, MutableSprite>();
 	SpriteSheet spriteSheet;
+	boolean textures;
 
 	public EditorSpriteSheet(SpriteSheet spriteSheet) {
+		this(spriteSheet, false);
+	}
+	
+	public EditorSpriteSheet(SpriteSheet spriteSheet, boolean textures) {
+		this.textures = textures;
 		updateSprites(spriteSheet);
 	}
 
@@ -37,7 +43,11 @@ public class EditorSpriteSheet implements ISpriteSheet {
 		}
 		if (this.spriteSheet != spriteSheet){
 			this.spriteSheet = spriteSheet;
-			ResourceManager.instance().loadTileSheet(spriteSheet);	
+			if (textures){
+				ResourceManager.instance().loadTextureSheet(spriteSheet);	
+			}else{
+				ResourceManager.instance().loadTileSheet(spriteSheet);	
+			}
 		}
 	}
 

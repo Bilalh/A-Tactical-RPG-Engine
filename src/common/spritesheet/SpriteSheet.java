@@ -71,4 +71,9 @@ public class SpriteSheet implements ISpriteSheet {
 		return height;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("SpriteSheet [sprites=%s, width=%s, height=%s]", sprites.keySet(), width, height);
+	}
+
 }

@@ -17,6 +17,8 @@ import java.util.prefs.Preferences;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import com.javarichclient.icon.tango.actions.GoUpIcon;
+
 import editor.util.Prefs;
 import editor.util.Resources;
 
@@ -40,7 +42,7 @@ public class FloatablePanel extends JPanel
 
 		public FloatAction() {
 			putValue(SHORT_DESCRIPTION, "action.zoom.in.float");
-			putValue(SMALL_ICON, Resources.getIcon("images/gnome-zoom-in.png"));
+			putValue(SMALL_ICON, new GoUpIcon(10, 10));
 		}
 
 		@Override
@@ -150,7 +152,7 @@ public class FloatablePanel extends JPanel
 	 */
 	public void restore() {
 		final int dividerLocation = prefs.getInt("dividerLocation", 0);
-		final boolean floating = prefs.getBoolean("floating", false);
+		final boolean floating    = prefs.getBoolean("floating", false);
 
 		if (floating) {
 			setFloating(true);

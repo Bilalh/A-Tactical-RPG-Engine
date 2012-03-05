@@ -29,19 +29,21 @@ public class ResourceManager {
 	private static ResourceManager singleton = new ResourceManager();
 
 	private Map<String, Sprite> sprites = Collections.synchronizedMap(new HashMap<String, Sprite>());
-	private static SpriteSheet currentTileSheet;
-	private static SpriteSheet currentItemSheet;
-	private static SpriteSheet currentTextureSheet;
+	private static SpriteSheet currentTileSheet    = null;
+	private static SpriteSheet currentItemSheet    = null;
+	private static SpriteSheet currentTextureSheet = null;
 	
 	
 	public synchronized void loadTileSheetFromResources(String filepath){
 		assert filepath != null;
 		currentTileSheet = Config.loadSpriteSheet(filepath);
+		assert currentTextureSheet != currentTileSheet;
 	}
 	
 	public  synchronized void loadTileSheet(SpriteSheet sheet){
 		assert sheet != null;
 		currentTileSheet = sheet;
+		assert currentTextureSheet != currentTileSheet:  currentTextureSheet + "\n" + currentTileSheet;
 	}
 
 	public synchronized void loadItemSheetFromResources(String filepath){
@@ -57,11 +59,13 @@ public class ResourceManager {
 	public synchronized void loadTextureSheetFromResources(String filepath){
 		if (filepath == null) return;
 		currentTextureSheet = Config.loadSpriteSheet(filepath);
+		assert currentTextureSheet != currentTileSheet;
 	}
 	
 	public  synchronized void loadTextureSheet(SpriteSheet sheet){
 		assert sheet != null;
 		currentTextureSheet = sheet;
+		assert currentTextureSheet != currentTileSheet;
 	}
 	
 	
@@ -70,7 +74,7 @@ public class ResourceManager {
 		assert ref != null;
 		
 		BufferedImage result = currentTileSheet.getSpriteImage(ref);
-		assert result != null;
+		assert result != null : ref + " not found";
 		return result;
 	}
 
@@ -206,7 +210,12 @@ public class ResourceManager {
 	public SpriteSheet getCurrentTileSheet() {
 		return currentTileSheet;
 	}
-
+	
+	/** @category Generated */
+	public SpriteSheet getCurrentTextureSheet() {
+		return currentTextureSheet;
+	}
+	
 	/** @category Generated */
 	public SpriteSheet getCurrentItemSheet() {
 		return currentItemSheet;

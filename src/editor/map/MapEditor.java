@@ -42,7 +42,7 @@ import engine.map.Tile;
  * Map Editor for the engine
  * @author Bilal Hussain
  */
-public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>, IEditorMapPanelListener {
+public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	private static final Logger log = Logger.getLogger(MapEditor.class);
 
 	private JFrame frame;
@@ -56,17 +56,22 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 	private JScrollPane      mapScrollPane;
 	private JPanel           infoPanel;
 	private FloatablePanel   infoPanelContainer;
+
+	private JTabbedPane      spritesTabs;
 	private SpriteSheetPanel tilesetPanel;
-	private FloatablePanel   tilesetsPanelContainer;
+	private SpriteSheetPanel texturesPanel;
+	private FloatablePanel   spritesPanelContainer;
 
 	private JLabel statusLabel;
 
 	private EditorMap map;
 	private EditorMapPanel editorMapPanel;
-	private EditorSpriteSheet editorSpriteSheet;
+	
 	private Packer packer = new Packer();
 
 	private MutableSprite selectedTileSprite;
+	private MutableSprite selectedTextureSprite;
+
 	private HashSet<EditorIsoTile> selection = new HashSet<EditorIsoTile>();
 
 	// Highlight the tile the mouse is over.
@@ -114,7 +119,7 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		});
 		
 		infoPanelContainer.restore();
-		tilesetsPanelContainer.restore();
+		spritesPanelContainer.restore();
 
 		Preferences pref = Prefs.getNode("map/panels/main");
 		System.out.println(pref);
@@ -138,7 +143,7 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 
 		// Allow the floatable panels to save their position and size
 		infoPanelContainer.save();
-		tilesetsPanelContainer.save();
+		spritesPanelContainer.save();
 		
 		try {
 			Prefs.root().sync();
@@ -152,23 +157,6 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		return true;
 	}
 
-	/** @category ISpriteProvider**/
-	@Override
-	public void select(List<MutableSprite> selection) {
-		tilesetPanel.setSelectedSprites(selection);
-		if(selection != null && !selection.isEmpty()) {
-			selectedTileSprite = selection.get(0);
-		}else{
-			selectedTileSprite = null;
-		}
-	}
-
-	/** @category ISpriteProvider**/
-	@Override
-	public void delete(List<MutableSprite> selected) {
-		// Do nothing
-	}
-	
 	// Since we allways want to redraw the map
 	/** @category IMapRendererParent **/
 	@Override
@@ -310,11 +298,54 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		mainSplit.setResizeWeight(1.0);
 		mainSplit.setBorder(null);
 	
-		tilesetPanel = new SpriteSheetPanel(this);
-		tilesetsPanelContainer = new FloatablePanel(frame, tilesetPanel, "Tiles", "tilesets");
+		spritesTabs = new JTabbedPane();
+
+		tilesetPanel = new SpriteSheetPanel(new ISpriteProvider<MutableSprite>() {
+			
+			@Override
+			public void select(List<MutableSprite> selection) {
+				if(selection != null && !selection.isEmpty()) {
+					selectedTileSprite = selection.get(0);
+					selection = new ArrayList<MutableSprite>();
+					selection.add(selectedTileSprite);
+					tilesetPanel.setSelectedSprites(selection);
+				}else{
+					selectedTileSprite = null;
+				}			
+			}
+			
+			@Override
+			public void delete(List<MutableSprite> selected) {
+				// Do nothing
+			}
+		});
+		spritesTabs.addTab("Tiles", tilesetPanel);
+
+		texturesPanel= new SpriteSheetPanel(new ISpriteProvider<MutableSprite>() {
+			
+			@Override
+			public void select(List<MutableSprite> selection) {
+				if(selection != null && !selection.isEmpty()) {
+					selectedTextureSprite = selection.get(0);
+					selection = new ArrayList<MutableSprite>();
+					selection.add(selectedTextureSprite);
+					texturesPanel.setSelectedSprites(selection);
+				}else{
+					selectedTextureSprite = null;
+				}
+			}
+			
+			@Override
+			public void delete(List<MutableSprite> selected) {
+				// Do nothing
+			}
+		});
+		spritesTabs.addTab("Textures", texturesPanel);
+		
+		spritesPanelContainer = new FloatablePanel(frame, spritesTabs, "Sprites", "tilesets");
 		
 		JSplitPane paletteSplit = new JSplitPane(
-				JSplitPane.VERTICAL_SPLIT, true, mainSplit, tilesetsPanelContainer);
+				JSplitPane.VERTICAL_SPLIT, true, mainSplit, spritesPanelContainer);
 		paletteSplit.setOneTouchExpandable(true);
 		paletteSplit.setResizeWeight(1.0);
 	
@@ -353,6 +384,7 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		
 		p.add(new JLabel("Type:"), "gap 4");
 		p.add((infoType = new JTextField(15)), "span, growx");
+		infoType.setEditable(false);
 		
 		infoOrientation.setEditable(false);
 		p.add(new JLabel("Orientation:"), "gap 4");
@@ -397,7 +429,7 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 	private JToolBar createSideBar() {
 		
 		ImageIcon iconMove      = Resources.getIcon("images/gimp-tool-move-22.png");
-		ImageIcon iconDraw     = Resources.getIcon("images/gimp-tool-pencil-22.png");
+		ImageIcon iconDraw      = Resources.getIcon("images/gimp-tool-pencil-22.png");
 		ImageIcon iconErase     = Resources.getIcon("images/gimp-tool-eraser-22.png");
 		ImageIcon iconFill      = Resources.getIcon("images/gimp-tool-bucket-fill-22.png");
 		ImageIcon iconEyed      = Resources.getIcon("images/gimp-tool-color-picker-22.png");
@@ -408,7 +440,7 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		
 		eraseButton    = makeToggleButton(iconErase, MapState.ERASE.name(), MapState.ERASE.description);
 		fillButton     = makeToggleButton(iconFill,  MapState.FILL.name(),  MapState.FILL.description);
-		eyeButton      = makeToggleButton(iconEyed,  MapState.EYE.name(),   MapState.ERASE.description);
+		eyeButton      = makeToggleButton(iconEyed,  MapState.EYE.name(),   MapState.EYE.description);
 		moveButton     = makeToggleButton(iconMove,  MapState.MOVE.name(),  MapState.MOVE.description);
 
 		selectionButton = makeToggleButton(iconSelection, MapState.SELECTION.name(), MapState.SELECTION.description);
@@ -494,25 +526,46 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				refreashSprites();
+				refreashTilesets();
+				refreashTextures();
 			}
 		});
+		
 		tilesetPanel.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
-				refreashSprites();
+				refreashTilesets();
+			}
+		});
+
+		texturesPanel.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				refreashTextures();
 			}
 		});
 		
 		
 	} 
 
-	private void refreashSprites(){
+	private void refreashTilesets(){
 		if (tilesetPanel.getHeight() <=0 || tilesetPanel.getWidth() <=0 ) return;
-		tilesetPanel.setSpriteSheet(packer.packImages(map.getSpriteSheet().getSprites(),
-				tilesetPanel.getWidth(), tilesetPanel.getHeight(), 2));
+		tilesetPanel.setSpriteSheet(packer.packImagesByName(
+				map.getTileset().getSprites(),
+				tilesetPanel.getWidth(), 
+				tilesetPanel.getHeight(), 
+				2));
 	}
 
+	private void refreashTextures(){
+		if (texturesPanel.getHeight() <=0 || texturesPanel.getWidth() <=0 ) return;
+		texturesPanel.setSpriteSheet(packer.packImagesByName(
+				map.getTextures().getSprites(),
+				texturesPanel.getWidth(), 
+				texturesPanel.getHeight(), 
+				2));
+	}
+	
 	private void save(){
 		SavedTile[] tiles = new SavedTile[map.getFieldWidth() * map.getFieldHeight()]; 
 		Tile[][] field = map.getField();

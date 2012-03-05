@@ -1,6 +1,12 @@
-<map width="13" height="15" uuid="f0698cb1-9b52-4228-80d2-ed1f3a11ec5e">
+<map uuid="e167ec22-7819-4e29-bdb6-df27f8252cac" width="13" height="15">
+  <mapSettings>
+    <tileDiagonal>60</tileDiagonal>
+    <tileHeight>10</tileHeight>
+    <pitch>0.5</pitch>
+    <zoom>1.0</zoom>
+  </mapSettings>
   <mapData>
-  	<name>default</name>
+    <name>default</name>
     <tileMappingLocation>images/tilesets/default-mapping.xml</tileMappingLocation>
     <texturesLocation>images/textures/default.png</texturesLocation>
   </mapData>
