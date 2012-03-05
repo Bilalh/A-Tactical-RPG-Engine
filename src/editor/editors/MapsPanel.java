@@ -52,6 +52,7 @@ import static editor.editors.AbstractSpriteSheetOrganiser.*;
 import static util.IOUtil.*;
 
 /**
+ * Editor for maps 
  * @author Bilal Hussain
  */
 public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> implements IMapEditorListener {
@@ -72,6 +73,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private DeferredMap  currentMap;	
 	private ITileMapping currentMapping;
 	
+
+	private JTabbedPane infoTabs;
+	private UnitsPanel  aiPanel;
 	
 	public MapsPanel(Editor editor) {
 		super(editor);
@@ -99,6 +103,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoTextures.addItemListener(il);
 		
 		setCurrentResource(currentMap);
+		aiPanel.panelSelected(editor);
 	}
 
 	@Override
@@ -192,7 +197,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	}
 	
 	@Override
-	protected JPanel createInfoPanel() {
+	protected JComponent createInfoPanel() {
 	    JPanel p = new JPanel(defaultInfoPanelLayout());
 	    
 		addSeparator(p,"General");
@@ -284,8 +289,13 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		addSeparator(p,"Editing");
 
 		p.add(new JButton(new EditAction()));
+		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
+
+		infoTabs = new JTabbedPane();
+		infoTabs.addTab("Details", p);
+		infoTabs.addTab("Enemies ", (aiPanel = new UnitsPanel(editor.getUnitsSprites(), false)));
 		
-		return p;
+		return infoTabs;
 	}
 
 	protected class EditAction extends AbstractAction {
@@ -315,7 +325,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	}
 
 	@Override
-	protected Maps createAssetsInstance() {
+	protected Maps createAssetInstance() {
 		return new Maps();
 	}
 

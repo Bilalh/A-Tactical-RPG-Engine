@@ -51,10 +51,10 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		createMainPane();
 	}
 
-	protected abstract A createAssetsInstance(); 
+	protected abstract A createAssetInstance(); 
 	
 	public A getResouces() {
-		A ws = createAssetsInstance();
+		A ws = createAssetInstance();
 		for (int i = 0; i < resourceListModel.size(); i++) {
 			ws.put((R) resourceListModel.get(i));
 		}
@@ -81,7 +81,7 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 	protected abstract String resourceDisplayName(R resource);
 	
 	protected void createMainPane() {
-		JPanel p = createInfoPanel();
+		JComponent p = createInfoPanel();
 		JSplitPane mainSplit = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, true, createLeftPane(), p);
 		mainSplit.setOneTouchExpandable(true);
@@ -141,7 +141,7 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		return new MigLayout(layC, colC, rowC);
 	}
 	
-	protected abstract JPanel createInfoPanel();
+	protected abstract JComponent createInfoPanel();
 
 	protected void addSeparator(JPanel p, String title){
 		JLabel pTitle = new JLabel(title);

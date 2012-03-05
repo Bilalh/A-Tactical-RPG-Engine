@@ -78,11 +78,17 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	private java.util.Map<UUID, EditorSpriteSheet> spriteSheets;
 	private SpriteSheet unitSprites;
 	
+	private boolean listOnLeft;
+	
 	public UnitsPanel(java.util.Map<UUID, EditorSpriteSheet> spriteSheets){
+		this(spriteSheets, true);
+	}
+
+	public UnitsPanel(java.util.Map<UUID, EditorSpriteSheet> spriteSheets, boolean listOnLeft){
 		super(new BorderLayout());
 		this.spriteSheets = spriteSheets;
+		this.listOnLeft   = listOnLeft;
 		createMainPane();
-//		panelSelected();
 	}
 	
 	public Units getUnits(){
@@ -202,6 +208,8 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	
 	@Override
 	public synchronized void panelSelected(Editor editor) {
+		spriteSheets = editor.getUnitsSprites();
+		
 		ItemListener il =  infoWeapon.getItemListeners()[0];
 		infoWeapon.removeItemListener(il);
 		infoWeapon.removeAllItems();
@@ -260,10 +268,19 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 
 	protected void createMainPane() {
 		JPanel p = createInfoPanel();
-		JSplitPane mainSplit = new JSplitPane(
-				JSplitPane.HORIZONTAL_SPLIT, true, createLeftPane(), p);
+		JSplitPane mainSplit;
+		if (listOnLeft){
+			mainSplit = new JSplitPane(
+					JSplitPane.HORIZONTAL_SPLIT, true, createLeftPane(), p);
+			mainSplit.setResizeWeight(0.05);
+		}else{
+			mainSplit = new JSplitPane(
+					JSplitPane.HORIZONTAL_SPLIT, true, p, createLeftPane());
+			mainSplit.setResizeWeight(0.95);			
+		}
+		
+		
 		mainSplit.setOneTouchExpandable(true);
-		mainSplit.setResizeWeight(0.05);
 		mainSplit.setBorder(null);
 		this.add(mainSplit, BorderLayout.CENTER);
 	}

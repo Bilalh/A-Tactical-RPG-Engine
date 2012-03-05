@@ -146,14 +146,14 @@ public class Editor {
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Project",      new JPanel());
 		
-		tabs.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-		          JTabbedPane tabs   = (JTabbedPane) e.getSource();
-		          IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
-		          panel.panelSelected(Editor.this);
-			}
-		});
+			tabs.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(ChangeEvent e) {
+			          JTabbedPane tabs   = (JTabbedPane) e.getSource();
+			          IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
+			          panel.panelSelected(Editor.this);
+				}
+			});
 		
 		return tabs;
 	}
