@@ -43,6 +43,7 @@ public class EditorMap extends BasicMap {
 		guiField    = new EditorIsoTile[width][height];
 		editorField = new EditorTile[width][height];
 		ResourceManager.instance().loadTileSheetFromResources(getTileSheetLocation());
+		ResourceManager.instance().loadTextureSheetFromResources(getTexturesLocation());
 		spriteSheet = new EditorSpriteSheet(ResourceManager.instance().getCurrentTileSheet());
 
 		for (int i = 0; i < field.length; i++) {
@@ -54,7 +55,10 @@ public class EditorMap extends BasicMap {
 				guiField[i][j]    = new EditorIsoTile(editorField[i][j].getOrientation(),
 						editorField[i][j].getStartingHeight(),
 						editorField[i][j].getEndHeight(), i, j,
-						spriteSheet.getSprite(d.getLocation()), d.getType(),mapSettings);
+						spriteSheet.getSprite(d.getLocation()), 
+						d.getType(),mapSettings,
+						editorField[i][j].getLeftWallName(),
+						editorField[i][j].getRightWallName());
 			}
 		}
 		field = editorField;

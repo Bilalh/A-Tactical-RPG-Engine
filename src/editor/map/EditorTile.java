@@ -11,7 +11,7 @@ import engine.map.interfaces.IMutableMapUnit;
 public class EditorTile extends Tile {
 
 	public EditorTile(Tile t) {
-		super(t.getStartingHeight(), t.getEndHeight(), t.getType(),t.getOrientation());
+		super(t);
 	}
 
 	/** @category Generated */

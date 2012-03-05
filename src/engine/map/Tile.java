@@ -41,6 +41,11 @@ public class Tile {
 				t.getLeftWallName(), t.getRightWallName());
 	}
 	
+	public Tile(Tile t){
+		this(t.getStartingHeight(), t.getEndHeight(), t.getType(), t.getOrientation(), 
+				t.getLeftWallName(), t.getRightWallName());
+	}
+	
 	public Tile(int startHeight, int endHeight, String type, Orientation orientation) {
 		this(startHeight, endHeight, type, orientation, null, null);
 	}
@@ -87,7 +92,7 @@ public class Tile {
 	}
 
 	/** @category Generated */
-	public String getLeftWall() {
+	public String getLeftWallName() {
 		return leftWall;
 	}
 
@@ -97,7 +102,7 @@ public class Tile {
 	}
 
 	/** @category Generated */
-	public String getRightWall() {
+	public String getRightWallName() {
 		return rightWall;
 	}
 

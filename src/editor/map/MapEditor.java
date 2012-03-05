@@ -524,7 +524,9 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 						field[i][j].getStartingHeight(),
 						field[i][j].getEndHeight(),	
 						i, j, 
-						field[i][j].getOrientation());
+						field[i][j].getOrientation(),
+						field[i][j].getLeftWallName(),
+						field[i][j].getRightWallName());
 			}
 		}
 		

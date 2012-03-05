@@ -172,8 +172,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 						d.getLocation(), 
 						d.getType(), 
 						mapSettings,
-						grid[i][j].getLeftWall(),
-						grid[i][j].getRightWall());
+						grid[i][j].getLeftWallName(),
+						grid[i][j].getRightWallName());
 			}
 		}
 

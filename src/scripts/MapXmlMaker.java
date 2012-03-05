@@ -48,7 +48,7 @@ public class MapXmlMaker {
 				int h = r.nextInt(3)+1;
 				h =1;
 				type="0-7";
-				tiles[k] = new SavedTile(type,h,h, i,j,Orientation.UP_TO_EAST);
+				tiles[k] = new SavedTile(type,h,h, i,j,Orientation.UP_TO_EAST,null,null);
 			}
 		}
 

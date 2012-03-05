@@ -29,7 +29,7 @@ public class A extends JFrame {
 	
 	A(){
 		
-		t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED,MapSettings.defaults());
+		t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED,MapSettings.defaults(),null,null);
 	}
 	
 	@Override
@@ -44,7 +44,7 @@ public class A extends JFrame {
 		Graphics g = image.getGraphics();
 		
 		ResourceManager.instance().loadTileSheetFromResources("images/tilesets/fft2.png");
-		IsoTile t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED,MapSettings.defaults());
+		IsoTile t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED,MapSettings.defaults(),null,null);
 		t.draw(40, 20, g);
 		System.out.println(t);
 		ImageIO.write(image, "PNG", new File("out2.png"));

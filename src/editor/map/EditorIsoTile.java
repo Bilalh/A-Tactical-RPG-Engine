@@ -42,14 +42,14 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 	
 	/** @category Generated */
 	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight,
-			int x, int y, MutableSprite sprite, ImageType type,MapSettings settings) {
-		super(orientation, startHeight, endHeight, x, y, sprite.getName(), type,settings);
+			int x, int y, MutableSprite sprite, ImageType type,MapSettings settings, String leftWallRef, String rightWallRef) {
+		super(orientation, startHeight, endHeight, x, y, sprite.getName(), type,settings, leftWallRef,rightWallRef);
 		sprite.addSpriteChangedListener(this);
 		this.sprite = sprite;
 	}
 
 	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight,int x, int y,MapSettings settings) {
-		super(orientation, startHeight, endHeight, x, y, "none", ImageType.NON_TEXTURED,settings);
+		super(orientation, startHeight, endHeight, x, y, "none", ImageType.NON_TEXTURED,settings,null,null);
 	}
 	
 	public void setSprite(MutableSprite sprite) {

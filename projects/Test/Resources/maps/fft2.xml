@@ -1,7 +1,7 @@
-<map uuid="efb8219d-fdef-4322-af50-c67dd505de5f" width="13" height="15">
+<map uuid="b8bf1180-2e63-41ce-8b52-8da2e7e021f6" width="13" height="15">
   <mapSettings>
-    <tileDiagonal>100</tileDiagonal>
-    <tileHeight>15</tileHeight>
+    <tileDiagonal>60</tileDiagonal>
+    <tileHeight>10</tileHeight>
     <pitch>0.5</pitch>
     <zoom>1.0</zoom>
   </mapSettings>
@@ -1113,6 +1113,8 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>ice</leftWall>
+    <rightWall>blue</rightWall>
   </tile>
   <tile x="12" y="4">
     <type>2</type>

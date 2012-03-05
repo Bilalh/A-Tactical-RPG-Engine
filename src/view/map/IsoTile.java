@@ -96,12 +96,9 @@ public class IsoTile {
 	int h2;
 
 	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
-			int x, int y, String ref, ImageType type, MapSettings settings ){
-		this(orientation, startHeight, endHeight, x, y, ref, type, settings, null, null);
-	}
-	
-	public IsoTile(Orientation orientation, float startHeight, float endHeight, 
-			int x, int y, String ref, ImageType type, MapSettings settings, 
+			int x, int y, 
+			String ref, ImageType type, 
+			MapSettings settings, 
 			String leftWallRef, String rightWallRef ) {
 		assert settings != null;
 		

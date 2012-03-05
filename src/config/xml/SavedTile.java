@@ -35,7 +35,8 @@ public class SavedTile {
 		return this;
 	}
 
-	public SavedTile(String type, int startingHeight, int endHeight, int x, int y, Orientation orientation) {
+	public SavedTile(String type, int startingHeight, int endHeight, int x, int y, Orientation orientation,
+			String leftWallRef, String rightWallRef) {
 		this.x = x;
 		this.y = y;
 		
@@ -44,6 +45,9 @@ public class SavedTile {
 		
 		this.height         = endHeight;
 		this.startingHeight = startingHeight;
+		
+		this.leftWall  = leftWallRef;
+		this.rightWall = rightWallRef;
 		
 	}
 	

@@ -253,9 +253,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		});
 		
 		infoTileset = new JComboBox(new SpriteSheetData[]{});
-		System.out.println(infoTileset.getRenderer());
 		
 		infoTileset.setEditable(false);
+		infoTileset.setEnabled(false);
 		p.add(new JLabel("Tileset:"), new CC().alignX("leading"));
 		infoTileset.addItemListener(new ItemListener() {
 			@Override
@@ -269,6 +269,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		infoTextures = new JComboBox(new IWeapon[]{});
 		infoTextures.setEditable(false);
+		infoTextures.setEnabled(false);
 		p.add(new JLabel("Textures:"), new CC().alignX("leading"));
 		infoTextures.addItemListener(new ItemListener() {
 			@Override
