@@ -11,9 +11,9 @@
         <speed>1</speed>
         <level>1</level>
         <exp>0</exp>
-        <imageDataRef>images/characters/default-animations.xml</imageDataRef>
-         <wepaonId>64295f0f-ccc4-4c92-a61b-21ab691ac624</wepaonId>
+        <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
         <weight>0</weight>
+        <wepaonId>3e07fa06-184b-41a1-9d2a-5ae87d97f01d</wepaonId>
         <skillIds/>
       </unit>
     </entry>

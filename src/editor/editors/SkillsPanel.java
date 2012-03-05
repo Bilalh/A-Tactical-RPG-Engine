@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.*;
@@ -70,7 +71,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 	private Location currentLocation;
 	private ISkill currentSkill;
 	private SkillTypes currentType;
-	private Collection<Location> attackArea = new ArrayList<Location>(1);
+	private Collection<Location> attackArea   = new ArrayList<Location>(1);
 	private Collection<Location> attackRange  = new ArrayList<Location>(1);
 
 	private JList skillList;
@@ -137,6 +138,9 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		assert guiUnit        != null;
 		assert mapWidth  > 0;
 		assert mapHeight > 0;
+		if (!attackRange.contains(currentLocation)){
+			return Collections.emptySet();
+		}
 		return currentSkill.getArea(currentLocation, mapWidth, mapHeight);
 	}
 	

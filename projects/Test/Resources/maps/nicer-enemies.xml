@@ -3,7 +3,7 @@
     <entry>
       <uuid>7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0</uuid>
       <unit uuid="7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0">
-        <name>New Enemy V</name>
+        <name>New Enemy C</name>
         <maxHp>1</maxHp>
         <move>1</move>
         <strength>1</strength>
@@ -11,9 +11,9 @@
         <speed>1</speed>
         <level>1</level>
         <exp>0</exp>
-        <imageDataRef>images/characters/default-animations.xml</imageDataRef>
-        <wepaonId>64295f0f-ccc4-4c92-a61b-21ab691ac624</wepaonId>
+        <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
         <weight>0</weight>
+        <wepaonId>7316c24b-c13f-4275-af14-2ff5f4a30b0f</wepaonId>
         <skillIds/>
       </unit>
     </entry>

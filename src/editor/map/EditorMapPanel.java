@@ -244,7 +244,7 @@ public class EditorMapPanel extends JPanel {
 	}
 	
 	public  void repaintMap(){
-		log.info("repainting Map");
+		log.debug("repainting Map");
 		drawn = false;
 		repaint();
 	}

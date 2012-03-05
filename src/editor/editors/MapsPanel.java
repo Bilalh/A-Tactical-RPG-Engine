@@ -126,7 +126,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	@Override
 	protected void setCurrentResource(DeferredMap _map) {
 		// Makes sures are the data from the old map was changed
-//		saveExternal();
+		saveExternal();
 		
 		currentMap = _map;
 		SavedMap map = currentMap.getAsset();
