@@ -1,11 +1,17 @@
-<map width="13" height="15" uuid="f0698cb1-9b52-4228-80d2-ed1f3a11ec5e">
+<map uuid="2a36c2c6-0a34-4471-8b0d-b01ea6b8dc16" width="13" height="15">
+  <mapSettings>
+    <tileDiagonal>60</tileDiagonal>
+    <tileHeight>10</tileHeight>
+    <pitch>0.5</pitch>
+    <zoom>1.0</zoom>
+  </mapSettings>
   <mapData>
-  	<name>fft2 test</name>
+    <name>fft2 test</name>
     <tileMappingLocation>images/tilesets/fft2-mapping.xml</tileMappingLocation>
     <texturesLocation>images/textures/default.png</texturesLocation>
   </mapData>
   <tile x="0" y="0">
-    <type>5</type>
+    <type>6</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
@@ -283,7 +289,7 @@
   <tile x="3" y="1">
     <type>8-4</type>
     <height>2</height>
-    <startingHeight>1</startingHeight>
+    <startingHeight>2</startingHeight>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="3" y="2">
@@ -1107,8 +1113,6 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
-    <leftWall>ice</leftWall>
-    <rightWall>blue</rightWall>
   </tile>
   <tile x="12" y="4">
     <type>2</type>

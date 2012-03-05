@@ -41,6 +41,9 @@ import config.xml.TileMapping;
 
 import editor.Editor;
 import editor.editors.UnitsPanel.WeaponDropDownListRenderer;
+import editor.map.IMapEditorListener;
+import editor.map.MapEditor;
+import editor.spritesheet.SpriteSheetEditor;
 import engine.map.Map;
 import engine.unit.IMutableUnit;
 import engine.unit.SpriteSheetData;
@@ -51,7 +54,7 @@ import static util.IOUtil.*;
 /**
  * @author Bilal Hussain
  */
-public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
+public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> implements IMapEditorListener {
 	private static final long serialVersionUID = -6885584804612641268L;
 	private static final Logger log = Logger.getLogger(MapsPanel.class);
 
@@ -159,7 +162,20 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 		currentMap.getAsset().getMapSettings().tileHeight = value;
 	}
 	
+	@SuppressWarnings("unused")
 	private void editMap(){
+		editor.setVisible(false);
+		
+		new MapEditor(WindowConstants.DO_NOTHING_ON_CLOSE, 
+				currentMap.getResouceLocation(), 
+				this);
+		
+	}
+
+	@Override
+	public void mapEditingFinished() {
+		// FIXME mapEditingFinished method
+		editor.setVisible(true);
 		
 	}
 	
@@ -308,5 +324,6 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> {
 	protected DeferredMap defaultResource() {
 		return new DeferredMap(Config.<SavedMap>loadPreference("maps/default.xml"),"maps/default.xml");
 	}
+
 
 }

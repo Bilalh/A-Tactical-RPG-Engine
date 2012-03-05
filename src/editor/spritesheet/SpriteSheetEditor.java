@@ -87,12 +87,16 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	
 	public SpriteSheetEditor(int frameClosingValue) {
 		this(frameClosingValue, null,null,"",true,false,false);
+		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+		}
 	}
 
 	public SpriteSheetEditor(int frameClosingValue, String savePath, ISpriteEditorListener listener, 
 			String helpString, boolean showAnimations,
 			boolean validationForUnits, boolean makeTileMapping) {
 		super("Sprite Sheet Editor");
+		
 		this.savePath           = savePath;
 		this.listener           = listener;
 		this.helpString         = helpString;
@@ -101,14 +105,11 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		this.makeTileMapping    = makeTileMapping;
 		
 		STARTING_PATH = Config.getResourceDirectory() +  "/images";
-		chooser = new JFileChooser(STARTING_PATH);
+		
+		chooser     = new JFileChooser(STARTING_PATH);
 		saveChooser = new JFileChooser(STARTING_PATH);
-		dirChooser = new JFileChooser(STARTING_PATH);
-		
-		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-			System.setProperty("apple.laf.useScreenMenuBar", "true");
-		}
-		
+		dirChooser  = new JFileChooser(STARTING_PATH);
+
 		setSize(810, 580);
 		initGui();
 		setJMenuBar(createMenubar());

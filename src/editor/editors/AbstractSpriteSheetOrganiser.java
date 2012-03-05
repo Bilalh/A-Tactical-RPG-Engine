@@ -302,6 +302,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 				validationForUnits,
 				makeTileMapping).setVisible(true);
 	}
+	
 	public void refreashSprites() {
 		if (spriteSheetPanel.getHeight() <=0 || spriteSheetPanel.getWidth() <=0 ) return;
 		spriteSheetPanel.setSpriteSheet(packer.packImagesByName(currentSheet.getSprites(),

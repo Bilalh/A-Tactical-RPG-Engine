@@ -25,6 +25,7 @@ import view.map.interfaces.IMapRendererParent;
 
 import common.enums.Orientation;
 
+import config.Config;
 import config.XMLUtil;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
@@ -45,16 +46,17 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 
 	private JFrame frame;
 
-	private AbstractButton drawButton, drawInfoButton,  eraseButton, fillButton;
-	private AbstractButton eyeButton,  selectionButton, moveButton;
-	private final Action zoomInAction, zoomOutAction,   zoomNormalAction;
+	private AbstractButton drawButton,   drawInfoButton,  eraseButton, fillButton;
+	private AbstractButton eyeButton,    selectionButton, moveButton;
+	private final Action   zoomInAction, zoomOutAction,   zoomNormalAction;
+	
 	private MapState state = MapState.DRAW;
 
-	private JScrollPane mapScrollPane;
-	private JPanel infoPanel;
-	private FloatablePanel infoPanelContainer;
+	private JScrollPane      mapScrollPane;
+	private JPanel           infoPanel;
+	private FloatablePanel   infoPanelContainer;
 	private SpriteSheetPanel tilesetPanel;
-	private FloatablePanel tilesetsPanelContainer;
+	private FloatablePanel   tilesetsPanelContainer;
 
 	private JLabel statusLabel;
 
@@ -69,32 +71,36 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 	// Highlight the tile the mouse is over.
 	private boolean showOnHover = false;
 	
+	
+	// Infopanel controls 
+	private JLabel     infoLocation;
+	private JTextField infoType;
+	private JComboBox  infoOrientation = new JComboBox(Orientation.values());
+	private JSpinner   infoHeight      = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
+	
 	// For draw
 	private EditorIsoTile selectedTile;
 
+	// for editor
+	private String savePath;	
+	private IMapEditorListener listener;
 	
-	public MapEditor() {
+	public MapEditor(int frameClosingValue, String savePath, IMapEditorListener listener) {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
-		frame = new JFrame("Map Editor");
-
+		
+		this.savePath = savePath;
+		this.listener = listener;
+		
 		zoomInAction = new ZoomInAction();
 		zoomOutAction = new ZoomOutAction();
 		zoomNormalAction = new ZoomNormalAction();
 
+		frame = new JFrame("Map Editor");
 		frame.setContentPane(createContentPane());
 		frame.setJMenuBar(createMenubar());
-
-//		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-//		frame.addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent event) {
-//				onQuit();
-//				System.exit(0);
-//			}
-//		});
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(frameClosingValue);
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			@Override
@@ -175,6 +181,7 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 	}
 
 	
+	// Old tile
 	private EditorIsoTile old;
 	@Override
 	public void tileEntered(EditorIsoTile tile) {
@@ -279,8 +286,6 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		editorMapPanel.repaintMap();
 	}
 
-	// The map view port 
-	private JViewport mapViewport;
 	/** @category Gui **/
 	private JPanel createContentPane() {
 		mapScrollPane = new JScrollPane(
@@ -311,7 +316,7 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		createMap();
 
 		mapScrollPane.setViewportView(editorMapPanel);
-		mapViewport = mapScrollPane.getViewport();
+		JViewport mapViewport = mapScrollPane.getViewport();
 		
 		MouseAdapter mapScroller = new MapScroller(mapViewport,editorMapPanel, this);
         editorMapPanel.addMouseMotionListener(mapScroller);
@@ -327,13 +332,6 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
         statusPanel.add(statusLabel);
 		return main;
 	}
-	
-	// Infopanel controls 
-	private JLabel     infoLocation;
-	private JTextField infoType;
-	private JComboBox  infoOrientation = new JComboBox(Orientation.values());
-	private JSpinner   infoHeight      = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
-
 	
 	/** @category Gui**/
 	private JPanel createInfoPanel() {
@@ -474,36 +472,11 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 			view.add(hover);
 			
 			bar.add(view);
-			JMenu editors = new JMenu("Editors");
-			
-			JMenuItem spriteSheetEditorItem = new JMenuItem("Sprite Sheet Editor");
-	//		spriteSheetEditor.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,mask));
-			spriteSheetEditorItem.addActionListener(new ActionListener() {
-				SpriteSheetEditor spriteSheetEditor;
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (spriteSheetEditor == null) {
-						spriteSheetEditor = new SpriteSheetEditor(WindowConstants.DO_NOTHING_ON_CLOSE);
-						spriteSheetEditor.addWindowListener(new WindowAdapter() {
-							@Override
-							public void windowClosing(WindowEvent e) {
-								spriteSheetEditor.setVisible(false);
-							}
-						});
-					}
-					spriteSheetEditor.setVisible(true);
-				}
-			});
-			
-			editors.add(spriteSheetEditorItem);
-			bar.add(editors);
-			
 			return bar;
 		}
 
-	String filename = "fft2";
 	private void createMap() {
-		map = new EditorMap("maps/"+filename+".xml");
+		map = new EditorMap(savePath);
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField(),map.getMapSettings());
 
 		// Relayout the sprites to fill the whole panel.
@@ -539,23 +512,10 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		}
 		SavedMap m = new SavedMap(map.getFieldWidth(), map.getFieldHeight(),tiles , map.getMapSettings(), map.getData());
 	
-		String s1 = XMLUtil.makeFormattedXml(m);
-		String s2 = XMLUtil.makeFormattedXml(map.getTileMapping());
-	
-		FileWriter fw;
-		try {
-			fw = new FileWriter(new File("./Resources/maps/" + filename + ".xml"));
-			fw.write(s1);
-			fw.close();
-			
-			fw = new FileWriter(new File("./Resources/maps/" + filename + "-mapping.xml"));
-			fw.write(s2);
-			fw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Config.savePreferences(m, savePath);
+		Config.savePreferences(map.getTileMapping(), m.getMapData().getTileMappingLocation());
 		
-		log.info("Saved as " + filename);
+		log.info("Saved as " + savePath);
 	}
 
 	/** @category Gui **/
@@ -634,11 +594,5 @@ public class MapEditor implements ActionListener, ISpriteProvider<MutableSprite>
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 		}
-	}
-
-	@SuppressWarnings("unused")
-	public static void main(String[] args) {
-		config.Config.loadLoggingProperties();
-		new MapEditor();
 	}
 }

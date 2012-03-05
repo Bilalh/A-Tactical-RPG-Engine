@@ -12,3 +12,5 @@ Libs/Classes
 * inflector                      -- Makes purals of a word
 
 * Icons from http://www.javarichclient.com/68-vector-based-java-icons/ (public domain)
+
+* Map editor icons from gimp (gpl 2+)
