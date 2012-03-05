@@ -1,0 +1,22 @@
+<unitPlacement>
+  <units>
+    <entry>
+      <uuid>7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0</uuid>
+      <unit uuid="7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0">
+        <name>New Enemy V</name>
+        <maxHp>1</maxHp>
+        <move>1</move>
+        <strength>1</strength>
+        <defence>1</defence>
+        <speed>1</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/default-animations.xml</imageDataRef>
+        <wepaonId>64295f0f-ccc4-4c92-a61b-21ab691ac624</wepaonId>
+        <weight>0</weight>
+        <skillIds/>
+      </unit>
+    </entry>
+  </units>
+  <placement/>
+</unitPlacement>

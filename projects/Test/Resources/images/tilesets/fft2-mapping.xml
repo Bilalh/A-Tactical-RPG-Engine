@@ -1,15 +1,15 @@
 <tilemapping spriteSheetLocation="images/tilesets/fft2.png">
   <entry>
-    <string>8-4</string>
+    <string>3</string>
     <tileImageData>
-      <location>8-4</location>
+      <location>3</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>3</string>
+    <string>8-4</string>
     <tileImageData>
-      <location>3</location>
+      <location>8-4</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>

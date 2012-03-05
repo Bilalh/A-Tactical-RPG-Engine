@@ -3,22 +3,23 @@ package common.assets;
 import java.util.HashMap;
 import java.util.UUID;
 
-import com.sun.jdi.Location;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import common.Location;
+import config.IPreference;
 
 /**
  * @author Bilal Hussain
  */
 @XStreamAlias("unitPlacement")
-public class UnitPlacement {
+public class UnitPlacement implements IPreference {
 
 	private Units units;
-	private HashMap<UUID, Location> unitPlacement;
+	private HashMap<UUID, Location> placement;
 
 	/** @category Generated */
-	private UnitPlacement(Units units, HashMap<UUID, Location> unitPlacement) {
+	public UnitPlacement(Units units, HashMap<UUID, Location> placement) {
 		this.units = units;
-		this.unitPlacement = unitPlacement;
+		this.placement = placement;
 	}
 
 	/** @category Generated */
@@ -28,7 +29,7 @@ public class UnitPlacement {
 
 	/** @category Generated */
 	public HashMap<UUID, Location> getUnitPlacement() {
-		return unitPlacement;
+		return placement;
 	}
 
 	/** @category Generated */
@@ -38,7 +39,7 @@ public class UnitPlacement {
 
 	/** @category Generated */
 	public void setUnitPlacement(HashMap<UUID, Location> unitPlacement) {
-		this.unitPlacement = unitPlacement;
+		this.placement = unitPlacement;
 	}
 	
 }

@@ -218,7 +218,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoWeapon.removeAllItems();
 		
 		Weapons ww = editor.getWeapons();
-		AssertStore.instance().loadWeapons(ww); // TODO chanage
+		AssertStore.instance().loadWeapons(ww); // TODO chanage?
 		List<IWeapon> s = new ArrayList<IWeapon>(ww.values());
 		
 		Collections.sort(s,new Comparator<IWeapon>() {

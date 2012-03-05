@@ -121,6 +121,11 @@ public class Editor {
 		return Collections.unmodifiableMap(texturesPanel.getSpriteSheets());
 	}
 	
+	public void loadAssets(){
+		AssertStore.instance().loadWeapons(getWeapons());
+		AssertStore.instance().loadSkill(getSkills());
+	}
+	
 	private JTabbedPane createTabs() {
 		//FIXME change
 		File f = new File(projectPath);
@@ -135,6 +140,7 @@ public class Editor {
 		tilesetPanel     = new TilesetPanel(this);
 		texturesPanel    = new TexturesPanel(this);
 		
+		
 		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));
 		tabs.addTab("Units",        (unitPanel       = new UnitsPanel(unitImagesPanel.getSpriteSheets())));
@@ -142,18 +148,23 @@ public class Editor {
 		tabs.addTab("Tilesets",     (tilesetPanel    ));
 		tabs.addTab("Textures",     (texturesPanel   ));
 
+		loadProject(true);
+		loadAssets();
+
 		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel(this)));
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Project",      new JPanel());
 		
-			tabs.addChangeListener(new ChangeListener() {
-				@Override
-				public void stateChanged(ChangeEvent e) {
-			          JTabbedPane tabs   = (JTabbedPane) e.getSource();
-			          IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
-			          panel.panelSelected(Editor.this);
-				}
-			});
+		loadMaps();
+
+		tabs.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JTabbedPane tabs = (JTabbedPane) e.getSource();
+				IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
+				panel.panelSelected(Editor.this);
+			}
+		});
 		
 		return tabs;
 	}
@@ -179,7 +190,7 @@ public class Editor {
 		open.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				load();
+				loadProject(false);
 			}
 		});
 		file.add(open);
@@ -254,12 +265,9 @@ public class Editor {
 	}
 	
 	// Load the project
-	void load(){
+	void loadProject(boolean initLoading){
 		File f = new File(projectPath);
-		File mainXml  = new File(f, "tactical-project.xml");
 		File resources = new File(f,"Resources");
-		File assets = new File(resources, "assets");
-		
 		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
 		
 		//TODO paths
@@ -289,12 +297,20 @@ public class Editor {
 		unitPanel.setUnits(uu);
 		log.info(uu);
 		
+		if (!initLoading){
+			Maps maps = Config.loadPreference("assets/maps.xml");
+			mapsPanel.setResources(maps);
+			log.info(maps);
+			IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
+	        panel.panelSelected(Editor.this);
+		}
+
+	}
+	
+	private void loadMaps(){
 		Maps maps = Config.loadPreference("assets/maps.xml");
 		mapsPanel.setResources(maps);
 		log.info(maps);
-		
-		IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
-        panel.panelSelected(Editor.this);
 	}
 	
 	// Save window size and panel size 

@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -29,10 +31,8 @@ import util.IOUtil;
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 import com.javarichclient.icon.tango.actions.ListRemoveIcon;
 
-import common.assets.DeferredMap;
-import common.assets.Maps;
-import common.assets.SpriteSheetsData;
-import common.assets.Units;
+import common.Location;
+import common.assets.*;
 import common.interfaces.IWeapon;
 
 import config.Config;
@@ -76,7 +76,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	
 
 	private JTabbedPane infoTabs;
-	private UnitsPanel  aiPanel;
+	private UnitsPanel  enemiesPanel;
 	
 	public MapsPanel(Editor editor) {
 		super(editor);
@@ -84,9 +84,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 	@Override
 	public void panelSelected(Editor editor) {
+		editor.loadAssets();
 		ItemListener il =  infoTileset.getItemListeners()[0];
 		infoTileset.removeItemListener(il);
-		infoTileset.removeAllItems();
+		infoTileset.removeAllItems(); 
 
 
 		for (SpriteSheetData u : sortedSprites(editor.getTilesets().values())) {
@@ -104,18 +105,29 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoTextures.addItemListener(il);
 		
 		setCurrentResource(currentMap);
-		aiPanel.panelSelected(editor);
+		enemiesPanel.panelSelected(editor);
 	}
 
 	@Override
 	public Maps getResouces() {
-		// Save the new mapping
-		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());
+		saveExternal();
 		return super.getResouces();
+	}
+
+	// Save data in external files
+	private void saveExternal(){
+		if (currentMap == null) return;
+		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());	
+		Units enemies = enemiesPanel.getUnits();
+		UnitPlacement placement = new UnitPlacement(enemies, new HashMap<UUID, Location>());
+		Config.savePreferences(placement, currentMap.getAsset().getMapData().getEnemiesLocation());		
 	}
 	
 	@Override
 	protected void setCurrentResource(DeferredMap _map) {
+		// Makes sures are the data from the old map was changed
+//		saveExternal();
+		
 		currentMap = _map;
 		SavedMap map = currentMap.getAsset();
 		assert map != null;
@@ -138,6 +150,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		assert d != null;
 		infoTileset.setSelectedItem(d);
 		
+		enemiesPanel.setUnits(Config.<UnitPlacement>loadPreference(map.getMapData().getEnemiesLocation()).getUnits());
 	}
 
 	@Override
@@ -296,7 +309,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		infoTabs = new JTabbedPane();
 		infoTabs.addTab("Details", p);
-		infoTabs.addTab("Enemies ", (aiPanel = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy")));
+		infoTabs.addTab("Enemies ", (enemiesPanel = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy")));
 		return infoTabs;
 	}
 

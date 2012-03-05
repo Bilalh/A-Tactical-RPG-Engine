@@ -74,7 +74,7 @@ public class Unit implements IMutableUnit {
 	private Object readResolve() {
 		if (imageData == null){
 			imageData = Config.loadPreference(imageDataRef);
-			assert imageData != null;
+			assert imageData != null : "imageData not found "  + imageDataRef;
 		}
 		if (weapon == null){
 			weapon = AssertStore.instance().getWeapon(wepaonId);

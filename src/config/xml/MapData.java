@@ -14,28 +14,28 @@ public class MapData {
 	final String name;
 	final String tileMappingLocation;
 	final String texturesLocation;
-	final String unitPlacementLocation;
+	final String enemiesLocation;
 
-	public MapData(String name, String tileMappingLocation, String texturesLocation, String unitPlacementsLocation) {
+	public MapData(String name, String tileMappingLocation, String texturesLocation, String enemiesLocation) {
 		this.name = name;
 		this.tileMappingLocation = tileMappingLocation;
 		this.texturesLocation = texturesLocation;
-		this.unitPlacementLocation = unitPlacementsLocation;
+		this.enemiesLocation = enemiesLocation;
 	}
 
 	public MapData changeName(String s){
-		return new MapData(s, tileMappingLocation, texturesLocation, unitPlacementLocation);
+		return new MapData(s, tileMappingLocation, texturesLocation, enemiesLocation);
 	}
 	
 	public MapData changeTileMappingLocation(String s){
-		return new MapData(name, s, texturesLocation, unitPlacementLocation);
+		return new MapData(name, s, texturesLocation, enemiesLocation);
 	}
 	
 	public MapData changeTexturesLocation(String s){
-		return new MapData(name, texturesLocation, s, unitPlacementLocation);
+		return new MapData(name, texturesLocation, s, enemiesLocation);
 	}
 	
-	public MapData changeUnitPlacement(String s){
+	public MapData changeEnemiesLocation(String s){
 		return new MapData(name, texturesLocation, texturesLocation, s);
 	}
 	
@@ -56,8 +56,8 @@ public class MapData {
 	}
 
 	/** @category Generated */
-	public String getUnitPlacementsLocation() {
-		return unitPlacementLocation;
+	public String getEnemiesLocation() {
+		return enemiesLocation;
 	}
 
 }

@@ -1,8 +1,9 @@
 <map width="15" height="15" uuid="5addfb98-a0e4-4938-9aaa-18a497791016">
   <mapData>
-  	  	<name>tiles test</name>
+  	<name>tiles test</name>
     <tileMappingLocation>images/tilesets/nicer-mapping.xml</tileMappingLocation>
     <texturesLocation>images/textures/default.png</texturesLocation>
+    <enemiesLocation>maps/nicer-enemies.xml</enemiesLocation>
   </mapData>
   <tile x="0" y="0">
     <type>90</type>

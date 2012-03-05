@@ -23,13 +23,13 @@ public class AssertStore {
 
 	public  IWeapon getWeapon(UUID id){
 		final IWeapon w =  weapons.get(id);
-		assert w != null : "Assert with id not found: " + id ;
+		assert w != null : "Weapon not found: " + id + "\n" + weapons ;
 		return w;
 	}
 	
 	public  ISkill getSkill(UUID id){
 		final ISkill s =  skills.get(id);
-		assert s != null : "Assert with id not found: " + id ;
+		assert s != null : "Skill not found: " + id ;
 		return s;
 	}
 	

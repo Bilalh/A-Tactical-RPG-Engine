@@ -9,6 +9,7 @@
     <name>fft2 test</name>
     <tileMappingLocation>images/tilesets/fft2-mapping.xml</tileMappingLocation>
     <texturesLocation>images/textures/default.png</texturesLocation>
+    <enemiesLocation>maps/fft2-enemies.xml</enemiesLocation>
   </mapData>
   <tile x="0" y="0">
     <type>5</type>
