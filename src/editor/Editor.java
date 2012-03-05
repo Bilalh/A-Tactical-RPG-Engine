@@ -131,10 +131,10 @@ public class Editor {
 		
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 
-		JTabbedPane tabs  = new JTabbedPane();
-		unitImagesPanel = new UnitsImagesPanel(this);
-		tilesetPanel    = new TilesetPanel(this);
-		texturesPanel   = new TexturesPanel(this);
+		JTabbedPane tabs = new JTabbedPane();
+		unitImagesPanel  = new UnitsImagesPanel(this);
+		tilesetPanel     = new TilesetPanel(this);
+		texturesPanel    = new TexturesPanel(this);
 		
 		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));

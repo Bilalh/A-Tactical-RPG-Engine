@@ -83,9 +83,6 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	public WeaponsPanel(){
 		super("Weapon", 11, 11);
 
-		//TODO why?
-		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
-		
 		String path = "panels/unitSprites.xml";
 		
 			SpriteSheet ss = new SpriteSheet(Resources.getImage("panels/unitSprites.png"), 
