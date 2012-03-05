@@ -132,6 +132,7 @@ public abstract class XMLUtil {
 				SpriteSheetsData.class,
 				Textures.class,
 				Maps.class,
+				UnitPlacement.class,
 				
 				// Editor
 				MutableSprite.class,

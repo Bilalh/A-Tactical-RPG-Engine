@@ -53,7 +53,7 @@ public class MapXmlMaker {
 		}
 
 		MapSettings settings = MapSettings.defaults();
-		MapData     data     = new MapData("maps/" +filename + "-mapping.xml",null, filename);
+		MapData     data     = new MapData("maps/" +filename + "-mapping.xml",null, filename,null);
 		SavedMap m = new SavedMap(width,height,tiles, settings,data);
 
 //		String s1 = XMLUtil.makeXml(m);

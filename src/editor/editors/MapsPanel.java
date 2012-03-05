@@ -22,6 +22,7 @@ import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
+import org.jvnet.inflector.Noun;
 
 import util.IOUtil;
 
@@ -145,7 +146,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	}
 
 	private void changeName(){
-		currentMap.getAsset().changeName(infoName.getText());
+		SavedMap m = currentMap.getAsset(); 
+		m.setMapData(m.getMapData().changeName(infoName.getText()));
 		resourceList.repaint();
 	}	
 	
@@ -154,7 +156,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	}
 
 	private void changeTextures(SpriteSheetData ui){
-		currentMap.getAsset().changeTexturesLocation(ui.getSpriteSheetLocation());
+		SavedMap m = currentMap.getAsset(); 
+		m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
 	}
 
 
@@ -293,8 +296,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		infoTabs = new JTabbedPane();
 		infoTabs.addTab("Details", p);
-		infoTabs.addTab("Enemies ", (aiPanel = new UnitsPanel(editor.getUnitsSprites(), false)));
-		
+		infoTabs.addTab("Enemies ", (aiPanel = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy")));
 		return infoTabs;
 	}
 

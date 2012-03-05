@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import org.apache.log4j.Logger;
+import org.jvnet.inflector.Noun;
 
 import sun.util.logging.resources.logging;
 
@@ -79,15 +80,17 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	private SpriteSheet unitSprites;
 	
 	private boolean listOnLeft;
+	private String displayName;
 	
 	public UnitsPanel(java.util.Map<UUID, EditorSpriteSheet> spriteSheets){
-		this(spriteSheets, true);
+		this(spriteSheets, true, "Unit");
 	}
 
-	public UnitsPanel(java.util.Map<UUID, EditorSpriteSheet> spriteSheets, boolean listOnLeft){
+	public UnitsPanel(java.util.Map<UUID, EditorSpriteSheet> spriteSheets, boolean listOnLeft, String displayName){
 		super(new BorderLayout());
 		this.spriteSheets = spriteSheets;
 		this.listOnLeft   = listOnLeft;
+		this.displayName  = displayName;
 		createMainPane();
 	}
 	
@@ -287,7 +290,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 
 	protected JComponent createLeftPane(){
 		IMutableUnit uu = new Unit();
-		uu.setName("New Unit");
+		uu.setName("New " + displayName);
 		SpriteSheetData ui = Config.loadPreference("images/characters/default-animations.xml");
 		uu.setImageData(ui.getAnimationPath(), ui);
 		
@@ -301,7 +304,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			public void valueChanged(ListSelectionEvent e) {
 				IMutableUnit u =  (IMutableUnit) unitsList.getSelectedValue();
 				if (u == null){
-					log.debug("unit" + u);
+					log.debug(displayName + " "+ u);
 					return;
 				}
 				setCurrentUnit(u);
@@ -321,7 +324,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		});
 
 		JScrollPane slist = new JScrollPane(unitsList);
-		slist.setColumnHeaderView(createHeader("All Units"));
+		slist.setColumnHeaderView(createHeader("All " + Noun.pluralOf(displayName)));
 		
 		JPanel p  = new JPanel(new BorderLayout());
 		p.add(slist, BorderLayout.CENTER);
@@ -347,7 +350,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		private static final long serialVersionUID = 4069963919157697524L;
 
 		public DeleteAction() {
-			putValue(NAME, "Delete the selected Unit");
+			putValue(NAME, "Delete the selected " + displayName);
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, new ListRemoveIcon(16, 16));
 		}
@@ -366,7 +369,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		private static final long serialVersionUID = 4069963919157697524L;
 
 		public AddAction() {
-			putValue(NAME, "Add a new Unit");
+			putValue(NAME, "Add a new " + displayName);
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, new ListAllIcon(16, 16));
 		}
@@ -375,7 +378,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		public void actionPerformed(ActionEvent e) {
 			IMutableUnit w = new Unit();
 			int index = unitsListModel.size();
-			w.setName("New Unit " + (index + 1));
+			w.setName("New " + displayName + " " + (index + 1));
 			unitsListModel.addElement(w);
 			unitsList.setSelectedIndex(index);
 		}
@@ -394,7 +397,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		addSeparator(p,"General");
 		p.add(new JLabel("Name:"));
 		p.add((infoName = new JTextField(15)), "span, growx");
-		infoName.setText("New Unit");
+		infoName.setText("New " + displayName);
 		infoName.getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
@@ -542,7 +545,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		private static final long serialVersionUID = -6538170935544736252L;
 
 		public AddSkillAction() {
-			putValue(NAME, "Add to Unit's Skills");
+			putValue(NAME, "Add to " +  displayName + "'s Skill");
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, new GoPreviousIcon(16, 16));
 		}
@@ -561,7 +564,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		private static final long serialVersionUID = -8604147798296984257L;
 
 		public RemoveSkillAction() {
-			putValue(NAME, "Add to Unit's Skills");
+			putValue(NAME, "Remove " +  displayName + "'s Skill");
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, new GoNextIcon(16, 16));
 		}

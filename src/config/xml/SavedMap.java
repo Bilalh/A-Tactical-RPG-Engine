@@ -82,14 +82,9 @@ public class SavedMap implements Identifiable, IPreference {
 		return uuid;
 	}
 
-	public void changeTexturesLocation(String texturesLocation) {
-		assert texturesLocation != null;
-		mapData = new MapData(mapData.getTileMappingLocation(), texturesLocation, mapData.getName());
-	}
-
-	public void changeName(String name) {
-		assert name != null;
-		mapData = new MapData(mapData.getTileMappingLocation(), mapData.getTexturesLocation(), name);
+	/** @category Generated */
+	public void setMapData(MapData mapData) {
+		this.mapData = mapData;
 	}
 	
 }
