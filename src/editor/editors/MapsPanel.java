@@ -79,7 +79,6 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 	@Override
 	public void panelSelected(Editor editor) {
-		// FIXME panelSelected method
 		ItemListener il =  infoTileset.getItemListeners()[0];
 		infoTileset.removeItemListener(il);
 		infoTileset.removeAllItems();

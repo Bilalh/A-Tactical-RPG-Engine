@@ -167,7 +167,6 @@ public class ResourceManager {
 			try {
 				sourceImage = ImageIO.read(url);
 			} catch (IOException e) {
-				// TODO catch block in getSprite
 				e.printStackTrace();
 			}
 		}

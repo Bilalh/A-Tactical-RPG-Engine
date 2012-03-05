@@ -54,19 +54,18 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>23</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>138</integer>
+				<integer>35</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>110</integer>
+			<integer>8</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>Project.toc</string>
 		<string>Project.tex</string>
 		<string>tex/Objectives.tex</string>
 	</array>
@@ -100,6 +99,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{433, 130}, {924, 717}}</string>
+	<string>{{433, 130}, {1023, 717}}</string>
 </dict>
 </plist>

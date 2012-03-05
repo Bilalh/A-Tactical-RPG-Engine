@@ -313,7 +313,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	/** @category ISpriteProvider**/
 	@Override
 	public void select(List<MutableSprite> selection) {
-		// FIXME select method needed?
+		// TODO select method needed?
 	}
 
 	/** @category ISpriteProvider**/

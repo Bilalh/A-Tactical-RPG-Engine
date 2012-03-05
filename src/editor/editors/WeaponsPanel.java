@@ -310,7 +310,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	
 	@Override
 	public void panelSelected(Editor editor) {
-		// FIXME panelSelected method
+		// TODO panelSelected method
 		
 	}
 	

@@ -124,7 +124,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		skillsListModel.clear();
 		for (ISkill	s : u.getSkills()) {
 			skillsListModel.addElement(s);
-			// FIXME n^2  but n is about 4
+			// TODO n^2  but n is about 4
 			allSkillsListModel.removeElement(s);
 		}
 
@@ -271,7 +271,6 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	protected JComponent createLeftPane(){
 		IMutableUnit uu = new Unit();
 		uu.setName("New Unit");
-		//FIXME change?
 		SpriteSheetData ui = Config.loadPreference("images/characters/default-animations.xml");
 		uu.setImageData(ui.getAnimationPath(), ui);
 		

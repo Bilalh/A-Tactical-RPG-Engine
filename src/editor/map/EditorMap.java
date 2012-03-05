@@ -24,11 +24,6 @@ public class EditorMap extends BasicMap {
 	protected EditorSpriteSheet spriteSheet;
 	protected EditorTile[][] editorField;
 	
-	public EditorMap(){
-		//FIXME copy defaults 
-		this.loadMap("maps/default.xml");
-	}
-	
 	public EditorMap(String name) {
 		this.loadMap(name);
 	}

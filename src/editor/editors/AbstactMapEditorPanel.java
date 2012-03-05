@@ -66,14 +66,12 @@ public abstract class AbstactMapEditorPanel extends JPanel implements IEditorMap
 		this.mapHeight  = mapHeight;
 		this.prefsName  = tile;
 		
-		// FIXME change
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");
 		_sheet = ResourceManager.instance().getCurrentItemSheet();
 		sheet  = new EditorSpriteSheet(_sheet);
 		
 		createMainPane(tile);
 
-		// TODO change
 		Preferences pref = Prefs.getNode(tile+ "/panels/main");
 		int width = pref.getInt("width", 930);
 		int height = pref.getInt("height", 680);

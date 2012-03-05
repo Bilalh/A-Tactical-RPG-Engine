@@ -113,7 +113,6 @@ public class Editor {
 		return Collections.unmodifiableMap(tilesetPanel.getSpriteSheets());
 	}
 
-	//TODO rename?
 	public SpriteSheetsData getTextures(){
 		return texturesPanel.getSpriteSheetData();
 	}
@@ -123,7 +122,7 @@ public class Editor {
 	}
 	
 	private JTabbedPane createTabs() {
-		//TODO change
+		//FIXME change
 		File f = new File(projectPath);
 		File mainXml  = new File(f, "tactical-project.xml");
 		File resources = new File(f,"Resources");

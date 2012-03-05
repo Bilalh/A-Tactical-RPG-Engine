@@ -28,7 +28,6 @@ public class MapSettings {
 
 	// to give default values
 	private Object readResolve() {
-		// FIXME change
 		zoom = 1;
 		return this;
 	}
