@@ -17,6 +17,8 @@ import config.IPreference;
  */
 public interface IAssets<E extends Identifiable> extends IPreference {
 
+	E get(UUID uuid);
+	
 	E put(E e);
 
 	void putAll(Map<? extends UUID, ? extends E> e);

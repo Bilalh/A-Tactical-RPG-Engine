@@ -29,6 +29,11 @@ public abstract class AbstractAssets<E extends Identifiable> implements  IAssets
 	}
 
 	@Override
+	public E get(UUID uuid) {
+		return assets.get(uuid);
+	}
+	
+	@Override
 	public E put(E e) {
 		return assets.put(e.getUuid(), e);
 	}

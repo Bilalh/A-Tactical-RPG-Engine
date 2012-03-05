@@ -4,11 +4,11 @@
       <uuid>7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0</uuid>
       <unit uuid="7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0">
         <name>New Enemy C</name>
-        <maxHp>1</maxHp>
-        <move>1</move>
-        <strength>1</strength>
-        <defence>1</defence>
-        <speed>1</speed>
+		<maxHp>30</maxHp>
+        <move>4</move>
+        <strength>30</strength>
+        <defence>3</defence>
+        <speed>20</speed>
         <level>1</level>
         <exp>0</exp>
         <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
@@ -20,7 +20,7 @@
   </units>
   <placement>
     <entry>
-      <uuid reference="../../../units/entry/uuid"/>
+      <uuid>7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0</uuid>
       <location>
         <x>12</x>
         <y>3</y>

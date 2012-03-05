@@ -21,19 +21,22 @@ public class AIPlayer extends MapPlayer {
 	private PriorityQueue<IMutableMapUnit> lowestHp;
 	
 	
-	public AIPlayer(Map map, ArrayList<IMutableMapUnit> units){
-		this.units = units;
+	public AIPlayer(Map map){
 		this.map = map;
-		lowestHp = new PriorityQueue<IMutableMapUnit>(16, new Comparator<IMutableMapUnit>() {
-			@Override
-			public int compare(IMutableMapUnit o1, IMutableMapUnit o2) {
-				 int r = o1.getCurrentHp() - o2.getCurrentHp();
-				 if (r == 0) r = o1.getStrength() - o2.getStrength();
-				 return r;
-			}
-		});
+        lowestHp = new PriorityQueue<IMutableMapUnit>(16, new Comparator<IMutableMapUnit>() {
+            @Override
+            public int compare(IMutableMapUnit o1, IMutableMapUnit o2) {
+                 int r = o1.getCurrentHp() - o2.getCurrentHp();
+                 if (r == 0) r = o1.getStrength() - o2.getStrength();
+                 return r;
+            }
+        });
 	}
-	
+	 
+	@Override
+	public void setUnits(ArrayList<IMutableMapUnit> units){
+		super.setUnits(units);
+	}
 	
 	public ILocation getMoveLocation(AIUnit a){
 		lowestHp.clear();

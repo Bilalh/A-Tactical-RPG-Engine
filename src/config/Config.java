@@ -137,19 +137,6 @@ public class Config {
 		return RESOURCE_DIRECTORY;
 	}
 	
-	private static final ITileMapping defaultMapping;
-	static{
-		HashMap<String, TileImageData> m = new HashMap<String, TileImageData>();
-		TileImageData d= new TileImageData("images/tiles/brown.png", ImageType.NON_TEXTURED);
-		m.put("*", d );
-		m.put("grass", d);
-		defaultMapping = new TileMapping("",m);
-	}
-	
-	public static ITileMapping defaultMapping(){
-		return defaultMapping;
-	}
-
 	
 }
 

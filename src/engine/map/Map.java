@@ -55,59 +55,37 @@ public class Map extends BasicMap implements IMap {
 		loadSettings(name);
 		paths = new HashMap<IMutableMapUnit, PathFinder>();
 		order = new PriorityQueue<IMutableMapUnit>(16, new DefaultTurnComparator());
-
 		setUpAI();
 	}
 
 	private void loadSettings(String name) {
-			loadMap(name);
-			assert (field != null);
-			assert (width > 0);
-			assert (height > 0);
-		}
+		loadMap(name);
+		assert (field != null);
+		assert (width > 0);
+		assert (height > 0);
+	}
 
 	private void setUpAI() {
+		ai = new AIPlayer(this);
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
-	
-		SpriteSheetData ui = Config.loadPreference("images/characters/Elena-animations.xml");
-		Unit u = new Unit();
-		u.setName("ai-1");
-		u.setMove(5);
-		u.setSpeed(5);
-		u.setStrength(30);
-		u.setDefence(20);
-		u.setMaxHp(40);
-		u.setImageData("images/characters/Elena-animations.xml",ui);
-		u.setWeapon(new MeleeWeapon(7));
 
-		AIUnit au = new AIUnit(u, new Location(width - 1, 5), ai);
-		aiUnits.add(au);
-		field[au.getGridX()][au.getGridY()].setCurrentUnit(au); 
-	
-		u = new Unit();
-		u.setName("ai-2");
-		u.setMove(6);
-		u.setSpeed(10);
-		u.setStrength(10);
-		u.setDefence(10);
-		u.setMaxHp(30);
-		ui.setSpriteSheetLocation("images/characters/Elena.png");
-		u.setImageData("images/characters/Elena-animations.xml",ui);
-		IWeapon w = new RangedWeapon(7, 2,0);
-		w.setImageRef("4-11");
-		u.setWeapon(w);
-
-		au = new AIUnit(u, new Location(width - 1, 4), ai);
-		aiUnits.add(au);
-		field[au.getGridX()][au.getGridY()].setCurrentUnit(au);
-	
-		ai = new AIPlayer(this, aiUnits);
-	
+		for (Entry<UUID,Location> e : enemies.getUnitPlacement().entrySet()) {
+			IMutableUnit u = enemies.getUnit(e.getKey());
+			AIUnit au = new AIUnit(u, e.getValue(), ai);
+			aiUnits.add(au);
+		}
+		
+		assert aiUnits.size() == enemies.getUnitPlacement().size(); 
+		assert aiUnits.size() != 0;
+		
+		ai.setUnits(aiUnits);
+		
 		assert order != null;
 		for (IMutableMapUnit aiu : aiUnits) {
 			assert aiu != null;
 			order.add(aiu);
 		}
+		
 	}
 
 	ArrayList<IMutableMapUnit> getPlayerUnits() {

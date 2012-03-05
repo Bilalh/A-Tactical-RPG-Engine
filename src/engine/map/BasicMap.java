@@ -2,6 +2,7 @@ package engine.map;
 
 import java.util.Observable;
 
+import common.assets.UnitPlacement;
 import common.interfaces.ILocation;
 
 import config.Config;
@@ -18,11 +19,12 @@ public class BasicMap extends Observable {
 	protected int width;
 	protected int height;
 
-	protected ITileMapping tileMapping;
-	protected MapSettings mapSettings;
-
 	protected MapData data;
-
+	protected MapSettings mapSettings;
+	
+	protected ITileMapping tileMapping;
+	protected UnitPlacement enemies;
+	
 
 	/**
 	 * Loads a map from resources
@@ -35,32 +37,25 @@ public class BasicMap extends Observable {
 		height = smap.getFieldHeight();
 		field = new Tile[width][height];
 
-		// float max = 0;
-		// for (SavedTile t : smap.getTiles()) {
-		// max = Math.max(max, t.getHeight());
-		// }
-
 		for (SavedTile t : smap.getTiles()) {
-			// float h = ((t.getHeight())/max)*5;
-			// field[t.getX()][t.getY()] = new Tile((int)h, (int)h, t.getType());
 			field[t.getX()][t.getY()] = new Tile(t);
 		}
 
 		mapSettings = smap.getMapSettings();
-		data = smap.getMapData();
+		data        = smap.getMapData();
 
 		assert mapSettings != null;
-		assert data != null;
+		assert data        != null;
 
 		String mappingLocation = data.getTileMappingLocation();
-
-		if (mappingLocation == null) {
-			tileMapping = Config.defaultMapping();
-			assert tileMapping != null;
-		} else {
-			tileMapping = Config.loadPreference(mappingLocation);
-			assert tileMapping != null;
-		}
+		assert mappingLocation != null;
+		
+		tileMapping = Config.loadPreference(mappingLocation);
+		assert tileMapping != null;
+		
+		String placement = data.getEnemiesLocation();
+		assert placement != null;
+		enemies = Config.loadPreference(placement);
 	}
 
 	public TileImageData getTileImageData(int x, int y) {

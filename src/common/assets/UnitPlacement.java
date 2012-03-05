@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import common.Location;
 import config.IPreference;
+import engine.unit.IMutableUnit;
 
 /**
  * @author Bilal Hussain
@@ -17,12 +18,15 @@ public class UnitPlacement implements IPreference {
 	private Units units;
 	private HashMap<UUID, Location> placement;
 
-	/** @category Generated */
 	public UnitPlacement(Units units, HashMap<UUID, Location> placement) {
 		this.units     = units;
 		this.placement = placement;
 	}
 
+	public IMutableUnit getUnit(UUID uuid){
+		return units.get(uuid);
+	}
+	
 	/** @category Generated */
 	public Units getUnits() {
 		return units;
