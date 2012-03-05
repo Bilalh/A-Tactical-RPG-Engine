@@ -71,9 +71,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private JComboBox infoTileset;
 	private JComboBox infoTextures;
 
-	private DeferredMap  currentMap;	
-	private ITileMapping currentMapping;
-	
+	private DeferredMap   currentMap;	
+	private ITileMapping  currentMapping;
+	private UnitPlacement currentUnitPlacement;
 
 	private JTabbedPane infoTabs;
 	private UnitsPanel  enemiesPanel;
@@ -118,15 +118,14 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private void saveExternal(){
 		if (currentMap == null) return;
 		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());	
-		Units enemies = enemiesPanel.getUnits();
-		UnitPlacement placement = new UnitPlacement(enemies, new HashMap<UUID, Location>());
-		Config.savePreferences(placement, currentMap.getAsset().getMapData().getEnemiesLocation());		
+		currentUnitPlacement.setUnits(enemiesPanel.getUnits());
+		Config.savePreferences(currentUnitPlacement, currentMap.getAsset().getMapData().getEnemiesLocation());		
 	}
 	
 	@Override
 	protected void setCurrentResource(DeferredMap _map) {
 		// Makes sures are the data from the old map was changed
-		saveExternal();
+		if (_map != currentMap && _map != null) saveExternal();
 		
 		currentMap = _map;
 		SavedMap map = currentMap.getAsset();
@@ -150,7 +149,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		assert d != null;
 		infoTileset.setSelectedItem(d);
 		
-		enemiesPanel.setUnits(Config.<UnitPlacement>loadPreference(map.getMapData().getEnemiesLocation()).getUnits());
+		currentUnitPlacement = Config.<UnitPlacement>loadPreference(map.getMapData().getEnemiesLocation());
+		enemiesPanel.setUnits(currentUnitPlacement.getUnits());
 	}
 
 	@Override

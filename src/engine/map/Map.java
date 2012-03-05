@@ -61,11 +61,6 @@ public class Map extends BasicMap implements IMap {
 
 	private void loadSettings(String name) {
 			loadMap(name);
-	//		for (int i = 0; i < width; i++) {
-	//			for (int j = 0; j < height; j++) {
-	//				field[i][j] = new Tile(1, 1, field[i][j].getType(), Orientation.UP_TO_EAST);
-	//			}
-	//		}
 			assert (field != null);
 			assert (width > 0);
 			assert (height > 0);

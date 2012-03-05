@@ -48,8 +48,8 @@ public class PathFinder implements IMovementCostProvider {
 		this.d = new Dijkstra(this, map.getFieldWidth(), map.getFieldHeight());
 		Location p = unit.getLocation();
 		
-		start = p.copy().translate(-unit.getMove()+1).limitLower(0, 0);
-		end   = p.copy().translate(unit.getMove()+1).limitUpper(map.getFieldWidth(), map.getFieldHeight());
+		start = p.copy().add(-unit.getMove()+1).limitLower(0, 0);
+		end   = p.copy().add(unit.getMove()+1).limitUpper(map.getFieldWidth(), map.getFieldHeight());
 		
 		Logf.debug(log, "start:%s, start.x:%s, end.x:%s, start.y:%s, end.y:%s",start, start.x, end.x, start.y, end.y);
 		locations = d.calculate(u.getLocation(), start.x, end.x, start.y, end.y);

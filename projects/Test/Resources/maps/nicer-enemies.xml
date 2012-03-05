@@ -18,5 +18,13 @@
       </unit>
     </entry>
   </units>
-  <placement/>
+  <placement>
+    <entry>
+      <uuid reference="../../../units/entry/uuid"/>
+      <location>
+        <x>12</x>
+        <y>3</y>
+      </location>
+    </entry>
+  </placement>
 </unitPlacement>

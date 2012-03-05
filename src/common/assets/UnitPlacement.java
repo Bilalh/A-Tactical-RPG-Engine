@@ -1,5 +1,6 @@
 package common.assets;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ public class UnitPlacement implements IPreference {
 
 	/** @category Generated */
 	public UnitPlacement(Units units, HashMap<UUID, Location> placement) {
-		this.units = units;
+		this.units     = units;
 		this.placement = placement;
 	}
 

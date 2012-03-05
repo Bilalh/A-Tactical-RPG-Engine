@@ -2,14 +2,19 @@ package common;
 
 import java.io.Serializable;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import common.interfaces.ILocation;
 
 /**
  * Point representing a location in (x, y). 
  * java.awt.Point was not used so that the model does not have a dependency on awt.
  * 
+ * Nearly method return this Location which allows method chaining
+ * 
  * @author Bilal Hussain
  */
+@XStreamAlias("location")
 public class Location implements Serializable, ILocation {
 	private static final long serialVersionUID = -5276940640259749850L;
 
@@ -71,7 +76,7 @@ public class Location implements Serializable, ILocation {
 	/**
 	 * @return This Point for chaining.
 	 */
-	public Location translate(int d) {
+	public Location add(int d) {
 		this.x += d;
 		this.y += d;
 		return this;
@@ -149,16 +154,14 @@ public class Location implements Serializable, ILocation {
 	 */
 	public boolean adjacent(ILocation p) {
 		return (this.x == p.getX() && Math.abs(this.y - p.getY()) <= 1)
-				|| (this.y == p.getY() && Math.abs(this.x - p.getX()) <= 1);
+		    || (this.y == p.getY() && Math.abs(this.x - p.getX()) <= 1);
 	}
 
 	/**
 	 * Distance from this location
 	 */
 	public double distance(ILocation b) {
-		int px = b.getX() - this.getX();
-		int py = b.getY() - this.getY();
-		return Math.sqrt(px * px + py * py);
+		return distance(b, this);
 	}
 
 	/**

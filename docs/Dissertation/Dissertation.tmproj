@@ -54,14 +54,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>46</integer>
 				<key>line</key>
-				<integer>35</integer>
+				<integer>136</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>8</integer>
+			<integer>115</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
@@ -99,6 +99,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{433, 130}, {1023, 717}}</string>
+	<string>{{417, 130}, {1023, 717}}</string>
 </dict>
 </plist>

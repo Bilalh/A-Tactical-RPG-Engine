@@ -11,6 +11,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import common.Location;
 import common.assets.*;
 import common.spritesheet.SpriteInfo;
 import common.spritesheet.Sprites;
@@ -124,6 +125,9 @@ public abstract class XMLUtil {
 				//Model 
 				Unit.class,
 				AbstractUnitObject.class,
+				
+				//common 
+				Location.class,
 				
 				// Model assets
 				Weapons.class,

@@ -18,5 +18,13 @@
       </unit>
     </entry>
   </units>
-  <placement/>
+  <placement>
+    <entry>
+      <uuid>947a6882-1667-4b61-8f40-edb10804314f</uuid>
+      <location>
+        <x>12</x>
+        <y>3</y>
+      </location>
+    </entry>
+  </placement>
 </unitPlacement>
