@@ -23,7 +23,9 @@ import org.jvnet.inflector.Noun;
 
 import view.map.interfaces.IMapRendererParent;
 
+import common.assets.AssertStore;
 import common.enums.Orientation;
+import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
 
 import config.Config;
@@ -98,6 +100,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	// for editor
 	private String savePath;	
 	private IMapEditorListener listener;
+	private IMutableUnit currentEnemy;
+	
 	
 	public MapEditor(int frameClosingValue, String savePath, IMapEditorListener listener) {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
@@ -133,6 +137,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		System.out.println(pref);
 		int width = pref.getInt("width", 1280);
 		int height = pref.getInt("height", 800);
+		frame.setMinimumSize(new Dimension(850, 700));
 		
 		frame.setSize(width, height);
 		frame.setVisible(true);
@@ -389,7 +394,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		for (IMutableUnit u : map.getEnemies().getUnits()) {
 			unitsListModel.addElement(u);
 		}
-
+		unitsList.setSelectedIndex(0);
 		
         JPanel statusPanel = new JPanel();
         statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -404,6 +409,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	}
 	
 	
+	// Controls to display units info
 	private JList unitsList;
 	private DefaultListModel unitsListModel;
 	private IMutableUnit currentUnit;
@@ -424,12 +430,19 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		JPanel p =  new JPanel(UnitsPanel.createLayout());
 		p.add(new JLabel("Name:"));
 		p.add((infoName = new JTextField(15)), "span, growx");
+		infoName.setEnabled(false);
+		
 		infoWeapon = new JComboBox(new IWeapon[]{});
 		infoWeapon.setRenderer(new WeaponDropDownListRenderer());
 		infoWeapon.setEditable(false);
+		infoWeapon.setEnabled(false);
 		p.add(new JLabel("Weapon:"));
 		p.add(infoWeapon, "span, growx");
-
+		
+		for (IWeapon w : AssertStore.instance().getWeapons().values()) {
+			infoWeapon.addItem(w);
+		}
+		
 		p.add(new JLabel("Strength:"));
 		infoStrength = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
 		p.add(infoStrength, new CC().alignX("leading").maxWidth("70"));
@@ -437,7 +450,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		
 		p.add(new JLabel("Defence:"), "gap unrelated");
 		infoDefence = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		p.add(infoDefence, new CC().alignX("leading").maxWidth("70").wrap());
+		p.add(infoDefence, new CC().alignX("leading").maxWidth("70"));
 		infoDefence.setEnabled(false);
 		
 		p.add(new JLabel("Speed:"));
@@ -447,12 +460,12 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		
 		p.add(new JLabel("Move:"), "gap unrelated");
 		infoMove = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		p.add(infoMove, new CC().alignX("leading").maxWidth("70").wrap());
+		p.add(infoMove, new CC().alignX("leading").maxWidth("70"));
 		infoMove.setEnabled(false);
 		
 		p.add(new JLabel("Hp:"));
 		infoHp = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		p.add(infoHp, new CC().alignX("leading").maxWidth("70").wrap());
+		p.add(infoHp, new CC().alignX("leading").maxWidth("70"));
 		infoHp.setEnabled(false);
 
 		unitsListModel = new DefaultListModel();
@@ -463,7 +476,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				IMutableUnit u =  (IMutableUnit) unitsList.getSelectedValue();
-//				setCurrentUnit(u);
+				setCurrentEnemy(u);
 			}
 		});
 		
@@ -474,6 +487,17 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		p.add(slist, new CC().dockWest().gapAfter("10px!").spanX(2));
 		
 		return p;
+	}
+	
+	private void setCurrentEnemy(IMutableUnit u){
+		currentEnemy  = u;
+		infoName.setText(u.getName());
+		infoWeapon.setSelectedItem(u.getWeapon());
+		infoStrength.setValue(u.getStrength());
+		infoDefence.setValue(u.getDefence());
+		infoSpeed.setValue(u.getSpeed());
+		infoMove.setValue(u.getMove());
+		infoHp.setValue(u.getMaxHp());
 	}
 	
 	public static class UnitListRenderer extends DefaultListCellRenderer {

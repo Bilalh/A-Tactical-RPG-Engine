@@ -41,7 +41,7 @@ public abstract class XMLUtil {
 		xs = new XStream(new DomDriver());
 		xs.processAnnotations(getClassesForAnnotations());
 		 xs.addDefaultImplementation(TileMapping.class,ITileMapping.class);
-		// xs.setMode(XStream.NO_REFERENCES);
+		 xs.setMode(XStream.NO_REFERENCES);
 	}
 
 	/**

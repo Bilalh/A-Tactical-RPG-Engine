@@ -1,26 +1,60 @@
 <unitPlacement>
   <units>
     <entry>
-      <uuid>947a6882-1667-4b61-8f40-edb10804314f</uuid>
-      <unit uuid="947a6882-1667-4b61-8f40-edb10804314f">
-        <name>New Enemy B</name>
+      <uuid>6363fb76-c8c1-4894-9244-906035ccc1f9</uuid>
+      <unit uuid="6363fb76-c8c1-4894-9244-906035ccc1f9">
+        <name>New Enemy 3</name>
         <maxHp>30</maxHp>
         <move>4</move>
         <strength>30</strength>
+        <defence>3</defence>
+        <speed>12</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/Boy-animations.xml</imageDataRef>
+        <weight>0</weight>
+        <wepaonId>3e07fa06-184b-41a1-9d2a-5ae87d97f01d</wepaonId>
+        <skillIds/>
+      </unit>
+    </entry>
+    <entry>
+      <uuid>78c008a9-f7ca-4f89-b3f1-876a633caf09</uuid>
+      <unit uuid="78c008a9-f7ca-4f89-b3f1-876a633caf09">
+        <name>New Enemy 2</name>
+        <maxHp>30</maxHp>
+        <move>4</move>
+        <strength>20</strength>
+        <defence>3</defence>
+        <speed>20</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/Elena-animations.xml</imageDataRef>
+        <weight>0</weight>
+        <wepaonId>0f0dee32-06de-4f25-ba3d-acb110afc52c</wepaonId>
+        <skillIds/>
+      </unit>
+    </entry>
+    <entry>
+      <uuid>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</uuid>
+      <unit uuid="d4ca9dde-a2f4-4f51-b90e-5ff99e09f814">
+        <name>New Enemy A</name>
+        <maxHp>30</maxHp>
+        <move>4</move>
+        <strength>22</strength>
         <defence>3</defence>
         <speed>20</speed>
         <level>1</level>
         <exp>0</exp>
         <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
         <weight>0</weight>
-        <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
+        <wepaonId>3e07fa06-184b-41a1-9d2a-5ae87d97f01d</wepaonId>
         <skillIds/>
       </unit>
     </entry>
   </units>
   <placement>
     <entry>
-      <uuid>947a6882-1667-4b61-8f40-edb10804314f</uuid>
+      <uuid>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</uuid>
       <location>
         <x>12</x>
         <y>3</y>

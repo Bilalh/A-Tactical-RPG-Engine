@@ -70,6 +70,22 @@ public class Unit implements IMutableUnit {
 		this.strength = strength;
 	}
 
+	
+	public Unit(IMutableUnit u) {
+		this();
+		this.name     = u.getName();
+		this.maxHp    = u.getMaxHp();
+		this.move     = u.getMove();
+		this.strength = u.getStrength();
+		this.defence  = u.getDefence();
+		this.speed    = u.getSpeed();
+		this.level    = u.getLevel();
+		this.exp      = u.getExp();
+		setWeapon(u.getWeapon());
+		setImageData(u.getImageData().getAnimationPath(), u.getImageData());
+		setSkills((ArrayList<ISkill>) u.getSkills().clone());
+	}
+
 	// to give default values
 	private Object readResolve() {
 		if (imageData == null){
@@ -246,7 +262,7 @@ public class Unit implements IMutableUnit {
 		this.wepaonId = weapon.getUuid();
 	}
 
-
+	
 //	@Override
 //	public String toString() {
 //		return String.format("Unit [name=%s, maxHp=%s, move=%s, strength=%s, defence=%s, speed=%s, level=%s, exp=%s, uuid=%s, weight=%s]",

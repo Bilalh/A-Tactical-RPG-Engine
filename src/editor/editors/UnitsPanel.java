@@ -376,7 +376,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			IMutableUnit w = new Unit();
+			IMutableUnit w = new Unit(currentUnit);
 			int index = unitsListModel.size();
 			w.setName("New " + displayName + " " + (index + 1));
 			unitsListModel.addElement(w);
@@ -433,7 +433,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 
 		
 		p.add(new JLabel("Strength:"));
-		infoStrength = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		infoStrength = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
 		
 		infoStrength.addChangeListener(new ChangeListener() {
 			@Override
@@ -445,7 +445,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 
 		
 		p.add(new JLabel("Defence:"), "gap unrelated");
-		infoDefence = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		infoDefence = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
 		
 		infoDefence.addChangeListener(new ChangeListener() {
 			@Override
@@ -456,7 +456,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		p.add(infoDefence, new CC().alignX("leading").maxWidth("70").wrap());
 		
 		p.add(new JLabel("Speed:"));
-		infoSpeed = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		infoSpeed = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
 		
 		infoSpeed.addChangeListener(new ChangeListener() {
 			@Override
@@ -468,7 +468,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 
 		
 		p.add(new JLabel("Move:"), "gap unrelated");
-		infoMove = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		infoMove = new JSpinner(new SpinnerNumberModel(5, 2, 20, 1));
 		
 		infoMove.addChangeListener(new ChangeListener() {
 			@Override
@@ -480,7 +480,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 
 		
 		p.add(new JLabel("Hp:"));
-		infoHp = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		infoHp = new JSpinner(new SpinnerNumberModel(20, 1, 10000, 10));
 		
 		infoHp.addChangeListener(new ChangeListener() {
 			@Override

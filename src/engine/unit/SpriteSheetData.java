@@ -47,7 +47,6 @@ public class SpriteSheetData implements IPreference, Identifiable {
 	}
 	
 	public String getAnimationPath(){
-		//TODO  hack
 		String path = getSpriteSheetLocation();
 		// remove the file extension
 		path = path.substring(0, path.lastIndexOf('.'));

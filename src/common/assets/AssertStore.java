@@ -74,4 +74,8 @@ public class AssertStore {
 	public static AssertStore instance() {
 		return singleton;
 	}
+
+	public Map<UUID, IWeapon> getWeapons() {
+		return weapons;
+	}
 }
