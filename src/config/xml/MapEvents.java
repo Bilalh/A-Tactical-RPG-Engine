@@ -3,18 +3,19 @@ package config.xml;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import common.assets.DialogParts;
+import config.IPreference;
 
 /**
  * @author Bilal Hussain
  */
 @XStreamAlias("mapEvents")
-public class MapEvents {
+public class MapEvents implements IPreference {
 
 	private DialogParts startDialog;
 	private DialogParts endDialog;
 	
 	/** @category Generated */
-	private MapEvents(DialogParts startDialog, DialogParts endDialog) {
+	public MapEvents(DialogParts startDialog, DialogParts endDialog) {
 		this.startDialog = startDialog;
 		this.endDialog = endDialog;
 	}

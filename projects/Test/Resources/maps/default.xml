@@ -10,6 +10,7 @@
     <tileMappingLocation>images/tilesets/default-mapping.xml</tileMappingLocation>
     <texturesLocation>images/textures/default.png</texturesLocation>
     <enemiesLocation>maps/default-enemies.xml</enemiesLocation>
+    <eventsLocation>maps/default-events.xml</eventsLocation>
   </mapData>
   <tile x="0" y="0">
     <type>5</type>

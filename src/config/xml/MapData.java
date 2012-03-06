@@ -15,28 +15,30 @@ public class MapData {
 	final String tileMappingLocation;
 	final String texturesLocation;
 	final String enemiesLocation;
-
-	public MapData(String name, String tileMappingLocation, String texturesLocation, String enemiesLocation) {
+	final String eventsLocation;
+	
+	public MapData(String name, String tileMappingLocation, String texturesLocation, String enemiesLocation, String eventsLocation) {
 		this.name = name;
 		this.tileMappingLocation = tileMappingLocation;
 		this.texturesLocation = texturesLocation;
 		this.enemiesLocation = enemiesLocation;
+		this.eventsLocation = eventsLocation;
 	}
 
 	public MapData changeName(String s){
-		return new MapData(s, tileMappingLocation, texturesLocation, enemiesLocation);
+		return new MapData(s, tileMappingLocation, texturesLocation, enemiesLocation,eventsLocation);
 	}
 	
 	public MapData changeTileMappingLocation(String s){
-		return new MapData(name, s, texturesLocation, enemiesLocation);
+		return new MapData(name, s, texturesLocation, enemiesLocation,eventsLocation);
 	}
 	
 	public MapData changeTexturesLocation(String s){
-		return new MapData(name, texturesLocation, s, enemiesLocation);
+		return new MapData(name, texturesLocation, s, enemiesLocation,eventsLocation);
 	}
 	
 	public MapData changeEnemiesLocation(String s){
-		return new MapData(name, texturesLocation, texturesLocation, s);
+		return new MapData(name, texturesLocation, texturesLocation, s,eventsLocation);
 	}
 	
 	/** @category Generated */
@@ -58,6 +60,11 @@ public class MapData {
 	/** @category Generated */
 	public String getEnemiesLocation() {
 		return enemiesLocation;
+	}
+
+	/** @category Generated */
+	public String getEventsLocation() {
+		return eventsLocation;
 	}
 
 }

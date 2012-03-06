@@ -37,6 +37,7 @@ import common.interfaces.IWeapon;
 
 import config.Config;
 import config.xml.ITileMapping;
+import config.xml.MapEvents;
 import config.xml.SavedMap;
 import config.xml.TileMapping;
 
@@ -74,7 +75,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private DeferredMap   currentMap;	
 	private ITileMapping  currentMapping;
 	private UnitPlacement currentUnitPlacement;
-
+	private MapEvents     currentEvent;
+	
 	private JTabbedPane    infoTabs;
 	private UnitsPanel     enemiesPanel;
 	private MapDialogPanel dialogPanel;
@@ -121,7 +123,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		if (currentMap == null) return;
 		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());	
 		currentUnitPlacement.setUnits(enemiesPanel.getUnits());
-		Config.savePreferences(currentUnitPlacement, currentMap.getAsset().getMapData().getEnemiesLocation());		
+		Config.savePreferences(currentUnitPlacement, currentMap.getAsset().getMapData().getEnemiesLocation());	
+//		Config.savePreferences(new MapEvents(dialogPanel.getResouces(), dialogPanel.getResouces()) , currentMap.getAsset().getMapData().getEventsLocation());	
+
 	}
 	
 
@@ -156,9 +160,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		assert d != null;
 		infoTileset.setSelectedItem(d);
 		
-		currentUnitPlacement = Config.<UnitPlacement>loadPreference(map.getMapData().getEnemiesLocation());
+		currentUnitPlacement = Config.loadPreference(map.getMapData().getEnemiesLocation());
 		enemiesPanel.setUnits(currentUnitPlacement.getUnits());
-		dialogPanel.panelSelected(editor);
+		currentEvent = Config.loadPreference(map.getMapData().getEventsLocation());
+		dialogPanel.setResources(currentEvent.getStartDialog());
 	}
 
 	@Override

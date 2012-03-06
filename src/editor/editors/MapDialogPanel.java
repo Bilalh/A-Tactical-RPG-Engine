@@ -44,6 +44,8 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 	
 	private UnitPlacement enemies;
 	
+	private DialogPart current;
+	
 	public MapDialogPanel(MapsPanel mapPanel, Editor editor) {
 		super(editor,false);
 		this.mapPanel = mapPanel;
@@ -66,12 +68,14 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		
 		infoSpeaker.addItem(null);
 		infoSpeaker.addItemListener(il);
-		
+		infoSpeaker.setSelectedItem(current.getUnitId());
 	}
 
 	@Override
-	protected void setCurrentResource(DialogPart resource) {
-		// FIXME setCurrentResource method
+	protected void setCurrentResource(DialogPart dp) {
+		current = dp;
+		infoText.setText(dp.getText());
+		infoSpeaker.setSelectedItem(dp.getUnitId());
 	}
 
 	@Override
@@ -98,7 +102,7 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (infoSpeaker.getItemCount() <= 0) return;
-//				render.setOldIndex(infoSpeaker.getSelectedIndex());
+				
 			}
 		});
 		infoSpeaker.setRenderer(new TickComboBoxCellRender(infoSpeaker){
@@ -118,7 +122,7 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		});
 				
 		p.add(new JLabel("Text:"), new CC().wrap());
-		p.add(infoText = new JTextArea("   "), new CC().grow().spanX().spanY());
+		p.add(infoText = new JTextArea("abc"), new CC().grow().spanX().spanY());
 		
 		return p;
 	}

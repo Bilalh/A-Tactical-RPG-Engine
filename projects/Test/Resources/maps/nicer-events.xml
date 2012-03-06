@@ -1,0 +1,18 @@
+<mapEvents>
+  <startDialog>
+    <entry>
+      <uuid>be98df73-68d2-4762-b607-f473b14a10fe</uuid>
+      <dialogPart uuid="be98df73-68d2-4762-b607-f473b14a10fe">
+        <text>be98df73-68d2-4762-b607-f473b14a10fe</text>
+      </dialogPart>
+    </entry>
+  </startDialog>
+  <endDialog>
+    <entry>
+      <uuid>6fd5773b-a0b5-4472-8f7b-da20abbb5a6c</uuid>
+      <dialogPart uuid="6fd5773b-a0b5-4472-8f7b-da20abbb5a6c">
+        <text>6fd5773b-a0b5-4472-8f7b-da20abbb5a6c</text>
+      </dialogPart>
+    </entry>
+  </endDialog>
+</mapEvents>

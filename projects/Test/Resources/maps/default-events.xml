@@ -1,0 +1,18 @@
+<mapEvents>
+  <startDialog>
+    <entry>
+      <uuid>72b868fc-3a1d-4e34-84d9-934d880fa0bf</uuid>
+      <dialogPart uuid="72b868fc-3a1d-4e34-84d9-934d880fa0bf">
+        <text>72b868fc-3a1d-4e34-84d9-934d880fa0bf</text>
+      </dialogPart>
+    </entry>
+  </startDialog>
+  <endDialog>
+    <entry>
+      <uuid>51e83965-4040-4578-8b71-9779e035c830</uuid>
+      <dialogPart uuid="51e83965-4040-4578-8b71-9779e035c830">
+        <text>51e83965-4040-4578-8b71-9779e035c830</text>
+      </dialogPart>
+    </entry>
+  </endDialog>
+</mapEvents>
