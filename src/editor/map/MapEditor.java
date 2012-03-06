@@ -15,7 +15,9 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.*;
 
+import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
+import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
@@ -411,7 +413,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		spritesTabs.addTab("Units",    createUnitsPanel());
 		for (IMutableUnit u : map.getEnemies().getUnits()) {
 			unitsListModel.addElement(u);
-			AnimatedUnit m = new AnimatedUnit(0, 0, u);
+			AnimatedUnit m = new AnimatedUnit(-1,-1, u);
 			toMapUnit.put(u.getUuid(), m);
 		}
 		unitsList.setSelectedIndex(0);
@@ -452,8 +454,13 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	private JSpinner   infoHp;
 //	private JSpinner   infoMp;
 	
+	private LayoutManager createLayout() {
+		return new MigLayout("wrap 10");
+	}
+
+	
 	private JComponent createUnitsPanel(){
-		JPanel p =  new JPanel(UnitsPanel.createLayout());
+		JPanel p =  new JPanel(createLayout());
 		p.add(new JLabel("Name:"));
 		p.add((infoName = new JTextField(15)), "span, growx");
 		infoName.setEnabled(false);
@@ -479,7 +486,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		p.add(infoDefence, new CC().alignX("leading").maxWidth("70"));
 		infoDefence.setEnabled(false);
 		
-		p.add(new JLabel("Speed:"));
+		p.add(new JLabel("Speed:"), "gap unrelated");
 		infoSpeed = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
 		p.add(infoSpeed, new CC().alignX("leading").maxWidth("70"));
 		infoSpeed.setEnabled(false);
@@ -489,7 +496,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		p.add(infoMove, new CC().alignX("leading").maxWidth("70"));
 		infoMove.setEnabled(false);
 		
-		p.add(new JLabel("Hp:"));
+		p.add(new JLabel("Hp:"), "gap unrelated");
 		infoHp = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
 		p.add(infoHp, new CC().alignX("leading").maxWidth("70"));
 		infoHp.setEnabled(false);
