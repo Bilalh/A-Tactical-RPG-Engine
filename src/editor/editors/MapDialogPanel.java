@@ -32,7 +32,7 @@ import engine.unit.SpriteSheetData;
 import engine.unit.Unit;
 
 /**
- * Editor for dialog
+ * Editor for a dialog
  * @author Bilal Hussain
  */
 public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogParts> {
@@ -69,7 +69,7 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		
 		infoSpeaker.addItem(null);
 		infoSpeaker.addItemListener(il);
-		infoSpeaker.setSelectedItem(current.getUnitId());
+		if (current != null) infoSpeaker.setSelectedItem(current.getUnitId());
 	}
 
 	
@@ -80,6 +80,8 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 	
 	@Override
 	protected void addToList() {
+		infoText.setEnabled(true);
+		infoSpeaker.setEnabled(true);
 		DialogPart dp = new DialogPart();
 		int index = resourceListModel.size();
 		dp.setText("New Dialogue "+ (index + 1));
@@ -88,7 +90,6 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		resourceList.setSelectedIndex(index);
 	}
 
-
 	@Override
 	public DialogParts getResouces() {
 		if (current != null){
@@ -96,6 +97,21 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		}
 		return super.getResouces();
 	}
+
+	@Override
+	public synchronized void setResources(DialogParts assets) {
+		super.setResources(assets);
+		if (assets.size() == 0){
+			infoText.setText("");
+			infoText.setEnabled(false);
+			infoSpeaker.setEnabled(false);
+			current = null;
+		}else{
+			infoText.setEnabled(true);
+			infoSpeaker.setEnabled(true);
+		}
+	}
+
 	
 	@Override
 	protected void setCurrentResource(DialogPart dp) {
@@ -104,9 +120,15 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		}
 		current = dp;
 		infoText.setText(dp.getText());
-		infoSpeaker.setSelectedItem(dp.getUnitId());
+		UUID uuid =  dp.getUnitId();
+		assert infoSpeaker != null;
+		if(uuid != null && enemies != null) {
+			infoSpeaker.setSelectedItem(enemies.getUnit(uuid));
+		}else{ 
+			infoSpeaker.setSelectedItem(null);
+		}
 	}
-	
+
 	@Override
 	protected JComponent createInfoPanel() {
 		JPanel p = new JPanel(defaultInfoPanelLayout());
@@ -138,7 +160,10 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		});
 				
 		p.add(new JLabel("Text:"), new CC().wrap());
-		p.add(infoText = new JTextArea("abc"), new CC().grow().spanX().spanY());
+		infoText = new JTextArea("abc");
+		infoText.setLineWrap(true);
+		infoText.setWrapStyleWord(true);
+		p.add(new JScrollPane(infoText), new CC().spanX().spanY().grow());
 		
 		return p;
 	}

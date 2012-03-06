@@ -780,7 +780,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 				setActionHandler(ActionsEnum.MENU);
 				break;
 			case KeyEvent.VK_T:
-				dialog.setPicture(ResourceManager.instance().getSpriteFromClassPath("defaults/gui/mage.png"));
 				dialog.setName("Mage");
 				dialog.setText(
 						"Many people believe that Vincent van Gogh painted his best works " +

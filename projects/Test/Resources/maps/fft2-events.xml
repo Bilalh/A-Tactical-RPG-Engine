@@ -1,23 +1,31 @@
 <mapEvents>
   <startDialog>
     <entry>
-      <uuid>2ceeb3c7-1a41-403b-bc38-0270b252762d</uuid>
-      <dialogPart uuid="2ceeb3c7-1a41-403b-bc38-0270b252762d">
-        <text>2ceeb3c7-1a41-403b-bc38-0270b252762d</text>
+      <uuid>1d2db735-a6ed-4926-ab07-c524b244b09c</uuid>
+      <dialogPart uuid="1d2db735-a6ed-4926-ab07-c524b244b09c">
+        <text>AAI never expected to meet a knight of Lodis! I will never forgive you for all that I lost 15 years ago. You burned down my town and killed my parents!!! Thankfully, I’ve acquired the skills of a soldier.</text>
+        <unitId>6363fb76-c8c1-4894-9244-906035ccc1f9</unitId>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>a91ee11a-d962-4948-ade4-c68a2b258930</uuid>
+      <dialogPart uuid="a91ee11a-d962-4948-ade4-c68a2b258930">
+        <text>“I understand that it’s hard for you, but that was a long time ago...”</text>
       </dialogPart>
     </entry>
   </startDialog>
   <endDialog>
     <entry>
-      <uuid>4c4ccda4-17ca-4a32-a624-967dbadad4c5</uuid>
-      <dialogPart uuid="4c4ccda4-17ca-4a32-a624-967dbadad4c5">
-        <text>New Dialogue 2</text>
+      <uuid>a390ce99-cc1f-4478-9d77-1959127ff8ef</uuid>
+      <dialogPart uuid="a390ce99-cc1f-4478-9d77-1959127ff8ef">
+        <text>AAI never expected to meet a knight of Lodis! I will never forgive you for all that I lost 15 years ago. You burned down my town and killed my parents!!! Thankfully, I’ve acquired the skills of a soldier.</text>
       </dialogPart>
     </entry>
     <entry>
-      <uuid>c06988c2-4687-429f-9b86-f8539960795b</uuid>
-      <dialogPart uuid="c06988c2-4687-429f-9b86-f8539960795b">
-        <text>v</text>
+      <uuid>5fb0e5c4-7c5e-4602-946a-6286cd160a4a</uuid>
+      <dialogPart uuid="5fb0e5c4-7c5e-4602-946a-6286cd160a4a">
+        <text>AA“I understand that it’s hard for you, but that was a long time ago...”</text>
+        <unitId>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</unitId>
       </dialogPart>
     </entry>
   </endDialog>

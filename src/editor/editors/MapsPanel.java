@@ -112,6 +112,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		setCurrentResource(currentMap);
 		enemiesPanel.panelSelected(editor);
 		dialogStartPanel.panelSelected(editor);
+		dialogEndPanel.panelSelected(editor);
+
 	}
 
 	@Override

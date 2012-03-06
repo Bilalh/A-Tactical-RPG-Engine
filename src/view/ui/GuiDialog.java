@@ -8,6 +8,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.LineBreakMeasurer;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
+import java.awt.image.BufferedImage;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import java.util.HashMap;
@@ -49,7 +50,7 @@ public class GuiDialog implements IDisplayable{
 	private int yOffset;
 	private int lineHeight;
 	
-	private Sprite image;
+	private BufferedImage image;
 	
 	private Font f = new Font("Serif", Font.PLAIN, 18);
 	private FontMetrics metrics;
@@ -58,7 +59,7 @@ public class GuiDialog implements IDisplayable{
 		this(width, height, null, null);
 	}
 	
-	public GuiDialog(int width, int height, String name, Sprite image) {
+	public GuiDialog(int width, int height, String name, BufferedImage image) {
 		setPicture(image);
 		setWidth(width);
 		
@@ -77,73 +78,72 @@ public class GuiDialog implements IDisplayable{
 			"heights in Provence, his ysical and mental health plummeted. ");
 	}
 
-	//	FIXME cache data
-		@Override
-		public void draw(Graphics2D g,  int drawX, int drawY){
-			Color oldC = g.getColor();
-			Font oldF = g.getFont();
-			
-			g.setColor(new Color(241, 212, 170, 250));
-			g.fillRect(drawX, drawY + yOffset, width, height);
-			
-			// draw the face
-			if (image != null) {
-				g.drawImage(image.getImage(), drawX, drawY, xdiff, height + yOffset, null);
-			}
-			
-			
-			if (lineMeasurer == null){
-				FontRenderContext frc = g.getFontRenderContext();
-				lineMeasurer = new LineBreakMeasurer(paragraph, frc);
-				 metrics = g.getFontMetrics(f);
-			    // get the height of a line of text in this font and render context
-			    lineHeight = metrics.getHeight();
-			}
-			
-			g.setFont(f);
-		    
-			// draw name
-			if (name != null){
-			    g.setColor(new Color(185,186,113));
-			    int length = metrics.stringWidth(name);
-			    g.fillRect(drawX + xdiff, drawY, length+10, yOffset);
-			    g.setColor(new Color(0,0,0));
-				g.drawString(name, drawX + xdiff + 5 , drawY + lineHeight );	
-			}
-		    g.setColor(new Color(0,0,0));
-			
-			// index of the first character in the paragraph.
-			int paragraphStart = index + paragraph.getBeginIndex();
-	
-			float drawPosX = drawX + xdiff+5;
-			float drawPosY = drawY + yOffset;
-			final float breakWidth = textWidth -10;
-			lineMeasurer.setPosition(paragraphStart);
-	
-			// Get lines until the entire paragraph has been displayed.
-			while (lineMeasurer.getPosition() < paragraphEnd) {
-				// Retrieve next layout. A cleverer program would also cache these layouts until the component is re-sized.
-	//			System.out.println(drawPosY+  " " + height+ " " + yOffset+ " " + drawY + " " + (height + drawY) );
-				TextLayout layout = lineMeasurer.nextLayout(breakWidth);
-	
-				// Move y-coordinate by the ascent of the layout.
-				drawPosY += layout.getAscent();
-	
-				// Draw the TextLayout at (drawPosX, drawPosY).
-				layout.draw(g, drawPosX, drawPosY);
-				
-				if (drawPosY > height+ drawY ){
-					temp = lineMeasurer.getPosition();
-					break;
-				}
-				
-				// Move y-coordinate in preparation for next layout.
-				drawPosY += layout.getDescent() + layout.getLeading();
-			}
-			
-			g.setColor(oldC);
-			g.setFont(oldF);
+	// FIXME cache data
+	@Override
+	public void draw(Graphics2D g, int drawX, int drawY) {
+		Color oldC = g.getColor();
+		Font oldF = g.getFont();
+
+		g.setColor(new Color(241, 212, 170, 250));
+		g.fillRect(drawX, drawY + yOffset, width, height);
+
+		// draw the face
+		if (image != null) {
+			g.drawImage(image, drawX, drawY, xdiff, height + yOffset, null);
 		}
+
+		if (lineMeasurer == null) {
+			FontRenderContext frc = g.getFontRenderContext();
+			lineMeasurer = new LineBreakMeasurer(paragraph, frc);
+			metrics = g.getFontMetrics(f);
+			// get the height of a line of text in this font and render context
+			lineHeight = metrics.getHeight();
+		}
+
+		g.setFont(f);
+
+		// draw name
+		if (name != null) {
+			g.setColor(new Color(185, 186, 113));
+			int length = metrics.stringWidth(name);
+			g.fillRect(drawX + xdiff, drawY, length + 10, yOffset);
+			g.setColor(new Color(0, 0, 0));
+			g.drawString(name, drawX + xdiff + 5, drawY + lineHeight);
+		}
+		g.setColor(new Color(0, 0, 0));
+
+		// index of the first character in the paragraph.
+		int paragraphStart = index + paragraph.getBeginIndex();
+
+		float drawPosX = drawX + xdiff + 5;
+		float drawPosY = drawY + yOffset;
+		final float breakWidth = textWidth - 10;
+		lineMeasurer.setPosition(paragraphStart);
+
+		// Get lines until the entire paragraph has been displayed.
+		while (lineMeasurer.getPosition() < paragraphEnd) {
+			// Retrieve next layout. A cleverer program would also cache these layouts until the component is re-sized.
+			// System.out.println(drawPosY+ " " + height+ " " + yOffset+ " " + drawY + " " + (height + drawY) );
+			TextLayout layout = lineMeasurer.nextLayout(breakWidth);
+
+			// Move y-coordinate by the ascent of the layout.
+			drawPosY += layout.getAscent();
+
+			// Draw the TextLayout at (drawPosX, drawPosY).
+			layout.draw(g, drawPosX, drawPosY);
+
+			if (drawPosY > height + drawY) {
+				temp = lineMeasurer.getPosition();
+				break;
+			}
+
+			// Move y-coordinate in preparation for next layout.
+			drawPosY += layout.getDescent() + layout.getLeading();
+		}
+
+		g.setColor(oldC);
+		g.setFont(oldF);
+	}
 
 	// Returns false if there is no more text 
 	public boolean nextPage(){
@@ -161,13 +161,13 @@ public class GuiDialog implements IDisplayable{
 		lineMeasurer = null;
 	}
 
-	public void setPicture(Sprite pic) {
-		this.image   = pic;
-		this.xdiff = (pic == null) ? 5 : pic.getWidth();
+	public void setPicture(BufferedImage image) {
+		this.image   = image;
+		this.xdiff = (image == null) ? 5 : image.getWidth(null);
 		setWidth(this.width);
 	}
 	
-	public Sprite getPicture() {
+	public BufferedImage getPicture() {
 		return image;
 	}
 

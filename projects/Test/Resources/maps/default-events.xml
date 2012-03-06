@@ -1,23 +1,37 @@
 <mapEvents>
   <startDialog>
     <entry>
-      <uuid>6abd5241-8a30-4316-9baa-993bbf819e8b</uuid>
-      <dialogPart uuid="6abd5241-8a30-4316-9baa-993bbf819e8b">
-        <text>New Dialogue 3nbbb</text>
+      <uuid>4e0a9850-feca-44f1-a312-19c0950fa692</uuid>
+      <dialogPart uuid="4e0a9850-feca-44f1-a312-19c0950fa692">
+        <text>New Dialogue 3</text>
+        <unitId>26acf856-b268-4efb-8a47-67ab5bc61add</unitId>
       </dialogPart>
     </entry>
     <entry>
-      <uuid>4a2d3678-3318-45bc-81b0-cb1cbec150ac</uuid>
-      <dialogPart uuid="4a2d3678-3318-45bc-81b0-cb1cbec150ac">
+      <uuid>9648cb28-b46c-4f7a-8d94-7f9ffeff667d</uuid>
+      <dialogPart uuid="9648cb28-b46c-4f7a-8d94-7f9ffeff667d">
+        <text>New Dialogue 3</text>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>a36c7a0a-da6f-4971-bc71-e0e5fdf4ba64</uuid>
+      <dialogPart uuid="a36c7a0a-da6f-4971-bc71-e0e5fdf4ba64">
         <text>New Dialogue 2</text>
       </dialogPart>
     </entry>
   </startDialog>
   <endDialog>
     <entry>
-      <uuid>1d9666fb-4b2a-4088-a027-2e3b4e882225</uuid>
-      <dialogPart uuid="1d9666fb-4b2a-4088-a027-2e3b4e882225">
-        <text>New Dialogue 5</text>
+      <uuid>17c289df-921b-4228-bc9a-fbf1a5be96d3</uuid>
+      <dialogPart uuid="17c289df-921b-4228-bc9a-fbf1a5be96d3">
+        <text>New Dialogue 1</text>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>0fce29a9-3268-44e9-8641-a86cfffff4ca</uuid>
+      <dialogPart uuid="0fce29a9-3268-44e9-8641-a86cfffff4ca">
+        <text>New Dialogue 2</text>
+        <unitId>26acf856-b268-4efb-8a47-67ab5bc61add</unitId>
       </dialogPart>
     </entry>
   </endDialog>

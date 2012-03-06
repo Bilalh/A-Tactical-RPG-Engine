@@ -32,7 +32,7 @@ public class DialogPart implements Identifiable {
 
 	public void setUnitId(IUnit u) {
 		if (u == null ) unitId = null;
-		else            uuid   = u.getUuid();
+		else            unitId   = u.getUuid();
 	}
 	
 	/** @category Generated */
