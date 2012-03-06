@@ -75,8 +75,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private ITileMapping  currentMapping;
 	private UnitPlacement currentUnitPlacement;
 
-	private JTabbedPane infoTabs;
-	private UnitsPanel  enemiesPanel;
+	private JTabbedPane    infoTabs;
+	private UnitsPanel     enemiesPanel;
+	private MapDialogPanel dialogPanel;
 	
 	public MapsPanel(Editor editor) {
 		super(editor);
@@ -155,7 +156,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 	@Override
 	protected void addToList() {
-		
+		//FIXME addToList
 	}
 
 	private void changeName(){
@@ -310,6 +311,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoTabs = new JTabbedPane();
 		infoTabs.addTab("Details", p);
 		infoTabs.addTab("Enemies ", (enemiesPanel = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy")));
+		infoTabs.addTab("Dialog", (dialogPanel = new MapDialogPanel(editor)));
 		return infoTabs;
 	}
 

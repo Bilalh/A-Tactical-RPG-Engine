@@ -122,6 +122,10 @@ public abstract class XMLUtil {
 				SpriteSheetData.class,
 				Sprites.class,
 				
+				DialogParts.class,
+				DialogPart.class,
+				
+				
 				//Model 
 				Unit.class,
 				AbstractUnitObject.class,
@@ -137,6 +141,7 @@ public abstract class XMLUtil {
 				Textures.class,
 				Maps.class,
 				UnitPlacement.class,
+				MapEvents.class,
 				
 				// Editor
 				MutableSprite.class,

@@ -12,8 +12,8 @@ Editor
 -----
 * Added image to tilemap on save. -- done
 * Main editor for making game
-* Ai Unit placement
-* Unit creation -- mostly
+* Ai Unit placement -- done
+* Unit creation -- done
 * Item Creation -- done
 * Dialog loading
 

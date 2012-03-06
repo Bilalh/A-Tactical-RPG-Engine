@@ -18,7 +18,7 @@ import view.ui.interfaces.IDisplayable;
 import common.gui.Sprite;
 
 
-public class Dialog implements IDisplayable{
+public class GuiDialog implements IDisplayable{
 
 	private int textWidth;
 	private int width;
@@ -49,17 +49,17 @@ public class Dialog implements IDisplayable{
 	private int yOffset;
 	private int lineHeight;
 	
-	private Sprite pic;
+	private Sprite image;
 	
 	private Font f = new Font("Serif", Font.PLAIN, 18);
 	private FontMetrics metrics;
 	
-	public Dialog(int width, int height){
+	public GuiDialog(int width, int height){
 		this(width, height, null, null);
 	}
 	
-	public Dialog(int width, int height, String name, Sprite pic) {
-		setPicture(pic);
+	public GuiDialog(int width, int height, String name, Sprite image) {
+		setPicture(image);
 		setWidth(width);
 		
 		yOffset = 25;
@@ -87,8 +87,8 @@ public class Dialog implements IDisplayable{
 			g.fillRect(drawX, drawY + yOffset, width, height);
 			
 			// draw the face
-			if (pic != null) {
-				g.drawImage(pic.getImage(), drawX, drawY, xdiff, height + yOffset, null);
+			if (image != null) {
+				g.drawImage(image.getImage(), drawX, drawY, xdiff, height + yOffset, null);
 			}
 			
 			
@@ -161,15 +161,16 @@ public class Dialog implements IDisplayable{
 		lineMeasurer = null;
 	}
 
-	public Sprite getPicture() {
-		return pic;
-	}
-
 	public void setPicture(Sprite pic) {
-		this.pic   = pic;
+		this.image   = pic;
 		this.xdiff = (pic == null) ? 5 : pic.getWidth();
 		setWidth(this.width);
 	}
+	
+	public Sprite getPicture() {
+		return image;
+	}
+
 	
 	public String getName() {
 		return name;

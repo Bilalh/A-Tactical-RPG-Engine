@@ -41,13 +41,16 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 	protected Editor editor;
 	protected JList resourceList;
 	protected DefaultListModel resourceListModel;
-
-	public AbstractResourcesPanel(Editor editor){
-		this(editor, new BorderLayout());
+	protected boolean listOnLeft; 
+	
+	public AbstractResourcesPanel(Editor editor) {
+		this(editor, true);
 	}
-	public AbstractResourcesPanel(Editor editor, LayoutManager layout) {
-		super(layout);
-		this.editor = editor;
+	
+	public AbstractResourcesPanel(Editor editor, boolean listOnLeft) {
+		super(new BorderLayout());
+		this.listOnLeft = listOnLeft;
+		this.editor     = editor;
 		createMainPane();
 	}
 
@@ -82,11 +85,17 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 	
 	protected void createMainPane() {
 		JComponent p = createInfoPanel();
-		JSplitPane mainSplit = new JSplitPane(
-				JSplitPane.HORIZONTAL_SPLIT, true, createLeftPane(), p);
-		mainSplit.setOneTouchExpandable(true);
-		mainSplit.setResizeWeight(0.05);
-		mainSplit.setBorder(null);
+		JSplitPane mainSplit;
+		if (listOnLeft){
+			mainSplit = new JSplitPane(
+					JSplitPane.HORIZONTAL_SPLIT, true, createLeftPane(), p);
+			mainSplit.setResizeWeight(0.05);
+		}else{
+			mainSplit = new JSplitPane(
+					JSplitPane.HORIZONTAL_SPLIT, true, p, createLeftPane());
+			mainSplit.setResizeWeight(0.95);			
+		}
+		
 		this.add(mainSplit, BorderLayout.CENTER);
 	}
 

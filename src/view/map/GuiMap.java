@@ -22,7 +22,7 @@ import view.Gui;
 import view.map.IsoTile.TileState;
 import view.map.interfaces.IActions;
 import view.map.interfaces.IMapRendererParent;
-import view.ui.Dialog;
+import view.ui.GuiDialog;
 import view.ui.Menu;
 import view.ui.UnitInfoDisplay;
 import view.ui.interfaces.IMenuItem;
@@ -70,7 +70,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	// UI elements
 	private Menu menu     = new Menu();
-	private Dialog dialog = new Dialog(0, 0);
+	private GuiDialog dialog = new GuiDialog(0, 0);
 	
 	final MenuInput menuInput            = new MenuInput(this, menu);
 	final DialogHandler dialogHandler    = new DialogHandler(this, dialog);

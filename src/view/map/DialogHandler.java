@@ -4,15 +4,15 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
 import view.map.GuiMap.ActionsEnum;
-import view.ui.Dialog;
+import view.ui.GuiDialog;
 import view.util.MapActions;
 
 class DialogHandler extends MapActions {
 
-	private Dialog dialog;
+	private GuiDialog dialog;
 	private ActionsEnum nextAction = ActionsEnum.MOVEMENT;
 
-	public DialogHandler(GuiMap map, Dialog dialog) {
+	public DialogHandler(GuiMap map, GuiDialog dialog) {
 		super(map);
 		this.dialog = dialog;
 	}
@@ -39,7 +39,7 @@ class DialogHandler extends MapActions {
 	}
 
 	/** @category Generated */
-	public Dialog getDialog() {
+	public GuiDialog getDialog() {
 		return dialog;
 	}
 
