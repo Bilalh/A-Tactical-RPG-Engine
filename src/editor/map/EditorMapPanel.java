@@ -248,7 +248,17 @@ public class EditorMapPanel extends JPanel {
 		drawn = false;
 		repaint();
 	}
-
+	
+	public void invalidateMap(){
+		mapRender.invaildate();
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				field[i][j].invaildate(settings);
+			}
+		}
+		repaintMap();
+	}
+	
 	/** @category Generated */
 	public void toggleNumbering() {
 		mapRender.toggleNumbering();

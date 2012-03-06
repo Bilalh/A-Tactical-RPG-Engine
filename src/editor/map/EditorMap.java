@@ -122,6 +122,4 @@ public class EditorMap extends BasicMap {
 	public EditorIsoTile getGuiTile(ILocation l){
 		return guiField[l.getX()][l.getY()];
 	}
-
-	
 }

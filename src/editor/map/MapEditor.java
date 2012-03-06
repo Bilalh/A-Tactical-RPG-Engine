@@ -23,6 +23,7 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 import org.jvnet.inflector.Noun;
 
+import view.map.GuiMap;
 import view.map.interfaces.IMapRendererParent;
 import view.units.AnimatedUnit;
 
@@ -856,42 +857,49 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		private static final long serialVersionUID = 4069963919157697524L;
 
 		public ZoomInAction() {
-			putValue(SHORT_DESCRIPTION, "action.zoom.in.tooltip");
+			putValue(SHORT_DESCRIPTION, "Zoom In");
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, Resources.getIcon("images/gnome-zoom-in.png"));
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			if (map.getMapSettings().zoom >= 1.0) return;
+			map.getMapSettings().zoom += 0.2;
+			editorMapPanel.invalidateMap();
 		}
 	}
 
 	private class ZoomOutAction extends AbstractAction {
-		private static final long serialVersionUID = 1630640363711233878L;
+		private static final long serialVersionUID = -7391473073942670422L;
 
 		public ZoomOutAction() {
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control MINUS"));
-			putValue(SHORT_DESCRIPTION, "action.zoom.out.tooltip");
+			putValue(SHORT_DESCRIPTION, "Zoom out");
 			putValue(LARGE_ICON_KEY, Resources.getIcon("images/gnome-zoom-out.png"));
 			putValue(SMALL_ICON, Resources.getIcon("images/gnome-zoom-out.png"));
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-
+			if (map.getMapSettings().zoom <= 0.8) return;
+			map.getMapSettings().zoom -= 0.2;
+			editorMapPanel.invalidateMap();
 		}
 	}
 
 	private class ZoomNormalAction extends AbstractAction {
-		private static final long serialVersionUID = -4301272641043394395L;
+		private static final long serialVersionUID = -4078029334420505478L;
 
 		public ZoomNormalAction() {
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control 0"));
-			putValue(SHORT_DESCRIPTION, "action.zoom.normal.tooltip");
+			putValue(SHORT_DESCRIPTION, "Noramal Zoom");
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent evt) {
+			map.getMapSettings().zoom = 1.0f;
+			editorMapPanel.invalidateMap();
 		}
 	}
 }

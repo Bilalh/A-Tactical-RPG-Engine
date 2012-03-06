@@ -1,4 +1,4 @@
-<map uuid="9025c2f5-909e-49b1-b1f5-9a647b5309c8" width="13" height="15">
+<map uuid="cf2c2120-83da-4eca-996d-04db588cf221" width="13" height="15">
   <mapSettings>
     <tileDiagonal>60</tileDiagonal>
     <tileHeight>10</tileHeight>
@@ -1122,24 +1122,28 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>blue</rightWall>
   </tile>
   <tile x="12" y="5">
     <type>2</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>blue</rightWall>
   </tile>
   <tile x="12" y="6">
     <type>2</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>blue</rightWall>
   </tile>
   <tile x="12" y="7">
     <type>8-4</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>blue</rightWall>
   </tile>
   <tile x="12" y="8">
     <type>8-4</type>
