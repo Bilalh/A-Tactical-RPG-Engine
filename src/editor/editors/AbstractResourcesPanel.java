@@ -151,7 +151,7 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));		
 	}
 	
-	protected JPanel createHeader(String text) {
+	public  static JPanel createHeader(String text) {
 		JPanel header = new HeaderPanel(new BorderLayout());
 		header.add(new JLabel("<HTML>" + text + "<BR></HTML>"), BorderLayout.CENTER);
 		return header;

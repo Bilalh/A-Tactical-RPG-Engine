@@ -4,7 +4,7 @@
       <uuid>7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0</uuid>
       <unit uuid="7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0">
         <name>New Enemy C</name>
-		<maxHp>30</maxHp>
+        <maxHp>30</maxHp>
         <move>4</move>
         <strength>30</strength>
         <defence>3</defence>

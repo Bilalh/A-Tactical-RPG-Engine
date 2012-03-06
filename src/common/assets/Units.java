@@ -1,5 +1,7 @@
 package common.assets;
 
+import java.util.Iterator;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import engine.unit.IMutableUnit;
@@ -10,5 +12,4 @@ import engine.unit.IMutableUnit;
  */
 @XStreamAlias("units")
 public class Units extends AbstractAssets<IMutableUnit> {
-
 }

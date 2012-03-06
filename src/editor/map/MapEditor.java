@@ -13,23 +13,28 @@ import java.util.prefs.Preferences;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 
 import net.miginfocom.layout.CC;
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
+import org.jvnet.inflector.Noun;
 
 import view.map.interfaces.IMapRendererParent;
 
 import common.enums.Orientation;
+import common.interfaces.IWeapon;
 
 import config.Config;
 import config.XMLUtil;
 import config.xml.MapData;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
+import editor.editors.AbstractResourcesPanel;
+import editor.editors.UnitsPanel;
+import editor.editors.UnitsPanel.UnitListRenderer;
+import editor.editors.UnitsPanel.WeaponDropDownListRenderer;
 import editor.map.*;
 import editor.spritesheet.*;
 import editor.ui.FloatablePanel;
@@ -37,6 +42,9 @@ import editor.ui.TButton;
 import editor.util.Prefs;
 import editor.util.Resources;
 import engine.map.Tile;
+import engine.unit.IMutableUnit;
+import engine.unit.SpriteSheetData;
+import engine.unit.Unit;
 
 /**
  * Map Editor for the engine
@@ -48,7 +56,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	private JFrame frame;
 
 	private AbstractButton drawButton,   drawInfoButton,  eraseButton, fillButton;
-	private AbstractButton eyeButton,    selectionButton, moveButton;
+	private AbstractButton eyeButton,    selectionButton, moveButton,  placeButton;
 	private final Action   zoomInAction, zoomOutAction,   zoomNormalAction;
 	
 	private MapState state = MapState.DRAW;
@@ -204,6 +212,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 					repaint = true;
 				}
 				break;
+				
 			case DRAW_INFO:
 				if (selectedTileSprite != null){
 					map.setTileSprite(tile.getLocation(), selectedTileSprite);
@@ -226,6 +235,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 				selectedTileSprite = tile.getSprite();
 				tilesetPanel.setSelectedSprites(selectedTileSprite);
 				break;
+				
 			case FILL:
 				if (selectedTileSprite != null && selection.contains(tile)){
 					for (EditorIsoTile t : selection) {
@@ -243,12 +253,26 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 			selection.add(tile);	
 		}
 		
-		if (state == MapState.DRAW_INFO || state == MapState.DRAW || state == MapState.EYE ){
-			infoHeight.setValue(tile.getHeight());
-			//FIXME hack type name
+		if (state == MapState.DRAW_INFO || state == MapState.DRAW){
+			infoHeight.setValue(tile.getEndHeight());
+			//FIXME ChangeLister
 			infoType.setText(tile.getSprite().getName());
 			infoOrientation.setSelectedItem(tile.getOrientation());
 			infoLocation.setText(String.format("(%s,%s)", tile.getX(), tile.getY()));	
+		}
+		
+		if (state == MapState.EYE){
+			ChangeListener cl =  infoHeight.getChangeListeners()[0];
+			infoHeight.removeChangeListener(cl);
+			infoHeight.setValue(tile.getEndHeight());
+			infoHeight.addChangeListener(cl);
+			
+			ItemListener il = infoOrientation.getItemListeners()[0];
+			infoOrientation.setSelectedItem(tile.getOrientation());
+			infoOrientation.addItemListener(il);
+			
+			infoLocation.setText(String.format("(%s,%s)", tile.getX(), tile.getY()));	
+
 		}
 		
 		if (repaint) editorMapPanel.repaintMap();
@@ -341,7 +365,6 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 			}
 		});
 		spritesTabs.addTab("Textures", texturesPanel);
-		
 		spritesPanelContainer = new FloatablePanel(frame, spritesTabs, "Sprites", "tilesets");
 		
 		JSplitPane paletteSplit = new JSplitPane(
@@ -353,13 +376,20 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		main.add(paletteSplit, BorderLayout.CENTER);
 		main.add(createSideBar(), BorderLayout.WEST);
 		createMap();
-
+		
 		mapScrollPane.setViewportView(editorMapPanel);
 		JViewport mapViewport = mapScrollPane.getViewport();
 		
 		MouseAdapter mapScroller = new MapScroller(mapViewport,editorMapPanel, this);
         editorMapPanel.addMouseMotionListener(mapScroller);
         editorMapPanel.addMouseListener(mapScroller);
+		
+        
+		spritesTabs.addTab("Units",    createUnitsPanel());
+		for (IMutableUnit u : map.getEnemies().getUnits()) {
+			unitsListModel.addElement(u);
+		}
+
 		
         JPanel statusPanel = new JPanel();
         statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -369,7 +399,92 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
         statusLabel = new JLabel("");
         statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
         statusPanel.add(statusLabel);
-		return main;
+		
+        return main;
+	}
+	
+	
+	private JList unitsList;
+	private DefaultListModel unitsListModel;
+	private IMutableUnit currentUnit;
+	
+	private JTextField infoName;
+	private JComboBox  infoWeapon;
+	
+	private JSpinner   infoStrength;
+	private JSpinner   infoDefence;
+	
+	private JSpinner   infoSpeed;
+	private JSpinner   infoMove;
+
+	private JSpinner   infoHp;
+//	private JSpinner   infoMp;
+	
+	private JComponent createUnitsPanel(){
+		JPanel p =  new JPanel(UnitsPanel.createLayout());
+		p.add(new JLabel("Name:"));
+		p.add((infoName = new JTextField(15)), "span, growx");
+		infoWeapon = new JComboBox(new IWeapon[]{});
+		infoWeapon.setRenderer(new WeaponDropDownListRenderer());
+		infoWeapon.setEditable(false);
+		p.add(new JLabel("Weapon:"));
+		p.add(infoWeapon, "span, growx");
+
+		p.add(new JLabel("Strength:"));
+		infoStrength = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		p.add(infoStrength, new CC().alignX("leading").maxWidth("70"));
+		infoStrength.setEnabled(false);
+		
+		p.add(new JLabel("Defence:"), "gap unrelated");
+		infoDefence = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		p.add(infoDefence, new CC().alignX("leading").maxWidth("70").wrap());
+		infoDefence.setEnabled(false);
+		
+		p.add(new JLabel("Speed:"));
+		infoSpeed = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		p.add(infoSpeed, new CC().alignX("leading").maxWidth("70"));
+		infoSpeed.setEnabled(false);
+		
+		p.add(new JLabel("Move:"), "gap unrelated");
+		infoMove = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		p.add(infoMove, new CC().alignX("leading").maxWidth("70").wrap());
+		infoMove.setEnabled(false);
+		
+		p.add(new JLabel("Hp:"));
+		infoHp = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		p.add(infoHp, new CC().alignX("leading").maxWidth("70").wrap());
+		infoHp.setEnabled(false);
+
+		unitsListModel = new DefaultListModel();
+		
+		unitsList = new JList(unitsListModel);
+		unitsList.setCellRenderer(new UnitListRenderer());
+		unitsList.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				IMutableUnit u =  (IMutableUnit) unitsList.getSelectedValue();
+//				setCurrentUnit(u);
+			}
+		});
+		
+		JScrollPane slist = new JScrollPane(unitsList);
+		JPanel header = AbstractResourcesPanel.createHeader("All Enemies");
+		slist.setColumnHeaderView(header);
+
+		p.add(slist, new CC().dockWest().gapAfter("10px!").spanX(2));
+		
+		return p;
+	}
+	
+	public static class UnitListRenderer extends DefaultListCellRenderer {
+		private static final long serialVersionUID = 5874522377321012662L;
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+			IMutableUnit w= (IMutableUnit) value;
+			label.setText(w.getName() + "            ");
+			return label;
+		}
 	}
 	
 	/** @category Gui**/
@@ -434,14 +549,18 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		ImageIcon iconFill      = Resources.getIcon("images/gimp-tool-bucket-fill-22.png");
 		ImageIcon iconEyed      = Resources.getIcon("images/gimp-tool-color-picker-22.png");
 		ImageIcon iconSelection = Resources.getIcon("images/gimp-tool-rect-select-22.png");
+		ImageIcon iconPlaceUnit = Resources.getIcon("images/tool-smudge.png");
 
+		
 		drawButton     = makeToggleButton(iconDraw,  MapState.DRAW.name(),       MapState.DRAW.description);
 		drawInfoButton = makeToggleButton(iconDraw,  MapState.DRAW_INFO.name(),  MapState.DRAW_INFO.description);
 		
-		eraseButton    = makeToggleButton(iconErase, MapState.ERASE.name(), MapState.ERASE.description);
-		fillButton     = makeToggleButton(iconFill,  MapState.FILL.name(),  MapState.FILL.description);
-		eyeButton      = makeToggleButton(iconEyed,  MapState.EYE.name(),   MapState.EYE.description);
-		moveButton     = makeToggleButton(iconMove,  MapState.MOVE.name(),  MapState.MOVE.description);
+		eraseButton    = makeToggleButton(iconErase, MapState.ERASE.name(),  MapState.ERASE.description);
+		fillButton     = makeToggleButton(iconFill,  MapState.FILL.name(),   MapState.FILL.description);
+		eyeButton      = makeToggleButton(iconEyed,  MapState.EYE.name(),    MapState.EYE.description);
+		moveButton     = makeToggleButton(iconMove,  MapState.MOVE.name(),   MapState.MOVE.description);
+		placeButton    = makeToggleButton(iconPlaceUnit ,  MapState.PLACE.name(),  MapState.PLACE.description);
+
 
 		selectionButton = makeToggleButton(iconSelection, MapState.SELECTION.name(), MapState.SELECTION.description);
 		
@@ -455,6 +574,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		toolBar.add(fillButton);
 		toolBar.add(eyeButton);
 		toolBar.add(selectionButton);
+		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
+		toolBar.add(placeButton);
 		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
 		toolBar.add(new TButton(zoomInAction));
 		toolBar.add(new TButton(zoomOutAction));
@@ -625,6 +746,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		eyeButton.setSelected(state == MapState.EYE);
 		selectionButton.setSelected(state == MapState.SELECTION);
 		moveButton.setSelected(state == MapState.MOVE);
+		placeButton.setSelected(state == MapState.PLACE);
 	}
 
 	

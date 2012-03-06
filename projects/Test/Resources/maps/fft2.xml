@@ -1,4 +1,4 @@
-<map uuid="1b7f2595-0bf7-4ecb-8145-7f6da423be39" width="13" height="15">
+<map uuid="b15813f8-24b9-4c3d-a786-5a414182ac3f" width="13" height="15">
   <mapSettings>
     <tileDiagonal>60</tileDiagonal>
     <tileHeight>10</tileHeight>
@@ -6,7 +6,7 @@
     <zoom>1.0</zoom>
   </mapSettings>
   <mapData>
-    <name>fft2 test</name>
+    <name>a fft2 test</name>
     <tileMappingLocation>images/tilesets/fft2-mapping.xml</tileMappingLocation>
     <texturesLocation>images/textures/default.png</texturesLocation>
     <enemiesLocation>maps/fft2-enemies.xml</enemiesLocation>

@@ -1,9 +1,6 @@
 package common.assets;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
@@ -11,15 +8,17 @@ import common.interfaces.IWeapon;
 import common.interfaces.Identifiable;
 
 import config.IPreference;
+import engine.unit.IMutableUnit;
 
 /**
- * Stores assets by their id. Default implemnation of IAssets
+ * Stores assets by their id. Default implemnation of IAssets.
+ * It is also Iterable over the values of type E 
  * 
  * @param E  The type of the Identifiable assert. 
  * 
  * @author Bilal Hussain
  */
-public abstract class AbstractAssets<E extends Identifiable> implements  IAssets<E>  {
+public abstract class AbstractAssets<E extends Identifiable> implements  IAssets<E>, Iterable<E>  {
 	
 	@XStreamImplicit
 	private Map<UUID, E> assets = new HashMap<UUID, E>();
@@ -83,4 +82,9 @@ public abstract class AbstractAssets<E extends Identifiable> implements  IAssets
 		return String.format("AbstractAssets [assets=%s]", assets);
 	}
 
+	@Override
+	public Iterator<E> iterator() {
+		return assets.values().iterator();
+	}
+	
 }

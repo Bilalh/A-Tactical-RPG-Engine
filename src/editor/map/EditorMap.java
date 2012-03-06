@@ -3,6 +3,7 @@ package editor.map;
 import util.Args;
 
 import common.Location;
+import common.assets.UnitPlacement;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 
@@ -94,5 +95,8 @@ public class EditorMap extends BasicMap {
 		return textures;
 	}
 
+	public UnitPlacement getEnemies() {
+		return enemies;
+	}
 
 }

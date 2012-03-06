@@ -8,7 +8,8 @@ public enum MapState {
 	FILL("FILL"),
 	EYE("Eye Dropper"),
 	SELECTION("Select Area"),
-	MOVE("Move");
+	MOVE("Move"),
+	PLACE("Place Unit");
 	
 	public final String description;
 	

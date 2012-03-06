@@ -384,7 +384,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		}
 	}
 
-	protected LayoutManager createLayout() {
+	public static LayoutManager createLayout() {
 		LC layC = new LC().fill().wrap();
 		AC colC = new AC().align("right", 1).fill(1, 3).grow(100, 1, 3).align("right", 3).gap("15", 1,3);
 		AC rowC = new AC().align("top", 10).gap("15!", 10).grow(100, 10);
@@ -617,7 +617,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		
 	}
 	
-	static class WeaponDropDownListRenderer extends DefaultListCellRenderer {
+	public static class WeaponDropDownListRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 7730726867980301916L;
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -629,7 +629,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		}
 	}
 	
-	static class UnitListRenderer extends DefaultListCellRenderer {
+	public static class UnitListRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
