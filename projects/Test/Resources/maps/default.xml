@@ -1,4 +1,4 @@
-<map uuid="fc0bcc09-d906-492e-acbb-5723f779cb16" width="13" height="15">
+<map uuid="0499bd52-2d6c-4af8-ab52-f6f891740a95" width="13" height="15">
   <mapSettings>
     <tileDiagonal>60</tileDiagonal>
     <tileHeight>10</tileHeight>
@@ -379,14 +379,14 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="4" y="0">
-    <type>8-4</type>
-    <height>1</height>
-    <startingHeight>1</startingHeight>
+    <type>4</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
     <orientation>UP_TO_EAST</orientation>
     <leftWall>blue</leftWall>
   </tile>
   <tile x="4" y="1">
-    <type>2</type>
+    <type>4</type>
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>UP_TO_EAST</orientation>
@@ -470,9 +470,9 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="0">
-    <type>8-4</type>
-    <height>1</height>
-    <startingHeight>1</startingHeight>
+    <type>4</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
     <orientation>UP_TO_EAST</orientation>
     <leftWall>blue</leftWall>
   </tile>
@@ -501,13 +501,13 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="5">
-    <type>2</type>
+    <type>4</type>
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="5" y="6">
-    <type>8-4</type>
+    <type>4</type>
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>UP_TO_EAST</orientation>
@@ -561,9 +561,9 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="6" y="0">
-    <type>8-4</type>
-    <height>1</height>
-    <startingHeight>1</startingHeight>
+    <type>4</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
     <orientation>UP_TO_EAST</orientation>
     <leftWall>blue</leftWall>
   </tile>
@@ -683,7 +683,7 @@
     <orientation>UP_TO_EAST</orientation>
   </tile>
   <tile x="7" y="5">
-    <type>2</type>
+    <type>4</type>
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>UP_TO_EAST</orientation>
@@ -802,6 +802,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>ice</rightWall>
   </tile>
   <tile x="8" y="10">
     <type>5</type>

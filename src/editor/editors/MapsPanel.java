@@ -107,6 +107,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		setCurrentResource(currentMap);
 		enemiesPanel.panelSelected(editor);
+		dialogPanel.panelSelected(editor);
 	}
 
 	@Override
@@ -121,6 +122,11 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());	
 		currentUnitPlacement.setUnits(enemiesPanel.getUnits());
 		Config.savePreferences(currentUnitPlacement, currentMap.getAsset().getMapData().getEnemiesLocation());		
+	}
+	
+
+	protected UnitPlacement getEnemies(){
+		return currentUnitPlacement;
 	}
 	
 	@Override
@@ -152,6 +158,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		currentUnitPlacement = Config.<UnitPlacement>loadPreference(map.getMapData().getEnemiesLocation());
 		enemiesPanel.setUnits(currentUnitPlacement.getUnits());
+		dialogPanel.panelSelected(editor);
 	}
 
 	@Override
@@ -311,7 +318,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoTabs = new JTabbedPane();
 		infoTabs.addTab("Details", p);
 		infoTabs.addTab("Enemies ", (enemiesPanel = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy")));
-		infoTabs.addTab("Dialog", (dialogPanel = new MapDialogPanel(editor)));
+		infoTabs.addTab("Dialog", (dialogPanel = new MapDialogPanel(this, editor)));
 		return infoTabs;
 	}
 
@@ -331,7 +338,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	}
 	
 	@Override
-	protected String resourceDisplayName(DeferredMap map){
+	protected String resourceDisplayName(DeferredMap map, int index){
 		assert map != null;
 		return map.getAsset().getMapData().getName();
 	}

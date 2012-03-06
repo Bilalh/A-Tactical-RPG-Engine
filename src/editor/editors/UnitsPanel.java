@@ -209,6 +209,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		}
 	}
 	
+	
 	@Override
 	public synchronized void panelSelected(Editor editor) {
 		spriteSheets = editor.getUnitsSprites();
@@ -628,15 +629,20 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			return label;
 		}
 	}
-	
+
 	public static class UnitListRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 5874522377321012662L;
+
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			
 			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-			IMutableUnit w= (IMutableUnit) value;
-			label.setText(w.getName());
-//			label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
+			if (value == null){
+				label.setText("None");
+			}else{
+				IMutableUnit w= (IMutableUnit) value;
+				label.setText(w.getName());	
+			}
 			return label;
 		}
 	}

@@ -13,6 +13,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
@@ -29,9 +31,11 @@ import common.interfaces.Identifiable;
 import editor.Editor;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
+import editor.util.Resources;
 
 /**
  * Infrastructure for an panel that manages resources
+ * 
  * @author Bilal Hussain
  */
 public abstract class AbstractResourcesPanel<R extends Identifiable, A extends AbstractAssets<R>> extends JPanel implements IRefreshable {
@@ -41,21 +45,21 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 	protected Editor editor;
 	protected JList resourceList;
 	protected DefaultListModel resourceListModel;
-	protected boolean listOnLeft; 
-	
+	protected boolean listOnLeft;
+
 	public AbstractResourcesPanel(Editor editor) {
 		this(editor, true);
 	}
-	
+
 	public AbstractResourcesPanel(Editor editor, boolean listOnLeft) {
 		super(new BorderLayout());
 		this.listOnLeft = listOnLeft;
-		this.editor     = editor;
+		this.editor = editor;
 		createMainPane();
 	}
 
-	protected abstract A createAssetInstance(); 
-	
+	protected abstract A createAssetInstance();
+
 	public A getResouces() {
 		A ws = createAssetInstance();
 		for (int i = 0; i < resourceListModel.size(); i++) {
@@ -65,102 +69,104 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 	}
 
 	public synchronized void setResources(A assets) {
-		ListSelectionListener lsl =  resourceList.getListSelectionListeners()[0];
+		ListSelectionListener lsl = resourceList.getListSelectionListeners()[0];
 		resourceList.removeListSelectionListener(lsl);
 		resourceListModel.clear();
 		for (R u : assets.values()) {
 			assert u != null;
 			resourceListModel.addElement(u);
 		}
-		
+
 		assert assets.size() == resourceListModel.size();
 		resourceList.addListSelectionListener(lsl);
 		resourceList.setSelectedIndex(0);
 	}
 
 	protected abstract void setCurrentResource(R resource);
+
 	protected abstract R defaultResource();
+
 	protected abstract String resourceName();
-	protected abstract String resourceDisplayName(R resource);
-	
+
+	protected abstract String resourceDisplayName(R resource, int index);
+
 	protected void createMainPane() {
 		JComponent p = createInfoPanel();
 		JSplitPane mainSplit;
-		if (listOnLeft){
+		if (listOnLeft) {
 			mainSplit = new JSplitPane(
 					JSplitPane.HORIZONTAL_SPLIT, true, createLeftPane(), p);
 			mainSplit.setResizeWeight(0.05);
-		}else{
+		} else {
 			mainSplit = new JSplitPane(
 					JSplitPane.HORIZONTAL_SPLIT, true, p, createLeftPane());
-			mainSplit.setResizeWeight(0.95);			
+			mainSplit.setResizeWeight(0.95);
 		}
-		
+
 		this.add(mainSplit, BorderLayout.CENTER);
 	}
 
 	protected JComponent createLeftPane() {
 		R defaultt = defaultResource();
-		
+
 		resourceListModel = new DefaultListModel();
 		resourceList = new JList(resourceListModel);
 		resourceList.setCellRenderer(new AbstractListRenderer());
 		resourceListModel.addElement(defaultt);
-		
+
 		resourceList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				R resource =  (R) resourceList.getSelectedValue();
+				R resource = (R) resourceList.getSelectedValue();
 				if (resource == null) return;
 				setCurrentResource(resource);
 			}
 		});
 		resourceList.setSelectedIndex(0);
-	
+
 		resourceList.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (resourceListModel.size() <= 1) return;
-	
+
 				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
 					deleteFromList(resourceList.getSelectedIndex());
 				}
 			}
 		});
-	
+
 		JScrollPane slist = new JScrollPane(resourceList);
 		slist.setColumnHeaderView(createHeader("All " + pluralOf(resourceName())));
-		
-		JPanel p  = new JPanel(new BorderLayout());
+
+		JPanel p = new JPanel(new BorderLayout());
 		p.add(slist, BorderLayout.CENTER);
-		
-		JPanel buttons =new JPanel();
+
+		JPanel buttons = new JPanel();
 		buttons.add(new TButton(new DeleteAction()));
 		buttons.add(new TButton(new AddAction()));
 		p.add(buttons, BorderLayout.SOUTH);
-		
+
 		return p;
 	}
 
-	
 	protected LayoutManager defaultInfoPanelLayout() {
 		LC layC = new LC().fill().wrap();
-		AC colC = new AC().align("right", 1).fill(1, 3).grow(100, 1, 3).align("right", 3).gap("15", 1,3);
+		AC colC = new AC().align("right", 1).fill(1, 3).grow(100, 1, 3).align("right", 3).gap("15", 1, 3);
 		AC rowC = new AC().align("top", 10).gap("15!", 10).grow(100, 10);
 		return new MigLayout(layC, colC, rowC);
 	}
-	
+
 	protected abstract JComponent createInfoPanel();
 
-	protected void addSeparator(JPanel p, String title){
+	protected void addSeparator(JPanel p, String title) {
 		JLabel pTitle = new JLabel(title);
 		pTitle.setForeground(Color.BLUE.brighter());
-		
+
 		p.add(pTitle, new CC().split().spanX().gapTop("4"));
-		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));		
+		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
 	}
-	
-	public  static JPanel createHeader(String text) {
+
+	public static JPanel createHeader(String text) {
 		JPanel header = new HeaderPanel(new BorderLayout());
 		header.add(new JLabel("<HTML>" + text + "<BR></HTML>"), BorderLayout.CENTER);
 		return header;
@@ -168,13 +174,13 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 
 	protected class DeleteAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
-	
+
 		public DeleteAction() {
 			putValue(NAME, "Delete the selected " + resourceName());
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, new ListRemoveIcon(16, 16));
 		}
-	
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// Must have at lest one map
@@ -195,13 +201,13 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 
 	protected class AddAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
-	
+
 		public AddAction() {
 			putValue(NAME, "Add a new " + resourceName());
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, new ListAllIcon(16, 16));
 		}
-	
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			addToList();
@@ -209,16 +215,69 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 	}
 
 	protected abstract void addToList();
-	
+
 	protected class AbstractListRenderer extends DefaultListCellRenderer {
-        private static final long serialVersionUID = 5874522377321012662L;
-        @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-            R r= (R) value;
-            label.setText(resourceDisplayName(r));
-            return label;
-        }
-    }
+		private static final long serialVersionUID = 5874522377321012662L;
+
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+			R r = (R) value;
+			label.setText(resourceDisplayName(r, index));
+			return label;
+		}
+	}
+
+	
+	/**
+	 * Show a tick next to the selected item in a JComboBox.
+	 * @author Bilal Hussain
+	 */
+	public static class TickComboBoxCellRender extends DefaultListCellRenderer {
+		private static final long serialVersionUID = -1768674558123160963L;
+		protected static Icon tick    =  Resources.getIcon("panels/icon-tick.png");
+		protected static Icon nothing =  Resources.getIcon("panels/nothing.png");
+		
+		class SelctionChanged implements PopupMenuListener{
+			
+			@Override
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+				TickComboBoxCellRender.this.setTickIndex(comboBox.getSelectedIndex());
+			}
+			
+			@Override
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				TickComboBoxCellRender.this.setTickIndex(-1);
+			}
+			
+			@Override
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+		}
+
+		private int oldIndex = -1;
+		private JComboBox comboBox;
+
+		public TickComboBoxCellRender(JComboBox comboBox) {
+			this.comboBox = comboBox;
+			comboBox.addPopupMenuListener(new SelctionChanged());
+		}
+		
+		private void setTickIndex(int oldIndex) {
+			this.oldIndex = oldIndex;
+		}
+		
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+			if (oldIndex == index){
+				label.setIcon(tick);	
+			}else{
+				label.setIcon(nothing);
+			}
+			return label;
+		}
+		
+	}
 	
 }
