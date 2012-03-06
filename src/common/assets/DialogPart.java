@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+
+import common.interfaces.IUnit;
 import common.interfaces.Identifiable;
 
 /**
@@ -17,12 +19,22 @@ public class DialogPart implements Identifiable {
 	private String text;
 	private UUID unitId;
 	
-	public DialogPart(String text, UUID unitId) {
+	public DialogPart(){
 		uuid = UUID.randomUUID();
+		text = "";
+	}
+	
+	public DialogPart(String text, UUID unitId) {
+		this();
 		this.text   = text;
 		this.unitId = unitId;
 	}
 
+	public void setUnitId(IUnit u) {
+		if (u == null ) unitId = null;
+		else            uuid   = u.getUuid();
+	}
+	
 	/** @category Generated */
 	public String getText() {
 		return text;

@@ -124,10 +124,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());	
 		currentUnitPlacement.setUnits(enemiesPanel.getUnits());
 		Config.savePreferences(currentUnitPlacement, currentMap.getAsset().getMapData().getEnemiesLocation());	
-//		Config.savePreferences(new MapEvents(dialogPanel.getResouces(), dialogPanel.getResouces()) , currentMap.getAsset().getMapData().getEventsLocation());	
+		Config.savePreferences(new MapEvents(dialogPanel.getResouces(), new DialogParts()) , currentMap.getAsset().getMapData().getEventsLocation());	
 
 	}
-	
 
 	protected UnitPlacement getEnemies(){
 		return currentUnitPlacement;

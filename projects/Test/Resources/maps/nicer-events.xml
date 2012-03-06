@@ -7,12 +7,5 @@
       </dialogPart>
     </entry>
   </startDialog>
-  <endDialog>
-    <entry>
-      <uuid>6fd5773b-a0b5-4472-8f7b-da20abbb5a6c</uuid>
-      <dialogPart uuid="6fd5773b-a0b5-4472-8f7b-da20abbb5a6c">
-        <text>6fd5773b-a0b5-4472-8f7b-da20abbb5a6c</text>
-      </dialogPart>
-    </entry>
-  </endDialog>
+  <endDialog/>
 </mapEvents>

@@ -19,17 +19,17 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
-import sun.awt.EmbeddedFrame;
-import sun.awt.UNIXToolkit;
 
 import common.assets.DialogPart;
 import common.assets.DialogParts;
 import common.assets.UnitPlacement;
+import common.interfaces.IUnit;
 import common.interfaces.IWeapon;
 import editor.Editor;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
 import engine.unit.SpriteSheetData;
+import engine.unit.Unit;
 
 /**
  * @author Bilal Hussain
@@ -72,28 +72,38 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 	}
 
 	@Override
+	public DialogParts getResouces() {
+		return super.getResouces();
+	}
+	
+	private void saveToCurrent(){
+		current.setText(infoText.getText());
+		current.setUnitId((IUnit) infoSpeaker.getSelectedItem());
+	}
+	
+	@Override
+	protected void addToList() {
+		DialogPart dp = new DialogPart();
+		int index = resourceListModel.size();
+		dp.setText("New Dialogue "+ (index + 1));
+		
+		resourceListModel.addElement(dp);
+		resourceList.setSelectedIndex(index);
+	}
+
+	@Override
 	protected void setCurrentResource(DialogPart dp) {
+		if (current != null){
+			saveToCurrent();
+		}
 		current = dp;
 		infoText.setText(dp.getText());
 		infoSpeaker.setSelectedItem(dp.getUnitId());
 	}
-
-	@Override
-	protected void addToList() {
-		// FIXME addToList method
-		
-	}
-
-	public static LayoutManager createLayout() {
-		LC layC = new LC().fill().wrap();
-		AC colC = new AC().align("right", 1).fill(1, 3).grow(100, 1, 3).align("right", 3).gap("15", 1,3);
-		AC rowC = new AC().align("top", 10).gap("15!", 10).grow(100, 10);
-		return new MigLayout(layC, colC, rowC);
-	}
 	
 	@Override
 	protected JComponent createInfoPanel() {
-		JPanel p = new JPanel(createLayout());
+		JPanel p = new JPanel(defaultInfoPanelLayout());
 		
 		infoSpeaker = new JComboBox();
 		p.add(new JLabel("Speaker: "));
