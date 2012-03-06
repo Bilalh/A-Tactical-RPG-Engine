@@ -3,9 +3,9 @@ package editor.map;
 public enum MapState {
 
 	DRAW("Draw"),
-	DRAW_INFO( "Draw With Current info"),
+	DRAW_INFO( "Draw with Current info"),
 	ERASE("ERASE"),
-	FILL("FILL"),
+	FILL("Fill"),
 	EYE("Eye Dropper"),
 	SELECTION("Select Area"),
 	MOVE("Move"),

@@ -416,13 +416,15 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 			AnimatedUnit m = new AnimatedUnit(-1,-1, u);
 			toMapUnit.put(u.getUuid(), m);
 		}
-		unitsList.setSelectedIndex(0);
-		
+
 		for (Entry<UUID, Location> e : map.getEnemies().getUnitPlacement().entrySet()) {
 			AnimatedUnit a = toMapUnit.get(e.getKey());
 			a.setLocation(e.getValue());
 			map.getGuiTile(e.getValue()).setUnit(a);
 		}
+		
+		unitsList.setSelectedIndex(0);
+
 		
         JPanel statusPanel = new JPanel();
         statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -442,17 +444,18 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	private DefaultListModel unitsListModel;
 	private IMutableUnit currentEnemy;
 	
-	private JTextField infoName;
-	private JComboBox  infoWeapon;
+	private JTextField unitName;
+	private JComboBox  unitWeapon;
 	
-	private JSpinner   infoStrength;
-	private JSpinner   infoDefence;
+	private JSpinner   unitStrength;
+	private JSpinner   unitDefence;
 	
-	private JSpinner   infoSpeed;
-	private JSpinner   infoMove;
+	private JSpinner   unitSpeed;
+	private JSpinner   unitMove;
 
-	private JSpinner   infoHp;
+	private JSpinner   unitHp;
 //	private JSpinner   infoMp;
+	private JLabel     unitLocation;
 	
 	private LayoutManager createLayout() {
 		return new MigLayout("wrap 10");
@@ -462,44 +465,47 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	private JComponent createUnitsPanel(){
 		JPanel p =  new JPanel(createLayout());
 		p.add(new JLabel("Name:"));
-		p.add((infoName = new JTextField(15)), "span, growx");
-		infoName.setEnabled(false);
+		p.add((unitName = new JTextField(15)), "span, growx");
+		unitName.setEnabled(false);
 		
-		infoWeapon = new JComboBox(new IWeapon[]{});
-		infoWeapon.setRenderer(new WeaponDropDownListRenderer());
-		infoWeapon.setEditable(false);
-		infoWeapon.setEnabled(false);
+		unitWeapon = new JComboBox(new IWeapon[]{});
+		unitWeapon.setRenderer(new WeaponDropDownListRenderer());
+		unitWeapon.setEditable(false);
+		unitWeapon.setEnabled(false);
 		p.add(new JLabel("Weapon:"));
-		p.add(infoWeapon, "span, growx");
+		p.add(unitWeapon, "span, growx");
 		
 		for (IWeapon w : AssertStore.instance().getWeapons().values()) {
-			infoWeapon.addItem(w);
+			unitWeapon.addItem(w);
 		}
 		
+		p.add(new JLabel("Location:"));
+		p.add((unitLocation =new JLabel("Location")), new CC().alignX("leading").maxWidth("70").wrap());
+		
 		p.add(new JLabel("Strength:"));
-		infoStrength = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		p.add(infoStrength, new CC().alignX("leading").maxWidth("70"));
-		infoStrength.setEnabled(false);
+		unitStrength = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		p.add(unitStrength, new CC().alignX("leading").maxWidth("70"));
+		unitStrength.setEnabled(false);
 		
 		p.add(new JLabel("Defence:"), "gap unrelated");
-		infoDefence = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		p.add(infoDefence, new CC().alignX("leading").maxWidth("70"));
-		infoDefence.setEnabled(false);
+		unitDefence = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		p.add(unitDefence, new CC().alignX("leading").maxWidth("70"));
+		unitDefence.setEnabled(false);
 		
 		p.add(new JLabel("Speed:"), "gap unrelated");
-		infoSpeed = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		p.add(infoSpeed, new CC().alignX("leading").maxWidth("70"));
-		infoSpeed.setEnabled(false);
+		unitSpeed = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		p.add(unitSpeed, new CC().alignX("leading").maxWidth("70"));
+		unitSpeed.setEnabled(false);
 		
 		p.add(new JLabel("Move:"), "gap unrelated");
-		infoMove = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		p.add(infoMove, new CC().alignX("leading").maxWidth("70"));
-		infoMove.setEnabled(false);
+		unitMove = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		p.add(unitMove, new CC().alignX("leading").maxWidth("70"));
+		unitMove.setEnabled(false);
 		
 		p.add(new JLabel("Hp:"), "gap unrelated");
-		infoHp = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		p.add(infoHp, new CC().alignX("leading").maxWidth("70"));
-		infoHp.setEnabled(false);
+		unitHp = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		p.add(unitHp, new CC().alignX("leading").maxWidth("70"));
+		unitHp.setEnabled(false);
 
 		unitsListModel = new DefaultListModel();
 		
@@ -524,13 +530,15 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	
 	private void setCurrentEnemy(IMutableUnit u){
 		currentEnemy  = u;
-		infoName.setText(u.getName());
-		infoWeapon.setSelectedItem(u.getWeapon());
-		infoStrength.setValue(u.getStrength());
-		infoDefence.setValue(u.getDefence());
-		infoSpeed.setValue(u.getSpeed());
-		infoMove.setValue(u.getMove());
-		infoHp.setValue(u.getMaxHp());
+		unitName.setText(u.getName());
+		unitWeapon.setSelectedItem(u.getWeapon());
+		unitStrength.setValue(u.getStrength());
+		unitDefence.setValue(u.getDefence());
+		unitSpeed.setValue(u.getSpeed());
+		unitMove.setValue(u.getMove());
+		unitHp.setValue(u.getMaxHp());
+		AnimatedUnit a = toMapUnit.get(u.getUuid());
+		unitLocation.setText(String.format("  (%s, %s)", a.getGridX(), a.getGridY()));
 	}
 	
 	public static class UnitListRenderer extends DefaultListCellRenderer {
@@ -602,6 +610,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		
 		ImageIcon iconMove      = Resources.getIcon("images/gimp-tool-move-22.png");
 		ImageIcon iconDraw      = Resources.getIcon("images/gimp-tool-pencil-22.png");
+		ImageIcon iconInfo      = Resources.getIcon("images/draw-brush.png");
 		ImageIcon iconErase     = Resources.getIcon("images/gimp-tool-eraser-22.png");
 		ImageIcon iconFill      = Resources.getIcon("images/gimp-tool-bucket-fill-22.png");
 		ImageIcon iconEyed      = Resources.getIcon("images/gimp-tool-color-picker-22.png");
@@ -610,15 +619,14 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 
 		
 		drawButton     = makeToggleButton(iconDraw,  MapState.DRAW.name(),       MapState.DRAW.description);
-		drawInfoButton = makeToggleButton(iconDraw,  MapState.DRAW_INFO.name(),  MapState.DRAW_INFO.description);
+		drawInfoButton = makeToggleButton(iconInfo,  MapState.DRAW_INFO.name(),  MapState.DRAW_INFO.description);
 		
 		eraseButton    = makeToggleButton(iconErase, MapState.ERASE.name(),  MapState.ERASE.description);
 		fillButton     = makeToggleButton(iconFill,  MapState.FILL.name(),   MapState.FILL.description);
 		eyeButton      = makeToggleButton(iconEyed,  MapState.EYE.name(),    MapState.EYE.description);
 		moveButton     = makeToggleButton(iconMove,  MapState.MOVE.name(),   MapState.MOVE.description);
-		placeButton    = makeToggleButton(iconPlaceUnit ,  MapState.PLACE.name(),  MapState.PLACE.description);
-
-
+		
+		placeButton    = makeToggleButton(iconPlaceUnit,  MapState.PLACE.name(),     MapState.PLACE.description);
 		selectionButton = makeToggleButton(iconSelection, MapState.SELECTION.name(), MapState.SELECTION.description);
 		
 		JToolBar toolBar = new JToolBar(SwingConstants.VERTICAL);
