@@ -67,6 +67,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	private AbstractButton drawButton,   drawInfoButton,  eraseButton, fillButton;
 	private AbstractButton eyeButton,    selectionButton, moveButton,  placeButton;
 	private final Action   zoomInAction, zoomOutAction,   zoomNormalAction;
+
+	private AbstractButton leftWallButton,  rightWallButton;
 	
 	private MapState state = MapState.DRAW;
 
@@ -221,6 +223,20 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 			case DRAW:
 				if (selectedTileSprite != null){
 					map.setTileSprite(tile.getLocation(), selectedTileSprite);
+					repaint = true;
+				}
+				break;
+				
+			case LEFT_WALL:
+				if (selectedTextureSprite != null){
+					map.setLeftWallSprite(tile.getLocation(), selectedTextureSprite);
+					repaint = true;
+				}
+				break;
+
+			case RIGHT_WALL:
+				if (selectedTextureSprite != null){
+					map.setRightWallSprite(tile.getLocation(), selectedTextureSprite);
 					repaint = true;
 				}
 				break;
@@ -410,7 +426,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		
         
         toMapUnit = new HashMap<UUID, AnimatedUnit>();
-		spritesTabs.addTab("Units",    createUnitsPanel());
+		spritesTabs.addTab("Enemies",    createUnitsPanel());
 		for (IMutableUnit u : map.getEnemies().getUnits()) {
 			unitsListModel.addElement(u);
 			AnimatedUnit m = new AnimatedUnit(-1,-1, u);
@@ -616,18 +632,25 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		ImageIcon iconEyed      = Resources.getIcon("images/gimp-tool-color-picker-22.png");
 		ImageIcon iconSelection = Resources.getIcon("images/gimp-tool-rect-select-22.png");
 		ImageIcon iconPlaceUnit = Resources.getIcon("images/tool-smudge.png");
+		
+		ImageIcon iconLeft      = Resources.getIcon("images/leftWall.png");
+		ImageIcon iconRight     = Resources.getIcon("images/rightWall.png");
 
 		
-		drawButton     = makeToggleButton(iconDraw,  MapState.DRAW.name(),       MapState.DRAW.description);
-		drawInfoButton = makeToggleButton(iconInfo,  MapState.DRAW_INFO.name(),  MapState.DRAW_INFO.description);
+		drawButton     = makeToggleButton(iconDraw,  MapState.DRAW);
+		drawInfoButton = makeToggleButton(iconInfo,  MapState.DRAW_INFO);
 		
-		eraseButton    = makeToggleButton(iconErase, MapState.ERASE.name(),  MapState.ERASE.description);
-		fillButton     = makeToggleButton(iconFill,  MapState.FILL.name(),   MapState.FILL.description);
-		eyeButton      = makeToggleButton(iconEyed,  MapState.EYE.name(),    MapState.EYE.description);
-		moveButton     = makeToggleButton(iconMove,  MapState.MOVE.name(),   MapState.MOVE.description);
+		eraseButton    = makeToggleButton(iconErase, MapState.ERASE);
+		fillButton     = makeToggleButton(iconFill,  MapState.FILL);
+		eyeButton      = makeToggleButton(iconEyed,  MapState.EYE);
+		moveButton     = makeToggleButton(iconMove,  MapState.MOVE);
 		
-		placeButton    = makeToggleButton(iconPlaceUnit,  MapState.PLACE.name(),     MapState.PLACE.description);
-		selectionButton = makeToggleButton(iconSelection, MapState.SELECTION.name(), MapState.SELECTION.description);
+		placeButton     = makeToggleButton(iconPlaceUnit,  MapState.PLACE);
+		selectionButton = makeToggleButton(iconSelection,  MapState.SELECTION);
+		
+		leftWallButton  = makeToggleButton(iconLeft,   MapState.LEFT_WALL);
+		rightWallButton = makeToggleButton(iconRight,  MapState.RIGHT_WALL);
+
 		
 		JToolBar toolBar = new JToolBar(SwingConstants.VERTICAL);
 		toolBar.setFloatable(true);
@@ -639,13 +662,20 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		toolBar.add(fillButton);
 		toolBar.add(eyeButton);
 		toolBar.add(selectionButton);
+		
+		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
+		toolBar.add(leftWallButton);
+		toolBar.add(rightWallButton);
+		
 		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
 		toolBar.add(placeButton);
+		
 		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
 		toolBar.add(new TButton(zoomInAction));
 		toolBar.add(new TButton(zoomOutAction));
 		toolBar.add(Box.createRigidArea(new Dimension(5, 5)));
 		toolBar.add(Box.createGlue());
+		
 		setState(state);
 		
 		return toolBar;
@@ -782,6 +812,9 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	}
 
 	/** @category Gui **/
+	private AbstractButton makeToggleButton(Icon icon, MapState state) {
+		return makeToggleButton(icon, state.name(),state.description);
+	}
 	private AbstractButton makeToggleButton(Icon icon, String command, String tooltip) {
 		JToggleButton btn = new JToggleButton("", icon);
 		btn.setMargin(new Insets(0, 0, 0, 0));
@@ -814,6 +847,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		selectionButton.setSelected(state == MapState.SELECTION);
 		moveButton.setSelected(state == MapState.MOVE);
 		placeButton.setSelected(state == MapState.PLACE);
+		leftWallButton.setSelected(state== MapState.LEFT_WALL);
+		rightWallButton.setSelected(state== MapState.RIGHT_WALL);
 	}
 
 	

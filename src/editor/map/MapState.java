@@ -9,8 +9,11 @@ public enum MapState {
 	EYE("Eye Dropper"),
 	SELECTION("Select Area"),
 	MOVE("Move"),
-	PLACE("Place Unit");
-	
+	PLACE("Place Unit"),
+	LEFT_WALL("Draw the current Texture on the Left wall"),
+	RIGHT_WALL("Draw the current Texture on the Right wall");
+
+
 	public final String description;
 	
 	MapState(String description){

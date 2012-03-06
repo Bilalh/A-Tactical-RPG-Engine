@@ -73,6 +73,16 @@ public class EditorMap extends BasicMap {
 		editorField[p.x][p.y].setType(sprite.getName());
 		guiField[p.x][p.y].setSprite(sprite);		
 	}
+
+	public void setLeftWallSprite(Location p, MutableSprite sprite) {
+		editorField[p.x][p.y].setLeftWall(sprite.getName());
+		guiField[p.x][p.y].setLeftWallSprite(sprite);		
+	}
+
+	public void setRightWallSprite(Location p, MutableSprite sprite) {
+		editorField[p.x][p.y].setRightWall(sprite.getName());
+		guiField[p.x][p.y].setRightWallSprite(sprite);		
+	}
 	
 	public void setHeight(Location p, int height){
 		editorField[p.x][p.y].setStartHeight(height);

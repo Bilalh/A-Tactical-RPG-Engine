@@ -24,8 +24,7 @@ import static common.ListenerUtil.*;
  */
 public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 
-	private MutableSprite sprite;
-	private ArrayList<ITileChangedListener> listeners = new ArrayList<ITileChangedListener>();
+	private MutableSprite sprite, leftWallSprite, rightWallSprite;
 
 	static {
 		TileState.SELECTED.setColor(Color.BLUE.brighter());
@@ -55,17 +54,23 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 	public void setSprite(MutableSprite sprite) {
 		this.sprite = sprite;
 		tileImage = ResourceManager.instance().getTile(sprite.getName());
-		notifyListeners(listeners, this);
 	}
 
+	public void setLeftWallSprite(MutableSprite sprite){
+		leftWallSprite = sprite;
+		leftWallName   = sprite.getName();
+		leftWall       = ResourceManager.instance().getTexturedTile(leftWallName);
+	}
+
+	public void setRightWallSprite(MutableSprite sprite){
+		rightWallSprite = sprite;
+		rightWallName   = sprite.getName();
+		rightWall       = ResourceManager.instance().getTexturedTile(rightWallName);
+	}
+	
 	public void setHeight(int height) {
 		assert height >= 0;
 		this.endHeight = this.startHeight = this.height = height;
-		notifyListeners(listeners, this);
-	}
-
-	public void addTileChangedListener(ITileChangedListener listener) {
-		listeners.add(listener);
 	}
 
 	@Override
@@ -104,6 +109,16 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 			if (other.getLocation() != null) return false;
 		} else if (!fieldLocation.equals(other.getLocation())) return false;
 		return true;
+	}
+
+	/** @category Generated */
+	public MutableSprite getLeftWallSprite() {
+		return leftWallSprite;
+	}
+
+	/** @category Generated */
+	public MutableSprite getRightWallSprite() {
+		return rightWallSprite;
 	}
 
 }

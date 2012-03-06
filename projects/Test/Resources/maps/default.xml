@@ -1,4 +1,4 @@
-<map uuid="b15e280e-65ed-46e5-ba1c-013d8458e0a6" width="13" height="15">
+<map uuid="042fa2c5-cf05-478b-8a65-e483a79e8e12" width="13" height="15">
   <mapSettings>
     <tileDiagonal>60</tileDiagonal>
     <tileHeight>10</tileHeight>
@@ -16,6 +16,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="0" y="1">
     <type>5</type>
@@ -46,6 +47,7 @@
     <height>4</height>
     <startingHeight>4</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="0" y="6">
     <type>8-4</type>
@@ -106,6 +108,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="1" y="1">
     <type>3</type>
@@ -136,6 +139,7 @@
     <height>4</height>
     <startingHeight>4</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="1" y="6">
     <type>2</type>
@@ -196,6 +200,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="2" y="1">
     <type>5</type>
@@ -226,6 +231,7 @@
     <height>4</height>
     <startingHeight>4</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="2" y="6">
     <type>2</type>
@@ -286,6 +292,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="3" y="1">
     <type>8-4</type>
@@ -376,6 +383,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="4" y="1">
     <type>2</type>
@@ -466,6 +474,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="5" y="1">
     <type>6</type>
@@ -556,6 +565,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="6" y="1">
     <type>2</type>
@@ -646,6 +656,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="7" y="1">
     <type>5</type>
@@ -754,6 +765,7 @@
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="8" y="4">
     <type>7</type>
@@ -820,6 +832,7 @@
     <height>4</height>
     <startingHeight>4</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>ice</leftWall>
   </tile>
   <tile x="9" y="0">
     <type>8-4</type>
@@ -844,6 +857,7 @@
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="9" y="4">
     <type>8-4</type>
@@ -886,30 +900,36 @@
     <height>3</height>
     <startingHeight>3</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>ice</rightWall>
   </tile>
   <tile x="9" y="11">
     <type>5</type>
     <height>3</height>
     <startingHeight>3</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>ice</rightWall>
   </tile>
   <tile x="9" y="12">
     <type>8-4</type>
     <height>3</height>
     <startingHeight>3</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>ice</rightWall>
   </tile>
   <tile x="9" y="13">
     <type>6</type>
     <height>3</height>
     <startingHeight>3</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>ice</rightWall>
   </tile>
   <tile x="9" y="14">
     <type>8-4</type>
     <height>4</height>
     <startingHeight>4</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>ice</leftWall>
+    <rightWall>ice</rightWall>
   </tile>
   <tile x="10" y="0">
     <type>8-4</type>
@@ -934,6 +954,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="10" y="4">
     <type>3</type>
@@ -1024,6 +1045,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
   </tile>
   <tile x="11" y="4">
     <type>8-4</type>
@@ -1122,24 +1144,30 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
+    <rightWall>ice</rightWall>
   </tile>
   <tile x="12" y="5">
     <type>2</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <leftWall>blue</leftWall>
+    <rightWall>ice</rightWall>
   </tile>
   <tile x="12" y="6">
     <type>2</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>ice</rightWall>
   </tile>
   <tile x="12" y="7">
     <type>8-4</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>UP_TO_EAST</orientation>
+    <rightWall>ice</rightWall>
   </tile>
   <tile x="12" y="8">
     <type>8-4</type>
