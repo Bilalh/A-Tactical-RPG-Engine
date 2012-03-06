@@ -103,12 +103,18 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		this.add(mainSplit, BorderLayout.CENTER);
 	}
 
+	protected JList createJList(ListModel model){
+		JList l = new JList(model);
+		l.setCellRenderer(new AbstractListRenderer());
+		return l;
+	}
+	
+	
 	protected JComponent createLeftPane() {
 		R defaultt = defaultResource();
 
 		resourceListModel = new DefaultListModel();
-		resourceList = new JList(resourceListModel);
-		resourceList.setCellRenderer(new AbstractListRenderer());
+		resourceList = createJList(resourceListModel);
 		resourceListModel.addElement(defaultt);
 
 		resourceList.addListSelectionListener(new ListSelectionListener() {

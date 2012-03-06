@@ -4,6 +4,7 @@ import static editor.editors.AbstractSpriteSheetOrganiser.sortedSprites;
 
 import java.awt.Component;
 import java.awt.LayoutManager;
+import java.awt.dnd.DragSourceDropEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.UUID;
@@ -26,6 +27,9 @@ import common.assets.UnitPlacement;
 import common.interfaces.IUnit;
 import common.interfaces.IWeapon;
 import editor.Editor;
+import editor.editors.AbstractResourcesPanel.AbstractListRenderer;
+import editor.spritesheet.IDragFinishedListener;
+import editor.spritesheet.ReorderableJList;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
 import engine.unit.SpriteSheetData;
@@ -35,7 +39,7 @@ import engine.unit.Unit;
  * Editor for a dialog
  * @author Bilal Hussain
  */
-public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogParts> {
+public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogParts> implements IDragFinishedListener {
 	private static final long serialVersionUID = 4626052435769578123L;
 	private static final Logger log = Logger.getLogger(MapDialogPanel.class);
 
@@ -186,6 +190,29 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 	@Override
 	protected DialogPart defaultResource() {
 		return new DialogPart("",null);
+	}
+
+	@Override
+	protected JList createJList(ListModel model) {
+		ReorderableJList l = new ReorderableJList(model, this);
+		l.setCellRenderer(new ReorderableJList.ReorderableListCellRenderer() {
+			private static final long serialVersionUID = 5631531917215157509L;
+
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+				JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				DialogPart r = (DialogPart) value;
+				label.setText(resourceDisplayName(r, index));
+				return label;
+			}
+		});
+		return l;
+	}
+
+	@Override
+	public void dragDropEnd(DragSourceDropEvent dsde, int oldIndex, int newIndex) {
+		System.out.println("dragDropEnd  " + oldIndex + " " + newIndex);
+		resourceList.setSelectedIndex(newIndex);
 	}
 
 }

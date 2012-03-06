@@ -26,8 +26,9 @@ public class ReorderableJList extends JList
 	DragSource dragSource;
 	DropTarget dropTarget;
 	static Object dropTargetCell;
-	int draggedIndex = -1;
-
+	int draggedIndex = -1;	
+	int newIndex;
+	
 	public ReorderableJList(ListModel model, IDragFinishedListener df) {
 		super(model);
 		this.df = df;
@@ -43,7 +44,7 @@ public class ReorderableJList extends JList
 	// DragGestureListener
 	@Override
 	public void dragGestureRecognized(DragGestureEvent dge) {
-		System.out.println("dragGestureRecognized");
+//		System.out.println("dragGestureRecognized");
 		// find object at this x,y
 		Point clickPoint = dge.getDragOrigin();
 		int index = locationToIndex(clickPoint);
@@ -59,11 +60,11 @@ public class ReorderableJList extends JList
 	// DragSourceListener events
 	@Override
 	public void dragDropEnd(DragSourceDropEvent dsde) {
-		System.out.println("dragDropEnd()");
+//		System.out.println("dragDropEnd()");
 		dropTargetCell = null;
-		draggedIndex = -1;
 		repaint();
-		if (df != null) df.dragDropEnd(dsde);
+		if (df != null) df.dragDropEnd(dsde, draggedIndex, newIndex);
+		draggedIndex = -1;
 	}
 
 	@Override
@@ -85,12 +86,12 @@ public class ReorderableJList extends JList
 	// DropTargetListener events
 	@Override
 	public void dragEnter(DropTargetDragEvent dtde) {
-		System.out.println("dragEnter");
+//		System.out.println("dragEnter");
 		if (dtde.getSource() != dropTarget)
 			dtde.rejectDrag();
 		else {
 			dtde.acceptDrag(DnDConstants.ACTION_COPY_OR_MOVE);
-			System.out.println("accepted dragEnter");
+			//System.out.println("accepted dragEnter");
 		}
 
 	}
@@ -115,39 +116,40 @@ public class ReorderableJList extends JList
 
 	@Override
 	public void drop(DropTargetDropEvent dtde) {
-		System.out.println("drop()!");
+//		System.out.println("drop()!");
 		if (dtde.getSource() != dropTarget) {
-			System.out.println("rejecting for bad source (" +
-					dtde.getSource().getClass().getName() + ")");
+//			System.out.println("rejecting for bad source (" +
+//					dtde.getSource().getClass().getName() + ")");
 			dtde.rejectDrop();
 			return;
 		}
 		Point dropPoint = dtde.getLocation();
 		int index = locationToIndex(dropPoint);
-		System.out.println("drop index is " + index);
+//		System.out.println("drop index is " + index);
 		boolean dropped = false;
 		try {
 			if ((index == -1) || (index == draggedIndex)) {
-				System.out.println("dropped onto self");
+//				System.out.println("dropped onto self");
 				dtde.rejectDrop();
 				return;
 			}
 			dtde.acceptDrop(DnDConstants.ACTION_MOVE);
-			System.out.println("accepted");
+//			System.out.println("accepted");
 			Object dragged =
 					dtde.getTransferable().getTransferData(localObjectFlavor);
 			// move items - note that indicies for insert will
 			// change if [removed] source was before target
-			System.out.println("drop " + draggedIndex + " to " + index);
+//			System.out.println("drop " + draggedIndex + " to " + index);
 			boolean sourceBeforeTarget = (draggedIndex < index);
-			System.out.println("source is" +
-					(sourceBeforeTarget ? "" : " not") +
-					" before target");
-			System.out.println("insert at " +
-					(sourceBeforeTarget ? index - 1 : index));
+//			System.out.println("source is" +
+//					(sourceBeforeTarget ? "" : " not") +
+//					" before target");
+			
+			newIndex = sourceBeforeTarget ? index - 1 : index;
+//			System.out.println("insert at " + newIndex);
 			DefaultListModel mod = (DefaultListModel) getModel();
 			mod.remove(draggedIndex);
-			mod.add((sourceBeforeTarget ? index - 1 : index), dragged);
+			mod.add(newIndex, dragged);
 			dropped = true;
 		} catch (Exception e) {
 			e.printStackTrace();

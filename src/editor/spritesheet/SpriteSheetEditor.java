@@ -272,7 +272,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 
 		list = new ReorderableJList(sprites, new IDragFinishedListener() {
 			@Override
-			public void dragDropEnd(DragSourceDropEvent dsde) {
+			public void dragDropEnd(DragSourceDropEvent dsde, int oldIndex, int newIndex) {
 				renew();
 			}
 		});
