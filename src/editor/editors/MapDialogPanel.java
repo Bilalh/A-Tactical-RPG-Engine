@@ -32,6 +32,7 @@ import engine.unit.SpriteSheetData;
 import engine.unit.Unit;
 
 /**
+ * Editor for dialog
  * @author Bilal Hussain
  */
 public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogParts> {
@@ -71,10 +72,6 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		infoSpeaker.setSelectedItem(current.getUnitId());
 	}
 
-	@Override
-	public DialogParts getResouces() {
-		return super.getResouces();
-	}
 	
 	private void saveToCurrent(){
 		current.setText(infoText.getText());
@@ -91,6 +88,15 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		resourceList.setSelectedIndex(index);
 	}
 
+
+	@Override
+	public DialogParts getResouces() {
+		if (current != null){
+			saveToCurrent();
+		}
+		return super.getResouces();
+	}
+	
 	@Override
 	protected void setCurrentResource(DialogPart dp) {
 		if (current != null){

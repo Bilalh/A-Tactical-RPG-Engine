@@ -7,5 +7,18 @@
       </dialogPart>
     </entry>
   </startDialog>
-  <endDialog/>
+  <endDialog>
+    <entry>
+      <uuid>4c4ccda4-17ca-4a32-a624-967dbadad4c5</uuid>
+      <dialogPart uuid="4c4ccda4-17ca-4a32-a624-967dbadad4c5">
+        <text>New Dialogue 2</text>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>c06988c2-4687-429f-9b86-f8539960795b</uuid>
+      <dialogPart uuid="c06988c2-4687-429f-9b86-f8539960795b">
+        <text>v</text>
+      </dialogPart>
+    </entry>
+  </endDialog>
 </mapEvents>

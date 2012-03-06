@@ -7,6 +7,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import common.interfaces.IWeapon;
 import common.interfaces.Identifiable;
 
+import config.Config;
 import config.IPreference;
 import engine.unit.IMutableUnit;
 
@@ -27,6 +28,14 @@ public abstract class AbstractAssets<E extends Identifiable> implements  IAssets
 		super();
 	}
 
+	// to give default values
+	private Object readResolve() {
+		if (assets == null){
+			assets = new HashMap<UUID, E>();
+		}
+		return this;
+	}
+	
 	@Override
 	public E get(UUID uuid) {
 		return assets.get(uuid);

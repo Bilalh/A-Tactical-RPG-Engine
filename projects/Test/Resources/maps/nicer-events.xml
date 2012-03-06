@@ -7,5 +7,24 @@
       </dialogPart>
     </entry>
   </startDialog>
-  <endDialog/>
+  <endDialog>
+    <entry>
+      <uuid>f0da97ac-c691-4c56-af52-42e9d45d185a</uuid>
+      <dialogPart uuid="f0da97ac-c691-4c56-af52-42e9d45d185a">
+        <text>ccc</text>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>5a546153-9c6d-407b-8255-10eb3d5f87c8</uuid>
+      <dialogPart uuid="5a546153-9c6d-407b-8255-10eb3d5f87c8">
+        <text>New Dialogue 3</text>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>c5d23dcd-c047-4d56-a132-6f662a86ecc1</uuid>
+      <dialogPart uuid="c5d23dcd-c047-4d56-a132-6f662a86ecc1">
+        <text>New Dialogue 2</text>
+      </dialogPart>
+    </entry>
+  </endDialog>
 </mapEvents>

@@ -3,13 +3,7 @@
     <entry>
       <uuid>6abd5241-8a30-4316-9baa-993bbf819e8b</uuid>
       <dialogPart uuid="6abd5241-8a30-4316-9baa-993bbf819e8b">
-        <text>New Dialogue 3</text>
-      </dialogPart>
-    </entry>
-    <entry>
-      <uuid>72b868fc-3a1d-4e34-84d9-934d880fa0bf</uuid>
-      <dialogPart uuid="72b868fc-3a1d-4e34-84d9-934d880fa0bf">
-        <text>72b868fc-3a1d-4e34-84d9-934d880fa0bfmnnnnnnnnnnnnnnnn</text>
+        <text>New Dialogue 3nbbb</text>
       </dialogPart>
     </entry>
     <entry>
@@ -19,5 +13,12 @@
       </dialogPart>
     </entry>
   </startDialog>
-  <endDialog/>
+  <endDialog>
+    <entry>
+      <uuid>1d9666fb-4b2a-4088-a027-2e3b4e882225</uuid>
+      <dialogPart uuid="1d9666fb-4b2a-4088-a027-2e3b4e882225">
+        <text>New Dialogue 5</text>
+      </dialogPart>
+    </entry>
+  </endDialog>
 </mapEvents>

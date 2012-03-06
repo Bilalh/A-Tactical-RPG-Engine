@@ -79,8 +79,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	
 	private JTabbedPane    infoTabs;
 	private UnitsPanel     enemiesPanel;
-	private MapDialogPanel dialogPanel;
-	
+	private MapDialogPanel dialogStartPanel;
+	private MapDialogPanel dialogEndPanel;
+
+
 	public MapsPanel(Editor editor) {
 		super(editor);
 	}
@@ -109,7 +111,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		setCurrentResource(currentMap);
 		enemiesPanel.panelSelected(editor);
-		dialogPanel.panelSelected(editor);
+		dialogStartPanel.panelSelected(editor);
 	}
 
 	@Override
@@ -124,7 +126,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());	
 		currentUnitPlacement.setUnits(enemiesPanel.getUnits());
 		Config.savePreferences(currentUnitPlacement, currentMap.getAsset().getMapData().getEnemiesLocation());	
-		Config.savePreferences(new MapEvents(dialogPanel.getResouces(), new DialogParts()) , currentMap.getAsset().getMapData().getEventsLocation());	
+		Config.savePreferences(new MapEvents(dialogStartPanel.getResouces(), dialogEndPanel.getResouces()) , currentMap.getAsset().getMapData().getEventsLocation());	
 
 	}
 
@@ -161,8 +163,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		currentUnitPlacement = Config.loadPreference(map.getMapData().getEnemiesLocation());
 		enemiesPanel.setUnits(currentUnitPlacement.getUnits());
+		
 		currentEvent = Config.loadPreference(map.getMapData().getEventsLocation());
-		dialogPanel.setResources(currentEvent.getStartDialog());
+		dialogStartPanel.setResources(currentEvent.getStartDialog());
+		dialogEndPanel.setResources(currentEvent.getEndDialog());
 	}
 
 	@Override
@@ -197,7 +201,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	@SuppressWarnings("unused")
 	private void editMap(){
 		editor.setVisible(false);
-		Config.savePreferences(currentMapping, currentMap.getAsset().getMapData().getTileMappingLocation());
+		saveExternal();
 		currentMap.saveAsset();
 		new MapEditor(WindowConstants.DO_NOTHING_ON_CLOSE,  currentMap.getResouceLocation(), this);
 		
@@ -208,20 +212,6 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		currentMap.reloadAsset();
 		setCurrentResource(currentMap);
 		editor.setVisible(true);
-	}
-	
-	class ImageComboBoxRenderer extends BasicComboBoxRenderer{
-		private static final long serialVersionUID = 5419860419890213604L;
-		
-        @Override
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
-            
-            SpriteSheetData w= (SpriteSheetData) value;
-            label.setText(IOUtil.removeExtension(new File(w.getSpriteSheetLocation()).getName()));
-            return label;
-        }
-		
 	}
 	
 	@Override
@@ -322,7 +312,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoTabs = new JTabbedPane();
 		infoTabs.addTab("Details", p);
 		infoTabs.addTab("Enemies ", (enemiesPanel = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy")));
-		infoTabs.addTab("Dialog", (dialogPanel = new MapDialogPanel(this, editor)));
+		infoTabs.addTab("Start Dialog",  (dialogStartPanel = new MapDialogPanel(this, editor)));
+		infoTabs.addTab("Finish Dialog", (dialogEndPanel = new MapDialogPanel(this, editor)));
+
 		return infoTabs;
 	}
 
