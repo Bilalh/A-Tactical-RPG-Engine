@@ -1,11 +1,15 @@
 package editor.map;
 
+import java.util.UUID;
+
 import util.Args;
+import view.units.AnimatedUnit;
 
 import common.Location;
 import common.assets.UnitPlacement;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
+import common.interfaces.ILocation;
 
 import config.Config;
 import config.xml.SavedMap;
@@ -83,6 +87,12 @@ public class EditorMap extends BasicMap {
 		guiField[p.x][p.y].invaildate(getMapSettings());
 	}
 	
+	public void addMapping(UUID uuid, Location l) {
+		// FIXME addMapping method
+		enemies.getUnitPlacement().put(uuid, l);
+
+	}
+	
 	public EditorIsoTile[][] getGuiField() {
 		return guiField;
 	}
@@ -99,4 +109,9 @@ public class EditorMap extends BasicMap {
 		return enemies;
 	}
 
+	public EditorIsoTile getGuiTile(ILocation l){
+		return guiField[l.getX()][l.getY()];
+	}
+
+	
 }

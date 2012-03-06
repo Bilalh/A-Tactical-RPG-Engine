@@ -71,10 +71,31 @@
   </units>
   <placement>
     <entry>
+      <uuid>6363fb76-c8c1-4894-9244-906035ccc1f9</uuid>
+      <location>
+        <x>9</x>
+        <y>5</y>
+      </location>
+    </entry>
+    <entry>
+      <uuid>78c008a9-f7ca-4f89-b3f1-876a633caf09</uuid>
+      <location>
+        <x>4</x>
+        <y>7</y>
+      </location>
+    </entry>
+    <entry>
+      <uuid>26acf856-b268-4efb-8a47-67ab5bc61add</uuid>
+      <location>
+        <x>6</x>
+        <y>10</y>
+      </location>
+    </entry>
+    <entry>
       <uuid>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</uuid>
       <location>
-        <x>12</x>
-        <y>3</y>
+        <x>5</x>
+        <y>12</y>
       </location>
     </entry>
   </placement>

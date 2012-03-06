@@ -5,9 +5,9 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -22,10 +22,13 @@ import org.apache.log4j.Logger;
 import org.jvnet.inflector.Noun;
 
 import view.map.interfaces.IMapRendererParent;
+import view.units.AnimatedUnit;
 
+import common.Location;
 import common.assets.AssertStore;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
+import common.interfaces.IMapUnit;
 import common.interfaces.IWeapon;
 
 import config.Config;
@@ -43,7 +46,9 @@ import editor.ui.FloatablePanel;
 import editor.ui.TButton;
 import editor.util.Prefs;
 import editor.util.Resources;
+import engine.map.MapUnit;
 import engine.map.Tile;
+import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
 import engine.unit.SpriteSheetData;
 import engine.unit.Unit;
@@ -100,8 +105,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	// for editor
 	private String savePath;	
 	private IMapEditorListener listener;
-	private IMutableUnit currentEnemy;
 	
+	private HashMap<UUID, AnimatedUnit> toMapUnit;
 	
 	public MapEditor(int frameClosingValue, String savePath, IMapEditorListener listener) {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
@@ -224,7 +229,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 					repaint = true;
 				}
 				
-				int  height = ((Number) infoHeight.getValue()).intValue();
+				int height = ((Number) infoHeight.getValue()).intValue();
 				if (height >=0){
 					map.setHeight(tile.getLocation(), height);
 					repaint = true;
@@ -249,6 +254,18 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 				}
 				repaint = true;
 				break;
+				
+			case PLACE:{
+				assert currentEnemy != null;
+				AnimatedUnit a  = toMapUnit.get(currentEnemy.getUuid()); 
+				assert a != null;
+				map.getGuiTile(a.getLocation()).removeUnit();
+				a.setLocation(tile.getLocation());
+				tile.setUnit(a);
+				map.addMapping(currentEnemy.getUuid(), tile.getLocation());
+				repaint=true;
+				break;
+			}
 		}
 
 		//FIXME rethink this 
@@ -390,11 +407,20 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
         editorMapPanel.addMouseListener(mapScroller);
 		
         
+        toMapUnit = new HashMap<UUID, AnimatedUnit>();
 		spritesTabs.addTab("Units",    createUnitsPanel());
 		for (IMutableUnit u : map.getEnemies().getUnits()) {
 			unitsListModel.addElement(u);
+			AnimatedUnit m = new AnimatedUnit(0, 0, u);
+			toMapUnit.put(u.getUuid(), m);
 		}
 		unitsList.setSelectedIndex(0);
+		
+		for (Entry<UUID, Location> e : map.getEnemies().getUnitPlacement().entrySet()) {
+			AnimatedUnit a = toMapUnit.get(e.getKey());
+			a.setLocation(e.getValue());
+			map.getGuiTile(e.getValue()).setUnit(a);
+		}
 		
         JPanel statusPanel = new JPanel();
         statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -412,7 +438,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	// Controls to display units info
 	private JList unitsList;
 	private DefaultListModel unitsListModel;
-	private IMutableUnit currentUnit;
+	private IMutableUnit currentEnemy;
 	
 	private JTextField infoName;
 	private JComboBox  infoWeapon;
@@ -666,7 +692,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	private void createMap() {
 		map = new EditorMap(savePath);
 		editorMapPanel = new EditorMapPanel(this, map.getGuiField(),map.getMapSettings());
-
+		
+		frame.setTitle("Map Editor - " + map.getData().getName() );
 		// Relayout the sprites to fill the whole panel.
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -734,7 +761,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	
 		Config.savePreferences(m, savePath);
 		Config.savePreferences(map.getTileMapping(), m.getMapData().getTileMappingLocation());
-		
+		Config.savePreferences(map.getEnemies(), m.getMapData().getEnemiesLocation());
+
 		log.info("Saved as " + savePath);
 	}
 
