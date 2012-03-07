@@ -1,6 +1,7 @@
 package editor.editors;
 
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,13 +25,18 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 
+import com.javarichclient.icon.tango.actions.ListAllIcon;
+import com.javarichclient.icon.tango.actions.MediaPlaybackStartIcon;
+
 import util.IOUtil;
+import view.MusicThread;
 
 import common.assets.MusicData;
 import common.assets.Musics;
 
 import config.Config;
 import editor.Editor;
+import editor.ui.TButton;
 
 /**
  * @author Bilal Hussain
@@ -47,6 +53,8 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 	private JTextField infoArtist;
 	
 	private HashMap<UUID, TrackInfo> cachedInfo = new HashMap<UUID, MusicPanel.TrackInfo>();
+	
+	private MusicThread music = new MusicThread();
 	
 	public MusicPanel(Editor editor) {
 		super(editor);
@@ -151,12 +159,31 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 		infoAlbum.setEditable(false);
 		
 		p.add(new JLabel("Track#:"), new CC().alignX("leading"));
-		p.add((infoTrack = new JTextField(15)), new CC().alignX("left").maxWidth("70"));
+		p.add((infoTrack = new JTextField(15)), new CC().alignX("left").maxWidth("70").wrap());
 		infoTrack.setEditable(false);
+	
+		JPanel buttonPanel = new JPanel(new MigLayout("", "[center, grow]"));
+		buttonPanel.add(new JButton(new AddAction()));
+		buttonPanel.add(new JButton(new AddAction()));
+		p.add(buttonPanel);
 		
 		return p;
 	}
 
+	protected class AddAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public AddAction() {
+			putValue(NAME, "Play song");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			putValue(SMALL_ICON, new MediaPlaybackStartIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	}	
 
 	@Override
 	protected MusicData defaultResource() {

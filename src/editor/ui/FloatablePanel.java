@@ -4,7 +4,7 @@
  *  Adam Turk <aturk@biggeruniverse.com>
  *  Bjorn Lindeijer <bjorn@lindeijer.nl>
  *
- * Changes by Bilal Hussain: added a float button, also made it more customisable, and savable 
+ * Changes by Bilal Hussain: added a float button, also made it more customisable, and savable and change other parts.
  */
 package editor.ui;
 
@@ -27,8 +27,7 @@ import editor.util.Resources;
  * frame. When the frame is closed the panel is restored.
  * 
  */
-public class FloatablePanel extends JPanel
-{
+public class FloatablePanel extends JPanel {
 	private static final long serialVersionUID = 3365282132942748132L;
 	private final JLabel titleLabel;
 	private JDialog frame;
@@ -152,7 +151,7 @@ public class FloatablePanel extends JPanel
 	 */
 	public void restore() {
 		final int dividerLocation = prefs.getInt("dividerLocation", 0);
-		final boolean floating    = prefs.getBoolean("floating", false);
+		final boolean floating = prefs.getBoolean("floating", false);
 
 		if (floating) {
 			setFloating(true);
