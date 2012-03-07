@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 
 import view.ui.interfaces.IDisplayable;
+import view.units.AnimatedUnit;
 
 import common.gui.Sprite;
 
@@ -145,16 +146,25 @@ public class GuiDialog implements IDisplayable{
 //		Gui.console().printf("index:%s text:%s", index, paragraphEnd);
 		return (index < paragraphEnd);
 	}
-
+	
 	public void setText(String s) {
 		text         = new AttributedString(s,map);
 		paragraph    = text.getIterator();
 		paragraphEnd = paragraph.getEndIndex();
 		lineMeasurer = null;
-		
 		index = temp = 0;
+		setName(null);
+		setPicture(null);
 	}
 
+	public void setData(String text, AnimatedUnit u) {
+		setText(text);
+		if (u != null){
+			setPicture(u.sprite);
+			setName(u.getUnit().getName());	
+		}
+	}
+	
 	public void setPicture(BufferedImage image) {
 		this.image   = image;
 		this.xdiff = (image == null) ? 5 : image.getWidth(null);

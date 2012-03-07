@@ -738,6 +738,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setDrawn(false);
 	}
 
+	public AnimatedUnit getUnit(UUID uuid){
+		return unitMapping.get(uuid);
+	}
+	
 	public void otherKeys(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_1:
@@ -791,13 +795,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 				MapEvents me = Config.loadPreference("maps/fft2-events.xml");
 				DialogParts parts = me.getStartDialog();
 				dialogHandler.setDialog(parts.sortedValues());
-//				dialog.setName("Mage");
-//				dialog.setText(
-//						"Many people believe that Vincent van Gogh painted his best works " +
-//								"during the two-year period he spent in Provence. Here is where he " +
-//								"painted The Starry Night--which some consider to be his greatest " +
-//								"work of all. However, as his artistic brilliance reached new " +
-//								"heights in Provence, his ysical and mental health plummeted. ");
 				break;				
 			}
 			case KeyEvent.VK_I:

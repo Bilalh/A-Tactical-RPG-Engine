@@ -46,7 +46,8 @@ class DialogHandler extends MapActions {
 			if (queue.isEmpty()){
 				map.dialogFinished(nextAction);
 			}else{
-				dialog.setText(queue.pop().getText());
+				DialogPart current =queue.pop(); 
+				dialog.setData(current.getText(), map.getUnit(current.getUnitId()));
 			}
 		}
 	}
@@ -68,7 +69,7 @@ class DialogHandler extends MapActions {
 		if (current == null){
 			map.dialogFinished(nextAction);
 		}else{
-			dialog.setText(current.getText());
+			dialog.setData(current.getText(), map.getUnit(current.getUnitId()));
 			map.setActionHandler(ActionsEnum.DIALOG);
 		}
 	}
