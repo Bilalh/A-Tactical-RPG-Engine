@@ -51,7 +51,7 @@ public class Map extends BasicMap implements IMap {
 	private IMutableMapUnit current;
 
 	private enum MapState{
-		START, INBATTLE
+		START, INBATTLE, PRE_WIN, WON
 	}
 	private MapState mapState;
 	
@@ -139,6 +139,10 @@ public class Map extends BasicMap implements IMap {
 				mapState = MapState.INBATTLE;
 				sendNotification(new UnitTurnNotification(current));
 				break;
+			case PRE_WIN:
+				mapState = MapState.WON;
+				sendNotification(new PlayerWonNotification());
+				break;
 		}
 	}
 	
@@ -187,7 +191,9 @@ public class Map extends BasicMap implements IMap {
 	public boolean checkForFinished(){
 		if (ai.getUnits().isEmpty()) {
 			System.err.println("PLAYERS WINS");	
-			sendNotification(new PlayerWonNotification());
+			mapState = MapState.PRE_WIN;
+			sendNotification(new DialogNotification(events.getEndDialog()));
+//			sendNotification(new PlayerWonNotification());
 			return true;
 		}
 		if (player.getUnits().isEmpty()) {
