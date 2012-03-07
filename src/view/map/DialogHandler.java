@@ -45,6 +45,13 @@ class DialogHandler extends MapActions {
 		nextPage();
 	}
 
+
+	// Press keyOther2 ('s') to skip the dialog
+	@Override
+	public void keyOther2() {
+		map.dialogFinished(nextAction);
+	}
+	
 	private void nextPage() {
 		if (!dialog.nextPage()) {
 			if (queue.isEmpty()){

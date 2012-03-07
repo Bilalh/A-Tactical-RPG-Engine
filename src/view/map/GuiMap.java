@@ -802,11 +802,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			case KeyEvent.VK_L:
 				mapController.mapWon();
 				break;
-
-			case KeyEvent.VK_Y:
-				menu.reset();
-				setActionHandler(ActionsEnum.MENU);
-				break;
+				
 			case KeyEvent.VK_T:{
 				MapEvents me = Config.loadPreference("maps/fft2-events.xml");
 				DialogParts parts = me.getStartDialog();
