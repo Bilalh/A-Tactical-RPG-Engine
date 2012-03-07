@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>tex/Objectives.tex</string>
+	<string>Project.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -26,14 +26,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>22</integer>
+				<integer>13</integer>
 				<key>line</key>
-				<integer>9</integer>
+				<integer>22</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>13</integer>
+				<key>line</key>
+				<integer>22</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>19</integer>
+				<key>line</key>
+				<integer>22</integer>
+			</dict>
 		</dict>
 		<key>Project.toc</key>
 		<dict>
@@ -68,7 +84,7 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>15</integer>
 				<key>line</key>
 				<integer>0</integer>
 			</dict>
@@ -111,13 +127,6 @@
 			<true/>
 			<key>subItems</key>
 			<dict>
-				<key>settings</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
-				</dict>
 				<key>tex</key>
 				<dict>
 					<key>isExpanded</key>
@@ -129,6 +138,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{417, 130}, {1023, 717}}</string>
+	<string>{{417, 136}, {909, 711}}</string>
 </dict>
 </plist>
