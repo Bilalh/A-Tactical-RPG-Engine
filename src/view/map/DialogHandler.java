@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 
 import com.sun.tools.javac.code.Attribute.Array;
 
-import common.assets.DialogPart;
-import common.assets.DialogParts;
+import config.assets.DialogPart;
+import config.assets.DialogParts;
 
 import util.Logf;
 import view.map.GuiMap.ActionsEnum;

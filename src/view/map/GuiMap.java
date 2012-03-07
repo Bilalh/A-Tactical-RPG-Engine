@@ -35,14 +35,14 @@ import view.util.MousePoxy;
 
 import common.Location;
 import common.LocationInfo;
-import common.assets.AssertStore;
-import common.assets.DialogParts;
 import common.enums.Direction;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.*;
 
 import config.Config;
+import config.assets.AssertStore;
+import config.assets.DialogParts;
 import config.xml.MapEvents;
 import config.xml.TileImageData;
 import controller.MapController;

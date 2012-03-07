@@ -23,10 +23,10 @@ import net.miginfocom.layout.AC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
-import common.assets.SpriteSheetsData;
 import common.spritesheet.SpriteSheet;
 
 import config.Config;
+import config.assets.SpriteSheetsData;
 
 import editor.Editor;
 import editor.map.EditorSpriteSheet;

@@ -19,12 +19,12 @@ import util.Logf;
 import view.map.IsoTile.TileState;
 
 import common.Location;
-import common.assets.Weapons;
 import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
 import common.spritesheet.SpriteSheet;
 
 import config.Config;
+import config.assets.Weapons;
 import config.xml.MapSettings;
 
 import net.miginfocom.layout.AC;

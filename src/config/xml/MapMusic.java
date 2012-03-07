@@ -4,9 +4,9 @@ import java.util.UUID;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import common.assets.MusicData;
 import config.Config;
 import config.IPreference;
+import config.assets.MusicData;
 
 /**
  * @author Bilal Hussain

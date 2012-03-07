@@ -6,12 +6,12 @@ import util.Args;
 import view.units.AnimatedUnit;
 
 import common.Location;
-import common.assets.UnitPlacement;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.ILocation;
 
 import config.Config;
+import config.assets.UnitPlacement;
 import config.xml.SavedMap;
 import config.xml.TileImageData;
 import editor.spritesheet.MutableSprite;

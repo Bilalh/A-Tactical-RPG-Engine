@@ -1,4 +1,4 @@
-package common.assets;
+package config.assets;
 
 /**
  * Stores the location of all the assets.

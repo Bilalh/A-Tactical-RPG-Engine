@@ -1,9 +1,9 @@
 package notifications.map;
 
 import view.map.GuiMap;
-import common.assets.DialogPart;
-import common.assets.DialogParts;
 import common.interfaces.IMapNotification;
+import config.assets.DialogPart;
+import config.assets.DialogParts;
 
 /**
  * @author Bilal Hussain

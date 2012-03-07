@@ -2,10 +2,10 @@ package engine.map;
 
 import java.util.Observable;
 
-import common.assets.UnitPlacement;
 import common.interfaces.ILocation;
 
 import config.Config;
+import config.assets.UnitPlacement;
 import config.xml.*;
 
 /**

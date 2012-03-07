@@ -1,4 +1,4 @@
-package common.assets;
+package config.assets;
 
 import java.util.UUID;
 

@@ -24,11 +24,11 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 
-import common.assets.DialogPart;
-import common.assets.DialogParts;
-import common.assets.UnitPlacement;
 import common.interfaces.IUnit;
 import common.interfaces.IWeapon;
+import config.assets.DialogPart;
+import config.assets.DialogParts;
+import config.assets.UnitPlacement;
 import editor.Editor;
 import editor.editors.AbstractResourcesPanel.AbstractListRenderer;
 import editor.spritesheet.IDragFinishedListener;

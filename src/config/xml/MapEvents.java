@@ -2,8 +2,8 @@ package config.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import common.assets.DialogParts;
 import config.IPreference;
+import config.assets.DialogParts;
 
 /**
  * @author Bilal Hussain

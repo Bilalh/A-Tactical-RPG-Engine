@@ -1,4 +1,4 @@
-package common.assets;
+package config.assets;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 

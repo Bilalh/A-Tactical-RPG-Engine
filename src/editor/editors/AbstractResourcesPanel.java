@@ -23,8 +23,8 @@ import org.apache.log4j.Logger;
 
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 import com.javarichclient.icon.tango.actions.ListRemoveIcon;
-import common.assets.AbstractAssets;
 import common.interfaces.Identifiable;
+import config.assets.AbstractAssets;
 
 import editor.Editor;
 import editor.ui.HeaderPanel;

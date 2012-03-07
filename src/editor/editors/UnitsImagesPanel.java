@@ -13,10 +13,10 @@ import net.miginfocom.layout.CC;
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 import com.javarichclient.icon.tango.actions.ListRemoveIcon;
 
-import common.assets.Units;
 import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
 import config.Config;
+import config.assets.Units;
 
 import editor.Editor;
 import editor.editors.UnitsPanel.*;

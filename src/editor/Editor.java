@@ -32,6 +32,7 @@ import common.gui.ResourceManager;
 import common.spritesheet.SpriteSheet;
 
 import config.Config;
+import config.assets.*;
 
 import editor.editors.*;
 import editor.map.EditorSpriteSheet;

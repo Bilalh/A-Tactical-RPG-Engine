@@ -25,8 +25,6 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.swing.MigLayout;
 
 import common.Location;
-import common.assets.AssertStore;
-import common.assets.AssetsLocations;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.IMapUnit;
@@ -34,6 +32,8 @@ import common.interfaces.IUnit;
 import common.interfaces.IWeapon;
 import common.spritesheet.SpriteSheet;
 import config.Config;
+import config.assets.AssertStore;
+import config.assets.AssetsLocations;
 import config.xml.MapSettings;
 
 import editor.editors.IWeaponListener;

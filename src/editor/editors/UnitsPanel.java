@@ -29,6 +29,7 @@ import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
 import common.spritesheet.SpriteSheet;
 import config.Config;
+import config.assets.*;
 
 import editor.Editor;
 import editor.map.EditorSpriteSheet;

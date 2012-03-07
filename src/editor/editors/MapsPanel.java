@@ -36,6 +36,9 @@ import common.assets.*;
 import common.interfaces.IWeapon;
 
 import config.Config;
+import config.assets.DeferredMap;
+import config.assets.Maps;
+import config.assets.UnitPlacement;
 import config.xml.ITileMapping;
 import config.xml.MapEvents;
 import config.xml.SavedMap;

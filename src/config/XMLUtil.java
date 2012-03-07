@@ -16,6 +16,7 @@ import common.assets.*;
 import common.spritesheet.SpriteInfo;
 import common.spritesheet.Sprites;
 
+import config.assets.*;
 import config.xml.*;
 import editor.map.MutableTileMapping;
 import editor.spritesheet.MutableSprite;

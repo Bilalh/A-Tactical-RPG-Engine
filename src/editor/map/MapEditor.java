@@ -28,7 +28,6 @@ import view.map.interfaces.IMapRendererParent;
 import view.units.AnimatedUnit;
 
 import common.Location;
-import common.assets.AssertStore;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.IMapUnit;
@@ -36,6 +35,7 @@ import common.interfaces.IWeapon;
 
 import config.Config;
 import config.XMLUtil;
+import config.assets.AssertStore;
 import config.xml.MapData;
 import config.xml.SavedMap;
 import config.xml.SavedTile;

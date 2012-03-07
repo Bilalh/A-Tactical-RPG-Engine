@@ -35,10 +35,10 @@ import com.javarichclient.icon.tango.actions.MediaPlaybackStopIcon;
 import util.IOUtil;
 import view.MusicThread;
 
-import common.assets.MusicData;
-import common.assets.Musics;
 
 import config.Config;
+import config.assets.MusicData;
+import config.assets.Musics;
 import editor.Editor;
 import editor.ui.TButton;
 

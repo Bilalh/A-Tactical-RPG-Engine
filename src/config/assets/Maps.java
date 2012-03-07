@@ -1,6 +1,8 @@
-package common.assets;
+package config.assets;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+import config.xml.SavedMap;
 
 import engine.skills.ISkill;
 
@@ -8,7 +10,7 @@ import engine.skills.ISkill;
  * A subclass is used since the generic type is lost due to type erasure.
  * @author Bilal Hussain
  */
-@XStreamAlias("textures")
-public class Textures extends AbstractAssets<ISkill>{
+@XStreamAlias("maps")
+public class Maps extends AbstractAssets<DeferredMap> {
 
 }

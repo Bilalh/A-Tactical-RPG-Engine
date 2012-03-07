@@ -6,14 +6,14 @@ import java.util.UUID;
 
 import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
 
-import common.assets.AssertStore;
-import common.assets.AssetsLocations;
-import common.assets.Units;
-import common.assets.Weapons;
 import common.interfaces.IWeapon;
 
 import view.Main;
 import config.Config;
+import config.assets.AssertStore;
+import config.assets.AssetsLocations;
+import config.assets.Units;
+import config.assets.Weapons;
 import engine.items.RangedWeapon;
 import engine.items.Spear;
 import engine.map.Map;
