@@ -142,14 +142,17 @@ public abstract class XMLUtil {
 				Maps.class,
 				UnitPlacement.class,
 				MapEvents.class,
+				MusicData.class,
+				Musics.class,
+				
+				DeferredAsset.class,
+				DeferredMap.class,
 				
 				// Editor
 				MutableSprite.class,
 				SpriteInfo.class,
 				MutableTileMapping.class,
-				
-				DeferredAsset.class,
-				DeferredMap.class
+
 				
 		};
 	}
