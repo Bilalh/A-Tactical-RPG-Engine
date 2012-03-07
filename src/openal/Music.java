@@ -1,5 +1,6 @@
 package openal;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -69,7 +70,7 @@ public class Music {
 	 *            The location of the music
 	 * @throws SlickException
 	 */
-	public Music(String ref) throws SlickException {
+	public Music(String ref) throws IOException {
 		this(ref, false);
 	}
 
@@ -124,28 +125,22 @@ public class Music {
 	 *            The location of the music
 	 * @param streamingHint
 	 *            A hint to indicate whether streaming should be used if possible
+	 * @throws IOException 
 	 * @throws SlickException
 	 */
-	public Music(String ref, boolean streamingHint) throws SlickException {
+	public Music(String ref, boolean streamingHint) throws IOException {
 		SoundStore.get().init();
 
-		try {
-			if (ref.toLowerCase().endsWith(".ogg")) {
-				if (streamingHint) {
-					sound = SoundStore.get().getOggStream(ref);
-				} else {
-					sound = SoundStore.get().getOgg(ref);
-				}
-			} else if (ref.toLowerCase().endsWith(".wav")) {
-				sound = SoundStore.get().getWAV(ref);
-			} else if (ref.toLowerCase().endsWith(".aif") || ref.toLowerCase().endsWith(".aiff")) {
-				sound = SoundStore.get().getAIF(ref);
+		if (ref.toLowerCase().endsWith(".ogg")) {
+			if (streamingHint) {
+				sound = SoundStore.get().getOggStream(ref);
 			} else {
-				throw new SlickException(
-						"Only .xm, .mod, .ogg, and .aif/f are currently supported.");
+				sound = SoundStore.get().getOgg(ref);
 			}
-		} catch (Exception e) {
-			throw new SlickException("Failed to load sound: " + ref);
+		} else if (ref.toLowerCase().endsWith(".wav")) {
+			sound = SoundStore.get().getWAV(ref);
+		} else if (ref.toLowerCase().endsWith(".aif") || ref.toLowerCase().endsWith(".aiff")) {
+			sound = SoundStore.get().getAIF(ref);
 		}
 	}
 

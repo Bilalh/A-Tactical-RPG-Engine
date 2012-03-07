@@ -192,7 +192,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		try {
 			Gui.getMusicThread().replaceMusic(new Music("music/1-19 Fight It Out!.ogg", true));
 			Gui.getMusicThread().pause();
-		} catch (SlickException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 

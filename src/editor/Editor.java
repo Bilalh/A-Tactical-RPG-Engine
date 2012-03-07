@@ -59,7 +59,8 @@ public class Editor {
 	
 	MapsPanel       mapsPanel;
 	MusicPanel      musicPanel;
-	
+	SoundsPanel     soundPanel;
+
 	
 	String projectPath = "projects/Test";
 	String projectName = "Test";
@@ -141,6 +142,7 @@ public class Editor {
 		tilesetPanel     = new TilesetPanel(this);
 		texturesPanel    = new TexturesPanel(this);
 		musicPanel       = new MusicPanel(this);
+		soundPanel       = new SoundsPanel(this);
 		
 		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));
@@ -154,6 +156,8 @@ public class Editor {
 
 		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel(this)));
 		tabs.addTab("Music",        (musicPanel      ));
+		tabs.addTab("Sound",        (soundPanel      ));
+
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Project",      new JPanel());
 		
@@ -245,6 +249,9 @@ public class Editor {
 		
 		Musics musics = musicPanel.getResouces();
 		Config.savePreferences(musics, "assets/music.xml");
+
+		Musics sounds = soundPanel.getResouces();
+		Config.savePreferences(sounds, "assets/sounds.xml");
 		
 		// Main project file
 		File mainXml  = new File(f, "tactical-project.xml");
@@ -294,6 +301,10 @@ public class Editor {
 		Musics mm = Config.loadPreference("assets/music.xml");
 		musicPanel.setResources(mm);
 		log.info(mm);
+
+		Musics sounds = Config.loadPreference("assets/sounds.xml");
+		soundPanel.setResources(sounds);
+		log.info(sounds);
 		
 		if (!initLoading){
 			Maps maps = Config.loadPreference("assets/maps.xml");

@@ -52,6 +52,7 @@ public class MusicThread extends Thread {
 	}
 
 	public synchronized void removeMusic(){
+		if (music == null) return;
 		music.stop();
 		music = null;
 	}
@@ -90,4 +91,12 @@ public class MusicThread extends Thread {
 		}
 	}
 
+	public void forcePlaySound(String ref) {
+		try {
+			new Sound(ref).play();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

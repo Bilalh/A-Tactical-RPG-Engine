@@ -48,17 +48,20 @@ import editor.ui.TButton;
 public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 	private static final long serialVersionUID = -8134784428673033659L;
 
-	private MusicData current;
-	private JFileChooser chooser;
+	protected MusicData current;
+	protected JFileChooser chooser;
 
-	private JTextField infoTitle;
-	private JTextField infoTrack;
-	private JTextField infoAlbum;
-	private JTextField infoArtist;
+	protected JTextField infoTitle;
+	protected JTextField infoTrack;
+	protected JTextField infoAlbum;
+	protected JTextField infoArtist;
 	
-	private HashMap<UUID, TrackInfo> cachedInfo = new HashMap<UUID, MusicPanel.TrackInfo>();
+	protected HashMap<UUID, TrackInfo> cachedInfo = new HashMap<UUID, MusicPanel.TrackInfo>();
 	
-	private MusicThread music = new MusicThread();
+	protected static MusicThread music = new MusicThread();
+	static{
+		music.start();
+	}
 	
 	public MusicPanel(Editor editor) {
 		super(editor);
@@ -66,7 +69,6 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 		chooser.setFileFilter(new FileNameExtensionFilter("Ogg Audio (*.ogg)", "ogg"));
 		chooser.setMultiSelectionEnabled(true);
 		cachedInfo = new HashMap<UUID, TrackInfo>();
-		music.start();
 	}
 
 	@Override
@@ -94,9 +96,9 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 			TrackInfo info = new TrackInfo();
 			AudioFile f = AudioFileIO.read(Config.getResourceFile(current.getLocation()));
 			Tag tag = f.getTag();
-			infoAlbum.setText(  (info.album  = tag.getFirst(FieldKey.ALBUM)));
-			infoArtist.setText( (info.artist = tag.getFirst(FieldKey.ARTIST)));
-			infoTitle.setText(  (info.title  = tag.getFirst(FieldKey.TITLE)));
+			infoAlbum.setText(  info.album  = tag.getFirst(FieldKey.ALBUM));
+			infoArtist.setText( info.artist = tag.getFirst(FieldKey.ARTIST));
+			infoTitle.setText(  info.title  = tag.getFirst(FieldKey.TITLE));
 			
 			String track      = tag.getFirst(FieldKey.TRACK);
 			String trackTotal = tag.getFirst(FieldKey.TRACK_TOTAL);
@@ -124,7 +126,7 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 			File[] selected = chooser.getSelectedFiles();
 			for (File file : selected) {
 				try {
-					String path = "music/" +file.getName();
+					String path = storePath() +file.getName();
 					IOUtil.copyFile(file, Config.getResourceFile(path));
 					MusicData md = new MusicData(path);
 					resourceListModel.addElement(md);
@@ -139,6 +141,9 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 		resourceList.setSelectedIndex(index);
 	}
 
+	protected String storePath(){
+		return "music/";
+	}
 
 	private LayoutManager createLayout() {
 		LC layC = new LC().fill().wrap();
@@ -147,39 +152,41 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 		return new MigLayout(layC, colC, rowC);
 	}
 	
+	JButton infoPlay, infoStop;
+	
 	@Override
 	protected JComponent createInfoPanel() {
 		JPanel p = new JPanel(createLayout());
 		
 		p.add(new JLabel("Title:"), new CC().alignX("leading"));
-		p.add((infoTitle = new JTextField(15)), "span, growx");
+		p.add(infoTitle = new JTextField(15), "span, growx");
 		infoTitle.setEditable(false);
 		
 		p.add(new JLabel("Artist:"), new CC().alignX("leading"));
-		p.add((infoArtist = new JTextField(15)), "span, growx");
+		p.add(infoArtist = new JTextField(15), "span, growx");
 		infoArtist.setEditable(false);
 		
 		p.add(new JLabel("Album:"), new CC().alignX("leading"));
-		p.add((infoAlbum = new JTextField(15)), "span, growx");
+		p.add(infoAlbum = new JTextField(15), "span, growx");
 		infoAlbum.setEditable(false);
 		
 		p.add(new JLabel("Track#:"), new CC().alignX("leading"));
-		p.add((infoTrack = new JTextField(15)), new CC().alignX("left").maxWidth("70").wrap());
+		p.add(infoTrack = new JTextField(15), new CC().alignX("left").maxWidth("70").wrap());
 		infoTrack.setEditable(false);
 	
 		JPanel buttonPanel = new JPanel(new MigLayout("", "[center, grow]"));
-		buttonPanel.add(new JButton(new PlayAction()));
-		buttonPanel.add(new JButton(new StopAction()));
+		buttonPanel.add(infoPlay = new JButton(new PlayAction()));
+		buttonPanel.add(infoStop = new JButton(new StopAction()));
 		p.add(buttonPanel, "span");
 		
 		return p;
 	}
 
-	class PlayAction extends AbstractAction {
+	protected class PlayAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
 		public PlayAction() {
-			putValue(NAME, "Play song");
+			putValue(NAME, "Play");
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, new MediaPlaybackStartIcon(16, 16));
 		}
@@ -190,22 +197,27 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 		public void actionPerformed(ActionEvent e) {
 			if (current == null || old.equals(current.getLocation()) ) return;
 			System.out.println("Playing " + current.getLocation());
-			try {
-				music.replaceMusic(new Music(current.getLocation(), true));
-				music.pause();
-				music.toggleMusic();
-			} catch (SlickException e1) {
-				e1.printStackTrace();
-			}
-			old = current.getLocation();
+			if (play()) old = current.getLocation();
 		}
 	}	
 
-	class StopAction extends AbstractAction {
+	protected boolean play(){
+		try {
+			music.replaceMusic(new Music(current.getLocation(), true));
+		} catch (IOException e) {
+			// FIXME catch block in play
+			e.printStackTrace();
+		}
+		music.pause();
+		music.toggleMusic();	
+		return true;
+	}
+	
+	protected class StopAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
 		public StopAction() {
-			putValue(NAME, "Stop song");
+			putValue(NAME, "Stop");
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, new MediaPlaybackStopIcon(16, 16));
 		}
@@ -247,7 +259,7 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 	 * For storing cached info.
 	 * @author Bilal Hussain
 	 */
-	class TrackInfo {
+	protected class TrackInfo {
 		String title;
 		String album;
 		String artist;
