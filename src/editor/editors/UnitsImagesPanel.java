@@ -35,6 +35,8 @@ public class UnitsImagesPanel extends AbstractSpriteSheetOrganiser {
 
 	public UnitsImagesPanel(Editor editor){
 		super(editor, new BorderLayout());
+		spriteSheetHelpString = "Must have the images (north0, south0, east0 and west0) in the sheet."+
+		"_portrait is optional, but if inculded it is displayed in any dialog for character";
 		validationForUnits = true;
 	}
 

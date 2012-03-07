@@ -2,6 +2,7 @@ package editor.spritesheet;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.dnd.DragSourceDropEvent;
 import java.awt.event.*;
@@ -87,9 +88,6 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 	
 	public SpriteSheetEditor(int frameClosingValue) {
 		this(frameClosingValue, null,null,"",true,false,false);
-		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-			System.setProperty("apple.laf.useScreenMenuBar", "true");
-		}
 	}
 
 	public SpriteSheetEditor(int frameClosingValue, String savePath, ISpriteEditorListener listener, 
@@ -110,6 +108,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		saveChooser = new JFileChooser(STARTING_PATH);
 		dirChooser  = new JFileChooser(STARTING_PATH);
 
+		setMinimumSize(new Dimension(810,580));
 		setSize(810, 580);
 		initGui();
 		setJMenuBar(createMenubar());
@@ -818,6 +817,9 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 
 	public static void main(String[] args) {
 		Config.loadLoggingProperties();
+		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+		}
 		new SpriteSheetEditor(JFrame.EXIT_ON_CLOSE).setVisible(true);
 	}
 

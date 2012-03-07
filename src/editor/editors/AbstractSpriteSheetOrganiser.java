@@ -55,7 +55,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	protected EditorSpriteSheet currentSheet;
 	protected String justCreated = null;
 	
-	protected String spriteSheetHelpString = "Must have the images (north0, south0, east0 and west0) in the sheet.";
+	protected String spriteSheetHelpString;
 	protected boolean showAnimations       = true;
 	protected boolean validationForUnits   = false;
 	protected boolean makeTileMapping      = false;
