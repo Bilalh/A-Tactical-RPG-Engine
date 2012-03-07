@@ -452,8 +452,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setActionHandler(ActionsEnum.FINISHED);
 	}
 	
-	public  void dialogFinished(ActionsEnum nextAction){
+
+	public void displayDialog(DialogParts dialog) {
+		dialogHandler.setDialog(dialog.sortedValues());
+	}
+	
+	void dialogFinished(ActionsEnum nextAction){
 		setActionHandler(nextAction);
+		mapController.dialogFinished();
 	}
 	
 	// Shows the movement range/attack range of other units.
@@ -485,7 +491,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				if (s != null) changeState(s);
 				break;
 			default:
-				assert false :"Not done yet";
+				assert false :"Not done yet" + state;
 		}
 
 	}
@@ -794,7 +800,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			case KeyEvent.VK_T:{
 				MapEvents me = Config.loadPreference("maps/fft2-events.xml");
 				DialogParts parts = me.getStartDialog();
-				dialogHandler.setDialog(parts.sortedValues());
+				displayDialog(parts);
 				break;				
 			}
 			case KeyEvent.VK_I:

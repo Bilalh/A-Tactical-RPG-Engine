@@ -19,6 +19,10 @@ import view.units.AnimatedUnit;
 
 import common.gui.Sprite;
 
+/**
+ * Display the specifed text. The text is paginated  to fit inside the dialog
+ * @author Bilal Hussain
+ */
 public class GuiDialog implements IDisplayable {
 
 	private int textWidth;
@@ -168,14 +172,6 @@ public class GuiDialog implements IDisplayable {
 		this.image = image;
 		this.xdiff = (image == null) ? 5 : image.getWidth(null);
 		setWidth(this.width);
-	}
-
-	public BufferedImage getPicture() {
-		return image;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public void setName(String name) {

@@ -7,6 +7,7 @@ import java.util.List;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
+ * A collections of dialog parts. 
  * @author Bilal Hussain
  */
 @XStreamAlias("dialogParts")

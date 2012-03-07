@@ -119,5 +119,10 @@ public class MapController extends Controller {
 	public String getTexturesLocation() {
 		return map.getTexturesLocation();
 	}
+
+	/** @category Generated */
+	public void dialogFinished() {
+		map.dialogFinished();
+	}
 	
 }

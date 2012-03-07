@@ -19,6 +19,7 @@ import common.interfaces.IMapNotification;
 import common.interfaces.IMapUnit;
 import common.interfaces.IWeapon;
 import config.Config;
+import config.xml.MapEvents;
 
 import engine.Player;
 import engine.items.MeleeWeapon;
@@ -49,7 +50,12 @@ public class Map extends BasicMap implements IMap {
 
 	private IMutableMapUnit current;
 
-	/** @category Constructor */
+	private enum MapState{
+		START, INBATTLE
+	}
+	private MapState mapState;
+	
+	
 	public Map(String name, Player player) {
 		this.playerinfo = player;
 		loadSettings(name);
@@ -121,9 +127,21 @@ public class Map extends BasicMap implements IMap {
 		setChanged();
 		current = order.remove();
 		
-		sendNotification(new UnitTurnNotification(current));
+		mapState =  MapState.START;
+		sendNotification(new DialogNotification(events.getStartDialog()));
+//		sendNotification(new UnitTurnNotification(current));
 	}
 
+	@Override
+	public void dialogFinished(){
+		switch(mapState){
+			case START:
+				mapState = MapState.INBATTLE;
+				sendNotification(new UnitTurnNotification(current));
+				break;
+		}
+	}
+	
 	// Precondition getMovementRange must have been called first
 	@Override
 	public void moveUnit(IMutableMapUnit u, ILocation p) {

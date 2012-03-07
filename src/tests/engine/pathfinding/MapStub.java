@@ -62,4 +62,10 @@ public class MapStub implements IMap {
 		return 0;
 	}
 
+	@Override
+	public void dialogFinished() {
+		// FIXME dialogFinished method
+		
+	}
+
 }

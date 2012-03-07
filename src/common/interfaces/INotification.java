@@ -1,7 +1,8 @@
 package common.interfaces;
 
 /**
- * @author bilalh
+ * A Notification has a object E that handle the Notification 
+ * @author Bilal Hussain
  */
 public interface INotification<E> {
 

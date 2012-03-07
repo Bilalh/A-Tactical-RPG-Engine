@@ -9,6 +9,7 @@ import common.interfaces.IUnit;
 import common.interfaces.Identifiable;
 
 /**
+ * A DialogPart has the text to be displayed. It  can optionally specify the id of speaker.  
  * @author Bilal Hussain
  */
 @XStreamAlias("dialogPart")

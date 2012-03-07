@@ -24,6 +24,7 @@ public class BasicMap extends Observable {
 	
 	protected ITileMapping tileMapping;
 	protected UnitPlacement enemies;
+	protected MapEvents events;
 	
 
 	/**
@@ -55,7 +56,16 @@ public class BasicMap extends Observable {
 		
 		String placement = data.getEnemiesLocation();
 		assert placement != null;
+		
 		enemies = Config.loadPreference(placement);
+		assert enemies != null;
+		
+		String eventsLocation = data.getEventsLocation();
+		assert eventsLocation != null;
+		
+		events = Config.loadPreference(eventsLocation);
+		assert events != null;
+		
 	}
 
 	public TileImageData getTileImageData(int x, int y) {
