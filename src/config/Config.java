@@ -106,6 +106,9 @@ public class Config {
 		}
 	}
 	
+	public static File getResourceFile(String path){
+		 return new File(RESOURCE_DIRECTORY + path); 
+	}
 	
 	public static SpriteSheet loadSpriteSheet(String filepath){
 		File f = new File(RESOURCE_DIRECTORY+filepath);

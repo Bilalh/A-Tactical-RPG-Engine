@@ -128,7 +128,6 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 				setCurrentResource(resource);
 			}
 		});
-		resourceList.setSelectedIndex(0);
 
 		resourceList.addKeyListener(new KeyAdapter() {
 			@Override
@@ -157,7 +156,7 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 
 	protected LayoutManager defaultInfoPanelLayout() {
 		LC layC = new LC().fill().wrap();
-		AC colC = new AC().align("right", 1).fill(1, 3).grow(100, 1, 3).align("right", 3).gap("15", 1, 3);
+		AC colC = new AC().align("right", 1).fill(1, 4).grow(100, 1, 3).align("right", 3).gap("15", 1, 3);
 		AC rowC = new AC().align("top", 10).gap("15!", 10).grow(100, 10);
 		return new MigLayout(layC, colC, rowC);
 	}
