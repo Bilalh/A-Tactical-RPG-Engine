@@ -194,4 +194,8 @@ public class GuiUnit {
 		return weaponSprite;
 	}
 	
+	public BufferedImage getSprite(String ref){
+		return spriteSheet.getSpriteImage(ref);
+	}
+	
 }

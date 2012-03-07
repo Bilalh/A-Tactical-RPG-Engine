@@ -1,19 +1,19 @@
 <sprites width="256" height="128">
-  <sprite name="west0" x="0" y="0" width="29" height="47"/>
-  <sprite name="north0" x="30" y="0" width="29" height="47"/>
-  <sprite name="east1" x="60" y="0" width="29" height="47"/>
-  <sprite name="south1" x="90" y="0" width="29" height="47"/>
-  <sprite name="east0" x="120" y="0" width="30" height="47"/>
-  <sprite name="south0" x="151" y="0" width="30" height="47"/>
-  <sprite name="west1" x="182" y="0" width="28" height="46"/>
-  <sprite name="west3" x="211" y="0" width="28" height="46"/>
-  <sprite name="north3" x="0" y="48" width="28" height="46"/>
-  <sprite name="north1" x="29" y="48" width="28" height="46"/>
-  <sprite name="south3" x="58" y="48" width="30" height="46"/>
-  <sprite name="east3" x="89" y="48" width="30" height="46"/>
-  <sprite name="east2" x="120" y="48" width="28" height="46"/>
-  <sprite name="south2" x="149" y="48" width="28" height="46"/>
-  <sprite name="west2" x="178" y="48" width="28" height="45"/>
-  <sprite name="north2" x="207" y="48" width="28" height="45"/>
-  <sprite name="dead" x="0" y="95" width="46" height="29"/>
+  <sprite name="_portrait" x="0" y="0" width="46" height="54"/>
+  <sprite name="west0" x="46" y="0" width="29" height="47"/>
+  <sprite name="north0" x="75" y="0" width="29" height="47"/>
+  <sprite name="east1" x="104" y="0" width="29" height="47"/>
+  <sprite name="south1" x="133" y="0" width="29" height="47"/>
+  <sprite name="east0" x="162" y="0" width="30" height="47"/>
+  <sprite name="south0" x="192" y="0" width="30" height="47"/>
+  <sprite name="west1" x="222" y="0" width="28" height="46"/>
+  <sprite name="west3" x="0" y="54" width="28" height="46"/>
+  <sprite name="north3" x="28" y="54" width="28" height="46"/>
+  <sprite name="north1" x="56" y="54" width="28" height="46"/>
+  <sprite name="south3" x="84" y="54" width="30" height="46"/>
+  <sprite name="east3" x="114" y="54" width="30" height="46"/>
+  <sprite name="south2" x="144" y="54" width="28" height="46"/>
+  <sprite name="east2" x="172" y="54" width="28" height="46"/>
+  <sprite name="west2" x="200" y="54" width="28" height="45"/>
+  <sprite name="north2" x="228" y="54" width="28" height="45"/>
 </sprites>

@@ -155,7 +155,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setActionHandler(ActionsEnum.MOVEMENT);
 
 		dialog.setWidth(parent.getWidth());
-		dialog.setHeight(90);
+		dialog.setHeight(75);
 		UnitState.setMap(this);
 
 		// Load the tiles and items images

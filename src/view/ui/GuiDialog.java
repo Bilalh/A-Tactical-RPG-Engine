@@ -19,54 +19,52 @@ import view.units.AnimatedUnit;
 
 import common.gui.Sprite;
 
-
-public class GuiDialog implements IDisplayable{
+public class GuiDialog implements IDisplayable {
 
 	private int textWidth;
 	private int width;
 	private int height;
-	
+
 	private String name;
-	
+
 	// stores the fonts settings
 	private Hashtable<TextAttribute, Object> map = new Hashtable<TextAttribute, Object>();
 
 	// The LineBreakMeasurer used to line-break the paragraph.
 	private LineBreakMeasurer lineMeasurer;
 	private AttributedString text;
-	
+
 	// The start postion
 	private int index;
 	// The poistion of the next char that will not fit
 	private int temp;
 
-	
 	// index of the first character after the end of the paragraph.
 	private int paragraphEnd;
-	
+
 	private AttributedCharacterIterator paragraph;
-	
-	// the diff btween width and textWidth 
+
+	// the diff btween width and textWidth
 	private int xdiff;
 	private int yOffset;
 	private int lineHeight;
-	
+
 	private BufferedImage image;
-	
+
 	private Font f = new Font("Serif", Font.PLAIN, 18);
 	private FontMetrics metrics;
-	
-	public GuiDialog(int width, int height){
+
+	public GuiDialog(int width, int height) {
 		this(width, height, null, null);
 	}
-	
+
 	public GuiDialog(int width, int height, String name, BufferedImage image) {
 		setPicture(image);
 		setWidth(width);
-		
+
 		yOffset = 25;
 		setHeight(height);
-		
+
 		this.name = name;
 		map.put(TextAttribute.FAMILY, "Serif");
 		map.put(TextAttribute.SIZE, new Float(18));
@@ -139,17 +137,17 @@ public class GuiDialog implements IDisplayable{
 		g.setFont(oldF);
 	}
 
-	// Returns false if there is no more text 
-	public boolean nextPage(){
+	// Returns false if there is no more text
+	public boolean nextPage() {
 		if (index == temp) return false;
 		index = temp;
-//		Gui.console().printf("index:%s text:%s", index, paragraphEnd);
+		// Gui.console().printf("index:%s text:%s", index, paragraphEnd);
 		return (index < paragraphEnd);
 	}
-	
+
 	public void setText(String s) {
-		text         = new AttributedString(s,map);
-		paragraph    = text.getIterator();
+		text = new AttributedString(s, map);
+		paragraph = text.getIterator();
 		paragraphEnd = paragraph.getEndIndex();
 		lineMeasurer = null;
 		index = temp = 0;
@@ -159,23 +157,23 @@ public class GuiDialog implements IDisplayable{
 
 	public void setData(String text, AnimatedUnit u) {
 		setText(text);
-		if (u != null){
+		if (u != null) {
 			setPicture(u.sprite);
-			setName(u.getUnit().getName());	
+			setPicture(u.getSprite("_portrait"));
+			setName(u.getUnit().getName());
 		}
 	}
-	
+
 	public void setPicture(BufferedImage image) {
-		this.image   = image;
+		this.image = image;
 		this.xdiff = (image == null) ? 5 : image.getWidth(null);
 		setWidth(this.width);
 	}
-	
+
 	public BufferedImage getPicture() {
 		return image;
 	}
 
-	
 	public String getName() {
 		return name;
 	}
@@ -184,21 +182,21 @@ public class GuiDialog implements IDisplayable{
 		this.name = name;
 	}
 
-	public void setHeight(int height){
+	public void setHeight(int height) {
 		this.height = height - yOffset;
 	}
-	
+
 	public int getHeight() {
 		return height + yOffset;
 	}
-	
+
 	public int getWidth() {
 		return textWidth;
 	}
 
 	public void setWidth(int width) {
 		this.width = width;
-		this.textWidth = width-xdiff;
+		this.textWidth = width - xdiff;
 	}
-	
+
 }
