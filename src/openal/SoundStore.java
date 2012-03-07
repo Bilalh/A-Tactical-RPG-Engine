@@ -23,10 +23,13 @@ import common.gui.ResourceManager;
  * 
  * @author Kevin Glass
  * @author Rockstar setVolume cleanup
+ * 
  */
 @SuppressWarnings("all")
 public class SoundStore {
-
+	
+	// minor change to file loading -- Bilal Hussain
+	
 	/** The single instance of this class */
 	private static SoundStore store = new SoundStore();
 

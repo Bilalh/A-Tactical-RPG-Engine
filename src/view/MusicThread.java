@@ -53,7 +53,7 @@ public class MusicThread extends Thread {
 
 	public synchronized void removeMusic(){
 		music.stop();
-		music =null;
+		music = null;
 	}
 	
 	@Override

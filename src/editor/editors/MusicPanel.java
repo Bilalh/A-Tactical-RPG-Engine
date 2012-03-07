@@ -15,6 +15,9 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
+import openal.Music;
+import openal.SlickException;
+
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.AudioHeader;
@@ -27,6 +30,7 @@ import org.jaudiotagger.tag.TagException;
 
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 import com.javarichclient.icon.tango.actions.MediaPlaybackStartIcon;
+import com.javarichclient.icon.tango.actions.MediaPlaybackStopIcon;
 
 import util.IOUtil;
 import view.MusicThread;
@@ -62,6 +66,7 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 		chooser.setFileFilter(new FileNameExtensionFilter("Ogg Audio (*.ogg)", "ogg"));
 		chooser.setMultiSelectionEnabled(true);
 		cachedInfo = new HashMap<UUID, TrackInfo>();
+		music.start();
 	}
 
 	@Override
@@ -163,28 +168,54 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 		infoTrack.setEditable(false);
 	
 		JPanel buttonPanel = new JPanel(new MigLayout("", "[center, grow]"));
-		buttonPanel.add(new JButton(new AddAction()));
-		buttonPanel.add(new JButton(new AddAction()));
-		p.add(buttonPanel);
+		buttonPanel.add(new JButton(new PlayAction()));
+		buttonPanel.add(new JButton(new StopAction()));
+		p.add(buttonPanel, "span");
 		
 		return p;
 	}
 
-	protected class AddAction extends AbstractAction {
+	class PlayAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
-		public AddAction() {
+		public PlayAction() {
 			putValue(NAME, "Play song");
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, new MediaPlaybackStartIcon(16, 16));
 		}
 
+
+		String old = "";
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			if (current == null || old.equals(current.getLocation()) ) return;
+			System.out.println("Playing " + current.getLocation());
+			try {
+				music.replaceMusic(new Music(current.getLocation(), true));
+				music.pause();
+				music.toggleMusic();
+			} catch (SlickException e1) {
+				e1.printStackTrace();
+			}
+			old = current.getLocation();
 		}
 	}	
 
+	class StopAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public StopAction() {
+			putValue(NAME, "Stop song");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			putValue(SMALL_ICON, new MediaPlaybackStopIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			music.removeMusic();
+		}
+	}
+	
 	@Override
 	protected MusicData defaultResource() {
 		return new MusicData();
