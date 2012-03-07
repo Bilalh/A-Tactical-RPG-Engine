@@ -11,6 +11,7 @@
     <texturesLocation>images/textures/default.png</texturesLocation>
     <enemiesLocation>maps/nicer-enemies.xml</enemiesLocation>
         <eventsLocation>maps/nicer-events.xml</eventsLocation>
+        <musicLocation>maps/nicer-music.xml</musicLocation>
   </mapData>
   <tile x="0" y="0">
     <type>90</type>

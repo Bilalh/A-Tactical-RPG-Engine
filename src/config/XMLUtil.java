@@ -124,7 +124,8 @@ public abstract class XMLUtil {
 				
 				DialogParts.class,
 				DialogPart.class,
-				
+
+				MapMusic.class,
 				
 				//Model 
 				Unit.class,

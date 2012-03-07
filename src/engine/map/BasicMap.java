@@ -25,7 +25,7 @@ public class BasicMap extends Observable {
 	protected ITileMapping tileMapping;
 	protected UnitPlacement enemies;
 	protected MapEvents events;
-	
+	protected MapMusic music;
 
 	/**
 	 * Loads a map from resources
@@ -65,6 +65,12 @@ public class BasicMap extends Observable {
 		
 		events = Config.loadPreference(eventsLocation);
 		assert events != null;
+		
+		String musicLocation = data.getMusicLocation();
+		assert musicLocation != null;
+		
+		music = Config.loadPreference(musicLocation);
+		assert music != null;
 		
 	}
 
@@ -123,6 +129,11 @@ public class BasicMap extends Observable {
 	/** @category Generated */
 	public MapData getData() {
 		return data;
+	}
+
+	/** @category Generated */
+	public MapMusic getMusic() {
+		return music;
 	}
 
 

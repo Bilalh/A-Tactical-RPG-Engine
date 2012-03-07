@@ -35,6 +35,7 @@ import view.util.MousePoxy;
 
 import common.Location;
 import common.LocationInfo;
+import common.assets.AssertStore;
 import common.assets.DialogParts;
 import common.enums.Direction;
 import common.enums.Orientation;
@@ -190,7 +191,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		mapController.startMap();
 
 		try {
-			Gui.getMusicThread().replaceMusic(new Music("music/1-19 Fight It Out!.ogg", true));
+			Gui.getMusicThread().replaceMusic(new Music(mapController.getMusic().getBackgroundId()));
 			Gui.getMusicThread().pause();
 		} catch (IOException e) {
 			e.printStackTrace();

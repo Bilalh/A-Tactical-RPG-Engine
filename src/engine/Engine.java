@@ -38,7 +38,9 @@ public class Engine {
 		
 		AssetsLocations as = new AssetsLocations(
 				"assets/weapons.xml", 
-				"assets/skills.xml");
+				"assets/skills.xml",
+				"assets/music.xml",
+				"assets/sounds.xml");
 		AssertStore.instance().loadAssets(as);
 		player = new Player();
 		

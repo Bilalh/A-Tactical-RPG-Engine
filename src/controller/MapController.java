@@ -11,6 +11,7 @@ import notifications.map.MapFinishedNotification;
 
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
+import config.xml.MapMusic;
 import config.xml.MapSettings;
 import config.xml.TileImageData;
 
@@ -123,6 +124,11 @@ public class MapController extends Controller {
 	/** @category Generated */
 	public void dialogFinished() {
 		map.dialogFinished();
+	}
+
+	/** @category Generated */
+	public MapMusic getMusic() {
+		return map.getMusic();
 	}
 	
 }

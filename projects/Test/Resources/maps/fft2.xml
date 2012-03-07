@@ -11,6 +11,7 @@
     <texturesLocation>images/textures/default.png</texturesLocation>
     <enemiesLocation>maps/fft2-enemies.xml</enemiesLocation>
     <eventsLocation>maps/fft2-events.xml</eventsLocation>
+    <musicLocation>maps/fft2-music.xml</musicLocation>
   </mapData>
   <tile x="0" y="0">
     <type>5</type>

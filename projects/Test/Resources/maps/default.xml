@@ -11,6 +11,7 @@
     <texturesLocation>images/textures/default.png</texturesLocation>
     <enemiesLocation>maps/default-enemies.xml</enemiesLocation>
     <eventsLocation>maps/default-events.xml</eventsLocation>
+    <musicLocation>maps/default-music.xml</musicLocation>
   </mapData>
   <tile x="0" y="0">
     <type>5</type>

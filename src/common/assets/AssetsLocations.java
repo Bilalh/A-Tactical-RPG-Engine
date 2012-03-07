@@ -9,10 +9,14 @@ public class AssetsLocations {
 
 	public final String weaponsPath;
 	public final String skillsPath;
-
-	public AssetsLocations(String weaponsPath, String skillPath) {
+	public final String musicLocation;
+	public final String soundsLocation;
+	
+	public AssetsLocations(String weaponsPath, String skillsPath, String musicLocation, String soundsLocation) {
 		this.weaponsPath = weaponsPath;
-		this.skillsPath = skillPath;
+		this.skillsPath = skillsPath;
+		this.musicLocation = musicLocation;
+		this.soundsLocation = soundsLocation;
 	}
 
 }

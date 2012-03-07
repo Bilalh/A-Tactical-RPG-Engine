@@ -3,6 +3,10 @@ package openal;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.UUID;
+
+import common.assets.AssertStore;
+import common.assets.MusicData;
 
 /**
  * A piece of music loaded and playable within the game. Only one piece of music can play at any
@@ -11,7 +15,7 @@ import java.util.ArrayList;
  * @author kevin
  * @author Nathan Sweet <misc@n4te.com>
  * 
- * @author Bilal bug fix in startMusic
+ * @author Bilal bug fix in startMusic and extra methods
  */
 public class Music {
 	/** The music currently being played or null if none */
@@ -126,7 +130,6 @@ public class Music {
 	 * @param streamingHint
 	 *            A hint to indicate whether streaming should be used if possible
 	 * @throws IOException 
-	 * @throws SlickException
 	 */
 	public Music(String ref, boolean streamingHint) throws IOException {
 		SoundStore.get().init();
@@ -144,6 +147,10 @@ public class Music {
 		}
 	}
 
+	public Music(UUID  uuid) throws IOException {
+		this((AssertStore.instance().getMusic(uuid)).getLocation(),true);
+	}
+	
 	/**
 	 * Add a listener to this music
 	 * 
