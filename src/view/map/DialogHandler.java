@@ -5,17 +5,20 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayDeque;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.sun.tools.javac.code.Attribute.Array;
 
 import common.assets.DialogPart;
 import common.assets.DialogParts;
 
+import util.Logf;
 import view.map.GuiMap.ActionsEnum;
 import view.ui.GuiDialog;
 import view.util.MapActions;
 
 class DialogHandler extends MapActions {
-
+	private static final Logger log = Logger.getLogger(DialogHandler.class);
 	private GuiDialog dialog;
 	private ActionsEnum nextAction = ActionsEnum.MOVEMENT;
 
@@ -28,6 +31,7 @@ class DialogHandler extends MapActions {
 
 	@Override
 	public void draw(Graphics2D g, int width, int height) {
+		assert dialog != null;
 		dialog.draw(g, 5, height - dialog.getHeight() - 5);
 	}
 
@@ -47,7 +51,8 @@ class DialogHandler extends MapActions {
 				map.dialogFinished(nextAction);
 			}else{
 				DialogPart current =queue.pop(); 
-				dialog.setData(current.getText(), map.getUnit(current.getUnitId()));
+				Logf.debug(log,"Showing dialog for %s ", map.getUnit(current.getUnitId()));
+				dialog.setData(current.getText(), map.getUnitInculdingDied(current.getUnitId()));
 			}
 		}
 	}
@@ -65,11 +70,14 @@ class DialogHandler extends MapActions {
 	public void setDialog(List<DialogPart> sortedValues) {
 		queue.clear();
 		queue.addAll(sortedValues);
-		 DialogPart current = queue.pollFirst();
+		DialogPart current = queue.pollFirst();
+		
 		if (current == null){
 			map.dialogFinished(nextAction);
 		}else{
-			dialog.setData(current.getText(), map.getUnit(current.getUnitId()));
+			Logf.debug(log,"Showing dialog for %s ", map.getUnit(current.getUnitId()));
+
+			dialog.setData(current.getText(), map.getUnitInculdingDied(current.getUnitId()));
 			map.setActionHandler(ActionsEnum.DIALOG);
 		}
 	}

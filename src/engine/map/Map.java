@@ -78,6 +78,7 @@ public class Map extends BasicMap implements IMap {
 		for (Entry<UUID,Location> e : enemies.getUnitPlacement().entrySet()) {
 			IMutableUnit u = enemies.getUnit(e.getKey());
 			AIUnit au = new AIUnit(u, e.getValue(), ai);
+			getTile(au.getLocation()).setCurrentUnit(au);
 			aiUnits.add(au);
 		}
 		
@@ -193,7 +194,6 @@ public class Map extends BasicMap implements IMap {
 			System.err.println("PLAYERS WINS");	
 			mapState = MapState.PRE_WIN;
 			sendNotification(new DialogNotification(events.getEndDialog()));
-//			sendNotification(new PlayerWonNotification());
 			return true;
 		}
 		if (player.getUnits().isEmpty()) {

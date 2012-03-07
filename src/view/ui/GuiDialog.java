@@ -76,7 +76,7 @@ public class GuiDialog implements IDisplayable {
 
 	// FIXME cache data
 	@Override
-	public void draw(Graphics2D g, int drawX, int drawY) {
+	public synchronized void draw(Graphics2D g, int drawX, int drawY) {
 		Color oldC = g.getColor();
 		Font oldF = g.getFont();
 

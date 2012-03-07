@@ -4,15 +4,15 @@
     <unit uuid="620482ab-3a91-49a8-b65d-e9507e2c5dbb">
       <name>Elena</name>
       <maxHp>15</maxHp>
-      <move>3</move>
-      <strength>25</strength>
+      <move>5</move>
+      <strength>20</strength>
       <defence>20</defence>
       <speed>20</speed>
       <level>1</level>
       <exp>0</exp>
       <imageDataRef>images/characters/Elena-animations.xml</imageDataRef>
       <weight>0</weight>
-      <wepaonId>64295f0f-ccc4-4c92-a61b-21ab691ac624</wepaonId>
+      <wepaonId>a06d735c-b074-429f-894f-f966adfd06e3</wepaonId>
       <skillIds>
         <uuid>6617a65e-6ef4-44b5-96b7-3e7184416eaf</uuid>
       </skillIds>
@@ -35,6 +35,7 @@
       <skillIds>
         <uuid>79485114-2559-4964-9cbd-f0841bd2e916</uuid>
         <uuid>5ed5181c-4acf-46e6-89f4-6dba90421889</uuid>
+        <uuid>5c606847-9847-403e-bd01-28cbe3d2d1ca</uuid>
       </skillIds>
     </unit>
   </entry>

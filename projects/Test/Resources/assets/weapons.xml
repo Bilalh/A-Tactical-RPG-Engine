@@ -10,6 +10,16 @@
     </engine.items.RangedWeapon>
   </entry>
   <entry>
+    <uuid>a06d735c-b074-429f-894f-f966adfd06e3</uuid>
+    <engine.items.RangedWeapon uuid="a06d735c-b074-429f-894f-f966adfd06e3">
+      <name>Testing</name>
+      <strength>50</strength>
+      <range>9</range>
+      <imageRef>4-11</imageRef>
+      <innerRange>1</innerRange>
+    </engine.items.RangedWeapon>
+  </entry>
+  <entry>
     <uuid>0f0dee32-06de-4f25-ba3d-acb110afc52c</uuid>
     <engine.items.Spear uuid="0f0dee32-06de-4f25-ba3d-acb110afc52c">
       <name>Longicolnis</name>

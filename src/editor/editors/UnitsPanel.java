@@ -114,6 +114,20 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	}
 	
 	public void setCurrentUnit(IMutableUnit u){
+		if (currentUnit != null){
+//			changeName();
+//			IWeapon w = (IWeapon) infoWeapon.getSelectedItem();
+//			if (w != null) changeWeapon(w);
+//			changeStrength(((Number)infoStrength.getValue()).intValue());
+//			changeDefence(((Number)infoDefence.getValue()).intValue());
+//			changeSpeed(((Number)infoSpeed.getValue()).intValue());
+//			changeMove(((Number)infoMove.getValue()).intValue());
+//			changeHp(((Number)infoHp.getValue()).intValue());
+//			changeSkills();
+//			SpriteSheetData ssd = (SpriteSheetData) infoSpriteSheet.getSelectedItem();
+//			if (ssd != null) changeUnitImages(ssd);
+		}
+		
 		assert u != null;
 		
 		currentUnit = u;
@@ -311,7 +325,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 				setCurrentUnit(u);
 			}
 		});
-		unitsList.setSelectedIndex(0);
+//		unitsList.setSelectedIndex(0);
 
 		unitsList.addKeyListener(new KeyAdapter() {
 			@Override

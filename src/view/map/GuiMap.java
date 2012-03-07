@@ -71,7 +71,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private ArrayList<AnimatedUnit> aiUnits;
 	
 	private HashMap<UUID, AnimatedUnit> unitMapping;
-
+	private HashMap<UUID, AnimatedUnit> died;
+	
 	// UI elements
 	private Menu menu     = new Menu();
 	private GuiDialog dialog = new GuiDialog(0, 0);
@@ -137,6 +138,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		
 		this.field = new IsoTile[fieldWidth][fieldHeight];
 		this.unitMapping  = new HashMap<UUID, AnimatedUnit>();
+		this.died         = new HashMap<UUID, AnimatedUnit>();
 		this.pathIterator = new ArrayDeque<LocationInfo>(0).iterator();
 		
 		float multiplier = 1.3f;
@@ -401,7 +403,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		// End unit's turn
 		timer.schedule(new TimerTask() {
 			@Override
-			public void run() {
+			public  void run() {
 				int playLose = 0, playGain = 0;
 				for (IBattleResult battle : battleInfo.getResults()) {
 					AnimatedUnit au =  unitMapping.get(battle.getTarget().getUuid());
@@ -409,7 +411,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 					
 					if (battle.isTargetDead()){
 						Logf.info(log, "Died:%s", battle.getTarget());
-						unitMapping.remove(battle.getTarget().getUuid());
+						AnimatedUnit aau =  unitMapping.remove(battle.getTarget().getUuid());
+						died.put(aau.getUnit().getUuid(), aau);
+						
 						getTile(au.getLocation()).removeUnit();
 						if (battle.getTarget().isAI()){
 							aiUnits.remove(au);
@@ -746,6 +750,12 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	public AnimatedUnit getUnit(UUID uuid){
 		return unitMapping.get(uuid);
+	}
+	
+	public AnimatedUnit getUnitInculdingDied(UUID uuid){
+		AnimatedUnit au    = unitMapping.get(uuid);
+		if (au == null) au = died.get(uuid);
+		return au;
 	}
 	
 	public void otherKeys(KeyEvent e) {

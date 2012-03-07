@@ -169,6 +169,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		currentEvent = Config.loadPreference(map.getMapData().getEventsLocation());
 		dialogStartPanel.setResources(currentEvent.getStartDialog());
 		dialogEndPanel.setResources(currentEvent.getEndDialog());
+		dialogStartPanel.panelSelected(editor);
+		dialogEndPanel.panelSelected(editor);
 	}
 
 	@Override

@@ -30,6 +30,21 @@
     </engine.skills.RangedSkill>
   </entry>
   <entry>
+    <uuid>5c606847-9847-403e-bd01-28cbe3d2d1ca</uuid>
+    <engine.skills.RangedSkill uuid="5c606847-9847-403e-bd01-28cbe3d2d1ca">
+      <name>Testing</name>
+      <power>100</power>
+      <targetOpposite>true</targetOpposite>
+      <includeCaster>false</includeCaster>
+      <range>9</range>
+      <area>8</area>
+      <startLocation>
+        <x>5</x>
+        <y>5</y>
+      </startLocation>
+    </engine.skills.RangedSkill>
+  </entry>
+  <entry>
     <uuid>5ed5181c-4acf-46e6-89f4-6dba90421889</uuid>
     <engine.skills.RangedSkill uuid="5ed5181c-4acf-46e6-89f4-6dba90421889">
       <name>Thunder Flare</name>

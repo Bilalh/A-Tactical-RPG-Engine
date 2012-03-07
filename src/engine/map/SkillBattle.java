@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.apache.log4j.Logger;
+
+import util.Logf;
+
 import common.Location;
 
 import engine.map.interfaces.IMutableMapUnit;
@@ -15,7 +19,8 @@ import engine.unit.Unit;
  * @author Bilal Hussain
  */
 public class SkillBattle extends Battle {
-
+	private static final Logger log = Logger.getLogger(SkillBattle.class);
+	
 	protected ISkill skill;
 	
 	public SkillBattle(ISkill skill, IMutableMapUnit attacker, Location target, Map map) {
@@ -26,14 +31,18 @@ public class SkillBattle extends Battle {
 	}
 
 	protected Collection<IMutableMapUnit> getTargets(IMutableMapUnit attacker, Location target, Map map) {
-		Collection<Location> c           =  skill.getArea(target, map.getFieldWidth(), map.getFieldHeight());
+		Collection<Location> c =  skill.getArea(target, map.getFieldWidth(), map.getFieldHeight());
+		assert !c.isEmpty();
+		Logf.debug(log, "Skill Area %s", c);
 		HashSet<IMutableMapUnit> targets = new HashSet<IMutableMapUnit>();
 		boolean type = attacker.isAI();
 		if (skill.isTargetOpposite()) type = !type;
 		
 		for (Location l : c) {
 			IMutableMapUnit u = map.getTile(l).getCurrentUnit();
-			if (u != null) targets.add(u);
+			if (u != null){
+				targets.add(u);
+			}
 		}
 
 		targets = removeFromTargets(targets);
