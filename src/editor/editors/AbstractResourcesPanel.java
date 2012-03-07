@@ -193,18 +193,22 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// Must have at lest one map
-			if (resourceListModel.size() <= 1) {
-				return;
-			}
+			if (!shouldDelete(e)) return;
 			deleteFromList(resourceList.getSelectedIndex());
 		}
 	}
 
+	protected boolean shouldDelete(ActionEvent e){
+		return resourceListModel.size() > 1;
+	}
+	
 	protected void deleteFromList(int index) {
-		assert resourceListModel.size() >= 2;
+		assert resourceListModel.size() >= 1;
 		assert index != -1;
-		int nextIndex = index == 0 ? resourceListModel.size() - 1 : index - 1;
-		resourceList.setSelectedIndex(nextIndex);
+		if (resourceListModel.size() >1){
+			int nextIndex = index == 0 ? resourceListModel.size() - 1 : index - 1;
+			resourceList.setSelectedIndex(nextIndex);
+		}
 		resourceListModel.remove(index);
 	}
 

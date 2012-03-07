@@ -58,6 +58,7 @@ public class Editor {
 	TexturesPanel    texturesPanel;
 	
 	MapsPanel       mapsPanel;
+	MusicPanel      musicPanel;
 	
 	
 	String projectPath = "projects/Test";
@@ -139,7 +140,7 @@ public class Editor {
 		unitImagesPanel  = new UnitsImagesPanel(this);
 		tilesetPanel     = new TilesetPanel(this);
 		texturesPanel    = new TexturesPanel(this);
-		
+		musicPanel       = new MusicPanel(this);
 		
 		tabs.addTab("Weapons",      (weaponsPanel    = new WeaponsPanel()));
 		tabs.addTab("Skills",       (skillsPanel     = new SkillsPanel()));
@@ -152,6 +153,7 @@ public class Editor {
 		loadAssets();
 
 		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel(this)));
+		tabs.addTab("Music",        (musicPanel      ));
 //		tabs.addTab("Story",        new JPanel());
 //		tabs.addTab("Project",      new JPanel());
 		
@@ -241,16 +243,8 @@ public class Editor {
 		Config.savePreferences(maps, "assets/maps.xml");
 		log.info(maps);
 		
-//		// Images
-//		File images = new File(resources, "images");
-//		images.mkdir();
-//		File items = new File(images, "items");
-//		items.mkdir();
-//		File tilesets = new File(images, "tilesets");
-//		tilesets.mkdir();
-//		
-//		File textures = new File(images, "textures");
-//		textures.mkdir();
+		Musics musics = musicPanel.getResouces();
+		Config.savePreferences(musics, "assets/music.xml");
 		
 		// Main project file
 		File mainXml  = new File(f, "tactical-project.xml");
@@ -296,6 +290,10 @@ public class Editor {
 		Units uu = Config.loadPreference("assets/units.xml");
 		unitPanel.setUnits(uu);
 		log.info(uu);
+		
+		Musics mm = Config.loadPreference("assets/music.xml");
+		musicPanel.setResources(mm);
+		log.info(mm);
 		
 		if (!initLoading){
 			Maps maps = Config.loadPreference("assets/maps.xml");

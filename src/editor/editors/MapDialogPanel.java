@@ -5,6 +5,7 @@ import static editor.editors.AbstractSpriteSheetOrganiser.sortedSprites;
 import java.awt.Component;
 import java.awt.LayoutManager;
 import java.awt.dnd.DragSourceDropEvent;
+import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -232,4 +233,21 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		resourceList.setSelectedIndex(newIndex);
 	}
 
+
+	@Override
+	protected boolean shouldDelete(ActionEvent e) {
+		return resourceListModel.size() > 0;
+	}
+
+	@Override
+	protected void deleteFromList(int index) {
+		super.deleteFromList(index);
+		if (resourceListModel.size() == 0){
+			infoText.setText("");
+			infoText.setEnabled(false);
+			infoSpeaker.setEnabled(false);
+			current = null;
+		}
+	}
+	
 }
