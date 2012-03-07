@@ -2,6 +2,13 @@ package view.map;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.util.ArrayDeque;
+import java.util.List;
+
+import com.sun.tools.javac.code.Attribute.Array;
+
+import common.assets.DialogPart;
+import common.assets.DialogParts;
 
 import view.map.GuiMap.ActionsEnum;
 import view.ui.GuiDialog;
@@ -12,6 +19,8 @@ class DialogHandler extends MapActions {
 	private GuiDialog dialog;
 	private ActionsEnum nextAction = ActionsEnum.MOVEMENT;
 
+	private ArrayDeque<DialogPart> queue = new ArrayDeque<DialogPart>();
+	
 	public DialogHandler(GuiMap map, GuiDialog dialog) {
 		super(map);
 		this.dialog = dialog;
@@ -34,7 +43,11 @@ class DialogHandler extends MapActions {
 
 	private void nextPage() {
 		if (!dialog.nextPage()) {
-			map.setActionHandler(nextAction);
+			if (queue.isEmpty()){
+				map.dialogFinished(nextAction);
+			}else{
+				dialog.setText(queue.pop().getText());
+			}
 		}
 	}
 
@@ -47,4 +60,17 @@ class DialogHandler extends MapActions {
 	public void setNextAction(ActionsEnum nextAction) {
 		this.nextAction = nextAction;
 	}
+
+	public void setDialog(List<DialogPart> sortedValues) {
+		queue.clear();
+		queue.addAll(sortedValues);
+		 DialogPart current = queue.pollFirst();
+		if (current == null){
+			map.dialogFinished(nextAction);
+		}else{
+			dialog.setText(current.getText());
+			map.setActionHandler(ActionsEnum.DIALOG);
+		}
+	}
+	
 }

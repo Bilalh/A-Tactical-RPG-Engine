@@ -5,12 +5,22 @@
       <dialogPart uuid="1d2db735-a6ed-4926-ab07-c524b244b09c">
         <text>I never expected to meet a knight of Lodis! I will never forgive you for all that I lost 15 years ago. You burned down my town and killed my parents!!! Thankfully, I’ve acquired the skills of a soldier.</text>
         <unitId>6363fb76-c8c1-4894-9244-906035ccc1f9</unitId>
+        <partNo>0</partNo>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>4d3b0e6e-7474-4f06-adc0-5de645141714</uuid>
+      <dialogPart uuid="4d3b0e6e-7474-4f06-adc0-5de645141714">
+        <text>New Dialogue 3</text>
+        <unitId>6363fb76-c8c1-4894-9244-906035ccc1f9</unitId>
+        <partNo>2</partNo>
       </dialogPart>
     </entry>
     <entry>
       <uuid>a91ee11a-d962-4948-ade4-c68a2b258930</uuid>
       <dialogPart uuid="a91ee11a-d962-4948-ade4-c68a2b258930">
         <text>“I understand that it’s hard for you, but that was a long time ago...”</text>
+        <partNo>1</partNo>
       </dialogPart>
     </entry>
   </startDialog>
@@ -19,6 +29,7 @@
       <uuid>a390ce99-cc1f-4478-9d77-1959127ff8ef</uuid>
       <dialogPart uuid="a390ce99-cc1f-4478-9d77-1959127ff8ef">
         <text>AAI never expected to meet a knight of Lodis! I will never forgive you for all that I lost 15 years ago. You burned down my town and killed my parents!!! Thankfully, I’ve acquired the skills of a soldier.</text>
+        <partNo>1</partNo>
       </dialogPart>
     </entry>
     <entry>
@@ -26,6 +37,7 @@
       <dialogPart uuid="5fb0e5c4-7c5e-4602-946a-6286cd160a4a">
         <text>AA“I understand that it’s hard for you, but that was a long time ago...”</text>
         <unitId>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</unitId>
+        <partNo>0</partNo>
       </dialogPart>
     </entry>
   </endDialog>

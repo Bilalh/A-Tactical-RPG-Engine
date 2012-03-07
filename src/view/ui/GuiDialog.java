@@ -69,13 +69,6 @@ public class GuiDialog implements IDisplayable{
 		this.name = name;
 		map.put(TextAttribute.FAMILY, "Serif");
 		map.put(TextAttribute.SIZE, new Float(18));
-		
-		// TODO testing test.
-		setText("Many people believe that Vincent van Gogh painted his best works " +
-			"during the two-year period he spent in Provence. Here is where he " +
-			"painted The Starry Night--which some consider to be his greatest " +
-			"work of all. However, as his artistic brilliance reached new " +
-			"heights in Provence, his ysical and mental health plummeted. ");
 	}
 
 	// FIXME cache data
@@ -147,7 +140,6 @@ public class GuiDialog implements IDisplayable{
 
 	// Returns false if there is no more text 
 	public boolean nextPage(){
-		
 		if (index == temp) return false;
 		index = temp;
 //		Gui.console().printf("index:%s text:%s", index, paragraphEnd);
@@ -159,6 +151,8 @@ public class GuiDialog implements IDisplayable{
 		paragraph    = text.getIterator();
 		paragraphEnd = paragraph.getEndIndex();
 		lineMeasurer = null;
+		
+		index = temp = 0;
 	}
 
 	public void setPicture(BufferedImage image) {

@@ -12,12 +12,14 @@ import common.interfaces.Identifiable;
  * @author Bilal Hussain
  */
 @XStreamAlias("dialogPart")
-public class DialogPart implements Identifiable {
+public class DialogPart implements Identifiable, Comparable<DialogPart> {
 
 	@XStreamAsAttribute
 	private UUID uuid;
 	private String text;
 	private UUID unitId;
+
+	private int partNo;
 	
 	public DialogPart(){
 		uuid = UUID.randomUUID();
@@ -60,6 +62,20 @@ public class DialogPart implements Identifiable {
 	public UUID getUuid() {
 		return uuid;
 	}
-	
+
+	/** @category Generated */
+	public int getPartNo() {
+		return partNo;
+	}
+
+	/** @category Generated */
+	public void setPartNo(int partNo) {
+		this.partNo = partNo;
+	}
+
+	@Override
+	public int compareTo(DialogPart o) {
+		return this.partNo - o.partNo;
+	}
 	
 }

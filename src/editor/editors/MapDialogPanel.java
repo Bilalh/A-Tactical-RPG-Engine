@@ -7,6 +7,9 @@ import java.awt.LayoutManager;
 import java.awt.dnd.DragSourceDropEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import javax.swing.*;
@@ -19,7 +22,6 @@ import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
-
 
 import common.assets.DialogPart;
 import common.assets.DialogParts;
@@ -99,9 +101,24 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		if (current != null){
 			saveToCurrent();
 		}
-		return super.getResouces();
+		
+		DialogParts ws = createAssetInstance();
+		for (int i = 0; i < resourceListModel.size(); i++) {
+			DialogPart dp = (DialogPart) resourceListModel.get(i);
+			dp.setPartNo(i);
+			ws.put(dp);
+		}
+		return ws;
 	}
 
+	@Override
+	protected  void addResourcesToList(DialogParts assets){
+		for (DialogPart u : assets.sortedValues()) {
+			assert u != null;
+			resourceListModel.addElement(u);
+		}
+	}
+	
 	@Override
 	public synchronized void setResources(DialogParts assets) {
 		super.setResources(assets);
@@ -211,7 +228,7 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 
 	@Override
 	public void dragDropEnd(DragSourceDropEvent dsde, int oldIndex, int newIndex) {
-		System.out.println("dragDropEnd  " + oldIndex + " " + newIndex);
+//		System.out.println("dragDropEnd  " + oldIndex + " " + newIndex);
 		resourceList.setSelectedIndex(newIndex);
 	}
 

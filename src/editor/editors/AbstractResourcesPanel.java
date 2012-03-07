@@ -65,15 +65,18 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		return ws;
 	}
 
-	public synchronized void setResources(A assets) {
-		ListSelectionListener lsl = resourceList.getListSelectionListeners()[0];
-		resourceList.removeListSelectionListener(lsl);
-		resourceListModel.clear();
+	protected  void addResourcesToList(A assets){
 		for (R u : assets.values()) {
 			assert u != null;
 			resourceListModel.addElement(u);
 		}
-
+	}
+	
+	public synchronized void setResources(A assets) {
+		ListSelectionListener lsl = resourceList.getListSelectionListeners()[0];
+		resourceList.removeListSelectionListener(lsl);
+		resourceListModel.clear();
+		addResourcesToList(assets);
 		assert assets.size() == resourceListModel.size();
 		resourceList.addListSelectionListener(lsl);
 		resourceList.setSelectedIndex(0);

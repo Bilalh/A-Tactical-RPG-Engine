@@ -17,6 +17,7 @@ import openal.Sound;
 
 import org.apache.log4j.Logger;
 
+
 import util.Logf;
 import view.Gui;
 import view.map.IsoTile.TileState;
@@ -34,11 +35,14 @@ import view.util.MousePoxy;
 
 import common.Location;
 import common.LocationInfo;
+import common.assets.DialogParts;
 import common.enums.Direction;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.*;
 
+import config.Config;
+import config.xml.MapEvents;
 import config.xml.TileImageData;
 import controller.MapController;
 import engine.map.Tile;
@@ -448,6 +452,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 		setActionHandler(ActionsEnum.FINISHED);
 	}
 	
+	public  void dialogFinished(ActionsEnum nextAction){
+		setActionHandler(nextAction);
+	}
+	
 	// Shows the movement range/attack range of other units.
 	Collection<? extends ILocation> othersRange;
 	void tileSelected() {
@@ -779,16 +787,19 @@ public class GuiMap implements Observer, IMapRendererParent {
 				menu.reset();
 				setActionHandler(ActionsEnum.MENU);
 				break;
-			case KeyEvent.VK_T:
-				dialog.setName("Mage");
-				dialog.setText(
-						"Many people believe that Vincent van Gogh painted his best works " +
-								"during the two-year period he spent in Provence. Here is where he " +
-								"painted The Starry Night--which some consider to be his greatest " +
-								"work of all. However, as his artistic brilliance reached new " +
-								"heights in Provence, his ysical and mental health plummeted. ");
-				setActionHandler(ActionsEnum.DIALOG);
-				break;
+			case KeyEvent.VK_T:{
+				MapEvents me = Config.loadPreference("maps/fft2-events.xml");
+				DialogParts parts = me.getStartDialog();
+				dialogHandler.setDialog(parts.sortedValues());
+//				dialog.setName("Mage");
+//				dialog.setText(
+//						"Many people believe that Vincent van Gogh painted his best works " +
+//								"during the two-year period he spent in Provence. Here is where he " +
+//								"painted The Starry Night--which some consider to be his greatest " +
+//								"work of all. However, as his artistic brilliance reached new " +
+//								"heights in Provence, his ysical and mental health plummeted. ");
+				break;				
+			}
 			case KeyEvent.VK_I:
 				Logf.info(log, "draw (%d,%d) selected %s", drawX, drawY, selectedTile);
 				break;
