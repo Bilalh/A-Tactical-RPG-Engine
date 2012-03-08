@@ -4,10 +4,13 @@ import java.util.UUID;
 
 import org.jvnet.inflector.Noun;
 
+import util.IOUtil;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 import common.interfaces.Identifiable;
+import config.Config;
 
 /**
  * Stores the location of the music
@@ -65,4 +68,10 @@ public class MusicData implements Identifiable {
 		} else if (!uuid.equals(other.uuid)) return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return IOUtil.removeExtension(Config.getResourceFile(getLocation()).getName());
+	}
+	
 }

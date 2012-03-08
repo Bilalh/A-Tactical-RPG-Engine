@@ -124,6 +124,10 @@ public class Editor {
 		return Collections.unmodifiableMap(texturesPanel.getSpriteSheets());
 	}
 	
+	public Musics getMusic(){
+		return musicPanel.getResouces();
+	}
+	
 	public void loadAssets(){
 		AssertStore.instance().loadWeapons(getWeapons());
 		AssertStore.instance().loadSkill(getSkills());

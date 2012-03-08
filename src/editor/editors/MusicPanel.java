@@ -182,6 +182,7 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 		return p;
 	}
 
+	private String old = "";
 	protected class PlayAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
@@ -192,7 +193,6 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 		}
 
 
-		String old = "";
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (current == null || old.equals(current.getLocation()) ) return;
@@ -225,6 +225,7 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			music.removeMusic();
+			old ="";
 		}
 	}
 	

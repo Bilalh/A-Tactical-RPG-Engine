@@ -1,60 +1,33 @@
 package editor.editors;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.LayoutManager;
+import static editor.editors.AbstractSpriteSheetOrganiser.sortedSprites;
+import static util.IOUtil.replaceExtension;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
-import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
-import net.miginfocom.layout.LC;
-import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
-import org.jvnet.inflector.Noun;
 
-import util.IOUtil;
-
-import com.javarichclient.icon.tango.actions.ListAllIcon;
-import com.javarichclient.icon.tango.actions.ListRemoveIcon;
-
-import common.Location;
-import common.assets.*;
 import common.interfaces.IWeapon;
 
 import config.Config;
 import config.assets.DeferredMap;
 import config.assets.Maps;
 import config.assets.UnitPlacement;
-import config.xml.ITileMapping;
-import config.xml.MapEvents;
-import config.xml.SavedMap;
-import config.xml.TileMapping;
-
+import config.xml.*;
 import editor.Editor;
-import editor.editors.UnitsPanel.WeaponDropDownListRenderer;
 import editor.map.IMapEditorListener;
 import editor.map.MapEditor;
-import editor.spritesheet.SpriteSheetEditor;
-import engine.map.Map;
-import engine.unit.IMutableUnit;
 import engine.unit.SpriteSheetData;
-
-import static editor.editors.AbstractSpriteSheetOrganiser.*;
-import static util.IOUtil.*;
 
 /**
  * Editor for maps 
@@ -79,13 +52,14 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private ITileMapping  currentMapping;
 	private UnitPlacement currentUnitPlacement;
 	private MapEvents     currentEvent;
+	private MapMusic      currentMusic;
 	
 	private JTabbedPane    infoTabs;
 	private UnitsPanel     enemiesPanel;
 	private MapDialogPanel dialogStartPanel;
 	private MapDialogPanel dialogEndPanel;
-
-
+	private MapMusicPanel  musicPanel;
+	
 	public MapsPanel(Editor editor) {
 		super(editor);
 	}
@@ -116,7 +90,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		enemiesPanel.panelSelected(editor);
 		dialogStartPanel.panelSelected(editor);
 		dialogEndPanel.panelSelected(editor);
-
+		musicPanel.panelSelected(editor);
 	}
 
 	@Override
@@ -132,7 +106,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		currentUnitPlacement.setUnits(enemiesPanel.getUnits());
 		Config.savePreferences(currentUnitPlacement, currentMap.getAsset().getMapData().getEnemiesLocation());	
 		Config.savePreferences(new MapEvents(dialogStartPanel.getResouces(), dialogEndPanel.getResouces()) , currentMap.getAsset().getMapData().getEventsLocation());	
-
+		Config.savePreferences(currentMusic , currentMap.getAsset().getMapData().getMusicLocation());	
 	}
 
 	protected UnitPlacement getEnemies(){
@@ -169,11 +143,16 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		currentUnitPlacement = Config.loadPreference(map.getMapData().getEnemiesLocation());
 		enemiesPanel.setUnits(currentUnitPlacement.getUnits());
 		
+		currentMusic = Config.loadPreference(map.getMapData().getMusicLocation());
+		
 		currentEvent = Config.loadPreference(map.getMapData().getEventsLocation());
 		dialogStartPanel.setResources(currentEvent.getStartDialog());
 		dialogEndPanel.setResources(currentEvent.getEndDialog());
 		dialogStartPanel.panelSelected(editor);
 		dialogEndPanel.panelSelected(editor);
+		musicPanel.panelSelected(editor);
+		musicPanel.setMapMusic(editor.getMusic(), currentMusic);
+		
 	}
 
 	@Override
@@ -318,10 +297,11 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		infoTabs = new JTabbedPane();
 		infoTabs.addTab("Details", p);
-		infoTabs.addTab("Enemies ", (enemiesPanel = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy")));
-		infoTabs.addTab("Start Dialog",  (dialogStartPanel = new MapDialogPanel(this, editor)));
-		infoTabs.addTab("Finish Dialog", (dialogEndPanel = new MapDialogPanel(this, editor)));
-
+		infoTabs.addTab("Enemies ",      enemiesPanel = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy"));
+		infoTabs.addTab("Start Dialog",  dialogStartPanel = new MapDialogPanel(this, editor));
+		infoTabs.addTab("Finish Dialog", dialogEndPanel = new MapDialogPanel(this, editor));
+		infoTabs.addTab("Music",         musicPanel = new MapMusicPanel());
+		
 		return infoTabs;
 	}
 

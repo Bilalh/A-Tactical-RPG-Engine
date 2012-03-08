@@ -154,7 +154,7 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		return p;
 	}
 
-	protected LayoutManager defaultInfoPanelLayout() {
+	protected static LayoutManager defaultInfoPanelLayout() {
 		LC layC = new LC().fill().wrap();
 		AC colC = new AC().align("right", 1).fill(1, 4).grow(100, 1, 3).align("right", 3).gap("15", 1, 3);
 		AC rowC = new AC().align("top", 10).gap("15!", 10).grow(100, 10);
