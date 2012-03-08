@@ -234,7 +234,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		infoWeapon.removeAllItems();
 		
 		Weapons ww = editor.getWeapons();
-		AssertStore.instance().loadWeapons(ww); // TODO chanage?
+		AssetStore.instance().loadWeapons(ww); // TODO chanage?
 		List<IWeapon> s = new ArrayList<IWeapon>(ww.values());
 		
 		Collections.sort(s,new Comparator<IWeapon>() {
@@ -256,7 +256,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		allSkillsListModel.removeAllElements();
 		
 		Skills ss = editor.getSkills();
-		AssertStore.instance().loadSkill(ss);
+		AssetStore.instance().loadSkill(ss);
 		List<ISkill> l = new ArrayList<ISkill>(ss.values());
 		
 		Collections.sort(l,new Comparator<ISkill>() {

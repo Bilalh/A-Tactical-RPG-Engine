@@ -91,6 +91,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		dialogStartPanel.panelSelected(editor);
 		dialogEndPanel.panelSelected(editor);
 		musicPanel.panelSelected(editor);
+		musicPanel.setMapMusic(editor.getMusic(), editor.getSounds(), currentMusic);
 	}
 
 	@Override
@@ -151,7 +152,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		dialogStartPanel.panelSelected(editor);
 		dialogEndPanel.panelSelected(editor);
 		musicPanel.panelSelected(editor);
-		musicPanel.setMapMusic(editor.getMusic(), currentMusic);
+		musicPanel.setMapMusic(editor.getMusic(), editor.getSounds(), currentMusic);
 		
 	}
 

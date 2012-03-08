@@ -10,7 +10,7 @@ import common.interfaces.IWeapon;
 
 import view.Main;
 import config.Config;
-import config.assets.AssertStore;
+import config.assets.AssetStore;
 import config.assets.AssetsLocations;
 import config.assets.Units;
 import config.assets.Weapons;
@@ -41,7 +41,7 @@ public class Engine {
 				"assets/skills.xml",
 				"assets/music.xml",
 				"assets/sounds.xml");
-		AssertStore.instance().loadAssets(as);
+		AssetStore.instance().loadAssets(as);
 		player = new Player();
 		
 		Units uu = Config.loadPreference("assets/units.xml");

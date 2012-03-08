@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import config.assets.AssertStore;
+import config.assets.AssetStore;
 import config.assets.MusicData;
 
 /**
@@ -148,7 +148,7 @@ public class Music {
 	}
 
 	public Music(UUID  uuid) throws IOException {
-		this((AssertStore.instance().getMusic(uuid)).getLocation(),true);
+		this((AssetStore.instance().getMusic(uuid)).getLocation(),true);
 	}
 	
 	/**

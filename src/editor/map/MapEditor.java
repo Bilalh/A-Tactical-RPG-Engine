@@ -35,7 +35,7 @@ import common.interfaces.IWeapon;
 
 import config.Config;
 import config.XMLUtil;
-import config.assets.AssertStore;
+import config.assets.AssetStore;
 import config.xml.MapData;
 import config.xml.SavedMap;
 import config.xml.SavedTile;
@@ -492,7 +492,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		p.add(new JLabel("Weapon:"));
 		p.add(unitWeapon, "span, growx");
 		
-		for (IWeapon w : AssertStore.instance().getWeapons().values()) {
+		for (IWeapon w : AssetStore.instance().getWeapons().values()) {
 			unitWeapon.addItem(w);
 		}
 		

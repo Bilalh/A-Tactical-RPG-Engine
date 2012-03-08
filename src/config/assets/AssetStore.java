@@ -15,10 +15,10 @@ import engine.skills.ISkill;
  * 
  * @author Bilal Hussain
  */
-public class AssertStore {
-	private static final Logger log = Logger.getLogger(AssertStore.class);
+public class AssetStore {
+	private static final Logger log = Logger.getLogger(AssetStore.class);
 
-	private static AssertStore singleton = new AssertStore();
+	private static AssetStore singleton = new AssetStore();
 	private Map<UUID, IWeapon> weapons = Collections.synchronizedMap(new HashMap<UUID, IWeapon>());
 	private Map<UUID, ISkill> skills = Collections.synchronizedMap(new HashMap<UUID, ISkill>());
 	private Map<UUID, MusicData> music = Collections.synchronizedMap(new HashMap<UUID, MusicData>());
@@ -86,10 +86,10 @@ public class AssertStore {
 		log.debug("Loaded skills");
 	}
 
-	private AssertStore() {
+	private AssetStore() {
 	}
 
-	public static AssertStore instance() {
+	public static AssetStore instance() {
 		return singleton;
 	}
 

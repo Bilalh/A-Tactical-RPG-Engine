@@ -15,10 +15,11 @@ import config.assets.MusicData;
 public class MapMusic implements IPreference {
 	private UUID backgroundId;
 
-	/** @category Generated */
-	public MapMusic(UUID backgroundId) {
-		this.backgroundId = backgroundId;
-	}
+	private UUID attackSound;
+	private UUID defeatUnitSound;
+	private UUID loseUnitSound;
+	private UUID winMapSound;
+	private UUID loseMapSound;
 
 	/** @category Generated */
 	public UUID getBackgroundId() {
@@ -26,11 +27,58 @@ public class MapMusic implements IPreference {
 	}
 
 	/** @category Generated */
-	public void setBackgroundId(UUID backgroundId) {
+	public void setBackground(UUID backgroundId) {
 		this.backgroundId = backgroundId;
 	}
 
-	public static void main(String[] args) {
-		Config.savePreferences(new MapMusic(UUID.fromString("af6f534a-ba3f-4d4a-b809-0882f8f95176")), "default-music.xml");
+	/** @category Generated */
+	public UUID getAttackSound() {
+		return attackSound;
 	}
+
+	/** @category Generated */
+	public void setAttackSound(UUID attackSound) {
+		this.attackSound = attackSound;
+	}
+
+	/** @category Generated */
+	public UUID getDefeatUnitSound() {
+		return defeatUnitSound;
+	}
+
+	/** @category Generated */
+	public void setDefeatUnitSound(UUID defeatUnitSound) {
+		this.defeatUnitSound = defeatUnitSound;
+	}
+
+	/** @category Generated */
+	public UUID getLoseUnitSound() {
+		return loseUnitSound;
+	}
+
+	/** @category Generated */
+	public void setLoseUnitSound(UUID loseUnitSound) {
+		this.loseUnitSound = loseUnitSound;
+	}
+
+	/** @category Generated */
+	public UUID getWinMapSound() {
+		return winMapSound;
+	}
+
+	/** @category Generated */
+	public void setWinMapSound(UUID winMapSound) {
+		this.winMapSound = winMapSound;
+	}
+
+	/** @category Generated */
+	public UUID getLoseMapSound() {
+		return loseMapSound;
+	}
+
+	/** @category Generated */
+	public void setLoseMapSound(UUID loseMapSound) {
+		this.loseMapSound = loseMapSound;
+	}
+
 }

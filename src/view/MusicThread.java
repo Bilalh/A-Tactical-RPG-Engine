@@ -3,6 +3,8 @@ package view;
 import java.io.IOException;
 import java.util.UUID;
 
+import config.assets.AssetStore;
+
 import openal.Music;
 import openal.Sound;
 
@@ -92,6 +94,11 @@ public class MusicThread extends Thread {
 		}
 	}
 
+	public void playSound(UUID uuid) {
+		playSound(AssetStore.instance().getSound(uuid).getLocation());
+	}
+	
+	// for editor
 	public void forcePlaySound(String ref) {
 		try {
 			new Sound(ref).play();

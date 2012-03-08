@@ -1,3 +1,8 @@
 <mapMusic>
   <backgroundId>39ec9677-ea36-42bb-84e3-dbe76e4cf0b5</backgroundId>
+  <attackSound>4d63418f-911e-4053-b06b-2fb42d0c7f4f</attackSound>
+  <defeatUnitSound>4d63418f-911e-4053-b06b-2fb42d0c7f4f</defeatUnitSound>
+  <loseUnitSound>efd0b5b4-6374-4540-8f88-530e374133a1</loseUnitSound>
+  <winMapSound>21e94a2d-9d19-47ec-b7c9-53e9c6724af0</winMapSound>
+  <loseMapSound>c45ac276-7479-459c-a0a8-78980e4baa48</loseMapSound>
 </mapMusic>

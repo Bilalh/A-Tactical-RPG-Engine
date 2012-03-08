@@ -41,7 +41,6 @@ import common.gui.ResourceManager;
 import common.interfaces.*;
 
 import config.Config;
-import config.assets.AssertStore;
 import config.assets.DialogParts;
 import config.xml.MapEvents;
 import config.xml.TileImageData;
@@ -429,9 +428,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 				int lose =  playLose - playGain;
 				if (playLose != 0 || playGain != 0){
 					if (lose >= 0){
-						Gui.getMusicThread().playSound("music/sounds/10-14 Death.ogg");
+						Gui.getMusicThread().playSound(mapController.getMusic().getLoseUnitSound());
 					}else{
-						Gui.getMusicThread().playSound("music/sounds/19 - Battle Victory.ogg");	
+						Gui.getMusicThread().playSound(mapController.getMusic().getDefeatUnitSound());
 					}
 				}
 				
@@ -440,19 +439,20 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}, 1300);
 		
 		setDrawn(false);
-		Gui.getMusicThread().playSound("music/sounds/Slash8-Bit.ogg");
+		//FIXME change
+		Gui.getMusicThread().playSound(mapController.getMusic().getAttackSound());
 	}
 
 	public void playerWon() {
 		Gui.getMusicThread().removeMusic();
-		Gui.getMusicThread().playSound("music/sounds/10-30 Medium Success.ogg");
+		Gui.getMusicThread().playSound(mapController.getMusic().getWinMapSound());
 		mapFinished.setup(true);
 		setActionHandler(ActionsEnum.FINISHED);
 	}
 
 	public void playerLost() {
 		Gui.getMusicThread().removeMusic();
-		Gui.getMusicThread().playSound("music/sounds/20 Game Over.ogg");
+		Gui.getMusicThread().playSound(mapController.getMusic().getLoseUnitSound());
 		mapFinished.setup(false);
 		setActionHandler(ActionsEnum.FINISHED);
 	}

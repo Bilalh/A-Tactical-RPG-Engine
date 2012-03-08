@@ -22,6 +22,8 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
+import openal.Music;
+
 import org.apache.log4j.Logger;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
@@ -127,10 +129,14 @@ public class Editor {
 	public Musics getMusic(){
 		return musicPanel.getResouces();
 	}
+
+	public Musics getSounds() {
+		return soundPanel.getResouces();
+	}
 	
 	public void loadAssets(){
-		AssertStore.instance().loadWeapons(getWeapons());
-		AssertStore.instance().loadSkill(getSkills());
+		AssetStore.instance().loadWeapons(getWeapons());
+		AssetStore.instance().loadSkill(getSkills());
 	}
 	
 	private JTabbedPane createTabs() {
@@ -278,12 +284,12 @@ public class Editor {
 		
 		//TODO paths
 		Weapons ws = Config.loadPreference("assets/weapons.xml");
-		AssertStore.instance().loadWeapons(ws);
+		AssetStore.instance().loadWeapons(ws);
 		weaponsPanel.setWeapons(ws);
 		log.debug(ws);
 		
 		Skills ss = Config.loadPreference("assets/skills.xml");
-		AssertStore.instance().loadSkill(ss);
+		AssetStore.instance().loadSkill(ss);
 		skillsPanel.setSkills(ss);
 		log.info(ss);
 		
@@ -363,4 +369,5 @@ public class Editor {
 	public void setVisible(boolean arg0) {
 		frame.setVisible(arg0);
 	}
+
 }

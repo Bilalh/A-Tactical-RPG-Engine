@@ -11,7 +11,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import common.enums.Orientation;
 import common.interfaces.IWeapon;
 import config.Config;
-import config.assets.AssertStore;
+import config.assets.AssetStore;
 
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
@@ -93,10 +93,10 @@ public class Unit implements IMutableUnit {
 			assert imageData != null : "imageData not found "  + imageDataRef;
 		}
 		if (weapon == null){
-			weapon = AssertStore.instance().getWeapon(wepaonId);
+			weapon = AssetStore.instance().getWeapon(wepaonId);
 		}
 		if (skills == null){
-			skills = AssertStore.instance().getSkills(skillIds);
+			skills = AssetStore.instance().getSkills(skillIds);
 		}
 		
 		return this;

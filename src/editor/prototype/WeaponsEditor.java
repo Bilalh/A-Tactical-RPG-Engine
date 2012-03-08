@@ -32,7 +32,7 @@ import common.interfaces.IUnit;
 import common.interfaces.IWeapon;
 import common.spritesheet.SpriteSheet;
 import config.Config;
-import config.assets.AssertStore;
+import config.assets.AssetStore;
 import config.assets.AssetsLocations;
 import config.xml.MapSettings;
 
