@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionListener;
 
-import openal.Music;
+import util.openal.Music;
 
 import config.assets.MusicData;
 import config.assets.Musics;

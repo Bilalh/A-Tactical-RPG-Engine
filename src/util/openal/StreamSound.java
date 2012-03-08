@@ -1,4 +1,4 @@
-package openal;
+package util.openal;
 
 import java.io.IOException;
 import java.nio.IntBuffer;
@@ -29,7 +29,7 @@ public class StreamSound extends AudioImpl {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.AudioImpl#isPlaying()
+	 * @see util.openal.newdawn.slick.openal.AudioImpl#isPlaying()
 	 */
 	@Override
 	public boolean isPlaying() {
@@ -37,7 +37,7 @@ public class StreamSound extends AudioImpl {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.AudioImpl#playAsMusic(float, float, boolean)
+	 * @see util.openal.newdawn.slick.openal.AudioImpl#playAsMusic(float, float, boolean)
 	 */
 	@Override
 	public int playAsMusic(float pitch, float gain, boolean loop) {
@@ -74,7 +74,7 @@ public class StreamSound extends AudioImpl {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.AudioImpl#playAsSoundEffect(float, float, boolean, float,
+	 * @see util.openal.newdawn.slick.openal.AudioImpl#playAsSoundEffect(float, float, boolean, float,
 	 *      float, float)
 	 */
 	@Override
@@ -83,7 +83,7 @@ public class StreamSound extends AudioImpl {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.AudioImpl#playAsSoundEffect(float, float, boolean)
+	 * @see util.openal.newdawn.slick.openal.AudioImpl#playAsSoundEffect(float, float, boolean)
 	 */
 	@Override
 	public int playAsSoundEffect(float pitch, float gain, boolean loop) {
@@ -91,7 +91,7 @@ public class StreamSound extends AudioImpl {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.AudioImpl#stop()
+	 * @see util.openal.newdawn.slick.openal.AudioImpl#stop()
 	 */
 	@Override
 	public void stop() {
@@ -99,7 +99,7 @@ public class StreamSound extends AudioImpl {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.AudioImpl#setPosition(float)
+	 * @see util.openal.newdawn.slick.openal.AudioImpl#setPosition(float)
 	 */
 	@Override
 	public boolean setPosition(float position) {
@@ -107,7 +107,7 @@ public class StreamSound extends AudioImpl {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.AudioImpl#getPosition()
+	 * @see util.openal.newdawn.slick.openal.AudioImpl#getPosition()
 	 */
 	@Override
 	public float getPosition() {

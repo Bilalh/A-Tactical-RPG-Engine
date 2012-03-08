@@ -7,6 +7,7 @@ import common.interfaces.ILocation;
 import config.Config;
 import config.assets.UnitPlacement;
 import config.xml.*;
+import engine.map.win.IWinCondition;
 
 /**
  * Map data that is used in the view and the editor.
@@ -26,7 +27,8 @@ public class BasicMap extends Observable {
 	protected UnitPlacement enemies;
 	protected MapEvents events;
 	protected MapMusic music;
-
+	protected MapConditions conditions;
+	
 	/**
 	 * Loads a map from resources
 	 */
@@ -48,6 +50,8 @@ public class BasicMap extends Observable {
 		assert mapSettings != null;
 		assert data        != null;
 
+		// Written like this to catch errors easily
+		
 		String mappingLocation = data.getTileMappingLocation();
 		assert mappingLocation != null;
 		
@@ -71,6 +75,12 @@ public class BasicMap extends Observable {
 		
 		music = Config.loadPreference(musicLocation);
 		assert music != null;
+		
+		String conditionsLocation = data.getConditionsLocation();
+		assert conditionsLocation != null;
+		
+		conditions = Config.loadPreference(conditionsLocation);
+		assert conditions!= null;
 		
 	}
 

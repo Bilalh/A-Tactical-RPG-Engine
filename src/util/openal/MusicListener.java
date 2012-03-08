@@ -1,4 +1,4 @@
-package openal;
+package util.openal;
 
 /**
  * The description of any class needing to recieve notification of changes to music state.

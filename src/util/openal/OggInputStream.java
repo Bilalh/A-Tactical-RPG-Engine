@@ -1,4 +1,4 @@
-package openal;
+package util.openal;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -98,7 +98,7 @@ public class OggInputStream extends InputStream implements AudioInputStream {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.AudioInputStream#getChannels()
+	 * @see util.openal.newdawn.slick.openal.AudioInputStream#getChannels()
 	 */
 	@Override
 	public int getChannels() {
@@ -106,7 +106,7 @@ public class OggInputStream extends InputStream implements AudioInputStream {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.AudioInputStream#getRate()
+	 * @see util.openal.newdawn.slick.openal.AudioInputStream#getRate()
 	 */
 	@Override
 	public int getRate() {
@@ -468,7 +468,7 @@ public class OggInputStream extends InputStream implements AudioInputStream {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.AudioInputStream#atEnd()
+	 * @see util.openal.newdawn.slick.openal.AudioInputStream#atEnd()
 	 */
 	@Override
 	public boolean atEnd() {

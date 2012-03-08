@@ -17,31 +17,33 @@ public class MapData {
 	final String enemiesLocation;
 	final String eventsLocation;
 	final String musicLocation;
+	final String conditionsLocation;
 
-	/** @category Generated */
-	public MapData(String name, String tileMappingLocation, String texturesLocation, String enemiesLocation, String eventsLocation, String musicLocation) {
-		this.name = name;
+	public MapData(String name, String tileMappingLocation, String texturesLocation, String enemiesLocation, 
+			String eventsLocation, String musicLocation, String conditionsLocation) {
+		this.name                = name;
 		this.tileMappingLocation = tileMappingLocation;
-		this.texturesLocation = texturesLocation;
-		this.enemiesLocation = enemiesLocation;
-		this.eventsLocation = eventsLocation;
-		this.musicLocation = musicLocation;
+		this.texturesLocation    = texturesLocation;
+		this.enemiesLocation     = enemiesLocation;
+		this.eventsLocation      = eventsLocation;
+		this.musicLocation       = musicLocation;
+		this.conditionsLocation  = conditionsLocation;
 	}
 
 	public MapData changeName(String s){
-		return new MapData(s, tileMappingLocation, texturesLocation, enemiesLocation,eventsLocation,musicLocation);
+		return new MapData(s, tileMappingLocation, texturesLocation, enemiesLocation,eventsLocation,musicLocation,conditionsLocation);
 	}
 	
 	public MapData changeTileMappingLocation(String s){
-		return new MapData(name, s, texturesLocation, enemiesLocation,eventsLocation,musicLocation);
+		return new MapData(name, s, texturesLocation, enemiesLocation,eventsLocation,musicLocation,conditionsLocation);
 	}
 	
 	public MapData changeTexturesLocation(String s){
-		return new MapData(name, texturesLocation, s, enemiesLocation,eventsLocation,musicLocation);
+		return new MapData(name, texturesLocation, s, enemiesLocation,eventsLocation,musicLocation,conditionsLocation);
 	}
 	
 	public MapData changeEnemiesLocation(String s){
-		return new MapData(name, texturesLocation, texturesLocation, s,eventsLocation,musicLocation);
+		return new MapData(name, texturesLocation, texturesLocation, s,eventsLocation,musicLocation,conditionsLocation);
 	}
 	
 	/** @category Generated */
@@ -73,6 +75,11 @@ public class MapData {
 	/** @category Generated */
 	public String getMusicLocation() {
 		return musicLocation;
+	}
+
+	/** @category Generated */
+	public String getConditionsLocation() {
+		return conditionsLocation;
 	}
 
 }

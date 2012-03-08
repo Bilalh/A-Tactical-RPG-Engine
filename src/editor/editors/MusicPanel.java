@@ -15,8 +15,6 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
-import openal.Music;
-import openal.SlickException;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -33,6 +31,8 @@ import com.javarichclient.icon.tango.actions.MediaPlaybackStartIcon;
 import com.javarichclient.icon.tango.actions.MediaPlaybackStopIcon;
 
 import util.IOUtil;
+import util.openal.Music;
+import util.openal.SlickException;
 import view.MusicThread;
 
 

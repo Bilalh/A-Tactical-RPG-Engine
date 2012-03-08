@@ -5,8 +5,8 @@ import java.util.UUID;
 
 import config.assets.AssetStore;
 
-import openal.Music;
-import openal.Sound;
+import util.openal.Music;
+import util.openal.Sound;
 
 /**
  * Plays music

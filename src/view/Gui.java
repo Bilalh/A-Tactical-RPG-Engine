@@ -14,8 +14,6 @@ import java.util.Observable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import openal.Music;
-import openal.SlickException;
 
 import org.apache.log4j.Logger;
 
@@ -24,6 +22,8 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 import controller.MainController;
 import controller.MapController;
 
+import util.openal.Music;
+import util.openal.SlickException;
 import view.map.MapPanel;
 import view.ui.Console;
 import view.ui.interfaces.IConsole;

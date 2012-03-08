@@ -1,4 +1,4 @@
-package openal;
+package util.openal;
 
 /**
  * The description of of audio data loaded by the AudioLoader

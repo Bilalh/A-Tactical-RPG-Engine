@@ -11,14 +11,14 @@ import java.util.*;
 
 import javax.swing.text.DefaultEditorKit.CutAction;
 
-import openal.Music;
-import openal.SlickException;
-import openal.Sound;
 
 import org.apache.log4j.Logger;
 
 
 import util.Logf;
+import util.openal.Music;
+import util.openal.SlickException;
+import util.openal.Sound;
 import view.Gui;
 import view.map.IsoTile.TileState;
 import view.map.interfaces.IActions;

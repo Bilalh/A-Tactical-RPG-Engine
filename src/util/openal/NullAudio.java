@@ -1,4 +1,4 @@
-package openal;
+package util.openal;
 
 /**
  * A null implementation used to provide an object reference when sound has failed.
@@ -7,7 +7,7 @@ package openal;
  */
 public class NullAudio implements Audio {
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#getBufferID()
+	 * @see util.openal.newdawn.slick.openal.Audio#getBufferID()
 	 */
 	@Override
 	public int getBufferID() {
@@ -15,7 +15,7 @@ public class NullAudio implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#getPosition()
+	 * @see util.openal.newdawn.slick.openal.Audio#getPosition()
 	 */
 	@Override
 	public float getPosition() {
@@ -23,7 +23,7 @@ public class NullAudio implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#isPlaying()
+	 * @see util.openal.newdawn.slick.openal.Audio#isPlaying()
 	 */
 	@Override
 	public boolean isPlaying() {
@@ -31,7 +31,7 @@ public class NullAudio implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#playAsMusic(float, float, boolean)
+	 * @see util.openal.newdawn.slick.openal.Audio#playAsMusic(float, float, boolean)
 	 */
 	@Override
 	public int playAsMusic(float pitch, float gain, boolean loop) {
@@ -39,7 +39,7 @@ public class NullAudio implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#playAsSoundEffect(float, float, boolean)
+	 * @see util.openal.newdawn.slick.openal.Audio#playAsSoundEffect(float, float, boolean)
 	 */
 	@Override
 	public int playAsSoundEffect(float pitch, float gain, boolean loop) {
@@ -47,7 +47,7 @@ public class NullAudio implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#playAsSoundEffect(float, float, boolean, float, float,
+	 * @see util.openal.newdawn.slick.openal.Audio#playAsSoundEffect(float, float, boolean, float, float,
 	 *      float)
 	 */
 	@Override
@@ -57,7 +57,7 @@ public class NullAudio implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#setPosition(float)
+	 * @see util.openal.newdawn.slick.openal.Audio#setPosition(float)
 	 */
 	@Override
 	public boolean setPosition(float position) {
@@ -65,7 +65,7 @@ public class NullAudio implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#stop()
+	 * @see util.openal.newdawn.slick.openal.Audio#stop()
 	 */
 	@Override
 	public void stop() {

@@ -19,6 +19,7 @@ import common.interfaces.IMapNotification;
 import common.interfaces.IMapUnit;
 import common.interfaces.IWeapon;
 import config.Config;
+import config.xml.MapConditions;
 import config.xml.MapEvents;
 
 import engine.Player;
@@ -27,6 +28,7 @@ import engine.items.RangedWeapon;
 import engine.map.*;
 import engine.map.interfaces.IMap;
 import engine.map.interfaces.IMutableMapUnit;
+import engine.map.win.IWinCondition;
 import engine.pathfinding.PathFinder;
 import engine.skills.ISkill;
 import engine.unit.IMutableUnit;
@@ -190,7 +192,8 @@ public class Map extends BasicMap implements IMap {
 	
 	// returns true if the map is finished.
 	public boolean checkForFinished(){
-		if (ai.getUnits().isEmpty()) {
+		
+		if (processCondition(conditions.getWinCondition())) {
 			System.err.println("PLAYERS WINS");	
 			mapState = MapState.PRE_WIN;
 			sendNotification(new DialogNotification(events.getEndDialog()));
@@ -203,6 +206,10 @@ public class Map extends BasicMap implements IMap {
 		}
 		
 		return false;
+	}
+	
+	public boolean processCondition(IWinCondition conditions){
+		return conditions.hasWon(this, player, ai);
 	}
 	
 	/**

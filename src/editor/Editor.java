@@ -22,9 +22,10 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
-import openal.Music;
 
 import org.apache.log4j.Logger;
+
+import util.openal.Music;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;

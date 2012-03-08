@@ -1,4 +1,4 @@
-package openal;
+package util.openal;
 
 /**
  * A generic exception thrown by everything in the library

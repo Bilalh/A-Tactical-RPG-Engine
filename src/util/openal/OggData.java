@@ -1,4 +1,4 @@
-package openal;
+package util.openal;
 
 import java.nio.ByteBuffer;
 

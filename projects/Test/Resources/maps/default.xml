@@ -12,6 +12,7 @@
     <enemiesLocation>maps/default-enemies.xml</enemiesLocation>
     <eventsLocation>maps/default-events.xml</eventsLocation>
     <musicLocation>maps/default-music.xml</musicLocation>
+    <conditionsLocation>maps/default-conditions.xml</conditionsLocation>
   </mapData>
   <tile x="0" y="0">
     <type>5</type>

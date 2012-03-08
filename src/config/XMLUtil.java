@@ -1,3 +1,4 @@
+
 package config;
 
 import java.io.InputStream;
@@ -127,6 +128,7 @@ public abstract class XMLUtil {
 				DialogPart.class,
 
 				MapMusic.class,
+				MapConditions.class,
 				
 				//Model 
 				Unit.class,

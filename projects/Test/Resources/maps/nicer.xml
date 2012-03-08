@@ -10,8 +10,9 @@
     <tileMappingLocation>images/tilesets/nicer-mapping.xml</tileMappingLocation>
     <texturesLocation>images/textures/default.png</texturesLocation>
     <enemiesLocation>maps/nicer-enemies.xml</enemiesLocation>
-        <eventsLocation>maps/nicer-events.xml</eventsLocation>
-        <musicLocation>maps/nicer-music.xml</musicLocation>
+    <eventsLocation>maps/nicer-events.xml</eventsLocation>
+    <musicLocation>maps/nicer-music.xml</musicLocation>
+    <conditionsLocation>maps/nicer-conditions.xml</conditionsLocation>
   </mapData>
   <tile x="0" y="0">
     <type>90</type>

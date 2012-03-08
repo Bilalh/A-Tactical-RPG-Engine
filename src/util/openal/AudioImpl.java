@@ -1,4 +1,4 @@
-package openal;
+package util.openal;
 
 import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.AL11;
@@ -60,7 +60,7 @@ public class AudioImpl implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#stop()
+	 * @see util.openal.newdawn.slick.openal.Audio#stop()
 	 */
 	@Override
 	public void stop() {
@@ -70,7 +70,7 @@ public class AudioImpl implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#isPlaying()
+	 * @see util.openal.newdawn.slick.openal.Audio#isPlaying()
 	 */
 	@Override
 	public boolean isPlaying() {
@@ -82,7 +82,7 @@ public class AudioImpl implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#playAsSoundEffect(float, float, boolean)
+	 * @see util.openal.newdawn.slick.openal.Audio#playAsSoundEffect(float, float, boolean)
 	 */
 	@Override
 	public int playAsSoundEffect(float pitch, float gain, boolean loop) {
@@ -91,7 +91,7 @@ public class AudioImpl implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#playAsSoundEffect(float, float, boolean, float, float,
+	 * @see util.openal.newdawn.slick.openal.Audio#playAsSoundEffect(float, float, boolean, float, float,
 	 *      float)
 	 */
 	@Override
@@ -101,7 +101,7 @@ public class AudioImpl implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#playAsMusic(float, float, boolean)
+	 * @see util.openal.newdawn.slick.openal.Audio#playAsMusic(float, float, boolean)
 	 */
 	@Override
 	public int playAsMusic(float pitch, float gain, boolean loop) {
@@ -125,7 +125,7 @@ public class AudioImpl implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#setPosition(float)
+	 * @see util.openal.newdawn.slick.openal.Audio#setPosition(float)
 	 */
 	@Override
 	public boolean setPosition(float position) {
@@ -139,7 +139,7 @@ public class AudioImpl implements Audio {
 	}
 
 	/**
-	 * @see openal.newdawn.slick.openal.Audio#getPosition()
+	 * @see util.openal.newdawn.slick.openal.Audio#getPosition()
 	 */
 	@Override
 	public float getPosition() {
