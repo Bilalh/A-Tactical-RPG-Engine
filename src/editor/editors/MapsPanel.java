@@ -90,12 +90,15 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		setCurrentResource(currentMap);
 		
+		assert currentConditions != null;
+		
 		//FIXME needed?
 		enemiesPanel.panelSelected(editor);
 		dialogStartPanel.panelSelected(editor);
 		dialogEndPanel.panelSelected(editor);
 		musicPanel.panelSelected(editor);
 		musicPanel.setMapMusic(editor.getMusic(), editor.getSounds(), currentMusic);
+		conditionsPanel.panelSelected(editor);
 		conditionsPanel.setMapConditions(currentConditions);
 	}
 
@@ -113,6 +116,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		Config.savePreferences(currentUnitPlacement, currentMap.getAsset().getMapData().getEnemiesLocation());	
 		Config.savePreferences(new MapEvents(dialogStartPanel.getResouces(), dialogEndPanel.getResouces()) , currentMap.getAsset().getMapData().getEventsLocation());	
 		Config.savePreferences(currentMusic , currentMap.getAsset().getMapData().getMusicLocation());
+		assert currentConditions.getWinCondition() != null;
 		Config.savePreferences(currentConditions , currentMap.getAsset().getMapData().getConditionsLocation());
 	}
 
@@ -154,6 +158,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		currentEvent      = Config.loadPreference(map.getMapData().getEventsLocation());
 		currentConditions = Config.loadPreference(map.getMapData().getConditionsLocation());
 		
+		assert currentMusic != null;
+		assert currentEvent != null;
+		assert currentConditions != null;
+		
 		enemiesPanel.panelSelected(editor);
 		dialogStartPanel.setResources(currentEvent.getStartDialog());
 		dialogEndPanel.setResources(currentEvent.getEndDialog());
@@ -161,6 +169,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		dialogEndPanel.panelSelected(editor);
 		musicPanel.panelSelected(editor);
 		musicPanel.setMapMusic(editor.getMusic(), editor.getSounds(), currentMusic);
+		conditionsPanel.panelSelected(editor);
 		conditionsPanel.setMapConditions(currentConditions);
 		
 	}
@@ -311,7 +320,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoTabs.addTab("Start Dialog",   dialogStartPanel = new MapDialogPanel(this, editor));
 		infoTabs.addTab("Finish Dialog",  dialogEndPanel   = new MapDialogPanel(this, editor));
 		infoTabs.addTab("Music",          musicPanel       = new MapMusicPanel());
-		infoTabs.addTab("Win Condition", conditionsPanel  = new MapConditionsPanel());
+		infoTabs.addTab("Win Condition",  conditionsPanel  = new MapConditionsPanel(this));
 		return infoTabs;
 	}
 
