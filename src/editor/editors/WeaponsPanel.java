@@ -310,8 +310,6 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	
 	@Override
 	public void panelSelected(Editor editor) {
-		// TODO panelSelected method
-		
 	}
 	
 	protected LayoutManager createLayout() {

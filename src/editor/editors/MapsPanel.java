@@ -53,12 +53,14 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private UnitPlacement currentUnitPlacement;
 	private MapEvents     currentEvent;
 	private MapMusic      currentMusic;
+	private MapConditions currentConditions;
 	
 	private JTabbedPane    infoTabs;
 	private UnitsPanel     enemiesPanel;
 	private MapDialogPanel dialogStartPanel;
 	private MapDialogPanel dialogEndPanel;
 	private MapMusicPanel  musicPanel;
+	private MapConditionsPanel conditionsPanel;
 	
 	public MapsPanel(Editor editor) {
 		super(editor);
@@ -87,11 +89,14 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoTextures.addItemListener(il);
 		
 		setCurrentResource(currentMap);
+		
+		//FIXME needed?
 		enemiesPanel.panelSelected(editor);
 		dialogStartPanel.panelSelected(editor);
 		dialogEndPanel.panelSelected(editor);
 		musicPanel.panelSelected(editor);
 		musicPanel.setMapMusic(editor.getMusic(), editor.getSounds(), currentMusic);
+		conditionsPanel.setMapConditions(currentConditions);
 	}
 
 	@Override
@@ -107,7 +112,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		currentUnitPlacement.setUnits(enemiesPanel.getUnits());
 		Config.savePreferences(currentUnitPlacement, currentMap.getAsset().getMapData().getEnemiesLocation());	
 		Config.savePreferences(new MapEvents(dialogStartPanel.getResouces(), dialogEndPanel.getResouces()) , currentMap.getAsset().getMapData().getEventsLocation());	
-		Config.savePreferences(currentMusic , currentMap.getAsset().getMapData().getMusicLocation());	
+		Config.savePreferences(currentMusic , currentMap.getAsset().getMapData().getMusicLocation());
+		Config.savePreferences(currentConditions , currentMap.getAsset().getMapData().getConditionsLocation());
 	}
 
 	protected UnitPlacement getEnemies(){
@@ -144,15 +150,18 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		currentUnitPlacement = Config.loadPreference(map.getMapData().getEnemiesLocation());
 		enemiesPanel.setUnits(currentUnitPlacement.getUnits());
 		
-		currentMusic = Config.loadPreference(map.getMapData().getMusicLocation());
+		currentMusic      = Config.loadPreference(map.getMapData().getMusicLocation());
+		currentEvent      = Config.loadPreference(map.getMapData().getEventsLocation());
+		currentConditions = Config.loadPreference(map.getMapData().getConditionsLocation());
 		
-		currentEvent = Config.loadPreference(map.getMapData().getEventsLocation());
+		enemiesPanel.panelSelected(editor);
 		dialogStartPanel.setResources(currentEvent.getStartDialog());
 		dialogEndPanel.setResources(currentEvent.getEndDialog());
 		dialogStartPanel.panelSelected(editor);
 		dialogEndPanel.panelSelected(editor);
 		musicPanel.panelSelected(editor);
 		musicPanel.setMapMusic(editor.getMusic(), editor.getSounds(), currentMusic);
+		conditionsPanel.setMapConditions(currentConditions);
 		
 	}
 
@@ -298,11 +307,11 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		infoTabs = new JTabbedPane();
 		infoTabs.addTab("Details", p);
-		infoTabs.addTab("Enemies ",      enemiesPanel = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy"));
-		infoTabs.addTab("Start Dialog",  dialogStartPanel = new MapDialogPanel(this, editor));
-		infoTabs.addTab("Finish Dialog", dialogEndPanel = new MapDialogPanel(this, editor));
-		infoTabs.addTab("Music",         musicPanel = new MapMusicPanel());
-		
+		infoTabs.addTab("Enemies ",       enemiesPanel     = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy"));
+		infoTabs.addTab("Start Dialog",   dialogStartPanel = new MapDialogPanel(this, editor));
+		infoTabs.addTab("Finish Dialog",  dialogEndPanel   = new MapDialogPanel(this, editor));
+		infoTabs.addTab("Music",          musicPanel       = new MapMusicPanel());
+		infoTabs.addTab("Win Condition", conditionsPanel  = new MapConditionsPanel());
 		return infoTabs;
 	}
 

@@ -6,19 +6,14 @@ import java.awt.event.ItemListener;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.event.ListSelectionListener;
-
-import util.openal.Music;
 
 import config.assets.MusicData;
 import config.assets.Musics;
 import config.xml.MapMusic;
 import editor.Editor;
 
-import net.miginfocom.swing.MigLayout;
-
 /**
+ * Used to specify the music on a Map
  * @author Bilal Hussain
  */
 public class MapMusicPanel extends JPanel implements IRefreshable {
