@@ -130,6 +130,8 @@ public abstract class XMLUtil {
 				MapMusic.class,
 				MapConditions.class,
 				
+				EditorProject.class,
+				
 				//Model 
 				Unit.class,
 				AbstractUnitObject.class,

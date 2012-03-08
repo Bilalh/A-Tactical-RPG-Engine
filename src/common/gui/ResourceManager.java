@@ -124,17 +124,6 @@ public class ResourceManager {
 		return image;
 	}
 	
-	public InputStream getResourceAsStream(String ref){
-		InputStream s = null;//this.getClass().getClassLoader().getResourceAsStream("Resources/"+ref);
-		try {
-			s = new FileInputStream("Resources/"+ref);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		assert s != null : ref + " not found";
-		return s;
-	}
-	
 	public Sprite getSpriteFromClassPath(String path) {
 		return getSpriteFromClassPath(path, -1, -1);
 	}

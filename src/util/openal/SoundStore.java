@@ -17,6 +17,7 @@ import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.OpenALException;
 
 import common.gui.ResourceManager;
+import config.Config;
 
 /**
  * Responsible for holding and playing the sounds used in the game.
@@ -576,7 +577,7 @@ public class SoundStore {
 	 *             Indicates a failure to load the AIF
 	 */
 	public Audio getAIF(String ref) throws IOException {
-		return getAIF(ref, ResourceManager.instance().getResourceAsStream(ref));
+		return getAIF(ref, Config.getResourceAsStream(ref));
 	}
 
 	/**
@@ -653,7 +654,7 @@ public class SoundStore {
 	 *             Indicates a failure to load the WAV
 	 */
 	public Audio getWAV(String ref) throws IOException {
-		return getWAV(ref, ResourceManager.instance().getResourceAsStream(ref));
+		return getWAV(ref, Config.getResourceAsStream(ref));
 	}
 
 	/**
@@ -781,10 +782,10 @@ public class SoundStore {
 	 *             Indicates a failure to load the OGG
 	 */
 	public Audio getOgg(String ref) throws IOException {
-		return getOgg(ref, ResourceManager.instance().getResourceAsStream(ref));
+		return getOgg(ref, Config.getResourceAsStream(ref));
 	}
 
-	/**
+	/**§
 	 * Get the Sound based on a specified OGG file
 	 * 
 	 *            The stream to the OGG to load

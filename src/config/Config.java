@@ -132,6 +132,17 @@ public class Config {
 		return ss;
 	}
 	
+	public static InputStream getResourceAsStream(String ref){
+		InputStream s = null;//this.getClass().getClassLoader().getResourceAsStream("Resources/"+ref);
+		try {
+			s = new FileInputStream(RESOURCE_DIRECTORY +ref);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		assert s != null : ref + " not found";
+		return s;
+	}
+	
 	public static void setResourceDirectory(String path) {
 		RESOURCE_DIRECTORY = path;
 	}

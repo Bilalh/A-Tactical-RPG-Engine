@@ -36,9 +36,11 @@ import common.spritesheet.SpriteSheet;
 
 import config.Config;
 import config.assets.*;
+import config.xml.EditorProject;
 
 import editor.editors.*;
 import editor.map.EditorSpriteSheet;
+import editor.spritesheet.SpriteSheetEditor;
 import editor.util.Prefs;
 import editor.util.Resources;
 import engine.assets.*;
@@ -66,9 +68,9 @@ public class Editor {
 	SoundsPanel     soundPanel;
 
 	
+	EditorProject project;
 	String projectPath = "projects/Test";
-	String projectName = "Test";
-
+	
 	public Editor() {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -142,10 +144,21 @@ public class Editor {
 	
 	private JTabbedPane createTabs() {
 		//FIXME change
+		
+//		JFileChooser dirChooser  = new JFileChooser();
+//		dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//		int rst = dirChooser.showOpenDialog(frame);
+//		if (rst != JFileChooser.APPROVE_OPTION){
+//			System.exit(1);
+//		}
+//		File f = dirChooser.getSelectedFile();
 		File f = new File(projectPath);
-		File mainXml  = new File(f, "tactical-project.xml");
+		
 		File resources = new File(f,"Resources");
+		System.out.println(resources.getAbsolutePath() + "/");
 		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
+		
+		project = Config.loadPreference("../tactical-project.xml");
 		
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 
@@ -226,10 +239,6 @@ public class Editor {
 		File resources = new File(f,"Resources");
 		resources.mkdir();
 		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
-		
-		// Assets
-		File assets = new File(resources, "assets");
-		assets.mkdir();
 
 		Weapons ws =  weaponsPanel.getWeapons();
 		Config.savePreferences(ws, "assets/weapons.xml");
@@ -265,15 +274,7 @@ public class Editor {
 		Musics sounds = soundPanel.getResouces();
 		Config.savePreferences(sounds, "assets/sounds.xml");
 		
-		// Main project file
-		File mainXml  = new File(f, "tactical-project.xml");
-		try {
-			FileWriter fw = new FileWriter(mainXml);
-			fw.write("");
-			fw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Config.savePreferences(project,"../tactical-project.xml");
 		
 	}
 	
@@ -282,7 +283,7 @@ public class Editor {
 		File f = new File(projectPath);
 		File resources = new File(f,"Resources");
 		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
-		
+
 		//TODO paths
 		Weapons ws = Config.loadPreference("assets/weapons.xml");
 		AssetStore.instance().loadWeapons(ws);

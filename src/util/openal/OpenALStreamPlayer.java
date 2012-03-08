@@ -11,6 +11,7 @@ import org.lwjgl.openal.AL11;
 import org.lwjgl.openal.OpenALException;
 
 import common.gui.ResourceManager;
+import config.Config;
 
 /**
  * A generic tool to work on a supplied stream, pulling out PCM data and buffered it to OpenAL as
@@ -101,7 +102,7 @@ public class OpenALStreamPlayer {
 		if (url != null) {
 			audio = new OggInputStream(url.openStream());
 		} else {
-			audio = new OggInputStream(ResourceManager.instance().getResourceAsStream(ref));
+			audio = new OggInputStream(Config.getResourceAsStream(ref));
 		}
 
 		this.audio = audio;
