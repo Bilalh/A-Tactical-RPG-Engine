@@ -214,6 +214,13 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 	}
 
+	@Override
+	public void mapEditingFinished() {
+		currentMap.reloadAsset();
+		setCurrentResource(currentMap);
+		editor.setVisible(true);
+	}
+
 	boolean creating;
 	ListSelectionListener savedListener;
 	@Override
@@ -247,90 +254,21 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 //	currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
 //	m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
 	
-	private void createMap(){
-		
-		// Map setting and Map Data
-		MapSettings settings = MapSettings.defaults();
-		SpriteSheetData dtextures = (SpriteSheetData) infoTextures.getSelectedItem();
-		SpriteSheetData dtiles    = (SpriteSheetData) infoTileset.getSelectedItem();
-		MapData data = new MapData("New Map",dtiles.getAnimationPath(), dtextures.getSpriteSheetLocation()); 
-		
-		Units ememies =new Units();
-		Unit u = new Unit("Unit 1", 20,4,10,15);
-		IWeapon w  = editor.getWeapons().iterator().next();
-		u.setWeapon(w);
-		SpriteSheetData images = editor.getUnitImages().iterator().next();
-		u.setImageData(images.getAnimationPath(), images);
-		ememies.put(u);
-		
-		UnitPlacement up = new UnitPlacement(ememies, new HashMap<UUID, Location>());
-		MapEvents events = new MapEvents(new DialogParts(), new DialogParts());
-		MapMusic music   = new MapMusic();
-		
-		MapConditions conditions = new MapConditions();
-		conditions.setWinCondition(new DefeatAllUnitsCondition());
-		
-		// Tiles
-		Sprites ss  = Config.loadPreference(IOUtil.replaceExtension(dtiles.getSpriteSheetLocation(),".xml"));
-		String tileName = ss.getSprites()[0].getName();
-
-		Sprites tt  = Config.loadPreference(IOUtil.replaceExtension(dtextures.getSpriteSheetLocation(),".xml"));
-		String textureName = tt.getSprites()[0].getName();
-		
-		int width  = ((Number)infoWidth.getValue()).intValue();
-		int height = ((Number)infoHeight.getValue()).intValue();
-		SavedTile[] tiles = new SavedTile[width * height]; 
-		
-		for (int i = 0, k = 0; i < width; i++) {
-			for (int j = 0; j < height; j++, k++) {
-				tiles[k] = new SavedTile(
-						tileName,
-						1,
-						1,	
-						i, j, 
-						Orientation.UP_TO_EAST,
-						textureName,
-						textureName);
-			}
-		}
-		
-		
-		SavedMap map = new SavedMap(
-				((Number)infoWidth.getValue()).intValue(), 
-				((Number)infoHeight.getValue()).intValue(), 
-				tiles, 
-				settings, 
-				data);
-		
-		String name = "map_"+ map.getUuid();
-		DeferredMap newMap = new DeferredMap(map, "maps/" + name + ".xml");
-		
-		data = new MapData(name, IOUtil.replaceExtension(dtiles.getSpriteSheetLocation(),"-mapping.xml"), dtextures.getSpriteSheetLocation());
-		map.setMapData(data);
-		
-		Config.savePreferences(up, data.getEnemiesLocation());
-		Config.savePreferences(events, data.getEventsLocation());
-		Config.savePreferences(music, data.getMusicLocation());
-		Config.savePreferences(conditions, data.getConditionsLocation());
-		newMap.saveAsset();
-		
-		resourceListModel.addElement(newMap);
-		setCurrentResource(newMap);
-		finishedCreating();
-	}
-	
 	private void cancel() {
 		finishedCreating();
 	}
 	
-	private void finishedCreating(){
+	//	currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
+	//	m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
+		
+		private void finishedCreating(){
 		resourceList.addListSelectionListener(savedListener);
 		savedListener = null;
 		
 		infoName.setEnabled(true);
 		infoTileDiagonal.setEnabled(true);
 		infoTileHeight.setEnabled(true);
-
+	
 		infoWidth.setEnabled(false);
 		infoHeight.setEnabled(false);
 		infoTileset.setEnabled(false);
@@ -347,15 +285,95 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		listDeleteButton.setEnabled(true);
 		editor.setTabsEnabled(true);
 	}
-	
-	
-	@Override
-	public void mapEditingFinished() {
-		currentMap.reloadAsset();
-		setCurrentResource(currentMap);
-		editor.setVisible(true);
+
+	private void createMap() {
+		// Map setting and Map Data
+		MapSettings settings = MapSettings.defaults();
+		SpriteSheetData dtextures = (SpriteSheetData) infoTextures.getSelectedItem();
+		SpriteSheetData dtiles = (SpriteSheetData) infoTileset.getSelectedItem();
+		MapData data = new MapData("New Map", dtiles.getAnimationPath(), dtextures.getSpriteSheetLocation());
+
+		// External Data
+		Units ememies = new Units();
+		Unit u = new Unit("Unit 1", 20, 4, 10, 15);
+		IWeapon w = editor.getWeapons().iterator().next();
+		u.setWeapon(w);
+		SpriteSheetData images = editor.getUnitImages().iterator().next();
+		u.setImageData(images.getAnimationPath(), images);
+		ememies.put(u);
+
+		HashMap<UUID, Location> placement = new HashMap<UUID, Location>();
+		placement.put(u.getUuid(), new Location(0, 0));
+
+		UnitPlacement up = new UnitPlacement(ememies, placement);
+		MapEvents events = new MapEvents(new DialogParts(), new DialogParts());
+
+		MapMusic music = new MapMusic();
+		Musics musics = editor.getMusic();
+		music.setBackground(musics.iterator().next().getUuid());
+		
+		Musics sounds = editor.getSounds();
+		UUID musicId = sounds.iterator().next().getUuid();
+		music.setAttackSound(musicId);
+		music.setDefeatUnitSound(musicId);
+		music.setLoseMapSound(musicId);
+		music.setLoseUnitSound(musicId);
+		music.setWinMapSound(musicId);
+		
+		MapConditions conditions = new MapConditions();
+		conditions.setWinCondition(new DefeatAllUnitsCondition());
+
+		// Tiles
+		Sprites ss = Config.loadPreference(IOUtil.replaceExtension(dtiles.getSpriteSheetLocation(), ".xml"));
+		String tileName = ss.getSprites()[0].getName();
+
+		Sprites tt = Config.loadPreference(IOUtil.replaceExtension(dtextures.getSpriteSheetLocation(), ".xml"));
+		String textureName = tt.getSprites()[0].getName();
+
+		int width = ((Number) infoWidth.getValue()).intValue();
+		int height = ((Number) infoHeight.getValue()).intValue();
+		SavedTile[] tiles = new SavedTile[width * height];
+
+		for (int i = 0, k = 0; i < width; i++) {
+			for (int j = 0; j < height; j++, k++) {
+				tiles[k] = new SavedTile(
+						tileName,
+						1,
+						1,
+						i, j,
+						Orientation.UP_TO_EAST,
+						textureName,
+						textureName);
+			}
+		}
+
+		SavedMap map = new SavedMap(
+				((Number) infoWidth.getValue()).intValue(),
+				((Number) infoHeight.getValue()).intValue(),
+				tiles,
+				settings,
+				data);
+
+		String name = "map_" + map.getUuid();
+		DeferredMap newMap = new DeferredMap(map, "maps/" + name + ".xml");
+
+		// Set the real location
+		data = new MapData(name, IOUtil.replaceExtension(dtiles.getSpriteSheetLocation(), "-mapping.xml"),
+				dtextures.getSpriteSheetLocation());
+		map.setMapData(data.changeName("New Map " + (resourceListModel.size() + 1)));
+
+		// Saving
+		Config.savePreferences(up, data.getEnemiesLocation());
+		Config.savePreferences(events, data.getEventsLocation());
+		Config.savePreferences(music, data.getMusicLocation());
+		Config.savePreferences(conditions, data.getConditionsLocation());
+		newMap.saveAsset();
+
+		resourceListModel.addElement(newMap);
+		finishedCreating();
+		resourceList.setSelectedIndex(resourceListModel.size() - 1);
 	}
-	
+
 	@Override
 	protected JComponent createInfoPanel() {
 	    JPanel p = new JPanel(defaultInfoPanelLayout());

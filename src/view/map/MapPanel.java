@@ -226,8 +226,7 @@ public class MapPanel extends JPanel implements Runnable {
 	// Uses active rendering
 	private void draw() {
 		Graphics g = this.getGraphics();
-
-		assert g      != null : "graphics buffer null";
+		if (g == null) return;
 		assert buffer != null : "image    buffer null";
 
 		g.drawImage(buffer, 0, 0, null);

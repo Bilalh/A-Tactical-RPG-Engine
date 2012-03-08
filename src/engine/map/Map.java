@@ -3,6 +3,8 @@ package engine.map;
 import java.util.*;
 import java.util.Map.Entry;
 
+import javax.management.RuntimeErrorException;
+
 import notifications.map.*;
 
 import org.apache.log4j.Logger;
@@ -85,7 +87,7 @@ public class Map extends BasicMap implements IMap {
 		}
 		
 		assert aiUnits.size() == enemies.getUnitPlacement().size(); 
-		assert aiUnits.size() != 0;
+		if (aiUnits.size() ==0) throw new RuntimeException("No Ai units");
 		
 		ai.setUnits(aiUnits);
 		

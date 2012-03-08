@@ -1,5 +1,11 @@
 <maps>
   <entry>
+    <uuid>62e1f318-dcb0-4ff8-b1d2-dc9d6ee1f142</uuid>
+    <deferredMap uuid="62e1f318-dcb0-4ff8-b1d2-dc9d6ee1f142">
+      <resouceLocation>maps/map_294d4a7e-ee20-4bec-a961-fdf8cf86d45a.xml</resouceLocation>
+    </deferredMap>
+  </entry>
+  <entry>
     <uuid>f0698cb1-9b52-4228-80d2-ed1f3a11ec5e</uuid>
     <deferredMap uuid="f0698cb1-9b52-4228-80d2-ed1f3a11ec5e">
       <resouceLocation>maps/default.xml</resouceLocation>
