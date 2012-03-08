@@ -278,6 +278,10 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 				assert currentEnemy != null;
 				AnimatedUnit a  = toMapUnit.get(currentEnemy.getUuid()); 
 				assert a != null;
+				if (tile.getOrientation() == Orientation.EMPTY || tile.getUnit() != null){
+					break;
+				}
+				
 				map.getGuiTile(a.getLocation()).removeUnit();
 				a.setLocation(tile.getLocation());
 				tile.setUnit(a);

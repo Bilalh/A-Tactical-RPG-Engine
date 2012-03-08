@@ -56,22 +56,22 @@
     <entry>
       <uuid>6363fb76-c8c1-4894-9244-906035ccc1f9</uuid>
       <location>
-        <x>11</x>
-        <y>4</y>
+        <x>7</x>
+        <y>2</y>
       </location>
     </entry>
     <entry>
       <uuid>78c008a9-f7ca-4f89-b3f1-876a633caf09</uuid>
       <location>
-        <x>10</x>
-        <y>6</y>
+        <x>7</x>
+        <y>4</y>
       </location>
     </entry>
     <entry>
       <uuid>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</uuid>
       <location>
-        <x>6</x>
-        <y>8</y>
+        <x>5</x>
+        <y>2</y>
       </location>
     </entry>
   </placement>
