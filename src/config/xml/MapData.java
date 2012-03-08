@@ -30,6 +30,17 @@ public class MapData {
 		this.conditionsLocation  = conditionsLocation;
 	}
 
+	
+	public MapData(String name,  String tileMappingLocation, String texturesLocation) {
+		this(name,
+			tileMappingLocation,
+			texturesLocation,
+			"maps/" + name+ "-enemies.xml",
+			"maps/" + name+ "-events.xml",
+			"maps/" + name+ "-music.xml",
+			"maps/" + name+ "-conditions.xml");
+	}
+
 	public MapData changeName(String s){
 		return new MapData(s, tileMappingLocation, texturesLocation, enemiesLocation,eventsLocation,musicLocation,conditionsLocation);
 	}

@@ -6,28 +6,32 @@ import static util.IOUtil.replaceExtension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
+import java.util.UUID;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.event.*;
 
 import net.miginfocom.layout.CC;
 
 import org.apache.log4j.Logger;
 
+import util.IOUtil;
+
+import common.Location;
+import common.enums.Orientation;
 import common.interfaces.IWeapon;
+import common.spritesheet.Sprites;
 
 import config.Config;
-import config.assets.DeferredMap;
-import config.assets.Maps;
-import config.assets.UnitPlacement;
+import config.assets.*;
 import config.xml.*;
 import editor.Editor;
 import editor.map.IMapEditorListener;
 import editor.map.MapEditor;
+import engine.map.win.DefeatAllUnitsCondition;
 import engine.unit.SpriteSheetData;
+import engine.unit.Unit;
 
 /**
  * Editor for maps 
@@ -48,6 +52,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private JComboBox infoTileset;
 	private JComboBox infoTextures;
 
+	private JButton infoEdit, infoCreate, infoCancel;
+	
 	private DeferredMap   currentMap;	
 	private ITileMapping  currentMapping;
 	private UnitPlacement currentUnitPlacement;
@@ -60,6 +66,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private MapDialogPanel dialogStartPanel;
 	private MapDialogPanel dialogEndPanel;
 	private MapMusicPanel  musicPanel;
+	
 	private MapConditionsPanel conditionsPanel;
 	
 	public MapsPanel(Editor editor) {
@@ -174,25 +181,20 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 	}
 
-	@Override
-	protected void addToList() {
-		//FIXME addToList
-	}
-
 	private void changeName(){
 		SavedMap m = currentMap.getAsset(); 
 		m.setMapData(m.getMapData().changeName(infoName.getText()));
 		resourceList.repaint();
 	}	
 	
-	private void changeTileset(SpriteSheetData ui){
-		currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
-	}
-
-	private void changeTextures(SpriteSheetData ui){
-		SavedMap m = currentMap.getAsset(); 
-		m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
-	}
+//	private void changeTileset(SpriteSheetData ui){
+//		currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
+//	}
+//
+//	private void changeTextures(SpriteSheetData ui){
+//		SavedMap m = currentMap.getAsset(); 
+//		m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
+//	}
 
 
 	private void changeTileDiagonal(int value) {
@@ -212,6 +214,141 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 	}
 
+	boolean creating;
+	ListSelectionListener savedListener;
+	@Override
+	protected void addToList() {
+		//FIXME addToList
+		infoTabs.setEnabled(false);
+		creating = true;
+		
+		savedListener = resourceList.getListSelectionListeners()[0];
+		resourceList.removeListSelectionListener(savedListener);
+		resourceList.setEnabled(false);
+		
+		infoName.setEnabled(false);
+		infoTileDiagonal.setEnabled(false);
+		infoTileHeight.setEnabled(false);
+
+		infoWidth.setEnabled(true);
+		infoHeight.setEnabled(true);
+		infoTileset.setEnabled(true);
+		infoTextures.setEnabled(true);
+		
+		infoEdit.setVisible(false);
+		infoCreate.setVisible(true);
+		infoCancel.setVisible(true);
+		
+		listAddButton.setEnabled(false);
+		listDeleteButton.setEnabled(false);
+		editor.setTabsEnabled(false);
+	}
+
+//	currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
+//	m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
+	
+	private void createMap(){
+		
+		// Map setting and Map Data
+		MapSettings settings = MapSettings.defaults();
+		SpriteSheetData dtextures = (SpriteSheetData) infoTextures.getSelectedItem();
+		SpriteSheetData dtiles    = (SpriteSheetData) infoTileset.getSelectedItem();
+		MapData data = new MapData("New Map",dtiles.getAnimationPath(), dtextures.getSpriteSheetLocation()); 
+		
+		Units ememies =new Units();
+		Unit u = new Unit("Unit 1", 20,4,10,15);
+		IWeapon w  = editor.getWeapons().iterator().next();
+		u.setWeapon(w);
+		SpriteSheetData images = editor.getUnitImages().iterator().next();
+		u.setImageData(images.getAnimationPath(), images);
+		ememies.put(u);
+		
+		UnitPlacement up = new UnitPlacement(ememies, new HashMap<UUID, Location>());
+		MapEvents events = new MapEvents(new DialogParts(), new DialogParts());
+		MapMusic music   = new MapMusic();
+		
+		MapConditions conditions = new MapConditions();
+		conditions.setWinCondition(new DefeatAllUnitsCondition());
+		
+		// Tiles
+		Sprites ss  = Config.loadPreference(IOUtil.replaceExtension(dtiles.getSpriteSheetLocation(),".xml"));
+		String tileName = ss.getSprites()[0].getName();
+
+		Sprites tt  = Config.loadPreference(IOUtil.replaceExtension(dtextures.getSpriteSheetLocation(),".xml"));
+		String textureName = tt.getSprites()[0].getName();
+		
+		int width  = ((Number)infoWidth.getValue()).intValue();
+		int height = ((Number)infoHeight.getValue()).intValue();
+		SavedTile[] tiles = new SavedTile[width * height]; 
+		
+		for (int i = 0, k = 0; i < width; i++) {
+			for (int j = 0; j < height; j++, k++) {
+				tiles[k] = new SavedTile(
+						tileName,
+						1,
+						1,	
+						i, j, 
+						Orientation.UP_TO_EAST,
+						textureName,
+						textureName);
+			}
+		}
+		
+		
+		SavedMap map = new SavedMap(
+				((Number)infoWidth.getValue()).intValue(), 
+				((Number)infoHeight.getValue()).intValue(), 
+				tiles, 
+				settings, 
+				data);
+		
+		String name = "map_"+ map.getUuid();
+		DeferredMap newMap = new DeferredMap(map, "maps/" + name + ".xml");
+		
+		data = new MapData(name, IOUtil.replaceExtension(dtiles.getSpriteSheetLocation(),"-mapping.xml"), dtextures.getSpriteSheetLocation());
+		map.setMapData(data);
+		
+		Config.savePreferences(up, data.getEnemiesLocation());
+		Config.savePreferences(events, data.getEventsLocation());
+		Config.savePreferences(music, data.getMusicLocation());
+		Config.savePreferences(conditions, data.getConditionsLocation());
+		newMap.saveAsset();
+		
+		resourceListModel.addElement(newMap);
+		setCurrentResource(newMap);
+		finishedCreating();
+	}
+	
+	private void cancel() {
+		finishedCreating();
+	}
+	
+	private void finishedCreating(){
+		resourceList.addListSelectionListener(savedListener);
+		savedListener = null;
+		
+		infoName.setEnabled(true);
+		infoTileDiagonal.setEnabled(true);
+		infoTileHeight.setEnabled(true);
+
+		infoWidth.setEnabled(false);
+		infoHeight.setEnabled(false);
+		infoTileset.setEnabled(false);
+		infoTextures.setEnabled(false);
+		
+		infoEdit.setVisible(true);
+		infoCreate.setVisible(false);
+		infoCancel.setVisible(false);
+		
+		infoTabs.setEnabled(true);
+		creating = false;
+		resourceList.setEnabled(true);
+		listAddButton.setEnabled(true);
+		listDeleteButton.setEnabled(true);
+		editor.setTabsEnabled(true);
+	}
+	
+	
 	@Override
 	public void mapEditingFinished() {
 		currentMap.reloadAsset();
@@ -284,34 +421,42 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoTileset.setEditable(false);
 		infoTileset.setEnabled(false);
 		p.add(new JLabel("Tileset:"), new CC().alignX("leading"));
-		infoTileset.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (infoTileset.getItemCount() <= 0) return;
-				SpriteSheetData w= (SpriteSheetData) e.getItem();
-				changeTileset(w);
-			}
-		});
+//		infoTileset.addItemListener(new ItemListener() {
+//			@Override
+//			public void itemStateChanged(ItemEvent e) {
+//				if (infoTileset.getItemCount() <= 0) return;
+//				SpriteSheetData w= (SpriteSheetData) e.getItem();
+//				changeTileset(w);
+//			}
+//		});
 		p.add(infoTileset, "span, growx");
 		
 		infoTextures = new JComboBox(new IWeapon[]{});
 		infoTextures.setEditable(false);
 		infoTextures.setEnabled(false);
 		p.add(new JLabel("Textures:"), new CC().alignX("leading"));
-		infoTextures.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (infoTileset.getItemCount() <= 0) return;
-				SpriteSheetData w= (SpriteSheetData) e.getItem();
-				changeTextures(w);
-			}
-		});
+//		infoTextures.addItemListener(new ItemListener() {
+//			@Override
+//			public void itemStateChanged(ItemEvent e) {
+//				if (infoTileset.getItemCount() <= 0) return;
+//				SpriteSheetData w= (SpriteSheetData) e.getItem();
+//				changeTextures(w);
+//			}
+//		});
 		p.add(infoTextures, "span, growx");
 		
 		
 		addSeparator(p,"Editing");
 
-		p.add(new JButton(new EditAction()));
+		p.add(infoEdit   =  new JButton(new EditAction()));
+		p.add(infoCreate =  new JButton(new CreateAction()));
+		p.add(infoCancel =  new JButton(new CancelAction()));
+		infoCreate.setVisible(false);
+		infoCreate.setVisible(false);
+		infoCreate.setVisible(false);
+		infoCreate.setVisible(false);
+		infoCancel.setVisible(false);
+		
 		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 
 		infoTabs = new JTabbedPane();
@@ -338,10 +483,42 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 			editMap();
 		}
 	}
+
+	protected class CreateAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public CreateAction() {
+			putValue(NAME, "Create Map");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			// putValue(SMALL_ICON, new ListAllIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			createMap();
+		}
+	}
+	
+	protected class CancelAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public CancelAction() {
+			putValue(NAME, "Cancel");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			// putValue(SMALL_ICON, new ListAllIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			cancel();
+		}
+	}
 	
 	@Override
 	protected String resourceDisplayName(DeferredMap map, int index){
 		assert map != null;
+		SavedMap m = map.getAsset();
+		if (m == null) return "New Map";
 		return map.getAsset().getMapData().getName();
 	}
 	

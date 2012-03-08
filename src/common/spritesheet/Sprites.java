@@ -4,11 +4,13 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+import config.IPreference;
+
 /**
  * @author Bilal Hussain
  */
 @XStreamAlias("sprites")
-public class Sprites {
+public class Sprites implements IPreference {
 
 	@XStreamImplicit
 	SpriteInfo[] sprites;

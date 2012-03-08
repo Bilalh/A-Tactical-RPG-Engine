@@ -359,7 +359,10 @@ public class Editor {
 		new Editor();
 	}
 
-
+	public void setTabsEnabled(boolean enabled) {
+		tabs.setEnabled(enabled);
+	}
+	
 	/** @category Generated */
 	public String getProjectPath() {
 		return projectPath;
@@ -370,5 +373,7 @@ public class Editor {
 	public void setVisible(boolean arg0) {
 		frame.setVisible(arg0);
 	}
+
+
 
 }

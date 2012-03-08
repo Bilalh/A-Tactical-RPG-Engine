@@ -44,6 +44,8 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 	protected DefaultListModel resourceListModel;
 	protected boolean listOnLeft;
 
+	protected TButton listAddButton, listDeleteButton; 
+	
 	public AbstractResourcesPanel(Editor editor) {
 		this(editor, true);
 	}
@@ -147,8 +149,8 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		p.add(slist, BorderLayout.CENTER);
 
 		JPanel buttons = new JPanel();
-		buttons.add(new TButton(new DeleteAction()));
-		buttons.add(new TButton(new AddAction()));
+		buttons.add(listAddButton    = new TButton(new DeleteAction()));
+		buttons.add(listDeleteButton = new TButton(new AddAction()));
 		p.add(buttons, BorderLayout.SOUTH);
 
 		return p;

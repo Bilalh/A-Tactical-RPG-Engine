@@ -103,6 +103,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 		SpriteSheetData ui = new SpriteSheetData();
 		ui.setSpriteSheetLocation("panels/unitSprites.png");
 		u.setImageData(path, ui);
+		u.setWeapon(new MeleeWeapon(1));
 		
 		currentLocation = new Location(5,5);
 		mapUnit = new MapUnit(u, currentLocation, new MapPlayer());

@@ -33,18 +33,13 @@ public class DeferredAsset<E extends Identifiable & IPreference> implements Iden
 	protected String resouceLocation;
 	
 	public DeferredAsset(E asset, String resouceLocation) {
-		uuid = UUID.randomUUID();
+		this.uuid  = UUID.randomUUID();
 		this.asset = asset;
 		this.resouceLocation = resouceLocation;
 	}
-
-//	// to load resource
-//	private Object readResolve() {
-//		asset = (E) Config.loadPreference(resouceLocation);  
-//		return this;
-//	}
 	
 	public void reloadAsset(){
+		if (resouceLocation == null) return;
 		asset = (E) Config.loadPreference(resouceLocation);
 	}
 	

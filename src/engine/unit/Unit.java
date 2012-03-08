@@ -25,7 +25,9 @@ import engine.skills.RangedSkill;
  */
 @XStreamAlias("unit")
 public class Unit implements IMutableUnit {
-
+	@XStreamAsAttribute
+	private final UUID uuid;
+	
 	private String name;
 
 	private int maxHp    = 1;
@@ -38,8 +40,6 @@ public class Unit implements IMutableUnit {
 	private int level    = 1;
 	private int exp      = 0;
 
-	@XStreamAsAttribute
-	private final UUID uuid;
 	private String imageDataRef;
 	private transient SpriteSheetData imageData;
 	
@@ -55,9 +55,9 @@ public class Unit implements IMutableUnit {
 	public Unit(){
 		uuid   = UUID.randomUUID();
 		name   = uuid.toString();
-		weapon = new MeleeWeapon(1);
-		
 		setSkills(new ArrayList<ISkill>());
+		level = 1;
+		exp   = 0;
 	}
 
 	public Unit(String name, int maxHp, int move, int strength, int speed) {

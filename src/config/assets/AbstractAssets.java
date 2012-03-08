@@ -95,5 +95,4 @@ public abstract class AbstractAssets<E extends Identifiable> implements  IAssets
 	public Iterator<E> iterator() {
 		return assets.values().iterator();
 	}
-	
 }
