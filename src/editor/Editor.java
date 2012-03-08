@@ -1,50 +1,32 @@
 package editor;
 
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.UUID;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import javax.rmi.CORBA.Tie;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import net.miginfocom.layout.AC;
-import net.miginfocom.layout.CC;
-import net.miginfocom.layout.LC;
-import net.miginfocom.swing.MigLayout;
-
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.log4j.Logger;
 
-import util.openal.Music;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
-
-import common.assets.*;
 import common.gui.ResourceManager;
-import common.spritesheet.SpriteSheet;
 
 import config.Config;
 import config.assets.*;
 import config.xml.EditorProject;
-
 import editor.editors.*;
 import editor.map.EditorSpriteSheet;
-import editor.spritesheet.SpriteSheetEditor;
 import editor.util.Prefs;
-import editor.util.Resources;
-import engine.assets.*;
-import engine.unit.SpriteSheetData;
 
 /**
  * Editor for the engine
@@ -146,19 +128,21 @@ public class Editor {
 		//FIXME change
 		
 //		JFileChooser dirChooser  = new JFileChooser();
-//		dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//		dirChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//		dirChooser.setFileFilter(new FileNameExtensionFilter("Tactical Projects (*.tacticalproject)", "tacticalproject"));
 //		int rst = dirChooser.showOpenDialog(frame);
 //		if (rst != JFileChooser.APPROVE_OPTION){
 //			System.exit(1);
 //		}
-//		File f = dirChooser.getSelectedFile();
+//		File f = dirChooser.getSelectedFile().getParentFile();
+//		projectPath = f.getAbsolutePath();
 		File f = new File(projectPath);
 		
 		File resources = new File(f,"Resources");
 		System.out.println(resources.getAbsolutePath() + "/");
 		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
 		
-		project = Config.loadPreference("../tactical-project.xml");
+		project = Config.loadPreference("../project.tacticalproject");
 		
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 
@@ -274,7 +258,7 @@ public class Editor {
 		Musics sounds = soundPanel.getResouces();
 		Config.savePreferences(sounds, "assets/sounds.xml");
 		
-		Config.savePreferences(project,"../tactical-project.xml");
+		Config.savePreferences(project,"../project.tacticalproject");
 		
 	}
 	

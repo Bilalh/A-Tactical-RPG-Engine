@@ -9,6 +9,7 @@ import java.nio.channels.FileChannel;
 import javax.swing.filechooser.FileFilter;
 
 /**
+ * File handing methods
  * @author Bilal Hussain
  */
 public class IOUtil {
