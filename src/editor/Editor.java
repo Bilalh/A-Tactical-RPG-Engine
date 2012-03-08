@@ -1,12 +1,14 @@
 package editor;
 
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.Collections;
 import java.util.UUID;
 import java.util.prefs.BackingStoreException;
@@ -18,6 +20,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.log4j.Logger;
+
+import util.FileChooser;
 
 import common.gui.ResourceManager;
 
@@ -127,16 +131,14 @@ public class Editor {
 	private JTabbedPane createTabs() {
 		//FIXME change
 		
-//		JFileChooser dirChooser  = new JFileChooser();
-//		dirChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//		dirChooser.setFileFilter(new FileNameExtensionFilter("Tactical Projects (*.tacticalproject)", "tacticalproject"));
-//		int rst = dirChooser.showOpenDialog(frame);
-//		if (rst != JFileChooser.APPROVE_OPTION){
-//			System.exit(1);
-//		}
-//		File f = dirChooser.getSelectedFile().getParentFile();
-//		projectPath = f.getAbsolutePath();
-		File f = new File(projectPath);
+		FileChooser chooser = new FileChooser(frame, "Choose a project file", "tacticalproject");
+	    File f = chooser.loadFile();
+	    if (f == null){
+	    	System.exit(1);
+	    }
+	    f = f.getParentFile();
+//		File f = new File(projectPath);
+		
 		
 		File resources = new File(f,"Resources");
 		System.out.println(resources.getAbsolutePath() + "/");
