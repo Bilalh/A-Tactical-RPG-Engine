@@ -21,6 +21,7 @@ public class Battle implements IBattleInfo {
 
 	protected final IMutableMapUnit attacker;
 	protected Collection<BattleResult> results;
+	protected Map map;
 	
 	/**
 	 * Must initialise results if using this
@@ -35,6 +36,7 @@ public class Battle implements IBattleInfo {
 
 		assert target   != null;
 		assert map      != null;
+		this.map = map;
 		this.results  = calcuateBattles(getTargets(attacker, target, map));
 	}
 
@@ -53,11 +55,24 @@ public class Battle implements IBattleInfo {
 	}
 
 	protected int calcuateDamage(IMutableMapUnit target) {
-		int result = attacker.getAttack() - target.getDefence();
+		double modifer = getAttackModifer(target); 
+		int result = (int) ((attacker.getAttack() * modifer) - target.getDefence());
 		if (result < 0) result = 0;
 		return result;
 	}
+	
+	// Get any bonus/penalty for the attacker
+	private double getAttackModifer(IMutableMapUnit target) {
+		int aHeight =  map.getTile(attacker.getLocation()).getEndHeight();
+		int tHeight =  map.getTile(target.getLocation()).getEndHeight();
+		return heightModifier(target, aHeight, tHeight);
+	}
 
+	protected double heightModifier(IMutableMapUnit target, int attackerHeight, int targetHeight){
+		double modifer = 1+0.1*(attackerHeight-targetHeight);
+		return modifer;
+	}
+	
 	public void performBattle() {
 		for (BattleResult battle : results) {
 			battle.getMutableTarget().removeHp(battle.getDamage());
