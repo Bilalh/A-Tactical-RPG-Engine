@@ -28,7 +28,7 @@ public class FileChooser {
 		this.ext    = ext;
 		
 		String os = System.getProperty("os.name").toLowerCase();
-		if (os.indexOf("macs") ==-1) {
+		if (os.indexOf("mac") ==-1) {
 			chooser  = new JFileChooser();
 			if (ext != "" && ext != null){
 				chooser.setFileFilter(new FileNameExtensionFilter("*." + ext, ext));

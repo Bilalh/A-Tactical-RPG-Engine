@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.Vector;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -13,7 +14,10 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.apache.commons.io.FileUtils;
+
 import util.FileChooser;
+import util.IOUtil;
 import view.Gui;
 
 import com.javarichclient.icon.tango.actions.DocumentNewIcon;
@@ -32,7 +36,8 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * Allows the user to choose a project
+ * Allows the user to choose a project to edit. 
+ * It also allows exporting a Mac OS X apllication as well as a jar.
  * @author Bilal Hussain
  */
 public class ProjectChooser {
@@ -141,7 +146,20 @@ public class ProjectChooser {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			FileChooser c = new FileChooser(frame, "Export Project", "app");
+			File dir  = c.getDir();
+			if (dir == null) return;
 			
+			String appName =  dir.getName();
+			appName =  IOUtil.removeExtension(appName);
+			dir = new File(dir.getParentFile(), appName);
+			try {
+				FileUtils.copyDirectory(new File("bundle/Default"), dir );
+			} catch (IOException e1) {
+				// FIXME catch block in actionPerformed
+				e1.printStackTrace();
+			}
+			openProject(dir);
 		}
 	}
 	
@@ -162,13 +180,17 @@ public class ProjectChooser {
 				return;
 			}
 			f = f.getParentFile();
-			recentFiles.remove(f);
-			recentFiles.add(0, f);
-			saveToPrefs();
-			startEditor(f);
+			openProject(f);
 		}
 	}
 
+	void openProject(File f){
+		recentFiles.remove(f);
+		recentFiles.add(0, f);
+		saveToPrefs();
+		startEditor(f);
+	}
+	
 	public static void main(String[] args) {
 		Config.loadLoggingProperties();
 		EventQueue.invokeLater(new Runnable() {
