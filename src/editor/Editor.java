@@ -386,9 +386,7 @@ public class Editor {
 		log.info(sounds);
 		
 		if (!initLoading){
-			Maps maps = Config.loadPreference("assets/maps.xml");
-			mapsPanel.setResources(maps);
-			log.info(maps);
+			loadMaps();
 			IRefreshable panel = (IRefreshable) tabs.getComponentAt(tabs.getSelectedIndex());
 	        panel.panelSelected(Editor.this);
 		}
@@ -399,6 +397,10 @@ public class Editor {
 		Maps maps = Config.loadPreference("assets/maps.xml");
 		mapsPanel.setResources(maps);
 		log.info(maps);
+		
+		MapOrdering om = Config.loadPreference("assets/ordering.xml");
+		orderingPanel.setResources(om);
+		log.info(om);
 	}
 	
 	// Save window size and panel size 

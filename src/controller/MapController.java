@@ -11,6 +11,7 @@ import notifications.map.MapFinishedNotification;
 
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
+import config.xml.MapConditions;
 import config.xml.MapMusic;
 import config.xml.MapSettings;
 import config.xml.TileImageData;
@@ -129,6 +130,11 @@ public class MapController extends Controller {
 	/** @category Generated */
 	public MapMusic getMusic() {
 		return map.getMusic();
+	}
+
+	/** @category Generated */
+	public MapConditions getConditions() {
+		return map.getConditions();
 	}
 	
 }

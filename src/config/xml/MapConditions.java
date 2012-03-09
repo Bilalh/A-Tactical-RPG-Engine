@@ -1,8 +1,11 @@
 package config.xml;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+import common.Location;
 import common.interfaces.Identifiable;
 import config.Config;
 import config.IPreference;
@@ -19,11 +22,12 @@ public class MapConditions implements Identifiable, IPreference {
 
 	private UUID uuid;
 	private IWinCondition winCondition;
-
+	private ArrayList<Location> vaildStartLocations;
+	
 	public MapConditions(){
 		uuid = UUID.randomUUID();
 	}
-	
+		
 	/** @category Generated */
 	public IWinCondition getWinCondition() {
 		return winCondition;
@@ -38,6 +42,16 @@ public class MapConditions implements Identifiable, IPreference {
 	@Override
 	public UUID getUuid() {
 		return uuid;
+	}
+
+	/** @category Generated */
+	public ArrayList<Location> getVaildStartLocations() {
+		return vaildStartLocations;
+	}
+
+	/** @category Generated */
+	public void setVaildStartLocations(ArrayList<Location> vaildStartLocations) {
+		this.vaildStartLocations = vaildStartLocations;
 	}
 	
 }

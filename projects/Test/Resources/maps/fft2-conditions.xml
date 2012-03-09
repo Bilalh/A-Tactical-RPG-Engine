@@ -3,4 +3,14 @@
   <winCondition class="engine.map.win.DefeatSpecificUnitCondition">
     <unitId>78c008a9-f7ca-4f89-b3f1-876a633caf09</unitId>
   </winCondition>
+  <vaildStartLocations>
+    <location>
+      <x>0</x>
+      <y>0</y>
+    </location>
+    <location>
+      <x>5</x>
+      <y>13</y>
+    </location>
+  </vaildStartLocations>
 </mapConditions>

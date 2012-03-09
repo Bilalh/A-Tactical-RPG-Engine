@@ -552,7 +552,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 	@Override
 	protected DeferredMap defaultResource() {
-		return new DeferredMap(Config.<SavedMap>loadPreference("maps/default.xml"),"maps/default.xml");
+		return null;
 	}
 
 

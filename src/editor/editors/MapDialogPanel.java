@@ -5,7 +5,6 @@ import static editor.editors.AbstractSpriteSheetOrganiser.sortedSprites;
 import java.awt.Component;
 import java.awt.LayoutManager;
 import java.awt.dnd.DragSourceDropEvent;
-import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -235,7 +234,7 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 
 
 	@Override
-	protected boolean shouldDelete(ActionEvent e) {
+	protected boolean shouldDelete() {
 		return resourceListModel.size() > 0;
 	}
 

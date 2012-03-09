@@ -309,20 +309,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		aiUnits = new ArrayList<AnimatedUnit>();
 		HashMap<IUnit, Location> selectedPostions = new HashMap<IUnit, Location>();
 
-		//FIXME choose positions
-		int i =0;
-		for (IUnit u : allPlayerUnits) {
-			assert u != null;
-			
-			Location p = new Location(2, i + 2);
-			AnimatedUnit au = new AnimatedUnit(p.x, p.y, u);
-			plunits.add(au);
-			selectedPostions.put(u, p);
-			unitMapping.put(u.getUuid(), au);
-			field[p.x][p.y].setUnit(au);
-			i++;
-		}
-
 		for (IMapUnit u : allAiUnits) {
 			assert u != null;
 			
@@ -334,9 +320,45 @@ public class GuiMap implements Observer, IMapRendererParent {
 			unitMapping.put(u.getUuid(), au);
 		}
 
+		ArrayList<Location> vaildLocations = mapController.getConditions().getVaildStartLocations();
+		
+		//FIXME choose positions
+		if (vaildLocations == null || vaildLocations.isEmpty()){
+			int i =0;
+			for (IUnit u : allPlayerUnits) {
+				assert u != null;
+				
+				Location p = new Location(2, i + 2);
+//				AnimatedUnit au = new AnimatedUnit(p.x, p.y, u);
+//				plunits.add(au);
+//				selectedPostions.put(u, p);
+//				unitMapping.put(u.getUuid(), au);
+//				field[p.x][p.y].setUnit(au);
+				placeUnit(selectedPostions, u, p);
+				i++;
+			}	
+		}else{
+			
+			Iterator<? extends IUnit> it = allPlayerUnits.iterator();
+			for (Location l : vaildLocations) {
+				IUnit u = it.next();
+				if (u == null) break;
+				placeUnit(selectedPostions, u, l);
+			}
+		}
+		
+
 		mapController.setUsersUnits(selectedPostions);
 	}
 
+	private void placeUnit(HashMap<IUnit, Location> selectedPostions, IUnit u, Location p){
+		AnimatedUnit au = new AnimatedUnit(p.x, p.y, u);
+		plunits.add(au);
+		selectedPostions.put(u, p);
+		unitMapping.put(u.getUuid(), au);
+		field[p.x][p.y].setUnit(au);
+	}
+	
 	public void unitsChoosen(ArrayList<IMapUnit> units) {
 		for (IMapUnit u : units) {
 			field[u.getGridX()][u.getGridY()].getUnit().setMapUnit(u);

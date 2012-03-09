@@ -146,5 +146,10 @@ public class BasicMap extends Observable {
 		return music;
 	}
 
+	/** @category Generated */
+	public MapConditions getConditions() {
+		return conditions;
+	}
+
 
 }

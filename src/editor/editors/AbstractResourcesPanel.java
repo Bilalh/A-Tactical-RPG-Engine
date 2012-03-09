@@ -134,7 +134,7 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		resourceList.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (resourceListModel.size() <= 1) return;
+				if (!shouldDelete()) return;
 
 				if ((e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
 					deleteFromList(resourceList.getSelectedIndex());
@@ -194,12 +194,12 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// Must have at lest one map
-			if (!shouldDelete(e)) return;
+			if (!shouldDelete()) return;
 			deleteFromList(resourceList.getSelectedIndex());
 		}
 	}
 
-	protected boolean shouldDelete(ActionEvent e){
+	protected boolean shouldDelete(){
 		return resourceListModel.size() > 1;
 	}
 	

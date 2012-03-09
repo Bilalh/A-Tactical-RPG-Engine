@@ -19,12 +19,14 @@ import editor.spritesheet.IDragFinishedListener;
 import editor.spritesheet.ReorderableJList;
 
 /**
+ * Allow the unit to specify the order of the maps
+ * 
  * @author Bilal Hussain
  */
 public class MapOrderingPanel extends AbstractResourcesPanel<OrderedMap, MapOrdering> implements IDragFinishedListener {
 	private static final long serialVersionUID = 8603891838764329257L;
 
-	MapOrdering ordering;
+	private MapOrdering ordering;
 
 	public MapOrderingPanel(Editor editor) {
 		super(editor);
@@ -90,6 +92,13 @@ public class MapOrderingPanel extends AbstractResourcesPanel<OrderedMap, MapOrde
 		return super.getResouces();
 	}
 
+
+	@Override
+	public synchronized void setResources(MapOrdering assets) {
+		ordering = assets;
+		super.setResources(assets);
+	}
+	
 	@Override
 	protected void setCurrentResource(OrderedMap resource) {
 	}
@@ -117,10 +126,6 @@ public class MapOrderingPanel extends AbstractResourcesPanel<OrderedMap, MapOrde
 		return new MapOrdering();
 	}
 
-	@Override
-	protected void addToList() {
-
-	}
 
 	@Override
 	public void dragDropEnd(DragSourceDropEvent dsde, int oldIndex, int newIndex) {
@@ -129,6 +134,17 @@ public class MapOrderingPanel extends AbstractResourcesPanel<OrderedMap, MapOrde
 			om.setIndex(i);
 		}
 
+	}
+
+
+	@Override
+	protected void addToList() {
+
+	}
+	
+	@Override
+	protected boolean shouldDelete() {
+		return false;
 	}
 
 }
