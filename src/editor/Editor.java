@@ -55,7 +55,8 @@ public class Editor {
 	MapsPanel       mapsPanel;
 	MusicPanel      musicPanel;
 	SoundsPanel     soundPanel;
-
+	
+	MapOrderingPanel orderingPanel;
 	
 	EditorProject project;
 	String projectPath;
@@ -138,6 +139,10 @@ public class Editor {
 		return soundPanel.getResouces();
 	}
 	
+	public Maps getMaps() {
+		return mapsPanel.getResouces();
+	}
+	
 	public void loadAssets(){
 		AssetStore.instance().loadWeapons(getWeapons());
 		AssetStore.instance().loadSkill(getSkills());
@@ -163,10 +168,11 @@ public class Editor {
 		loadAssets();
 
 		tabs.addTab("Maps",         (mapsPanel       = new MapsPanel(this)));
+		tabs.addTab("Map Ordering", (orderingPanel   = new MapOrderingPanel(this)));
 		tabs.addTab("Music",        (musicPanel      ));
 		tabs.addTab("Sound",        (soundPanel      ));
-
-//		tabs.addTab("Story",        new JPanel());
+		
+		
 //		tabs.addTab("Project",      new JPanel());
 		
 		loadMaps();
@@ -320,12 +326,19 @@ public class Editor {
 		Maps maps = mapsPanel.getResouces();
 		Config.savePreferences(maps, "assets/maps.xml");
 		log.info(maps);
+
+		MapOrdering ordering = orderingPanel.getResouces();
+		Config.savePreferences(ordering, "assets/ordering.xml");
+		log.info(ordering);
 		
 		Musics musics = musicPanel.getResouces();
 		Config.savePreferences(musics, "assets/music.xml");
+		log.info(ordering);
 
 		Musics sounds = soundPanel.getResouces();
 		Config.savePreferences(sounds, "assets/sounds.xml");
+		log.info(sounds);
+
 		
 		Config.savePreferences(project,"../project.tacticalproject");
 		

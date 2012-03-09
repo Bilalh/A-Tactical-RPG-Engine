@@ -30,7 +30,7 @@ class DialogHandler extends MapActions {
 	}
 
 	@Override
-	public void draw(Graphics2D g, int width, int height) {
+	public synchronized void draw(Graphics2D g, int width, int height) {
 		assert dialog != null;
 		dialog.draw(g, 5, height - dialog.getHeight() - 5);
 	}

@@ -120,7 +120,7 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 
 		resourceListModel = new DefaultListModel();
 		resourceList = createJList(resourceListModel);
-		resourceListModel.addElement(defaultt);
+		if (defaultt != null) resourceListModel.addElement(defaultt);
 
 		resourceList.addListSelectionListener(new ListSelectionListener() {
 			@Override

@@ -38,6 +38,12 @@ public class DeferredAsset<E extends Identifiable & IPreference> implements Iden
 		this.resouceLocation = resouceLocation;
 	}
 	
+	protected DeferredAsset(DeferredAsset<E> da){
+		this.uuid  = da.getUuid();
+		this.resouceLocation = da.resouceLocation;
+	}
+	
+	
 	public void reloadAsset(){
 		if (resouceLocation == null) return;
 		asset = (E) Config.loadPreference(resouceLocation);

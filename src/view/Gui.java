@@ -4,6 +4,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -59,7 +60,7 @@ public class Gui {
 		this.mainController = mainController;
 		initialize();
 		musicThread.start();
-		MapController mapController = mainController.startMap("maps/fft2.xml");
+		MapController mapController = mainController.nextMap();
 		setCurrentPanel(new MapPanel(mapController, period * 1000000L));
 		
 //		frame.setResizable(true);
@@ -130,6 +131,10 @@ public class Gui {
 
 	public static MusicThread getMusicThread() {
 		return musicThread;
+	}
+
+	public Component getFrame() {
+		return frame;
 	}
 	
 }

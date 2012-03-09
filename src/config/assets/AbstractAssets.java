@@ -25,7 +25,6 @@ public abstract class AbstractAssets<E extends Identifiable> implements  IAssets
 	private Map<UUID, E> assets = new HashMap<UUID, E>();
 
 	public AbstractAssets() {
-		super();
 	}
 
 	// to give default values
