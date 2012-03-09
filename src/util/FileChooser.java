@@ -28,9 +28,11 @@ public class FileChooser {
 		this.ext    = ext;
 		
 		String os = System.getProperty("os.name").toLowerCase();
-		if (os.indexOf("mac") ==-1) {
+		if (os.indexOf("macs") ==-1) {
 			chooser  = new JFileChooser();
-			chooser.setFileFilter(new FileNameExtensionFilter("*." + ext, ext));		
+			if (ext != "" && ext != null){
+				chooser.setFileFilter(new FileNameExtensionFilter("*." + ext, ext));
+			}
 		}else{
 			filenameFilter = new CFileNameFilter();
 		}
@@ -69,7 +71,7 @@ public class FileChooser {
 		}else{
 			JFileChooser chooser = new JFileChooser();
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			int rst = chooser.showOpenDialog(parent);
+			int rst = chooser.showSaveDialog(parent);
 			if (rst != JFileChooser.APPROVE_OPTION){
 				return null;
 			}

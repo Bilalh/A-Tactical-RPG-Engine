@@ -220,16 +220,26 @@ public class Editor {
 			}
 		});
 		file.add(export);
+	
+		JMenuItem exportJar = new JMenuItem("Export Jar");
+		exportJar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J,mask));
+		exportJar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				exportJar();
+			}
+		});
+		file.add(exportJar);
 		
 		bar.add(file);
 		return bar;
 	}
 
 	/**
-	 * Export a self contained Mac OS X Application
+	 * Export a self contained	 Mac OS X Application
 	 */
 	void exportApp(){
-		FileChooser c = new FileChooser(frame, "Export Project", "");
+		FileChooser c = new FileChooser(frame, "Export Project", "app");
 		File dir  = c.getDir();
 		if (dir == null) return;
 		
@@ -248,6 +258,25 @@ public class Editor {
 			if (worked == false){
 				System.err.println("setExecutable failed");
 			}
+		} catch (IOException e) {
+			// FIXME catch block in export
+			e.printStackTrace();
+		}
+	}
+	
+	void exportJar(){
+		FileChooser c = new FileChooser(frame, "Export Project Jar", "jar");
+		File dir  = c.getDir();
+		if (dir == null) return;
+		
+		String appName =  dir.getName();
+		appName =  IOUtil.removeExtension(appName);
+		String s = appName + ".jar";
+		dir = new File(dir.getParentFile(), appName + "/" + s);
+		
+		try {
+			FileUtils.copyFile(new File("bundle/Tactical.jar"), dir);
+			FileUtils.copyDirectory(Config.getResourceFile("") , new File(dir.getParentFile(),"/Resources") );
 		} catch (IOException e) {
 			// FIXME catch block in export
 			e.printStackTrace();
