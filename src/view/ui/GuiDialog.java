@@ -116,6 +116,7 @@ public class GuiDialog implements IDisplayable {
 		final float breakWidth = textWidth - 10;
 		lineMeasurer.setPosition(paragraphStart);
 
+		if (lineMeasurer == null) return;
 		// Get lines until the entire paragraph has been displayed.
 		while (lineMeasurer.getPosition() < paragraphEnd) {
 			// Retrieve next layout. A cleverer program would also cache these layouts until the component is re-sized.
@@ -149,7 +150,7 @@ public class GuiDialog implements IDisplayable {
 		return (index < paragraphEnd);
 	}
 
-	public void setText(String s) {
+	public synchronized void setText(String s) {
 		text = new AttributedString(s, map);
 		paragraph = text.getIterator();
 		paragraphEnd = paragraph.getEndIndex();

@@ -322,23 +322,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		ArrayList<Location> vaildLocations = mapController.getConditions().getVaildStartLocations();
 		
-		//FIXME choose positions
 		if (vaildLocations == null || vaildLocations.isEmpty()){
-			int i =0;
-			for (IUnit u : allPlayerUnits) {
-				assert u != null;
-				
-				Location p = new Location(2, i + 2);
-//				AnimatedUnit au = new AnimatedUnit(p.x, p.y, u);
-//				plunits.add(au);
-//				selectedPostions.put(u, p);
-//				unitMapping.put(u.getUuid(), au);
-//				field[p.x][p.y].setUnit(au);
-				placeUnit(selectedPostions, u, p);
-				i++;
-			}	
+			setDefaultLocations(allPlayerUnits, selectedPostions);
 		}else{
-			
 			Iterator<? extends IUnit> it = allPlayerUnits.iterator();
 			for (Location l : vaildLocations) {
 				IUnit u = it.next();
@@ -351,7 +337,25 @@ public class GuiMap implements Observer, IMapRendererParent {
 		mapController.setUsersUnits(selectedPostions);
 	}
 
+	/**
+	 * Finds vaild locations for the player's units and place the units on these locations.
+	 */
+	private void setDefaultLocations(ArrayList<? extends IUnit> allPlayerUnits, HashMap<IUnit, Location> selectedPostions) {
+		Location p = new Location(0, 0);
+		for (IUnit u : allPlayerUnits) {
+			assert u != null;
+			do {
+				p.translate(0, 1);
+				if (p.y >= fieldHeight) p.translate(1,0).y = 0;
+				if (p.x >= fieldWidth) return;
+			} while (getTile(p).getOrientation() == Orientation.EMPTY);
+
+			placeUnit(selectedPostions, u, p);
+		}
+	}
+	
 	private void placeUnit(HashMap<IUnit, Location> selectedPostions, IUnit u, Location p){
+		p = p.copy();
 		AnimatedUnit au = new AnimatedUnit(p.x, p.y, u);
 		plunits.add(au);
 		selectedPostions.put(u, p);
