@@ -211,12 +211,12 @@ public class Editor {
 		
 		file.add(new JSeparator());
 		
-		JMenuItem export = new JMenuItem("Export");
+		JMenuItem export = new JMenuItem("Export Mac OS X Application");
 		export.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,mask));
 		export.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				export();
+				exportApp();
 			}
 		});
 		file.add(export);
@@ -225,10 +225,14 @@ public class Editor {
 		return bar;
 	}
 
-	FileChooser c = new FileChooser(frame, "Export Project", "");
-	void export(){
-		
+	/**
+	 * Export a self contained Mac OS X Application
+	 */
+	void exportApp(){
+		FileChooser c = new FileChooser(frame, "Export Project", "");
 		File dir  = c.getDir();
+		if (dir == null) return;
+		
 		String appName =  dir.getName();
 		if (!appName.endsWith(".app")){
 			String s = appName + ".app";
@@ -236,11 +240,14 @@ public class Editor {
 		}else{
 			appName =  IOUtil.removeExtension(appName);
 		}
-		
-		if (c == null) return;
+
 		try {
 			FileUtils.copyDirectory(new File("bundle/Tactical.app"), dir );
 			FileUtils.copyDirectory(Config.getResourceFile("") , new File(dir,"/Contents/Resources/Java/Resources") );
+			boolean worked = new File(dir,"/Contents/MacOS/JavaApplicationStub").setExecutable(true);
+			if (worked == false){
+				System.err.println("setExecutable failed");
+			}
 		} catch (IOException e) {
 			// FIXME catch block in export
 			e.printStackTrace();
