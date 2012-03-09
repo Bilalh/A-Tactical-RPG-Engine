@@ -1,7 +1,5 @@
 package editor;
 
-import static org.jvnet.inflector.Noun.pluralOf;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
@@ -18,6 +16,8 @@ import javax.swing.event.ListSelectionListener;
 import util.FileChooser;
 import view.Gui;
 
+import com.javarichclient.icon.tango.actions.DocumentNewIcon;
+import com.javarichclient.icon.tango.actions.DocumentOpenIcon;
 import com.javarichclient.icon.tango.actions.ListAllIcon;
 
 import config.Config;
@@ -25,12 +25,14 @@ import controller.MainController;
 
 import editor.editors.AbstractResourcesPanel;
 import editor.util.Prefs;
+import engine.skills.ISkill;
 import engine.skills.RangedSkill;
 
 import net.miginfocom.layout.CC;
 import net.miginfocom.swing.MigLayout;
 
 /**
+ * Allows the user to choose a project
  * @author Bilal Hussain
  */
 public class ProjectChooser {
@@ -73,8 +75,8 @@ public class ProjectChooser {
 
 	private Component createLeftPane() {
 		resourceList = new JList(recentFiles);
+		resourceList.setCellRenderer(new RecentFileRenderer());
 		resourceList.addListSelectionListener(new ListSelectionListener() {
-			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (e.getValueIsAdjusting() == true) return;
@@ -91,7 +93,7 @@ public class ProjectChooser {
 	private JComponent createInfoPanel() {
 		JPanel p = new JPanel(new MigLayout());
 		
-		JLabel title  = new JLabel("Tacical RPG Editor");
+		JLabel title  = new JLabel("Tactical RPG Editor");
 		title.setFont(new Font("Serif", Font.BOLD, 18));
 		
 		p.add(title, "span, center, wrap");
@@ -134,7 +136,7 @@ public class ProjectChooser {
 		public NewProject() {
 			putValue(NAME, "New Project");
 //			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
-//			putValue(SMALL_ICON,new ListAllIcon(16, 16));
+			putValue(SMALL_ICON,new DocumentNewIcon(16, 16));
 		}
 
 		@Override
@@ -150,7 +152,7 @@ public class ProjectChooser {
 		public OpenOther() {
 			putValue(NAME, "Open Other");
 //			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
-//			putValue(SMALL_ICON,new ListAllIcon(16, 16));
+			putValue(SMALL_ICON,new DocumentOpenIcon(16, 16));
 		}
 
 		@Override
@@ -175,6 +177,19 @@ public class ProjectChooser {
 				ProjectChooser projectChooser = new ProjectChooser();
 			}
 		});
+	}
+
+	public static class RecentFileRenderer extends DefaultListCellRenderer {
+		private static final long serialVersionUID = 5874522377321012662L;
+
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+			File f = (File) value;
+			label.setText("<HTML><p style=\"padding:7; font-size:18\">" + f.getName() + "</p>" + f.getAbsolutePath() + "</HTML>");
+			// label.setIcon(new ImageIcon(ResourceManager.instance().getItem(w.getImageRef())));
+			return label;
+		}
 	}
 
 }
