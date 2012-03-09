@@ -55,22 +55,24 @@ public class Editor {
 
 	
 	EditorProject project;
-	String projectPath = "projects/Test";
-	
-	public Editor() {
+	String projectPath;
+
+	public Editor(File f) {
 		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
+
+		init(f);
 		frame = new JFrame("Tacical Engine Editor");
 		frame.setContentPane((tabs = createTabs()));
 		frame.setJMenuBar(createMenubar());
-		
+
 		Preferences pref = Prefs.getNode("main/panels/main");
-		int width  = pref.getInt("width", 930);
+		int width = pref.getInt("width", 930);
 		int height = pref.getInt("height", 800);
-		
+
 		frame.setMinimumSize(new Dimension(850, 700));
-		
+
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -82,7 +84,17 @@ public class Editor {
 		frame.setVisible(true);
 	}
 
-	
+	private void init(File f) {
+		projectPath = f.getAbsolutePath();
+		File resources = new File(f, "Resources");
+		System.out.println(resources.getAbsolutePath() + "/");
+		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
+
+		project = Config.loadPreference("../project.tacticalproject");
+		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");
+
+	}
+
 	public Weapons getWeapons(){
 		return weaponsPanel.getWeapons();
 	}
@@ -130,24 +142,6 @@ public class Editor {
 	
 	private JTabbedPane createTabs() {
 		//FIXME change
-		
-		FileChooser chooser = new FileChooser(frame, "Choose a project file", "tacticalproject");
-	    File f = chooser.loadFile();
-	    if (f == null){
-	    	System.exit(1);
-	    }
-	    f = f.getParentFile();
-//		File f = new File(projectPath);
-		
-		
-		File resources = new File(f,"Resources");
-		System.out.println(resources.getAbsolutePath() + "/");
-		Config.setResourceDirectory(resources.getAbsolutePath() + "/");
-		
-		project = Config.loadPreference("../project.tacticalproject");
-		
-		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
-
 		JTabbedPane tabs = new JTabbedPane();
 		unitImagesPanel  = new UnitsImagesPanel(this);
 		tilesetPanel     = new TilesetPanel(this);
@@ -340,12 +334,6 @@ public class Editor {
 		log.info("Saved prefs" + Prefs.root());
 	}
 	
-	@SuppressWarnings("unused")
-	public static void main(String[] args) {
-		Config.loadLoggingProperties();
-		new Editor();
-	}
-
 	public void setTabsEnabled(boolean enabled) {
 		tabs.setEnabled(enabled);
 	}
@@ -361,6 +349,11 @@ public class Editor {
 		frame.setVisible(arg0);
 	}
 
+	@SuppressWarnings("unused")
+	public static void main(String[] args) {
+		Config.loadLoggingProperties();
+		new Editor(new File("projects/Test"));
+	}
 
 
 }

@@ -47,7 +47,7 @@ public class FileChooser {
 			String path  = d.getFile();
 		    if (path == null) return null;
 		    
-		    return new File(path);
+		    return new File(d.getDirectory() + d.getFile());
 		}else{
 			int rst = chooser.showOpenDialog(parent);
 			if (rst != JFileChooser.APPROVE_OPTION){
