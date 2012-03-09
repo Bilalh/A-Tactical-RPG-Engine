@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>CFBundleExecutable</key>
+        <string>JavaApplicationStub</string>
+        <key>CFBundleGetInfoString</key>
+        <string>Tactical 1.0, Copyright Bilal Syed Hussain. All rights reserved.</string>
+        <key>CFBundleInfoDictionaryVersion</key>
+        <string>6.0</string>
+        <key>CFBundleIconFile</key>
+        <string>Tactical.icns</string>
+        <key>CFBundleIdentifier</key>
+        <string>Bilal.tactical</string>
+        <key>CFBundleName</key>
+        <string>Tactical</string>
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+        <key>CFBundleSignature</key>
+        <string>????</string>
+        <key>CFBundleVersion</key>
+        <string>1.0.1</string>
+        <key>Java</key>
+        <dict>
+			<key>WorkingDirectory</key>
+			<string>$APP_PACKAGE/Contents/Resources/Java</string>
+            <key>JVMVersion</key>
+            <string>1.6+</string>
+            <key>MainClass</key>
+            <string>view.Main</string>
+            <key>Arguments</key>
+            <array/>
+            <key>ClassPath</key>
+            <string>$JAVAROOT/jar_0.jar:$JAVAROOT/junit-4.10.jar:$JAVAROOT/log4j-1.2.16.jar:$JAVAROOT/xpp3_min-1.1.4c.jar:$JAVAROOT/xstream-1.4.2.jar:$JAVAROOT/miglayout-4.0-swing.jar:$JAVAROOT/jogg-0.0.7.jar:$JAVAROOT/jorbis-0.0.15.jar:$JAVAROOT/lwjgl.jar:$JAVAROOT/jl1.0.1.jar:$JAVAROOT/javarichclient_icon_tango_action_1.0.jar:$JAVAROOT/Inflector.jar:$JAVAROOT/jaudiotagger-2.0.4-20111207.115108-15.jar</string>
+        </dict>
+    </dict>
+</plist>

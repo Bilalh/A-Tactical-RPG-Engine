@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.UUID;
 import java.util.prefs.BackingStoreException;
@@ -19,9 +20,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import util.FileChooser;
+import util.IOUtil;
 
 import common.gui.ResourceManager;
 
@@ -206,10 +209,44 @@ public class Editor {
 		});
 		file.add(open);
 		
+		file.add(new JSeparator());
+		
+		JMenuItem export = new JMenuItem("Export");
+		export.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,mask));
+		export.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				export();
+			}
+		});
+		file.add(export);
+		
 		bar.add(file);
 		return bar;
 	}
 
+	FileChooser c = new FileChooser(frame, "Export Project", "");
+	void export(){
+		
+		File dir  = c.getDir();
+		String appName =  dir.getName();
+		if (!appName.endsWith(".app")){
+			String s = appName + ".app";
+			dir = new File(dir.getParentFile(),s);
+		}else{
+			appName =  IOUtil.removeExtension(appName);
+		}
+		
+		if (c == null) return;
+		try {
+			FileUtils.copyDirectory(new File("bundle/Tactical.app"), dir );
+			FileUtils.copyDirectory(Config.getResourceFile("") , new File(dir,"/Contents/Resources/Java/Resources") );
+		} catch (IOException e) {
+			// FIXME catch block in export
+			e.printStackTrace();
+		}
+	}
+	
 	// Save the project
 	void save(){
 		

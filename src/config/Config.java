@@ -32,10 +32,10 @@ public class Config {
 
 	private static Properties defaultLoggingPrefs = new Properties();
 	static {
-		defaultLoggingPrefs.setProperty("log4j.appender.A1", "org.apache.log4j.ConsoleAppender");
-		defaultLoggingPrefs.setProperty("log4j.rootLogger", "debug, A1");
-		defaultLoggingPrefs.setProperty("log4j.appender.A1.layout", "org.apache.log4j.PatternLayout");
-		defaultLoggingPrefs.setProperty("log4j.appender.A1.layout.ConversionPattern", "%-5p [%t] %c: %m%n");
+//		defaultLoggingPrefs.setProperty("log4j.appender.A1", "org.apache.log4j.ConsoleAppender");
+//		defaultLoggingPrefs.setProperty("log4j.rootLogger", "debug, A1");
+//		defaultLoggingPrefs.setProperty("log4j.appender.A1.layout", "org.apache.log4j.PatternLayout");
+//		defaultLoggingPrefs.setProperty("log4j.appender.A1.layout.ConversionPattern", "%-5p [%t] %c: %m%n");
 	}
 
 	private static final String LOG_PROPERTIES_FILE = "./log4j.properties";

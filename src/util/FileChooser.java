@@ -30,7 +30,7 @@ public class FileChooser {
 		String os = System.getProperty("os.name").toLowerCase();
 		if (os.indexOf("mac") ==-1) {
 			chooser  = new JFileChooser();
-			chooser.setFileFilter(new FileNameExtensionFilter("*." + ext, ext));			
+			chooser.setFileFilter(new FileNameExtensionFilter("*." + ext, ext));		
 		}else{
 			filenameFilter = new CFileNameFilter();
 		}
@@ -57,6 +57,26 @@ public class FileChooser {
 		}
 	}
 
+	public File getDir(){
+		if (chooser == null){
+			System.setProperty("apple.awt.fileDialogForDirectories", "true");
+		    FileDialog d = new FileDialog(parent, title,FileDialog.SAVE);
+			d.setVisible(true);
+			System.setProperty("apple.awt.fileDialogForDirectories", "false");
+			String path  = d.getFile();
+		    if (path == null) return null;
+		    return new File(d.getDirectory() + d.getFile());
+		}else{
+			JFileChooser chooser = new JFileChooser();
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int rst = chooser.showOpenDialog(parent);
+			if (rst != JFileChooser.APPROVE_OPTION){
+				return null;
+			}
+			return chooser.getSelectedFile();
+		}
+	}
+	
 	class CFileNameFilter implements FilenameFilter {
 
 		@Override

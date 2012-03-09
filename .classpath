@@ -42,5 +42,6 @@
 			<attribute name="javadoc_location" value="http://www.jthink.net/jaudiotagger/maven/apidocs/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/commons-io-2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
