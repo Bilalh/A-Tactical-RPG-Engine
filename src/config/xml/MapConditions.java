@@ -23,6 +23,7 @@ public class MapConditions implements Identifiable, IPreference {
 	private UUID uuid;
 	private IWinCondition winCondition;
 	private ArrayList<Location> vaildStartLocations;
+	private Location defaultStartLocation;
 	
 	public MapConditions(){
 		uuid = UUID.randomUUID();
@@ -52,6 +53,11 @@ public class MapConditions implements Identifiable, IPreference {
 	/** @category Generated */
 	public void setVaildStartLocations(ArrayList<Location> vaildStartLocations) {
 		this.vaildStartLocations = vaildStartLocations;
+	}
+
+	/** @category Generated */
+	public Location getDefaultStartLocation() {
+		return defaultStartLocation;
 	}
 	
 }

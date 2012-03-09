@@ -108,6 +108,15 @@ public class Location implements Serializable, ILocation {
 		this.y = -this.y;
 		return this;
 	}
+
+	/**
+	 * @return This Point for chaining.
+	 */
+	public Location abs(){
+		x = Math.abs(x);
+		y = Math.abs(y);
+		return this;
+	}
 	
 	/**
 	 * @return This Point for chaining.

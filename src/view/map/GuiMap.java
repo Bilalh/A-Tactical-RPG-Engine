@@ -42,6 +42,7 @@ import common.interfaces.*;
 
 import config.Config;
 import config.assets.DialogParts;
+import config.xml.MapConditions;
 import config.xml.MapEvents;
 import config.xml.TileImageData;
 import controller.MapController;
@@ -320,10 +321,17 @@ public class GuiMap implements Observer, IMapRendererParent {
 			unitMapping.put(u.getUuid(), au);
 		}
 
-		ArrayList<Location> vaildLocations = mapController.getConditions().getVaildStartLocations();
+		MapConditions con = mapController.getConditions();
+		ArrayList<Location> vaildLocations = con.getVaildStartLocations();
 		
 		if (vaildLocations == null || vaildLocations.isEmpty()){
-			setDefaultLocations(allPlayerUnits, selectedPostions);
+			Location start = con.getDefaultStartLocation();
+			if (start == null){
+				start = new Location(0,0);
+			}else{
+				start.abs().limitUpper(fieldWidth, fieldHeight);
+			}
+			setDefaultLocations(start, allPlayerUnits, selectedPostions);
 		}else{
 			Iterator<? extends IUnit> it = allPlayerUnits.iterator();
 			for (Location l : vaildLocations) {
@@ -340,17 +348,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 	/**
 	 * Finds vaild locations for the player's units and place the units on these locations.
 	 */
-	private void setDefaultLocations(ArrayList<? extends IUnit> allPlayerUnits, HashMap<IUnit, Location> selectedPostions) {
-		Location p = new Location(0, 0);
+	private void setDefaultLocations(Location start, ArrayList<? extends IUnit> allPlayerUnits, HashMap<IUnit, Location> selectedPostions) {
 		for (IUnit u : allPlayerUnits) {
 			assert u != null;
 			do {
-				p.translate(0, 1);
-				if (p.y >= fieldHeight) p.translate(1,0).y = 0;
-				if (p.x >= fieldWidth) return;
-			} while (getTile(p).getOrientation() == Orientation.EMPTY);
+				start.translate(0, 1);
+				if (start.y >= fieldHeight) start.translate(1,0).y = 0;
+				if (start.x >= fieldWidth) return;
+			} while (getTile(start).getOrientation() == Orientation.EMPTY);
 
-			placeUnit(selectedPostions, u, p);
+			placeUnit(selectedPostions, u, start);
 		}
 	}
 	

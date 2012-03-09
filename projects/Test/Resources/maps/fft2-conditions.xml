@@ -3,5 +3,8 @@
   <winCondition class="engine.map.win.DefeatSpecificUnitCondition">
     <unitId>78c008a9-f7ca-4f89-b3f1-876a633caf09</unitId>
   </winCondition>
-
+  <defaultStartLocation>
+    <x>6</x>
+    <y>6</y>
+  </defaultStartLocation>
 </mapConditions>
