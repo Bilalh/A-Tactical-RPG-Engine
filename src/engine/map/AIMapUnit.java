@@ -5,14 +5,16 @@ import java.util.UUID;
 import common.interfaces.ILocation;
 
 import engine.items.RangedWeapon;
+import engine.map.ai.AbstractTargetOrdering;
+import engine.unit.AiUnit;
 import engine.unit.IMutableUnit;
 
 /**
  * @author Bilal Hussain
  */
-public class AIMapUnit extends MapUnit {
-
-	public AIMapUnit(IMutableUnit unit, ILocation l, MapPlayer ai) {
+public class AIMapUnit extends MapUnit<AiUnit> {
+	
+	public AIMapUnit(AiUnit unit, ILocation l, MapPlayer ai) {
 		super(unit, l, ai);
 	}
 
@@ -20,5 +22,12 @@ public class AIMapUnit extends MapUnit {
 	public boolean isAI(){
 		return true;
 	}
+
+	/** @category Generated */
+	public AbstractTargetOrdering getOrdering() {
+		return unit.getOrdering();
+	}
+	
+	
 	
 }

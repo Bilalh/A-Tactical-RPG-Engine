@@ -33,6 +33,7 @@ import engine.map.interfaces.IMutableMapUnit;
 import engine.map.win.IWinCondition;
 import engine.pathfinding.PathFinder;
 import engine.skills.ISkill;
+import engine.unit.AiUnit;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 import engine.unit.SpriteSheetData;
@@ -83,7 +84,7 @@ public class Map extends BasicMap implements IMap {
 
 		for (Entry<UUID,Location> e : enemies.getUnitPlacement().entrySet()) {
 			IMutableUnit u = enemies.getUnit(e.getKey());
-			AIMapUnit au = new AIMapUnit(u, e.getValue(), ai);
+			AIMapUnit au = new AIMapUnit((AiUnit) u, e.getValue(), ai);
 			getTile(au.getLocation()).setCurrentUnit(au);
 			aiUnits.add(au);
 		}

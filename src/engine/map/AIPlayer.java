@@ -39,7 +39,7 @@ public class AIPlayer extends MapPlayer {
 	}
 	
 	public ILocation getMoveLocation(AIMapUnit a){
-		ordering.clear();
+		ordering = new PriorityQueue<IMutableMapUnit>(16,a.getOrdering());
 		ordering.addAll(player.getUnits());
 		
 		IMutableMapUnit target = ordering.remove();

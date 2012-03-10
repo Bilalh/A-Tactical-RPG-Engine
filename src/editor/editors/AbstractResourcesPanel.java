@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.DefaultFormatter;
 
 import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
@@ -182,6 +183,13 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		return header;
 	}
 
+	public static void makeJSpinnerSaveOnType(JSpinner cb){	
+	    JComponent comp = cb.getEditor();
+		JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
+		DefaultFormatter formatter = (DefaultFormatter) field.getFormatter();
+		formatter.setCommitsOnValidEdit(true);
+	}
+	
 	protected class DeleteAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 

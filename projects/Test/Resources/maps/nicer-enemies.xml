@@ -1,8 +1,8 @@
-<</aiUnit>Placement>
-  <</aiUnit>s>
+<unitPlacement>
+	  <units>
     <entry>
       <uuid>7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0</uuid>
-      <</aiUnit> uuid="7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0">
+      <aiUnit uuid="7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0">
         <name>New Enemy C</name>
         <maxHp>30</maxHp>
         <move>4</move>
@@ -15,9 +15,9 @@
         <weight>0</weight>
         <wepaonId>7316c24b-c13f-4275-af14-2ff5f4a30b0f</wepaonId>
         <skillIds/>
-      </</aiUnit>>
+      </aiUnit>
     </entry>
-  </</aiUnit>s>
+      </units>
   <placement>
     <entry>
       <uuid>7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0</uuid>
@@ -27,4 +27,4 @@
       </location>
     </entry>
   </placement>
-</</aiUnit>Placement>
+</unitPlacement>

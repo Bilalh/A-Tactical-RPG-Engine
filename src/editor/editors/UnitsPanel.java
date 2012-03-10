@@ -10,6 +10,7 @@ import java.util.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.text.DefaultFormatter;
 
 import org.apache.log4j.Logger;
 import org.jvnet.inflector.Noun;
@@ -116,7 +117,7 @@ public class UnitsPanel<E extends IMutableUnit>  extends JPanel implements IRefr
 	}
 	
 	public void setCurrentUnit(E u){
-		if (currentUnit != null){
+//		if (currentUnit != null){
 //			changeName();
 //			IWeapon w = (IWeapon) infoWeapon.getSelectedItem();
 //			if (w != null) changeWeapon(w);
@@ -128,7 +129,7 @@ public class UnitsPanel<E extends IMutableUnit>  extends JPanel implements IRefr
 //			changeSkills();
 //			SpriteSheetData ssd = (SpriteSheetData) infoSpriteSheet.getSelectedItem();
 //			if (ssd != null) changeUnitImages(ssd);
-		}
+//		}
 		
 		assert u != null;
 		
@@ -458,11 +459,12 @@ public class UnitsPanel<E extends IMutableUnit>  extends JPanel implements IRefr
 			}
 		});
 		p.add(infoStrength, new CC().alignX("leading").maxWidth("70"));
-
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoStrength); 
 		
 		p.add(new JLabel("Defence:"), "gap unrelated");
 		infoDefence = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
-		
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoDefence);
+
 		infoDefence.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -473,6 +475,8 @@ public class UnitsPanel<E extends IMutableUnit>  extends JPanel implements IRefr
 		
 		p.add(new JLabel("Speed:"));
 		infoSpeed = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoSpeed);
+
 		
 		infoSpeed.addChangeListener(new ChangeListener() {
 			@Override
@@ -485,6 +489,7 @@ public class UnitsPanel<E extends IMutableUnit>  extends JPanel implements IRefr
 		
 		p.add(new JLabel("Move:"), "gap unrelated");
 		infoMove = new JSpinner(new SpinnerNumberModel(5, 2, 20, 1));
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoMove);
 		
 		infoMove.addChangeListener(new ChangeListener() {
 			@Override
@@ -497,6 +502,7 @@ public class UnitsPanel<E extends IMutableUnit>  extends JPanel implements IRefr
 		
 		p.add(new JLabel("Hp:"));
 		infoHp = new JSpinner(new SpinnerNumberModel(20, 1, 10000, 10));
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoHp);
 		
 		infoHp.addChangeListener(new ChangeListener() {
 			@Override

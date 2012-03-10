@@ -3,7 +3,7 @@
     <uuid>64295f0f-ccc4-4c92-a61b-21ab691ac624</uuid>
     <engine.items.RangedWeapon uuid="64295f0f-ccc4-4c92-a61b-21ab691ac624">
       <name>Cross Bow</name>
-      <strength>1</strength>
+      <strength>5</strength>
       <range>5</range>
       <imageRef>4-15</imageRef>
       <innerRange>2</innerRange>

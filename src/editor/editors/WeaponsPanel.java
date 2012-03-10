@@ -189,6 +189,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 	}
 	
 	public void setCurrentWeapon(IWeapon weapon) {
+		
 		this.currentWeapon = weapon;
 		this.mapUnit.setWeapon(weapon);
 		if (weapon instanceof RangedWeapon){
@@ -363,6 +364,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		
 		p.add(new JLabel("Strength:"), "gap 4");
 		infoStrength = new JSpinner(new SpinnerNumberModel(1, 0, 1000, 1));
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoStrength);
 		
 		infoStrength.addChangeListener(new ChangeListener() {
 			@Override
@@ -375,6 +377,7 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		
 		p.add((infoRangeL = new JLabel("Range:")), "gap 4");
 		infoRange = new JSpinner(new SpinnerNumberModel(1, 1, 9, 1));
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoRange);
 		
 		infoRange.addChangeListener(new ChangeListener() {
 			@Override
@@ -387,6 +390,8 @@ public class WeaponsPanel extends AbstactMapEditorPanel {
 		
 		p.add((infoInnerRangeL = new JLabel("Inner Range:")), "gap 4");
 		infoInnerRange = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoInnerRange);
+		
 		infoInnerRange.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {

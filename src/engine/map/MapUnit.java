@@ -18,12 +18,12 @@ import engine.unit.IMutableUnit;
  * 
  * @author Bilal Hussain
  */
-public class MapUnit extends AbstractMapUnit {
+public class MapUnit<E extends IMutableUnit> extends AbstractMapUnit<E> {
 
 	protected int readiness = 100;
 	protected EnumSet<UnitStatus> status = EnumSet.noneOf(UnitStatus.class);
 
-	public MapUnit(IMutableUnit unit, ILocation l, MapPlayer player) {
+	public MapUnit(E unit, ILocation l, MapPlayer player) {
 		this.gridX  = l.getX();
 		this.gridY  = l.getY();
 		this.unit   = unit;

@@ -402,11 +402,13 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		p.add(new JLabel("Map Width:"),new CC().alignX("leading"));
 		infoWidth = new JSpinner(new SpinnerNumberModel(15, 5, 50, 1));
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoWidth);
 		p.add(infoWidth, new CC().alignX("leading").maxWidth("70"));
 		infoWidth.setEnabled(false);
 		
 		p.add(new JLabel("Map Height:"), "gap unrelated");
 		infoHeight = new JSpinner(new SpinnerNumberModel(15, 5, 50, 1));
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoHeight);
 		p.add(infoHeight, new CC().alignX("leading").maxWidth("70").wrap());
 		infoHeight.setEnabled(false);
 		
@@ -414,6 +416,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		p.add(new JLabel("Tile Diagonal:"),new CC().alignX("leading"));
 		infoTileDiagonal = new JSpinner(new SpinnerNumberModel(60, 40, 256, 5));
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoTileDiagonal);
 		p.add(infoTileDiagonal, new CC().alignX("leading").maxWidth("70"));
 
 		infoTileDiagonal.addChangeListener(new ChangeListener() {
@@ -425,6 +428,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		p.add(new JLabel("Tile Height:"), "gap unrelated");
 		infoTileHeight = new JSpinner(new SpinnerNumberModel(10, 10, 50, 1));
+		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoTileHeight);
 		p.add(infoTileHeight, new CC().alignX("leading").maxWidth("70").wrap());
 		
 		infoTileHeight.addChangeListener(new ChangeListener() {
@@ -439,28 +443,12 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoTileset.setEditable(false);
 		infoTileset.setEnabled(false);
 		p.add(new JLabel("Tileset:"), new CC().alignX("leading"));
-//		infoTileset.addItemListener(new ItemListener() {
-//			@Override
-//			public void itemStateChanged(ItemEvent e) {
-//				if (infoTileset.getItemCount() <= 0) return;
-//				SpriteSheetData w= (SpriteSheetData) e.getItem();
-//				changeTileset(w);
-//			}
-//		});
 		p.add(infoTileset, "span, growx");
 		
 		infoTextures = new JComboBox(new IWeapon[]{});
 		infoTextures.setEditable(false);
 		infoTextures.setEnabled(false);
 		p.add(new JLabel("Textures:"), new CC().alignX("leading"));
-//		infoTextures.addItemListener(new ItemListener() {
-//			@Override
-//			public void itemStateChanged(ItemEvent e) {
-//				if (infoTileset.getItemCount() <= 0) return;
-//				SpriteSheetData w= (SpriteSheetData) e.getItem();
-//				changeTextures(w);
-//			}
-//		});
 		p.add(infoTextures, "span, growx");
 		
 		

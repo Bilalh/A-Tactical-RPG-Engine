@@ -18,9 +18,9 @@ import engine.unit.SpriteSheetData;
  * 
  * @author Bilal Hussain
  */
-public abstract class AbstractMapUnit implements IMutableMapUnit {
+public abstract class AbstractMapUnit<E extends IMutableUnit> implements IMutableMapUnit {
 
-	protected IMutableUnit unit;
+	protected E unit;
 	protected MapPlayer player;
 	protected int gridX = -1;
 	protected int gridY = -1;

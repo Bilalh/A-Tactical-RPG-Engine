@@ -16,6 +16,7 @@ import editor.editors.UnitsPanel.WeaponDropDownListRenderer;
 import editor.map.EditorSpriteSheet;
 import engine.map.ai.AbstractTargetOrdering;
 import engine.map.ai.LowestHp;
+import engine.map.ai.LowestStrength;
 import engine.unit.AiUnit;
 import engine.unit.IMutableUnit;
 
@@ -40,7 +41,13 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 	@Override
 	public void setCurrentUnit(AiUnit u) {
 		super.setCurrentUnit(u);
-		infoBehaviour.setSelectedItem(u);
+		for (int i = 0; i < infoBehaviour.getModel().getSize(); i++) {
+			AbstractTargetOrdering ordering = (AbstractTargetOrdering) infoBehaviour.getModel().getElementAt(i);
+			if (ordering.getClass().equals(u.getOrdering().getClass())){
+				infoBehaviour.setSelectedIndex(i);
+				break;
+			}
+		}
 	}
 	
 	
@@ -50,7 +57,8 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 
 	protected AbstractTargetOrdering[] getTargetOrderings() {
 		return new AbstractTargetOrdering[] {
-				new LowestHp()
+				new LowestHp(),
+				new LowestStrength(),
 		};
 	}
 

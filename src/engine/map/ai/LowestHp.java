@@ -23,7 +23,7 @@ public class LowestHp extends AbstractTargetOrdering {
 	@Override
 	public int compare(IMutableMapUnit o1, IMutableMapUnit o2) {
 		int r = o1.getCurrentHp() - o2.getCurrentHp();
-		if (r == 0) r = o1.getStrength() - o2.getStrength();
+		if (r == 0) r = o2.getMaxHp() - o1.getMaxHp();
 		return r;
 	}
 
