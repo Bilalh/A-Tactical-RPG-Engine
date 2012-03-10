@@ -6,6 +6,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Rectangle;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -62,24 +63,6 @@ public class Gui {
 		musicThread.start();
 		MapController mapController = mainController.nextMap();
 		setCurrentPanel(new MapPanel(mapController, period * 1000000L));
-		
-//		frame.setResizable(true);
-//		frame.addComponentListener(new ComponentAdapter() {
-//			
-//			@Override
-//			public void componentResized(ComponentEvent e) {
-//				try {
-//					musicThread.replaceMusic( new Music("music/3-15 Faraway Heights.ogg", true));
-//				} catch (SlickException e1) {
-//					e1.printStackTrace();
-//				}
-//			}
-//			
-//			@Override
-//			public void componentMoved(ComponentEvent e) {
-//				musicThread.toggleMusic();
-//			}
-//		});
 	}
 
 	public Gui(MainController mainController) {
@@ -102,8 +85,12 @@ public class Gui {
 		}
 		log.info("Setting main panel to " + p);
 		current = p;
-		current.setBounds(0, 0, WIDTH, HEIGHT);
-
+		
+		// FIXME mac only?
+		current.setBounds(0, -22, WIDTH, HEIGHT);
+		Rectangle b = current.getBounds();
+		
+				
 		frame.add(current);
 		frame.invalidate();
 		frame.repaint();

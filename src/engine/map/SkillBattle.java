@@ -50,6 +50,8 @@ public class SkillBattle extends Battle {
 		return targets;
 	}
 
+	
+	
 	/**
 	 * Remove targets who should not be effected e.g the attacker
 	 */
@@ -64,7 +66,11 @@ public class SkillBattle extends Battle {
 		if (result < 0) result = 0;
 		return result;
 	}
-	
-	
+
+	// height does not affect skills
+	@Override
+	protected double heightModifier(IMutableMapUnit target, int attackerHeight, int targetHeight) {
+		return 1;
+	}
 	
 }

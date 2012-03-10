@@ -75,7 +75,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private HashMap<UUID, AnimatedUnit> died;
 	
 	// UI elements
-	private Menu menu     = new Menu();
+	private Menu menu        = new Menu();
 	private GuiDialog dialog = new GuiDialog(0, 0);
 	
 	final MenuInput menuInput            = new MenuInput(this, menu);
