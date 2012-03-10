@@ -183,6 +183,9 @@ public abstract class AbstractResourcesPanel<R extends Identifiable, A extends A
 		return header;
 	}
 
+	/**
+	 * Make a JSpinner always save the typed value. 
+	 */
 	public static void makeJSpinnerSaveOnType(JSpinner cb){	
 	    JComponent comp = cb.getEditor();
 		JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
