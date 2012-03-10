@@ -8,7 +8,7 @@
 		\begin{tabular}{rl}
 		\Checkmark & Finished\\
 		\XSolidBrush & Not Started\\
-		– $\bullet$ $\star$ & In progress\\
+		–  &  Partly\\
 		\end{tabular}
 	\end{center}
 \end{figure}
@@ -21,10 +21,10 @@ The main goal of the primary objectives is allow the user to create a complex Ta
 \item To develop an engine that takes:
 \begin{itemize}
 
- \item The definition of character attributes and a combat system.
-	\item The definition of a world broken up into the smaller environments.
+ 	\item The definition of character attributes and a combat system.
+	\tick The definition of a world broken up into the smaller environments.
 	\begin{itemize}
-		\item The rules of the game.
+		\tick The rules of the game.
 		\tick The kinds of enemies.
 	\end{itemize}
 	
@@ -36,7 +36,7 @@ The main goal of the primary objectives is allow the user to create a complex Ta
 \end{itemize}
 and create a playable tactical RPG.
 
-\item To include in the engine support for the following:
+\tick To include in the engine support for the following:
 
 \begin{itemize}
 	\tick \texttt{units} with a fixed set of associated attributes such as:
@@ -47,25 +47,25 @@ and create a playable tactical RPG.
 		\tick Move (The number of tiles the unit can move each turn).
 	\end{itemize}
 	
-	\item \texttt{battles} which take place on grid and include:
+	\tick \texttt{battles} which take place on grid and include:
 	\begin{itemize}
 		\tick  A set number of \texttt{units} for each player.
 		\tick  A Winning \texttt{condition}, which is defeat all of the other player's units.
 		\tick  Battles are \texttt{turn based} meaning only one unit performs at one time.   
-		\item  A combat system. \marginpar{\textbf{Nearly}}
+		\tick  A combat system.
 	\end{itemize}
 	
-	\item A combat system that includes
+	\tick A combat system that includes
 		\begin{itemize}
 			\tick \texttt{combat} between adjacent units.
 			\begin{itemize}
 				\tick When the unit hit-points are reduced to zero they are \texttt{defeated} and are removed from the map
-			\item A set of rules that govern the combat.
+			\tick A set of rules that govern the combat.
 			\end{itemize}
 			
 		\end{itemize}
 	
-	\item A predefined set of behaviours for how the non-player characters should behave.
+	\tick A predefined set of behaviours for how the non-player characters should behave.
 	\begin{itemize}
 		\tick Including pathfinding.
 	\end{itemize}
@@ -110,7 +110,7 @@ The main goal of the secondary objectives is allow the user more customisability
 	
 	\partly Allow the user to specify some of behaviour of non-player characters
 	\begin{itemize}
-		\cross An example: always attack a certain kind of unit or always attack the unit with the least Hit Points.
+		\tick An example: always attack a certain kind of unit or always attack the unit with the least Hit Points.
 	\end{itemize}
 	
 	\tick A graphical view to allow user specify input to the engine.
@@ -149,6 +149,7 @@ The goal of the Tertiary objectives are provide the user with more customisabili
 		 	\tick Defeating all the opponent's units.
 		 	\tick Defeating a specific unit.
 		 \end{itemize}
+		\tick   specifying some of the behaviour of the enemy units.
 		\tick   Allows exporting the game as a self contained application.
 	\end{itemize}
 	
