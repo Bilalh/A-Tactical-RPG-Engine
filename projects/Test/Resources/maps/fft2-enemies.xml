@@ -2,7 +2,7 @@
   <units>
     <entry>
       <uuid>6363fb76-c8c1-4894-9244-906035ccc1f9</uuid>
-      <unit uuid="6363fb76-c8c1-4894-9244-906035ccc1f9">
+      <aiUnit uuid="6363fb76-c8c1-4894-9244-906035ccc1f9">
         <name>New Enemy 3</name>
         <maxHp>30</maxHp>
         <move>4</move>
@@ -15,11 +15,12 @@
         <weight>0</weight>
         <wepaonId>3e07fa06-184b-41a1-9d2a-5ae87d97f01d</wepaonId>
         <skillIds/>
-      </unit>
+        <ordering class="engine.map.ai.LowestHp"/>
+      </aiUnit>
     </entry>
     <entry>
       <uuid>78c008a9-f7ca-4f89-b3f1-876a633caf09</uuid>
-      <unit uuid="78c008a9-f7ca-4f89-b3f1-876a633caf09">
+      <aiUnit uuid="78c008a9-f7ca-4f89-b3f1-876a633caf09">
         <name>New Enemy 2</name>
         <maxHp>30</maxHp>
         <move>4</move>
@@ -32,11 +33,12 @@
         <weight>0</weight>
         <wepaonId>0f0dee32-06de-4f25-ba3d-acb110afc52c</wepaonId>
         <skillIds/>
-      </unit>
+        <ordering class="engine.map.ai.LowestHp"/>
+      </aiUnit>
     </entry>
     <entry>
       <uuid>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</uuid>
-      <unit uuid="d4ca9dde-a2f4-4f51-b90e-5ff99e09f814">
+      <aiUnit uuid="d4ca9dde-a2f4-4f51-b90e-5ff99e09f814">
         <name>New Enemy A</name>
         <maxHp>30</maxHp>
         <move>4</move>
@@ -49,7 +51,8 @@
         <weight>0</weight>
         <wepaonId>3e07fa06-184b-41a1-9d2a-5ae87d97f01d</wepaonId>
         <skillIds/>
-      </unit>
+        <ordering class="engine.map.ai.LowestHp"/>
+      </aiUnit>
     </entry>
   </units>
   <placement>

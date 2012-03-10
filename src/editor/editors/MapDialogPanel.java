@@ -32,6 +32,7 @@ import editor.Editor;
 import editor.editors.AbstractResourcesPanel.AbstractListRenderer;
 import editor.spritesheet.IDragFinishedListener;
 import editor.spritesheet.ReorderableJList;
+import editor.ui.TickComboBoxCellRender;
 import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.IMutableUnit;
 import engine.unit.SpriteSheetData;

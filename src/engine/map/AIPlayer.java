@@ -10,6 +10,8 @@ import common.Location;
 import common.LocationInfo;
 import common.interfaces.ILocation;
 
+import engine.map.ai.AbstractTargetOrdering;
+import engine.map.ai.LowestHp;
 import engine.map.interfaces.IMutableMapUnit;
 /**
  * @author bilalh
@@ -18,19 +20,17 @@ public class AIPlayer extends MapPlayer {
 	private static final Logger log = Logger.getLogger(AIPlayer.class);
 	
 	private Map map;
-	private PriorityQueue<IMutableMapUnit> lowestHp;
+	private MapPlayer player;
 	
+	private PriorityQueue<IMutableMapUnit> ordering;
+	private AbstractTargetOrdering         comparator;
 	
-	public AIPlayer(Map map){
-		this.map = map;
-        lowestHp = new PriorityQueue<IMutableMapUnit>(16, new Comparator<IMutableMapUnit>() {
-            @Override
-            public int compare(IMutableMapUnit o1, IMutableMapUnit o2) {
-                 int r = o1.getCurrentHp() - o2.getCurrentHp();
-                 if (r == 0) r = o1.getStrength() - o2.getStrength();
-                 return r;
-            }
-        });
+	public AIPlayer(Map map, MapPlayer player){
+		this.map    = map;
+		this.player = player;
+		
+		comparator = new LowestHp(map, this, player);
+		ordering   = new PriorityQueue<IMutableMapUnit>(16,comparator);
 	}
 	 
 	@Override
@@ -38,11 +38,11 @@ public class AIPlayer extends MapPlayer {
 		super.setUnits(units);
 	}
 	
-	public ILocation getMoveLocation(AIUnit a){
-		lowestHp.clear();
-		lowestHp.addAll(map.getPlayerUnits());
+	public ILocation getMoveLocation(AIMapUnit a){
+		ordering.clear();
+		ordering.addAll(player.getUnits());
 		
-		IMutableMapUnit target = lowestHp.remove();
+		IMutableMapUnit target = ordering.remove();
 		Location tl = target.getLocation();
 		
 		Collection<LocationInfo> movementRange = map.getMovementRange(a);
@@ -62,7 +62,7 @@ public class AIPlayer extends MapPlayer {
 					chosen = l;
 					currentDistance = dist;
 				}
-			// since we allready found a adjacent
+			// since we allready found a adjacent unit
 			}else if (!adjacent &&  dist < currentDistance){
 				chosen = l;
 				currentDistance = dist;
@@ -95,7 +95,7 @@ public class AIPlayer extends MapPlayer {
 	@Override
 	public void unitDied(IMutableMapUnit u) {
 		super.unitDied(u);
-		lowestHp.remove(u);
+		ordering.remove(u);
 	}
 	
 }

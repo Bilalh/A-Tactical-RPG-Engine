@@ -65,6 +65,8 @@ public class Map extends BasicMap implements IMap {
 		loadSettings(name);
 		paths = new HashMap<IMutableMapUnit, PathFinder>();
 		order = new PriorityQueue<IMutableMapUnit>(16, new DefaultTurnComparator());
+		
+		this.player = new MapPlayer();
 		setUpAI();
 	}
 
@@ -76,12 +78,12 @@ public class Map extends BasicMap implements IMap {
 	}
 
 	private void setUpAI() {
-		ai = new AIPlayer(this);
+		ai = new AIPlayer(this, player);
 		ArrayList<IMutableMapUnit> aiUnits = new ArrayList<IMutableMapUnit>();
 
 		for (Entry<UUID,Location> e : enemies.getUnitPlacement().entrySet()) {
 			IMutableUnit u = enemies.getUnit(e.getKey());
-			AIUnit au = new AIUnit(u, e.getValue(), ai);
+			AIMapUnit au = new AIMapUnit(u, e.getValue(), ai);
 			getTile(au.getLocation()).setCurrentUnit(au);
 			aiUnits.add(au);
 		}
@@ -99,10 +101,6 @@ public class Map extends BasicMap implements IMap {
 		
 	}
 
-	ArrayList<IMutableMapUnit> getPlayerUnits() {
-		return player.getUnits();
-	}
-
 	private void sendNotification(IMapNotification n){
 		setChanged();
 		notifyObservers(n);
@@ -117,7 +115,6 @@ public class Map extends BasicMap implements IMap {
 	public void setUsersUnits(HashMap<IMutableUnit, Location> selected) {
 		ArrayList<IMutableMapUnit> units = new ArrayList<IMutableMapUnit>();
 
-		player = new MapPlayer();
 		for (Entry<IMutableUnit, Location> e : selected.entrySet()) {
 			IMutableMapUnit u = new MapUnit(e.getKey(), e.getValue(), player);
 			field[u.getGridX()][u.getGridY()].setCurrentUnit(u);
@@ -236,7 +233,7 @@ public class Map extends BasicMap implements IMap {
 		
 		if (current.isAI()) {
 			log.info("Next Unit is ai:" + current);
-			ILocation l = ai.getMoveLocation((AIUnit) current);
+			ILocation l = ai.getMoveLocation((AIMapUnit) current);
 			moveUnit(current, l);
 		}
 	}

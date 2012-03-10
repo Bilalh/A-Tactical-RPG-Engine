@@ -24,6 +24,7 @@ import editor.spritesheet.MutableSprite;
 import engine.assets.*;
 import engine.skills.AbstractUnitObject;
 import engine.skills.RangedSkill;
+import engine.unit.AiUnit;
 import engine.unit.Unit;
 import engine.unit.UnitAnimation;
 import engine.unit.SpriteSheetData;
@@ -134,6 +135,7 @@ public abstract class XMLUtil {
 				
 				//Model 
 				Unit.class,
+				AiUnit.class,
 				AbstractUnitObject.class,
 				
 				//common 

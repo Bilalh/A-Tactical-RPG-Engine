@@ -10,9 +10,9 @@ import engine.unit.IMutableUnit;
 /**
  * @author Bilal Hussain
  */
-public class AIUnit extends MapUnit {
+public class AIMapUnit extends MapUnit {
 
-	public AIUnit(IMutableUnit unit, ILocation l, MapPlayer ai) {
+	public AIMapUnit(IMutableUnit unit, ILocation l, MapPlayer ai) {
 		super(unit, l, ai);
 	}
 

@@ -62,7 +62,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private MapConditions currentConditions;
 	
 	private JTabbedPane    infoTabs;
-	private UnitsPanel     enemiesPanel;
+	private AiUnitPanel    enemiesPanel;
 	private MapDialogPanel dialogStartPanel;
 	private MapDialogPanel dialogEndPanel;
 	private MapMusicPanel  musicPanel;
@@ -479,7 +479,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		infoTabs = new JTabbedPane();
 		infoTabs.addTab("Details", p);
-		infoTabs.addTab("Enemies ",       enemiesPanel     = new UnitsPanel(editor.getUnitsSprites(), false, "Enemy"));
+		infoTabs.addTab("Enemies ",       enemiesPanel     = new AiUnitPanel(editor.getUnitsSprites(), false, "Enemy"));
 		infoTabs.addTab("Start Dialog",   dialogStartPanel = new MapDialogPanel(this, editor));
 		infoTabs.addTab("Finish Dialog",  dialogEndPanel   = new MapDialogPanel(this, editor));
 		infoTabs.addTab("Music",          musicPanel       = new MapMusicPanel());

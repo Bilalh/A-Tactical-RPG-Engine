@@ -39,6 +39,7 @@ import editor.ui.TButton;
 import editor.util.Resources;
 import engine.assets.*;
 import engine.skills.ISkill;
+import engine.unit.AiUnit;
 import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 import engine.unit.SpriteSheetData;
@@ -47,41 +48,41 @@ import engine.unit.SpriteSheetData;
  * Editor for units
  * @author Bilal Hussain
  */
-public class UnitsPanel extends JPanel implements IRefreshable {
+public class UnitsPanel<E extends IMutableUnit>  extends JPanel implements IRefreshable {
 	private static final Logger log = Logger.getLogger(UnitsPanel.class);
 	private static final long serialVersionUID = 6590057554995017334L;
 
-	private JList unitsList;
-	private DefaultListModel unitsListModel;
-	private IMutableUnit currentUnit;
+	protected JList unitsList;
+	protected DefaultListModel unitsListModel;
+	protected E currentUnit;
 	
 	// Infopanel controls
-	private JTextField infoName;
-	private JComboBox  infoWeapon;
+	protected JTextField infoName;
+	protected JComboBox  infoWeapon;
 	
-	private JSpinner   infoStrength;
-	private JSpinner   infoDefence;
+	protected JSpinner   infoStrength;
+	protected JSpinner   infoDefence;
 	
-	private JSpinner   infoSpeed;
-	private JSpinner   infoMove;
+	protected JSpinner   infoSpeed;
+	protected JSpinner   infoMove;
 
-	private JSpinner   infoHp;
-//	private JSpinner   infoMp;
+	protected JSpinner   infoHp;
+//	protected JSpinner   infoMp;
 	
-	private JList skillsList;
-	private DefaultListModel skillsListModel;
+	protected JList skillsList;
+	protected DefaultListModel skillsListModel;
 
-	private JList allSkillsList;
-	private DefaultListModel allSkillsListModel;
+	protected JList allSkillsList;
+	protected DefaultListModel allSkillsListModel;
 	
-	private JComboBox  infoSpriteSheet;
-	private JLabel[]   infoSprites;
+	protected JComboBox  infoSpriteSheet;
+	protected JLabel[]   infoSprites;
 
-	private java.util.Map<UUID, EditorSpriteSheet> spriteSheets;
-	private SpriteSheet unitSprites;
+	protected java.util.Map<UUID, EditorSpriteSheet> spriteSheets;
+	protected SpriteSheet unitSprites;
 	
-	private boolean listOnLeft;
-	private String displayName;
+	protected boolean listOnLeft;
+	protected String displayName;
 	
 	public UnitsPanel(java.util.Map<UUID, EditorSpriteSheet> spriteSheets){
 		this(spriteSheets, true, "Unit");
@@ -114,7 +115,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		unitsList.setSelectedIndex(0);
 	}
 	
-	public void setCurrentUnit(IMutableUnit u){
+	public void setCurrentUnit(E u){
 		if (currentUnit != null){
 //			changeName();
 //			IWeapon w = (IWeapon) infoWeapon.getSelectedItem();
@@ -146,7 +147,9 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		}
 		
 		skillsListModel.clear();
-		for (ISkill	s : u.getSkills()) {
+		assert currentUnit != null;
+		assert currentUnit.getSkills() != null : currentUnit;
+		for (ISkill	s : currentUnit.getSkills()) {
 			skillsListModel.addElement(s);
 			// TODO n^2  but n is about 4
 			allSkillsListModel.removeElement(s);
@@ -223,7 +226,6 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			infoSprites[d.ordinal()].setIcon(new ImageIcon(unitSprites.getSpriteImage(d.getImageRef())));
 		}
 	}
-	
 	
 	@Override
 	public synchronized void panelSelected(Editor editor) {
@@ -305,20 +307,14 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 	}
 
 	protected JComponent createLeftPane(){
-		IMutableUnit uu = new Unit();
-		uu.setName("New " + displayName);
-		SpriteSheetData ui = Config.loadPreference("images/characters/default-animations.xml");
-		uu.setImageData(ui.getAnimationPath(), ui);
-		
 		unitsListModel = new DefaultListModel();
 		
 		unitsList = new JList(unitsListModel);
 		unitsList.setCellRenderer(new UnitListRenderer());
-		unitsListModel.addElement(uu);
 		unitsList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				IMutableUnit u =  (IMutableUnit) unitsList.getSelectedValue();
+				E u =  (E) unitsList.getSelectedValue();
 				if (u == null){
 					log.debug(displayName + " "+ u);
 					return;
@@ -392,7 +388,7 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			IMutableUnit w = new Unit(currentUnit);
+			IMutableUnit w = createUnit(currentUnit);
 			int index = unitsListModel.size();
 			w.setName("New " + displayName + " " + (index + 1));
 			unitsListModel.addElement(w);
@@ -400,6 +396,10 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		}
 	}
 
+	protected IMutableUnit createUnit(IMutableUnit old){
+		return new Unit(old);
+	}
+	
 	public static LayoutManager createLayout() {
 		LC layC = new LC().fill().wrap();
 		AC colC = new AC().align("right", 1).fill(1, 3).grow(100, 1, 3).align("right", 3).gap("15", 1,3);
@@ -432,10 +432,10 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 			}
 		});
 		
+		p.add(new JLabel("Weapon:"));
 		infoWeapon = new JComboBox(new IWeapon[]{});
 		infoWeapon.setRenderer(new WeaponDropDownListRenderer());
 		infoWeapon.setEditable(false);
-		p.add(new JLabel("Weapon:"));
 		infoWeapon.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -506,6 +506,8 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		});
 		p.add(infoHp, new CC().alignX("leading").maxWidth("70").wrap());
 		
+		extraComponents(p);
+		
 		addSeparator(p,"Sprites");
 		
 		infoSprites = new JLabel[ImageDirection.values().length];
@@ -557,6 +559,10 @@ public class UnitsPanel extends JPanel implements IRefreshable {
 		return p;
 	}
 	
+	protected void extraComponents(JPanel p) {
+		
+	}
+
 	private class AddSkillAction extends AbstractAction {
 		private static final long serialVersionUID = -6538170935544736252L;
 

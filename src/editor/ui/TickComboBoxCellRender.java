@@ -1,4 +1,4 @@
-package editor.editors;
+package editor.ui;
 
 import java.awt.Component;
 
