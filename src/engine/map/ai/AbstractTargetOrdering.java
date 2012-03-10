@@ -16,7 +16,9 @@ public abstract class AbstractTargetOrdering implements Comparator<IMutableMapUn
 	protected transient Map map;
 	protected transient AIPlayer ai;
 	protected transient MapPlayer player;
-
+	
+	// If true negate the result of the Comparator
+	protected boolean negated;
 	public AbstractTargetOrdering(){}
 	
 	public AbstractTargetOrdering(Map map, AIPlayer ai, MapPlayer player) {
@@ -41,6 +43,16 @@ public abstract class AbstractTargetOrdering implements Comparator<IMutableMapUn
 	/** @category Generated */
 	public void setPlayer(MapPlayer player) {
 		this.player = player;
+	}
+
+	/** @category Generated */
+	public boolean isNegated() {
+		return negated;
+	}
+
+	/** @category Generated */
+	public void setNegated(boolean negated) {
+		this.negated = negated;
 	}
 
 }

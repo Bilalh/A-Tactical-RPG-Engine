@@ -24,12 +24,13 @@ public class LowestHp extends AbstractTargetOrdering {
 	public int compare(IMutableMapUnit o1, IMutableMapUnit o2) {
 		int r = o1.getCurrentHp() - o2.getCurrentHp();
 		if (r == 0) r = o2.getMaxHp() - o1.getMaxHp();
+		if (negated) r = -1;
 		return r;
 	}
 
 	@Override
 	public String toString() {
-		return "Target the unit with the lowest HP";
+		return String.format("Target the unit with the %s HP", negated ? "highest" : "lowest" );
 	}
 
 }

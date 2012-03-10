@@ -18,12 +18,13 @@ public class LowestStrength extends AbstractTargetOrdering {
 	public int compare(IMutableMapUnit o1, IMutableMapUnit o2) {
 		int r = o1.getStrength() - o2.getStrength();
 		if (r == 0) r = o1.getCurrentHp() - o2.getCurrentHp();
+		if (negated) r = -1;
 		return r;
 	}
 
 	@Override
 	public String toString() {
-		return "Target the unit with the lowest Strength";
+		return String.format("Target the unit with the %s Strength", negated ? "highest" : "lowest" );
 	}
 	
 }

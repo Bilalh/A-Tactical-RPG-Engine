@@ -4,7 +4,7 @@
       <uuid>1d2db735-a6ed-4926-ab07-c524b244b09c</uuid>
       <dialogPart uuid="1d2db735-a6ed-4926-ab07-c524b244b09c">
         <text>I never expected to meet a knight of Lodis! I will never forgive you for all that I lost 15 years ago. You burned down my town and killed my parents!!! Thankfully, I’ve acquired the skills of a soldier.</text>
-        <unitId>7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0</unitId>
+        <unitId>689d66a9-d1b1-4eda-9e8f-3ea0805391cb</unitId>
         <partNo>0</partNo>
       </dialogPart>
     </entry>
@@ -53,7 +53,7 @@
       <uuid>5fb0e5c4-7c5e-4602-946a-6286cd160a4a</uuid>
       <dialogPart uuid="5fb0e5c4-7c5e-4602-946a-6286cd160a4a">
         <text>“Never forget...You can fool yourself with your rationalizations, but eventually you’ll suffer the consequences. Oh...Mother...Father...”</text>
-        <unitId>7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0</unitId>
+        <unitId>689d66a9-d1b1-4eda-9e8f-3ea0805391cb</unitId>
         <partNo>0</partNo>
       </dialogPart>
     </entry>

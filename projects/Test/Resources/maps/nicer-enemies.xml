@@ -14,7 +14,9 @@
         <imageDataRef>images/characters/Elena-animations.xml</imageDataRef>
         <wepaonId>7316c24b-c13f-4275-af14-2ff5f4a30b0f</wepaonId>
         <skillIds/>
-        <ordering class="engine.map.ai.LowestStrength"/>
+        <ordering class="engine.map.ai.LowestStrength">
+          <negated>false</negated>
+        </ordering>
       </aiUnit>
     </entry>
     <entry>
@@ -31,7 +33,9 @@
         <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
         <wepaonId>7316c24b-c13f-4275-af14-2ff5f4a30b0f</wepaonId>
         <skillIds/>
-        <ordering class="engine.map.ai.LowestHp"/>
+        <ordering class="engine.map.ai.LowestHp">
+          <negated>false</negated>
+        </ordering>
       </aiUnit>
     </entry>
   </units>

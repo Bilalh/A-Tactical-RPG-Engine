@@ -45,7 +45,7 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 			AbstractTargetOrdering ordering = (AbstractTargetOrdering) infoBehaviour.getModel().getElementAt(i);
 			assert ordering != null;
 			assert u.getOrdering() != null;
-			if (ordering.getClass().equals(u.getOrdering().getClass())){
+			if (ordering.getClass().equals(u.getOrdering().getClass()) && ordering.isNegated() == u.getOrdering().isNegated()){
 				infoBehaviour.setSelectedIndex(i);
 				break;
 			}
@@ -58,10 +58,16 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 	}
 
 	protected AbstractTargetOrdering[] getTargetOrderings() {
-		return new AbstractTargetOrdering[] {
+		AbstractTargetOrdering[] ato = new AbstractTargetOrdering[] {
+				new LowestHp(),
+				new LowestStrength(),
 				new LowestHp(),
 				new LowestStrength(),
 		};
+		for (int i = ato.length/2 ; i < ato.length; i++) {
+			ato[i].setNegated(true);
+		}
+		return ato;
 	}
 
 	@Override
