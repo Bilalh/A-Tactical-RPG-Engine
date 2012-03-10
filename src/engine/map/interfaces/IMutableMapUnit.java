@@ -34,5 +34,9 @@ public interface IMutableMapUnit extends IMapUnit, IMutableUnit {
 	 * @return True if the unit still alive otherwise false'
 	 */
 	boolean removeHp(int value);
+
+	void addExp(int value);
+	
+	void levelUp();
 	
 }

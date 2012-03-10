@@ -76,12 +76,13 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	private JScrollPane      mapScrollPane;
 	private JPanel           infoPanel;
 	private FloatablePanel   infoPanelContainer;
-
+	
 	private JTabbedPane      spritesTabs;
 	private SpriteSheetPanel tilesetPanel;
 	private SpriteSheetPanel texturesPanel;
 	private FloatablePanel   spritesPanelContainer;
-
+	private JPanel           emenemiesPanel;
+	
 	private JLabel statusLabel;
 
 	private EditorMap map;
@@ -282,11 +283,15 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 					break;
 				}
 				
-				map.getGuiTile(a.getLocation()).removeUnit();
+				if (!a.getLocation().equals(new Location(-1,-1))){
+					map.getGuiTile(a.getLocation()).removeUnit();
+				}
 				a.setLocation(tile.getLocation());
 				tile.setUnit(a);
 				map.addMapping(currentEnemy.getUuid(), tile.getLocation());
 				repaint=true;
+				setCurrentEnemy(currentEnemy);
+				
 				break;
 			}
 		}
@@ -431,7 +436,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		
         
         toMapUnit = new HashMap<UUID, AnimatedUnit>();
-		spritesTabs.addTab("Enemies",    createUnitsPanel());
+		spritesTabs.addTab("Enemies",   emenemiesPanel =createUnitsPanel());
 		for (IMutableUnit u : map.getEnemies().getUnits()) {
 			unitsListModel.addElement(u);
 			AnimatedUnit m = new AnimatedUnit(-1,-1, u);
@@ -483,7 +488,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	}
 
 	
-	private JComponent createUnitsPanel(){
+	private JPanel createUnitsPanel(){
 		JPanel p =  new JPanel(createLayout());
 		p.add(new JLabel("Name:"));
 		p.add((unitName = new JTextField(15)), "span, growx");

@@ -43,6 +43,8 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 		super.setCurrentUnit(u);
 		for (int i = 0; i < infoBehaviour.getModel().getSize(); i++) {
 			AbstractTargetOrdering ordering = (AbstractTargetOrdering) infoBehaviour.getModel().getElementAt(i);
+			assert ordering != null;
+			assert u.getOrdering() != null;
 			if (ordering.getClass().equals(u.getOrdering().getClass())){
 				infoBehaviour.setSelectedIndex(i);
 				break;

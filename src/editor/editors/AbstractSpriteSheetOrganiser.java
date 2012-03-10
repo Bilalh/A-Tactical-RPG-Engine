@@ -142,14 +142,14 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	protected abstract SpriteSheetData defaultImages();
 
 	protected JComponent createLeftPane() {
-		SpriteSheetData uu = defaultImages();
-		setCurrentSpriteSheetData(uu);
+//		SpriteSheetData uu = defaultImages();
+//		setCurrentSpriteSheetData(uu);
 		
 		imagesListModel = new DefaultListModel();
 		
 		imagesList = new JList(imagesListModel);
 		imagesList.setCellRenderer(new ImageListRenderer());
-		imagesListModel.addElement(uu);
+//		imagesListModel.addElement(uu);
 		imagesList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {

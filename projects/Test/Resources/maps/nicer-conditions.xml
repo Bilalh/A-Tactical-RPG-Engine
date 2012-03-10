@@ -1,4 +1,10 @@
 <mapConditions>
-  <uuid>b7d0e95a-b1ea-49ce-964b-bcda34507ac9</uuid>
-  <winCondition class="engine.map.win.DefeatAllUnitsCondition"/>
+  <uuid>572548f4-8922-4316-9128-70fc165aa3f9</uuid>
+  <winCondition class="engine.map.win.DefeatSpecificUnitCondition">
+    <unitId>7bd8ca2a-1c1e-40f1-8b4b-a0e750f80da0</unitId>
+  </winCondition>
+  <defaultStartLocation>
+    <x>6</x>
+    <y>6</y>
+  </defaultStartLocation>
 </mapConditions>

@@ -22,13 +22,6 @@
     </unitImages>
   </entry>
   <entry>
-    <uuid>c711fb7c-9bec-44b0-9aa5-67c2ad3ee15d</uuid>
-    <unitImages uuid="c711fb7c-9bec-44b0-9aa5-67c2ad3ee15d">
-      <spriteSheetLocation>images/characters/default.png</spriteSheetLocation>
-      <animations/>
-    </unitImages>
-  </entry>
-  <entry>
     <uuid>cc4b04c9-25f8-4111-bac7-6db0177c0035</uuid>
     <unitImages uuid="cc4b04c9-25f8-4111-bac7-6db0177c0035">
       <spriteSheetLocation>images/characters/princess.png</spriteSheetLocation>
@@ -41,16 +34,16 @@
           </unitAnimation>
         </entry>
         <entry>
-          <string>east</string>
+          <string>north</string>
           <unitAnimation>
-            <name>east</name>
+            <name>north</name>
             <numberOfFrames>4</numberOfFrames>
           </unitAnimation>
         </entry>
         <entry>
-          <string>north</string>
+          <string>east</string>
           <unitAnimation>
-            <name>north</name>
+            <name>east</name>
             <numberOfFrames>4</numberOfFrames>
           </unitAnimation>
         </entry>

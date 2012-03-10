@@ -194,11 +194,6 @@ public abstract class AbstractMapUnit<E extends IMutableUnit> implements IMutabl
 	}
 
 	@Override
-	public int getMaxWeight() {
-		return unit.getMaxWeight();
-	}
-
-	@Override
 	public boolean isAI() {
 		return false;
 	}

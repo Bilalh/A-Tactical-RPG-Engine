@@ -76,7 +76,20 @@ public class Battle implements IBattleInfo {
 	public void performBattle() {
 		for (BattleResult battle : results) {
 			battle.getMutableTarget().removeHp(battle.getDamage());
+			giveExp(battle);
 		}
+	}
+
+	private void giveExp(BattleResult battle) {
+		int exp;
+		if (battle.isTargetDead()){
+			exp = 60 + 10 * (battle.getTarget().getLevel() - attacker.getLevel());
+			if (exp < 5 ) exp = 5;
+		}else{
+			exp = 20 + 10 * (battle.getTarget().getLevel() - attacker.getLevel());
+			if (exp < 2 ) exp = 2;
+		}
+		attacker.addExp(exp);
 	}
 
 	@Override

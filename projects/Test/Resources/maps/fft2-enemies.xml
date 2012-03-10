@@ -12,7 +12,6 @@
         <level>1</level>
         <exp>0</exp>
         <imageDataRef>images/characters/Boy-animations.xml</imageDataRef>
-        <weight>0</weight>
         <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
         <skillIds/>
         <ordering class="engine.map.ai.LowestHp"/>
@@ -30,7 +29,6 @@
         <level>1</level>
         <exp>0</exp>
         <imageDataRef>images/characters/Elena-animations.xml</imageDataRef>
-        <weight>0</weight>
         <wepaonId>0f0dee32-06de-4f25-ba3d-acb110afc52c</wepaonId>
         <skillIds/>
         <ordering class="engine.map.ai.LowestStrength"/>
@@ -48,7 +46,6 @@
         <level>1</level>
         <exp>0</exp>
         <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
-        <weight>0</weight>
         <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
         <skillIds/>
         <ordering class="engine.map.ai.LowestStrength"/>
@@ -60,7 +57,7 @@
       <uuid>6363fb76-c8c1-4894-9244-906035ccc1f9</uuid>
       <location>
         <x>7</x>
-        <y>2</y>
+        <y>12</y>
       </location>
     </entry>
     <entry>

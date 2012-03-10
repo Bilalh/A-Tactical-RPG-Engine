@@ -21,6 +21,7 @@ import engine.unit.IMutableUnit;
 public class MapUnit<E extends IMutableUnit> extends AbstractMapUnit<E> {
 
 	protected int readiness = 100;
+	/** @category unused**/
 	protected EnumSet<UnitStatus> status = EnumSet.noneOf(UnitStatus.class);
 
 	public MapUnit(E unit, ILocation l, MapPlayer player) {
@@ -34,7 +35,6 @@ public class MapUnit<E extends IMutableUnit> extends AbstractMapUnit<E> {
 
 	@Override
 	public int getCost(Tile old, Tile next) {
-
 		// Can't go though another player's units
 		IMutableMapUnit uu = next.getCurrentUnit();
 		if (uu != null && uu.getPlayer() != getPlayer()) {
@@ -44,20 +44,44 @@ public class MapUnit<E extends IMutableUnit> extends AbstractMapUnit<E> {
 	}
 
 	@Override
+	public void addExp(int value) {
+		setExp(getExp()+value);
+		if (getExp() >= 100){
+			setExp(0);
+			levelUp();
+			setLevel(getLevel()+1);
+		}
+	}
+	
+	@Override
+	public void levelUp() {
+		float modifer = 1.2f;
+		setStrength((int)(getStrength() * modifer));
+		setDefence((int) (getDefence()  * modifer));
+		setSpeed((int)   (getSpeed()    * modifer));
+		int hp = (int) (getMaxHp() + (5 * 1.1) * (1 + getLevel() / 10));
+		setMaxHp(hp);
+	}
+	
+	/** @category unused**/
+	@Override
 	public boolean hasStatus(UnitStatus s) {
 		return status.contains(s);
 	}
 
+	/** @category unused**/
 	@Override
 	public void setStatus(UnitStatus s) {
 		status.add(s);
 	}
 
+	/** @category unused**/
 	@Override
 	public boolean isMoved() {
 		return status.contains(UnitStatus.MOVED);
 	}
 
+	/** @category unused**/
 	@Override
 	public void setMoved() {
 		status.add(MOVED);

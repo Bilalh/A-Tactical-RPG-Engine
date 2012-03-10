@@ -28,7 +28,9 @@ public class UnitInfoDisplay {
 		IMapUnit unit= aunit.getUnit();
 		String[] arr = {
 				unit.getName(),
-				String.format("HP %3d/%3d", unit.getCurrentHp(), unit.getMaxHp()),
+				String.format("Lv %s Exp %s", unit.getLevel(),     unit.getExp()),
+				String.format("HP %3d/%3d",   unit.getCurrentHp(), unit.getMaxHp()),
+				
 				String.format("STR %s", unit.getStrength()),
 				String.format("DEF %s", unit.getDefence()),
 				String.format("SPD %s", unit.getSpeed()),

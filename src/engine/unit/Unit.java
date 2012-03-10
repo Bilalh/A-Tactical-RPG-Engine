@@ -43,8 +43,6 @@ public class Unit implements IMutableUnit {
 	private String imageDataRef;
 	private transient SpriteSheetData imageData;
 	
-	private int weight;
-
 	// Only store the ids of the skill and weapons when saving. 
 	private UUID wepaonId;
 	private ArrayList<UUID> skillIds;
@@ -228,17 +226,6 @@ public class Unit implements IMutableUnit {
 
 	/** @category Generated */
 	@Override
-	public int getMaxWeight() {
-		return weight;
-	}
-
-	/** @category Generated */
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
-
-	/** @category Generated */
-	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -272,8 +259,8 @@ public class Unit implements IMutableUnit {
 	@Override
 	public String toString() {
 		return String
-				.format("Unit [name=%s, maxHp=%s, move=%s, strength=%s, defence=%s, speed=%s, level=%s, exp=%s, uuid=%s, imageDataRef=%s, imageData=%s, weight=%s, weapon=%s, skills=%s]",
-						name, maxHp, move, strength, defence, speed, level, exp, uuid, imageDataRef, imageData, weight, weapon, skills);
+				.format("Unit [name=%s, maxHp=%s, move=%s, strength=%s, defence=%s, speed=%s, level=%s, exp=%s, uuid=%s, imageDataRef=%s, imageData=%s weapon=%s, skills=%s]",
+						name, maxHp, move, strength, defence, speed, level, exp, uuid, imageDataRef, imageData, weapon, skills);
 	}
 
 	@Override

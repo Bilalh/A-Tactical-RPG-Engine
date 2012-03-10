@@ -44,7 +44,8 @@ public class TilesetPanel extends AbstractSpriteSheetOrganiser {
 
 	@Override
 	protected SpriteSheetData defaultImages() {
-		return Config.loadPreference("images/tilesets/default-animations.xml");
+//		return Config.loadPreference("images/tilesets/default-animations.xml");
+		return null;
 	}
 
 	@Override
