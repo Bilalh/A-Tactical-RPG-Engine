@@ -39,7 +39,8 @@ import engine.unit.Unit;
 import engine.unit.SpriteSheetData;
 
 /**
- * @author bilalh
+ * The model
+ * @author Bilal Hussain
  */
 public class Map extends BasicMap implements IMap {
 	private static final Logger log = Logger.getLogger(Map.class);

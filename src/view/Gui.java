@@ -1,6 +1,3 @@
-/**
- * 
- */
 package view;
 
 import java.awt.BorderLayout;
@@ -33,7 +30,8 @@ import view.ui.interfaces.IConsole;
 import engine.Engine;
 
 /**
- * @author bilalh
+ * The Gui
+ * @author Bilal Hussain
  */
 public class Gui {
 	private static final Logger log = Logger.getLogger(Gui.class);

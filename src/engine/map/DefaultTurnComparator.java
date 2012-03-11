@@ -6,6 +6,7 @@ import common.interfaces.IMapUnit;
 import engine.map.interfaces.IMutableMapUnit;
 
 /**
+ * Class that defines how the units turn
  * @author Bilal Hussain
  */
 public class DefaultTurnComparator implements Comparator<IMutableMapUnit> {

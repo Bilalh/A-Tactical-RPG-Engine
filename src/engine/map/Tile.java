@@ -9,7 +9,8 @@ import config.xml.TileImageData;
 import engine.map.interfaces.IMutableMapUnit;
 
 /**
- * @author bilalh
+ * Stores infomation about a tile
+ * @author Bilal Hussain
  */
 public class Tile {
 

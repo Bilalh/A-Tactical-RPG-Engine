@@ -23,7 +23,8 @@ import engine.unit.Unit;
 import engine.unit.SpriteSheetData;
 
 /**
- * @author bilalh
+ * The engine is the backend of the game. It handles the progression of the maps. 
+ * @author Bilal Hussain
  */
 public class Engine {
 

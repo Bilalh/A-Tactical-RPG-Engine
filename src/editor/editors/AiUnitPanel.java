@@ -14,7 +14,7 @@ import config.assets.Units;
 
 import editor.editors.UnitsPanel.WeaponDropDownListRenderer;
 import editor.map.EditorSpriteSheet;
-import engine.map.ai.AbstractTargetOrdering;
+import engine.map.ai.AbstractAIBehaviour;
 import engine.map.ai.LowestHp;
 import engine.map.ai.LowestStrength;
 import engine.unit.AiUnit;
@@ -42,7 +42,7 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 	public void setCurrentUnit(AiUnit u) {
 		super.setCurrentUnit(u);
 		for (int i = 0; i < infoBehaviour.getModel().getSize(); i++) {
-			AbstractTargetOrdering ordering = (AbstractTargetOrdering) infoBehaviour.getModel().getElementAt(i);
+			AbstractAIBehaviour ordering = (AbstractAIBehaviour) infoBehaviour.getModel().getElementAt(i);
 			assert ordering != null;
 			assert u.getOrdering() != null;
 			if (ordering.getClass().equals(u.getOrdering().getClass()) && ordering.isNegated() == u.getOrdering().isNegated()){
@@ -53,12 +53,12 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 	}
 	
 	
-	protected void changeOrdering(AbstractTargetOrdering ordering) {
+	protected void changeOrdering(AbstractAIBehaviour ordering) {
 		currentUnit.setOrdering(ordering);
 	}
 
-	protected AbstractTargetOrdering[] getTargetOrderings() {
-		AbstractTargetOrdering[] ato = new AbstractTargetOrdering[] {
+	protected AbstractAIBehaviour[] getTargetOrderings() {
+		AbstractAIBehaviour[] ato = new AbstractAIBehaviour[] {
 				new LowestHp(),
 				new LowestStrength(),
 				new LowestHp(),
@@ -81,7 +81,7 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 			public void itemStateChanged(ItemEvent e) {
 				if (infoBehaviour.getItemCount() <= 0) return;
 
-				AbstractTargetOrdering ordering = (AbstractTargetOrdering) e.getItem();
+				AbstractAIBehaviour ordering = (AbstractAIBehaviour) e.getItem();
 				changeOrdering(ordering);
 			}
 		});

@@ -17,8 +17,13 @@ import view.map.GuiMap.ActionsEnum;
 import view.ui.GuiDialog;
 import view.util.MapActions;
 
+/**
+ * Handles all operations on the dialog inculdes, drawing and input handing.
+ * @author Bilal Hussain
+ */
 class DialogHandler extends MapActions {
 	private static final Logger log = Logger.getLogger(DialogHandler.class);
+	
 	private GuiDialog dialog;
 	private ActionsEnum nextAction = ActionsEnum.MOVEMENT;
 

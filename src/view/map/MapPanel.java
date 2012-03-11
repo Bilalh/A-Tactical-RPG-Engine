@@ -26,6 +26,10 @@ import controller.MapController;
 
 import engine.map.Map;
 
+/**
+ * Handles the game loop of the map
+ * @author Bilal Hussain
+ */
 public class MapPanel extends JPanel implements Runnable {
 	private static final Logger log = Logger.getLogger(MapPanel.class);
 	private static final long serialVersionUID = 525072238231645623L;

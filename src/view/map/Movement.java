@@ -17,6 +17,7 @@ import common.LocationInfo;
 import common.enums.Direction;
 
 /**
+ * Handles keyboard and mouse input, when moving the cursor/unit. 
  * @author Bilal Hussain
  */
 public  class Movement extends MapActions{

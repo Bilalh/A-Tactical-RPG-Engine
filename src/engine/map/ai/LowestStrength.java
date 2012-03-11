@@ -8,7 +8,7 @@ import engine.map.interfaces.IMutableMapUnit;
 /**
  * @author Bilal Hussain
  */
-public class LowestStrength extends AbstractTargetOrdering {
+public class LowestStrength extends AbstractAIBehaviour {
 
 	public LowestStrength(){
 		super();

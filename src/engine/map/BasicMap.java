@@ -11,7 +11,8 @@ import engine.map.win.IWinCondition;
 
 /**
  * Map data that is used in the view and the editor.
- * 
+ * Contains methods to load a map. 
+ *  
  * @author Bilal Hussain
  */
 public class BasicMap extends Observable {

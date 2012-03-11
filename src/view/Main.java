@@ -10,7 +10,7 @@ import controller.MainController;
 import engine.Engine;
 
 /**
- * Runs the game
+ * Runs the app.
  * @author Bilal Hussain
  */
 public class Main {

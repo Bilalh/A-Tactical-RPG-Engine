@@ -9,9 +9,10 @@ import engine.map.MapPlayer;
 import engine.map.interfaces.IMutableMapUnit;
 
 /**
+ * Defines how the AI choses it's next target 
  * @author Bilal Hussain
  */
-public abstract class AbstractTargetOrdering implements Comparator<IMutableMapUnit> {
+public abstract class AbstractAIBehaviour implements Comparator<IMutableMapUnit> {
 
 	protected transient Map map;
 	protected transient AIPlayer ai;
@@ -19,9 +20,9 @@ public abstract class AbstractTargetOrdering implements Comparator<IMutableMapUn
 	
 	// If true negate the result of the Comparator
 	protected boolean negated;
-	public AbstractTargetOrdering(){}
+	public AbstractAIBehaviour(){}
 	
-	public AbstractTargetOrdering(Map map, AIPlayer ai, MapPlayer player) {
+	public AbstractAIBehaviour(Map map, AIPlayer ai, MapPlayer player) {
 		this.map = map;
 		this.ai = ai;
 		this.player = player;

@@ -2,34 +2,30 @@ package engine.unit;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import engine.map.ai.AbstractTargetOrdering;
-import engine.map.ai.LowestHp;
+import engine.map.ai.AbstractAIBehaviour;
 
 /**
+ * Ai Unit has  
  * @author Bilal Hussain
  */
 @XStreamAlias("aiUnit")
 public class AiUnit extends Unit {
 
-	private AbstractTargetOrdering ordering;
+	private AbstractAIBehaviour ordering;
 
-	/** @category Generated */
 	public AiUnit() {
 		super();
 	}
 
-	/** @category Generated */
 	public AiUnit(IMutableUnit u) {
 		super(u);
 	}
 
-	/** @category Generated */
-	public AbstractTargetOrdering getOrdering() {
+	public AbstractAIBehaviour getOrdering() {
 		return ordering;
 	}
 
-	/** @category Generated */
-	public void setOrdering(AbstractTargetOrdering ordering) {
+	public void setOrdering(AbstractAIBehaviour ordering) {
 		this.ordering = ordering;
 	}
 

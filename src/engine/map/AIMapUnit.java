@@ -5,7 +5,7 @@ import java.util.UUID;
 import common.interfaces.ILocation;
 
 import engine.items.RangedWeapon;
-import engine.map.ai.AbstractTargetOrdering;
+import engine.map.ai.AbstractAIBehaviour;
 import engine.unit.AiUnit;
 import engine.unit.IMutableUnit;
 
@@ -24,7 +24,7 @@ public class AIMapUnit extends MapUnit<AiUnit> {
 	}
 
 	/** @category Generated */
-	public AbstractTargetOrdering getOrdering() {
+	public AbstractAIBehaviour getOrdering() {
 		return unit.getOrdering();
 	}
 	

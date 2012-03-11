@@ -10,7 +10,7 @@ import common.Location;
 import common.LocationInfo;
 import common.interfaces.ILocation;
 
-import engine.map.ai.AbstractTargetOrdering;
+import engine.map.ai.AbstractAIBehaviour;
 import engine.map.ai.LowestHp;
 import engine.map.interfaces.IMutableMapUnit;
 /**
@@ -23,7 +23,7 @@ public class AIPlayer extends MapPlayer {
 	private MapPlayer player;
 	
 	private PriorityQueue<IMutableMapUnit> ordering;
-	private AbstractTargetOrdering         comparator;
+	private AbstractAIBehaviour         comparator;
 	
 	public AIPlayer(Map map, MapPlayer player){
 		this.map    = map;

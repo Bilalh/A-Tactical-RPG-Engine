@@ -14,18 +14,17 @@ import engine.map.interfaces.IMutableMapUnit;
 import engine.unit.Unit;
 
 /**
- * @author bilalh
+ * Stores data about a player
+ * @author Bilal Hussain
  */
 public class MapPlayer {
 	private static final Logger log = Logger.getLogger(MapPlayer.class);
 	protected ArrayList<IMutableMapUnit> units;
 
-	/** @category Generated */
 	public ArrayList<IMutableMapUnit> getUnits() {
 		return units;
 	}
 
-	/** @category Generated */
 	public void setUnits(ArrayList<IMutableMapUnit> units) {
 		this.units = units;
 	}

@@ -8,7 +8,8 @@ import engine.unit.IMutableUnit;
 
 
 /**
- * @author bilalh
+ * The player has a number of units.
+ * @author Bilal Hussain
  */
 public class Player {
 
@@ -22,12 +23,10 @@ public class Player {
 		units.add(u);
 	}
 
-	/** @category Generated */
 	public ArrayList<IMutableUnit> getUnits() {
 		return units;
 	}
 
-	/** @category Generated */
 	public boolean addUnits(Collection<? extends IMutableUnit> us) {
 		return units.addAll(us);
 	}

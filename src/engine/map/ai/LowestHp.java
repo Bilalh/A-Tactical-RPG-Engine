@@ -10,7 +10,7 @@ import engine.map.interfaces.IMutableMapUnit;
 /**
  * @author Bilal Hussain
  */
-public class LowestHp extends AbstractTargetOrdering {
+public class LowestHp extends AbstractAIBehaviour {
 
 	public LowestHp(){
 		super();

@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import view.util.MapActions;
 
 /**
- *  Shows a Victory/Game Over
+ * Shows a Victory/Game Over
  * @author Bilal Hussain
  */
 public class MapFinishedHandler extends MapActions {
