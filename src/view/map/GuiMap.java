@@ -844,6 +844,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 		return au;
 	}
 	
+	private void toggleTileOutlines() {
+		for (IsoTile[] tiles : field) {
+			for (IsoTile t : tiles) {
+				t.toggleOutline();
+			}
+		}
+	}
+
 	public void otherKeys(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_1:
@@ -884,9 +892,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 				log.info(mapSettings.pitch);
 				afterMapSettingsChange();
 				break;
-
-			case KeyEvent.VK_9:
-				mapController.mapWon();
+			case KeyEvent.VK_O:
+				toggleTileOutlines();
 				break;
 				
 			case KeyEvent.VK_T:{
@@ -895,6 +902,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 				displayDialog(parts);
 				break;				
 			}
+			case KeyEvent.VK_9:
+				mapController.mapWon();
+				break;
+			
 			case KeyEvent.VK_I:
 				Logf.info(log, "draw (%d,%d) selected %s", drawX, drawY, selectedTile);
 				break;

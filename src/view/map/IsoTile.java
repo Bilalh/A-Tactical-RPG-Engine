@@ -59,7 +59,7 @@ public class IsoTile {
 	protected float startHeight;
 	protected float endHeight;
 	
-	protected boolean outline    = true;
+	protected boolean outline    = false;
 	protected Color outlineColor = Color.BLACK;
 	
 	protected Polygon  top; // For mouse testing 
@@ -526,4 +526,19 @@ public class IsoTile {
 //		s += "\n" + top.getBounds();
 		return s;
 	}
+
+	/** @category Generated */
+	public boolean isOutline() {
+		return outline;
+	}
+
+	/** @category Generated */
+	public void setOutline(boolean outline) {
+		this.outline = outline;
+	}
+	
+	public void toggleOutline(){
+		this.outline = !this.outline;
+	}
+	
 }
