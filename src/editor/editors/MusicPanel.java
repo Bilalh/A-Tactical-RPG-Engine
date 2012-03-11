@@ -43,6 +43,7 @@ import editor.Editor;
 import editor.ui.TButton;
 
 /**
+ * Handles music
  * @author Bilal Hussain
  */
 public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {

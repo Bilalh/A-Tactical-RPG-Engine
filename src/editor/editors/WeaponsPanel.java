@@ -51,6 +51,7 @@ import engine.unit.Unit;
 import engine.unit.SpriteSheetData;
 
 /**
+ * Editor for weapons
  * @author Bilal Hussain
  */
 public class WeaponsPanel extends AbstactMapEditorPanel {

@@ -19,6 +19,7 @@ import engine.Engine;
 import engine.map.Map;
 
 /**
+ * Handles the overall game flow
  * @author Bilal Hussain
  */
 public class MainController extends Controller implements Observer {

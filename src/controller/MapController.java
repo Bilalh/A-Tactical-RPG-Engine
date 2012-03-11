@@ -28,6 +28,8 @@ import engine.unit.IMutableUnit;
 import engine.unit.Unit;
 
 /**
+ * Converts between the view and model objects. 
+ * Also handles map finishing 
  * @author Bilal Hussain
  */
 public class MapController extends Controller {

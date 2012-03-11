@@ -21,6 +21,7 @@ import engine.unit.AiUnit;
 import engine.unit.IMutableUnit;
 
 /**
+ * Editor for Ai units
  * @author Bilal Hussain
  */
 public class AiUnitPanel extends UnitsPanel<AiUnit> {

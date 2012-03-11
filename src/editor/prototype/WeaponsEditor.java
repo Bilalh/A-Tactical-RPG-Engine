@@ -36,7 +36,6 @@ import config.assets.AssetStore;
 import config.assets.AssetsLocations;
 import config.xml.MapSettings;
 
-import editor.editors.IWeaponListener;
 import editor.map.EditorMapPanel;
 import editor.map.others.OthersMap;
 import editor.map.others.OthersUnit;
@@ -86,13 +85,14 @@ public class WeaponsEditor extends AbstactMapEditor {
 
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");		
 		
-		String path = "defaults/Boy.xml";
+		String path = "panels/unitSprites.png";
 		
-			SpriteSheet ss = new SpriteSheet(Resources.getImage("defaults/Boy.png"), 
-					Resources.getFileAsStream(path));
+			SpriteSheet ss = new SpriteSheet(Resources.getImage(path), 
+					Resources.getFileAsStream("panels/unitSprites.xml"));
 			OthersUnit.setSpriteSheet(ss);
 		
 		Unit u  = new Unit();
+		u.setWeapon(new MeleeWeapon());
 		SpriteSheetData ui = new SpriteSheetData();
 		ui.setSpriteSheetLocation(path);
 		u.setImageData(path, ui);

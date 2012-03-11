@@ -116,21 +116,7 @@ public class UnitsPanel<E extends IMutableUnit>  extends JPanel implements IRefr
 		unitsList.setSelectedIndex(0);
 	}
 	
-	public void setCurrentUnit(E u){
-//		if (currentUnit != null){
-//			changeName();
-//			IWeapon w = (IWeapon) infoWeapon.getSelectedItem();
-//			if (w != null) changeWeapon(w);
-//			changeStrength(((Number)infoStrength.getValue()).intValue());
-//			changeDefence(((Number)infoDefence.getValue()).intValue());
-//			changeSpeed(((Number)infoSpeed.getValue()).intValue());
-//			changeMove(((Number)infoMove.getValue()).intValue());
-//			changeHp(((Number)infoHp.getValue()).intValue());
-//			changeSkills();
-//			SpriteSheetData ssd = (SpriteSheetData) infoSpriteSheet.getSelectedItem();
-//			if (ssd != null) changeUnitImages(ssd);
-//		}
-		
+	public void setCurrentUnit(E u){		
 		assert u != null;
 		
 		currentUnit = u;
