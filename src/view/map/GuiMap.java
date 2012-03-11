@@ -118,7 +118,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	// For drawing
 	private boolean drawn = false;
-	private int frameDuration = 750 * 1000000;
+	private int frameDuration = 500 * 1000000;
 	private int frameChange = 0;
 	// When there are two units on the same tile keep a referance to the 
 	// unit replaced so that it does not get lost.
@@ -499,19 +499,33 @@ public class GuiMap implements Observer, IMapRendererParent {
 		mapController.dialogFinished();
 	}
 	
+	
+	private AnimatedUnit currentUnitsRange;
+	public void showMovementRange(){
+		final AnimatedUnit u = getSelectedTile().getUnit();
+		if (u == null) return;
+		if (state == UnitState.WAITING && othersRange == null) {
+			 othersRange = highlightRange(u, TileState.OTHERS_RANGE);
+			 currentUnitsRange = u;
+		}
+	}
+	
 	// Shows the movement range/attack range of other units.
 	Collection<? extends ILocation> othersRange;
 	void tileSelected() {
-		if (othersRange != null) return;
-
 		IsoTile selected = getSelectedTile();
 		final AnimatedUnit u = getSelectedTile().getUnit();
-
-		if (u != currentUnit && state == UnitState.WAITING && othersRange == null) {
-			if (u != null) othersRange = highlightRange(u, TileState.OTHERS_RANGE);
+		
+		if (othersRange != null){
+			if (currentUnit != u) return;
+			waitingCancel();
+		}
+		
+		if (u != currentUnit){
+			showMovementRange();
 			return;
 		}
-
+		
 		switch (state) {
 			case WAITING:
 				Logf.info(log, "exec: %s", state);

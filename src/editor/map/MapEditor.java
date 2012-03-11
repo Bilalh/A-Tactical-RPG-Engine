@@ -436,7 +436,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		
         
         toMapUnit = new HashMap<UUID, AnimatedUnit>();
-		spritesTabs.addTab("Enemies",   emenemiesPanel =createUnitsPanel());
+		spritesTabs.addTab("Enemies",   emenemiesPanel = createUnitsPanel());
 		for (IMutableUnit u : map.getEnemies().getUnits()) {
 			unitsListModel.addElement(u);
 			AnimatedUnit m = new AnimatedUnit(-1,-1, u);
@@ -483,13 +483,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 //	private JSpinner   infoMp;
 	private JLabel     unitLocation;
 	
-	private LayoutManager createLayout() {
-		return new MigLayout("wrap 10");
-	}
-
-	
 	private JPanel createUnitsPanel(){
-		JPanel p =  new JPanel(createLayout());
+		JPanel p =  new JPanel(new MigLayout("wrap 10"));
 		p.add(new JLabel("Name:"));
 		p.add((unitName = new JTextField(15)), "span, growx");
 		unitName.setEnabled(false);

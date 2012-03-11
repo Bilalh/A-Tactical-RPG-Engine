@@ -52,12 +52,16 @@ public class MapPanel extends JPanel implements Runnable {
 
 	private GuiMap map;
 
-	public MapPanel(MapController mapController, long period) {
+	int width, height;
+	
+	public MapPanel(MapController mapController, long period, int width, int height) {
 		this.period = period;
-
+		this.width  = width;
+		this.height = height;
+		
 		setDoubleBuffered(false);
 		setBackground(Color.black);
-		setSize(Gui.WIDTH, Gui.HEIGHT);
+		setSize(width, height);
 		setPreferredSize(new Dimension(getWidth(), getHeight()));
 		setIgnoreRepaint(true);
 		setFocusable(true);
@@ -66,12 +70,6 @@ public class MapPanel extends JPanel implements Runnable {
 		this.map = new GuiMap(mapController, this);
 		this.addMouseListener(map.getMouseListener());
 		this.addMouseMotionListener(map.getMouseMotionListener());
-		// this.addComponentListener(new ComponentAdapter() {
-		// @Override
-		// public void componentResized(ComponentEvent e) {
-		// }
-		//
-		// });
 
 		this.addKeyListener(new KeyAdapter() {
 			
@@ -122,6 +120,8 @@ public class MapPanel extends JPanel implements Runnable {
 					case KeyEvent.VK_S:
 						handler.keyOther2();
 						break;
+					case KeyEvent.VK_C:
+						handler.keyOther3();
 					default:
 						map.otherKeys(e);
 						break;
@@ -140,14 +140,13 @@ public class MapPanel extends JPanel implements Runnable {
 		long excess = 0L;
 
 		before = System.nanoTime();
-		buffer = createImage(Gui.WIDTH, Gui.HEIGHT);
+		buffer = createImage(width, height);
 		map.makeImageBuffer();
 
 		running = true;
 
 		long realOld = System.nanoTime();
 		while (running) {
-			gameUpdate();
 			long temp = System.nanoTime();
 			render(temp - realOld);
 			realOld = temp;
@@ -183,7 +182,6 @@ public class MapPanel extends JPanel implements Runnable {
 			int skips = 0;
 			while ((excess > period) && (skips < MAX_FRAME_SKIPS)) {
 				excess -= period;
-				gameUpdate(); // update state but don't render
 				skips++;
 			}
 		}
@@ -207,7 +205,6 @@ public class MapPanel extends JPanel implements Runnable {
 	}
 
 	private void render(long timeDiff) {
-
 		assert buffer != null : "image buffer null";
 		bg = buffer.getGraphics();
 
@@ -238,19 +235,6 @@ public class MapPanel extends JPanel implements Runnable {
 		// Fix for some linux systems.
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
-	}
-
-	// TODO use?
-	private void gameUpdate() {
-		if (!isPaused && !gameOver) {
-		}
-	}
-
-	/** @category unused**/
-	void resizeMap(int width, int height) {
-		setPreferredSize(new Dimension(width, height));
-		setSize(width, height);
-		buffer = createImage(width, height);
 	}
 
 }

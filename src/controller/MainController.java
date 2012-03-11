@@ -74,7 +74,7 @@ public class MainController extends Controller implements Observer {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				gui.setCurrentPanel(new MapPanel(next, period * 1000000L));
+				gui.setCurrentPanel(new MapPanel(next, period * 1000000L,gui.getMapWidth(), gui.getMapHeight()));
 			}
 		});
 

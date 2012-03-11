@@ -14,4 +14,5 @@ public interface IActions {
 	
 	void keyOther1();
 	void keyOther2();
+	void keyOther3();
 }

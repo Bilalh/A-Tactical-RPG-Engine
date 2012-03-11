@@ -139,5 +139,12 @@ public  class Movement extends MapActions{
 			map.showAttackRange();
 		}
 	}
+
+	@Override
+	public void keyOther3() {
+		if (map.getState() == UnitState.WAITING){
+			map.showMovementRange();
+		}
+	}
 	
 }

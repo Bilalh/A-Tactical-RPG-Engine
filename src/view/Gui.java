@@ -36,9 +36,8 @@ import engine.Engine;
 public class Gui {
 	private static final Logger log = Logger.getLogger(Gui.class);
 
-
-	public static int WIDTH;
-	public static int HEIGHT;
+	private int mapWidth;
+	private int mapHeight;
 
 	private MainController mainController;
 
@@ -53,14 +52,14 @@ public class Gui {
 	
 	public Gui(int width, int height, MainController mainController) {
 		log.info("Gui Creating");
-		WIDTH  = width;
-		HEIGHT = height;
+		this.setMapWidth(width);
+		this.setMapHeight(height);
 
 		this.mainController = mainController;
 		initialize();
 		musicThread.start();
 		MapController mapController = mainController.nextMap();
-		setCurrentPanel(new MapPanel(mapController, period * 1000000L));
+		setCurrentPanel(new MapPanel(mapController, period * 1000000L, width, height));
 	}
 
 	public Gui(MainController mainController) {
@@ -71,7 +70,7 @@ public class Gui {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setLayout(new BorderLayout());
-		frame.setBounds(100, 100, WIDTH, HEIGHT);
+		frame.setBounds(100, 100, getMapWidth(), getMapHeight());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -85,7 +84,7 @@ public class Gui {
 		current = p;
 		
 		// FIXME mac only?
-		current.setBounds(0, -22, WIDTH, HEIGHT);
+		current.setBounds(0, -22, getMapWidth(), getMapHeight());
 		Rectangle b = current.getBounds();
 		
 				
@@ -120,6 +119,22 @@ public class Gui {
 
 	public Component getFrame() {
 		return frame;
+	}
+
+	public int getMapWidth() {
+		return mapWidth;
+	}
+
+	public void setMapWidth(int mapWidth) {
+		this.mapWidth = mapWidth;
+	}
+
+	public int getMapHeight() {
+		return mapHeight;
+	}
+
+	public void setMapHeight(int mapHeight) {
+		this.mapHeight = mapHeight;
 	}
 	
 }

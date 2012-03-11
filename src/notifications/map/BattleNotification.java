@@ -11,6 +11,7 @@ import engine.map.Battle;
 import engine.map.BattleResult;
 
 /**
+ * 
  * @author Bilal Hussain
  */
 public class BattleNotification implements IMapNotification {
