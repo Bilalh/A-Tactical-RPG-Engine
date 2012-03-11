@@ -811,7 +811,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	
 		Config.savePreferences(m, savePath);
 		Config.savePreferences(map.getTileMapping(), m.getMapData().getTileMappingLocation());
-		Config.savePreferences(map.getEnemies(), m.getMapData().getEnemiesLocation());
+		Config.savePreferences(map.getEnemies(),     m.getMapData().getEnemiesLocation());
+		Config.savePreferences(map.getConditions(),  m.getMapData().getConditionsLocation());
 
 		log.info("Saved as " + savePath);
 	}
