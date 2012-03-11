@@ -200,11 +200,16 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	}
 
+	/**
+	 * Makes the buffer to draw the map
+	 */
 	public void makeImageBuffer() {
 		mapBuffer = parent.createImage(bufferWidth, bufferHeight);
 	}
 
-	// renders the map
+	/**
+	 * renderers the map
+	 */
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 
@@ -302,6 +307,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 		n.process(this);
 	}
 
+	/**
+	 * Places the units on the map
+	 */
 	public void chooseUnits(ArrayList<? extends IUnit> allPlayerUnits, ArrayList<? extends IMapUnit> allAiUnits) {
 		assetNonNull(allPlayerUnits, allAiUnits);
 
@@ -348,6 +356,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	 * Finds vaild locations for the player's units and place the units on these locations.
 	 */
 	private void setDefaultLocations(Location start, ArrayList<? extends IUnit> allPlayerUnits, HashMap<IUnit, Location> selectedPostions) {
+		start.translate(0, -1);
 		for (IUnit u : allPlayerUnits) {
 			assert u != null;
 			do {
@@ -369,22 +378,32 @@ public class GuiMap implements Observer, IMapRendererParent {
 		field[p.x][p.y].setUnit(au);
 	}
 	
+	/**
+	 * Set the chosen units
+	 */
 	public void unitsChoosen(ArrayList<IMapUnit> units) {
 		for (IMapUnit u : units) {
 			field[u.getGridX()][u.getGridY()].getUnit().setMapUnit(u);
 		}
 	}
 
+	/**
+	 * When its a unit's turn
+	 */
 	public void unitsTurn(IMapUnit unit) {
 		currentUnit = getTile(unit.getLocation()).getUnit();
 		assert currentUnit != null;
 		infoDisplay.setCurrentUnit(currentUnit);
 		
+		//TODO check if ai
 		changeState(UnitState.WAITING);
 		setSelectedTile(currentUnit.getLocation());
 //		scrollToLocation(currentUnit.getLocation());
 	}
 
+	/**
+	 * Start the movement animation
+	 */
 	public void unitMoved(final IMapUnit u, Collection<LocationInfo> path) {
 		assert u    != null;
 		assert path != null;
@@ -424,6 +443,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 
 
+	/**
+	 * Shows a battle between the specifed units 
+	 */
 	public void unitsBattle(final IBattleInfo battleInfo) {
 		log.info(battleInfo);
 		
