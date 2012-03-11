@@ -63,7 +63,6 @@ public class IsoTile {
 	protected Location fieldLocation;
 
 	protected TileState state;
-	// TODO use enumSet?
 	protected boolean selected = false;
 
 	protected AnimatedUnit unit;
@@ -162,14 +161,11 @@ public class IsoTile {
 		return ResourceManager.instance().getTile(tileName,horizontal,vertical);
 	}
 	
+	/**
+	 * Return true if p is contained in this tile 
+	 */
 	public boolean contains(Point p) {
 		return top != null && top.contains(p);
-	}
-
-	public Point calculateCentrePoint(Point p) {
-		return new Point(
-				p.x,
-				p.y + vertical / 2 - (int)(finalHeight*height));
 	}
 
 	public Point calculateCentrePoint(int x, int y) {
