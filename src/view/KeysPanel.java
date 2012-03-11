@@ -31,6 +31,7 @@ public class KeysPanel extends JFrame {
 			new KeyMapping(",", "Decrease map pitch"),
 			new KeyMapping(".", "Increase map pitch"),
 			new KeyMapping("l", "Toggle game log"),
+			new KeyMapping("{ }","Sroll the game log up/down"),
 			new KeyMapping("h", "Show this Key Mapping"),
 
 	};
@@ -47,7 +48,7 @@ public class KeysPanel extends JFrame {
 	
 	public KeysPanel() {
 		setContentPane(createMainPane());
-		setSize(320, 480);
+		setSize(320, 500);
 		setTitle("Key Mapping");
 		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
