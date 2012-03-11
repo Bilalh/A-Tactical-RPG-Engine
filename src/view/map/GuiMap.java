@@ -78,6 +78,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private Menu menu        = new Menu();
 	private GuiDialog dialog = new GuiDialog(0, 0);
 	
+	// input handlers
 	final MenuInput menuInput            = new MenuInput(this, menu);
 	final DialogHandler dialogHandler    = new DialogHandler(this, dialog);
 	final UnitInfoDisplay infoDisplay    = new UnitInfoDisplay();
@@ -151,7 +152,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		drawX = (int) (Math.max(multiplier-1, 0) * s.width)/2;
 //		drawY = (int) (Math.max(multiplier-1, 0) * s.height)/2;
-		System.out.printf("(%d,%d)\n", drawX, drawY);
 		
 		currentAction = getActionHandler(ActionsEnum.MOVEMENT);
 		MousePoxy     = new MousePoxy();
@@ -159,15 +159,15 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		dialog.setWidth(parent.getWidth());
 		dialog.setHeight(75);
+		// Set up state machine
 		UnitState.setMap(this);
 
 		// Load the tiles and items images
 		ResourceManager.instance().loadTileSheetFromResources(mapController.getTileSheetLocation());
 		ResourceManager.instance().loadTextureSheetFromResources(mapController.getTexturesLocation());
-		
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");
 
-		
+		// create tiles
 		for (int i = 0; i < fieldWidth; i++) {
 			for (int j = 0; j < fieldHeight; j++) {
 				TileImageData d = mapController.getTileImageData(i, j);
@@ -190,6 +190,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		mapController.addMapObserver(this);
 		mapController.startMap();
 
+		// Start music
 		try {
 			Gui.getMusicThread().replaceMusic(new Music(mapController.getMusic().getBackgroundId()));
 			Gui.getMusicThread().pause();
@@ -197,13 +198,13 @@ public class GuiMap implements Observer, IMapRendererParent {
 			e.printStackTrace();
 		}
 
-		// setActionHandler(ActionsEnum.MENU);
 	}
 
 	public void makeImageBuffer() {
 		mapBuffer = parent.createImage(bufferWidth, bufferHeight);
 	}
 
+	// renders the map
 	public void draw(Graphics _g, long timeDiff, int width, int height) {
 		Graphics g = mapBuffer.getGraphics();
 
@@ -220,8 +221,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 			g.setColor(Color.BLUE.brighter());
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			setDrawn(mapRenderer.draw(g, width, height));
-			// Logf.trace(log, "%s %s %s %s %s %s %s %s %s %s ",bufferWidth,bufferHeight, 0, 0, width, height, drawX, drawY, drawX + width,
-			// drawY + height);
 		}
 
 		_g.drawImage(mapBuffer, 0, 0, width, height, drawX, drawY, drawX + width, drawY + height, null);
@@ -534,6 +533,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	}
 
+	// Removes any highlight ranges
 	void waitingCancel() {
 		if (othersRange != null) {
 			removeRange(othersRange);
@@ -592,7 +592,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 		mapRenderer.rotateMap();
 
 		// Fixes the way the units faces.
-
 		for (AnimatedUnit u : plunits) {
 			translateDirectionOnRotation(u);
 		}
