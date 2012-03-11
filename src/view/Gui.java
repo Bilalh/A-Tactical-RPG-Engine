@@ -36,32 +36,38 @@ import engine.Engine;
 public class Gui {
 	private static final Logger log = Logger.getLogger(Gui.class);
 
-	private int mapWidth;
-	private int mapHeight;
-
 	private MainController mainController;
 
 	private JFrame frame;
-	private MapPanel current;
+	private MapPanel currentPanel;
 
 	private int DEFAULT_FPS = 30;
 	private long period = (long) 1000.0 / DEFAULT_FPS;
-	private static IConsole debugConsole = new Console();
+	
+	private static IConsole console = new Console();
+	private static boolean showConsole = false;
 
+	private static KeysPanel keysPanel;
+	
 	private static MusicThread musicThread = new MusicThread();
 	
-	private KeysPanel keysPanel;
+	private int mapWidth;
+	private int mapHeight;
+	
 	
 	public Gui(int width, int height, MainController mainController) {
 		log.info("Gui Creating");
 		this.setMapWidth(width);
 		this.setMapHeight(height);
 		this.mainController = mainController;
+		
 		initialize();
 		musicThread.start();
-		keysPanel = new KeysPanel();
+		
 		MapController mapController = mainController.nextMap();
 		setCurrentPanel(new MapPanel(mapController, period * 1000000L, width, height));
+
+		keysPanel = new KeysPanel();
 		keysPanel.setVisible(true);
 		keysPanel.setLocation(frame.getX()+frame.getWidth(), frame.getY());
 	}
@@ -80,41 +86,45 @@ public class Gui {
 
 	public void setCurrentPanel(MapPanel p) {
 		assert p != null : "panel null";
-		if (current != null) {
-			current.finished();
-			frame.remove(current);
+		if (currentPanel != null) {
+			currentPanel.finished();
+			frame.remove(currentPanel);
 		}
 		log.info("Setting main panel to " + p);
-		current = p;
+		currentPanel = p;
 		
 		// FIXME mac only?
-		current.setBounds(0, -22, getMapWidth(), getMapHeight());
-		Rectangle b = current.getBounds();
+		currentPanel.setBounds(0, -22, getMapWidth(), getMapHeight());
+		Rectangle b = currentPanel.getBounds();
 		
 				
-		frame.add(current);
+		frame.add(currentPanel);
 		frame.invalidate();
 		frame.repaint();
 		p.setFocusable(true);
 		p.requestFocus();
 	}
 
+	public static void showKeyMapping(){
+		if (!keysPanel.isVisible()){
+			keysPanel.setVisible(true);
+		}
+	}
+	
 	public void setVisible(boolean b) {
 		frame.setVisible(b);
 	}
 
 	public static IConsole console() {
-		return debugConsole;
+		return console;
 	}
 
-	private static boolean showDebugConsole = false;
-
-	public static boolean showDebugConsole() {
-		return showDebugConsole;
+	public static boolean showConsole() {
+		return showConsole;
 	}
 
-	public static void toggleDebugConsole() {
-		showDebugConsole = !showDebugConsole;
+	public static void toggleConsole() {
+		showConsole = !showConsole;
 	}
 
 	public static MusicThread getMusicThread() {

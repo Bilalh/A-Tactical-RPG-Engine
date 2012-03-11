@@ -46,7 +46,7 @@ public class UnitInfoDisplay {
 
 		AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
 		g.setComposite(alphaComposite);
-		g.setColor(Color.green);
+		g.setColor(unit.isAI() ? Color.ORANGE : Color.GREEN);
 		g.fill(area);
 
 		g.setComposite(oldC);

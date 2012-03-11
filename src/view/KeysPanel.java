@@ -19,18 +19,19 @@ public class KeysPanel extends JFrame {
 
 	KeyMapping[] keys = new KeyMapping[] {
 			new KeyMapping("Arrow Keys", "Movement"),
-			new KeyMapping("X", "Comfirm"),
-			new KeyMapping("Z", "Cancel"),
-			new KeyMapping("S", "Skip Dialog"),
-			new KeyMapping("R", "Rotate Map"),
-			new KeyMapping("M", "Toggle Music"),
+			new KeyMapping("x", "Comfirm/Select Unit"),
+			new KeyMapping("z", "Cancel"),
+			new KeyMapping("s", "Skip Dialog"),
+			new KeyMapping("r", "Rotate Map"),
+			new KeyMapping("m", "Toggle Music"),
 
 			new KeyMapping("-", "Zoom Out"),
 			new KeyMapping("+", "Zoom In"),
 
 			new KeyMapping(",", "Decrease map pitch"),
 			new KeyMapping(".", "Increase map pitch"),
-			new KeyMapping("?", "Show this Key Mapping"),
+			new KeyMapping("l", "Toggle game log"),
+			new KeyMapping("h", "Show this Key Mapping"),
 
 	};
 
@@ -39,9 +40,14 @@ public class KeysPanel extends JFrame {
 			new KeyMapping("C", "Shows a Unit's Movement Range"),
 	};
 
+	KeyMapping[] mouse = new KeyMapping[] {
+			new KeyMapping("Button 1", "Comfirm/Select Unit"),
+			new KeyMapping("Button 2", "Cancel"),
+	};
+	
 	public KeysPanel() {
 		setContentPane(createMainPane());
-		setSize(320, 400);
+		setSize(320, 480);
 		setTitle("Key Mapping");
 		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -53,16 +59,25 @@ public class KeysPanel extends JFrame {
 
 	JPanel createMainPane() {
 		JPanel p = new JPanel(new MigLayout("wrap 2"));
-		p.add(labelf("Key", headings), new CC().gapAfter("17px"));
+		p.add(labelf("Key", headings),   new CC().gapAfter("17px"));
 		p.add(labelf("Usage", headings), new CC().wrap("10px"));
+		
 		for (KeyMapping m : keys) {
-			p.add(new JLabel(m.key), new CC().gapAfter("17px"));
+			p.add(new JLabel(m.key),  new CC().gapAfter("17px"));
 			p.add(new JLabel(m.info), new CC().wrap("5px"));
 		}
 
-		p.add(labelf("While no unit is selected", extra), new CC().span(2).newline("20px"));
+		p.add(labelf("Mouse", extra), new CC().span(2).newline("15px"));
+
+		for (KeyMapping m : mouse) {
+			p.add(new JLabel(m.key),  new CC().gapAfter("17px"));
+			p.add(new JLabel(m.info), new CC().wrap("5px"));
+		}
+
+		
+		p.add(labelf("While no unit is selected", extra), new CC().span(2).newline("15px"));
 		for (KeyMapping m : waiting) {
-			p.add(new JLabel(m.key), new CC().gapAfter("20px"));
+			p.add(new JLabel(m.key),  new CC().gapAfter("20px"));
 			p.add(new JLabel(m.info), new CC().wrap("5px"));
 		}
 

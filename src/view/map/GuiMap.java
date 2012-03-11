@@ -500,13 +500,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	}
 	
 	
-	private AnimatedUnit currentUnitsRange;
 	public void showMovementRange(){
 		final AnimatedUnit u = getSelectedTile().getUnit();
 		if (u == null) return;
-		if (state == UnitState.WAITING && othersRange == null) {
+		if (othersRange == null) {
 			 othersRange = highlightRange(u, TileState.OTHERS_RANGE);
-			 currentUnitsRange = u;
 		}
 	}
 	
@@ -521,7 +519,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 			waitingCancel();
 		}
 		
-		if (u != currentUnit){
+		if (u != currentUnit && state == UnitState.WAITING){
 			showMovementRange();
 			return;
 		}
@@ -846,7 +844,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				afterMapSettingsChange();
 				break;
 
-			case KeyEvent.VK_L:
+			case KeyEvent.VK_9:
 				mapController.mapWon();
 				break;
 				

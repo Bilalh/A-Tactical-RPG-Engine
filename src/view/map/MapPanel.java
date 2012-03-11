@@ -77,7 +77,7 @@ public class MapPanel extends JPanel implements Runnable {
 			public void keyPressed(KeyEvent e) {
 
 				if (e.isMetaDown()) {
-					if (e.getKeyCode() == KeyEvent.VK_D) Gui.toggleDebugConsole();
+					if (e.getKeyCode() == KeyEvent.VK_D) Gui.toggleConsole();
 					return;
 				} else if (e.isShiftDown()) {
 					if (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET)
@@ -90,6 +90,9 @@ public class MapPanel extends JPanel implements Runnable {
 				log.trace("using "+ handler + " for " + e.getKeyCode() + " " + e.getKeyChar());
 				
 				switch (e.getKeyCode()) {
+					case KeyEvent.VK_L:
+						Gui.toggleConsole();
+						break;
 					case KeyEvent.VK_OPEN_BRACKET:
 						Gui.console().scrollUp();
 						break;
@@ -122,6 +125,9 @@ public class MapPanel extends JPanel implements Runnable {
 						break;
 					case KeyEvent.VK_C:
 						handler.keyOther3();
+					case KeyEvent.VK_SLASH:
+					case KeyEvent.VK_H:
+						Gui.showKeyMapping();
 					default:
 						map.otherKeys(e);
 						break;
@@ -216,7 +222,7 @@ public class MapPanel extends JPanel implements Runnable {
 
 		// Draw the Console if needed
 		
-		if (Gui.showDebugConsole()) {
+		if (Gui.showConsole()) {
 			Gui.console().setWidth(getWidth());
 			Gui.console().draw((Graphics2D) bg, 0, getHeight() - Gui.console().getHeight());
 		}
