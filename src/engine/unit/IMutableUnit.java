@@ -9,6 +9,7 @@ import engine.skills.ISkill;
 import engine.skills.RangedSkill;
 
 /**
+ * A unit has a number of attributes
  * @author Bilal Hussain
  */
 public interface IMutableUnit extends IUnit {

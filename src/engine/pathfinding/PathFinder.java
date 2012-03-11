@@ -21,6 +21,9 @@ import engine.unit.IMutableUnit;
 
 
 /**
+ * 
+ * Finds the movement range for the specifed unit as well as, 
+ * the shortest path to each point in the movement range.
  * @author Bilal Hussain
  */
 public class PathFinder implements IMovementCostProvider {

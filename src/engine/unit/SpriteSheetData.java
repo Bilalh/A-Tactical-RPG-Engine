@@ -16,6 +16,7 @@ import common.interfaces.Identifiable;
 import config.IPreference;
 
 /**
+ * Stores data about a spritesheet
  * @author Bilal Hussain
  */
 @XStreamAlias("unitImages")

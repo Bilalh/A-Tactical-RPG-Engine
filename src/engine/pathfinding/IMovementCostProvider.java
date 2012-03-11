@@ -1,6 +1,7 @@
 package engine.pathfinding;
 
 /**
+ * Provides the movement cost between tiles
  * @author Bilal Hussain
  */
 public interface IMovementCostProvider {

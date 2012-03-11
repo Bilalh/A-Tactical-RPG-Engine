@@ -9,6 +9,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import common.Location;
 
 /**
+ * A skill that has a range about the unit
  * @author Bilal Hussain
  */
 public class RangedSkill extends AbstractSkill {

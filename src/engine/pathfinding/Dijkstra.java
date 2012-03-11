@@ -13,6 +13,7 @@ import util.Logf;
 
 
 /**
+ * Returns the min cost to all connected nodes widthin the specifed range from the specifed start location
  * @author Bilal Hussain
  */
 public class Dijkstra {
@@ -39,11 +40,16 @@ public class Dijkstra {
 		this.costProvider = costProvider;
 	}
 	
-	// Returns the min cost to all connected nodes	
+	/**
+	 * Returns the min cost to all connected nodes
+	 */
 	public LocationInfo[][] calculate(Location start) {
 		return calculate(start, 0, rows, 0, cols);
 	}
 	
+	/**
+	 * Returns the min cost to all connected nodes widthin the specifed range
+	 */
 	public LocationInfo[][] calculate(Location start, int lowerX, int upperX, int lowerY, int upperY) {
 		if (upperX <= lowerX || upperY <= lowerY || start == null ) throw new IllegalArgumentException("Invaild values");
 		

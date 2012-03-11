@@ -6,6 +6,7 @@ import common.Location;
 import common.interfaces.Identifiable;
 
 /**
+ * Inferface for a skill
  * @author Bilal Hussain
  */
 public interface ISkill extends Identifiable {
