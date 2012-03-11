@@ -13,13 +13,15 @@ import editor.Editor;
 import editor.map.MapEditor;
 
 /**
+ * Gets editor resources
  * @author Bilal Hussain
  */
-public final class Resources {
+public final class EditorResources {
 
-	private Resources() {
+	private EditorResources() {
 	}
 
+	
 	public static InputStream getFileAsStream(String filename) {
 		return Editor.class.getResourceAsStream("resources/" + filename);
 	}

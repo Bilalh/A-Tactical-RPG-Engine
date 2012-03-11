@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import com.javarichclient.icon.tango.actions.GoUpIcon;
 
 import editor.util.Prefs;
-import editor.util.Resources;
+import editor.util.EditorResources;
 
 /**
  * A floatable panel. The panel has a titlebar which displays the panel title plus a small button which can be used to turn the panel into a

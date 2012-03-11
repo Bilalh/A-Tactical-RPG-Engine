@@ -37,7 +37,7 @@ import editor.map.EditorSpriteSheet;
 import editor.map.MapEditor;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
-import editor.util.Resources;
+import editor.util.EditorResources;
 import engine.assets.*;
 import engine.skills.ISkill;
 import engine.unit.AiUnit;

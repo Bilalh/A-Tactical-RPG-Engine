@@ -15,7 +15,7 @@ import config.assets.UnitPlacement;
 import config.xml.SavedMap;
 import config.xml.TileImageData;
 import editor.spritesheet.MutableSprite;
-import editor.util.Resources;
+import editor.util.EditorResources;
 import engine.map.BasicMap;
 import engine.map.Tile;
 
@@ -121,5 +121,9 @@ public class EditorMap extends BasicMap {
 
 	public EditorIsoTile getGuiTile(ILocation l){
 		return guiField[l.getX()][l.getY()];
+	}
+
+	public void setStartLocation(Location location) {
+		conditions.setDefaultStartLocation(location);
 	}
 }

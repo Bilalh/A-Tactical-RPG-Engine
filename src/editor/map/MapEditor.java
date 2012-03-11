@@ -48,7 +48,7 @@ import editor.spritesheet.*;
 import editor.ui.FloatablePanel;
 import editor.ui.TButton;
 import editor.util.Prefs;
-import editor.util.Resources;
+import editor.util.EditorResources;
 import engine.map.MapUnit;
 import engine.map.Tile;
 import engine.map.interfaces.IMutableMapUnit;
@@ -65,11 +65,11 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 
 	private JFrame frame;
 
-	private AbstractButton drawButton,   drawInfoButton,  eraseButton, fillButton;
+	private AbstractButton drawButton,   drawInfoButton,  fillButton;
 	private AbstractButton eyeButton,    selectionButton, moveButton,  placeButton;
 	private final Action   zoomInAction, zoomOutAction,   zoomNormalAction;
 
-	private AbstractButton leftWallButton,  rightWallButton;
+	private AbstractButton leftWallButton,  rightWallButton, startButton;
 	
 	private MapState state = MapState.DRAW;
 
@@ -102,8 +102,9 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	// Infopanel controls 
 	private JLabel     infoLocation;
 	private JTextField infoType;
-	private JComboBox  infoOrientation = new JComboBox(Orientation.values());
-	private JSpinner   infoHeight      = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
+	private JComboBox  infoOrientation   = new JComboBox(Orientation.values());
+	private JSpinner   infoHeight        = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
+	private JLabel     infoStartLocation; 
 	
 	// For draw
 	private EditorIsoTile selectedTile;
@@ -216,7 +217,10 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		statusLabel.setText(tile.toFormatedString());
 	}
 	
-	/** @category Callback **/
+	/**
+	 * Handles the tile click based on the selected button 
+	 * @category Callback 
+	 */
 	@Override
 	public void tileClicked(EditorIsoTile tile) {
 		boolean repaint = false;
@@ -294,9 +298,17 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 				
 				break;
 			}
+			case START:{
+				if (tile.getOrientation() == Orientation.EMPTY || tile.getUnit() != null){
+					break;
+				}
+				map.setStartLocation(tile.getLocation());
+				infoStartLocation.setText(String.format("  (%s, %s)", tile.getX(), tile.getY()));
+			}
+				
 		}
 
-		//FIXME rethink this 
+		
 		if (state==MapState.SELECTION){
 			removeSelection(selection);
 			selection.clear();
@@ -461,6 +473,9 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
         statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
         statusPanel.add(statusLabel);
 		
+        Location l = map.getConditions().getDefaultStartLocation();
+		infoStartLocation.setText(String.format("  (%s, %s)", l.getX(), l.getY()));
+        
         return main;
 	}
 	
@@ -577,7 +592,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	private JPanel createInfoPanel() {
 		JPanel p = new JPanel(new MigLayout("", "[right]"));
 
-		p.add(new JLabel("General"), new CC().split().spanX().gapTop("4"));
+		p.add(new JLabel("Tile"), new CC().split().spanX().gapTop("4"));
 		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
 
 		p.add(new JLabel("Location:"), "gap 4");
@@ -623,29 +638,33 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		});
 		p.add(infoHeight, "alignx leading, span, wrap");
 		
+		p.add(new JLabel("Map"), new CC().split().spanX().gapTop("4"));
+		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
+		p.add(new JLabel("Start Location:"));
+		p.add((infoStartLocation =new JLabel("(0,0)")), new CC().alignX("leading").maxWidth("70").wrap());
+		
 		return p;
 	}
 
 	/** @category Gui **/
 	private JToolBar createSideBar() {
 		
-		ImageIcon iconMove      = Resources.getIcon("images/gimp-tool-move-22.png");
-		ImageIcon iconDraw      = Resources.getIcon("images/gimp-tool-pencil-22.png");
-		ImageIcon iconInfo      = Resources.getIcon("images/draw-brush.png");
-		ImageIcon iconErase     = Resources.getIcon("images/gimp-tool-eraser-22.png");
-		ImageIcon iconFill      = Resources.getIcon("images/gimp-tool-bucket-fill-22.png");
-		ImageIcon iconEyed      = Resources.getIcon("images/gimp-tool-color-picker-22.png");
-		ImageIcon iconSelection = Resources.getIcon("images/gimp-tool-rect-select-22.png");
-		ImageIcon iconPlaceUnit = Resources.getIcon("images/tool-smudge.png");
+		ImageIcon iconMove      = EditorResources.getIcon("images/gimp-tool-move-22.png");
+		ImageIcon iconDraw      = EditorResources.getIcon("images/gimp-tool-pencil-22.png");
+		ImageIcon iconInfo      = EditorResources.getIcon("images/draw-brush.png");
+		ImageIcon iconFill      = EditorResources.getIcon("images/gimp-tool-bucket-fill-22.png");
+		ImageIcon iconEyed      = EditorResources.getIcon("images/gimp-tool-color-picker-22.png");
+		ImageIcon iconSelection = EditorResources.getIcon("images/gimp-tool-rect-select-22.png");
+		ImageIcon iconPlaceUnit = EditorResources.getIcon("images/tool-smudge.png");
 		
-		ImageIcon iconLeft      = Resources.getIcon("images/leftWall.png");
-		ImageIcon iconRight     = Resources.getIcon("images/rightWall.png");
+		ImageIcon iconLeft      = EditorResources.getIcon("images/leftWall.png");
+		ImageIcon iconRight     = EditorResources.getIcon("images/rightWall.png");
+		ImageIcon iconStart     = EditorResources.getIcon("images/tango-start.png");
 
 		
 		drawButton     = makeToggleButton(iconDraw,  MapState.DRAW);
 		drawInfoButton = makeToggleButton(iconInfo,  MapState.DRAW_INFO);
 		
-		eraseButton    = makeToggleButton(iconErase, MapState.ERASE);
 		fillButton     = makeToggleButton(iconFill,  MapState.FILL);
 		eyeButton      = makeToggleButton(iconEyed,  MapState.EYE);
 		moveButton     = makeToggleButton(iconMove,  MapState.MOVE);
@@ -655,6 +674,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		
 		leftWallButton  = makeToggleButton(iconLeft,   MapState.LEFT_WALL);
 		rightWallButton = makeToggleButton(iconRight,  MapState.RIGHT_WALL);
+		startButton     = makeToggleButton(iconStart,  MapState.START);
 
 		
 		JToolBar toolBar = new JToolBar(SwingConstants.VERTICAL);
@@ -662,8 +682,6 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		toolBar.add(moveButton);
 		toolBar.add(drawButton);
 		toolBar.add(drawInfoButton);
-		//TODO  erase button needed?
-//		toolBar.add(eraseButton); 
 		toolBar.add(fillButton);
 		toolBar.add(eyeButton);
 		toolBar.add(selectionButton);
@@ -674,6 +692,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		
 		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
 		toolBar.add(placeButton);
+		toolBar.add(startButton);
+
 		
 		toolBar.add(Box.createRigidArea(new Dimension(0, 5)));
 		toolBar.add(new TButton(zoomInAction));
@@ -847,7 +867,6 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		state = s;
 		drawButton.setSelected(state == MapState.DRAW);
 		drawInfoButton.setSelected(state == MapState.DRAW_INFO);
-		eraseButton.setSelected(state == MapState.ERASE);
 		fillButton.setSelected(state == MapState.FILL);
 		eyeButton.setSelected(state == MapState.EYE);
 		selectionButton.setSelected(state == MapState.SELECTION);
@@ -855,6 +874,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		placeButton.setSelected(state == MapState.PLACE);
 		leftWallButton.setSelected(state== MapState.LEFT_WALL);
 		rightWallButton.setSelected(state== MapState.RIGHT_WALL);
+		startButton.setSelected(state== MapState.START);
+
 	}
 
 	
@@ -864,7 +885,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		public ZoomInAction() {
 			putValue(SHORT_DESCRIPTION, "Zoom In");
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
-			putValue(SMALL_ICON, Resources.getIcon("images/gnome-zoom-in.png"));
+			putValue(SMALL_ICON, EditorResources.getIcon("images/gnome-zoom-in.png"));
 		}
 
 		@Override
@@ -881,8 +902,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		public ZoomOutAction() {
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control MINUS"));
 			putValue(SHORT_DESCRIPTION, "Zoom out");
-			putValue(LARGE_ICON_KEY, Resources.getIcon("images/gnome-zoom-out.png"));
-			putValue(SMALL_ICON, Resources.getIcon("images/gnome-zoom-out.png"));
+			putValue(LARGE_ICON_KEY, EditorResources.getIcon("images/gnome-zoom-out.png"));
+			putValue(SMALL_ICON, EditorResources.getIcon("images/gnome-zoom-out.png"));
 		}
 
 		@Override

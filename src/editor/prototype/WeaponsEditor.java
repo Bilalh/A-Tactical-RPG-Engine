@@ -41,7 +41,7 @@ import editor.map.others.OthersMap;
 import editor.map.others.OthersUnit;
 import editor.spritesheet.MutableSprite;
 import editor.util.Prefs;
-import editor.util.Resources;
+import editor.util.EditorResources;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
 import engine.items.Spear;
@@ -87,8 +87,8 @@ public class WeaponsEditor extends AbstactMapEditor {
 		
 		String path = "panels/unitSprites.png";
 		
-			SpriteSheet ss = new SpriteSheet(Resources.getImage(path), 
-					Resources.getFileAsStream("panels/unitSprites.xml"));
+			SpriteSheet ss = new SpriteSheet(EditorResources.getImage(path), 
+					EditorResources.getFileAsStream("panels/unitSprites.xml"));
 			OthersUnit.setSpriteSheet(ss);
 		
 		Unit u  = new Unit();

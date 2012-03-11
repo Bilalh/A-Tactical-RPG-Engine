@@ -2,7 +2,7 @@
   <uuid>572548f4-8922-4316-9128-70fc165aa3f9</uuid>
   <winCondition class="engine.map.win.DefeatAllUnitsCondition"/>
   <defaultStartLocation>
-    <x>6</x>
-    <y>6</y>
+    <x>3</x>
+    <y>1</y>
   </defaultStartLocation>
 </mapConditions>

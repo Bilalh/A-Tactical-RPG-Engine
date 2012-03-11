@@ -15,6 +15,7 @@ import engine.map.win.IWinCondition;
 
 /**
  * Stores all the conditions of the map.
+ * 
  * @author Bilal Hussain
  */
 @XStreamAlias("mapConditions")
@@ -24,11 +25,18 @@ public class MapConditions implements Identifiable, IPreference {
 	private IWinCondition winCondition;
 	private ArrayList<Location> vaildStartLocations;
 	private Location defaultStartLocation;
-	
-	public MapConditions(){
+
+	public MapConditions() {
 		uuid = UUID.randomUUID();
 	}
-		
+
+	private Object readResolve() {
+		if (defaultStartLocation == null){
+			defaultStartLocation = new Location(0,0);
+		}
+		return this;
+	}
+	
 	/** @category Generated */
 	public IWinCondition getWinCondition() {
 		return winCondition;
@@ -37,12 +45,6 @@ public class MapConditions implements Identifiable, IPreference {
 	/** @category Generated */
 	public void setWinCondition(IWinCondition winCondition) {
 		this.winCondition = winCondition;
-	}
-
-	/** @category Generated */
-	@Override
-	public UUID getUuid() {
-		return uuid;
 	}
 
 	/** @category Generated */
@@ -59,5 +61,16 @@ public class MapConditions implements Identifiable, IPreference {
 	public Location getDefaultStartLocation() {
 		return defaultStartLocation;
 	}
-	
+
+	/** @category Generated */
+	public void setDefaultStartLocation(Location defaultStartLocation) {
+		this.defaultStartLocation = defaultStartLocation;
+	}
+
+	/** @category Generated */
+	@Override
+	public UUID getUuid() {
+		return uuid;
+	}
+
 }

@@ -363,10 +363,15 @@ public class GuiMap implements Observer, IMapRendererParent {
 				start.translate(0, 1);
 				if (start.y >= fieldHeight) start.translate(1,0).y = 0;
 				if (start.x >= fieldWidth) return;
-			} while (getTile(start).getOrientation() == Orientation.EMPTY);
+			} while (!isVaildTile(start));
 
 			placeUnit(selectedPostions, u, start);
 		}
+	}
+	
+	private boolean isVaildTile(ILocation start){
+		IsoTile t = getTile(start);
+		return (t.getUnit() == null && t.getOrientation() != Orientation.EMPTY);
 	}
 	
 	private void placeUnit(HashMap<IUnit, Location> selectedPostions, IUnit u, Location p){

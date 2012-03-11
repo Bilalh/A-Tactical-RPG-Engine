@@ -42,7 +42,7 @@ import editor.spritesheet.MutableSprite;
 import editor.spritesheet.ReorderableJList.ReorderableListCellRenderer;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
-import editor.util.Resources;
+import editor.util.EditorResources;
 import engine.items.Around;
 import engine.items.MeleeWeapon;
 import engine.items.RangedWeapon;
@@ -95,8 +95,8 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 
 		String path = "panels/unitSprites.xml";
 		
-			SpriteSheet ss = new SpriteSheet(Resources.getImage("panels/unitSprites.png"), 
-					Resources.getFileAsStream(path));
+			SpriteSheet ss = new SpriteSheet(EditorResources.getImage("panels/unitSprites.png"), 
+					EditorResources.getFileAsStream(path));
 			OthersUnit.setSpriteSheet(ss);
 		
 		Unit u  = new Unit();

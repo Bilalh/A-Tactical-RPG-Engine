@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
-import editor.util.Resources;
+import editor.util.EditorResources;
 
 /**
  * Shows a tick next to the selected item in a JComboBox.
@@ -14,8 +14,8 @@ import editor.util.Resources;
  */
 public class TickComboBoxCellRender extends DefaultListCellRenderer {
 	private static final long serialVersionUID = -1768674558123160963L;
-	protected static Icon tick    =  Resources.getIcon("panels/icon-tick.png");
-	protected static Icon nothing =  Resources.getIcon("panels/nothing.png");
+	protected static Icon tick    =  EditorResources.getIcon("panels/icon-tick.png");
+	protected static Icon nothing =  EditorResources.getIcon("panels/nothing.png");
 	
 	class SelctionChanged implements PopupMenuListener{
 		

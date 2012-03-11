@@ -17,7 +17,7 @@ import config.xml.TileImageData;
 import config.xml.TileMapping;
 
 import editor.map.EditorIsoTile;
-import editor.util.Resources;
+import editor.util.EditorResources;
 import engine.map.BasicMap;
 import engine.map.Tile;
 
@@ -34,7 +34,7 @@ public class OthersMap extends BasicMap {
 		this.width       = width;
 		this.height      = height;
 		this.mapSettings = settings;
-			tileImage =  ImageUtil.resizeImage(Resources.getImage("panels/tile.png"), mapSettings.tileDiagonal, mapSettings.tileDiagonal/2);
+			tileImage =  ImageUtil.resizeImage(EditorResources.getImage("panels/tile.png"), mapSettings.tileDiagonal, mapSettings.tileDiagonal/2);
 			OthersIsoTile.setTileImage(tileImage);
 		loadMap("none");
 	}
