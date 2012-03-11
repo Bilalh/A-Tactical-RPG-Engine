@@ -45,7 +45,7 @@ public class OthersMap extends BasicMap {
 		field = new Tile[width][height];
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				field[i][j] = new Tile(1, 1, "none", Orientation.UP_TO_EAST);
+				field[i][j] = new Tile(1, 1, "none", Orientation.TO_EAST);
 			}
 		}
 		tileMapping = new TileMapping("none", new HashMap<String, TileImageData>());

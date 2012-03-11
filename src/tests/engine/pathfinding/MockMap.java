@@ -13,7 +13,7 @@ public class MockMap extends MapStub {
 		tiles = new Tile[costs.length][costs[0].length];
 		for (int i = 0; i < costs.length; i++) {
 			for (int j = 0; j < costs.length; j++) {
-				tiles[i][j] = new Tile(costs[i][j],costs[i][j],"grass",Orientation.UP_TO_EAST);
+				tiles[i][j] = new Tile(costs[i][j],costs[i][j],"grass",Orientation.TO_EAST);
 			}
 		}
 		System.out.println(ArrayUtil.numberedArray2d(costs));

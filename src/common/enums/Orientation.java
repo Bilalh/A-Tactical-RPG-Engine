@@ -1,10 +1,10 @@
 package common.enums;
 
 public enum Orientation {
-	UP_TO_NORTH("North"), 
-	UP_TO_EAST("East"), 
-	UP_TO_SOUTH("South"),
-	UP_TO_WEST("West"), 
+	TO_NORTH("North"), 
+	TO_EAST("East"), 
+	TO_SOUTH("South"),
+	TO_WEST("West"), 
 	EMPTY("Empty");
 
 	public final String description;

@@ -341,7 +341,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 						1,
 						1,
 						i, j,
-						Orientation.UP_TO_EAST,
+						Orientation.TO_EAST,
 						textureName,
 						textureName);
 			}

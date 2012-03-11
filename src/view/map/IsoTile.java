@@ -140,13 +140,13 @@ public class IsoTile {
 		
 		switch (orientation){
 			case EMPTY:
-			case UP_TO_EAST:
-			case UP_TO_NORTH:
+			case TO_EAST:
+			case TO_NORTH:
 				h1 =  (int) (finalHeight * startHeight);
 				h2 =  (int) (finalHeight * endHeight);
 				break;
-			case UP_TO_WEST:
-			case UP_TO_SOUTH:
+			case TO_WEST:
+			case TO_SOUTH:
 				h1 =  (int) (finalHeight * endHeight);
 				h2 =  (int) (finalHeight * startHeight);
 				break;
@@ -187,12 +187,12 @@ public class IsoTile {
 	public void draw(int x, int y, Graphics g) {
 		assert orientation != null: orientation + " is null";
 		switch (orientation) {
-			case UP_TO_NORTH:
-			case UP_TO_SOUTH:
+			case TO_NORTH:
+			case TO_SOUTH:
 				drawNorthSouth(x, y, g, false);
 				break;
-			case UP_TO_EAST:
-			case UP_TO_WEST:
+			case TO_EAST:
+			case TO_WEST:
 				drawEastWest(x, y, g, false, false);
 				break;
 			case EMPTY:
@@ -362,9 +362,9 @@ public class IsoTile {
 	 */
 	public void drawNorthSouth(int x, int y, Graphics g, boolean toponly) {
 
-		int h1 = orientation == Orientation.UP_TO_NORTH ? (int) (finalHeight * startHeight)
+		int h1 = orientation == Orientation.TO_NORTH ? (int) (finalHeight * startHeight)
 				: (int) (finalHeight * endHeight);
-		int h2 = orientation == UP_TO_NORTH ? (int) (finalHeight * endHeight)
+		int h2 = orientation == TO_NORTH ? (int) (finalHeight * endHeight)
 				: (int) (finalHeight * startHeight);
 
 		Color oldColor = g.getColor();

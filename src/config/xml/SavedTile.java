@@ -30,7 +30,7 @@ public class SavedTile {
 	
 	// to give default values
 	private Object readResolve() {
-		if (orientation == null)  orientation = Orientation.UP_TO_EAST;
+		if (orientation == null)  orientation = Orientation.TO_EAST;
 		if (startingHeight == 0 && height != 0) startingHeight = height;
 		return this;
 	}
