@@ -14,7 +14,7 @@ import net.miginfocom.swing.MigLayout;
  * Shows what each key does
  * @author Bilal Hussain
  */
-public class Keys extends JFrame {
+public class KeysPanel extends JFrame {
 	private static final long serialVersionUID = 1853159466655061L;
 
 	KeyMapping[] keys = new KeyMapping[] {
@@ -39,7 +39,7 @@ public class Keys extends JFrame {
 			new KeyMapping("C", "Shows a Unit's Movement Range"),
 	};
 
-	public Keys() {
+	public KeysPanel() {
 		setContentPane(createMainPane());
 		setSize(320, 400);
 		setTitle("Key Mapping");
@@ -76,7 +76,7 @@ public class Keys extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Keys().setVisible(true);
+		new KeysPanel().setVisible(true);
 	}
 
 	class KeyMapping {

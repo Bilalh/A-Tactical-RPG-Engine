@@ -50,16 +50,20 @@ public class Gui {
 
 	private static MusicThread musicThread = new MusicThread();
 	
+	private KeysPanel keysPanel;
+	
 	public Gui(int width, int height, MainController mainController) {
 		log.info("Gui Creating");
 		this.setMapWidth(width);
 		this.setMapHeight(height);
-
 		this.mainController = mainController;
 		initialize();
 		musicThread.start();
+		keysPanel = new KeysPanel();
 		MapController mapController = mainController.nextMap();
 		setCurrentPanel(new MapPanel(mapController, period * 1000000L, width, height));
+		keysPanel.setVisible(true);
+		keysPanel.setLocation(frame.getX()+frame.getWidth(), frame.getY());
 	}
 
 	public Gui(MainController mainController) {
