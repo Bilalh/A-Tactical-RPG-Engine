@@ -406,7 +406,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				public void run() {
 					finishedMoving(movingUnit);
 				}
-			}, 1000);
+			}, 1500);
 		}
 
 		log.debug(u);
@@ -438,11 +438,14 @@ public class GuiMap implements Observer, IMapRendererParent {
 			@Override
 			public  void run() {
 				int playLose = 0, playGain = 0;
+				boolean diedd = false;
+				
 				for (IBattleResult battle : battleInfo.getResults()) {
 					AnimatedUnit au =  unitMapping.get(battle.getTarget().getUuid());
 					au.removeDamage();
 					
 					if (battle.isTargetDead()){
+						diedd = true;
 						Logf.info(log, "Died:%s", battle.getTarget());
 						AnimatedUnit aau =  unitMapping.remove(battle.getTarget().getUuid());
 						died.put(aau.getUnit().getUuid(), aau);
@@ -467,12 +470,19 @@ public class GuiMap implements Observer, IMapRendererParent {
 					}
 				}
 				
+				if (diedd){
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// FIXME catch block in run
+						e.printStackTrace();
+					}	
+				}
 				changeState(UnitState.FINISHED);
 			}
-		}, 1300);
+		}, 1500);
 		
 		setDrawn(false);
-		//FIXME change
 		Gui.getMusicThread().playSound(mapController.getMusic().getAttackSound());
 	}
 
@@ -535,6 +545,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 				Logf.info(log, "exec: %s", state);
 				nextState = state.exec();
 				break;
+
+			case SHOW_ATTACK_TARGETS_QUICK:
 			case SHOW_ATTACK_TARGETS:
 			case SHOW_SKILL_TARGETS:
 				Logf.info(log, "exec: %s", state);

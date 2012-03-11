@@ -16,6 +16,7 @@ import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
 
+import org.apache.log4j.Logger;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.AudioHeader;
@@ -47,6 +48,7 @@ import editor.ui.TButton;
  * @author Bilal Hussain
  */
 public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
+	private static final Logger log = Logger.getLogger(MusicPanel.class);
 	private static final long serialVersionUID = -8134784428673033659L;
 
 	protected MusicData current;
@@ -67,7 +69,7 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 	public MusicPanel(Editor editor) {
 		super(editor);
 		chooser = new JFileChooser();
-		chooser.setFileFilter(new FileNameExtensionFilter("Ogg Audio (*.ogg)", "ogg"));
+		chooser.setFileFilter(new FileNameExtensionFilter("Ogg and Wav Audio (*.ogg, *.wav)", "ogg", "wav"));
 		chooser.setMultiSelectionEnabled(true);
 		cachedInfo = new HashMap<UUID, TrackInfo>();
 	}
@@ -102,7 +104,17 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 			infoTitle.setText(  info.title  = tag.getFirst(FieldKey.TITLE));
 			
 			String track      = tag.getFirst(FieldKey.TRACK);
-			String trackTotal = tag.getFirst(FieldKey.TRACK_TOTAL);
+			
+			
+			String trackTotal = "";
+			try {
+				trackTotal = tag.getFirst(FieldKey.TRACK_TOTAL);
+			} catch (java.lang.UnsupportedOperationException e) {
+				log.debug(f.getFile().getName() + " " + e.getMessage());
+				trackTotal = "";
+			}
+			
+			f.getFile().getName();
 			if (!trackTotal.equals("")){
 				if (!track.equals("")){
 					track +=  " of " + trackTotal;

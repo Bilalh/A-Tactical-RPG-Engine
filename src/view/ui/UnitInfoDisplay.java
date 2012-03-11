@@ -34,12 +34,13 @@ public class UnitInfoDisplay implements IDisplayable {
 		float alpha = 0.65f;
 		String extra = "";
 		if (current == aunit){
-			extra = " (Current)";
+			extra = " Current";
 			alpha = 0.8f;
 		}
 		
 		String[] arr = {
-				unit.getName() + extra,
+				unit.getName(),
+				extra,
 				String.format("Lv %s Exp %s", unit.getLevel(),     unit.getExp()),
 				String.format("HP %3d/%3d",   unit.getCurrentHp(), unit.getMaxHp()),
 				
@@ -50,7 +51,7 @@ public class UnitInfoDisplay implements IDisplayable {
 		
 		RoundRectangle2D.Float area = new RoundRectangle2D.Float(drawX, drawY,
 				120,
-				10 + (arr.length+1)*20,
+				10 + (arr.length+1)*20 - (extra.equals("") ? 20 : 0),
 				10, 10);
 
 		Color old = g.getColor();
@@ -66,6 +67,7 @@ public class UnitInfoDisplay implements IDisplayable {
 
 		int sDrawY = yOffset;
 		for (String s : arr) {
+			if (s.equals("")) continue;
 			g.drawString(s, drawX + xOffset, drawY + sDrawY);
 			sDrawY +=20;
 		}

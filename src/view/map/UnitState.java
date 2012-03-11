@@ -49,7 +49,7 @@ enum UnitState {
 	
 	MENU_SELECTED {
 		private final List<MenuItem> commands = Arrays.asList(new MenuItem[]{
-				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Skill"), new MenuItem("Wait")//, new MenuItem("Cancel")
+				new MenuItem("Move"), new MenuItem("Attack"), new MenuItem("Wait")
 		});
 		
 		@Override
@@ -68,14 +68,10 @@ enum UnitState {
 					return MOVEMENT_RANGE;
 				case 1:
 					Gui.console().printf("Player's %s did not move", map.getCurrentUnit().getUnit().getName());
-					return SHOW_ATTACK_TARGETS;
+					return SHOW_ATTACK_TARGETS_QUICK;
 				case 2:
-					return MENU_SKILL;
-				case 3:
 					Gui.console().printf("Player's %s waited", map.getCurrentUnit().getUnit().getName());
 					return FINISHED;
-//				case 4:
-//					return cancel();
 				default:
 					return this;
 			}
@@ -162,6 +158,25 @@ enum UnitState {
 			return this;
 			
 		}
+	},
+	
+	SHOW_ATTACK_TARGETS_QUICK{
+		@Override
+		void stateEntered() {
+			SHOW_ATTACK_TARGETS.stateEntered();
+		}
+
+		@Override
+		UnitState exec() {
+			return SHOW_ATTACK_TARGETS.exec();
+		}
+		
+		@Override
+		UnitState cancel() {
+			SHOW_ATTACK_TARGETS.cancel();
+			return MENU_SELECTED;
+		}
+		
 	},
 	
 	SHOW_ATTACK_TARGETS {
