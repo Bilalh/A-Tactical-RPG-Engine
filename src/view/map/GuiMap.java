@@ -399,11 +399,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 		currentUnit = getTile(unit.getLocation()).getUnit();
 		assert currentUnit != null;
 		infoDisplay.setCurrentUnit(currentUnit);
-		
-		//TODO check if ai
+
 		changeState(UnitState.WAITING);
+		if (unit.isAI()) setActionHandler(ActionsEnum.NONE);
+		
 		setSelectedTile(currentUnit.getLocation());
-//		scrollToLocation(currentUnit.getLocation());
 	}
 
 	/**
