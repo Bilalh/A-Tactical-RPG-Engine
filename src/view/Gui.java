@@ -119,7 +119,7 @@ public class Gui {
 		return console;
 	}
 
-	public static boolean showConsole() {
+	public static boolean isShowConsole() {
 		return showConsole;
 	}
 
@@ -127,6 +127,10 @@ public class Gui {
 		showConsole = !showConsole;
 	}
 
+	public static void hideConsole(){
+		showConsole = false;
+	}
+	
 	public static MusicThread getMusicThread() {
 		return musicThread;
 	}

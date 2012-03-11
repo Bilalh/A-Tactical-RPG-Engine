@@ -222,7 +222,7 @@ public class MapPanel extends JPanel implements Runnable {
 
 		// Draw the Console if needed
 		
-		if (Gui.showConsole()) {
+		if (Gui.isShowConsole()) {
 			Gui.console().setWidth(getWidth());
 			Gui.console().draw((Graphics2D) bg, 0, getHeight() - Gui.console().getHeight());
 		}

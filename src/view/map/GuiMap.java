@@ -79,11 +79,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private GuiDialog dialog = new GuiDialog(0, 0);
 	
 	// input handlers
-	final MenuInput menuInput            = new MenuInput(this, menu);
-	final DialogHandler dialogHandler    = new DialogHandler(this, dialog);
-	final UnitInfoDisplay infoDisplay    = new UnitInfoDisplay();
-	final MapFinishedHandler mapFinished = new MapFinishedHandler(this);
-	final SkillMovement skillMovement    = new SkillMovement(this);
+	private final MenuInput menuInput            = new MenuInput(this, menu);
+	private final DialogHandler dialogHandler    = new DialogHandler(this, dialog);
+	private final UnitInfoDisplay infoDisplay    = new UnitInfoDisplay();
+	private final MapFinishedHandler mapFinished = new MapFinishedHandler(this);
+	private final SkillMovement skillMovement    = new SkillMovement(this);
 	
 	// The classes that with handed the input
 	private MousePoxy  MousePoxy;
@@ -378,7 +378,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 	public void unitsTurn(IMapUnit unit) {
 		currentUnit = getTile(unit.getLocation()).getUnit();
 		assert currentUnit != null;
-
+		infoDisplay.setCurrentUnit(currentUnit);
+		
 		changeState(UnitState.WAITING);
 		setSelectedTile(currentUnit.getLocation());
 //		scrollToLocation(currentUnit.getLocation());
@@ -491,6 +492,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 
 	public void displayDialog(DialogParts dialog) {
+		Gui.hideConsole();
 		dialogHandler.setDialog(dialog.sortedValues());
 	}
 	

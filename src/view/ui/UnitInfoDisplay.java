@@ -6,6 +6,7 @@ import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
 
+import view.ui.interfaces.IDisplayable;
 import view.units.AnimatedUnit;
 import view.units.GuiUnit;
 
@@ -16,18 +17,29 @@ import common.interfaces.IMapUnit;
  * 
  * @author Bilal Hussain
  */
-public class UnitInfoDisplay {
+public class UnitInfoDisplay implements IDisplayable {
 
 	private int xOffset = 5;
 	private int yOffset = 20;
 
 	private AnimatedUnit aunit;
+	private AnimatedUnit current;
 
+	@Override
 	public void draw(Graphics2D g, int drawX, int drawY) {
 		
 		IMapUnit unit= aunit.getUnit();
+		
+		Color colour = unit.isAI() ? Color.RED : Color.GREEN;
+		float alpha = 0.65f;
+		String extra = "";
+		if (current == aunit){
+			extra = " (Current)";
+			alpha = 0.8f;
+		}
+		
 		String[] arr = {
-				unit.getName(),
+				unit.getName() + extra,
 				String.format("Lv %s Exp %s", unit.getLevel(),     unit.getExp()),
 				String.format("HP %3d/%3d",   unit.getCurrentHp(), unit.getMaxHp()),
 				
@@ -44,9 +56,9 @@ public class UnitInfoDisplay {
 		Color old = g.getColor();
 		Composite oldC = g.getComposite();
 
-		AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
+		AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 		g.setComposite(alphaComposite);
-		g.setColor(unit.isAI() ? Color.ORANGE : Color.GREEN);
+		g.setColor(colour);
 		g.fill(area);
 
 		g.setComposite(oldC);
@@ -64,9 +76,12 @@ public class UnitInfoDisplay {
 		
 	}
 
-	/** @category Generated */
 	public void setUnit(AnimatedUnit aunit) {
 		this.aunit = aunit;
 	}
 
+	public void setCurrentUnit(AnimatedUnit current){
+		this.current = current;
+	}
+	
 }
