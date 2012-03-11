@@ -294,7 +294,7 @@
     <type>8-4</type>
     <height>2</height>
     <startingHeight>1</startingHeight>
-    <orientation>TO_EAST</orientation>
+    <orientation>TO_NORTH</orientation>
   </tile>
   <tile x="3" y="2">
     <type>6</type>
