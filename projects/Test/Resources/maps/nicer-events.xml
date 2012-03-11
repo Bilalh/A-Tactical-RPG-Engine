@@ -3,7 +3,7 @@
     <entry>
       <uuid>1d2db735-a6ed-4926-ab07-c524b244b09c</uuid>
       <dialogPart uuid="1d2db735-a6ed-4926-ab07-c524b244b09c">
-        <text>I never expected to meet a knight of Lodis! I will never forgive you for all that I lost 15 years ago. You burned down my town and killed my parents!!! Thankfully, I’ve acquired the skills of a soldier.</text>
+        <text>(Map2) I never expected to meet a knight of Lodis! I will never forgive you for all that I lost 15 years ago. You burned down my town and killed my parents!!! Thankfully, I’ve acquired the skills of a soldier.</text>
         <unitId>689d66a9-d1b1-4eda-9e8f-3ea0805391cb</unitId>
         <partNo>0</partNo>
       </dialogPart>
@@ -12,7 +12,6 @@
       <uuid>4eef364a-6bb1-43d3-b983-342710712e2e</uuid>
       <dialogPart uuid="4eef364a-6bb1-43d3-b983-342710712e2e">
         <text>[Both sides fight valiantly, but the superiorly-trained knights of Alphonse clear the field. Cressida kneels as she sees the light at the end of the tunnel.]</text>
-        <unitId>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</unitId>
         <partNo>4</partNo>
       </dialogPart>
     </entry>
@@ -20,7 +19,6 @@
       <uuid>4d3b0e6e-7474-4f06-adc0-5de645141714</uuid>
       <dialogPart uuid="4d3b0e6e-7474-4f06-adc0-5de645141714">
         <text>“It’s long forgotten for the victor, but we still endure the painful memories...Words can’t describe it. Does everyone in Lodis think as you do? Knowing your ancestors’ merciless deeds, don’t you feel any remorse? And to repeat the same mistakes again? The teachings of Lodis are said to be sacred, but in the end they are simply the rationalizations of the subjugator.”</text>
-        <unitId>6363fb76-c8c1-4894-9244-906035ccc1f9</unitId>
         <partNo>2</partNo>
       </dialogPart>
     </entry>
@@ -52,7 +50,7 @@
     <entry>
       <uuid>5fb0e5c4-7c5e-4602-946a-6286cd160a4a</uuid>
       <dialogPart uuid="5fb0e5c4-7c5e-4602-946a-6286cd160a4a">
-        <text>“Never forget...You can fool yourself with your rationalizations, but eventually you’ll suffer the consequences. Oh...Mother...Father...”</text>
+        <text>(Map2) “Never forget...You can fool yourself with your rationalizations, but eventually you’ll suffer the consequences. Oh...Mother...Father...”</text>
         <unitId>689d66a9-d1b1-4eda-9e8f-3ea0805391cb</unitId>
         <partNo>0</partNo>
       </dialogPart>

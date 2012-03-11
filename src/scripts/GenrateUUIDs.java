@@ -3,6 +3,7 @@ package scripts;
 import java.util.UUID;
 
 /**
+ * Genrate a number of UUIDs
  * @author Bilal Hussain
  */
 public class GenrateUUIDs {

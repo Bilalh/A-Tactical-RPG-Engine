@@ -1,3 +1,0 @@
-Use jarsplice-0.25.jar
-Add Resources inside App next to jar.
-Add native library next to the jar

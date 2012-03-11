@@ -22,12 +22,12 @@ import view.map.IsoTile;
 /**
  * @author Bilal Hussain
  */
-public class A extends JFrame {
+public class SaveTile extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	IsoTile t; 
 	
-	A(){
+	SaveTile(){
 		
 		t = new IsoTile(Orientation.UP_TO_EAST, 1, 1, 0, 1, "2", ImageType.TEXTURED,MapSettings.defaults(),null,null);
 	}
