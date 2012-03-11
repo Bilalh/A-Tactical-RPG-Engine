@@ -227,7 +227,8 @@ public class IsoTile {
 						(y - h1),
 						neg_y_h2_vet_div_2,
 						neg_y_h2_vet,
-						neg_y_h1_vet_div_2 }, 4);
+						neg_y_h1_vet_div_2 }, 
+				4);
 		
 		if (topPloy && !topOnly) return;
 		drawTop(x, y, topOnly, g, old);
@@ -283,23 +284,23 @@ public class IsoTile {
 							y_vet }
 					, 4));
 			
-				g.setColor(outlineColor); // Outline left wall
-				g.drawPolygon(new Polygon(new int[] {
-						x,
-						neg_x_hor_div_2,
-						neg_x_hor_div_2,
-						x },
-						new int[] {
-								neg_y_h2_vet,
-								neg_y_h1_vet_div_2,
-								y_vet_div_2,
-								y_vet }
-						, 4));
-
-			g.setColor(outlineColor); // Outline the top of the tile
+			// Outline left wall
 			g.drawPolygon(new Polygon(new int[] {
 					x,
-					x_hor_div_2,
+					neg_x_hor_div_2,
+					neg_x_hor_div_2,
+					x },
+					new int[] {
+							neg_y_h2_vet,
+							neg_y_h1_vet_div_2,
+							y_vet_div_2,
+							y_vet }
+					, 4));
+
+			// Outline the top of the tile
+			g.drawPolygon(new Polygon(new int[] {
+					x,
+					x_hor_div_2+1,
 					x,
 					neg_x_hor_div_2 },
 					new int[] {
@@ -313,7 +314,6 @@ public class IsoTile {
 	}
 
 	private void drawTop(int x, int y, boolean topOnly, Graphics2D g, Paint old) {
-		
 		if (type == TEXTURED) {
 			g.setPaint(ResourceManager.instance().getTexturedTile(tileName));
 			g.fillPolygon(top);
@@ -372,6 +372,7 @@ public class IsoTile {
 		// return if we are only the top polygon (for editor)
 		if (topPloy) return;
 		
+		//todo 
 		Polygon poly = new Polygon(new int[] {
 				x,
 				x + horizontal / 2,
@@ -436,7 +437,7 @@ public class IsoTile {
 			// Outline top
 			g.drawPolygon(new Polygon(new int[] {
 					x,
-					x + horizontal / 2,
+					(x + horizontal / 2) + 1,
 					x,
 					x - horizontal / 2 },
 					new int[] {
