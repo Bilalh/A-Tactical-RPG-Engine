@@ -63,9 +63,15 @@
 	
 <!-- Distribution -->
 
+	
+	<!-- Update the mac bundle  -->
+	<target name="updateMacBundle" depends="gameJar">
+        <move file="engine.jar" todir="bundle/Tactical.app/Contents/Resources/Java"/>
+	</target>
+	
 	<!-- Makes a Jar for the Game, only inculde the files needed to run the game -->
 	<target name="gameJar" depends="build">
-		<jar destfile="jar_0.jar" filesetmanifest="mergewithoutmain">
+		<jar destfile="engine.jar" filesetmanifest="mergewithoutmain">
 			<manifest>
 				<attribute name="Main-Class" value="view.Main"/>
 				<attribute name="Class-Path" value="."/>
@@ -75,11 +81,8 @@
 			/>
 		</jar>
 	</target>	
-
-	<!-- Update the mac bundle  -->
-	<target name="updateMacBundle" depends="gameJar">
-        <move file="jar_0.jar" todir="bundle/Tactical.app/Contents/Resources/Java"/>
-	</target>
+	
+	<!--editor.jar-->
 	
 <!-- Testing -->
 	
