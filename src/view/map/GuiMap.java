@@ -194,6 +194,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 		try {
 			Gui.getMusicThread().replaceMusic(new Music(mapController.getMusic().getBackground()));
 			Gui.getMusicThread().pause();
+			Gui.getMusicThread().toggleMusic();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -914,10 +916,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 				displayDialog(parts);
 				break;				
 			}
-			case KeyEvent.VK_9:
-				mapController.mapWon();
-				break;
-			
 			case KeyEvent.VK_I:
 				Logf.info(log, "draw (%d,%d) selected %s", drawX, drawY, selectedTile);
 				break;
