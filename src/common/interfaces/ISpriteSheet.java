@@ -1,4 +1,4 @@
-package editor.spritesheet;
+package common.interfaces;
 
 import java.awt.image.BufferedImage;
 

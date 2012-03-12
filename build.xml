@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="Tactical RPG Engine" default="build" basedir=".">
+
+	<description>
+	Complies and runs tests. Also makes a jar of t
+	
+	Main Commands:
+	ant -e build     -  Builds the project.
+	ant tests        -  Builds and runs all tests and make a webpage of the results.
+	ant clientJar    -  Builds and then makes a Jar of the client  
+	</description>
+
+	<!-- global properties for this build -->
+	<property name="src"                location="src"/>
+	<property name="build"              location="bin"/>
+	<property name="lib"                location="libs"/>	
+	<property name="tests.dir"          value="tests_output"/>
+	<property name="debuglevel"         value="source,lines,vars"/>
+	<property name="target"             value="1.6"/>
+	<property name="source"             value="1.6"/>
+	<property name="jvmarg"             value="-enableassertions"/>
+	
+
+	<!-- Adds all the jars and classes to the classpath -->
+	<path id="build.classpath">
+	  <pathelement location="${build}"/>
+		<fileset dir="${lib}" includes="*.jar"/>
+	</path>
+	
+<!-- Building -->
+	
+	<!-- List of files -->
+	<target name="init">
+		<mkdir dir="bin"/>
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.launch"/>
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<!-- Clean -->
+	<target name="clean">
+		<delete dir="${build}"/>
+	</target>	
+	
+	<target name="clean-tests">
+		<delete dir="${tests.dir}"/>
+	</target>
+	
+	<target depends="clean, clean-tests" name="cleanAll"/>
+	<target depends="findOS,build-project" name="build"/>
+	
+	<!-- Builds the project -->
+	<target depends="init" name="build-project">
+		<echo message="${ant.project.name}: ${ant.file}"/>
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}" includeantruntime="false">
+			<src path="src"/>
+			<classpath refid="build.classpath"/>
+		</javac>
+	</target>
+	
+<!-- Distribution -->
+
+	<!-- Makes a Jar for the Game, only inculde the files needed to run the game -->
+	<target name="gameJar" depends="build">
+		<jar destfile="jar_0.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="view.Main"/>
+				<attribute name="Class-Path" value="."/>
+			</manifest>
+			<fileset dir="bin"
+				excludes="tests/**  scripts/** editor/**"
+			/>
+		</jar>
+	</target>	
+
+	<!-- Update the mac bundle  -->
+	<target name="updateMacBundle" depends="gameJar">
+        <move file="jar_0.jar" todir="bundle/Tactical.app/Contents/Resources/Java"/>
+	</target>
+	
+<!-- Testing -->
+	
+	<!-- Runs all the tests and make a web page with the results -->
+	<target name="tests" depends="build">
+		<mkdir dir="${tests.dir}"/>
+		<junit fork="yes" printsummary="yes" haltonfailure="no">
+			<classpath refid="build.classpath"/>
+			<batchtest fork="yes" todir="${tests.dir}">
+				<fileset dir="${build}" >
+					<include name="**/Test*"/>
+					<exclude name="**/*$$*"/>
+					<exclude name="**/Tests*"/>
+					<exclude name="**/Package*"/>
+				</fileset>
+			</batchtest>
+			<formatter type="xml"/>
+		</junit>
+		<junitreport todir="${tests.dir}">
+			<fileset dir="${tests.dir}">
+				<include name="TEST-*.xml"/>
+			</fileset> 
+			<report todir="${tests.dir}"/>
+		</junitreport>
+	</target>
+	
+	<target name="findOS" description="if switch to set OS specific settings">
+		<condition property="isMac">
+    		<os family="mac" />
+  		</condition>
+		
+		<condition property="notMac">
+			<not>
+		    	<os family="mac" />
+			</not>
+		</condition>
+		
+	</target>
+
+	
+</project>

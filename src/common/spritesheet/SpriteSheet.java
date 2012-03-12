@@ -5,11 +5,12 @@ import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.*;
 
+import common.interfaces.ISpriteSheet;
+
 import util.Args;
 
 
 import config.XMLUtil;
-import editor.spritesheet.ISpriteSheet;
 
 /**
  *  Spritesheet contains a number of smaller images, along with a xml file specify the postions

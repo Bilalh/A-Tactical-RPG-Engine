@@ -3,6 +3,8 @@ package editor.spritesheet;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import common.interfaces.ISpriteSheet;
+
 public class Sheet implements ISpriteSheet {
 	private BufferedImage sheet;
 	private ArrayList<MutableSprite> sprites;

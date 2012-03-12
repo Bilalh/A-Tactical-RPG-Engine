@@ -13,15 +13,11 @@ import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import common.Location;
-import common.assets.*;
 import common.spritesheet.SpriteInfo;
 import common.spritesheet.Sprites;
 
 import config.assets.*;
 import config.xml.*;
-import editor.map.MutableTileMapping;
-import editor.spritesheet.MutableSprite;
-import engine.assets.*;
 import engine.skills.AbstractUnitObject;
 import engine.skills.RangedSkill;
 import engine.unit.AiUnit;
@@ -140,7 +136,8 @@ public abstract class XMLUtil {
 				
 				//common 
 				Location.class,
-				
+				SpriteInfo.class,
+
 				// Model assets
 				Weapons.class,
 				Skills.class,
@@ -155,13 +152,6 @@ public abstract class XMLUtil {
 				
 				DeferredAsset.class,
 				DeferredMap.class,
-				
-				// Editor
-				MutableSprite.class,
-				SpriteInfo.class,
-				MutableTileMapping.class,
-
-				
 		};
 	}
 

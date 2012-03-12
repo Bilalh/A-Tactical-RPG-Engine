@@ -12,6 +12,7 @@ import java.util.Comparator;
 
 import javax.imageio.ImageIO;
 
+import common.interfaces.ISpriteSheet;
 import common.spritesheet.Sprites;
 
 import config.XMLUtil;

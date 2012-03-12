@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import common.gui.ResourceManager;
+import common.interfaces.ISpriteSheet;
 import common.spritesheet.SpriteInfo;
 import common.spritesheet.SpriteSheet;
-import editor.spritesheet.ISpriteSheet;
 import editor.spritesheet.MutableSprite;
 
 /**

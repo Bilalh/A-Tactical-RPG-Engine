@@ -23,12 +23,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
+import com.sun.tools.internal.ws.util.xml.XmlUtil;
+
 import util.FileChooser;
 import util.IOUtil;
 
 import common.gui.ResourceManager;
 
 import config.Config;
+import config.XMLUtil;
 import config.assets.*;
 import config.xml.EditorProject;
 import editor.editors.*;
@@ -66,6 +69,10 @@ public class Editor {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
 
+		XMLUtil.addAnnotations(new Class[]{
+				editor.spritesheet.MutableSprite.class,
+				editor.map.MutableTileMapping.class});
+		
 		init(f);
 		frame = new JFrame("Tacical Engine Editor");
 		frame.setContentPane((tabs = createTabs()));

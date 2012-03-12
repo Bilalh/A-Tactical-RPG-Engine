@@ -24,7 +24,6 @@ import net.miginfocom.swing.MigLayout;
 
 import com.javarichclient.icon.tango.actions.*;
 
-import common.assets.*;
 import common.enums.Direction;
 import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
@@ -38,7 +37,6 @@ import editor.map.MapEditor;
 import editor.ui.HeaderPanel;
 import editor.ui.TButton;
 import editor.util.EditorResources;
-import engine.assets.*;
 import engine.skills.ISkill;
 import engine.unit.AiUnit;
 import engine.unit.IMutableUnit;
