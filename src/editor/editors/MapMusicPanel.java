@@ -25,8 +25,9 @@ public class MapMusicPanel extends JPanel implements IRefreshable {
 	protected JComboBox defeatUnitSound;
 	protected JComboBox loseUnitSound;
 	protected JComboBox winMapSound;
-	protected JComboBox loseMapSound;
-	
+	protected JComboBox loseMapSound;	
+	protected JComboBox levelUpSound;
+
 	protected JComboBox[] soundsArray;
 	
 	protected MapMusic  mapMusic;
@@ -75,7 +76,7 @@ public class MapMusicPanel extends JPanel implements IRefreshable {
 		mapMusic = data;
 		ItemListener lsl  = backgroundMusic.getItemListeners()[0];
 		backgroundMusic.removeItemListener(lsl);
-		backgroundMusic.setSelectedItem(music.get(data.getBackgroundId()));
+		backgroundMusic.setSelectedItem(music.get(data.getBackground()));
 		backgroundMusic.addItemListener(lsl);
 
 		ItemListener[] arr = new ItemListener[soundsArray.length];
@@ -89,6 +90,7 @@ public class MapMusicPanel extends JPanel implements IRefreshable {
 		loseUnitSound.setSelectedItem(sounds.get(data.getLoseUnitSound()));
 		winMapSound.setSelectedItem(sounds.get(data.getWinMapSound()));
 		loseMapSound.setSelectedItem(sounds.get(data.getLoseMapSound()));
+		levelUpSound.setSelectedItem(sounds.get(data.getLevelUpSound()));
 
 		
 		for (int i = 0; i < arr.length; i++) {
@@ -173,13 +175,26 @@ public class MapMusicPanel extends JPanel implements IRefreshable {
 			}
 		});
 		this.add(loseMapSound, "span, growx");
-	
+
+		this.add(new JLabel("Level Up Sound"));
+		levelUpSound = new JComboBox(new MusicData[]{});
+		levelUpSound.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				MusicData m =  (MusicData) levelUpSound.getSelectedItem();
+				mapMusic.setLevelUpSound(m.getUuid());
+			}
+		});
+		this.add(levelUpSound, "span, growx");
+		
 		JComboBox[] soundsArray = {
 				attackSound,
 				defeatUnitSound,
 				loseUnitSound,
 				winMapSound,
-				loseMapSound
+				loseMapSound,
+				levelUpSound
 		};
 		this.soundsArray = soundsArray;
 	}

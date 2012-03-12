@@ -44,13 +44,15 @@ public class MapUnit<E extends IMutableUnit> extends AbstractMapUnit<E> {
 	}
 
 	@Override
-	public void addExp(int value) {
+	public boolean addExp(int value) {
 		setExp(getExp()+value);
 		if (getExp() >= 100){
 			setExp(0);
 			levelUp();
 			setLevel(getLevel()+1);
+			return true;
 		}
+		return false;
 	}
 	
 	@Override

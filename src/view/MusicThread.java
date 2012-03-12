@@ -97,6 +97,20 @@ public class MusicThread extends Thread {
 	public void playSound(UUID uuid) {
 		playSound(AssetStore.instance().getSound(uuid).getLocation());
 	}
+
+	public Sound getSound(UUID uuid){
+		try {
+			return new Sound(AssetStore.instance().getSound(uuid).getLocation());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void playSound(Sound s) {
+		if (!musicPlaying) return;
+		s.play();
+	}
 	
 	// for editor
 	public void forcePlaySound(String ref) {

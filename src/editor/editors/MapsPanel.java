@@ -214,6 +214,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 	}
 
+	boolean creating;
+	ListSelectionListener savedListener;
 	@Override
 	public void mapEditingFinished() {
 		currentMap.reloadAsset();
@@ -221,8 +223,13 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		editor.setVisible(true);
 	}
 
-	boolean creating;
-	ListSelectionListener savedListener;
+	//	currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
+	//	m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
+		
+		private void cancel() {
+			finishedCreating();
+		}
+
 	@Override
 	protected void addToList() {
 		//FIXME addToList
@@ -254,9 +261,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 //	currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
 //	m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
 	
-	private void cancel() {
-		finishedCreating();
-	}
+	
 	
 	//	currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
 	//	m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));

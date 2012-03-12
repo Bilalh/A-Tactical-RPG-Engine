@@ -192,7 +192,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		// Start music
 		try {
-			Gui.getMusicThread().replaceMusic(new Music(mapController.getMusic().getBackgroundId()));
+			Gui.getMusicThread().replaceMusic(new Music(mapController.getMusic().getBackground()));
 			Gui.getMusicThread().pause();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -488,6 +488,20 @@ public class GuiMap implements Observer, IMapRendererParent {
 					}
 				}
 
+				if (battleInfo.hasLeveledUp()){
+					IMapUnit m =  battleInfo.getAttacker();
+					Gui.console().printf("%s's %s has leveled up!", m.isAI() ? "Ai" : "Player", m.getName() );
+					Sound s = Gui.getMusicThread().getSound(mapController.getMusic().getLevelUpSound());
+					Gui.getMusicThread().playSound(s);
+					// Make sure the sound has finished playing
+					while (s.playing()){
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e) {
+						}
+					}
+				}
+				
 				int lose =  playLose - playGain;
 				if (playLose != 0 || playGain != 0){
 					if (lose >= 0){
@@ -501,8 +515,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
-						// FIXME catch block in run
-						e.printStackTrace();
 					}	
 				}
 				changeState(UnitState.FINISHED);

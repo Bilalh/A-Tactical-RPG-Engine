@@ -15,4 +15,6 @@ public interface IBattleInfo {
 
 	Collection<BattleResult> getResults();
 
+	boolean hasLeveledUp();
+	
 }

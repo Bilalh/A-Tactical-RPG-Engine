@@ -35,7 +35,7 @@ public interface IMutableMapUnit extends IMapUnit, IMutableUnit {
 	 */
 	boolean removeHp(int value);
 
-	void addExp(int value);
+	boolean addExp(int value);
 	
 	void levelUp();
 	

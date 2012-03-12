@@ -20,9 +20,11 @@ public class MapMusic implements IPreference {
 	private UUID loseUnitSound;
 	private UUID winMapSound;
 	private UUID loseMapSound;
+	private UUID levelUpSound;
 
+	
 	/** @category Generated */
-	public UUID getBackgroundId() {
+	public UUID getBackground() {
 		return backgroundId;
 	}
 
@@ -79,6 +81,16 @@ public class MapMusic implements IPreference {
 	/** @category Generated */
 	public void setLoseMapSound(UUID loseMapSound) {
 		this.loseMapSound = loseMapSound;
+	}
+
+	/** @category Generated */
+	public UUID getLevelUpSound() {
+		return levelUpSound;
+	}
+
+	/** @category Generated */
+	public void setLevelUpSound(UUID levelUpSound) {
+		this.levelUpSound = levelUpSound;
 	}
 
 }

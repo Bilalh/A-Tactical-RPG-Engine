@@ -22,6 +22,8 @@ public class Battle implements IBattleInfo {
 	protected final IMutableMapUnit attacker;
 	protected Collection<BattleResult> results;
 	protected Map map;
+
+	protected boolean leveledUp;
 	
 	/**
 	 * Must initialise results if using this
@@ -36,7 +38,8 @@ public class Battle implements IBattleInfo {
 
 		assert target   != null;
 		assert map      != null;
-		this.map = map;
+		
+		this.map      = map;
 		this.results  = calcuateBattles(getTargets(attacker, target, map));
 	}
 
@@ -73,14 +76,19 @@ public class Battle implements IBattleInfo {
 		return modifer;
 	}
 	
-	public void performBattle() {
+	/**
+	 * Returns true if the unit leveled up.
+	 */
+	public boolean performBattle() {
+		boolean leveledUp = false;
 		for (BattleResult battle : results) {
 			battle.getMutableTarget().removeHp(battle.getDamage());
-			giveExp(battle);
+			leveledUp |= giveExp(battle);
 		}
+		return (this.leveledUp |= leveledUp);
 	}
 
-	private void giveExp(BattleResult battle) {
+	private boolean giveExp(BattleResult battle) {
 		int exp;
 		if (battle.isTargetDead()){
 			exp = 60 + 10 * (battle.getTarget().getLevel() - attacker.getLevel());
@@ -89,7 +97,7 @@ public class Battle implements IBattleInfo {
 			exp = 20 + 10 * (battle.getTarget().getLevel() - attacker.getLevel());
 			if (exp < 2 ) exp = 2;
 		}
-		attacker.addExp(exp);
+		return attacker.addExp(exp*6);
 	}
 
 	@Override
@@ -105,6 +113,11 @@ public class Battle implements IBattleInfo {
 	@Override
 	public String toString() {
 		return String.format("Battle [attacker=%s, results=%s]", attacker, results);
+	}
+
+	@Override
+	public boolean hasLeveledUp() {
+		return leveledUp;
 	}
 
 }

@@ -285,29 +285,25 @@ public class Map extends BasicMap implements IMap {
 	// Peforms the attack and notifies the Observers what the results were 
 	public void attackTargetChosen(IMutableMapUnit u, IMutableMapUnit target){
 		Battle battle = new Battle(u, target,this);
-		battle.performBattle();
-		
-		for (BattleResult b : battle.getResults()) {
-			if (b.isTargetDead()){
-				unitDied(b.getMutableTarget());
-			}
-		}
-		
-		sendNotification(new BattleNotification(battle));
+		peformBattle(battle);
 	}
 
-	// Peforms the attack and notifies the Observers what the results were 
-	public void skillTargetChosen(ISkill skill, IMutableMapUnit u, Location target) {
-		Battle battle = new SkillBattle(skill, u, target, this);
-		battle.performBattle();
+	void peformBattle(Battle battle){
+		boolean leveledUp = battle.performBattle();
 
 		for (BattleResult b : battle.getResults()) {
 			if (b.isTargetDead()) {
 				unitDied(b.getMutableTarget());
 			}
 		}
-
 		sendNotification(new BattleNotification(battle));
+	}
+	
+	
+	// Peforms the attack and notifies the Observers what the results were 
+	public void skillTargetChosen(ISkill skill, IMutableMapUnit u, Location target) {
+		Battle battle = new SkillBattle(skill, u, target, this);
+		peformBattle(battle);
 	}
 	
 	
