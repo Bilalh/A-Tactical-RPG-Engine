@@ -2,12 +2,12 @@
 <project name="Tactical RPG Engine" default="build" basedir=".">
 
 	<description>
-	Complies and runs tests. Also makes a jar of t
+	Complies and runs tests. Also makes a jar of classes need by the game, for exporting by the editor
 	
 	Main Commands:
-	ant -e build     -  Builds the project.
-	ant tests        -  Builds and runs all tests and make a webpage of the results.
-	ant clientJar    -  Builds and then makes a Jar of the client  
+	ant build            -- Builds the project.
+	ant tests            -- Builds and runs all tests and make a webpage of the results.
+	ant updateMacBundle  -- Builds create a jar of classes required by the game and updates the mac bundle. 
 	</description>
 
 	<!-- global properties for this build -->
