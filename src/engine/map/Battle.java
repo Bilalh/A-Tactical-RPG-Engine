@@ -97,7 +97,7 @@ public class Battle implements IBattleInfo {
 			exp = 20 + 10 * (battle.getTarget().getLevel() - attacker.getLevel());
 			if (exp < 2 ) exp = 2;
 		}
-		return attacker.addExp(exp*6);
+		return attacker.addExp(exp);
 	}
 
 	@Override
