@@ -1,0 +1,8 @@
+<maps>
+  <entry>
+    <uuid>f0698cb1-9b52-4228-80d2-ed1f3a11ec5e</uuid>
+    <deferredMap uuid="f0698cb1-9b52-4228-80d2-ed1f3a11ec5e">
+      <resouceLocation>maps/default.xml</resouceLocation>
+    </deferredMap>
+  </entry>
+</maps>
