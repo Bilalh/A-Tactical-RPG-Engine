@@ -222,6 +222,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 
 	public void rotateMap(){
 		rotation = rotation.next();
+		System.err.println(rotation);
 	}
 
 	public Direction traslateDirection(Direction d){

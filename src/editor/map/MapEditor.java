@@ -938,6 +938,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	}
 	
 	private void save(){
+		editorMapPanel.noromalise(toMapUnit.values());
+		
 		SavedTile[] tiles = new SavedTile[map.getFieldWidth() * map.getFieldHeight()]; 
 		Tile[][] field = map.getField();
 		

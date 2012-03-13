@@ -14,7 +14,9 @@ import org.apache.log4j.Logger;
 
 import util.Logf;
 import view.map.GuiMap;
+import view.map.IsoTile;
 import view.map.IsomertricMapRenderer;
+import view.map.Rotation;
 import view.units.AnimatedUnit;
 import view.util.BufferSize;
 
@@ -271,6 +273,13 @@ public class EditorMapPanel extends JPanel {
 		for (AnimatedUnit au : units) {
 			GuiMap.translateDirectionOnRotation(au, mapRender);
 		}
+		
+		for (IsoTile[] ts : field) {
+			for (IsoTile t : ts) {
+				GuiMap.translateOrientationOnRotation(t, mapRender);
+			}
+		}
+		
 		invalidateMap();
 	}
 	
@@ -293,6 +302,11 @@ public class EditorMapPanel extends JPanel {
 		}
 		repaintMap();
 	}
-	
+
+	public void noromalise(Collection<AnimatedUnit> units){
+		while (mapRender.getRotation() != Rotation.WEST){
+			rotate(units);
+		}
+	}
 	
 }

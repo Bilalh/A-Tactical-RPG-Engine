@@ -44,6 +44,7 @@ import config.Config;
 import config.assets.DialogParts;
 import config.xml.MapConditions;
 import config.xml.MapEvents;
+import config.xml.MapSettings;
 import config.xml.TileImageData;
 import controller.MapController;
 import engine.map.Tile;
@@ -677,32 +678,33 @@ public class GuiMap implements Observer, IMapRendererParent {
 				translateOrientationOnRotation(t,mapRenderer);
 			}
 		}
-		
+		afterMapSettingsChange();
 	}
 
 
 	public static void translateOrientationOnRotation(IsoTile u, IsomertricMapRenderer renderer) {
 		Rotation r = renderer.getRotation();
-		switch (u.getOrientation()) {
-			case TO_EAST:
-				if (r == Rotation.EAST) {
-					u.inverseOrientation(renderer.getMapSettings());
+		Orientation o = u.getOrientation();
+		switch (r) {
+			case NORTH:
+				if (o == Orientation.TO_NORTH || o == Orientation.TO_SOUTH){
+					u.inverseOrientation();
 				}
 				break;
-			case TO_NORTH:
-				if (r == Rotation.SOUTH) {
-					u.inverseOrientation(renderer.getMapSettings());
+			case EAST:
+				if (o == Orientation.TO_EAST || o == Orientation.TO_WEST){
+					u.inverseOrientation();
 				}
 				break;
-			case TO_SOUTH:
-				if (r == Rotation.NORTH) {
-					u.inverseOrientation(renderer.getMapSettings());
+			case SOUTH:
+				if (o == Orientation.TO_NORTH || o == Orientation.TO_SOUTH){
+					u.inverseOrientation();
 				}
 				break;
-			case TO_WEST:
-				if (r == Rotation.WEST) {
-					u.inverseOrientation(renderer.getMapSettings());
-				}
+			case WEST:
+				if (o == Orientation.TO_EAST || o == Orientation.TO_WEST){
+					u.inverseOrientation();
+				}		
 				break;
 		}
 	}
@@ -955,7 +957,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				break;				
 			}
 			case KeyEvent.VK_I:
-				Logf.info(log, "draw (%d,%d) selected %s", drawX, drawY, selectedTile);
+				Logf.info(log, "way %s selected %s", mapRenderer.getRotation(), selectedTile);
 				break;
 		}
 
