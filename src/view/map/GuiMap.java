@@ -86,6 +86,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 	private final DialogHandler dialogHandler    = new DialogHandler(this, dialog);
 	private final UnitInfoDisplay infoDisplay    = new UnitInfoDisplay();
 	private final MapFinishedHandler mapFinished = new MapFinishedHandler(this);
+	private final MapStartHandler mapStart       = new MapStartHandler(this);
+
 	private final SkillMovement skillMovement    = new SkillMovement(this);
 	
 	// The classes that with handed the input
@@ -95,10 +97,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 	// Handles the input fpr each state
 	final private MapActions[] actions = {
 			new Movement(this), dialogHandler, new MapActions(this), 
-			menuInput, mapFinished, skillMovement};
+			menuInput, mapFinished, skillMovement, mapStart};
 
 	static enum ActionsEnum {
-		MOVEMENT, DIALOG, NONE, MENU, FINISHED, SKILL_MOVEMENT
+		MOVEMENT, DIALOG, NONE, MENU, FINISHED, SKILL_MOVEMENT, START
 	}
 
 	// The state of the current units state machine.
@@ -129,7 +131,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	// Used to delay events
 	Timer timer = new Timer();
-
+	boolean justStarted = true;
+	
 	public GuiMap(MapController mapController, Component parent) {
 		assert actions.length == ActionsEnum.values().length;
 
@@ -317,6 +320,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		n.process(this);
 	}
 
+	String winCondition = "";
 	/**
 	 * Places the units on the map
 	 */
@@ -331,7 +335,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 		ArrayList<IUnit> all =new ArrayList<IUnit>();
 		all.addAll(allAiUnits);
 		all.addAll(allPlayerUnits);
-		Gui.console().printf("Win Condition: %s", mapController.getConditions().getWinCondition().info(all));
+		winCondition = mapController.getConditions().getWinCondition().info(all);
+		Gui.console().printf("Win Condition: %s", winCondition);
 		
 		for (IMapUnit u : allAiUnits) {
 			assert u != null;
@@ -363,7 +368,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 				placeUnit(selectedPostions, u, l);
 			}
 		}
-		
 
 		mapController.setUsersUnits(selectedPostions);
 	}
@@ -563,7 +567,13 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	void dialogFinished(ActionsEnum nextAction){
 		setActionHandler(nextAction);
-		mapController.dialogFinished();
+		if (justStarted){
+			mapStart.setup(winCondition);
+			setActionHandler(ActionsEnum.START);
+			justStarted = false;
+		}else{
+			mapController.dialogFinished();
+		}
 	}
 	
 	
