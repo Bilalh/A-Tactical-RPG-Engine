@@ -242,7 +242,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	/** @category Generated */
 	@Override
 	public BufferSize getMapDimensions() {
-		return size;
+		return new BufferSize(size.heightOffset, size.width, size.height);
 	}
 
 	/** @category Generated */

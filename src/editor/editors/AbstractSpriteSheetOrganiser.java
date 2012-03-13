@@ -142,14 +142,11 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	protected abstract SpriteSheetData defaultImages();
 
 	protected JComponent createLeftPane() {
-//		SpriteSheetData uu = defaultImages();
-//		setCurrentSpriteSheetData(uu);
 		
 		imagesListModel = new DefaultListModel();
 		
 		imagesList = new JList(imagesListModel);
 		imagesList.setCellRenderer(new ImageListRenderer());
-//		imagesListModel.addElement(uu);
 		imagesList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -295,7 +292,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	protected void editSpriteSheet(String path) {
 		editor.setVisible(false);
 		new SpriteSheetEditor(WindowConstants.DO_NOTHING_ON_CLOSE,
-				new File ("").getAbsolutePath()+ "/"+ editor.getProjectPath() + "/Resources/"+ path,
+				editor.getProjectPath() + "/Resources/"+ path,
 				AbstractSpriteSheetOrganiser.this,
 				spriteSheetHelpString,
 				showAnimations,

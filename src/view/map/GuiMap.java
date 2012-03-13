@@ -660,11 +660,11 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		// Fixes the way the units faces.
 		for (AnimatedUnit u : plunits) {
-			translateDirectionOnRotation(u);
+			translateDirectionOnRotation(u,mapRenderer);
 		}
 
 		for (AnimatedUnit u : aiUnits) {
-			translateDirectionOnRotation(u);
+			translateDirectionOnRotation(u,mapRenderer);
 		}
 
 	}
@@ -685,8 +685,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 	}
 
-	public void translateDirectionOnRotation(AnimatedUnit u) {
-		Rotation r = mapRenderer.getRotation();
+	public static void translateDirectionOnRotation(AnimatedUnit u, IsomertricMapRenderer renderer) {
+		Rotation r = renderer.getRotation();
 		switch (u.getDirection()) {
 			case EAST:
 				if (r == Rotation.EAST) {

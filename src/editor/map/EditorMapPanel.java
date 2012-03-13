@@ -5,13 +5,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EnumSet;
 
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
 import util.Logf;
+import view.map.GuiMap;
 import view.map.IsomertricMapRenderer;
+import view.units.AnimatedUnit;
 import view.util.BufferSize;
 
 import common.Location;
@@ -23,9 +27,11 @@ import config.xml.MapSettings;
  * @author Bilal Hussain
  */
 public class EditorMapPanel extends JPanel {
+	private static final long serialVersionUID = 3779345216980490025L;
 	private static final Logger log = Logger.getLogger(EditorMapPanel.class);
 
-	private static final long serialVersionUID = 3779345216980490025L;
+	// For quick state checks
+	private static EnumSet<MapState> drawable = EnumSet.of(MapState.DRAW,MapState.DRAW_INFO,MapState.LEFT_WALL,MapState.RIGHT_WALL);
 
 	private IEditorMapPanelListener editor;
 	private IsomertricMapRenderer mapRender;
@@ -88,7 +94,7 @@ public class EditorMapPanel extends JPanel {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				if (current!=null && (editor.getEditorState() == MapState.DRAW ||editor.getEditorState() == MapState.DRAW_INFO) ){
+				if (current!=null && (drawable.contains(editor.getEditorState()))){
 					findNext(e.getPoint(),true);
 				}
 				
@@ -111,7 +117,7 @@ public class EditorMapPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				EditorMapPanel.this.mousePressed(e);
 				mouseStart = e.getPoint();
-				if (editor.getEditorState() == MapState.DRAW || editor.getEditorState() == MapState.DRAW_INFO){
+				if (drawable.contains(editor.getEditorState())){
 					findCurrent(mouseStart);
 					old = mouseStart;
 				}
@@ -188,8 +194,9 @@ public class EditorMapPanel extends JPanel {
 		this.settings = settings;
 		
 		buffer     = null;
-		mapRender  = new IsomertricMapRenderer(field, editor, 1, settings);
+		mapRender  = new IsomertricMapRenderer(field, editor, 1.1f, settings);
 		BufferSize s = mapRender.getMapDimensions();
+		s.height*= 1.5f;
 		setPreferredSize(mapRender.getMapDimensions());
 		bufferWidth  = s.width;
 		bufferHeight = s.height;
@@ -257,6 +264,14 @@ public class EditorMapPanel extends JPanel {
 			}
 		}
 		repaintMap();
+	}
+	
+	public void rotate(Collection<AnimatedUnit> units){
+		mapRender.rotateMap();
+		for (AnimatedUnit au : units) {
+			GuiMap.translateDirectionOnRotation(au, mapRender);
+		}
+		invalidateMap();
 	}
 	
 	/** @category Generated */

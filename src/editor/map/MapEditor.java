@@ -65,15 +65,14 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 
 	private JFrame frame;
 
-	private AbstractButton drawButton,   drawInfoButton,  fillButton;
 	private AbstractButton eyeButton,    selectionButton, moveButton,  placeButton;
-	private final Action   zoomInAction, zoomOutAction,   zoomNormalAction;
+	private AbstractButton drawButton,   drawInfoButton,  fillButton;
+	private final Action   zoomInAction, zoomOutAction;
 
 	private AbstractButton leftWallButton,  rightWallButton, startButton;
 	
 	private MapState state = MapState.DRAW;
 
-	private JScrollPane      mapScrollPane;
 	private JPanel           infoPanel;
 	private FloatablePanel   infoPanelContainer;
 	
@@ -87,6 +86,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 
 	private EditorMap map;
 	private EditorMapPanel editorMapPanel;
+	private JScrollPane    mapScrollPane;
+
 	
 	private Packer packer = new Packer();
 
@@ -123,9 +124,8 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		this.savePath = savePath;
 		this.listener = listener;
 		
-		zoomInAction = new ZoomInAction();
-		zoomOutAction = new ZoomOutAction();
-		zoomNormalAction = new ZoomNormalAction();
+		zoomInAction = new ZoomIn();
+		zoomOutAction = new ZoomOut();
 
 		frame = new JFrame("Map Editor");
 		frame.setContentPane(createContentPane());
@@ -725,9 +725,6 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 			file.add(save);
 			bar.add(file);
 			
-			JMenu edit = new JMenu("Edit");
-			bar.add(edit);
-			
 			JMenu view = new JMenu("View");
 			final JCheckBoxMenuItem number = new JCheckBoxMenuItem(
 					"Show Numbering on Tiles", 
@@ -754,6 +751,53 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 				}
 			});
 			view.add(hover);
+			
+			
+			JMenuItem rotate = new JMenuItem("Rotate Map");
+			rotate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,mask));
+			rotate.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					editorMapPanel.rotate(toMapUnit.values());
+				}
+			});
+			view.add(rotate);
+			
+			view.add(new JSeparator());
+			
+			JMenuItem pitchUp = new JMenuItem("Increases Pitch");
+			pitchUp.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (map.getMapSettings().pitch >= 0.7) return;
+					map.getMapSettings().pitch += 0.1;
+					editorMapPanel.invalidateMap();
+				}
+			});			
+			view.add(pitchUp);
+
+			JMenuItem pitchDown = new JMenuItem("Decreases Pitch");
+			pitchDown.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (map.getMapSettings().pitch <= 0.5) return;
+					map.getMapSettings().pitch -= 0.1;
+					editorMapPanel.invalidateMap();
+				}
+			});			
+			view.add(pitchDown);
+			
+
+			JMenuItem reset = new JMenuItem("Reset Pitch/Zoom");
+			reset.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					map.getMapSettings().pitch = 0.5f;
+					map.getMapSettings().zoom  = 1f;
+					editorMapPanel.invalidateMap();
+				}
+			});			
+			view.add(reset);
 			
 			bar.add(view);
 			return bar;
@@ -824,16 +868,18 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 						field[i][j].getRightWallName());
 			}
 		}
-		
+
+		map.getMapSettings().pitch = 0.5f;
+		map.getMapSettings().zoom  = 1f;
 		SavedMap m = new SavedMap(
 				map.getFieldWidth(), map.getFieldHeight(), tiles,
 				map.getMapSettings(), map.getData());
-	
+		
 		Config.savePreferences(m, savePath);
 		Config.savePreferences(map.getTileMapping(), m.getMapData().getTileMappingLocation());
 		Config.savePreferences(map.getEnemies(),     m.getMapData().getEnemiesLocation());
 		Config.savePreferences(map.getConditions(),  m.getMapData().getConditionsLocation());
-
+		editorMapPanel.invalidateMap();
 		log.info("Saved as " + savePath);
 	}
 
@@ -879,10 +925,10 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	}
 
 	
-	private class ZoomInAction extends AbstractAction {
+	private class ZoomIn extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
-		public ZoomInAction() {
+		public ZoomIn() {
 			putValue(SHORT_DESCRIPTION, "Zoom In");
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			putValue(SMALL_ICON, EditorResources.getIcon("images/gnome-zoom-in.png"));
@@ -896,11 +942,10 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		}
 	}
 
-	private class ZoomOutAction extends AbstractAction {
+	private class ZoomOut extends AbstractAction {
 		private static final long serialVersionUID = -7391473073942670422L;
 
-		public ZoomOutAction() {
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control MINUS"));
+		public ZoomOut() {
 			putValue(SHORT_DESCRIPTION, "Zoom out");
 			putValue(LARGE_ICON_KEY, EditorResources.getIcon("images/gnome-zoom-out.png"));
 			putValue(SMALL_ICON, EditorResources.getIcon("images/gnome-zoom-out.png"));
@@ -910,21 +955,6 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		public void actionPerformed(ActionEvent evt) {
 			if (map.getMapSettings().zoom <= 0.8) return;
 			map.getMapSettings().zoom -= 0.2;
-			editorMapPanel.invalidateMap();
-		}
-	}
-
-	private class ZoomNormalAction extends AbstractAction {
-		private static final long serialVersionUID = -4078029334420505478L;
-
-		public ZoomNormalAction() {
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control 0"));
-			putValue(SHORT_DESCRIPTION, "Noramal Zoom");
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent evt) {
-			map.getMapSettings().zoom = 1.0f;
 			editorMapPanel.invalidateMap();
 		}
 	}
