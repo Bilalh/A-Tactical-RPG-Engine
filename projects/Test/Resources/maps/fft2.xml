@@ -329,7 +329,7 @@
     <leftWall>b.png</leftWall>
   </tile>
   <tile x="3" y="1">
-    <type>8-4</type>
+    <type>t_red</type>
     <height>2</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>

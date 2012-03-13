@@ -6,6 +6,7 @@ import util.Args;
 import view.units.AnimatedUnit;
 
 import common.Location;
+import common.enums.ImageType;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.ILocation;
@@ -59,7 +60,7 @@ public class EditorMap extends BasicMap {
 				guiField[i][j]    = new EditorIsoTile(editorField[i][j].getOrientation(),
 						editorField[i][j].getStartingHeight(),
 						editorField[i][j].getEndHeight(), i, j,
-						tiles.getSprite(d.getLocation()), 
+						d.getType() == ImageType.TEXTURED ? textures.getSprite(d.getLocation()): tiles.getSprite(d.getLocation()), 
 						d.getType(),mapSettings,
 						editorField[i][j].getLeftWallName(),
 						editorField[i][j].getRightWallName());

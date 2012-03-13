@@ -42,6 +42,20 @@
     </tileImageData>
   </entry>
   <entry>
+    <string>t_a</string>
+    <tileImageData>
+      <location>a.png</location>
+      <type>TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>t_red</string>
+    <tileImageData>
+      <location>red</location>
+      <type>TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
     <string>4</string>
     <tileImageData>
       <location>4</location>

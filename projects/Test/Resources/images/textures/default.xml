@@ -1,5 +1,6 @@
 <sprites width="256" height="256">
   <sprite name="a.png" x="0" y="0" width="16" height="16"/>
-  <sprite name="b.png" x="16" y="0" width="16" height="16"/>
-  <sprite name="c.png" x="32" y="0" width="16" height="16"/>
+  <sprite name="c.png" x="16" y="0" width="16" height="16"/>
+  <sprite name="b.png" x="32" y="0" width="16" height="16"/>
+  <sprite name="red" x="48" y="0" width="16" height="16"/>
 </sprites>

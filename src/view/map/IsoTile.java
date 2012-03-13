@@ -155,7 +155,9 @@ public class IsoTile {
 				break;
 		}
 		
-		tileImage  = makeTileImage(horizontal, vertical);
+		if (type ==NON_TEXTURED ){
+			tileImage  = makeTileImage(horizontal, vertical);
+		}
 		leftWall   = leftWallName  == null ? tWall : ResourceManager.instance().getTexturedTile(leftWallName);
 		rightWall  = rightWallName == null ? tWall : ResourceManager.instance().getTexturedTile(rightWallName);
 	}
