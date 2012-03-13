@@ -547,5 +547,12 @@ public class IsoTile {
 	public ImageType getType() {
 		return type;
 	}
+
+	/** @category Generated */
+	public String getTileName() {
+		return tileName;
+	}
+
+
 	
 }

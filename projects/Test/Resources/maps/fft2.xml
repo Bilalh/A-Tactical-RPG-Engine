@@ -1,4 +1,4 @@
-<map uuid="bbe290be-5726-440f-859f-b16c87dbdfaf" width="13" height="15">
+<map uuid="ea0bf9b4-569d-4925-8a65-ed4bf0b58547" width="13" height="15">
   <mapSettings>
     <tileDiagonal>60</tileDiagonal>
     <tileHeight>10</tileHeight>
@@ -329,7 +329,7 @@
     <leftWall>b.png</leftWall>
   </tile>
   <tile x="3" y="1">
-    <type>t_red</type>
+    <type>a.png</type>
     <height>2</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_NORTH</orientation>

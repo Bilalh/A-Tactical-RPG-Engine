@@ -194,7 +194,7 @@ public class EditorMapPanel extends JPanel {
 		this.settings = settings;
 		
 		buffer     = null;
-		mapRender  = new IsomertricMapRenderer(field, editor, 1.1f, settings);
+		mapRender  = new IsomertricMapRenderer(field, editor, 1f, settings);
 		BufferSize s = mapRender.getMapDimensions();
 		s.height*= 1.5f;
 		setPreferredSize(mapRender.getMapDimensions());

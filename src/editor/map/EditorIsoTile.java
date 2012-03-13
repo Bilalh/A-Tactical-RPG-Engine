@@ -127,4 +127,14 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		this.startHeight = startHeight;
 	}
 	
+
+	/** @category Generated */
+	public void setTileName(String tileName) {
+		this.tileName = tileName;
+	}
+
+	public void setEndHeight(int height) {
+		this.endHeight = height;
+	}
+	
 }

@@ -231,10 +231,18 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		selectedTile = tile;
 		switch (state) {
 			case DRAW:
-				if (selectedTileSprite != null){
-					map.setTileSprite(tile.getLocation(), selectedTileSprite);
-					repaint = true;
+				if (tile.getType() == ImageType.TEXTURED){
+					if (selectedTextureSprite != null){
+						map.setTileTexture(tile.getLocation(), selectedTextureSprite);
+						repaint = true;
+					}					
+				}else if (tile.getType() == ImageType.NON_TEXTURED){
+					if (selectedTileSprite != null){
+						map.setTileSprite(tile.getLocation(), selectedTileSprite);
+						repaint = true;
+					}
 				}
+
 				break;
 				
 			case LEFT_WALL:
@@ -252,16 +260,31 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 				break;
 				
 			case DRAW_INFO:
-				if (selectedTileSprite != null){
-					map.setTileSprite(tile.getLocation(), selectedTileSprite);
-					repaint = true;
-				}
-				
 				int height = ((Number) infoHeight.getValue()).intValue();
 				if (height >=0){
 					map.setHeight(tile.getLocation(), height);
 					repaint = true;
 				}
+				
+				if (tile.getType() == ImageType.TEXTURED){
+					if (selectedTextureSprite != null){
+						map.setTileTexture(tile.getLocation(), selectedTextureSprite);
+						repaint = true;
+					}
+					int startHeight = ((Number) infoStartHeight.getValue()).intValue();
+					if (startHeight >=0){
+						map.setStartingHeight(tile.getLocation(), startHeight);
+						repaint = true;
+					}
+					
+				}else if (tile.getType() == ImageType.NON_TEXTURED){
+					if (selectedTileSprite != null){
+						map.setTileSprite(tile.getLocation(), selectedTileSprite);
+						repaint = true;
+					}
+					
+				}
+
 				
 				Orientation o = (Orientation) infoOrientation.getSelectedItem();
 				if (o != tile.getOrientation()){
@@ -270,13 +293,19 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 				}
 				
 			case EYE:
-				selectedTileSprite = tile.getSprite();
-				tilesetPanel.setSelectedSprites(selectedTileSprite);
+				if (selectedTile.getType() == ImageType.TEXTURED){
+					selectedTextureSprite = tile.getSprite();
+					texturesPanel.setSelectedSprites(selectedTextureSprite);
+				}else{
+					selectedTileSprite = tile.getSprite();
+					tilesetPanel.setSelectedSprites(selectedTileSprite);	
+				}
 				break;
 				
 			case FILL:
 				if (selectedTileSprite != null && selection.contains(tile)){
 					for (EditorIsoTile t : selection) {
+						if (t.getType() == ImageType.TEXTURED) continue;
 						map.setTileSprite(t.getLocation(), selectedTileSprite);
 					}
 				}
@@ -640,10 +669,20 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 			public void stateChanged(ChangeEvent e) {
 				//TODO deal with no tile selected.
 				if (state == MapState.DRAW || state == MapState.DRAW_INFO || state == MapState.EYE){
-					map.setHeight(selectedTile.getLocation(), ((Number)infoHeight.getValue()).intValue());	
+					int height = ((Number)infoHeight.getValue()).intValue();
+					if (selectedTile.getType() == ImageType.TEXTURED){
+						map.setEndHeight(selectedTile.getLocation(), ((Number)infoHeight.getValue()).intValue());	
+					}else{
+						map.setHeight(selectedTile.getLocation(), ((Number)infoHeight.getValue()).intValue());	
+					}
 		        }else{
 					for (EditorIsoTile tile : selection) {
-						map.setHeight(tile.getLocation(), ((Number)infoHeight.getValue()).intValue());	
+						int height = ((Number)infoHeight.getValue()).intValue();
+						if (selectedTile.getType() == ImageType.TEXTURED){
+							map.setEndHeight(tile.getLocation(), ((Number)infoHeight.getValue()).intValue());	
+						}else{
+							map.setHeight(tile.getLocation(), ((Number)infoHeight.getValue()).intValue());	
+						}
 					}	
 		        }
 				editorMapPanel.repaintMap();

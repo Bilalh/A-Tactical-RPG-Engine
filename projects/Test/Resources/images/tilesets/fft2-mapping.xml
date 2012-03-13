@@ -1,5 +1,12 @@
 <tilemapping spriteSheetLocation="images/tilesets/fft2.png">
   <entry>
+    <string>a.png</string>
+    <tileImageData>
+      <location>a.png</location>
+      <type>TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
     <string>3</string>
     <tileImageData>
       <location>3</location>
@@ -21,6 +28,13 @@
     </tileImageData>
   </entry>
   <entry>
+    <string>red</string>
+    <tileImageData>
+      <location>red</location>
+      <type>TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
     <string>7</string>
     <tileImageData>
       <location>7</location>
@@ -39,20 +53,6 @@
     <tileImageData>
       <location>5</location>
       <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>t_red</string>
-    <tileImageData>
-      <location>red</location>
-      <type>TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>t_a</string>
-    <tileImageData>
-      <location>a.png</location>
-      <type>TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
