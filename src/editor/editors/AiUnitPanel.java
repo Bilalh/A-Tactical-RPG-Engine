@@ -35,7 +35,9 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 
 	@Override
 	protected IMutableUnit createUnit(IMutableUnit old) {
-		return new AiUnit(old);
+		AiUnit a =  new AiUnit(old);
+		a.setOrdering(new LowestHp());
+		return a;
 	}
 
 

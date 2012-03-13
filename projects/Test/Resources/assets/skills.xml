@@ -3,7 +3,7 @@
     <uuid>6617a65e-6ef4-44b5-96b7-3e7184416eaf</uuid>
     <engine.skills.RangedSkill uuid="6617a65e-6ef4-44b5-96b7-3e7184416eaf">
       <name>Thunderbird</name>
-      <power>40</power>
+      <power>50</power>
       <targetOpposite>true</targetOpposite>
       <includeCaster>false</includeCaster>
       <range>4</range>
@@ -48,7 +48,7 @@
     <uuid>5ed5181c-4acf-46e6-89f4-6dba90421889</uuid>
     <engine.skills.RangedSkill uuid="5ed5181c-4acf-46e6-89f4-6dba90421889">
       <name>Thunder Flare</name>
-      <power>15</power>
+      <power>25</power>
       <targetOpposite>true</targetOpposite>
       <includeCaster>false</includeCaster>
       <range>3</range>

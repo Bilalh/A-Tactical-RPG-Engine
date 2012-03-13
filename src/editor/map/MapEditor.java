@@ -695,11 +695,20 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		infoStartHeight.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				if (selectedTile.getType() != ImageType.TEXTURED){
+				if (selectedTile.getType() != ImageType.TEXTURED) {
 					return;
 				}
-				map.setStartingHeight(selectedTile.getLocation(), ((Number)infoStartHeight.getValue()).intValue());	
 				editorMapPanel.repaintMap();
+				if (state == MapState.DRAW || state == MapState.DRAW_INFO || state == MapState.EYE) {
+					int height = ((Number) infoHeight.getValue()).intValue();
+					map.setStartingHeight(selectedTile.getLocation(), ((Number) infoStartHeight.getValue()).intValue());
+				} else {
+					for (EditorIsoTile tile : selection) {
+						int height = ((Number) infoHeight.getValue()).intValue();
+						map.setStartingHeight(tile.getLocation(), ((Number) infoStartHeight.getValue()).intValue());
+					}
+				}
+
 			}
 		});
 		p.add(infoStartHeight, "alignx leading, span, wrap");
@@ -865,6 +874,15 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 				}
 			});			
 			view.add(reset);
+			
+			JMenuItem outline = new JMenuItem("Toggle Outlines");
+			outline.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					editorMapPanel.toggleOutlines();
+				}
+			});			
+			view.add(outline);
 			
 			bar.add(view);
 			return bar;

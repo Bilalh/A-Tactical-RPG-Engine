@@ -29,7 +29,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 
 	// Map data
 	IsoTile[][] field;
-	MapSettings mapSettings;
+	private MapSettings mapSettings;
 	Rotation rotation = Rotation.WEST;
 	BufferSize size;
 	
@@ -55,7 +55,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 
 		this.fieldWidth  = field.length;
 		this.fieldHeight = field[0].length;
-		this.mapSettings = mapSettings;
+		this.setMapSettings(mapSettings);
 		calculateSize();
 		
 		startX = (int) ((size.width / 2 + (fieldHeight - fieldWidth) * mapSettings.tileDiagonal / 4) * multiplier);
@@ -66,18 +66,18 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	
 	private void calculateSize(){
         int max = Math.max(fieldWidth, fieldHeight);
-		int heightOffset  = (mapSettings.tileDiagonal)*2;
+		int heightOffset  = (getMapSettings().tileDiagonal)*2;
 
 		int w = fieldWidth + (fieldHeight-fieldWidth)/2;
-		int bufferWidth    = mapSettings.tileDiagonal * w+ 5;
-		int bufferHeight  = (int) (mapSettings.tileDiagonal / 2f *w+ heightOffset);
+		int bufferWidth    = getMapSettings().tileDiagonal * w+ 5;
+		int bufferHeight  = (int) (getMapSettings().tileDiagonal / 2f *w+ heightOffset);
 		size = new BufferSize(heightOffset, bufferWidth, bufferHeight);
 	}
 
 	@Override
 	public void invaildate(){
-		 horizontal = (int) (mapSettings.tileDiagonal * mapSettings.zoom);
-		 vertical   = (int) (mapSettings.tileDiagonal * mapSettings.pitch * mapSettings.zoom);
+		 horizontal = (int) (getMapSettings().tileDiagonal * getMapSettings().zoom);
+		 vertical   = (int) (getMapSettings().tileDiagonal * getMapSettings().pitch * getMapSettings().zoom);
 		
 		 xCalc = horizontal/2;
 		 yCalc = vertical /2;
@@ -193,10 +193,10 @@ public class IsomertricMapRenderer implements IMapRenderer {
 
 	// Actual drawing 
 	private boolean drawSub(Graphics g, int width, int height, final int drawX, final int drawY, int x, int y, int i, int j) {
-		if (parent.isMouseMoving() || (x - horizontal - drawX  <= width +   mapSettings.tileDiagonal * 3
-						&& y - vertical   - drawY <=  height + mapSettings.tileDiagonal * 3
-						&& x + horizontal - drawX >= -mapSettings.tileDiagonal * 3
-						&& y + vertical   - drawY >= -mapSettings.tileDiagonal * 3)) {
+		if (parent.isMouseMoving() || (x - horizontal - drawX  <= width +   getMapSettings().tileDiagonal * 3
+						&& y - vertical   - drawY <=  height + getMapSettings().tileDiagonal * 3
+						&& x + horizontal - drawX >= -getMapSettings().tileDiagonal * 3
+						&& y + vertical   - drawY >= -getMapSettings().tileDiagonal * 3)) {
 			
 			field[j][i].draw(x, y, g);
 
@@ -204,7 +204,7 @@ public class IsomertricMapRenderer implements IMapRenderer {
 				Color old = g.getColor();
 				g.setColor(Color.RED);
 				Point pp =field[j][i].calculateCentrePoint(x,y);
-				g.drawString(String.format("%d,%d", j,i),pp.x - mapSettings.tileDiagonal/4 ,pp.y);
+				g.drawString(String.format("%d,%d", j,i),pp.x - getMapSettings().tileDiagonal/4 ,pp.y);
 				g.setColor(old);
 			}
 
@@ -263,6 +263,14 @@ public class IsomertricMapRenderer implements IMapRenderer {
 	/** @category Generated */
 	public int getStartY() {
 		return startY;
+	}
+
+	MapSettings getMapSettings() {
+		return mapSettings;
+	}
+
+	void setMapSettings(MapSettings mapSettings) {
+		this.mapSettings = mapSettings;
 	}
 
 }

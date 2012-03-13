@@ -152,6 +152,9 @@ public abstract class XMLUtil {
 				
 				DeferredAsset.class,
 				DeferredMap.class,
+				
+				MapOrdering.class,
+				OrderedMap.class
 		};
 	}
 

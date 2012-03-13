@@ -283,5 +283,16 @@ public class EditorMapPanel extends JPanel {
 	public boolean hasNumbering() {
 		return mapRender.hasNumbering();
 	}
+
+	/** @category Generated */
+	public void toggleOutlines() {
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				field[i][j].toggleOutline();
+			}
+		}
+		repaintMap();
+	}
+	
 	
 }

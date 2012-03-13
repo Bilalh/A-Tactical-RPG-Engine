@@ -167,6 +167,8 @@ public class GuiMap implements Observer, IMapRendererParent {
 		ResourceManager.instance().loadTextureSheetFromResources(mapController.getTexturesLocation());
 		ResourceManager.instance().loadItemSheetFromResources("images/items/items.png");
 
+		boolean outlines = mapController.hasOutlines();
+		
 		// create tiles
 		for (int i = 0; i < fieldWidth; i++) {
 			for (int j = 0; j < fieldHeight; j++) {
@@ -181,6 +183,9 @@ public class GuiMap implements Observer, IMapRendererParent {
 						mapSettings,
 						grid[i][j].getLeftWallName(),
 						grid[i][j].getRightWallName());
+				if (outlines){
+					field[i][j].setOutline(true);
+				}
 			}
 		}
 
@@ -667,8 +672,41 @@ public class GuiMap implements Observer, IMapRendererParent {
 			translateDirectionOnRotation(u,mapRenderer);
 		}
 
+		for (IsoTile[] ts : field) {
+			for (IsoTile t : ts) {
+				translateOrientationOnRotation(t,mapRenderer);
+			}
+		}
+		
 	}
 
+
+	public static void translateOrientationOnRotation(IsoTile u, IsomertricMapRenderer renderer) {
+		Rotation r = renderer.getRotation();
+		switch (u.getOrientation()) {
+			case TO_EAST:
+				if (r == Rotation.EAST) {
+					u.inverseOrientation(renderer.getMapSettings());
+				}
+				break;
+			case TO_NORTH:
+				if (r == Rotation.SOUTH) {
+					u.inverseOrientation(renderer.getMapSettings());
+				}
+				break;
+			case TO_SOUTH:
+				if (r == Rotation.NORTH) {
+					u.inverseOrientation(renderer.getMapSettings());
+				}
+				break;
+			case TO_WEST:
+				if (r == Rotation.WEST) {
+					u.inverseOrientation(renderer.getMapSettings());
+				}
+				break;
+		}
+	}
+	
 	private Direction translateDirectionOnRotation(Direction d) {
 		Rotation r = mapRenderer.getRotation();
 		switch (d) {

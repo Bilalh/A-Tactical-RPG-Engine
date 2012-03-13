@@ -139,5 +139,9 @@ public class MapController extends Controller {
 	public MapConditions getConditions() {
 		return map.getConditions();
 	}
+
+	public boolean hasOutlines() {
+		return map.hasOutlines();
+	}
 	
 }

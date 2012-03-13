@@ -24,6 +24,7 @@ public class AiUnit extends Unit {
 	}
 
 	public AbstractAIBehaviour getOrdering() {
+		if (ordering == null) ordering  = new LowestHp();
 		return ordering;
 	}
 

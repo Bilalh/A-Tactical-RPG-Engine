@@ -1,11 +1,14 @@
 package config.assets;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import config.IPreference;
 import config.xml.SavedMap;
 
 /**
  * @author Bilal Hussain
  */
+@XStreamAlias("orderedMap")
 public class OrderedMap extends DeferredAsset<SavedMap> implements IPreference, Comparable<OrderedMap> {
 
 	protected int index;

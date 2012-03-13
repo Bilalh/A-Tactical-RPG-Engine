@@ -62,10 +62,12 @@ public class Spear extends AbstractWeapon {
 		Logf.trace(log, "t:%s",    t);
 		
 		while(!t.equals(attacker.getLocation())){
-			IMutableMapUnit u =  map.getTile(t).getCurrentUnit();
-			log.trace("checking from " + t + ":" + u);
-			if (u != null){
-				list.add(u);
+			if (t.x >= 0 && t.x < map.getFieldWidth() && t.y >= 0 && t.y < map.getFieldHeight()){
+				IMutableMapUnit u =  map.getTile(t).getCurrentUnit();
+				log.trace("checking from " + t + ":" + u);
+				if (u != null){
+					list.add(u);
+				}	
 			}
 			t.sub(diff);
 		}

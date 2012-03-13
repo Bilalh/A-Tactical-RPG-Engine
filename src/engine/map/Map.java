@@ -305,6 +305,10 @@ public class Map extends BasicMap implements IMap {
 		Battle battle = new SkillBattle(skill, u, target, this);
 		peformBattle(battle);
 	}
+
+	public boolean hasOutlines() {
+		return data.hasOutlines();
+	}
 	
 	
 }

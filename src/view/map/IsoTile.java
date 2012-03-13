@@ -553,6 +553,11 @@ public class IsoTile {
 		return tileName;
 	}
 
+	public void inverseOrientation(MapSettings settings) {
+		orientation = orientation.inverse();
+		invaildate(settings);
+	}
+
 
 	
 }

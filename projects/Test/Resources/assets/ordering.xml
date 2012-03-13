@@ -1,23 +1,23 @@
-<config.assets.MapOrdering>
+<mapOrdering>
   <entry>
     <uuid>a54f2739-5db2-4261-be1b-75b81188276a</uuid>
-    <config.assets.OrderedMap uuid="a54f2739-5db2-4261-be1b-75b81188276a">
+    <orderedMap uuid="a54f2739-5db2-4261-be1b-75b81188276a">
       <resouceLocation>maps/fft2.xml</resouceLocation>
-      <index>0</index>
-    </config.assets.OrderedMap>
+      <index>1</index>
+    </orderedMap>
   </entry>
   <entry>
     <uuid>3bde9257-8c9b-4849-9493-8318cdb6d523</uuid>
-    <config.assets.OrderedMap uuid="3bde9257-8c9b-4849-9493-8318cdb6d523">
+    <orderedMap uuid="3bde9257-8c9b-4849-9493-8318cdb6d523">
       <resouceLocation>maps/nicer.xml</resouceLocation>
-      <index>1</index>
-    </config.assets.OrderedMap>
+      <index>2</index>
+    </orderedMap>
   </entry>
   <entry>
-    <uuid>3b86bf1b-0298-4bf8-9708-c62fe143bb5d</uuid>
-    <config.assets.OrderedMap uuid="3b86bf1b-0298-4bf8-9708-c62fe143bb5d">
-      <resouceLocation>maps/map_f91cd16b-0672-4ad7-8251-7ce5d6234126.xml</resouceLocation>
-      <index>2</index>
-    </config.assets.OrderedMap>
+    <uuid>91e6abf7-3e98-4afb-9185-caaf3e9dbb12</uuid>
+    <orderedMap uuid="91e6abf7-3e98-4afb-9185-caaf3e9dbb12">
+      <resouceLocation>maps/map_fc322205-4f5a-45f2-833e-259ee1bab4c5.xml</resouceLocation>
+      <index>0</index>
+    </orderedMap>
   </entry>
-</config.assets.MapOrdering>
+</mapOrdering>

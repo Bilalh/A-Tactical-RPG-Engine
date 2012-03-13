@@ -18,9 +18,10 @@ public class MapData {
 	final String eventsLocation;
 	final String musicLocation;
 	final String conditionsLocation;
-
+	final boolean outlines;
+	
 	public MapData(String name, String tileMappingLocation, String texturesLocation, String enemiesLocation, 
-			String eventsLocation, String musicLocation, String conditionsLocation) {
+			String eventsLocation, String musicLocation, String conditionsLocation, boolean outlines) {
 		this.name                = name;
 		this.tileMappingLocation = tileMappingLocation;
 		this.texturesLocation    = texturesLocation;
@@ -28,6 +29,7 @@ public class MapData {
 		this.eventsLocation      = eventsLocation;
 		this.musicLocation       = musicLocation;
 		this.conditionsLocation  = conditionsLocation;
+		this.outlines            = outlines;
 	}
 
 	
@@ -38,23 +40,28 @@ public class MapData {
 			"maps/" + name+ "-enemies.xml",
 			"maps/" + name+ "-events.xml",
 			"maps/" + name+ "-music.xml",
-			"maps/" + name+ "-conditions.xml");
+			"maps/" + name+ "-conditions.xml",
+			false);
 	}
 
 	public MapData changeName(String s){
-		return new MapData(s, tileMappingLocation, texturesLocation, enemiesLocation,eventsLocation,musicLocation,conditionsLocation);
+		return new MapData(s, tileMappingLocation, texturesLocation, enemiesLocation,eventsLocation,musicLocation,conditionsLocation,false);
 	}
 	
 	public MapData changeTileMappingLocation(String s){
-		return new MapData(name, s, texturesLocation, enemiesLocation,eventsLocation,musicLocation,conditionsLocation);
+		return new MapData(name, s, texturesLocation, enemiesLocation,eventsLocation,musicLocation,conditionsLocation,false);
 	}
 	
 	public MapData changeTexturesLocation(String s){
-		return new MapData(name, texturesLocation, s, enemiesLocation,eventsLocation,musicLocation,conditionsLocation);
+		return new MapData(name, texturesLocation, s, enemiesLocation,eventsLocation,musicLocation,conditionsLocation,false);
 	}
 	
 	public MapData changeEnemiesLocation(String s){
-		return new MapData(name, texturesLocation, texturesLocation, s,eventsLocation,musicLocation,conditionsLocation);
+		return new MapData(name, texturesLocation, texturesLocation, s,eventsLocation,musicLocation,conditionsLocation,false);
+	}
+	
+	public MapData changeOutline(boolean b){
+		return new MapData(name, texturesLocation, texturesLocation, enemiesLocation, eventsLocation,musicLocation,conditionsLocation,b);
 	}
 	
 	/** @category Generated */
@@ -91,6 +98,11 @@ public class MapData {
 	/** @category Generated */
 	public String getConditionsLocation() {
 		return conditionsLocation;
+	}
+
+
+	public boolean hasOutlines() {
+		return outlines;
 	}
 
 }
