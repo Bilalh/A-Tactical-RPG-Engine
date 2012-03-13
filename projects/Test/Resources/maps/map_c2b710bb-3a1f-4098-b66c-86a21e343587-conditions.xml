@@ -1,0 +1,4 @@
+<mapConditions>
+  <uuid>cf2752f9-09d1-47e4-87a9-3d8f67f61c60</uuid>
+  <winCondition class="engine.map.win.DefeatAllUnitsCondition"/>
+</mapConditions>

@@ -29,7 +29,9 @@ import config.xml.*;
 import editor.Editor;
 import editor.map.IMapEditorListener;
 import editor.map.MapEditor;
+import engine.map.ai.LowestHp;
 import engine.map.win.DefeatAllUnitsCondition;
+import engine.unit.AiUnit;
 import engine.unit.SpriteSheetData;
 import engine.unit.Unit;
 
@@ -223,12 +225,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		editor.setVisible(true);
 	}
 
-	//	currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
-	//	m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
-		
-		private void cancel() {
-			finishedCreating();
-		}
+	private void cancel() {
+		finishedCreating();
+	}
 
 	@Override
 	protected void addToList() {
@@ -258,15 +257,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		editor.setTabsEnabled(false);
 	}
 
-//	currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
-//	m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
-	
-	
-	
-	//	currentMapping = new TileMapping(ui.getSpriteSheetLocation(), currentMapping.getTilemapping());
-	//	m.setMapData(m.getMapData().changeTexturesLocation(ui.getSpriteSheetLocation()));
-		
-		private void finishedCreating(){
+	private void finishedCreating(){
 		resourceList.addListSelectionListener(savedListener);
 		savedListener = null;
 		
@@ -300,11 +291,13 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		// External Data
 		Units ememies = new Units();
-		Unit u = new Unit("Unit 1", 20, 4, 10, 15);
+		Unit _u = new Unit("Unit 1", 20, 4, 10, 15);
 		IWeapon w = editor.getWeapons().iterator().next();
-		u.setWeapon(w);
+		_u.setWeapon(w);
 		SpriteSheetData images = editor.getUnitImages().iterator().next();
-		u.setImageData(images.getAnimationPath(), images);
+		_u.setImageData(images.getAnimationPath(), images);
+		AiUnit u = new AiUnit(_u);
+		u.setOrdering(new LowestHp());
 		ememies.put(u);
 
 		HashMap<UUID, Location> placement = new HashMap<UUID, Location>();
@@ -342,7 +335,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		for (int i = 0, k = 0; i < width; i++) {
 			for (int j = 0; j < height; j++, k++) {
 				tiles[k] = new SavedTile(
-						tileName,
+						textureName,
 						1,
 						1,
 						i, j,

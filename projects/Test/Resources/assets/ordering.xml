@@ -13,4 +13,11 @@
       <index>1</index>
     </config.assets.OrderedMap>
   </entry>
+  <entry>
+    <uuid>3b86bf1b-0298-4bf8-9708-c62fe143bb5d</uuid>
+    <config.assets.OrderedMap uuid="3b86bf1b-0298-4bf8-9708-c62fe143bb5d">
+      <resouceLocation>maps/map_f91cd16b-0672-4ad7-8251-7ce5d6234126.xml</resouceLocation>
+      <index>2</index>
+    </config.assets.OrderedMap>
+  </entry>
 </config.assets.MapOrdering>

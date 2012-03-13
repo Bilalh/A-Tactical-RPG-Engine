@@ -3,6 +3,7 @@ package engine.unit;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import engine.map.ai.AbstractAIBehaviour;
+import engine.map.ai.LowestHp;
 
 /**
  * Ai Unit has  
@@ -15,6 +16,7 @@ public class AiUnit extends Unit {
 
 	public AiUnit() {
 		super();
+		this.ordering = new LowestHp();
 	}
 
 	public AiUnit(IMutableUnit u) {

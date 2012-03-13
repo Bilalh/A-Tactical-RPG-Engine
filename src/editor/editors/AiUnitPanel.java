@@ -45,7 +45,7 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 		for (int i = 0; i < infoBehaviour.getModel().getSize(); i++) {
 			AbstractAIBehaviour ordering = (AbstractAIBehaviour) infoBehaviour.getModel().getElementAt(i);
 			assert ordering != null;
-			assert u.getOrdering() != null;
+			assert u.getOrdering() != null : u;
 			if (ordering.getClass().equals(u.getOrdering().getClass()) && ordering.isNegated() == u.getOrdering().isNegated()){
 				infoBehaviour.setSelectedIndex(i);
 				break;

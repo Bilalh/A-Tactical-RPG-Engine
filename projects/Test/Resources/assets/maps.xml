@@ -11,4 +11,10 @@
       <resouceLocation>maps/nicer.xml</resouceLocation>
     </deferredMap>
   </entry>
+  <entry>
+    <uuid>3b86bf1b-0298-4bf8-9708-c62fe143bb5d</uuid>
+    <deferredMap uuid="3b86bf1b-0298-4bf8-9708-c62fe143bb5d">
+      <resouceLocation>maps/map_f91cd16b-0672-4ad7-8251-7ce5d6234126.xml</resouceLocation>
+    </deferredMap>
+  </entry>
 </maps>
