@@ -7,7 +7,12 @@
 	Main Commands:
 	ant build            -- Builds the project.
 	ant tests            -- Builds and runs all tests and make a webpage of the results.
-	ant updateMacBundle  -- Builds create a jar of classes required by the game and updates the mac bundle. 
+	
+	ant update           -- Builds create a jar of classes for the game and the engine and updates the mac bundles.
+	
+	ant engineJar        -- Builds a jar of the engine's classes. 
+	ant editorJar        -- Builds a jar of the editor's classes.
+	ant jars             -- Builds all the jars.
 	</description>
 
 	<!-- global properties for this build -->
@@ -64,22 +69,27 @@
 	
 <!-- Distribution -->
 
-	<target name="update" depends="updateMacEditorBundle" />
+	<target name="update" depends="updateMacEditorBundle,updateJars" />
+	<target name="jars"   depends="engineJar,editorJar" />
 
 	
 	<!-- Update the mac bundle  -->
-	<target name="updateMacEngineBundle" depends="gameJar">
+	<target name="updateMacEngineBundle" depends="engineJar">
         <move file="engine.jar" todir="bundle/Tactical.app/Contents/Resources/Java"/>
 	</target>
 	
 	<!-- Update the editor bundle  -->
 	<target name="updateMacEditorBundle" depends="editorJar, updateMacEngineBundle">
         <move file="editor.jar" todir="Binaries/Tactical Engine.app/Contents/Resources/Java"/>
-		<copy todir="Binaries/Tactical Engine.app/Contents/Resources/Java/bundle"><fileset dir="bundle"/></copy>
+		<copy todir="Binaries/jar/bundle"><fileset dir="bundle"/></copy>
 	</target>	
 	
+	<target name="updateJars" depends="engineJar">
+		<copy todir="Binaries/Tactical Engine.app/Contents/Resources/Java/bundle"><fileset dir="bundle"/></copy>
+	</target>
+	
 	<!-- Makes a Jar for the Game, only inculde the files needed to run the game -->
-	<target name="gameJar" depends="build">
+	<target name="engineJar" depends="build">
 		<jar destfile="engine.jar" filesetmanifest="mergewithoutmain">
 			<manifest>
 				<attribute name="Main-Class" value="view.Main"/>

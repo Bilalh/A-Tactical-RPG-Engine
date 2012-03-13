@@ -1,0 +1,19 @@
+<units>
+  <entry>
+    <uuid>620482ab-3a91-49a8-b65d-e9507e2c5dbb</uuid>
+    <unit uuid="620482ab-3a91-49a8-b65d-e9507e2c5dbb">
+      <name>Elena</name>
+      <maxHp>15</maxHp>
+      <move>5</move>
+      <strength>20</strength>
+      <defence>20</defence>
+      <speed>20</speed>
+      <level>1</level>
+      <exp>0</exp>
+      <imageDataRef>images/characters/default-animations.xml</imageDataRef>
+      <weight>0</weight>
+      <wepaonId>04e0e57d-f1af-4700-a164-128685be12d0</wepaonId>
+      <skillIds/>
+    </unit>
+  </entry>
+</units>
