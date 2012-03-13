@@ -42,16 +42,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>t_a</string>
+    <string>t_red</string>
     <tileImageData>
-      <location>a.png</location>
+      <location>red</location>
       <type>TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>t_red</string>
+    <string>t_a</string>
     <tileImageData>
-      <location>red</location>
+      <location>a.png</location>
       <type>TEXTURED</type>
     </tileImageData>
   </entry>

@@ -542,5 +542,10 @@ public class IsoTile {
 	public void toggleOutline(){
 		this.outline = !this.outline;
 	}
+
+	/** @category Generated */
+	public ImageType getType() {
+		return type;
+	}
 	
 }

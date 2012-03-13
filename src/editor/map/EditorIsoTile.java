@@ -121,4 +121,10 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		return rightWallSprite;
 	}
 
+
+	/** @category Generated */
+	public void setStartingHeight(float startHeight) {
+		this.startHeight = startHeight;
+	}
+	
 }

@@ -20,7 +20,7 @@ public class EditorTile extends Tile {
 	}
 
 	/** @category Generated */
-	public void setStartHeight(int startHeight) {
+	public void setStartingHeight(int startHeight) {
 		this.startHeight = startHeight;
 	}
 

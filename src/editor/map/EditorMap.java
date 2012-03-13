@@ -86,9 +86,16 @@ public class EditorMap extends BasicMap {
 	}
 	
 	public void setHeight(Location p, int height){
-		editorField[p.x][p.y].setStartHeight(height);
+		editorField[p.x][p.y].setStartingHeight(height);
 		editorField[p.x][p.y].setEndHeight(height);
 		guiField[p.x][p.y].setHeight(height);
+		guiField[p.x][p.y].invaildate(getMapSettings());
+	}
+	
+
+	public void setStartingHeight(Location p, int height) {
+		editorField[p.x][p.y].setStartingHeight(height);
+		guiField[p.x][p.y].setStartingHeight(height);
 		guiField[p.x][p.y].invaildate(getMapSettings());
 	}
 	
@@ -99,9 +106,7 @@ public class EditorMap extends BasicMap {
 	}
 	
 	public void addMapping(UUID uuid, Location l) {
-		// FIXME addMapping method
 		enemies.getUnitPlacement().put(uuid, l);
-
 	}
 	
 	public EditorIsoTile[][] getGuiField() {
@@ -127,4 +132,5 @@ public class EditorMap extends BasicMap {
 	public void setStartLocation(Location location) {
 		conditions.setDefaultStartLocation(location);
 	}
+
 }

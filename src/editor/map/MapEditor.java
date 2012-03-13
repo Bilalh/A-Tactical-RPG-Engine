@@ -28,6 +28,7 @@ import view.map.interfaces.IMapRendererParent;
 import view.units.AnimatedUnit;
 
 import common.Location;
+import common.enums.ImageType;
 import common.enums.Orientation;
 import common.gui.ResourceManager;
 import common.interfaces.IMapUnit;
@@ -105,6 +106,9 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 	private JTextField infoType;
 	private JComboBox  infoOrientation   = new JComboBox(Orientation.values());
 	private JSpinner   infoHeight        = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
+	private JSpinner   infoStartHeight   = new JSpinner(new SpinnerNumberModel(1, 0, 20, 1));
+	private JLabel     infoStartHeightl; 
+
 	private JLabel     infoStartLocation; 
 	
 	// For draw
@@ -335,6 +339,15 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 			
 			infoLocation.setText(String.format("(%s,%s)", tile.getX(), tile.getY()));	
 
+		}
+
+		if (selectedTile.getType() == ImageType.TEXTURED){
+			infoStartHeight.setVisible(true);
+			infoStartHeightl.setVisible(true);
+			infoStartHeight.setValue(selectedTile.getStartHeight());
+		}else{
+			infoStartHeightl.setVisible(false);
+			infoStartHeight.setVisible(false);
 		}
 		
 		if (repaint) editorMapPanel.repaintMap();
@@ -637,6 +650,21 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 			}
 		});
 		p.add(infoHeight, "alignx leading, span, wrap");
+		
+		p.add(infoStartHeightl= new JLabel("Start Height:"), "gap 4");
+		infoStartHeightl.setVisible(false);
+		infoStartHeight.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if (selectedTile.getType() != ImageType.TEXTURED){
+					return;
+				}
+				map.setStartingHeight(selectedTile.getLocation(), ((Number)infoStartHeight.getValue()).intValue());	
+				editorMapPanel.repaintMap();
+			}
+		});
+		p.add(infoStartHeight, "alignx leading, span, wrap");
+		infoStartHeight.setVisible(false);
 		
 		p.add(new JLabel("Map"), new CC().split().spanX().gapTop("4"));
 		p.add(new JSeparator(), new CC().growX().wrap().gapTop("4"));
