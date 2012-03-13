@@ -640,9 +640,20 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 
 	private void saveTileMappingToFile(File out) {
 		HashMap<String, TileImageData> mapping = new HashMap<String, TileImageData>();
+		if (out.exists()){
+			try {
+				ITileMapping map =  XMLUtil.convertXml(new FileInputStream(out));
+				mapping = map.getTilemapping();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		for (int i = 0; i < sprites.size(); i++) {
 			MutableSprite m = (MutableSprite) sprites.elementAt(i);
-			mapping.put(m.getName(), new TileImageData(m.getName(), ImageType.NON_TEXTURED));	
+			if (!mapping.containsKey(m.getName())){
+				mapping.put(m.getName(), new TileImageData(m.getName(), ImageType.NON_TEXTURED));	
+			}
 		}
 		String name = sheetName.getText();
 		if (!name.endsWith(".png")) name += ".png";
