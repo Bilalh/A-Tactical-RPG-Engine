@@ -215,7 +215,7 @@ public class MapPanel extends JPanel implements Runnable {
 		bg = buffer.getGraphics();
 
 		// Clear the panel
-		bg.setColor(Color.GRAY);
+		bg.setColor(Color.BLUE.darker());
 		bg.fillRect(0, 0, getWidth(), getHeight());
 		// Draw the elements of the panel
 		map.draw(buffer.getGraphics(), timeDiff, getWidth(), getHeight());

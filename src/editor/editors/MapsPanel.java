@@ -329,7 +329,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		Sprites tt = Config.loadPreference(IOUtil.replaceExtension(dtextures.getSpriteSheetLocation(), ".xml"));
 		String textureName  = tt.getSprites()[0].getName();
 		String textureName2 = tt.getSprites().length >=2 ? tt.getSprites()[1].getName() : textureName;
-		String textureName3 = tt.getSprites().length >=2 ? tt.getSprites()[2].getName() : textureName;
+//		String textureName3 = tt.getSprites().length >=3 ? tt.getSprites()[2].getName() : textureName;
 		
 		int width = ((Number) infoWidth.getValue()).intValue();
 		int height = ((Number) infoHeight.getValue()).intValue();
@@ -338,13 +338,13 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		for (int i = 0, k = 0; i < width; i++) {
 			for (int j = 0; j < height; j++, k++) {
 				tiles[k] = new SavedTile(
-						textureName2,
+						tileName,
 						1,
 						1,
 						i, j,
 						Orientation.TO_EAST,
 						textureName,
-						textureName3);
+						textureName2);
 			}
 		}
 

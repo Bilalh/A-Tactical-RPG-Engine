@@ -231,7 +231,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		}
 
 		if (!isDrawn()) {
-			g.setColor(Color.BLUE.brighter());
+			g.setColor(Color.BLUE.darker());
 			g.fillRect(0, 0, bufferWidth, bufferHeight);
 			setDrawn(mapRenderer.draw(g, width, height));
 		}

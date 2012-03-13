@@ -53,6 +53,7 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 	
 	public void setSprite(MutableSprite sprite) {
 		this.sprite = sprite;
+		this.tileName = sprite.getName();
 		tileImage = ResourceManager.instance().getTile(sprite.getName());
 	}
 
