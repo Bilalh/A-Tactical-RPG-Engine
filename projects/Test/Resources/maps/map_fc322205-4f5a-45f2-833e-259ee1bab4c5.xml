@@ -1,4 +1,4 @@
-<map uuid="1aaf137f-ecf1-4c39-bae4-fa216719633b" width="16" height="18">
+<map uuid="ddf5b61b-0bbd-410f-9e66-98d41015c603" width="16" height="18">
   <mapSettings>
     <tileDiagonal>60</tileDiagonal>
     <tileHeight>10</tileHeight>
@@ -13,7 +13,7 @@
     <eventsLocation>maps/map_fc322205-4f5a-45f2-833e-259ee1bab4c5-events.xml</eventsLocation>
     <musicLocation>maps/map_fc322205-4f5a-45f2-833e-259ee1bab4c5-music.xml</musicLocation>
     <conditionsLocation>maps/map_fc322205-4f5a-45f2-833e-259ee1bab4c5-conditions.xml</conditionsLocation>
-    <outlines>true</outlines>
+    <outlines>false</outlines>
   </mapData>
   <tile x="0" y="0">
     <type>red</type>
