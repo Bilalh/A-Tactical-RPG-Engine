@@ -14,6 +14,8 @@ import javax.swing.text.DefaultEditorKit.CutAction;
 
 import org.apache.log4j.Logger;
 
+import com.sun.tools.example.debug.gui.GUI;
+
 
 import util.Logf;
 import util.openal.Music;
@@ -192,7 +194,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 		selectedTile = field[0][0];
 		selectedTile.setSelected(true);
-
+		
 		mapController.addMapObserver(this);
 		mapController.startMap();
 
@@ -205,7 +207,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 	}
 
 	/**
@@ -325,6 +327,12 @@ public class GuiMap implements Observer, IMapRendererParent {
 		aiUnits = new ArrayList<AnimatedUnit>();
 		HashMap<IUnit, Location> selectedPostions = new HashMap<IUnit, Location>();
 
+		
+		ArrayList<IUnit> all =new ArrayList<IUnit>();
+		all.addAll(allAiUnits);
+		all.addAll(allPlayerUnits);
+		Gui.console().printf("Win Condition: %s", mapController.getConditions().getWinCondition().info(all));
+		
 		for (IMapUnit u : allAiUnits) {
 			assert u != null;
 			
