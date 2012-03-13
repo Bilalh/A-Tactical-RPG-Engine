@@ -49,11 +49,12 @@
 		<delete dir="${tests.dir}"/>
 	</target>
 	
-	<target depends="clean, clean-tests" name="cleanAll"/>
-	<target depends="findOS,build-project" name="build"/>
+	<target name="cleanAll" depends="clean, clean-tests" />
+
+	<target name="build" depends="findOS,build-project" />
 	
 	<!-- Builds the project -->
-	<target depends="init" name="build-project">
+	<target name="build-project" depends="init" >
 		<echo message="${ant.project.name}: ${ant.file}"/>
 		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}" includeantruntime="false">
 			<src path="src"/>
@@ -63,11 +64,19 @@
 	
 <!-- Distribution -->
 
+	<target name="update" depends="updateMacEditorBundle" />
+
 	
 	<!-- Update the mac bundle  -->
-	<target name="updateMacBundle" depends="gameJar">
+	<target name="updateMacEngineBundle" depends="gameJar">
         <move file="engine.jar" todir="bundle/Tactical.app/Contents/Resources/Java"/>
 	</target>
+	
+	<!-- Update the editor bundle  -->
+	<target name="updateMacEditorBundle" depends="editorJar, updateMacEngineBundle">
+        <move file="editor.jar" todir="Binaries/Tactical Engine.app/Contents/Resources/Java"/>
+		<copy todir="Binaries/Tactical Engine.app/Contents/Resources/Java/bundle"><fileset dir="bundle"/></copy>
+	</target>	
 	
 	<!-- Makes a Jar for the Game, only inculde the files needed to run the game -->
 	<target name="gameJar" depends="build">
@@ -81,8 +90,19 @@
 			/>
 		</jar>
 	</target>	
-	
-	<!--editor.jar-->
+
+	<!-- Makes a Jar for the editor-->
+	<target name="editorJar" depends="build">
+		<jar destfile="editor.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="view.Main"/>
+				<attribute name="Class-Path" value="."/>
+			</manifest>
+			<fileset dir="bin"
+				excludes="tests/**  scripts/**"
+			/>
+		</jar>
+	</target>	
 	
 <!-- Testing -->
 	
