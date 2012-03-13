@@ -66,7 +66,7 @@ public class MainController extends Controller implements Observer {
 		log.info("mapFinished");
 		
 		if (won == false){
-			JOptionPane.showMessageDialog(gui.getFrame(),"Game Over", "Tactical RPG Engine", JOptionPane.INFORMATION_MESSAGE);
+//			JOptionPane.showMessageDialog(gui.getFrame(),"Game Over", "Tactical RPG Engine", JOptionPane.INFORMATION_MESSAGE);
 			System.exit(0);
 		}
 		

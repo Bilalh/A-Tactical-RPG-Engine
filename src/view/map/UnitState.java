@@ -89,7 +89,7 @@ enum UnitState {
 		private Collection<LocationInfo> inRange = null;
 
 		@Override
-		void stateEntered() {
+		synchronized void stateEntered() {
 			// Set up movement range
 			inRange =  map.highlightRange(map.getCurrentUnit(), TileState.MOVEMENT_RANGE);
 			assert inRange != null;

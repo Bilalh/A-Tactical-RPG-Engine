@@ -24,7 +24,7 @@
     <uuid>876ff026-d02d-4883-a76a-bf39ce94e7e2</uuid>
     <unit uuid="876ff026-d02d-4883-a76a-bf39ce94e7e2">
       <name>Boy</name>
-      <maxHp>40</maxHp>
+      <maxHp>60</maxHp>
       <move>4</move>
       <strength>30</strength>
       <defence>10</defence>

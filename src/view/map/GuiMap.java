@@ -819,6 +819,10 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	// Scroll the map so that the location on the map is visible.
 	void scrollToLocation(ILocation l){
+			if (mapSettings.tileDiagonal * field.length < parent.getWidth()  && mapSettings.tileDiagonal/1.5f * field[0].length < parent.getHeight() ){
+				return;
+			}
+		
 			Location drawLocation  = getDrawLocation(l);
 			//FIXME why add MapSettings.tileDiagonal/2?
 			int diffY = drawY + parent.getHeight() -  mapSettings.tileDiagonal/2;

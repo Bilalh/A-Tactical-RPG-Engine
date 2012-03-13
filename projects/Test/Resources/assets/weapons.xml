@@ -40,11 +40,21 @@
   <entry>
     <uuid>7316c24b-c13f-4275-af14-2ff5f4a30b0f</uuid>
     <engine.items.RangedWeapon uuid="7316c24b-c13f-4275-af14-2ff5f4a30b0f">
-      <name>Short Bow</name>
-      <strength>1</strength>
+      <name>Ice Bow</name>
+      <strength>6</strength>
       <range>3</range>
-      <imageRef>4-6</imageRef>
+      <imageRef>4-10</imageRef>
       <innerRange>1</innerRange>
+    </engine.items.RangedWeapon>
+  </entry>
+  <entry>
+    <uuid>90fe5bab-9cd6-44fc-a3b3-8caa49d0d056</uuid>
+    <engine.items.RangedWeapon uuid="90fe5bab-9cd6-44fc-a3b3-8caa49d0d056">
+      <name>Wood Bow</name>
+      <strength>3</strength>
+      <range>3</range>
+      <imageRef>4-7</imageRef>
+      <innerRange>0</innerRange>
     </engine.items.RangedWeapon>
   </entry>
   <entry>
