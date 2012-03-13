@@ -102,16 +102,17 @@ public class MapController extends Controller {
 	}
 	
 	public void mapWon() {
-		MapFinishedNotification n = new MapFinishedNotification();
-		setChanged();
 		log.info("mapWon");
+		MapFinishedNotification n = new MapFinishedNotification(true);
+		setChanged();
 		notifyObservers(n);
 	}
 
 	public void mapLost() {
 		log.info("mapLost");
-		// FIXME mapLost method
-		mapWon();
+		MapFinishedNotification n = new MapFinishedNotification(false);
+		setChanged();
+		notifyObservers(n);
 	}
 
 	/** @category Generated */

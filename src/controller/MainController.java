@@ -62,8 +62,13 @@ public class MainController extends Controller implements Observer {
 	private int DEFAULT_FPS = 30;
 	private long period = (long) 1000.0 / DEFAULT_FPS;
 
-	public void mapFinished() {
+	public void mapFinished(boolean won) {
 		log.info("mapFinished");
+		
+		if (won == false){
+			JOptionPane.showMessageDialog(gui.getFrame(),"Game Over", "Tactical RPG Engine", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+		}
 		
 		final MapController next = nextMap();
 		if (next == null){

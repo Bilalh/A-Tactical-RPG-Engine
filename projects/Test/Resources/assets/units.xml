@@ -3,10 +3,10 @@
     <uuid>620482ab-3a91-49a8-b65d-e9507e2c5dbb</uuid>
     <unit uuid="620482ab-3a91-49a8-b65d-e9507e2c5dbb">
       <name>Elena</name>
-      <maxHp>60</maxHp>
+      <maxHp>30</maxHp>
       <move>5</move>
       <strength>15</strength>
-      <defence>25</defence>
+      <defence>10</defence>
       <speed>20</speed>
       <level>1</level>
       <exp>0</exp>
