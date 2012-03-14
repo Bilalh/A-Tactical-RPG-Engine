@@ -1,0 +1,22 @@
+@startuml img/activity_img01.png
+
+(*) -->[Starting] "Load Map"
+  --> "Display Start Dialog"
+  -right-> "Display Win Conditions"
+  --> "Place Units"
+  -left-> "Battle"
+  
+  if "Player Won?" then
+  	-right->[yes] "Display End Dialog"
+  	if "More Maps?" then
+  		-->[next] "Load Map"
+  	else
+  		--> "Game Finished"
+  		--> (*)
+  	endif
+  else 
+  	-->[no] "Gameover"
+  	--> (*)
+  endif
+
+@enduml
