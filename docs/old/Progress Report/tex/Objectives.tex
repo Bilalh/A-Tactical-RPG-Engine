@@ -1,0 +1,139 @@
+%CS4099 Dissetation
+%!TEX root = ../Project.tex
+\section{Objectives}
+
+\begin{figure}[h!]
+	\caption*{Key}
+	\begin{center}
+		\begin{tabular}{rl}
+		\Checkmark & Finished\\
+		\XSolidBrush & Not Started\\
+		– $\bullet$ $\star$ & In progress\\
+		\end{tabular}
+	\end{center}
+\end{figure}
+
+\label{Objectives}
+\subsection{Primary}
+\label{primary}
+The main goal of the primary objectives is allow the user to create a complex Tactical RPG, with limited customisability.  
+\begin{itemize}
+\item To develop an engine that takes:
+\begin{itemize}
+
+ \item The definition of character attributes and a combat system.
+	\item The definition of a world broken up into the smaller environments.
+	\begin{itemize}
+		\item The rules of the game.
+		\item The kinds of enemies.
+	\end{itemize}
+	
+	\tick The definition of simple story as a wrapper for the whole game, from the start to the conclusion of the game
+	\begin{itemize}
+		\item Which is told between the movement between different environments.
+	\end{itemize}
+	                        
+	\cross The set of selected character attributes.
+	
+\end{itemize}
+and create a playable tactic RPG.
+
+\item To include in the engine support for the following:
+\begin{itemize}
+	\tick \texttt{units} with a fixed set of associated attributes such as:
+	\begin{itemize}
+		\tick Hit-points (which represent the health of the unit).
+		\tick Strength.
+		\tick Defence.
+		\tick Move (The number of tiles the unit can move each turn).
+	\end{itemize}
+	
+	\item \texttt{battles} which take place on grid and include:
+	\begin{itemize}
+		\tick A set number of \texttt{units} for each player.
+		\item A Winning \texttt{condition} such as defeat all of the other players units.
+		\tick Battles are \texttt{turn based} meaning that each player moves all their units (once) before the next player turn.   
+		\item A combat system.
+	\end{itemize}
+	
+	\item A combat system that includes
+		\begin{itemize}
+			\item \texttt{combat} between adjacent units.
+			\begin{itemize}
+				\cross When the unit hit-points are reduced to zero they are \texttt{defeated} and are removed from the map
+			\tick A set of rules that govern the combat.
+			\end{itemize}
+			
+		\end{itemize}
+	
+	\item A predefined set of behaviours for how the non-player characters should behave.
+	\begin{itemize}
+		\tick Including pathfinding.
+	\end{itemize}
+	
+	\tick A isometric graphical representation of the game.
+	\begin{itemize}
+		\tick Which is show the grid with all the units.
+		\tick Allow the user to move their units and see the opponents moves.
+		\tick Allows the user to attack the opponents units.
+		\tick Text will be to describe the more complex actions such magic.
+	\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\subsection{Secondary}
+\label{secondary}
+The main goal of the secondary objectives is allow the user more customisability. 
+\begin{itemize}
+	\tick Tile have \texttt{height}, where units can only move to tiles of a smilier height.
+	\item Tiles that are not passable such as sea, lava, etc.
+	
+	\tick Tiles have different movement costs associated with them.
+		
+	\cross Long distance weapons\slash magic for player and AI.
+	
+	\cross Direction and height of the character's tile affects attack.
+	
+	\tick Sound effects.
+	
+	\tick Music.
+	
+	\item Saving and loading games.
+	
+	\item Allow the user to specify some of behaviour of non-player characters
+	\begin{itemize}
+		\item Through the use of scripting.
+		\cross An example: always attack a certain kind of unit or always attack the unit with the least Hit Points.
+	\end{itemize}
+	
+	\item A graphical view to allow user specify the input to the engine.
+\end{itemize}
+
+\subsection{Tertiary} 
+\label{tertiary}
+The goal of the Tertiary objectives are provide the user with more customisability and to provide a GUI for simple scripts. 
+
+\begin{itemize}
+	\cross Custom events
+	\begin{itemize}
+		\item Attached to units or titles, could be used for:
+		\begin{itemize}
+			\item Making the player win if some enemies unit has less then 50\% Hit Points.
+			
+			\item Damaging a character if step on a specified.
+			
+			\item Showing some part of the story when a player's character reach a specified tile.
+		\end{itemize}
+	\end{itemize}
+	
+	\item A graphical editor for:
+	\begin{itemize}
+		\tick  making custom maps,
+		\tick  making animations.
+		\item  specifying the input to the engine.
+		\item  making events
+		\cross  Scripts for simple event such as `Defeat the leader' as a winning condition.
+	\end{itemize}
+	
+	\tick Animations for units and movement.
+\end{itemize}

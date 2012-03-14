@@ -1,0 +1,4 @@
+The document outlines the aims and the specific objectives involved in developing a game engine for a tactical RPG. The set of requirements is written mainly from the point of view of a games designer. I am wondering whether they need to be complemented by a consideration of the game play by a set of system requirements? For example, since the game is to be rounds-based, is the intention that it can be played by two players using the same machine, is the play against the computer the main aspect or will player use their own machines each - in which case a networking component will be needed?
+
+
+What are the specific evaluation criteria for the game and how will they be assessed through the questionnaire? There may be a number of difficult to measure aspects such as 'fun' in this but perhaps there are also some criteria that are easier to operationalise?
