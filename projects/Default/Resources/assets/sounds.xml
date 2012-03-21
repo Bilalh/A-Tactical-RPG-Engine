@@ -5,4 +5,40 @@
       <location>music/sounds/2-39 Fanfare 1.ogg</location>
     </music>
   </entry>
+  <entry>
+    <uuid>efd0b5b4-6374-4540-8f88-530e374133a1</uuid>
+    <music uuid="efd0b5b4-6374-4540-8f88-530e374133a1">
+      <location>music/sounds/10-14 Death.ogg</location>
+    </music>
+  </entry>
+  <entry>
+    <uuid>e361c4d6-62bf-4142-b57d-5c6fb61128b9</uuid>
+    <music uuid="e361c4d6-62bf-4142-b57d-5c6fb61128b9">
+      <location>music/sounds/10-12 Level Up.ogg</location>
+    </music>
+  </entry>
+  <entry>
+    <uuid>36d718c4-c403-4be4-bae1-aaa580cd0910</uuid>
+    <music uuid="36d718c4-c403-4be4-bae1-aaa580cd0910">
+      <location>music/sounds/fight.wav</location>
+    </music>
+  </entry>
+  <entry>
+    <uuid>88ada54f-646b-4b12-863e-802b93a0377a</uuid>
+    <music uuid="88ada54f-646b-4b12-863e-802b93a0377a">
+      <location>music/sounds/20 Game Over.ogg</location>
+    </music>
+  </entry>
+  <entry>
+    <uuid>c45ac276-7479-459c-a0a8-78980e4baa48</uuid>
+    <music uuid="c45ac276-7479-459c-a0a8-78980e4baa48">
+      <location>music/sounds/19 - Battle Victory.ogg</location>
+    </music>
+  </entry>
+  <entry>
+    <uuid>21e94a2d-9d19-47ec-b7c9-53e9c6724af0</uuid>
+    <music uuid="21e94a2d-9d19-47ec-b7c9-53e9c6724af0">
+      <location>music/sounds/10-30 Medium Success.ogg</location>
+    </music>
+  </entry>
 </musics>

@@ -1,5 +1,12 @@
 <unitsImages>
   <entry>
+    <uuid>4802526c-5b05-4573-abcf-2ff33613c76d</uuid>
+    <unitImages uuid="4802526c-5b05-4573-abcf-2ff33613c76d">
+      <spriteSheetLocation>images/characters/Elena.png</spriteSheetLocation>
+      <animations/>
+    </unitImages>
+  </entry>
+  <entry>
     <uuid>47caf6a7-5974-47bf-bdb8-283f4b51badc</uuid>
     <unitImages uuid="47caf6a7-5974-47bf-bdb8-283f4b51badc">
       <spriteSheetLocation>images/characters/Nicholas.png</spriteSheetLocation>
@@ -10,7 +17,51 @@
     <uuid>c711fb7c-9bec-44b0-9aa5-67c2ad3ee15d</uuid>
     <unitImages uuid="c711fb7c-9bec-44b0-9aa5-67c2ad3ee15d">
       <spriteSheetLocation>images/characters/boy.png</spriteSheetLocation>
-      <animations/>
+      <animations>
+        <entry>
+          <string>west</string>
+          <unitAnimation>
+            <name>west</name>
+            <numberOfFrames>4</numberOfFrames>
+          </unitAnimation>
+        </entry>
+      </animations>
+    </unitImages>
+  </entry>
+  <entry>
+    <uuid>cc4b04c9-25f8-4111-bac7-6db0177c0035</uuid>
+    <unitImages uuid="cc4b04c9-25f8-4111-bac7-6db0177c0035">
+      <spriteSheetLocation>images/characters/princess.png</spriteSheetLocation>
+      <animations>
+        <entry>
+          <string>south</string>
+          <unitAnimation>
+            <name>south</name>
+            <numberOfFrames>4</numberOfFrames>
+          </unitAnimation>
+        </entry>
+        <entry>
+          <string>north</string>
+          <unitAnimation>
+            <name>north</name>
+            <numberOfFrames>4</numberOfFrames>
+          </unitAnimation>
+        </entry>
+        <entry>
+          <string>east</string>
+          <unitAnimation>
+            <name>east</name>
+            <numberOfFrames>4</numberOfFrames>
+          </unitAnimation>
+        </entry>
+        <entry>
+          <string>west</string>
+          <unitAnimation>
+            <name>west</name>
+            <numberOfFrames>4</numberOfFrames>
+          </unitAnimation>
+        </entry>
+      </animations>
     </unitImages>
   </entry>
 </unitsImages>
