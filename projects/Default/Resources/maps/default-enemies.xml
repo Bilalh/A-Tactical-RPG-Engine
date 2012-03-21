@@ -11,7 +11,7 @@
         <speed>12</speed>
         <level>1</level>
         <exp>0</exp>
-        <imageDataRef>images/characters/default-animations.xml</imageDataRef>
+        <imageDataRef>images/characters/Nicholas-animations.xml</imageDataRef>
         <wepaonId>04e0e57d-f1af-4700-a164-128685be12d0</wepaonId>
         <skillIds/>
         <ordering class="engine.map.ai.LowestHp">

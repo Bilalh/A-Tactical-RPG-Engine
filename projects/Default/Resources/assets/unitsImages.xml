@@ -1,8 +1,15 @@
 <unitsImages>
   <entry>
+    <uuid>47caf6a7-5974-47bf-bdb8-283f4b51badc</uuid>
+    <unitImages uuid="47caf6a7-5974-47bf-bdb8-283f4b51badc">
+      <spriteSheetLocation>images/characters/Nicholas.png</spriteSheetLocation>
+      <animations/>
+    </unitImages>
+  </entry>
+  <entry>
     <uuid>c711fb7c-9bec-44b0-9aa5-67c2ad3ee15d</uuid>
     <unitImages uuid="c711fb7c-9bec-44b0-9aa5-67c2ad3ee15d">
-      <spriteSheetLocation>images/characters/default.png</spriteSheetLocation>
+      <spriteSheetLocation>images/characters/boy.png</spriteSheetLocation>
       <animations/>
     </unitImages>
   </entry>

@@ -122,6 +122,7 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 			SpriteSheet _sheet = Config.loadSpriteSheet(ui.getSpriteSheetLocation());
 			spriteSheets.put(ui.getUuid(), new EditorSpriteSheet(_sheet));
 			imagesListModel.addElement(ui);
+			justCreated = null;
 		}else{
 			spriteSheets.remove(currentImages.getUuid());
 			setCurrentSpriteSheetData(currentImages);	
@@ -318,12 +319,10 @@ public abstract class AbstractSpriteSheetOrganiser extends JPanel  implements IR
 	public void delete(List<MutableSprite> selected) {
 	}
 
-	/** @category Generated */
 	public java.util.Map<UUID, EditorSpriteSheet> getSpriteSheets() {
 		return spriteSheets;
 	}
 
-	/** @category Generated */
 	public void setSpriteSheets(java.util.Map<UUID, EditorSpriteSheet> spriteSheets) {
 		this.spriteSheets = spriteSheets;
 	}
