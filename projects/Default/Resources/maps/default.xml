@@ -1,4 +1,4 @@
-<map uuid="d173fb21-923b-4f31-8eb8-42470d4eba84" width="13" height="15">
+<map uuid="dbd1a57f-2c6f-43a1-aaa5-4975e24337e7" width="13" height="15">
   <mapSettings>
     <tileDiagonal>60</tileDiagonal>
     <tileHeight>10</tileHeight>
@@ -13,6 +13,7 @@
     <eventsLocation>maps/default-events.xml</eventsLocation>
     <musicLocation>maps/default-music.xml</musicLocation>
     <conditionsLocation>maps/default-conditions.xml</conditionsLocation>
+    <outlines>false</outlines>
   </mapData>
   <tile x="0" y="0">
     <type>5</type>
