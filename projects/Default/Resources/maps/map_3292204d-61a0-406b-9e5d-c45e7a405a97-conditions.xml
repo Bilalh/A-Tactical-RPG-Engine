@@ -1,0 +1,8 @@
+<mapConditions>
+  <uuid>18879c99-7a0d-420a-90f1-fdaf59a14a25</uuid>
+  <winCondition class="engine.map.win.DefeatAllUnitsCondition"/>
+  <defaultStartLocation>
+    <x>0</x>
+    <y>0</y>
+  </defaultStartLocation>
+</mapConditions>

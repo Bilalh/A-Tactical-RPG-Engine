@@ -1,0 +1,7 @@
+<sprites width="128" height="128">
+  <sprite name="_portrait" x="0" y="0" width="46" height="53"/>
+  <sprite name="west0" x="46" y="0" width="25" height="48"/>
+  <sprite name="north0" x="71" y="0" width="25" height="48"/>
+  <sprite name="south0" x="96" y="0" width="25" height="48"/>
+  <sprite name="east0" x="0" y="53" width="25" height="48"/>
+</sprites>

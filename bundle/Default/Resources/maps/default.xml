@@ -1,4 +1,4 @@
-<map uuid="d173fb21-923b-4f31-8eb8-42470d4eba84" width="13" height="15">
+<map uuid="ff9d71bc-12d0-4307-84cd-bbaf912c82b4" width="13" height="15">
   <mapSettings>
     <tileDiagonal>60</tileDiagonal>
     <tileHeight>10</tileHeight>
@@ -13,13 +13,14 @@
     <eventsLocation>maps/default-events.xml</eventsLocation>
     <musicLocation>maps/default-music.xml</musicLocation>
     <conditionsLocation>maps/default-conditions.xml</conditionsLocation>
+    <outlines>false</outlines>
   </mapData>
   <tile x="0" y="0">
     <type>5</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="0" y="1">
     <type>5</type>
@@ -50,7 +51,7 @@
     <height>4</height>
     <startingHeight>4</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="0" y="6">
     <type>8-4</type>
@@ -111,7 +112,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="1" y="1">
     <type>3</type>
@@ -142,7 +143,7 @@
     <height>4</height>
     <startingHeight>4</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="1" y="6">
     <type>2</type>
@@ -203,7 +204,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="2" y="1">
     <type>5</type>
@@ -234,7 +235,7 @@
     <height>4</height>
     <startingHeight>4</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="2" y="6">
     <type>2</type>
@@ -295,12 +296,12 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="3" y="1">
     <type>8-4</type>
     <height>2</height>
-    <startingHeight>1</startingHeight>
+    <startingHeight>2</startingHeight>
     <orientation>TO_EAST</orientation>
   </tile>
   <tile x="3" y="2">
@@ -386,7 +387,7 @@
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="4" y="1">
     <type>4</type>
@@ -477,7 +478,7 @@
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="5" y="1">
     <type>6</type>
@@ -568,7 +569,7 @@
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="6" y="1">
     <type>2</type>
@@ -659,7 +660,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="7" y="1">
     <type>5</type>
@@ -768,7 +769,7 @@
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="8" y="4">
     <type>7</type>
@@ -805,7 +806,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <rightWall>ice</rightWall>
+    <rightWall>red</rightWall>
   </tile>
   <tile x="8" y="10">
     <type>5</type>
@@ -836,7 +837,7 @@
     <height>4</height>
     <startingHeight>4</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>ice</leftWall>
+    <leftWall>red</leftWall>
   </tile>
   <tile x="9" y="0">
     <type>8-4</type>
@@ -861,7 +862,7 @@
     <height>2</height>
     <startingHeight>2</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="9" y="4">
     <type>8-4</type>
@@ -904,36 +905,36 @@
     <height>3</height>
     <startingHeight>3</startingHeight>
     <orientation>TO_EAST</orientation>
-    <rightWall>ice</rightWall>
+    <rightWall>red</rightWall>
   </tile>
   <tile x="9" y="11">
     <type>5</type>
     <height>3</height>
     <startingHeight>3</startingHeight>
     <orientation>TO_EAST</orientation>
-    <rightWall>ice</rightWall>
+    <rightWall>red</rightWall>
   </tile>
   <tile x="9" y="12">
     <type>8-4</type>
     <height>3</height>
     <startingHeight>3</startingHeight>
     <orientation>TO_EAST</orientation>
-    <rightWall>ice</rightWall>
+    <rightWall>red</rightWall>
   </tile>
   <tile x="9" y="13">
     <type>6</type>
     <height>3</height>
     <startingHeight>3</startingHeight>
     <orientation>TO_EAST</orientation>
-    <rightWall>ice</rightWall>
+    <rightWall>red</rightWall>
   </tile>
   <tile x="9" y="14">
     <type>8-4</type>
     <height>4</height>
     <startingHeight>4</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>ice</leftWall>
-    <rightWall>ice</rightWall>
+    <leftWall>red</leftWall>
+    <rightWall>red</rightWall>
   </tile>
   <tile x="10" y="0">
     <type>8-4</type>
@@ -958,7 +959,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="10" y="4">
     <type>3</type>
@@ -1049,7 +1050,7 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
+    <leftWall>a.png</leftWall>
   </tile>
   <tile x="11" y="4">
     <type>8-4</type>
@@ -1140,38 +1141,38 @@
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>ice</leftWall>
-    <rightWall>blue</rightWall>
+    <leftWall>red</leftWall>
+    <rightWall>a.png</rightWall>
   </tile>
   <tile x="12" y="4">
     <type>2</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
-    <rightWall>ice</rightWall>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
   </tile>
   <tile x="12" y="5">
     <type>2</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <leftWall>blue</leftWall>
-    <rightWall>ice</rightWall>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
   </tile>
   <tile x="12" y="6">
     <type>2</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <rightWall>ice</rightWall>
+    <rightWall>red</rightWall>
   </tile>
   <tile x="12" y="7">
     <type>8-4</type>
     <height>1</height>
     <startingHeight>1</startingHeight>
     <orientation>TO_EAST</orientation>
-    <rightWall>ice</rightWall>
+    <rightWall>red</rightWall>
   </tile>
   <tile x="12" y="8">
     <type>8-4</type>

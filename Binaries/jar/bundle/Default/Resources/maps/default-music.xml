@@ -4,5 +4,6 @@
   <defeatUnitSound>4d63418f-911e-4053-b06b-2fb42d0c7f4f</defeatUnitSound>
   <loseUnitSound>4d63418f-911e-4053-b06b-2fb42d0c7f4f</loseUnitSound>
   <winMapSound>4d63418f-911e-4053-b06b-2fb42d0c7f4f</winMapSound>
-  <loseMapSound>4d63418f-911e-4053-b06b-2fb42d0c7f4f</loseMapSound>
+  <loseMapSound>efd0b5b4-6374-4540-8f88-530e374133a1</loseMapSound>
+  <levelUpSound>e361c4d6-62bf-4142-b57d-5c6fb61128b9</levelUpSound>
 </mapMusic>

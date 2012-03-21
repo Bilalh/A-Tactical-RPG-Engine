@@ -1,15 +1,15 @@
 <mapOrdering>
   <entry>
-    <uuid>feebbcd2-9492-468b-91d2-f31cca90f104</uuid>
-    <orderedMap uuid="feebbcd2-9492-468b-91d2-f31cca90f104">
-      <resouceLocation>maps/map_8a96bf33-4c3e-47dc-a881-d375a2764563.xml</resouceLocation>
-      <index>0</index>
-    </orderedMap>
-  </entry>
-  <entry>
     <uuid>f0698cb1-9b52-4228-80d2-ed1f3a11ec5e</uuid>
     <orderedMap uuid="f0698cb1-9b52-4228-80d2-ed1f3a11ec5e">
       <resouceLocation>maps/default.xml</resouceLocation>
+      <index>1</index>
+    </orderedMap>
+  </entry>
+  <entry>
+    <uuid>e2500b66-a4d6-4178-b3e9-d2b8693420e6</uuid>
+    <orderedMap uuid="e2500b66-a4d6-4178-b3e9-d2b8693420e6">
+      <resouceLocation>maps/map_3292204d-61a0-406b-9e5d-c45e7a405a97.xml</resouceLocation>
       <index>1</index>
     </orderedMap>
   </entry>

@@ -3,7 +3,7 @@
     <uuid>79485114-2559-4964-9cbd-f0841bd2e916</uuid>
     <engine.skills.RangedSkill uuid="79485114-2559-4964-9cbd-f0841bd2e916">
       <name>Air Blade</name>
-      <power>10</power>
+      <power>25</power>
       <targetOpposite>true</targetOpposite>
       <includeCaster>false</includeCaster>
       <range>2</range>
