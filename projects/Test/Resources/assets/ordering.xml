@@ -3,14 +3,14 @@
     <uuid>feebbcd2-9492-468b-91d2-f31cca90f104</uuid>
     <orderedMap uuid="feebbcd2-9492-468b-91d2-f31cca90f104">
       <resouceLocation>maps/map_8a96bf33-4c3e-47dc-a881-d375a2764563.xml</resouceLocation>
-      <index>0</index>
+      <index>1</index>
     </orderedMap>
   </entry>
   <entry>
     <uuid>a54f2739-5db2-4261-be1b-75b81188276a</uuid>
     <orderedMap uuid="a54f2739-5db2-4261-be1b-75b81188276a">
       <resouceLocation>maps/fft2.xml</resouceLocation>
-      <index>1</index>
+      <index>0</index>
     </orderedMap>
   </entry>
   <entry>

@@ -105,17 +105,17 @@
       </location>
     </entry>
     <entry>
-      <uuid>8f9fe1cb-cbff-4173-96e8-f47acf15e324</uuid>
-      <location>
-        <x>3</x>
-        <y>1</y>
-      </location>
-    </entry>
-    <entry>
       <uuid>9e30ec52-500e-4b9a-9cf5-7fe2c835ecaa</uuid>
       <location>
         <x>5</x>
         <y>3</y>
+      </location>
+    </entry>
+    <entry>
+      <uuid>8f9fe1cb-cbff-4173-96e8-f47acf15e324</uuid>
+      <location>
+        <x>3</x>
+        <y>1</y>
       </location>
     </entry>
     <entry>

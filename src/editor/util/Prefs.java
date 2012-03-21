@@ -15,6 +15,7 @@ public final class Prefs
 
     public static Preferences getNode(String pathName) {
         return prefs.node(pathName);
+        
     }
 
     public static Preferences root() {

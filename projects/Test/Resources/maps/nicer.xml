@@ -13,6 +13,7 @@
     <eventsLocation>maps/nicer-events.xml</eventsLocation>
     <musicLocation>maps/nicer-music.xml</musicLocation>
     <conditionsLocation>maps/nicer-conditions.xml</conditionsLocation>
+    <outlines>false</outlines>
   </mapData>
   <tile x="0" y="0">
     <type>90</type>

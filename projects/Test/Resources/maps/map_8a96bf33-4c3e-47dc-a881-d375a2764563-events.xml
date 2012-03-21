@@ -4,7 +4,7 @@
       <uuid>9ef553b7-5c46-4988-86f7-22adda0068c9</uuid>
       <dialogPart uuid="9ef553b7-5c46-4988-86f7-22adda0068c9">
         <text>You can not win!</text>
-        <unitId>b0a5943a-6096-4579-8314-387afac4d4ce</unitId>
+        <unitId>4a9e5805-c2c2-4bf5-84bf-d291651c0ed0</unitId>
         <partNo>0</partNo>
       </dialogPart>
     </entry>
@@ -14,7 +14,7 @@
       <uuid>d6724773-1ddb-47c7-82a3-e0f9cd605407</uuid>
       <dialogPart uuid="d6724773-1ddb-47c7-82a3-e0f9cd605407">
         <text>How did I lose?</text>
-        <unitId>b0a5943a-6096-4579-8314-387afac4d4ce</unitId>
+        <unitId>4a9e5805-c2c2-4bf5-84bf-d291651c0ed0</unitId>
         <partNo>0</partNo>
       </dialogPart>
     </entry>
