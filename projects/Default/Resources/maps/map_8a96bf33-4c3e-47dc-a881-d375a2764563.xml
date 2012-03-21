@@ -1,0 +1,410 @@
+<map uuid="7add2410-017d-4b50-b96d-0d5852646e26" width="7" height="7">
+  <mapSettings>
+    <tileDiagonal>60</tileDiagonal>
+    <tileHeight>10</tileHeight>
+    <pitch>0.5</pitch>
+    <zoom>1.0</zoom>
+  </mapSettings>
+  <mapData>
+    <name>small</name>
+    <tileMappingLocation>images/tilesets/default-mapping.xml</tileMappingLocation>
+    <texturesLocation>images/textures/default.png</texturesLocation>
+    <enemiesLocation>maps/map_8a96bf33-4c3e-47dc-a881-d375a2764563-enemies.xml</enemiesLocation>
+    <eventsLocation>maps/map_8a96bf33-4c3e-47dc-a881-d375a2764563-events.xml</eventsLocation>
+    <musicLocation>maps/map_8a96bf33-4c3e-47dc-a881-d375a2764563-music.xml</musicLocation>
+    <conditionsLocation>maps/map_8a96bf33-4c3e-47dc-a881-d375a2764563-conditions.xml</conditionsLocation>
+    <outlines>false</outlines>
+  </mapData>
+  <tile x="0" y="0">
+    <type>6</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="0" y="1">
+    <type>8-4</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="0" y="2">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="0" y="3">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="0" y="4">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="0" y="5">
+    <type>8-4</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="0" y="6">
+    <type>6</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="1" y="0">
+    <type>8-4</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="1" y="1">
+    <type>8-4</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="1" y="2">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="1" y="3">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_NORTH</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="1" y="4">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="1" y="5">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="1" y="6">
+    <type>8-4</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="2" y="0">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="2" y="1">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="2" y="2">
+    <type>8</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
+    <orientation>TO_NORTH</orientation>
+    <leftWall>c.png</leftWall>
+    <rightWall>c.png</rightWall>
+  </tile>
+  <tile x="2" y="3">
+    <type>8</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
+    <orientation>TO_NORTH</orientation>
+    <leftWall>c.png</leftWall>
+    <rightWall>c.png</rightWall>
+  </tile>
+  <tile x="2" y="4">
+    <type>8</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
+    <orientation>TO_SOUTH</orientation>
+    <leftWall>c.png</leftWall>
+    <rightWall>c.png</rightWall>
+  </tile>
+  <tile x="2" y="5">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="2" y="6">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="3" y="0">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_WEST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="3" y="1">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_SOUTH</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>b.png</rightWall>
+  </tile>
+  <tile x="3" y="2">
+    <type>8</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
+    <orientation>TO_NORTH</orientation>
+    <leftWall>c.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="3" y="3">
+    <type>6</type>
+    <height>3</height>
+    <startingHeight>3</startingHeight>
+    <orientation>TO_NORTH</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>b.png</rightWall>
+  </tile>
+  <tile x="3" y="4">
+    <type>8</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
+    <orientation>TO_NORTH</orientation>
+    <leftWall>c.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="3" y="5">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_NORTH</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>b.png</rightWall>
+  </tile>
+  <tile x="3" y="6">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="4" y="0">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="4" y="1">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="4" y="2">
+    <type>8</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
+    <orientation>TO_NORTH</orientation>
+    <leftWall>c.png</leftWall>
+    <rightWall>c.png</rightWall>
+  </tile>
+  <tile x="4" y="3">
+    <type>8</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
+    <orientation>TO_NORTH</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>c.png</rightWall>
+  </tile>
+  <tile x="4" y="4">
+    <type>8</type>
+    <height>2</height>
+    <startingHeight>2</startingHeight>
+    <orientation>TO_NORTH</orientation>
+    <leftWall>c.png</leftWall>
+    <rightWall>c.png</rightWall>
+  </tile>
+  <tile x="4" y="5">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>b.png</rightWall>
+  </tile>
+  <tile x="4" y="6">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_WEST</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="5" y="0">
+    <type>8-4</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="5" y="1">
+    <type>4</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="5" y="2">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="5" y="3">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_SOUTH</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="5" y="4">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="5" y="5">
+    <type>7</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>EMPTY</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="5" y="6">
+    <type>8-4</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>red</rightWall>
+  </tile>
+  <tile x="6" y="0">
+    <type>6</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="6" y="1">
+    <type>8-4</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="6" y="2">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="6" y="3">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_WEST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="6" y="4">
+    <type>3</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="6" y="5">
+    <type>8-4</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_EAST</orientation>
+    <leftWall>b.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+  <tile x="6" y="6">
+    <type>6</type>
+    <height>1</height>
+    <startingHeight>1</startingHeight>
+    <orientation>TO_WEST</orientation>
+    <leftWall>a.png</leftWall>
+    <rightWall>a.png</rightWall>
+  </tile>
+</map>

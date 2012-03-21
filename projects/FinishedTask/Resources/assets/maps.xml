@@ -1,0 +1,14 @@
+<maps>
+  <entry>
+    <uuid>feebbcd2-9492-468b-91d2-f31cca90f104</uuid>
+    <deferredMap uuid="feebbcd2-9492-468b-91d2-f31cca90f104">
+      <resouceLocation>maps/map_8a96bf33-4c3e-47dc-a881-d375a2764563.xml</resouceLocation>
+    </deferredMap>
+  </entry>
+  <entry>
+    <uuid>f0698cb1-9b52-4228-80d2-ed1f3a11ec5e</uuid>
+    <deferredMap uuid="f0698cb1-9b52-4228-80d2-ed1f3a11ec5e">
+      <resouceLocation>maps/default.xml</resouceLocation>
+    </deferredMap>
+  </entry>
+</maps>

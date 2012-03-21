@@ -97,7 +97,7 @@ public class ResourceManager {
 		}
 		
 		BufferedImage tile = currentTextureSheet.getSpriteImage(ref);
-		assert tile != null;
+		assert tile != null : ref;
 		
 		Rectangle2D rTile   = new Rectangle2D.Double(0, 0, tile.getWidth(null),tile.getHeight(null));
 		TexturePaint tTile  = new TexturePaint( tile, rTile);

@@ -1,0 +1,20 @@
+<musics>
+  <entry>
+    <uuid>af6f534a-ba3f-4d4a-b809-0882f8f95176</uuid>
+    <music uuid="af6f534a-ba3f-4d4a-b809-0882f8f95176">
+      <location>music/1-19 Fight It Out!.ogg</location>
+    </music>
+  </entry>
+  <entry>
+    <uuid>39ec9677-ea36-42bb-84e3-dbe76e4cf0b5</uuid>
+    <music uuid="39ec9677-ea36-42bb-84e3-dbe76e4cf0b5">
+      <location>music/3-15 Faraway Heights.ogg</location>
+    </music>
+  </entry>
+  <entry>
+    <uuid>90761925-6424-4ef5-8d0d-2d3a93c4ab88</uuid>
+    <music uuid="90761925-6424-4ef5-8d0d-2d3a93c4ab88">
+      <location>music/27 - Last Battle&apos;s End.ogg</location>
+    </music>
+  </entry>
+</musics>

@@ -499,6 +499,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 
 		for (Entry<UUID, Location> e : map.getEnemies().getUnitPlacement().entrySet()) {
 			AnimatedUnit a = toMapUnit.get(e.getKey());
+			if (a == null) continue;
 			a.setLocation(e.getValue());
 			map.getGuiTile(e.getValue()).setUnit(a);
 		}
