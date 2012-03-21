@@ -12,44 +12,84 @@
 	\item What particular aspects of the Engine did you like? 
 	\item What particular aspect of the Engine did you dislike? 
 	
-	\item What features of the editor did you find lacking?
-	\item What features would you like to see added to the editor in the future?
+	\item What features of the Engine did you find lacking?
+	\item What features would you like to see added to the Engine in the future?
 	\item Any comments?
 \end{enumerate}
 
 \clearpage
 \subsection{Task}
 
-The task involves creating a single level of a Tactical RPG (Each level is grid based (like chess) where each player has takes turns to move and/or attack the opposing player).   
+The task involves creating a single level of a Tactical RPG (Each level is grid based (like chess) where each player takes turns to move and/or attack the opposing player).   
 
 \subsubsection*{Weapons}
-\begin{table}[h!]
-	\begin{center}
-		\begin{tabular}{c|c|c}
-			Name        & Weapon Type & Icon \\\hline
-			Long Bow    & Ranged      & \includegraphics[height=0.5cm]{figures/bow.png}     \\ 
-			Black Spear & Spear       & \includegraphics[height=0.5cm]{figures/spear.png}     \\ 
-			Ice Sword   & Sword       & \includegraphics[height=0.5cm]{figures/sword.png}     \\ 
-		\end{tabular}
-		\label{}
-	\end{center}
-\end{table}
+\begin{center}
+\begin{tabular}{c|c|c|c|}
+	Name        & Weapon Type & Strength & Icon \\\hline
+	Long Bow    & Ranged      & 30       & \includegraphics[height=0.5cm]{figures/bow.png}   \\ 
+	Black Spear & Spear       & 20       & \includegraphics[height=0.5cm]{figures/spear.png} \\ 
+	Ice Sword   & Sword       & 10       & \includegraphics[height=0.5cm]{figures/sword.png} \\ 
+\end{tabular}
+\end{center}
 
+\subsubsection*{Skills}
+\begin{center}
+	\begin{tabular}{c|c|c|c|c}
+		
+		Name          & Type   & Range & Area & Strength \\\hline
+		Thunder Flare & Ranged & 4     & 1    & 15       \\ 
+	 	Air Blade     & Ranged & 3     & 0    & 25       \\ 
+	\end{tabular}
+\end{center}
+
+
+% Makes a unit
+\newcommand{\unit}[7]{\begin{tabular}{|l|lp{2cm}|}
+\hline
+\multicolumn{3}{|c|}{#1} \\
+\hline
+\multirow{6}{*}{\includegraphics[height=1.7cm]{figures/#2}} 
+ & Weapon    & #3 \\
+ & Strength  & #4 \\
+ & Move      & #5 \\
+ \cline{2-3}
+ & \multicolumn{2}{c|}{Skills} \\
+ \cline{2-3}
+ \ifstrempty{#6}{}{\foreach{\unitSkill}{}{#6}}
+ & \multicolumn{2}{l|}{#7}\\
+\hline
+\end{tabular}
+}
+
+\newcommand\unitSkill[2]{
+	& \multicolumn{2}{l|}{#2}\\
+}
+\subsubsection*{Units}
+\unit{Elena}{unit1.png}{Long Bow}{20}{3}{}{Air Blade}
+\hspace{0.5cm}
+\unit{Elena}{unit1.png}{Black Spear}{30}{5}{}{Thunder Flare}
+
+\subsubsection*{Enemies}
+\unit{Elena}{unit1.png}{Long Bow}{20}{3}{}{}
+\hspace{0.5cm}
+\unit{Elena}{unit1.png}{Black Spear}{30}{5}{}{}
+\\[0.5cm]
+\unit{Elena}{unit1.png}{Black Spear}{30}{5}{}{}
+\hspace{0.5cm}
+\unit{Elena}{unit1.png}{Black Spear}{30}{5}{}{}
+
+
+\clearpage
 \subsubsection*{Map}
-\begin{itemize}[topsep=0mm,noitemsep ]
-	\item[Width $\times$ Height] 7$\times$7
-	\item[tileset] fft2	
-\end{itemize}
-
-\begin{figure}[htbp]
+\begin{figure}[h!]
 	\centering
-		\includegraphics[height=2.7in]{figures/Task.png}
+		\includegraphics[height=2.7in]{figures/Task.pdf}
 	\caption{The map to create}
 	\label{fig:figures_Task}
 \end{figure}
 
 
-\paragraph{Win Condition}
+\paragraph{Win Condition\\}
 Defeat Specific Unit   -- Elena.
 
 \paragraph{Start Dialog:}
@@ -64,7 +104,7 @@ Defeat Specific Unit   -- Elena.
 	\item[Speaker] Elena
 \end{itemize}
 
-\paragraph{Music}
+\paragraph{Music:\\}
 Background Music 3-15 Faraway Heights
 
 \clearpage

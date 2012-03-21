@@ -12,7 +12,7 @@
 \renewcommand{\theTitle}{A Tactical RPG Engine}
 \renewcommand{\theAuthor}{\fullName}
 
-
+\usepackage{multirow}
 \usepackage{ifthen}
 % \usepackage{UKenglish}                           
 \bibliographystyle{IEEEtran}
@@ -242,6 +242,38 @@
 	\freequestion\noindent \questionNumber \noindent #1
 	\par
 }
+
+\makeatletter
+
+% Functional foreach construct 
+% #1 - Function to call on each comma-separated item in #3
+% #2 - Parameter to pass to function in #1 as first parameter
+% #3 - Comma-separated list of items to pass as second parameter to function #1
+\def\foreach#1#2#3{%
+  \@test@foreach{#1}{#2}#3,\@end@token%
+}
+
+% Internal helper function - Eats one input
+\def\@swallow#1{}
+
+% Internal helper function - Checks the next character after #1 and #2 and 
+% continues loop iteration if \@end@token is not found 
+\def\@test@foreach#1#2{%
+  \@ifnextchar\@end@token%
+    {\@swallow}%
+    {\@foreach{#1}{#2}}%
+}
+
+% Internal helper function - Calls #1{#2}{#3} and recurses
+% The magic of splitting the third parameter occurs in the pattern matching of the \def
+\def\@foreach#1#2#3,#4\@end@token{%
+  #1{#2}{#3}%
+  \@test@foreach{#1}{#2}#4\@end@token%
+}
+
+\makeatother
+
+\usepackage{etoolbox}
 
 % other way
 
