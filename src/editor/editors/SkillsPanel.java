@@ -421,7 +421,7 @@ public class SkillsPanel extends AbstactMapEditorPanel {
 
 		
 		p.add((infoAreaL = new JLabel("Area:")), "gap 4");
-		infoArea = new JSpinner(new SpinnerNumberModel(1, 1, 8, 1));
+		infoArea = new JSpinner(new SpinnerNumberModel(1, 0, 8, 1));
 		AbstractResourcesPanel.makeJSpinnerSaveOnType(infoArea);
 		
 		infoArea.addChangeListener(new ChangeListener() {

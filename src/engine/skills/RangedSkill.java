@@ -20,7 +20,7 @@ public class RangedSkill extends AbstractSkill {
 	protected Location startLocation;
 	
 	public RangedSkill(){
-		super();
+		range = 1;
 	}
 	
 	public RangedSkill(String name, int power, int range, int area, boolean targetOpposite, boolean includeCaster) {
