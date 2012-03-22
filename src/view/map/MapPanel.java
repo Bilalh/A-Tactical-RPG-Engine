@@ -111,6 +111,7 @@ public class MapPanel extends JPanel implements Runnable {
 					case KeyEvent.VK_RIGHT:
 						handler.keyRight();
 						break;
+					case KeyEvent.VK_ENTER:
 					case KeyEvent.VK_X:
 						handler.keyComfirm();
 						break;

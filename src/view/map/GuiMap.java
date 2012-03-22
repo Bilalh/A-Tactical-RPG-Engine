@@ -587,7 +587,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 	
 	// Shows the movement range/attack range of other units.
 	Collection<? extends ILocation> othersRange;
-	void tileSelected() {
+	void  tileSelected() {
 		IsoTile selected = getSelectedTile();
 		final AnimatedUnit u = getSelectedTile().getUnit();
 		

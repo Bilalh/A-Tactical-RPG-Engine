@@ -97,9 +97,10 @@ enum UnitState {
 		}
 
 		@Override
-		UnitState exec() {
+		synchronized UnitState exec() {
 			assert map.getSelectedTile() != null;
-			assert inRange != null;
+			if (inRange == null) return this;
+//			assert inRange != null;
 			
 			if (!map.getSelectedTile().isSelected()) return this;
 
@@ -118,7 +119,7 @@ enum UnitState {
 		}
 
 		@Override
-		UnitState cancel() {
+		synchronized UnitState cancel() {
 			map.removeRange(inRange);
 			return MENU_SELECTED; 
 		}
