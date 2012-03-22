@@ -70,6 +70,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private MapMusicPanel  musicPanel;
 	
 	private MapConditionsPanel conditionsPanel;
+	private JPanel infoPanel;
 	
 	public MapsPanel(Editor editor) {
 		super(editor);
@@ -231,6 +232,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 	@Override
 	protected void addToList() {
+		if (infoTabs.getSelectedComponent() != infoPanel){
+			infoTabs.setSelectedComponent(infoPanel);
+		}
+		
 		//FIXME addToList
 		infoTabs.setEnabled(false);
 		creating = true;
@@ -467,7 +472,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 
 		infoTabs = new JTabbedPane();
-		infoTabs.addTab("Details", p);
+		infoTabs.addTab("Details", infoPanel =p);
 		infoTabs.addTab("Enemies ",       enemiesPanel     = new AiUnitPanel(editor.getUnitsSprites(), false, "Enemy"));
 		infoTabs.addTab("Start Dialog",   dialogStartPanel = new MapDialogPanel(this, editor));
 		infoTabs.addTab("Finish Dialog",  dialogEndPanel   = new MapDialogPanel(this, editor));
