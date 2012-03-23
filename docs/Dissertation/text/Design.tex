@@ -1,8 +1,16 @@
+%!TEX root = ../Project.tex
 \section{Design}
 
-\subsection{Engine}
+\subsection{Game System}
 
-\subsection{Game System/GUI}
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=3in]{figures/game.pdf}
+	\caption{Activity diagram which a high level of overview of the engine}
+	\label{fig:figures_game}
+\end{figure}
+
+Figure \ref{fig:figures_game} shows the overview of how the created game progress.  Each game has a number of maps where a battle take place. After the map is loaded any relanent dialog is display, along with winning conditions. The player's units are then placed are the map\footnote{While the engine support allowing the user's to choose where the their units are placed, the GUI does not due to time constraints. The editor does support specify the starting location for the player's units}.  And the battle (which will be discussed below takes). If the player's loses the battle, a gameover screen is shown and the game end. In contrast if the player wins he/she advances to the next map, if there one.    
 
 
 \begin{figure}[htbp]
@@ -22,3 +30,35 @@ The editor can export a project as a complete package, either as a Mac OS X appl
 A notable feature of the editor is that jar will work on any java enabled platform, since the jar contains all required libraries for each platform. The OS X application can even be export on other platforms.
 
 While most of the testing was done on OS X \footnote{Mac OS X 10.6 Snow leopard}, it also works well on Linux \footnote{Science  Linux x.y}. It even has limited compatibly with Windows\footnote{Tested on Windows 7 32 bit} (apart from some minor graphics issues).
+
+
+\subsection{Tilemap}
+
+There were two main choices for the isometric tilemap, a `Diamond' map or a  `Staggered' map \cite{isometric_game_programming}, examples of both are shown below.
+
+\def\tilemapSize{5in}
+\begin{figure}[htbp]
+	\begin{center}
+
+	\subfigure[Diamond Map]{
+		\label{fig:tilemap1} \includegraphics[width=\tilemapSize]{figures/tilemap1.png}} 
+	\subfigure[Staggered Map]{
+		\label{fig:tilemap2} \includegraphics[width=\tilemapSize]{figures/tilemap2.png}} 
+	\caption{\label{fig:tilemap0} The two main types of isometric tilemaps}
+	\end{center}
+\end{figure}
+
+The `Staggered' Map has following advantages:
+\begin{itemize}
+	\item The map fill up the screen with very little wasted space, so the user can more of what happing on the map.
+\end{itemize} 
+
+The `Diamond' map was chosen for the following reasons:
+\begin{itemize}
+	\item `Diamond' map look nicer then `Staggered' maps because it has no ragged edges.
+	\item Since that maps are large (at lest 15 \* 15) the space wasted at the edges of the map does not matter as much.
+	% TODO Check deegres (45?)
+	\item Simpler to think about, since a `Diamond' map is just a rectangular map rotated.
+\end{itemize}
+
+\underline{Maths about isometric tilemaps? }

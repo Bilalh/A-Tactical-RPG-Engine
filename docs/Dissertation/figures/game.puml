@@ -1,6 +1,6 @@
 @startuml img/activity_img01.png
 
-(*) -->[Starting] "Load Map"
+(*) -->[Game start] "Load Map"
   --> "Display Start Dialog"
   -right-> "Display Win Conditions"
   --> "Place Units"

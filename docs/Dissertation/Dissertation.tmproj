@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>feedback/Feedback_2</string>
+	<string>text/Objectives.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -26,14 +26,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>29</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>11</integer>
+				<integer>3</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>Project.toc</key>
 		<dict>
@@ -49,90 +49,75 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>Survey.tex</key>
+		<key>text/Design.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>143</integer>
+				<key>line</key>
+				<integer>23</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>text/Evaluation.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>14</integer>
 				<key>line</key>
-				<integer>7</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>feedback/Feedback_2</key>
+		<key>text/Objectives.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>97</integer>
+				<integer>241</integer>
 				<key>line</key>
-				<integer>1</integer>
+				<integer>103</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>88</integer>
 		</dict>
-		<key>settings/Setting.tex</key>
+		<key>text/Scripting.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>49</integer>
 				<key>line</key>
-				<integer>242</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>205</integer>
-		</dict>
-		<key>text/Questionnaire.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>12</integer>
-				<key>line</key>
-				<integer>16</integer>
+				<integer>10</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>text/Setting.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>23</integer>
-				<key>line</key>
-				<integer>217</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>217</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>text/Setting.tex</string>
 		<string>Project.tex</string>
-		<string>settings/Setting.tex</string>
-		<string>Survey.tex</string>
-		<string>text/Questionnaire.tex</string>
-		<string>feedback/Feedback_2</string>
+		<string>text/Design.tex</string>
+		<string>text/Scripting.tex</string>
+		<string>text/Objectives.tex</string>
+		<string>text/Evaluation.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>showFileHierarchyPanel</key>
-	<true/>
+	<false/>
 	<key>treeState</key>
 	<dict>
 		<key>Dissertation</key>
@@ -148,7 +133,7 @@
 					<key>subItems</key>
 					<dict/>
 				</dict>
-				<key>figures</key>
+				<key>settings</key>
 				<dict>
 					<key>isExpanded</key>
 					<true/>
@@ -166,6 +151,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{156, 93}, {867, 716}}</string>
+	<string>{{487, 150}, {841, 632}}</string>
 </dict>
 </plist>
