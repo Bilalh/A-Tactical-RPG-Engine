@@ -2,17 +2,24 @@
 <project name="Tactical RPG Engine" default="build" basedir=".">
 
 	<description>
-	Complies and runs tests. Also makes a jars of classes need by the engine and the editor.
+	Make all the required files for Distribution for all platforms. 
 	
+	This is by making a jars of classes need by the engine and for the editor.
+	The script also make the application bundle for Mac O SX
+	Also runs tests. 
+		
 	Main Commands:
-	ant build            -- Builds the project.
-	ant tests            -- Builds and runs all tests and make a webpage of the results.
 	
-	ant update           -- Builds then, create a jar of classes for the game and the engine and thens updates the mac bundles.
+	ant dist        -- Makes binaries of the editor for all platforms 
+		
+	ant update      -- Builds then, create a jar of classes for the game and the engine and thens updates the mac bundles.
+	ant tests       -- Builds and runs all tests and make a webpage of the results.
+		
+	ant build       -- Builds the project.
 	
-	ant engineJar        -- Builds a jar of the engine's classes. 
-	ant editorJar        -- Builds a jar of the editor's classes.
-	ant jars             -- Builds all the jars.
+	ant engineJar   -- Builds a jar of the engine's classes. 
+	ant editorJar   -- Builds a jar of the editor's classes.
+	ant jars        -- Builds all the jars.
 	</description>
 
 	<!-- global properties for this build -->
@@ -69,6 +76,7 @@
 	
 <!-- Distribution -->
 
+	<target name="dist"   depends="compileJars,update"/>
 	<target name="update" depends="updateMacEditorBundle,updateJars" />
 	<target name="jars"   depends="engineJar,editorJar" />
 
@@ -114,6 +122,15 @@
 		</jar>
 	</target>	
 	
+	<!-- Makes a jar with all the libraries and native libraries inside the jar (for windows/linux only) -->
+	<target name="compileJars" depends="jars">
+		<java fork="true"  failonerror="true" classname="scripts/JarsCreator" >
+			<classpath>
+				<path refid="build.classpath"/>
+			</classpath>
+		</java>
+	</target>
+	
 <!-- Testing -->
 	
 	<!-- Runs all the tests and make a web page with the results -->
@@ -139,6 +156,7 @@
 		</junitreport>
 	</target>
 	
+<!-- Misc -->
 	<target name="findOS" description="if switch to set OS specific settings">
 		<condition property="isMac">
     		<os family="mac" />

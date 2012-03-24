@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.EventQueue;
-import java.lang.reflect.InvocationTargetException;
-
 import org.apache.log4j.Logger;
 
 import config.Config;
