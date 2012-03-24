@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="484px" height="345px" viewBox="0 0 484 345" enable-background="new 0 0 484 345" xml:space="preserve">
+<title>unix</title>
+<polygon fill="#FFFFFF" stroke="#FFFFFF" points="0,342.5 0,-2.5 484.185,-2.5 484.185,342.5 "/>
+<g id="node1">
+	<title>cl0039</title>
+	<polygon fill="#FEFECE" stroke="#FEFECE" points="61.185,1.5 31.185,1.5 19.185,13.5 19.185,25.5 31.185,37.5 61.185,37.5 
+		73.185,25.5 73.185,13.5 	"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M31.185,1.5c-6,0-12,6-12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M19.185,25.5c0,6,6,12,12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M61.185,37.5c6,0,12-6,12-12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M73.185,13.5c0-6-6-12-12-12"/>
+	<line fill="none" stroke="#A80036" x1="61.185" y1="1.5" x2="31.185" y2="1.5"/>
+	<path fill="none" stroke="#A80036" d="M31.185,1.5c-6,0-12,6-12,12"/>
+	<line fill="none" stroke="#A80036" x1="19.185" y1="13.5" x2="19.185" y2="25.5"/>
+	<path fill="none" stroke="#A80036" d="M19.185,25.5c0,6,6,12,12,12"/>
+	<line fill="none" stroke="#A80036" x1="31.185" y1="37.5" x2="61.185" y2="37.5"/>
+	<path fill="none" stroke="#A80036" d="M61.185,37.5c6,0,12-6,12-12"/>
+	<line fill="none" stroke="#A80036" x1="73.185" y1="25.5" x2="73.185" y2="13.5"/>
+	<path fill="none" stroke="#A80036" d="M73.185,13.5c0-6-6-12-12-12"/>
+	<text transform="matrix(1 0 0 1 29.1846 22.2666)" font-family="'Times-Roman'" font-size="14">Battle</text>
+</g>
+<g id="node6">
+	<title>cl0037</title>
+	<polygon fill="#FEFECE" stroke="#FEFECE" points="430.185,1.5 370.185,1.5 358.185,13.5 358.185,25.5 370.185,37.5 430.185,37.5 
+		442.185,25.5 442.185,13.5 	"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M370.185,1.5c-6,0-12,6-12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M358.185,25.5c0,6,6,12,12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M430.185,37.5c6,0,12-6,12-12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M442.185,13.5c0-6-6-12-12-12"/>
+	<line fill="none" stroke="#A80036" x1="430.185" y1="1.5" x2="370.185" y2="1.5"/>
+	<path fill="none" stroke="#A80036" d="M370.185,1.5c-6,0-12,6-12,12"/>
+	<line fill="none" stroke="#A80036" x1="358.185" y1="13.5" x2="358.185" y2="25.5"/>
+	<path fill="none" stroke="#A80036" d="M358.185,25.5c0,6,6,12,12,12"/>
+	<line fill="none" stroke="#A80036" x1="370.185" y1="37.5" x2="430.185" y2="37.5"/>
+	<path fill="none" stroke="#A80036" d="M430.185,37.5c6,0,12-6,12-12"/>
+	<line fill="none" stroke="#A80036" x1="442.185" y1="25.5" x2="442.185" y2="13.5"/>
+	<path fill="none" stroke="#A80036" d="M442.185,13.5c0-6-6-12-12-12"/>
+	<text transform="matrix(1 0 0 1 366.6855 22.2666)" font-family="'Times-Roman'" font-size="14">Place Units</text>
+</g>
+<g id="edge11">
+	<title>cl0039-&gt;cl0037</title>
+	<path fill="none" stroke="#A80036" d="M83.5,19.5c91.524,0,183.048,0,274.573,0"/>
+	<polygon fill="#A80036" stroke="#A80036" points="73.495,19.5 83.495,24 78.495,19.5 83.495,19.5 83.495,19.5 83.495,19.5 
+		78.495,19.5 83.495,15 73.495,19.5 	"/>
+</g>
+<g id="node7">
+	<title>cl0043</title>
+	<polygon fill="#FEFECE" stroke="#A80036" points="46.185,78.5 37.185,87.5 46.185,96.5 55.185,87.5 	"/>
+</g>
+<title>cl0039-&gt;cl0043:h</title>
+<path fill="none" stroke="#A80036" d="M46.185,37.723c0,9.387,0,20.837,0,30.387"/>
+<polygon fill="#A80036" stroke="#A80036" points="46.185,78.212 50.685,68.212 46.185,73.212 46.185,68.212 46.185,68.212 
+	46.185,68.212 46.185,73.212 41.685,68.212 46.185,78.212 "/>
+<text transform="matrix(1 0 0 1 50.6846 52.9165)" font-family="'Times-Roman'" font-size="13">Player Won?</text>
+<g id="node2">
+	<title>cl0030</title>
+	<ellipse stroke="#000000" cx="226.185" cy="158.5" rx="7" ry="7"/>
+</g>
+<g id="node3">
+	<title>cl0031</title>
+	<polygon fill="#FEFECE" stroke="#FEFECE" points="252.186,233.5 200.185,233.5 188.185,245.5 188.185,257.5 200.185,269.5 
+		252.186,269.5 264.186,257.5 264.186,245.5 	"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M200.185,233.5c-6,0-12,6-12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M188.185,257.5c0,6,6,12,12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M252.186,269.5c6,0,12-6,12-12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M264.186,245.5c0-6-6-12-12-12"/>
+	<line fill="none" stroke="#A80036" x1="252.186" y1="233.5" x2="200.185" y2="233.5"/>
+	<path fill="none" stroke="#A80036" d="M200.185,233.5c-6,0-12,6-12,12"/>
+	<line fill="none" stroke="#A80036" x1="188.185" y1="245.5" x2="188.185" y2="257.5"/>
+	<path fill="none" stroke="#A80036" d="M188.185,257.5c0,6,6,12,12,12"/>
+	<line fill="none" stroke="#A80036" x1="200.185" y1="269.5" x2="252.186" y2="269.5"/>
+	<path fill="none" stroke="#A80036" d="M252.186,269.5c6,0,12-6,12-12"/>
+	<line fill="none" stroke="#A80036" x1="264.186" y1="257.5" x2="264.186" y2="245.5"/>
+	<path fill="none" stroke="#A80036" d="M264.186,245.5c0-6-6-12-12-12"/>
+	<text transform="matrix(1 0 0 1 196.6851 254.2666)" font-family="'Times-Roman'" font-size="14">Load Map</text>
+</g>
+<title>cl0030-&gt;cl0031</title>
+<path fill="none" stroke="#A80036" d="M226.185,165.798c0,12.195,0,37.343,0,57.259"/>
+<polygon fill="#A80036" stroke="#A80036" points="226.185,233.182 230.685,223.182 226.185,228.182 226.185,223.182 
+	226.185,223.182 226.185,223.182 226.185,228.182 221.685,223.182 226.185,233.182 "/>
+<text transform="matrix(1 0 0 1 233.1851 203.2666)" font-family="'Times-Roman'" font-size="13">Game start</text>
+<g id="node4">
+	<title>cl0033</title>
+	<polygon fill="#FEFECE" stroke="#FEFECE" points="281.186,301.5 171.185,301.5 159.185,313.5 159.185,325.5 171.185,337.5 
+		281.186,337.5 293.186,325.5 293.186,313.5 	"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M171.185,301.5c-6,0-12,6-12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M159.185,325.5c0,6,6,12,12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M281.186,337.5c6,0,12-6,12-12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M293.186,313.5c0-6-6-12-12-12"/>
+	<line fill="none" stroke="#A80036" x1="281.186" y1="301.5" x2="171.185" y2="301.5"/>
+	<path fill="none" stroke="#A80036" d="M171.185,301.5c-6,0-12,6-12,12"/>
+	<line fill="none" stroke="#A80036" x1="159.185" y1="313.5" x2="159.185" y2="325.5"/>
+	<path fill="none" stroke="#A80036" d="M159.185,325.5c0,6,6,12,12,12"/>
+	<line fill="none" stroke="#A80036" x1="171.185" y1="337.5" x2="281.186" y2="337.5"/>
+	<path fill="none" stroke="#A80036" d="M281.186,337.5c6,0,12-6,12-12"/>
+	<line fill="none" stroke="#A80036" x1="293.186" y1="325.5" x2="293.186" y2="313.5"/>
+	<path fill="none" stroke="#A80036" d="M293.186,313.5c0-6-6-12-12-12"/>
+	<text transform="matrix(1 0 0 1 167.1851 322.2666)" font-family="'Times-Roman'" font-size="14">Display Start Dialog</text>
+</g>
+<g id="edge4">
+	<title>cl0031-&gt;cl0033</title>
+	<path fill="none" stroke="#A80036" d="M226.185,269.723c0,6.555,0,14.115,0,21.333"/>
+	<polygon fill="#A80036" stroke="#A80036" points="226.185,301.227 230.685,291.227 226.185,296.227 226.185,291.227 
+		226.185,291.227 226.185,291.227 226.185,296.227 221.685,291.227 226.185,301.227 	"/>
+</g>
+<g id="node5">
+	<title>cl0035</title>
+	<polygon fill="#FEFECE" stroke="#FEFECE" points="467.185,301.5 333.185,301.5 321.185,313.5 321.185,325.5 333.185,337.5 
+		467.185,337.5 479.185,325.5 479.185,313.5 	"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M333.185,301.5c-6,0-12,6-12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M321.185,325.5c0,6,6,12,12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M467.185,337.5c6,0,12-6,12-12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M479.185,313.5c0-6-6-12-12-12"/>
+	<line fill="none" stroke="#A80036" x1="467.185" y1="301.5" x2="333.185" y2="301.5"/>
+	<path fill="none" stroke="#A80036" d="M333.185,301.5c-6,0-12,6-12,12"/>
+	<line fill="none" stroke="#A80036" x1="321.185" y1="313.5" x2="321.185" y2="325.5"/>
+	<path fill="none" stroke="#A80036" d="M321.185,325.5c0,6,6,12,12,12"/>
+	<line fill="none" stroke="#A80036" x1="333.185" y1="337.5" x2="467.185" y2="337.5"/>
+	<path fill="none" stroke="#A80036" d="M467.185,337.5c6,0,12-6,12-12"/>
+	<line fill="none" stroke="#A80036" x1="479.185" y1="325.5" x2="479.185" y2="313.5"/>
+	<path fill="none" stroke="#A80036" d="M479.185,313.5c0-6-6-12-12-12"/>
+	<text transform="matrix(1 0 0 1 329.6855 322.2666)" font-family="'Times-Roman'" font-size="14">Display Win Conditions</text>
+</g>
+<g id="edge6">
+	<title>cl0033-&gt;cl0035</title>
+	<path fill="none" stroke="#A80036" d="M293.475,319.5c5.73,0,11.463,0,17.193,0"/>
+	<polygon fill="#A80036" stroke="#A80036" points="320.985,319.5 310.985,315 315.985,319.5 310.985,319.5 310.985,319.5 
+		310.985,319.5 315.985,319.5 310.985,324 320.985,319.5 	"/>
+</g>
+<g id="edge9">
+	<title>cl0035-&gt;cl0037</title>
+	<path fill="none" stroke="#A80036" d="M400.185,301.316c0-13.695,0-32.935,0-49.816c0-164,0-164,0-164c0-13.057,0-27.525,0-39.746"
+		/>
+	<polygon fill="#A80036" stroke="#A80036" points="400.185,37.683 395.685,47.683 400.185,42.683 400.185,47.683 400.185,47.683 
+		400.185,47.683 400.185,42.683 404.685,47.683 400.185,37.683 	"/>
+</g>
+<g id="node8">
+	<title>cl0045</title>
+	<polygon fill="#FEFECE" stroke="#FEFECE" points="216.185,69.5 108.185,69.5 96.185,81.5 96.185,93.5 108.185,105.5 216.185,105.5 
+		228.185,93.5 228.185,81.5 	"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M108.185,69.5c-6,0-12,6-12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M96.185,93.5c0,6,6,12,12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M216.185,105.5c6,0,12-6,12-12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M228.185,81.5c0-6-6-12-12-12"/>
+	<line fill="none" stroke="#A80036" x1="216.185" y1="69.5" x2="108.185" y2="69.5"/>
+	<path fill="none" stroke="#A80036" d="M108.185,69.5c-6,0-12,6-12,12"/>
+	<line fill="none" stroke="#A80036" x1="96.185" y1="81.5" x2="96.185" y2="93.5"/>
+	<path fill="none" stroke="#A80036" d="M96.185,93.5c0,6,6,12,12,12"/>
+	<line fill="none" stroke="#A80036" x1="108.185" y1="105.5" x2="216.185" y2="105.5"/>
+	<path fill="none" stroke="#A80036" d="M216.185,105.5c6,0,12-6,12-12"/>
+	<line fill="none" stroke="#A80036" x1="228.185" y1="93.5" x2="228.185" y2="81.5"/>
+	<path fill="none" stroke="#A80036" d="M228.185,81.5c0-6-6-12-12-12"/>
+	<text transform="matrix(1 0 0 1 104.6851 90.2666)" font-family="'Times-Roman'" font-size="14">Display End Dialog</text>
+</g>
+<g id="edge16">
+	<title>cl0043:h-&gt;cl0045</title>
+	<path fill="none" stroke="#A80036" d="M55.287,87.5c7.333,0,18.42,0,30.721,0"/>
+	<polygon fill="#A80036" stroke="#A80036" points="96.083,87.5 86.084,83 91.083,87.5 86.083,87.5 86.083,87.5 86.083,87.5 
+		91.083,87.5 86.083,92 96.083,87.5 	"/>
+	<text transform="matrix(1 0 0 1 65.6846 83.0332)" font-family="'Times-Roman'" font-size="13">yes</text>
+</g>
+<g id="node12">
+	<title>cl0055</title>
+	<polygon fill="#FEFECE" stroke="#FEFECE" points="73.185,182.5 19.185,182.5 7.185,194.5 7.185,206.5 19.185,218.5 73.185,218.5 
+		85.185,206.5 85.185,194.5 	"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M19.185,182.5c-6,0-12,6-12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M7.185,206.5c0,6,6,12,12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M73.185,218.5c6,0,12-6,12-12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M85.185,194.5c0-6-6-12-12-12"/>
+	<line fill="none" stroke="#A80036" x1="73.185" y1="182.5" x2="19.185" y2="182.5"/>
+	<path fill="none" stroke="#A80036" d="M19.185,182.5c-6,0-12,6-12,12"/>
+	<line fill="none" stroke="#A80036" x1="7.185" y1="194.5" x2="7.185" y2="206.5"/>
+	<path fill="none" stroke="#A80036" d="M7.185,206.5c0,6,6,12,12,12"/>
+	<line fill="none" stroke="#A80036" x1="19.185" y1="218.5" x2="73.185" y2="218.5"/>
+	<path fill="none" stroke="#A80036" d="M73.185,218.5c6,0,12-6,12-12"/>
+	<line fill="none" stroke="#A80036" x1="85.185" y1="206.5" x2="85.185" y2="194.5"/>
+	<path fill="none" stroke="#A80036" d="M85.185,194.5c0-6-6-12-12-12"/>
+	<text transform="matrix(1 0 0 1 15.6846 203.2666)" font-family="'Times-Roman'" font-size="14">Gameover</text>
+</g>
+<title>cl0043:h-&gt;cl0055</title>
+<path fill="none" stroke="#A80036" d="M46.185,96.747c0,16.254,0,50.565,0,75.286"/>
+<polygon fill="#A80036" stroke="#A80036" points="46.185,182.288 50.685,172.288 46.185,177.288 46.185,172.288 46.185,172.288 
+	46.185,172.288 46.185,177.288 41.685,172.288 46.185,182.288 "/>
+<text transform="matrix(1 0 0 1 31.1846 139.2461)" font-family="'Times-Roman'" font-size="13">no</text>
+<g id="node9">
+	<title>cl0048</title>
+	<polygon fill="#FEFECE" stroke="#A80036" points="162.185,149.5 153.185,158.5 162.185,167.5 171.185,158.5 	"/>
+</g>
+<title>cl0045-&gt;cl0048:h</title>
+<path fill="none" stroke="#A80036" d="M162.185,105.784c0,10.259,0,23.049,0,33.462"/>
+<polygon fill="#A80036" stroke="#A80036" points="162.185,149.379 166.685,139.379 162.185,144.379 162.185,139.379 
+	162.185,139.379 162.185,139.379 162.185,144.379 157.685,139.379 162.185,149.379 "/>
+<text transform="matrix(1 0 0 1 165.4092 122.5151)" font-family="'Times-Roman'" font-size="13">More Maps?</text>
+<title>cl0048:h-&gt;cl0031</title>
+<path fill="none" stroke="#A80036" d="M165.409,164.287c6.145,10.895,20.139,35.078,33.776,54.213
+	c1.541,2.163,3.18,4.367,4.86,6.561"/>
+<polygon fill="#A80036" stroke="#A80036" points="210.603,233.339 207.922,222.706 207.498,229.42 204.394,225.5 204.394,225.5 
+	204.394,225.5 207.498,229.42 200.866,228.294 210.603,233.339 "/>
+<text transform="matrix(1 0 0 1 174.1851 172.5)" font-family="'Times-Roman'" font-size="13">next</text>
+<g id="node10">
+	<title>cl0051</title>
+	<polygon fill="#FEFECE" stroke="#FEFECE" points="162.185,233.5 80.185,233.5 68.185,245.5 68.185,257.5 80.185,269.5 
+		162.185,269.5 174.185,257.5 174.185,245.5 	"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M80.185,233.5c-6,0-12,6-12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M68.185,257.5c0,6,6,12,12,12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M162.185,269.5c6,0,12-6,12-12"/>
+	<path fill="#FEFECE" stroke="#FEFECE" d="M174.185,245.5c0-6-6-12-12-12"/>
+	<line fill="none" stroke="#A80036" x1="162.185" y1="233.5" x2="80.185" y2="233.5"/>
+	<path fill="none" stroke="#A80036" d="M80.185,233.5c-6,0-12,6-12,12"/>
+	<line fill="none" stroke="#A80036" x1="68.185" y1="245.5" x2="68.185" y2="257.5"/>
+	<path fill="none" stroke="#A80036" d="M68.185,257.5c0,6,6,12,12,12"/>
+	<line fill="none" stroke="#A80036" x1="80.185" y1="269.5" x2="162.185" y2="269.5"/>
+	<path fill="none" stroke="#A80036" d="M162.185,269.5c6,0,12-6,12-12"/>
+	<line fill="none" stroke="#A80036" x1="174.185" y1="257.5" x2="174.185" y2="245.5"/>
+	<path fill="none" stroke="#A80036" d="M174.185,245.5c0-6-6-12-12-12"/>
+	<text transform="matrix(1 0 0 1 76.6846 254.2666)" font-family="'Times-Roman'" font-size="14">Player Won</text>
+</g>
+<g id="edge23">
+	<title>cl0048:h-&gt;cl0051</title>
+	<path fill="none" stroke="#A80036" d="M159.366,164.892c-5.31,12.045-17.08,38.743-26.158,59.334"/>
+	<polygon fill="#A80036" stroke="#A80036" points="129.134,233.469 137.285,226.134 131.151,228.895 133.168,224.318 
+		133.168,224.318 133.168,224.318 131.151,228.895 129.05,222.503 129.134,233.469 	"/>
+</g>
+<g id="node11">
+	<title>cl0053</title>
+	<ellipse stroke="#000000" cx="65.185" cy="319.5" rx="4.235" ry="4.5"/>
+	<ellipse fill="none" stroke="#000000" cx="65.185" cy="319.5" rx="8" ry="8.5"/>
+</g>
+<g id="edge25">
+	<title>cl0051-&gt;cl0053</title>
+	<path fill="none" stroke="#A80036" d="M106.178,269.723c-9.122,11.076-20.606,25.021-29.098,35.332"/>
+	<polygon fill="#A80036" stroke="#A80036" points="70.524,313.017 80.354,308.158 73.703,309.156 76.881,305.297 76.881,305.297 
+		76.881,305.297 73.703,309.156 73.407,302.437 70.524,313.017 	"/>
+</g>
+<g id="edge29">
+	<title>cl0055-&gt;cl0053</title>
+	<path fill="none" stroke="#A80036" d="M49.07,218.574c3.552,22.248,9.554,59.838,13.145,82.326"/>
+	<polygon fill="#A80036" stroke="#A80036" points="63.805,310.857 66.672,300.273 63.016,305.92 62.228,300.982 62.228,300.982 
+		62.228,300.982 63.016,305.92 57.784,301.692 63.805,310.857 	"/>
+</g>
+</svg>
