@@ -12,6 +12,7 @@ import config.Config;
 
 
 /**
+ * Loads the loging properties
  * @author Bilal Hussain
  */
 public class Tests {

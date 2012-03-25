@@ -12,6 +12,7 @@ import static org.junit.Test.*;
 import static org.junit.Assert.*;
 
 /**
+ * Tests the correctnes  of the movement algorithms
  * @author Bilal Hussain
  */
 public class TestDijkstra extends Tests {

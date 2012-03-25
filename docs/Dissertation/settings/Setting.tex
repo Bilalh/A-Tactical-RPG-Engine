@@ -5,7 +5,7 @@
 
 \documentclass[11pt,a4paper]{article}
 \def\studentID{080008164}
-\def\fullName{Bilal Hussain}
+\def\fullName{Bilal Syed Hussain}
 \newcommand{\theTitle}{}
 \newcommand{\theAuthor}{\studentID}
 
@@ -135,10 +135,6 @@
 \def\Real{\mathrm{I\!R}}
 %(end)
 
-% Metadata
-\title{\theTitle}
-\author{\theAuthor}
-
 % Headers footers (fold)             
 \headheight14pt
 %	default Headers
@@ -176,8 +172,8 @@
 % (end)      
 
 
-\usepackage{bbding}
 % for lists
+\usepackage{bbding}
 \newcommand*\tick{\item[\Checkmark]}
 \newcommand*\cross{\item[\XSolidBrush]}
 % \newcommand*\partly{\item[\ensuremath{\bullet}]}
@@ -241,7 +237,10 @@
 	\freequestion\noindent \questionNumber \noindent #1
 	\par
 }
+%Question macors (end)
 
+% Foreach  (fold)
+\usepackage{etoolbox}
 \makeatletter
 
 % Functional foreach construct 
@@ -271,15 +270,6 @@
 }
 
 \makeatother
+% (end)
 
-\usepackage{etoolbox}
-
-% other way
-
-% \qquestion sdsdsdsdsd
-% \par\xboxes
-% \freequestion\noindent Please share any other comments: \par
-
-
-%macors (end)
 \fi

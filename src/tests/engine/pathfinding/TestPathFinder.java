@@ -21,14 +21,15 @@ import static org.junit.Test.*;
 import static org.junit.Assert.*;
 
 /**
+ * Tests the correctnes  of the movement algorithms
  * @author Bilal Hussain
  */
 public class TestPathFinder extends Tests {
 	
-	PathFinder pf;
-	MockMap map;
-	IMutableMapUnit unit;
-	ArrayList<LocationInfo> exp;
+	private PathFinder pf;
+	private MockMap map;
+	private IMutableMapUnit unit;
+	private ArrayList<LocationInfo> exp;
 	
 	@Before
 	public void setup(){
