@@ -1,33 +1,54 @@
+% Software Engineering
+%!TEX root = ../Project.tex
 \section{Software Engineering Process}
 
 \subsection{Methodologies Used}
 \label{sub:methodologies_used}
 
-\subsubsection{Evolutionary Prototyping}
-\label{ssub:evolutionary_prototyping}
+I choose to use a iterative spiral development model for the project. This allowed me to focus on specify parts of the projects of the system before moving onto the next component. 
 
-%  used for tilemap 
+Prototypes were extsaiely esscialy in the GUI when choosing how to render the map. %TODO REF
 
-% rendering 
 
 \subsubsection{Test Driven Development}
-Test Driven Development (TDD), has four main phases
-\begin{itemize}[noitemsep ]
-	\item Write a Test.
-	\item Write the code to pass the test.
-	\item Run all tests.
-	\item Refractor
-\end{itemize}
+Test-driven development (TDD) was utilised in the project. This also helped with verification of requirements as tests assert whether the code matched the minimum requirements. The \texttt{JUnit} library\footnote{JUnit 4.8.2, see \url{www.junit.org/} for details } was used to write the unit tests.  
 
-The major benefits of TDD are the system will be well tested. It also has the added benefit of allowing prevents new features from breaking the system. Combined with version control as discursed in the next section, it make very easy to find since the unit tests can be used to find \emph{when} the code broke as well as \texttt{which} piece of code was the root cause.
+The main stages in TDD are\cite{murphytest},\cite{desai2008survey}:
+\begin{enumerate}[noitemsep ]
+	% \item Write a Test.
+	% \item Write the code to pass the test.
+	% \item Run all tests.
+	% \item Refractor
+	\item Before any code was written, unit tests to test the functionality. These will initially fail.
+   \item Code is written to pass the test and no more.
+   \item If more functionality is required, first the test is written and then the code to pass it.
+   \item Changes to the previously written code must pass all previous created tests.
+   \item The code is Refracted 
+\end{enumerate}
 
-TDD was used when designing and implementing the model's algorithms such unit movement. 
-  
-Although TDD has many benefits it can effently used to test user interfaces, since a unit test can not simulate how a user would react to different aspects of the user interface.  Resulting from this I  did user studies as well usability studies to defects in the user interface.        
+The major benefits of TDD are that system will be well tested as the added benefit of prevents new features from introducing bugs. Combined with version control as discussed in the next section, it make it very easy to find bug since the unit tests can be used to find out \emph{when} the code broke as well as \emph{which} piece of code was the root cause.
+
+This method of development was perfectly suited to implementing the algorithms in the engine (such as unit movement) because the expected output was know beforehand.  Since all components of the model were programmed to an interface, it allows the use of mock objects\ref{sec:mockobjects}.   
+
+%To further ease testing of the algorithms I used mock object  
+
+However TDD has few drawbacks such as the difficulty of realising all possible test scenario, which because apparent when testing the GUI and the editor. To this these aspects of the system I played multiple created game from start to finish with the goal of finding any lingering bugs. In addiction I did user surveys as well as usability studies to find any unexpected defects in the user interface. (results in ) 
+% TODO ref
+
+\subsection{Mock Objects}
+\label{sec:mockobjects}
+Mock objects are used predominantly in very large software development projects to aid in testing. The objective is to create object which simulate only the essential behaviour of the object required. 
+Mock objects abstracts the detailed functionality of the implementation away and  focuses only on what is required for the test
 
 \subsection{Version Control}
 \label{sub:version_control}
-%  git 
+Version control keeps track of all changes to a project. Keeps the history of changes helps finding when a bug was first intodusced and hence what caused the bug. In preticual I choose to used \texttt{git}, which is distributed version control system. In differs from trainally client server system such as Subversion in that each user has a 
+complete copy of the repotidry. 
 
-\subsection{Standardised Formats }
+Distributed version control system have the advantages of allowing change to committed locally, even without an internet connection.  This particularly useful for this project since it allows experimenting with various features before choosing the features to integrate into the system.
+  
+
+%TODO ref
+
+% \subsection{Standardised Formats }
 % talk about use of xml

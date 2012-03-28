@@ -2,7 +2,17 @@
 %!TEX root = ../Project.tex
 \section{Design}
 
+\subsection{Methodologies}
+\label{sub:methodologies}
+The Model, View, Controller (MVC) design paradigm was chosen to be used to structure the project. The MVC design patten has many benefits as discussed below.  
+
+%TODO
+
 \subsection{Engine}
+The main considerisons for the engine was to it made it configureable as possible. To achieve this everything was designed in term of interfaces, which allowed the particle implementation to be changed. The objects themselves were loaded from serizeled rep of the objects.
+
+\subsubsection{Assets}
+All the assets used in the model including weapons, skills and the units themself are configured via the xml data format.  
 
 
 \subsection{Game Progression}
@@ -15,25 +25,16 @@
 
 Figure \ref{fig:figures_game} shows the overview of how the created game progress.  Each game has a number of maps where a battle take place. After the map is loaded any relanent dialog is display, along with winning conditions. The player's units are then placed are the map\footnote{While the engine support allowing the user's to choose where the their units are placed, the GUI does not due to time constraints. The editor does support specify the starting location for the player's units}.  And the battle (which will be discussed below takes). If the player's loses the battle, a gameover screen is shown and the game end. In contrast if the player wins he/she advances to the next map, if there one.    
 
-\subsection{Units}
+\subsection{Gui}
 
-\begin{figure}[htbp]
+The 
+
+\begin{figure}[hb]
 	\centering
 		\includegraphics[width=4in]{figures/unit.pdf}
 	\caption{The State diagram of a single turn of a player's unit}
 	\label{fig:figures_unit}
 \end{figure}
-
-
-\subsection{Editor}
-
-\subsubsection{Exporting}
-%TODO put in implementation?
-The editor can export a project as a complete package, either as a Mac OS X application or as jar. These application don't requires any external resources, apart from a recent version of java \footnote{specifically Java 1.6+}.
-
-A notable feature of the editor is that jar will work on any java enabled platform, since the jar contains all required libraries for each platform. The OS X application can even be export on other platforms.
-
-While most of the testing was done on OS X \footnote{Mac OS X 10.6 Snow leopard}, it also works well on Linux \footnote{Science  Linux x.y}. It even has limited compatibly with Windows\footnote{Tested on Windows 7 32 bit} (apart from some minor graphics issues).
 
 \subsection{View}
 
@@ -69,3 +70,15 @@ The `Diamond' map was chosen for the following reasons:
 \end{itemize}
 
 \underline{Maths about isometric tilemaps? }
+
+
+
+\subsection{Editor}
+
+\subsubsection{Exporting}
+%TODO put in implementation?
+The editor can export a project as a complete package, either as a Mac OS X application or as jar. These application don't requires any external resources, apart from a recent version of java \footnote{specifically Java 1.6+}.
+
+A notable feature of the editor is that jar will work on any java enabled platform, since the jar contains all required libraries for each platform. The OS X application can even be export on other platforms.
+
+While most of the testing was done on OS X \footnote{Mac OS X 10.6 Snow leopard}, it also works well on Linux \footnote{Science  Linux x.y}. It even has limited compatibly with Windows\footnote{Tested on Windows 7 32 bit} (apart from some minor graphics issues).
