@@ -2,6 +2,8 @@ package engine.skills;
 
 import java.util.Collection;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import common.Location;
 import common.interfaces.Identifiable;
 
@@ -9,6 +11,7 @@ import common.interfaces.Identifiable;
  * Inferface for a skill
  * @author Bilal Hussain
  */
+@XStreamAlias("skill")
 public interface ISkill extends Identifiable {
 
 	Collection<Location> getAttackRange(Location start, int width, int height);

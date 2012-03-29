@@ -2,6 +2,8 @@ package common.interfaces;
 
 import java.util.Collection;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import common.Location;
 import engine.map.Map;
 import engine.map.interfaces.IMutableMapUnit;
@@ -9,6 +11,7 @@ import engine.map.interfaces.IMutableMapUnit;
 /**
  * @author Bilal Hussain
  */
+@XStreamAlias("weapon")
 public interface IWeapon extends Identifiable {
 
 	Collection<Location> getAttackRange(Location start, int width, int height);

@@ -13,12 +13,14 @@ import com.thoughtworks.xstream.io.xml.CompactWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import common.Location;
+import common.interfaces.IWeapon;
 import common.spritesheet.SpriteInfo;
 import common.spritesheet.Sprites;
 
 import config.assets.*;
 import config.xml.*;
 import engine.skills.AbstractUnitObject;
+import engine.skills.ISkill;
 import engine.skills.RangedSkill;
 import engine.unit.AiUnit;
 import engine.unit.Unit;
@@ -154,7 +156,9 @@ public abstract class XMLUtil {
 				DeferredMap.class,
 				
 				MapOrdering.class,
-				OrderedMap.class
+				OrderedMap.class,
+				ISkill.class,
+				IWeapon.class
 		};
 	}
 

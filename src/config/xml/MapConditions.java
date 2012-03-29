@@ -3,12 +3,14 @@ package config.xml;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.sun.tools.internal.ws.util.xml.XmlUtil;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import common.Location;
 import common.interfaces.Identifiable;
 import config.Config;
 import config.IPreference;
+import config.XMLUtil;
 
 import engine.map.win.DefeatAllUnitsCondition;
 import engine.map.win.IWinCondition;
@@ -73,4 +75,12 @@ public class MapConditions implements Identifiable, IPreference {
 		return uuid;
 	}
 
+	public static void main(String[] args) {
+		MapConditions m  = new MapConditions();
+		ArrayList<Location> a =  new ArrayList<Location>();
+		a.add(new Location());
+		m.setVaildStartLocations(a);
+		System.out.println(XMLUtil.makeFormattedXml(m));
+	}
+	
 }
