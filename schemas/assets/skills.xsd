@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="skills">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="entry"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="entry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uuid"/>
+        <xs:choice>
+          <xs:element ref="engine.skills.RangedSkill"/>
+          <xs:element ref="skill"/>
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uuid" type="xs:string"/>
+  <xs:element name="engine.skills.RangedSkill">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="power"/>
+        <xs:element ref="targetOpposite"/>
+        <xs:element ref="includeCaster"/>
+        <xs:element ref="range"/>
+        <xs:element ref="area"/>
+        <xs:element ref="startLocation"/>
+      </xs:sequence>
+      <xs:attribute name="uuid" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="skill">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="power"/>
+        <xs:element ref="targetOpposite"/>
+        <xs:element ref="includeCaster"/>
+        <xs:element ref="range"/>
+        <xs:element ref="area"/>
+        <xs:element ref="startLocation"/>
+        <xs:any minOccurs="0" maxOccurs="unbounded" processContents='lax'/>
+      </xs:sequence>
+      <xs:attribute name="class" use="required" type="xs:NCName"/>
+      <xs:attribute name="uuid" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="name" type="xs:string"/>
+  <xs:element name="power" type="xs:integer"/>
+  <xs:element name="targetOpposite" type="xs:boolean"/>
+  <xs:element name="includeCaster" type="xs:boolean"/>
+  <xs:element name="range" type="xs:integer"/>
+  <xs:element name="area" type="xs:integer"/>
+  <xs:element name="startLocation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="x"/>
+        <xs:element ref="y"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="x" type="xs:integer"/>
+  <xs:element name="y" type="xs:integer"/>
+</xs:schema>

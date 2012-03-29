@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="units">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="entry"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="entry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uuid"/>
+        <xs:element ref="unit"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="unit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="maxHp"/>
+        <xs:element ref="move"/>
+        <xs:element ref="strength"/>
+        <xs:element ref="defence"/>
+        <xs:element ref="speed"/>
+        <xs:element ref="level"/>
+        <xs:element ref="exp"/>
+        <xs:element ref="imageDataRef"/>
+        <xs:element ref="wepaonId"/>
+        <xs:element ref="skillIds"/>
+      </xs:sequence>
+      <xs:attribute name="uuid" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="name" type="xs:NCName"/>
+  <xs:element name="maxHp" type="xs:integer"/>
+  <xs:element name="move" type="xs:integer"/>
+  <xs:element name="strength" type="xs:integer"/>
+  <xs:element name="defence" type="xs:integer"/>
+  <xs:element name="speed" type="xs:integer"/>
+  <xs:element name="level" type="xs:integer"/>
+  <xs:element name="exp" type="xs:integer"/>
+  <xs:element name="imageDataRef" type="xs:string"/>
+  <xs:element name="wepaonId" type="xs:string"/>
+  <xs:element name="skillIds">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="uuid"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uuid" type="xs:string"/>
+</xs:schema>

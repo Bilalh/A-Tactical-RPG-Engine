@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="mapMusic">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="backgroundId"/>
+        <xs:element ref="attackSound"/>
+        <xs:element ref="defeatUnitSound"/>
+        <xs:element ref="loseUnitSound"/>
+        <xs:element ref="winMapSound"/>
+        <xs:element ref="loseMapSound"/>
+        <xs:element ref="levelUpSound"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="backgroundId" type="xs:string"/>
+  <xs:element name="attackSound" type="xs:string"/>
+  <xs:element name="defeatUnitSound" type="xs:string"/>
+  <xs:element name="loseUnitSound" type="xs:string"/>
+  <xs:element name="winMapSound" type="xs:string"/>
+  <xs:element name="loseMapSound" type="xs:string"/>
+  <xs:element name="levelUpSound" type="xs:string"/>
+</xs:schema>

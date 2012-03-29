@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="weapons">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="entry"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="entry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uuid"/>
+        <xs:choice>
+          <xs:element ref="engine.items.Around"/>
+          <xs:element ref="engine.items.MeleeWeapon"/>
+          <xs:element ref="engine.items.RangedWeapon"/>
+          <xs:element ref="engine.items.Spear"/>
+          <xs:element ref="weapon"/>
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uuid" type="xs:string"/>
+  <xs:element name="engine.items.Around">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="strength"/>
+        <xs:element ref="range"/>
+        <xs:element ref="imageRef"/>
+      </xs:sequence>
+      <xs:attribute name="uuid" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="engine.items.MeleeWeapon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="strength"/>
+        <xs:element ref="range"/>
+        <xs:element ref="imageRef"/>
+      </xs:sequence>
+      <xs:attribute name="uuid" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="engine.items.RangedWeapon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="strength"/>
+        <xs:element ref="range"/>
+        <xs:element ref="imageRef"/>
+        <xs:element ref="innerRange"/>
+      </xs:sequence>
+      <xs:attribute name="uuid" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="engine.items.Spear">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="strength"/>
+        <xs:element ref="range"/>
+        <xs:element ref="imageRef"/>
+      </xs:sequence>
+      <xs:attribute name="uuid" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="weapon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="strength"/>
+        <xs:element ref="range"/>
+        <xs:element ref="imageRef"/>
+        <xs:any minOccurs="0" maxOccurs="unbounded" processContents='lax'/>
+      </xs:sequence>
+      <xs:attribute name="class" use="required" type="xs:NCName"/>
+      <xs:attribute name="uuid" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="name" type="xs:string"/>
+  <xs:element name="strength" type="xs:integer"/>
+  <xs:element name="range" type="xs:integer"/>
+  <xs:element name="imageRef" type="xs:string"/>
+  <xs:element name="innerRange" type="xs:integer"/>
+</xs:schema>

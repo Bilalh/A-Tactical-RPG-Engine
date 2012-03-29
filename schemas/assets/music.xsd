@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="musics">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="entry"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="entry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uuid"/>
+        <xs:element ref="music"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uuid" type="xs:string"/>
+  <xs:element name="music">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="location"/>
+      </xs:sequence>
+      <xs:attribute name="uuid" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="location" type="xs:string"/>
+</xs:schema>

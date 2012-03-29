@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="unitPlacement">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="units"/>
+        <xs:element ref="placement"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="units">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="entry"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="placement">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="entry"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="entry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uuid"/>
+        <xs:choice>
+          <xs:element ref="aiUnit"/>
+          <xs:element ref="location"/>
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="aiUnit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="maxHp"/>
+        <xs:element ref="move"/>
+        <xs:element ref="strength"/>
+        <xs:element ref="defence"/>
+        <xs:element ref="speed"/>
+        <xs:element ref="level"/>
+        <xs:element ref="exp"/>
+        <xs:element ref="imageDataRef"/>
+        <xs:element ref="wepaonId"/>
+        <xs:element ref="skillIds"/>
+        <xs:element ref="ordering"/>
+      </xs:sequence>
+      <xs:attribute name="uuid" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="name" type="xs:string"/>
+  <xs:element name="maxHp" type="xs:integer"/>
+  <xs:element name="move" type="xs:integer"/>
+  <xs:element name="strength" type="xs:integer"/>
+  <xs:element name="defence" type="xs:integer"/>
+  <xs:element name="speed" type="xs:integer"/>
+  <xs:element name="level" type="xs:integer"/>
+  <xs:element name="exp" type="xs:integer"/>
+  <xs:element name="imageDataRef" type="xs:string"/>
+  <xs:element name="wepaonId" type="xs:string"/>
+  <xs:element name="skillIds">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="uuid"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ordering">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="negated"/>
+      </xs:sequence>
+      <xs:attribute name="class" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="negated" type="xs:boolean"/>
+  <xs:element name="location">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="x"/>
+        <xs:element ref="y"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="x" type="xs:integer"/>
+  <xs:element name="y" type="xs:integer"/>
+  <xs:element name="uuid" type="xs:string"/>
+</xs:schema>
