@@ -9,10 +9,23 @@ The Model, View, Controller (MVC) design paradigm was chosen to be used to struc
 %TODO
 
 \subsection{Engine}
-The main considerisons for the engine was to it made it configureable as possible. To achieve this everything was designed in term of interfaces, which allowed the particle implementation to be changed. The objects themselves were loaded from serizeled rep of the objects.
+The main considerations  for the engine was to it made it configureable as possible. To achieve this everything was designed in term of interfaces, which allowed the particular implementation to be changed. The objects themselves were loaded from their serialised form on disk. 
+
+\subsubsection{Data Format}
+XMl was chosen as the data format for this project. The main reason is that it is human readable, this allow me to create and test the data format before the editor was created.
+
+XML schema is a way of validating a  xml document. A schema was produced for each serialised object\footnote{in the \texttt{schemas} directory}. 
+The main benefit of this was to testing of hand written xml I used before the editor was created. It also helped ensure that the xml produced by the editor was correct.  
+
+The data was design to be extendable, as well as provide implementations of the various assets the advance user can specify their own custom classes. As an example there four weapons types provided by the engine,
+
+\begin{lstlisting}[language=xml, caption=]
+
+\end{lstlisting}
+
 
 \subsubsection{Assets}
-All the assets used in the model including weapons, skills and the units themself are configured via the xml data format.  
+All the assets used in the model including weapons, maps and even the units themselves are configured via the xml data format.  
 
 
 \subsection{Game Progression}
