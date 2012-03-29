@@ -9,23 +9,26 @@ The Model, View, Controller (MVC) design paradigm was chosen to be used to struc
 %TODO
 
 \subsection{Engine}
-The main considerations  for the engine was to it made it configureable as possible. To achieve this everything was designed in term of interfaces, which allowed the particular implementation to be changed. The objects themselves were loaded from their serialised form on disk. 
+The main considerations  for the engine was to make it configureable as possible. To achieve this everything was designed in terms of interfaces, which allowed the particular implementation to be changed. The objects themselves were loaded from their serialised form on disk. 
 
 \subsubsection{Data Format}
-XMl was chosen as the data format for this project. The main reason is that it is human readable, this allow me to create and test the data format before the editor was created.
+\label{ssub:data_format}
+XMl was chosen as the data format for this project. The main reason is that it is human readable, this allowed me to create and test the data format before the editor was created.
 
-The data was design to be extendable, as well as provide implementations of the various assets the advance user can specify their own custom classes.
+The data was designed to be extendable, as well as provide implementations of the various assets. An advance user can specify their own custom classes.
+
 \begin{lst:weapon}[caption=Example of Custom weapon, label=lst:weapon]
 <weapon class="custom.customWeapon" uuid="0f0dee33">
 	<name>Longicolnis</name>
 </weapon>
 \end{lst:weapon}
-Listing \ref{lst:weapon} shows how a custom weapon can be used. The \texttt{class} attribute is  the full quified name of the class. The only thing the user has to use their class is to add a jar with class in it to the \texttt{classpath} of the game. 
+
+Listing \ref{lst:weapon} shows how a custom weapon can be used. The \texttt{class} attribute is  the fully qualified name of the class. The only thing the user has to do is to add a \texttt{jar} with their classes in it to the \texttt{classpath} of the game. 
 
 \subsubsection{XML schema}
 
 XML schema is a way of validating a  xml document. A schema was produced for each serialised object\footnote{in the \texttt{schemas} directory}. 
-The main use of this was for testing of the hand written xml I used before the editor was created. It also helped ensure that the xml produced by the editor was correct.  
+The main use of this was for testing the hand written xml I used before the editor was created. It also helped ensure that the xml produced by the editor was correct.  
 
 \subsection{Game Progression}
 \begin{figure}[htbp]
@@ -35,14 +38,21 @@ The main use of this was for testing of the hand written xml I used before the e
 	\label{fig:figures_game}
 \end{figure}
 
-Figure \ref{fig:figures_game} shows the overview of how the created game progress.  Each game has a number of maps where a battle take place. After the map is loaded any relanent dialog is displayed, along with winning conditions. The player's units are then placed are the map, and the battle starts\footnote{While the engine support allowing the user's to choose where the their units are placed, the GUI does not due to time constraints. The editor does support specify the starting location for the player's units.}. If the player's loses the battle, a gameover screen is shown and the game ends. In contrast if the player wins he/she advances to the next map, if there is one.    
+Figure \ref{fig:figures_game} shows the overview of how the created game progresses.  Each game has a number of maps where a battle takes place. After the map is loaded any relevant dialogue is displayed, along with winning conditions. The player's units are then placed on the map, and the battle starts\footnote{While the engine supports the user's to choose where their units are placed, the GUI does not due to time constraints. The editor does support specify the starting location for the player's units.}. If the player's loses the battle, a gameover screen is shown and the game ends. In contrast if the player wins he/she advances to the next map, if there is one.    
+
+\subsection{Game Mechanics}
+As apparent from the name of the project, a TRPG is turn based.  There were two main choices; the first is where the players take turns to move all the units, the other method is where the next unit to move is based on some stat such as the unit's agility. Both methods are widely used,  the first more often in games that focus on micro-management such as Civilization but there are exceptions to this such as Disgaea. 
+
+The second method has the advantage of allowing more dynamic unit ordering.  An example of how this is commonly used: A unit can get their turn quicker if they did perform any action on the their last turn. It also has the advantage of making the game flow much quicker, since the player does not have to wait too long to move their next unit. 
+
+I chose to use the second method because it allows the user more customisability since they can choose how unit ordering works. The other reason is based on experience where I think it works better.
 
 \subsection{Gui}
 
 \subsubsection{Tilemap}
 \label{sub:tilemap}
 
-There were two main choices for the isometric tilemap, a ``Diamond'' map or a  ``Staggered'' map \cite{isometric_game_programming}, examples of both are shown below in figure \ref{fig:tilemap0}. Prototypes of each map type were and the following was found.  
+There were two main choices for the isometric tilemap, a ``Diamond'' map or a  ``Staggered'' map \cite{isometric_game_programming}, examples of both are shown below in figure \ref{fig:tilemap0}. Prototypes of each map type were created and the following was found.  
 
 The ``Staggered'' was the first to be considered and the following advantages:
 \begin{itemize}
@@ -51,8 +61,8 @@ The ``Staggered'' was the first to be considered and the following advantages:
 
 The ``Diamond'' map was chosen for the following reasons:
 \begin{itemize}
-	\item ``Diamond'' map look more astiricly pleasing  then ``Staggered'' maps because it has no ragged edges.
-	\item  If the map is large enough it will the whole screen negating ``Staggered'' map advantage.
+	\item ``Diamond'' map look more ascetically pleasing then ``Staggered'' maps because it has no ragged edges.
+	\item  If the map is large enough it will fill the whole screen negating ``Staggered'' map advantage.
 	\item  Simpler to think about, since a `Diamond' map is just a rectangular map rotated.
 \end{itemize}
 
@@ -70,9 +80,18 @@ The ``Diamond'' map was chosen for the following reasons:
 \end{figure}
 
 \clearpage
-\subsubsection{Unit}
+
+\subsection{Units}
 \label{ssub:unit}
-I design the unit actions as a finite state machine as show in figure \ref{fig:figures_unit}.  The 
+I designed the actions a unit can take as a finite state machine as show in figure \ref{fig:figures_unit}.  The main actions the unit can take are:
+\begin{itemize}
+	\item[\textbf{Move}]   This allow the unit to move to any tile in it movement range.
+	\item[\textbf{Attack}] Attack any opponent in their weapons range.
+	\item[\textbf{Skill}]  Use one of the skills
+	\item[\textbf{Wait}]   Finish their turn  without taking any action.
+\end{itemize}
+
+%TODO more
 
 \begin{figure}[h]
 	\centering
@@ -81,4 +100,33 @@ I design the unit actions as a finite state machine as show in figure \ref{fig:f
 	\label{fig:figures_unit}
 \end{figure}
 
-% add pics
+\clearpage
+\subsection{Weapons \& Skills}
+
+As is common in TRPG, I included weapons as  well as skills in the design.  A Weapon has a certain strength, a specified range and may have unique effects.  As discussed in  section \ref{ssub:data_format},  the weapons and skills are completely configurable, but to enable the user to create common weapons, I designed the following weapons to include as standard in the engine.  
+
+\def\weapon{0.44}
+\begin{figure}[htbp]
+	\begin{center}
+	\subfigure[Melee Weapon]{
+		\label{fig:weapon1} \includegraphics[scale=\weapon]{figures/weapon-melee.png}} 
+	\subfigure[Spear]{
+		\label{fig:weapon2} \includegraphics[scale=\weapon]{figures/weapon-spear.png}} 
+	\subfigure[Ranged Weapon]{
+		\label{fig:weapon3} \includegraphics[scale=\weapon]{figures/weapon-ranged.png}} 
+	\subfigure[Ranged Skill]{
+		\label{fig:weapon3} \includegraphics[scale=\weapon]{figures/skill.png}}		
+	\caption{The above figure shows the attack range of various weapons and skill }
+	\label{fig:weapons}
+	\end{center}
+\end{figure}
+
+\paragraph{Melee Weapon} this is the simplest kind of weapon, where the unit can only attack adjacent enemies.
+
+\paragraph{Spear} A spear can attack  enemies in range, in a single direction. The unique feature is that it damages \texttt{all} enemies in that direction at the same time.
+
+\paragraph{Ranged Weapon} A ranged weapon attacks a single faraway target. It has the limitation of not been able to attack enemies which are too close (as shown in the diagram). 
+
+\paragraph{Ranged Skill} A skill can attack  enemies in range. The main difference from a weapon is that the skill has an \texttt{attack area}(shown in green) which are the units affected. Unlike most weapons, skills affect \emph{all} units in the \texttt{attack area}.
+
+

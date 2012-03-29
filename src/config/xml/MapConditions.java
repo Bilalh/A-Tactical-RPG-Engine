@@ -74,13 +74,4 @@ public class MapConditions implements Identifiable, IPreference {
 	public UUID getUuid() {
 		return uuid;
 	}
-
-	public static void main(String[] args) {
-		MapConditions m  = new MapConditions();
-		ArrayList<Location> a =  new ArrayList<Location>();
-		a.add(new Location());
-		m.setVaildStartLocations(a);
-		System.out.println(XMLUtil.makeFormattedXml(m));
-	}
-	
 }

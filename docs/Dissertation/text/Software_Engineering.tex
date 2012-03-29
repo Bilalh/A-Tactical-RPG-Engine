@@ -5,9 +5,9 @@
 \subsection{Methodologies Used}
 \label{sub:methodologies_used}
 
-I choose to use a iterative spiral development model for the project. This allowed me to focus on specify parts of the projects of the system before moving onto the next component. 
+I chose to use a iterative spiral development model for the project. This allowed me to focus on specific parts of the system before moving onto the next component. 
 
-Prototypes were extsaiely esscialy in the GUI when choosing how to render the map. %TODO REF
+Prototypes were extensively used especially in the GUI when choosing how to render the map. %TODO REF
 
 
 \subsubsection{Test Driven Development}
@@ -19,36 +19,33 @@ The main stages in TDD are\cite{murphytest},\cite{desai2008survey}:
 	% \item Write the code to pass the test.
 	% \item Run all tests.
 	% \item Refractor
-	\item Before any code was written, unit tests to test the functionality. These will initially fail.
+	\item Before the code is written, unit tests to test the functionality is created. These will initially fail.
    \item Code is written to pass the test and no more.
    \item If more functionality is required, first the test is written and then the code to pass it.
    \item Changes to the previously written code must pass all previous created tests.
-   \item The code is Refracted 
+   \item The code is refracted 
 \end{enumerate}
 
-The major benefits of TDD are that system will be well tested as the added benefit of prevents new features from introducing bugs. Combined with version control as discussed in the next section, it make it very easy to find bug since the unit tests can be used to find out \emph{when} the code broke as well as \emph{which} piece of code was the root cause.
+The major benefits of TDD are that system will be well tested.  A additional benefit is that  it  prevents new features from introducing bugs. Combined with version control as discussed in the next section, it makes it very easy to find bugs since the unit tests can be used to find out \emph{when} the code stop working as well as to find out \emph{which} piece of code was the root cause.
 
-This method of development was perfectly suited to implementing the algorithms in the engine (such as unit movement) because the expected output was know beforehand.  Since all components of the model were programmed to an interface, it allows the use of mock objects\ref{sec:mockobjects}.   
+This method of development was perfectly suited to implementing the algorithms in the engine (such as unit movement) because the expected output was known beforehand.  Since all components of the model were programmed to an interface, it allows the use of mock objects\ref{sec:mockobjects}.   
 
 %To further ease testing of the algorithms I used mock object  
 
-However TDD has few drawbacks such as the difficulty of realising all possible test scenario, which because apparent when testing the GUI and the editor. To this these aspects of the system I played multiple created game from start to finish with the goal of finding any lingering bugs. In addiction I did user surveys as well as usability studies to find any unexpected defects in the user interface. (results in ) 
+However TDD has few drawbacks such as the difficulty of realising all possible test scenario, which becomes apparent when testing the GUI and the editor. To test these aspects of the system I played multiple created game from start to finish with the goal of finding any lingering bugs. In addition I did user surveys as well as usability studies to find any unexpected defects in the user interface. (results in ) 
 % TODO ref
 
 \subsection{Mock Objects}
 \label{sec:mockobjects}
-Mock objects are used predominantly in very large software development projects to aid in testing. The objective is to create object which simulate only the essential behaviour of the object required. 
-Mock objects abstracts the detailed functionality of the implementation away and  focuses only on what is required for the test
+Mock objects are used predominantly in very large software development projects to aid in testing. The objective is to create objects which simulate only the essential behaviour of the object required. 
+Mock objects abstract  the detailed functionality of the implementation away and  focuses only on what is required for the test.
 
 \subsection{Version Control}
 \label{sub:version_control}
-Version control keeps track of all changes to a project. Keeps the history of changes helps finding when a bug was first intodusced and hence what caused the bug. In preticual I choose to used \texttt{git}, which is distributed version control system. In differs from trainally client server system such as Subversion in that each user has a 
-complete copy of the repotidry. 
+Version control keeps track of all changes to a project. It keeps the history of changes and  helps to detect when a bug was first introduced, hence cause of the bug. In particular I chose to use \texttt{git}, which is distributed version control system. It differs from traditional client server system such as Subversion in that each user has a 
+complete copy of the repository. 
 
-Distributed version control system have the advantages of allowing change to committed locally, even without an internet connection.  This particularly useful for this project since it allows experimenting with various features before choosing the features to integrate into the system.
+Distributed version control system have the advantage of allowing changes to be committed locally, even without an internet connection.  This was particularly useful for this project since it allowed experimenting with various features before choosing the features to integrate into the system.
   
 
 %TODO ref
-
-% \subsection{Standardised Formats }
-% talk about use of xml
