@@ -52,8 +52,22 @@
 	escapechar=§,
 	upquote=true,
 	basicstyle=\ttfamily,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	extendedchars=true,
+	breaklines=true,
+	keywords=[1]{weapon}
 }
-\lstset{basicstyle=\small\ttfamily,numberstyle=\tiny,numbersep=5pt,extendedchars=true,breaklines=true}
+
+\lstnewenvironment{lst:weapon}[1][]
+	{
+		\lstset{
+		keywords=[1]{weapon,name},
+		keywords=[2]{class,name,uuid},
+		#1	
+		}
+	}
+	{}
 
 %\lstset{frame=b}
 %\lstset{xleftmargin=17pt, framexleftmargin=17pt,framexrightmargin=5pt,framexbottommargin=4pt}
