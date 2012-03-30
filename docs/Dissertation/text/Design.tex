@@ -129,4 +129,57 @@ As is common in TRPG, I included weapons as  well as skills in the design.  A We
 
 \paragraph{Ranged Skill} A skill can attack  enemies in range. The main difference from a weapon is that the skill has an \texttt{attack area}(shown in green) which are the units affected. Unlike most weapons, skills affect \emph{all} units in the \texttt{attack area}.
 
+\clearpage
+\subsection{Editor}
+The editor was designed to be easy to use. I designed a tabbed interface which allow the user which parts to edit.  One of the main features of the editor, is the updating of related panels. For example, if the user creates a new weapon, it will automatically added to the list of available weapons. 
+The main components of the editor are shown below.
 
+\paragraph{Weapons \& Skills} the editor is designed to allow the user to visually how changing the stats affect the it. This includes showing the user the attack range of the weapon/skill.
+
+\def\editor{0.23}
+\begin{figure}[htbp]
+	\begin{center}
+	\subfigure[Weapons Panel]{
+		\includegraphics[scale=\editor]{figures/editor/Weapons.png}}
+	\subfigure[Skill Panel]{
+			\includegraphics[scale=\editor]{figures/editor/Skills.png}}
+	\end{center}
+	\label{fig:editor}
+\end{figure}
+
+\paragraph{Units} All the attributes of the units are user editable. This includes their weapon, skill as well as the unit's sprites. 
+
+ \begin{figure}[htbp]
+ 	\centering
+ 		\includegraphics[scale=0.3]{figures/editor/Units.png}
+ 	\caption{Unit panel}
+ 	\label{fig:figures_editor_Units}
+ \end{figure}
+ 
+%TODO finish
+\clearpage
+\subsubsection{Visual Map Editing}
+The editor support visual map editing as shown in figure \ref{fig:figures_editor_Map}.  This allows the user to design their map without writing lots of xml. One of the notable features is that the user can specify the enemies locations, which give the user more freedom compare with older TRPG where the enemies always start on the same conner on every map.  
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=5in]{figures/editor/Map.png}
+	\caption{Visual Map editor}
+	\label{fig:figures_editor_Map}
+\end{figure}
+
+Each tile has many attributes associated with it, these include 
+\begin{itemize}
+	\item The main image.
+	\item The left and right wall images.
+	\item A specified height.
+	\item An \emph{orientation}, which affects which way slanted tile are drawn.
+\end{itemize}
+
+The tools are based their equivalents in a painting program  and include a \texttt{pencil} for draw the currently selected tile image onto the selected tile.  Other tools include enemy unit placement using a icon of a pointing finger. 
+%TODO finish
+
+
+
+% TODO  spinner commit on type
+%TODO   ref counting 
