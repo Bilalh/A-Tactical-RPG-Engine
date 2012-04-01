@@ -1,5 +1,5 @@
 @startuml img/activity_img01.png
-
+skinparam componentStyle uml2
 (*) -->[Game start] "Load Map"
   --> "Display Start Dialog"
   -right-> "Display Win Conditions"

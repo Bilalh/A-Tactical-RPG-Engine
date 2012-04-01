@@ -1,15 +1,37 @@
-%% Implementation
 %!TEX root = ../Project.tex
 
 \section{Implementation}
 
+\subsection{Overview}
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics{figures/engine_exported.pdf}
+	\caption{caption}
+	\label{fig:Overview of the engine}
+\end{figure}
+
+The system is structures using MVC for the overall archavice as well as  using the Observer Patten as shown  above.
+
+
+The \texttt{MainController} handles the overall logic, inducing the game progression. 
+Although the objectives only required a isometric  map view, the archavice was designed to be more general. Hence a \emph{separate} controller for each part of the game is used. When the part is  (e.g. when a map has been completed) the controller notifies the \texttt{MainController}, which decides what to do next.   
+
+%TODO where to put?
+The archavive could be easily extended to overworld maps, cut-scenes for example.
+
+
+The obsverable components (i.e the view, or the map controller) commimite using \texttt{notification} object. 
+
+
 \subsection{Engine Development and Testing}
 \label{sub:engine_development_and_testing}
 
+\subsubsection{Data Format}
+
+
 \subsubsection{Maps}
 \label{ssub:maps}
-
-As discussed previously the maps use xml as their data format, one the advantages of this was that it required very little changes to the data  format to have incompatibility with Oleksandr Stasyk's  Terrain Generator's output format.  This allows the user design a map with very little work. 
 
 \subsubsection{Units}
 \label{ssub:units}
@@ -19,6 +41,10 @@ As discussed previously the maps use xml as their data format, one the advantage
 
 \subsubsection{Algorithms}
 \label{ssub:Algorithms}
+
+\subsubsection{Inter-compatibility}
+\label{ssub:intercompatibility}
+As discussed previously the maps use xml as their data format, one the advantages of this was that it required very little changes to the data format to have incompatibility with Oleksandr Stasyk's  Terrain Generator's output format.  The Terrain generator allows uses various algorithms to produce senabient looking map. Users can use these as a starting  point, to make it for them to design their maps.
 
 
 \subsection{Gui Development and Testing}

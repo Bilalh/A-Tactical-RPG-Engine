@@ -1,0 +1,36 @@
+@startuml img/activity_img01.png
+skinparam componentStyle uml2
+(*) --> "Main Controller"
+-down->[startMap(name)] "Map Controller"
+
+"Map Controller" -->[MapFinishedNotific] "Main Controller"
+"Map Controller" -->[MapFinishedNotification] "Main Controller"
+
+"View" -->[prefom action]"Map Controller"
+-->[Convert representation] "Map Model" 
+-->[update(Notification)] "View"
+
+
+"aa" -right-> "View"
+
+@enduml
+
+  --> "Display Start Dialog"
+  -right-> "Display Win Conditions"
+  --> "Place Units"
+  -left-> "Battle"
+  
+  "Load Map" -->  "Player Won?"
+  
+  if "Player Won?" then
+  	-right->[yes] "Display End Dialog"
+  	if "More Maps?" then
+  		-->[next] "Load Map"
+  	else
+  		--> "Game Finished"
+  	endif
+  else 
+  	-->[no] "Gameover"
+  endif
+
+
