@@ -12,6 +12,8 @@ import config.Config;
 import config.IPreference;
 import config.XMLUtil;
 
+import engine.map.DefaultTurnComparator;
+import engine.map.interfaces.ITurnComparator;
 import engine.map.win.DefeatAllUnitsCondition;
 import engine.map.win.IWinCondition;
 
@@ -27,7 +29,8 @@ public class MapConditions implements Identifiable, IPreference {
 	private IWinCondition winCondition;
 	private ArrayList<Location> vaildStartLocations;
 	private Location defaultStartLocation;
-
+	private ITurnComparator turnComparator;
+	
 	public MapConditions() {
 		uuid = UUID.randomUUID();
 	}
@@ -36,6 +39,10 @@ public class MapConditions implements Identifiable, IPreference {
 		if (defaultStartLocation == null){
 			defaultStartLocation = new Location(0,0);
 		}
+		if (turnComparator == null){ 
+			turnComparator = new DefaultTurnComparator();
+		}
+		
 		return this;
 	}
 	
@@ -73,5 +80,15 @@ public class MapConditions implements Identifiable, IPreference {
 	@Override
 	public UUID getUuid() {
 		return uuid;
+	}
+
+	/** @category Generated */
+	public ITurnComparator getTurnComparator() {
+		return turnComparator;
+	}
+
+	/** @category Generated */
+	public void setTurnComparator(ITurnComparator turnComparator) {
+		this.turnComparator = turnComparator;
 	}
 }

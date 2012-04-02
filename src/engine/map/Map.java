@@ -66,7 +66,7 @@ public class Map extends BasicMap implements IMap {
 		this.playerinfo = player;
 		loadSettings(name);
 		paths = new HashMap<IMutableMapUnit, PathFinder>();
-		order = new PriorityQueue<IMutableMapUnit>(16, new DefaultTurnComparator());
+		order = new PriorityQueue<IMutableMapUnit>(16, conditions.getTurnComparator());
 		
 		this.player = new MapPlayer();
 		setUpAI();
