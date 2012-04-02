@@ -51,7 +51,7 @@
 	mathescape=true, 
 	escapechar=§,
 	upquote=true,
-	basicstyle=\ttfamily,
+	basicstyle=\small\ttfamily,
 	numberstyle=\tiny,
 	numbersep=5pt,
 	extendedchars=true,
@@ -64,6 +64,16 @@
 		\lstset{
 		keywords=[1]{weapon,name},
 		keywords=[2]{class,name,uuid},
+		#1	
+		}
+	}
+	{}
+
+\lstnewenvironment{lst:tile}[1][]
+	{
+		\lstset{
+		keywords=[1]{tile,type,height},
+		keywords=[2]{x,y},
 		#1	
 		}
 	}

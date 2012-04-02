@@ -7,40 +7,98 @@
 \begin{figure}[htbp]
 	\centering
 		\includegraphics{figures/engine_exported.pdf}
-	\caption{caption}
-	\label{fig:Overview of the engine}
+	\caption{Overview of the engine}
+	\label{fig:overview_engine}
 \end{figure}
 
-The system is structures using MVC for the overall archavice as well as  using the Observer Patten as shown  above.
+The system is structures using MVC for the overall architecture as well as  using the Observer Patten as shown above.
+%TODO explain  mvc and Observer Patten somewhere
+
+The \texttt{MainController} handles the overall logic, including the game progression. 
+Although the objectives only required a isometric  map view, the implementation was designed to be more general  hence a \emph{separate} controller for each \texttt{stage} of the game is used. When the \texttt{stage} is  (e.g. when a map has been completed) the controller notifies the \texttt{MainController}, which decides what to do next.   
+
+%TODO where to put this
+%The architecture could be easily extended to overworld maps, cut-scenes for example.
 
 
-The \texttt{MainController} handles the overall logic, inducing the game progression. 
-Although the objectives only required a isometric  map view, the archavice was designed to be more general. Hence a \emph{separate} controller for each part of the game is used. When the part is  (e.g. when a map has been completed) the controller notifies the \texttt{MainController}, which decides what to do next.   
+The obsverable components (i.e the view, or the map controller) communicate using \texttt{notification} object which encapsulates any relevant information. For example the \texttt{model} sends a \texttt{UnitMovedNotification} when the computer controlled opponent move one of their units. The notification includes a reference to the unit moved and the path it took to to get there. This information is used to display an animation of the unit moving to the user.
 
-%TODO where to put?
-The archavive could be easily extended to overworld maps, cut-scenes for example.
-
-
-The obsverable components (i.e the view, or the map controller) commimite using \texttt{notification} object. 
-
-
+\clearpage
 \subsection{Engine Development and Testing}
 \label{sub:engine_development_and_testing}
 
 \subsubsection{Data Format}
+The schema for the data format was only slightly changed for the reason stated in section \ref{ssub:intercompatibility}. To parse and serialisation the xml  the \texttt{Xstream} Java library was used.
 
+XStream is an open source library used to serialise Java objects to and from XML. One of the it major benefits it that it abstracts over the parsing and serialisation and allows the user to focus on what the data should be used for. 
+
+XStream achieves this though the use of Java annotations\footnote{A special form of syntactic metadata that can be added to source of a Java file, with the notable feature of being retained in the complied class files.	}, as shown in the below example\footnote{Getter, Setters and trivial constructor omitted.}.
+
+\begin{lstlisting}[caption=Example of class that is serialisable with XStream, label=lst:xstream, language=java] %Java
+	
+@XStreamAlias("tile")
+public class SavedTile {
+	protected final String type;
+	protected final int height; 
+	protected int startingHeight;
+	
+	@XStreamAsAttribute
+	protected final int x;
+	@XStreamAsAttribute
+	protected final int y;
+
+	protected Orientation orientation;
+	protected String leftWall, rightWall;
+	
+	private Object readResolve() {
+		if (orientation == null)  
+			orientation = Orientation.TO_EAST;
+		if (startingHeight == 0 && height != 0) startingHeight = height;
+		return this;
+	}}
+\end{lstlisting}
+As shown above no extra logic apart from the annotations is need for serialisation.  Another benefit of XStream is that it allows setting default values. This allows the user to omit redonent tags, as shown in the xml where most of the tags have been omitted.
+\begin{lst:tile}[caption=Serialised form of the above class. ]
+<tile x="0" y="0">
+	<type>grass</type>
+	<height>1</height>
+</tile>
+\end{lst:tile}
+
+%TODO Ref
 
 \subsubsection{Maps}
 \label{ssub:maps}
 
+\begin{itemize}
+	\item Handles loading
+	\item Handles events
+	\item Send messages
+\end{itemize}
+
 \subsubsection{Units}
 \label{ssub:units}
+
+\begin{itemize}
+	\item Has a set number of attributes inuldes weapons, images
+	\item behaviour for the ai.  
+\end{itemize}
 
 \subsubsection{Events}
 \label{ssub:events}
 
+\begin{itemize}
+	\item win conditions.
+\end{itemize}
+
 \subsubsection{Algorithms}
 \label{ssub:Algorithms}
+
+\begin{itemize}
+	\item Unit movement
+	\item path finding
+	\item AI behaviour
+\end{itemize}
 
 \subsubsection{Inter-compatibility}
 \label{ssub:intercompatibility}
@@ -52,8 +110,18 @@ As discussed previously the maps use xml as their data format, one the advantage
 \subsubsection{Map Rendering}
 \label{ssub:map_rendering}
 
+\begin{itemize}
+	\item Isometric maths
+	\item how reusable it is
+	\item efficient 
+\end{itemize}
+
 \subsection{User Interface}
 
+\begin{itemize}
+	\item unit animations
+	\item menus
+\end{itemize}
 
 \subsubsection{Custom Classes} % allows user to use their own code
 \label{ssub:custom_classes}
