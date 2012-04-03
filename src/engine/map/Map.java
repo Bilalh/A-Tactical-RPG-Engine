@@ -129,11 +129,9 @@ public class Map extends BasicMap implements IMap {
 		
 		Logf.debug(log, "ordering %s", order);
 		setChanged();
-//		current = order.remove();
 		
 		mapState =  MapState.START;
 		sendNotification(new DialogNotification(events.getStartDialog()));
-//		sendNotification(new UnitTurnNotification(current));
 	}
 
 	@Override
@@ -142,7 +140,6 @@ public class Map extends BasicMap implements IMap {
 			case START:
 				mapState = MapState.INBATTLE;
 				sendNextUnit();
-//				sendNotification(new UnitTurnNotification(current));
 				break;
 			case PRE_WIN:
 				mapState = MapState.WON;
@@ -160,10 +157,10 @@ public class Map extends BasicMap implements IMap {
 		u.setLocation(p);
 		field[p.getX()][p.getY()].setCurrentUnit(u);
 
-		// FIXME events
-		for (LocationInfo l : path) {
-			// field[l.x][l.y].event(u)
-		}
+//		// FIXME events
+//		for (LocationInfo l : path) {
+//			// field[l.x][l.y].event(u)
+//		}
 
 		u.setReadiness(u.getReadiness() - 60);
 		order.add(u);

@@ -236,7 +236,6 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 			infoTabs.setSelectedComponent(infoPanel);
 		}
 		
-		//FIXME addToList
 		infoTabs.setEnabled(false);
 		creating = true;
 		

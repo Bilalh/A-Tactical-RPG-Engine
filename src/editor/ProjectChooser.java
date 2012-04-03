@@ -156,7 +156,6 @@ public class ProjectChooser {
 			try {
 				FileUtils.copyDirectory(new File("bundle/Default"), dir );
 			} catch (IOException e1) {
-				// FIXME catch block in actionPerformed
 				e1.printStackTrace();
 			}
 			openProject(dir);

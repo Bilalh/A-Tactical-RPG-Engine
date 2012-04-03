@@ -156,7 +156,6 @@ public class Editor {
 	}
 	
 	private JTabbedPane createTabs() {
-		//FIXME change
 		JTabbedPane tabs = new JTabbedPane();
 		unitImagesPanel  = new UnitsImagesPanel(this);
 		tilesetPanel     = new TilesetPanel(this);
@@ -179,7 +178,7 @@ public class Editor {
 		tabs.addTab("Music",        (musicPanel      ));
 		tabs.addTab("Sound",        (soundPanel      ));
 		
-		
+		// TODO 
 //		tabs.addTab("Project",      new JPanel());
 		
 		loadMaps();

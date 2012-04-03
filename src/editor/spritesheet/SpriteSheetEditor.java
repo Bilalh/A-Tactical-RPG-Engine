@@ -555,7 +555,7 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 			totalArea += (s.getWidth()  + border) * (s.getHeight() + border);
 		}
 		
-		Logf.info(log,"Needed %s, have %s %dx%d\n",totalArea, sWidth, sHeight, sWidth*sHeight);
+		Logf.info(log,"Need %s pixels, have %s %dx%d\n",totalArea, sWidth*sHeight, sWidth, sHeight);
 		if (totalArea > sWidth * sHeight ){
 			JOptionPane.showMessageDialog(this, "Selected sheet sizes not large enough to fit all the sprites",
 					"Invaild", JOptionPane.ERROR_MESSAGE);
@@ -826,15 +826,13 @@ public class SpriteSheetEditor extends JFrame implements ISpriteProvider<Mutable
 		}
 	}
 
-	public static void main(String[] args) {
-		Config.loadLoggingProperties();
-		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-			System.setProperty("apple.laf.useScreenMenuBar", "true");
-		}
-		new SpriteSheetEditor(JFrame.EXIT_ON_CLOSE).setVisible(true);
-	}
-
-
+//	public static void main(String[] args) {
+//		Config.loadLoggingProperties();
+//		if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
+//			System.setProperty("apple.laf.useScreenMenuBar", "true");
+//		}
+//		new SpriteSheetEditor(JFrame.EXIT_ON_CLOSE).setVisible(true);
+//	}
 	
 }
 	

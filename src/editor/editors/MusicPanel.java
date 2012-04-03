@@ -76,7 +76,6 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 
 	@Override
 	public void panelSelected(Editor editor) {
-		// FIXME panelSelected method
 	}
 
 	@Override
