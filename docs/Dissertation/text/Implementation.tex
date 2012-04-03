@@ -6,8 +6,9 @@
 
 \begin{figure}[htbp]
 	\centering
+		% TODO fix labels
 		\includegraphics{figures/engine_exported.pdf}
-	\caption{Overview of the engine}
+	\caption{Overview of the implementation.}
 	\label{fig:overview_engine}
 \end{figure}
 
@@ -21,20 +22,17 @@ Although the objectives only required a isometric  map view, the implementation 
 %The architecture could be easily extended to overworld maps, cut-scenes for example.
 
 
-The obsverable components (i.e the view, or the map controller) communicate using \texttt{notification} object which encapsulates any relevant information. For example the \texttt{model} sends a \texttt{UnitMovedNotification} when the computer controlled opponent move one of their units. The notification includes a reference to the unit moved and the path it took to to get there. This information is used to display an animation of the unit moving to the user.
+The obsverable components (i.e the view, or the map controller) communicate using \texttt{notification} objects which encapsulates any relevant information. For example the \texttt{model} sends a \texttt{UnitMovedNotification} when the computer controlled opponent move one of their units. The notification includes a reference to the unit moved and the path it took to to get there. This information is used to display an animation of the unit moving to the user.
 
 \clearpage
-\subsection{Engine Development and Testing}
-\label{sub:engine_development_and_testing}
-
-\subsubsection{Data Format}
+\subsection{Data Format}
 The schema for the data format was only slightly changed for the reason stated in section \ref{ssub:intercompatibility}. To parse and serialisation the xml  the \texttt{Xstream} Java library was used.
 
 XStream is an open source library used to serialise Java objects to and from XML. One of the it major benefits it that it abstracts over the parsing and serialisation and allows the user to focus on what the data should be used for. 
 
 XStream achieves this though the use of Java annotations\footnote{A special form of syntactic metadata that can be added to source of a Java file, with the notable feature of being retained in the complied class files.	}, as shown in the below example\footnote{Getter, Setters and trivial constructor omitted.}.
 
-\begin{lstlisting}[caption=Example of class that is serialisable with XStream, label=lst:xstream, language=java] %Java
+\begin{lstlisting}[caption=Example of class that is serialisable with XStream, label=lst:SavedTile, language=java] %Java
 	
 @XStreamAlias("tile")
 public class SavedTile {
@@ -67,17 +65,60 @@ As shown above no extra logic apart from the annotations is need for serialisati
 
 %TODO Ref
 
-\subsubsection{Maps}
+\subsubsection{Resources}
+
+All resources that loaded are \texttt{Identifiable}, that they have a unique id.  There are main advantage to using this scheme. The first is that it allows cache of resources which means that there's single instance for each resource (such as weapons and the images) used. This is especially important for the image, to reduce memory requirements as well as load times.
+
+The other advantage is that it meant I could use the same framework for loading and saving all the resources, hence saving development time as well as reducing code duplication. 
+
+
+\subsubsection{Sprite Sheets}
+\label{ssub:sprite_sheets}
+
+
+A sprite sheet is a collection of images combined together. The advantage of this is that a single image is loaded, which reduced loading times. It also make it easier to cache images, since a \emph{subimage} can be efficient created\footnote{using the Java method \texttt{BufferedImage.getSubimage}}. A \texttt{subimage} shares the same image data as original so is ideal way for each tile to have access to it's images.    
+
+
+% TODO ref 
+%http://docs.oracle.com/javase/6/docs/api/java/awt/image/BufferedImage.html#getSubimage%28int,%20int,%20int,%20int%29
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics{figures/tileset.png}
+	\caption{A 128\*128 sprite sheet containing a tileset for a map}
+	\label{fig:figures_tileset}
+\end{figure}
+
+Sprite sheets make maps more reusable, since the tileset can be changed without any constiance\footnote{As long as the new tileset has the same number of image or the \texttt{tilemapping} has entires for missing entries.}.  
+
+I created a sprite sheet editor to allow the user to easily edit the tilesets. Using  sprite sheets allows abstracting over the file system, hence increasing the usability of system. The editor was reused for editing other images such as the character images.  
+
+\clearpage
+\subsection{Engine Development and Testing}
+\label{sub:engine_development_and_testing}
+\subsubsection{Map}
 \label{ssub:maps}
 
+% \begin{itemize}
+% 	\item Handles loading
+% 	\item Handles events
+% 	\item Send messages
+% \end{itemize}
+
+The \texttt{Map} class handles the overall logic and game flow.   The main components are:
 \begin{itemize}
-	\item Handles loading
-	\item Handles events
-	\item Send messages
+	\item The tiles for the maps. Each tile includes height information as well as the tile's location, as shown in listing \ref{lst:SavedTile}.
+	\item The enemy unit.     
+	\item The \texttt{TileMapping} which specify what images to use when draw the images in addition to \emph{how} the tile is drawn. 
+	\item  The \texttt{conditions} of the maps. These include a winning conditions (such as ``Defeat all Enemy units'',  the placement of player's units and a \texttt{turnComparator} which decides how the turn ordering works.  
+	\item  The \texttt{events}. These include the dialog which displays parts of the story. 
 \end{itemize}
+
+The other major responsibly of the map is to send notifications to the view.  
 
 \subsubsection{Units}
 \label{ssub:units}
+
 
 \begin{itemize}
 	\item Has a set number of attributes inuldes weapons, images
