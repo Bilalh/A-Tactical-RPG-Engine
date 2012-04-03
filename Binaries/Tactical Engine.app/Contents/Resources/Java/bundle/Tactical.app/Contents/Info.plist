@@ -20,21 +20,6 @@
         <string>????</string>
         <key>CFBundleVersion</key>
         <string>1.0.1</string>
-		<key>CFBundleDocumentTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleTypeExtensions</key>
-				<array>
-					<string>tacticalproject</string>
-				</array>
-				<key>CFBundleTypeIconFile</key>
-				<string>tacticalproject.icns</string>
-				<key>CFBundleTypeName</key>
-				<string>Tactical RPG Engine Project</string>
-				<key>CFBundleTypeRole</key>
-				<string>Editor</string>
-			</dict>
-		</array>
         <key>Java</key>
         <dict>
 			<key>WorkingDirectory</key>
