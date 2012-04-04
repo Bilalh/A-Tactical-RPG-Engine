@@ -385,8 +385,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 				for (int j = 0; j < height; j++, k++) {
 					tiles[k] = new SavedTile(
 							tileName,
-							Math.max(0,(int)(tiles[k].getStartingHeight()/50f*10) -5),
-							Math.max(0,(int)(tiles[k].getEndHeight()/50f*10) -5),
+							tiles[k].getStartingHeight(),
+							tiles[k].getEndHeight(),
 							tiles[k].getX(), tiles[k].getY(),
 							Orientation.TO_EAST,
 							textureName,
@@ -621,7 +621,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			FileChooser c = new FileChooser(null, "Import End Dialog", "yaml");
+			FileChooser c = new FileChooser(null, "Import Win Dialog", "yaml");
 			File f = c.loadFile();
 			if (f == null) return;
 			ArrayList<Map<String, String>>  data = importDialog(f);
@@ -653,7 +653,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		private static final long serialVersionUID = 4069963919157697524L;
 
 		public ExportEndAction() {
-			putValue(NAME, "Export End Dialog");
+			putValue(NAME, "Export Win Dialog");
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			// putValue(SMALL_ICON, new ListAllIcon(16, 16));
 		}
