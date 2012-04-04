@@ -44,5 +44,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/commons-io-2.1.jar"/>
 	<classpathentry kind="lib" path="libs/jarsplice-0.25.jar"/>
+	<classpathentry kind="lib" path="libs/snakeyaml-1.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
