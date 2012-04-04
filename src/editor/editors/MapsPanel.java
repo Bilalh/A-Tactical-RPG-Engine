@@ -508,8 +508,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoRnd.setVisible(false);
 		
 		addSeparator(p, "Dialog");
-		p.add(importStart = new JButton(new ImportAction()));
-
+		p.add(importStart = new JButton(new ImportStartAction()));
+		p.add(importEnd   = new JButton(new ImportEndAction()));
 		
 		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 
@@ -517,7 +517,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoTabs.addTab("Details", infoPanel =p);
 		infoTabs.addTab("Enemies ",       enemiesPanel     = new AiUnitPanel(editor.getUnitsSprites(), false, "Enemy"));
 		infoTabs.addTab("Start Dialog",   dialogStartPanel = new MapDialogPanel(this, editor));
-		infoTabs.addTab("Finish Dialog",  dialogEndPanel   = new MapDialogPanel(this, editor));
+		infoTabs.addTab("Win Dialog",     dialogEndPanel   = new MapDialogPanel(this, editor));
 		infoTabs.addTab("Music",          musicPanel       = new MapMusicPanel());
 		infoTabs.addTab("Win Condition",  conditionsPanel  = new MapConditionsPanel(this));
 		return infoTabs;
@@ -583,10 +583,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		}
 	}
 	
-	protected class ImportAction extends AbstractAction {
+	protected class ImportStartAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
-		public ImportAction() {
+		public ImportStartAction() {
 			putValue(NAME, "Import Start Dialog");
 			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
 			// putValue(SMALL_ICON, new ListAllIcon(16, 16));
@@ -594,13 +594,30 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			importDialog();
+			ArrayList<Map<String, String>>  data = importDialog();
+			dialogStartPanel.importDialog(data);
 		}
 	}
 	
 
+	protected class ImportEndAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public ImportEndAction() {
+			putValue(NAME, "Import Win Dialog");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			// putValue(SMALL_ICON, new ListAllIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ArrayList<Map<String, String>>  data = importDialog();
+			dialogEndPanel.importDialog(data);
+		}
+	}
+	
 	Yaml yaml;
-	private void importDialog() {
+	private ArrayList<Map<String, String>> importDialog() {
 		if (yaml ==null) yaml= new Yaml();
 		File f = new File("text.yaml");
 		Object o = null;
@@ -613,31 +630,23 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		boolean error = false;
 		if (o instanceof ArrayList) {
 			ArrayList al = (ArrayList) o;
-			if (al.size() == 0 ) return;
+			if (al.size() == 0 ) return null;
 			
-			if (! (al.get(0) instanceof java.util.Map)){
-				error = true;
-			}else{
-				ArrayList<Map> list = al;
-				Map.Entry entry;
-				if (list.get(0).size() != 1 
-						|| !((entry =(Entry) list.get(0).entrySet().iterator().next()).getKey() instanceof String) 
-						|| !((entry.getValue()) instanceof String)){
-					error = true;
-				}else{
-					for (Map<String, String> data : list) {
-						System.out.println(data);
-					}		
-				}
+			if (! (al.get(0) instanceof java.util.Map)) return null;
+			
+			ArrayList<Map> list = al;
+			Map.Entry entry;
+			if (list.get(0).size() != 1 
+					|| !((entry =(Entry) list.get(0).entrySet().iterator().next()).getKey() instanceof String) 
+					|| !((entry.getValue()) instanceof String)){
+				return null;
 			}
+//			for (Map<String, String> data : list) {
+//				System.out.println(data);
+//			}		
 		}
 		
-		if (error){
-			System.err.println("Invaild format");
-		}else{
-			ArrayList<Map<String, String>> data = (ArrayList<Map<String, String>>) o;
-			dialogStartPanel.importDialog(data);
-		}
+		return (ArrayList<Map<String, String>>) o;
 	}
 	
 	@Override

@@ -150,11 +150,16 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 
 
 	protected void importDialog(ArrayList<Map<String, String>> list) {
-		
 		DialogParts dps = new DialogParts();
+		
+		HashMap<String, UUID> names = new HashMap<String, UUID>();
+		for (IMutableUnit u : mapPanel.getEnemies().getUnits()) {
+			names.put(u.getName(), u.getUuid());
+		}
+		
 		for (Map<String, String> data : list) {
 			Map.Entry<String, String> entry =  data.entrySet().iterator().next();
-			dps.put(new DialogPart(entry.getValue(), null));
+			dps.put(new DialogPart(entry.getValue(),  names.get(entry.getKey()) ));
 		}
 		setResources(dps);
 	}
