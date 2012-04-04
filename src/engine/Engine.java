@@ -57,5 +57,9 @@ public class Engine {
 	public IMap getCurrentMap() {
 		return currentMap;
 	}
+
+	public Player getPlayer() {
+		return player;
+	}
 	
 }

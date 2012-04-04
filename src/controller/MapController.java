@@ -8,6 +8,7 @@ import java.util.*;
 import org.apache.log4j.Logger;
 
 import notifications.map.MapFinishedNotification;
+import notifications.map.SaveNotification;
 
 import common.interfaces.IMapUnit;
 import common.interfaces.IUnit;
@@ -62,7 +63,7 @@ public class MapController extends Controller {
 	}
 
 	public Collection<LocationInfo> getMovementRange(IMapUnit u) {
-		Args.nullCheck(u);
+		assert u != null;
 		return map.getMovementRange((IMutableMapUnit) u);
 	}
 
@@ -142,6 +143,11 @@ public class MapController extends Controller {
 
 	public boolean hasOutlines() {
 		return map.hasOutlines();
+	}
+
+	public void save() {
+		setChanged();
+		notifyObservers(new SaveNotification());
 	}
 	
 }

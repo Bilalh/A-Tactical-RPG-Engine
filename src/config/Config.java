@@ -105,6 +105,7 @@ public class Config {
 	public static void  savePreferencesToStream(IPreference p, OutputStreamWriter w) throws IOException{
 		String s = XMLUtil.makeFormattedXml(p);
 		w.write(s);
+		w.flush();
 	}
 
 	/**

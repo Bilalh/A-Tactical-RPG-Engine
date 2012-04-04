@@ -14,10 +14,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import org.apache.log4j.Logger;
-
-import com.sun.tools.example.debug.gui.GUI;
 
 import view.Gui;
 import view.map.interfaces.IActions;
@@ -50,11 +49,11 @@ public class MapPanel extends JPanel implements Runnable {
 	private Graphics bg;
 	private Image buffer = null;
 
+	private MapController mapController;
 	private GuiMap map;
-
 	int width, height;
 	
-	public MapPanel(MapController mapController, long period, int width, int height) {
+	public MapPanel(final MapController mapController, long period, int width, int height) {
 		this.period = period;
 		this.width  = width;
 		this.height = height;
@@ -67,6 +66,8 @@ public class MapPanel extends JPanel implements Runnable {
 		setFocusable(true);
 		requestFocus(); // the JPanel now has focus, so receives key events
 
+		this.mapController = mapController;
+		
 		this.map = new GuiMap(mapController, this);
 		this.addMouseListener(map.getMouseListener());
 		this.addMouseMotionListener(map.getMouseMotionListener());
@@ -76,8 +77,12 @@ public class MapPanel extends JPanel implements Runnable {
 			@Override
 			public void keyPressed(KeyEvent e) {
 
-				if (e.isMetaDown()) {
+				int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+				
+				if ((mask == Event.META_MASK && e.isMetaDown())  || (mask == Event.CTRL_MASK && e.isControlDown())) {
 					if (e.getKeyCode() == KeyEvent.VK_D) Gui.toggleConsole();
+					if (e.getKeyCode() == KeyEvent.VK_S) mapController.save();
+
 					return;
 				} else if (e.isShiftDown()) {
 					if (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET)

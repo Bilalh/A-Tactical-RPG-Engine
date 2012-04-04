@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.EventQueue;
+import java.io.*;
 import java.util.*;
 
 import javax.swing.JOptionPane;
@@ -12,11 +13,13 @@ import config.Config;
 import config.assets.DeferredMap;
 import config.assets.MapOrdering;
 import config.assets.OrderedMap;
+import config.assets.Units;
 
 import view.Gui;
 import view.map.MapPanel;
 import engine.Engine;
 import engine.map.Map;
+import engine.unit.IMutableUnit;
 
 /**
  * Handles the overall game flow
@@ -30,14 +33,14 @@ public class MainController extends Controller implements Observer {
 
 	private ArrayDeque<OrderedMap> ordering;
 
+	MapOrdering allMaps;
+	
 	public MainController() {
 		this.engine = new Engine();
 		this.ordering = new ArrayDeque<OrderedMap>();
 
-		MapOrdering mo = Config.loadPreference("assets/ordering.xml");
-		ArrayList<OrderedMap> al = new ArrayList(mo.values());
-		Collections.sort(al);
-		for (OrderedMap m : al) {
+		allMaps = Config.loadPreference("assets/ordering.xml");
+		for (OrderedMap m : allMaps.sortedValues()) {
 			ordering.addLast(m);
 		}
 
@@ -95,6 +98,36 @@ public class MainController extends Controller implements Observer {
 
 	public void setGui(Gui gui) {
 		this.gui = gui;
+	}
+
+	public void save() {
+		int index = ordering.peek().getIndex() - 1;
+		MapOrdering newOrdering = new MapOrdering();
+		log.debug("Current index:" + index);
+		for (OrderedMap m : allMaps) {
+			if (m.getIndex() >= index)  newOrdering.put(m);
+		}
+		
+		log.debug("newOrdering:" + newOrdering);
+
+		try {
+			File saveDir = new File(System.getProperty("user.home"), ".tactical");
+			saveDir.mkdir();
+			File fOrdering = new File(saveDir, "progress.xml");
+			File fUnits    = new File(saveDir, "units.xml");
+			Config.savePreferencesToStream(newOrdering, new FileWriter(fOrdering));
+			
+			Units uu =  new Units();
+			for (IMutableUnit u : engine.getPlayer().getUnits()) {
+				uu.put(u);
+			}
+			
+			Config.savePreferencesToStream(uu, new FileWriter(fUnits));
+		} catch (IOException e) {
+			log.info("Saved failed");
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
