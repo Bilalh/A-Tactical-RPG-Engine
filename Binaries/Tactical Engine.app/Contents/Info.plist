@@ -5,7 +5,7 @@
 	<key>CFBundleExecutable</key>
 	<string>JavaApplicationStub</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Tactical RPG Editor 1.0, Copyright Bilal Syed Hussain. All rights reserved.</string>
+	<string>Tactical RPG Editor 1.1, Copyright Bilal Syed Hussain. All rights reserved.</string>
 	<key>CFBundleIconFile</key>
 	<string>Tactical.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -37,12 +37,8 @@
 	</array>
 	<key>Java</key>
 	<dict>
-		<key>Arguments</key>
-		<array>
-			<string>-enableassertions</string>
-		</array>
 		<key>ClassPath</key>
-        <string>$JAVAROOT/editor.jar:$JAVAROOT/junit-4.10.jar:$JAVAROOT/log4j-1.2.16.jar:$JAVAROOT/xpp3_min-1.1.4c.jar:$JAVAROOT/xstream-1.4.2.jar:$JAVAROOT/miglayout-4.0-swing.jar:$JAVAROOT/jogg-0.0.7.jar:$JAVAROOT/jorbis-0.0.15.jar:$JAVAROOT/lwjgl.jar:$JAVAROOT/jl1.0.1.jar:$JAVAROOT/javarichclient_icon_tango_action_1.0.jar:$JAVAROOT/Inflector.jar:$JAVAROOT/jaudiotagger-2.0.4-20111207.115108-15.jar:$JAVAROOT/commons-io-2.1.jar</string>
+        <string>$JAVAROOT/editor.jar:$JAVAROOT/junit-4.10.jar:$JAVAROOT/log4j-1.2.16.jar:$JAVAROOT/xpp3_min-1.1.4c.jar:$JAVAROOT/xstream-1.4.2.jar:$JAVAROOT/miglayout-4.0-swing.jar:$JAVAROOT/jogg-0.0.7.jar:$JAVAROOT/jorbis-0.0.15.jar:$JAVAROOT/lwjgl.jar:$JAVAROOT/jl1.0.1.jar:$JAVAROOT/javarichclient_icon_tango_action_1.0.jar:$JAVAROOT/Inflector.jar:$JAVAROOT/jaudiotagger-2.0.4-20111207.115108-15.jar:$JAVAROOT/commons-io-2.1.jar:$JAVAROOT/snakeyaml-1.10.jar</string>
 		<key>JVMVersion</key>
 		<string>1.6+</string>
 		<key>MainClass</key>
