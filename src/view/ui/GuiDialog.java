@@ -81,12 +81,10 @@ public class GuiDialog implements IDisplayable {
 		Font oldF = g.getFont();
 
 		g.setColor(new Color(241, 212, 170, 250));
-		g.fillRect(drawX, drawY + yOffset, width, height);
+		g.fillRect(drawX+xdiff-2, drawY + yOffset, width, height);
 
-		// draw the face
-		if (image != null) {
-			g.drawImage(image, drawX, drawY, xdiff, height + yOffset, null);
-		}
+
+		g.setFont(f);
 
 		if (lineMeasurer == null) {
 			FontRenderContext frc = g.getFontRenderContext();
@@ -95,17 +93,21 @@ public class GuiDialog implements IDisplayable {
 			// get the height of a line of text in this font and render context
 			lineHeight = metrics.getHeight();
 		}
-
-		g.setFont(f);
-
+		
 		// draw name
 		if (name != null) {
 			g.setColor(new Color(185, 186, 113));
 			int length = metrics.stringWidth(name);
-			g.fillRect(drawX + xdiff, drawY, length + 10, yOffset);
+			g.fillRect(drawX + xdiff-1, drawY, length + 10, yOffset);
 			g.setColor(new Color(0, 0, 0));
 			g.drawString(name, drawX + xdiff + 5, drawY + lineHeight);
 		}
+		
+		// draw the face
+		if (image != null) {
+			g.drawImage(image, drawX, drawY, xdiff, height + yOffset, null);
+		}
+
 		g.setColor(new Color(0, 0, 0));
 
 		// index of the first character in the paragraph.

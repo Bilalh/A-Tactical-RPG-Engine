@@ -6,6 +6,7 @@ import static util.IOUtil.replaceExtension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ import util.IOUtil;
 
 import common.Location;
 import common.enums.Orientation;
+import common.gui.ResourceManager;
 import common.interfaces.IWeapon;
 import common.spritesheet.Sprites;
 
@@ -54,7 +56,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private JComboBox infoTileset;
 	private JComboBox infoTextures;
 
-	private JButton infoEdit, infoCreate, infoCancel;
+	private JButton infoEdit, infoCreate, infoRnd, infoCancel;
 	
 	private DeferredMap   currentMap;	
 	private ITileMapping  currentMapping;
@@ -255,6 +257,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoEdit.setVisible(false);
 		infoCreate.setVisible(true);
 		infoCancel.setVisible(true);
+		infoRnd.setVisible(true);
 		
 		listAddButton.setEnabled(false);
 		listDeleteButton.setEnabled(false);
@@ -277,6 +280,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoEdit.setVisible(true);
 		infoCreate.setVisible(false);
 		infoCancel.setVisible(false);
+		infoRnd.setVisible(false);
 		
 		infoTabs.setEnabled(true);
 		creating = false;
@@ -286,7 +290,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		editor.setTabsEnabled(true);
 	}
 
-	private void createMap() {
+	private void createMap(boolean random) {
 		// Map setting and Map Data
 		MapSettings settings = MapSettings.defaults();
 		SpriteSheetData dtextures = (SpriteSheetData) infoTextures.getSelectedItem();
@@ -337,28 +341,49 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		int width = ((Number) infoWidth.getValue()).intValue();
 		int height = ((Number) infoHeight.getValue()).intValue();
-		SavedTile[] tiles = new SavedTile[width * height];
-
-		for (int i = 0, k = 0; i < width; i++) {
-			for (int j = 0; j < height; j++, k++) {
-				tiles[k] = new SavedTile(
-						tileName,
-						1,
-						1,
-						i, j,
-						Orientation.TO_EAST,
-						textureName,
-						textureName2);
+		SavedTile[] tiles;
+		SavedMap map;
+		
+		if (!random){
+			tiles = new SavedTile[width * height];
+			for (int i = 0, k = 0; i < width; i++) {
+				for (int j = 0; j < height; j++, k++) {
+					tiles[k] = new SavedTile(
+							tileName,
+							1,
+							1,
+							i, j,
+							Orientation.TO_EAST,
+							textureName,
+							textureName2);
+				}
+			}
+		}else{
+			SavedMap _map = Config.loadPreference(new File("terrain.xml"));
+			tiles = _map.getTiles();
+			// Sasha's terrain generator has the width and height the wrong way round.
+			width  = _map.getFieldHeight();
+			height = _map.getFieldWidth();
+			
+			infoWidth.setValue(width);
+			infoHeight.setValue(height);
+			
+			for (int i = 0, k = 0; i < width; i++) {
+				for (int j = 0; j < height; j++, k++) {
+					tiles[k] = new SavedTile(
+							tileName,
+							(int)(tiles[k].getStartingHeight()/50f*10),
+							(int)(tiles[k].getEndHeight()/50f*10),
+							tiles[k].getX(), tiles[k].getY(),
+							Orientation.TO_EAST,
+							textureName,
+							textureName2);
+				}
 			}
 		}
-
-		SavedMap map = new SavedMap(
-				((Number) infoWidth.getValue()).intValue(),
-				((Number) infoHeight.getValue()).intValue(),
-				tiles,
-				settings,
-				data);
-
+		
+		map = new SavedMap(width, height, tiles, settings, data);
+		
 		String name = "map_" + map.getUuid();
 		DeferredMap newMap = new DeferredMap(map, "maps/" + name + ".xml");
 
@@ -461,12 +486,13 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		p.add(infoEdit   =  new JButton(new EditAction()));
 		p.add(infoCreate =  new JButton(new CreateAction()));
+		p.add(infoRnd    =  new JButton(new RndAction()));
+
 		p.add(infoCancel =  new JButton(new CancelAction()));
 		infoCreate.setVisible(false);
-		infoCreate.setVisible(false);
-		infoCreate.setVisible(false);
-		infoCreate.setVisible(false);
 		infoCancel.setVisible(false);
+		
+		infoRnd.setVisible(false);
 		
 		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 
@@ -506,7 +532,22 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			createMap();
+			createMap(false);
+		}
+	}
+	
+	protected class RndAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public RndAction() {
+			putValue(NAME, "Use terrain generator");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			// putValue(SMALL_ICON, new ListAllIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			createMap(true);
 		}
 	}
 	

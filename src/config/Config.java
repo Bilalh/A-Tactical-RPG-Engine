@@ -73,10 +73,14 @@ public class Config {
 	 * Loads the Preference from the resource directory 
 	 */
 	public static <E extends IPreference> E loadPreference(String filename){
+		return loadPreference(new File(RESOURCE_DIRECTORY + filename ));
+	}
+
+	public static <E extends IPreference> E loadPreference(File f){
 		
 		FileInputStream fio = null;
 		try {
-			 fio = new FileInputStream(new File(RESOURCE_DIRECTORY + filename ));
+			 fio = new FileInputStream(f);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -84,7 +88,7 @@ public class Config {
 		E pref =  XMLUtil.convertXml(fio);
 		return pref;
 	}
-
+	
 	/**
 	 * Loads the Preference from the classpath
 	 */
