@@ -602,6 +602,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 			File f = c.loadFile();
 			if (f == null) return;
 			ArrayList<Map<String, String>>  data = importDialog(f);
+			if (data == null){
+				JOptionPane.showMessageDialog(null, "Invaild dialog file", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			dialogStartPanel.importDialog(data);
 		}
 	}
@@ -621,6 +625,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 			File f = c.loadFile();
 			if (f == null) return;
 			ArrayList<Map<String, String>>  data = importDialog(f);
+			if (data == null){
+				JOptionPane.showMessageDialog(null, "Invaild dialog file", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			dialogEndPanel.importDialog(data);
 		}
 	}
@@ -664,8 +672,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		Object o = null;
 		try {
 			o = yaml.load(new FileInputStream(f));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			return null;
 		}
 		
 		boolean error = false;
