@@ -149,7 +149,7 @@ One of the major features is that is that the engine handles line wrapping and p
 
 Optionally a speaker can be specified for the dialog, this can be used to have a conversation between characters on a map, to make the dialog more intertavage. 
 
-    
+The editor as discussed in section \ref{ssub:dialog_editing} supports editing of the dialog. It has the notable features of allowing the user to visually reorder parts of the dialog. It also supports for  importing and exporting the dialog as a text file.  This allows the user to write the script of the game inderpendetry in whatever application they like. 
 
 
 \subsubsection{Algorithms}
@@ -199,8 +199,21 @@ As discussed previously the maps use xml as their data format, one the advantage
 \subsubsection{Unit Editor}
 \label{ssub:unit_editors}
 
-\subsubsection{Event Editing}
+\clearpage
+\subsubsection{Dialog Editing}
+\label{ssub:dialog_editing}
 
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=4in]{figures/editor/Maps-dialog.png}
+	\caption{The dialog editing panel}
+	\label{fig:figures_editor_Maps-dialog}
+\end{figure}
+The editor supports the creation of dialog.  A dialog is sequaual of parts. Each part has the text  associated with it as well optionally have a speaker.  The speaker can be selected from any unit that is already been placed on the map. This a vast improvement on the original design where the user types the name of the speaker since less change of making errors. \footnote{It would also cause runtime exceptions if there was no unit with that name.}.
+
+As mentioned before, the engine takes care of pagination as well line wrapping when displaying the dialog in the game. This frees the user from having to fit the text into a specified area.
+
+\clearpage
 \subsubsection{Exporting}
 \label{ssub:exporting}
 
