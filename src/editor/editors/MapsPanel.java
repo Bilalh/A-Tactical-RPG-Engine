@@ -267,8 +267,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoCreate.setVisible(true);
 		infoCancel.setVisible(true);
 		
-		// Sasha's terrain generator has not been tested on windows 		
-		if (!os.contains("windows")){
+		// Sasha's terrain generator has not been tested on windows and binary is only complied for mac
+		if (os.contains("mac")){
 			infoRnd.setVisible(true);
 		}
 		
@@ -357,22 +357,24 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		SavedTile[] tiles;
 		SavedMap map;
 		
-		if (!random){
-			tiles = new SavedTile[width * height];
-			for (int i = 0, k = 0; i < width; i++) {
-				for (int j = 0; j < height; j++, k++) {
-					tiles[k] = new SavedTile(
-							tileName,
-							1,
-							1,
-							i, j,
-							Orientation.TO_EAST,
-							textureName,
-							textureName2);
+		if (random){
+			try {
+				Process p =  Runtime.getRuntime().exec("./bundle/terrain_generator -c bundle/config.yaml");
+				int code = p.waitFor();
+				if (code != 0){
+					// terrain_generator failed so we make the tiles outself
+					log.info("terrain_generator failed code:" + code);
+					random =false;
 				}
+				
+			} catch (Exception e) {
+				random =false; 
+				e.printStackTrace();
 			}
-		}else{
-			SavedMap _map = Config.loadPreference(new File("terrain.xml"));
+		}
+		
+		if (random){
+			SavedMap _map = Config.loadPreference(new File("/tmp/terrain.xml"));
 			tiles = _map.getTiles();
 			// Sasha's terrain generator has the width and height the wrong way round.
 			width  = _map.getFieldHeight();
@@ -393,8 +395,22 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 							textureName2);
 				}
 			}
+		} else {
+			tiles = new SavedTile[width * height];
+			for (int i = 0, k = 0; i < width; i++) {
+				for (int j = 0; j < height; j++, k++) {
+					tiles[k] = new SavedTile(
+							tileName,
+							1,
+							1,
+							i, j,
+							Orientation.TO_EAST,
+							textureName,
+							textureName2);
+				}
+			}
 		}
-		
+
 		map = new SavedMap(width, height, tiles, settings, data);
 		
 		String name = "map_" + map.getUuid();

@@ -51,6 +51,7 @@ public class JarsCreator {
 			"libs/miglayout-4.0-swing.jar",
 			"libs/xpp3_min-1.1.4c.jar",
 			"libs/xstream-1.4.2.jar",
+			"libs/snakeyaml-1.10.jar"
 	};
 	
 	Splicer splicer = new Splicer();
