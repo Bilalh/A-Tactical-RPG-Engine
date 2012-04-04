@@ -7,8 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
-import java.util.HashMap;
-import java.util.UUID;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.*;
+import java.util.Map.Entry;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -16,6 +18,9 @@ import javax.swing.event.*;
 import net.miginfocom.layout.CC;
 
 import org.apache.log4j.Logger;
+import org.yaml.snakeyaml.Yaml;
+
+import com.sun.org.apache.bcel.internal.generic.GOTO;
 
 import util.IOUtil;
 
@@ -57,6 +62,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private JComboBox infoTextures;
 
 	private JButton infoEdit, infoCreate, infoRnd, infoCancel;
+	private JButton importStart, importEnd;
+
 	
 	private DeferredMap   currentMap;	
 	private ITileMapping  currentMapping;
@@ -494,11 +501,15 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		p.add(infoCreate =  new JButton(new CreateAction()));
 		p.add(infoRnd    =  new JButton(new RndAction()));
 
-		p.add(infoCancel =  new JButton(new CancelAction()));
+		p.add(infoCancel =  new JButton(new CancelAction()), new CC().wrap());
 		infoCreate.setVisible(false);
 		infoCancel.setVisible(false);
 		
 		infoRnd.setVisible(false);
+		
+		addSeparator(p, "Dialog");
+		p.add(importStart = new JButton(new ImportAction()));
+
 		
 		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 
@@ -569,6 +580,63 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			cancel();
+		}
+	}
+	
+	protected class ImportAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public ImportAction() {
+			putValue(NAME, "Import Start Dialog");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			// putValue(SMALL_ICON, new ListAllIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			importDialog();
+		}
+	}
+	
+
+	Yaml yaml;
+	private void importDialog() {
+		if (yaml ==null) yaml= new Yaml();
+		File f = new File("text.yaml");
+		Object o = null;
+		try {
+			o = yaml.load(new FileInputStream(f));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		boolean error = false;
+		if (o instanceof ArrayList) {
+			ArrayList al = (ArrayList) o;
+			if (al.size() == 0 ) return;
+			
+			if (! (al.get(0) instanceof java.util.Map)){
+				error = true;
+			}else{
+				ArrayList<Map> list = al;
+				Map.Entry entry;
+				if (list.get(0).size() != 1 
+						|| !((entry =(Entry) list.get(0).entrySet().iterator().next()).getKey() instanceof String) 
+						|| !((entry.getValue()) instanceof String)){
+					error = true;
+				}else{
+					for (Map<String, String> data : list) {
+						System.out.println(data);
+					}		
+				}
+			}
+		}
+		
+		if (error){
+			System.err.println("Invaild format");
+		}else{
+			ArrayList<Map<String, String>> data = (ArrayList<Map<String, String>>) o;
+			dialogStartPanel.importDialog(data);
 		}
 	}
 	

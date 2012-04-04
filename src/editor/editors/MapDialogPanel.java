@@ -7,10 +7,7 @@ import java.awt.LayoutManager;
 import java.awt.dnd.DragSourceDropEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -151,6 +148,17 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		}
 	}
 
+
+	protected void importDialog(ArrayList<Map<String, String>> list) {
+		
+		DialogParts dps = new DialogParts();
+		for (Map<String, String> data : list) {
+			Map.Entry<String, String> entry =  data.entrySet().iterator().next();
+			dps.put(new DialogPart(entry.getValue(), null));
+		}
+		setResources(dps);
+	}
+	
 	@Override
 	protected JComponent createInfoPanel() {
 		JPanel p = new JPanel(defaultInfoPanelLayout());
@@ -249,5 +257,5 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 			current = null;
 		}
 	}
-	
+
 }
