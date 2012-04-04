@@ -39,8 +39,7 @@ public class FileChooser {
 		
 	}
 	
-	public File loadFile(){
-		
+	public File getLoadFile(){
 		if (chooser == null){
 		    FileDialog d = new FileDialog(parent, title,FileDialog.LOAD);
 		    d.setFilenameFilter(filenameFilter);
@@ -59,6 +58,26 @@ public class FileChooser {
 		}
 	}
 
+	public File getSaveFile(){
+		
+		if (chooser == null){
+		    FileDialog d = new FileDialog(parent, title,FileDialog.SAVE);
+		    d.setFilenameFilter(filenameFilter);
+			d.setVisible(true);
+
+			String path  = d.getFile();
+		    if (path == null) return null;
+		    
+		    return new File(d.getDirectory() + d.getFile());
+		}else{
+			int rst = chooser.showSaveDialog(parent);
+			if (rst != JFileChooser.APPROVE_OPTION){
+				return null;
+			}
+			return chooser.getSelectedFile();
+		}
+	}
+	
 	public File getDir(){
 		if (chooser == null){
 			System.setProperty("apple.awt.fileDialogForDirectories", "true");

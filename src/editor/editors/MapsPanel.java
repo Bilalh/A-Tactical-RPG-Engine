@@ -6,9 +6,7 @@ import static util.IOUtil.replaceExtension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -22,6 +20,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import com.sun.org.apache.bcel.internal.generic.GOTO;
 
+import util.FileChooser;
 import util.IOUtil;
 
 import common.Location;
@@ -687,6 +686,21 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	
 	private void exportDialog(String yaml){
 		System.out.println(yaml);
+		FileChooser c = new FileChooser(null, "Export Dialog", "yaml");
+		File f = c.getSaveFile();
+		FileWriter write = null;
+		try {
+			write  = new FileWriter(f);
+			write.write(yaml);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if (write != null) try {
+				write.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	@Override
