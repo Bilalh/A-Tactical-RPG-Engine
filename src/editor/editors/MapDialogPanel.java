@@ -164,6 +164,22 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 		setResources(dps);
 	}
 	
+	protected String exportDialog(){
+		StringBuffer sb = new StringBuffer(resourceListModel.size()*200);
+		
+		for (int i = 0; i < resourceListModel.size(); i++) {
+			DialogPart dp = (DialogPart) resourceListModel.get(i);
+			String name = "none";
+			if (dp.getUnitId() != null){
+				name = mapPanel.getEnemies().getUnit(dp.getUnitId()).getName();
+			}
+			
+			sb.append(String.format("- '%s': |-\n    %s",name, dp.getText()));
+			if (i!=resourceListModel.size()-1) sb.append("\n\n");
+		}
+		return sb.toString();
+	}
+	
 	@Override
 	protected JComponent createInfoPanel() {
 		JPanel p = new JPanel(defaultInfoPanelLayout());

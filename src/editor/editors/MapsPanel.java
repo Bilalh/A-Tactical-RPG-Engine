@@ -63,6 +63,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 	private JButton infoEdit, infoCreate, infoRnd, infoCancel;
 	private JButton importStart, importEnd;
+	private JButton exportStart, exportEnd;
 
 	
 	private DeferredMap   currentMap;	
@@ -510,7 +511,11 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		addSeparator(p, "Dialog");
 		p.add(importStart = new JButton(new ImportStartAction()));
 		p.add(importEnd   = new JButton(new ImportEndAction()));
-		
+
+		p.add(importStart = new JButton(new ExportStartAction()));
+		p.add(importEnd   = new JButton(new ExportEndAction()));
+
+//		exportDialog
 		p.setBorder(BorderFactory.createEtchedBorder()); //TODO fix border
 
 		infoTabs = new JTabbedPane();
@@ -599,7 +604,6 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		}
 	}
 	
-
 	protected class ImportEndAction extends AbstractAction {
 		private static final long serialVersionUID = 4069963919157697524L;
 
@@ -613,6 +617,38 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		public void actionPerformed(ActionEvent e) {
 			ArrayList<Map<String, String>>  data = importDialog();
 			dialogEndPanel.importDialog(data);
+		}
+	}
+	
+	protected class ExportStartAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public ExportStartAction() {
+			putValue(NAME, "Export Start Dialog");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			// putValue(SMALL_ICON, new ListAllIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String yaml = dialogStartPanel.exportDialog();
+			exportDialog(yaml);
+		}
+	}
+	
+	protected class ExportEndAction extends AbstractAction {
+		private static final long serialVersionUID = 4069963919157697524L;
+
+		public ExportEndAction() {
+			putValue(NAME, "Export End Dialog");
+			// putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control EQUALS"));
+			// putValue(SMALL_ICON, new ListAllIcon(16, 16));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String yaml = dialogEndPanel.exportDialog();
+			exportDialog(yaml);
 		}
 	}
 	
@@ -647,6 +683,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		}
 		
 		return (ArrayList<Map<String, String>>) o;
+	}
+	
+	private void exportDialog(String yaml){
+		System.out.println(yaml);
 	}
 	
 	@Override
