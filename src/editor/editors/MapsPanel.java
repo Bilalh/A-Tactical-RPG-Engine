@@ -74,6 +74,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	private MapConditionsPanel conditionsPanel;
 	private JPanel infoPanel;
 	
+	private static String os = System.getProperty("os.name").toLowerCase();
+	
 	public MapsPanel(Editor editor) {
 		super(editor);
 	}
@@ -257,7 +259,11 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		infoEdit.setVisible(false);
 		infoCreate.setVisible(true);
 		infoCancel.setVisible(true);
-		infoRnd.setVisible(true);
+		
+		// Sasha's terrain generator has not been tested on windows 		
+		if (!os.contains("windows")){
+			infoRnd.setVisible(true);
+		}
 		
 		listAddButton.setEnabled(false);
 		listDeleteButton.setEnabled(false);
@@ -372,8 +378,8 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 				for (int j = 0; j < height; j++, k++) {
 					tiles[k] = new SavedTile(
 							tileName,
-							(int)(tiles[k].getStartingHeight()/50f*10),
-							(int)(tiles[k].getEndHeight()/50f*10),
+							Math.max(0,(int)(tiles[k].getStartingHeight()/50f*10) -5),
+							Math.max(0,(int)(tiles[k].getEndHeight()/50f*10) -5),
 							tiles[k].getX(), tiles[k].getY(),
 							Orientation.TO_EAST,
 							textureName,
