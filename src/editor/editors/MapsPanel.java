@@ -598,7 +598,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ArrayList<Map<String, String>>  data = importDialog();
+			FileChooser c = new FileChooser(null, "Import Start Dialog", "yaml");
+			File f = c.loadFile();
+			if (f == null) return;
+			ArrayList<Map<String, String>>  data = importDialog(f);
 			dialogStartPanel.importDialog(data);
 		}
 	}
@@ -614,7 +617,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ArrayList<Map<String, String>>  data = importDialog();
+			FileChooser c = new FileChooser(null, "Import End Dialog", "yaml");
+			File f = c.loadFile();
+			if (f == null) return;
+			ArrayList<Map<String, String>>  data = importDialog(f);
 			dialogEndPanel.importDialog(data);
 		}
 	}
@@ -652,9 +658,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	}
 	
 	Yaml yaml;
-	private ArrayList<Map<String, String>> importDialog() {
+	private ArrayList<Map<String, String>> importDialog(File f) {
 		if (yaml ==null) yaml= new Yaml();
-		File f = new File("text.yaml");
+		if (f == null) return null;
 		Object o = null;
 		try {
 			o = yaml.load(new FileInputStream(f));
@@ -685,9 +691,10 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 	}
 	
 	private void exportDialog(String yaml){
-		System.out.println(yaml);
+		log.debug("\n"+yaml);
 		FileChooser c = new FileChooser(null, "Export Dialog", "yaml");
-		File f = c.getSaveFile();
+		File f = c.saveFile();
+		if (f == null) return;
 		FileWriter write = null;
 		try {
 			write  = new FileWriter(f);

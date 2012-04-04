@@ -157,9 +157,12 @@ public class MapDialogPanel extends AbstractResourcesPanel<DialogPart, DialogPar
 			names.put(u.getName(), u.getUuid());
 		}
 		
+		int i =0;
 		for (Map<String, String> data : list) {
 			Map.Entry<String, String> entry =  data.entrySet().iterator().next();
-			dps.put(new DialogPart(entry.getValue(),  names.get(entry.getKey()) ));
+			DialogPart dp = new DialogPart(entry.getValue(),  names.get(entry.getKey()) );
+			dp.setPartNo(i++);
+			dps.put(dp);
 		}
 		setResources(dps);
 	}

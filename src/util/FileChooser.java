@@ -39,7 +39,7 @@ public class FileChooser {
 		
 	}
 	
-	public File getLoadFile(){
+	public File loadFile(){
 		if (chooser == null){
 		    FileDialog d = new FileDialog(parent, title,FileDialog.LOAD);
 		    d.setFilenameFilter(filenameFilter);
@@ -58,7 +58,7 @@ public class FileChooser {
 		}
 	}
 
-	public File getSaveFile(){
+	public File saveFile(){
 		
 		if (chooser == null){
 		    FileDialog d = new FileDialog(parent, title,FileDialog.SAVE);

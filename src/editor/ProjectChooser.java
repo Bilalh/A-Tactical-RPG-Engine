@@ -174,7 +174,7 @@ public class ProjectChooser {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			File f = chooser.getLoadFile();
+			File f = chooser.loadFile();
 			if (f == null) {
 				return;
 			}
