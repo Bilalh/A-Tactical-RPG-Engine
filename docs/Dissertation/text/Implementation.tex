@@ -67,20 +67,17 @@ As shown above no extra logic apart from the annotations is need for serialisati
 
 \subsubsection{Resources}
 
-All resources that loaded are \texttt{Identifiable}, that they have a unique id.  There are main advantage to using this scheme. The first is that it allows cache of resources which means that there's single instance for each resource (such as weapons and the images) used. This is especially important for the image, to reduce memory requirements as well as load times.
+All resources that loaded are \texttt{Identifiable}, that they have a unique id.  There are two main advantage to using this scheme. The first is that it allows caching of resources which means that there's single instance for each resource (such as weapons and images). This is especially important for the images, to reduce the memory requirements as well as the load times.
 
 The other advantage is that it meant I could use the same framework for loading and saving all the resources, hence saving development time as well as reducing code duplication. 
 
+A detail description of the structure and  required resource of a project is in appendix \ref{sec:project_structure___specification}.
 
 \subsubsection{Sprite Sheets}
 \label{ssub:sprite_sheets}
 
 
-A sprite sheet is a collection of images combined together. The advantage of this is that a single image is loaded, which reduced loading times. It also make it easier to cache images, since a \emph{subimage} can be efficient created\footnote{using the Java method \texttt{BufferedImage.getSubimage}}. A \texttt{subimage} shares the same image data as original so is ideal way for each tile to have access to it's images.    
-
-
-% TODO ref 
-%http://docs.oracle.com/javase/6/docs/api/java/awt/image/BufferedImage.html#getSubimage%28int,%20int,%20int,%20int%29
+A sprite sheet is a collection of images combined together. The advantage of this is that a single image is loaded, which reduces loading times. It also make it easier to cache images, since a \emph{subimage} can be efficient created\footnote{using the Java method \texttt{BufferedImage.getSubimage}}. A \texttt{subimage} shares the same image data as original so is ideal way for each tile to have access to it's images\cite{bufferedImage}.    
 
 \begin{figure}[htbp]
 	\centering
@@ -89,9 +86,10 @@ A sprite sheet is a collection of images combined together. The advantage of thi
 	\label{fig:figures_tileset}
 \end{figure}
 
-Sprite sheets make maps more reusable, since the tileset can be changed without any constiance\footnote{As long as the new tileset has the same number of image or the \texttt{tilemapping} has entires for missing entries.}.  
+Sprite sheets make maps more reusable, since the tileset can be changed without any constiance\footnote{As long as the new tileset has the same number of image or the \texttt{tilemapping} has entires for missing images.}.  
 
-I created a sprite sheet editor to allow the user to easily edit the tilesets. Using  sprite sheets allows abstracting over the file system, hence increasing the usability of system. The editor was reused for editing other images such as the character images.  
+I created a sprite sheet editor to allow the user to easily edit the tilesets. Using sprite sheets allows abstracting over the file system, hence increasing the usability of system. The editor was reused for editing other images such as the character images and can even be used interpedently.
+%TODO real word?
 
 \clearpage
 \subsection{Engine Development and Testing}
@@ -107,11 +105,15 @@ I created a sprite sheet editor to allow the user to easily edit the tilesets. U
 
 The \texttt{Map} class handles the overall logic and game flow.   The main components are:
 \begin{itemize}
-	\item The tiles for the maps. Each tile includes height information as well as the tile's location, as shown in listing \ref{lst:SavedTile}.
-	\item The enemy unit.     
-	\item The \texttt{TileMapping} which specify what images to use when draw the images in addition to \emph{how} the tile is drawn. 
-	\item  The \texttt{conditions} of the maps. These include a winning conditions (such as ``Defeat all Enemy units'',  the placement of player's units and a \texttt{turnComparator} which decides how the turn ordering works.  
-	\item  The \texttt{events}. These include the dialog which displays parts of the story. 
+\item The tiles for the maps. Each tile includes height information as well as the tile's location, as shown in listing \ref{lst:SavedTile}.
+
+\item The enemy unit.     
+
+\item The \texttt{TileMapping} which specify what images to use when draw the images in addition to \emph{how} the tile is drawn. 
+
+\item  The \texttt{conditions} of the maps. These include a winning conditions (such as ``Defeat all Enemy units'',  the placement of player's units and a \texttt{turnComparator} which decides how the turn ordering works.  
+
+\item  The \texttt{events}. These include the dialog which displays parts of the story at the start and end of each dialog. 
 \end{itemize}
 
 The other major responsibly of the map is to send notifications to the view.  
@@ -125,12 +127,24 @@ The other major responsibly of the map is to send notifications to the view.
 	\item behaviour for the ai.  
 \end{itemize}
 
-\subsubsection{Events}
+\subsubsection{Conditions}
 \label{ssub:events}
 
 \begin{itemize}
 	\item win conditions.
 \end{itemize}
+
+\subsubsection{Dialog}
+\label{ssub:dialog}
+The engine supports displayo the user dialog at the start and end of the battle1
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=6.3in]{figures/dialog2.png}
+	\caption{A example of a dialog}
+	\label{fig:figures_dialog2}
+\end{figure}
+
 
 \subsubsection{Algorithms}
 \label{ssub:Algorithms}
