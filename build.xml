@@ -4,16 +4,17 @@
 	<description>
 	Make all the required files for Distribution for all platforms. 
 	
-	This is by making a jars of classes need by the engine and for the editor.
-	The script also make the application bundle for Mac O SX
-	Also runs tests. 
+	This is done by making a jars of classes need by the engine and for the editor.
+	The build file can also make a application bundle for Mac OS X
+	
+	It can also run all the junit tests and create a webpage of the results  
 		
 	Main Commands:
 	
-	ant dist        -- Makes binaries of the editor for all platforms 
+	ant dist        -- Makes binaries of the editor for all platforms.
 		
 	ant update      -- Builds then, create a jar of classes for the game and the engine and thens updates the mac bundles.
-	ant tests       -- Builds and runs all tests and make a webpage of the results.
+	ant tests       -- Builds and then runs all tests and make a webpage of the results.
 		
 	ant build       -- Builds the project.
 	
@@ -77,7 +78,7 @@
 <!-- Distribution -->
 
 	<target name="dist"   depends="compileJars,update"/>
-	<target name="update" depends="updateMacEditorBundle,updateJars" />
+	<target name="update" depends="updateMacEditorBundle,updateBundle" />
 	<target name="jars"   depends="engineJar,editorJar" />
 
 	
@@ -90,10 +91,12 @@
 	<target name="updateMacEditorBundle" depends="editorJar, updateMacEngineBundle">
         <move file="editor.jar" todir="Binaries/Tactical Engine.app/Contents/Resources/Java"/>
 		<copy todir="Binaries/jar/bundle"><fileset dir="bundle"/></copy>
+		<chmod file="Binaries/jar/bundle/terrain_generator" perm="+x"/>
 	</target>	
 	
-	<target name="updateJars" depends="engineJar">
+	<target name="updateBundle" depends="engineJar">
 		<copy todir="Binaries/Tactical Engine.app/Contents/Resources/Java/bundle"><fileset dir="bundle"/></copy>
+		<chmod file="Binaries/Tactical Engine.app/Contents/Resources/Java/bundle/terrain_generator" perm="+x"/>
 	</target>
 	
 	<!-- Makes a Jar for the Game, only inculde the files needed to run the game -->
