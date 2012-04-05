@@ -3,6 +3,7 @@
 \section{Project Structure \& Specification}
 \label{sec:project_structure___specification}
 
+This appendix contain all the technical information of a `project' and the data format used.
 
 \begin{figure}[htbp]
 	\centering
@@ -82,3 +83,27 @@ For the editor the follow structure is used.
 \end{figure}
 
 The main change is the addition of \texttt{project.tacticalproject} file which contains settings specific to the editor. It also has the added benefit of allows the user to click on the \texttt{project.tacticalproject} to open the editor if using the Mac version.
+
+\subsubsection{Dialog Data Format}
+\label{ssub:dialog_data_format}
+
+The data format is actually YAML\cite{yaml}. This allows more formatting options as well the single format discussed previous. The advantage of using YAML is that there are parser aviable for java\cite{snake}. This saved development time since I did not have to built a parser. The main advantage of YAML is that is very characters that need to be escaped namely \textbf{:} if it appears at the start of the dialog's text or speaker's name. \textbf{\#} also has to be escaped since it the comment character in \texttt{YAML}. Since they character are fairly uncommon in dialog, it should not pose to much hassle to the user. In any case the use  the form \texttt{- Speaker: |-} then  write the text on an intended line which escapes all characters in the block.
+
+\begin{lstlisting}[caption=A example show the features of the dialog's data format]
+- Speaker:   Some text.
+- none:      no speaker.
+- New Enemy 2: |-
+    "All the text in this block (until two newlines),
+    are part of New Enemy 2's dialog". 
+    No characters need to be escaped in this block e.g #  : \
+
+- Other speaker: Even more text.
+\end{lstlisting}
+Specify the must satisfy the following:
+\begin{itemize}
+	\item  At lest one portion of text. A empty file is invaild
+	\item  Each portion of text must have a speaker identified by their name or \texttt{none} for no speaker.
+	\item  No other elements are allowed.
+\end{itemize}
+
+When the dialog is imported, if there a unit with  the specified name it is associated with the  portion of text otherwise the text is treated as having no speaker.

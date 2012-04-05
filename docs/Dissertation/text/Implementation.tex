@@ -211,8 +211,19 @@ As discussed previously the maps use xml as their data format, one the advantage
 \end{figure}
 The editor supports the creation of dialog.  A dialog is sequaual of parts. Each part has the text  associated with it as well optionally have a speaker.  The speaker can be selected from any unit that is already been placed on the map. This a vast improvement on the original design where the user types the name of the speaker since less change of making errors. \footnote{It would also cause runtime exceptions if there was no unit with that name.}.
 
-As mentioned before, the engine takes care of pagination as well line wrapping when displaying the dialog in the game. This frees the user from having to fit the text into a specified area.
+As mentioned before, the engine takes care of pagination as well line wrapping when displaying the dialog in the game. This frees the user from having to fit the text into a specified area. 
 
+\paragraph{Import/Export\\}
+The editor also supports importing as well as exporting the dialog in format shown below. 
+\begin{lstlisting}[caption=Shows the format used  for the dialog]
+- speaker1: Some text 
+- speaker2: Some more text
+- none:     This part has no speaker
+\end{lstlisting}
+This allows the dialog to be easily written in the user's preferred application.  This could be useful if separate person writes the dialog of the game since the person does not need a copy of the editor. The format is described in more detail in appendix \ref{ssub:dialog_data_format}  
+
+
+%TODO put bug when loading music stops
 \clearpage
 \subsubsection{Exporting}
 \label{ssub:exporting}
