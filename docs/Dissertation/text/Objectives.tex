@@ -89,7 +89,7 @@ and create a playable tactical RPG.
 The main goal of the secondary objectives is to allow the user more customisability. 
 \begin{itemize}
 	\tick Tiles have \texttt{height}, where units can only move to tiles of a similiar height.
-	\partly Tiles that are not passable such as sea, lava, etc.
+	\tick Tiles that are not passable such as sea, lava, etc \footnote{The engine as well as the GUI full supports impassable tiles. The editor has partial support only allows `empty' tiles }.
 	
 	\tick Tiles have different movement costs associated with them.
 	
@@ -103,14 +103,14 @@ The main goal of the secondary objectives is to allow the user more customisabil
 		\tick Including long distance weapons for the player and AI.
 	\end{itemize}
 	
-	\partly Direction and height of the character's tile affects attack. \footnote{At the moment only the height affects the attack, while the direction is displayed in the GUI and changed based on the unit's movement, it not used in the model.}
+	\partly Direction and height of the character's tile affects attack. \footnote{At the moment only the height affects the attack, while the direction is displayed in the GUI and changes based on the unit's movement, it not used in the model.}
 	
 	\tick Sound effects.
 	\tick Music.
 	
-	\cross Saving and loading games.
+	\tick Saving and loading games.
 	
-	\partly Allow the user to specify some of behaviour of non-player characters
+	\tick Allow the user to specify some of behaviour of non-player characters
 	\begin{itemize}
 		\tick An example: always attack a certain kind of unit or always attack the unit with the least Hit Points.
 	\end{itemize}
