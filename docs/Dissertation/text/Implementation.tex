@@ -1,4 +1,5 @@
-emeney%!TEX root = ../Project.tex
+%% implementation
+%!TEX root = ../Project.tex
 
 \section{Implementation}
 
@@ -136,6 +137,8 @@ While default implementation of skills and weapons are provided, the advance use
 	\label{fig:figures_engine_Skills}
 \end{figure}
 
+Units can ``level up'' which means the attributes  of the unit increase.  Levelling up can also effect how quicker the unit can get their turn. How level up is defined in the battle system as discussed in section \ref{ssub:battle_system}.
+
 % \subsubsection{Algorithms}
 % \label{ssub:Algorithms}
 
@@ -151,16 +154,26 @@ Other algorithm such as \astar which is generally an improvement for Dijkstra fo
 
 
 \subsubsection{AI Behaviour}
+Each has AI unit has a \emph{Behaviour} which specifies how the unit acts and which of the player's unit to target.  The engine provides a default implementations which try to get as close as possible to target while attacking any of the player's units that happen to be in range to be on the way.  The targets the engine provides by default include attacking the player's unit that has the lowest hp and attacking the unit with highest strength. Like other parts of the engine a user can user can provide their own behaviour to further customised by linking their classes.
+
+\subsubsection{Turn Ordering}
+The engine provides dynamic unit ordering.  This allows ordering to change based on units attributes or actions.  The default implementation allows the unit with highest \texttt{speed} to move first.  To make ordering more interesting it also takes account the unit's action when deciding which is the next unit to move. For example if the unit does not move (i.e. uses \texttt{wait}) they get their next turn quicker. As with other parts of the engine the user can uses their classes to further customise the unit ordering
+
+\subsubsection{Battle System}
+\label{ssub:battle_system}
+
+The battle system controls how units interact with each other.  It specify how damage is calculated as any affects results from an action. The engine provides a default implementation where 
 \begin{itemize}
-	\item Overall behaviour
-	\item Targets e.g lowest hp
+	\item The damage taken by a weapon is calculated by adding the weapons power to unit's strength and subtracting the opponent defence. The lowest a weapon can do is zero, i.e. negivate damage is not allowed.
+	\item The damage done by a skill is interpendent of the unit's attributes.
 \end{itemize}
 
-\subsubsection{Game Mechanics}
-\begin{itemize}
-	\item Turn comp 
-	\item battles system
-\end{itemize}
+The damage done by a weapon is also affected by difference in height of the attack tile and target's tile. Attacking was a higher height gives a bonus whereas attacking was below reduces the attack.
+
+
+The battle system also defines how units ``level up''. The default implementation levels up a unit when they gain 100 experience points. The unit gain experience points by perform actions. Each action gives a different amount of experience point ranging from none from using \texttt{wait} to 60 (before any modifiers are applied).
+
+The amount of experienced gained is dependant on level on the attacker and the target. Attack a higher level unit gives a bonus whereas attacking a lower level unit reduces the amount of experienced points gained.
 
 \subsubsection{Conditions}
 \label{ssub:events}
@@ -171,7 +184,7 @@ A map has win condition which can be specified by the user.  The provides two de
 
 \subsubsection{Dialog}
 \label{ssub:dialog}
-The engine supports displays dialog to the user at the start and end of a battle.
+The engine supports displaying dialog to the user at the start and end of a battle. 
 
 \begin{figure}[htbp]
 	\centering
@@ -188,9 +201,9 @@ The editor as discussed in section \ref{ssub:dialog_editing} supports editing of
 
 
 \subsection{Saving and Loading}
-The engine supports Saving and Loading at any point during the game. The only possible downside  for the user is that when the the saved data is loaded, game continues from the beginning of the map which was lasted played. 
+The engine supports Saving and Loading at any point during the game. The only possible downside  for the user is that when the the saved data is loaded, game continues from the \emph{beginning} of the map which was lasted played. 
 
-The reason for this limitation is to keep the save format small and easy to load. sUsing this methods means the only details that need to be saved are the maps left to be played and units attributes (which can change since units can `level up'). 
+The reason for this limitation is to keep the save format small and easy to load. Using this methods means the only details that need to be saved are the maps left to be played and units attributes (which can change since units can ``level up''). 
 
 The other limitation is that there only one save file. This not as big limitation as it seems since the the save file is stored in users home directory, meaning each user would have their own save.
 
@@ -198,7 +211,7 @@ The other limitation is that there only one save file. This not as big limitatio
 \label{ssub:intercompatibility}
 As discussed previously the maps use xml as their data format, one the advantages of this was that it required very little changes to the data format to have incompatibility with Oleksandr Stasyk's  Terrain Generator's output format.  The Terrain generator allows uses various algorithms to produce senabient looking map. Users can use these as a starting point, to make it for them to design their maps.
 
-The terrain generator is called by the editor on behalf on the user with appropriate settings saving the user from having to configure the many options  available in the terrain generator.
+The terrain generator is called by the editor on behalf on the user with appropriate settings saving the user from having to configure the many options available in the terrain generator (since the terrain generator is a command line application).
 
 \subsection{Gui Development and Testing}
 
@@ -218,11 +231,9 @@ The terrain generator is called by the editor on behalf on the user with appropr
 	\item menus
 \end{itemize}
 
-\subsubsection{Custom Classes} % allows user to use their own code
-\label{ssub:custom_classes}
-
 
 \subsection{Editor Development and Testing}
+%TODO finish
 
 \subsubsection{Overview}
 \label{ssub:overview}
@@ -266,4 +277,4 @@ The editor can export the game as a complete package, either as a Mac OS X appli
 
 A prominent feature of the editor is that the jar will work on any Java enabled platform, since the jar contains all required libraries for each platform. The OS X application can even be exported on other platforms.
 
-While most of the testing was done on OS X \footnote{Mac OS X 10.6 Snow leopard}, it also works well on Linux \footnote{Science  Linux x.y}. It even has limited compatibly with Windows\footnote{Tested on Windows 7 32 bit} (apart from some minor graphics issues).
+While most of the testing was done on OS X \footnote{Mac OS X 10.6 Snow leopard}, it also works well on Linux \footnote{Science  Linux x.y}. It even has limited compatibly with Windows \footnote{Tested on Windows 7 32 bit} (apart from some minor graphics issues).
