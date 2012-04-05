@@ -37,6 +37,10 @@ public class KeysPanel extends JFrame {
 
 	};
 
+	private static String os   = System.getProperty("os.name").toLowerCase();
+	private static String mask = os.contains("mac") ? "⌘" : "⌃";
+
+	
 	KeyMapping[] waiting = new KeyMapping[] {
 			new KeyMapping("A", "Shows a Unit's Attack Range"),
 			new KeyMapping("C", "Shows a Unit's Movement Range"),
@@ -47,9 +51,14 @@ public class KeysPanel extends JFrame {
 			new KeyMapping("Button 2", "Cancel"),
 	};
 	
+	KeyMapping[] saving = new KeyMapping[] {
+			new KeyMapping(mask + "S", "Save"),
+			new KeyMapping(mask + "L", "Load"),
+	};
+	
 	public KeysPanel() {
 		setContentPane(createMainPane());
-		setSize(320, 520);
+		setSize(320, 600);
 		setTitle("Key Mapping");
 		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -76,6 +85,11 @@ public class KeysPanel extends JFrame {
 			p.add(new JLabel(m.info), new CC().wrap("5px"));
 		}
 
+		p.add(labelf("Saving/Loading",extra), new CC().span(2).newline("12px"));
+		for (KeyMapping m : saving) {
+			p.add(new JLabel(m.key),  new CC().gapAfter("17px"));
+			p.add(new JLabel(m.info), new CC().wrap("5px"));
+		}
 		
 		p.add(labelf("While no unit is selected", extra), new CC().span(2).newline("15px"));
 		for (KeyMapping m : waiting) {
