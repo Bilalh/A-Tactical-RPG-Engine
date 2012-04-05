@@ -1,4 +1,4 @@
-%!TEX root = ../Project.tex
+emeney%!TEX root = ../Project.tex
 
 \section{Implementation}
 
@@ -118,33 +118,56 @@ The \texttt{Map} class handles the overall logic and game flow.   The main compo
 
 The other major responsibly of the map is to send notifications to the view.  
 
+
 \subsubsection{Units}
 \label{ssub:units}
 A \texttt{unit} has set of attributes whose values can be specified by the user. A unit is the abstract replaction and is storage.  A \texttt{MapUnit} extends the units sets of attributes with extra information such the location and the current hit points.
 
-A unit has a  specified weapon (as discussed in section \ref{sub:weapons___skills}).  A weapon has a \emph{attack range} which specified how the unit attacks.  As a example consider a spear which attacks all units in a specified direction and a bow which attack a single faraway target. A unit with same attributes would  play very differently with either of examples since a spear can be only used in melee combat, whereas a bow can only be used from a distances.
+A unit has a  specified weapon (as discussed in section \ref{sub:weapons___skills}).  A weapon has a \emph{attack range} which specified how the unit attacks.  As a example consider a spear which attacks all units in a specified direction and a bow which attack a single faraway target. A unit with same attributes would play very differently with either of examples since a spear can be only used in melee combat, whereas a bow can only be used from a distances.
 
+A unit has a set of skill (as descried in section \ref{sub:weapons___skills}). The main difference apart possibility of having \emph{multiple} skills is the concept of an \texttt{attack area}.  The \emph{attack area} is tile that are effect by the skill, which includes \emph{both} friendly and enemy units. A skill can either include the caster in the area or exstically exclude the caster, which gives the user more flexibility.
+
+While default implementation of skills and weapons are provided, the advance user can create their user using the extension mechanism of the data format (see section \ref{sub:data_format_extension_mechanism}).
+
+\begin{figure}[htbp]
+	\centering
+ 		\includegraphics[scale=0.5]{figures/skill.png}
+	\caption{A example of a Skill. The red squares are the \emph{attack range}, the green the \emph{attack area}}
+	\label{fig:figures_engine_Skills}
+\end{figure}
+
+% \subsubsection{Algorithms}
+% \label{ssub:Algorithms}
+
+\subsubsection{Movement and Path Finding}
+
+To find movement range movement range of unit Dijkstra's algorithm was used. Dijkstra's algorithm finds the shortest path from a tile to each other tile. This is of course exepernce is the map is large so as a improvement I only searched \emph{locally}. Since a unit can movement at most \emph{n} squares in any direction (\emph{n} being the square the unit is allowed to move) there no point check any tile which which is more then \emph{n} squares away.  Searching \emph{locally} means not finding the paths to any \texttt{tile} which is more then \texttt{n} squares are away.
+
+The path are then used to display \emph{animated} unit movement to the user.  This required keeping track of the \emph{direction} in the movement algorithm. 
+
+\def\astar{A$^{\star}$ }
+
+Other algorithm such as \astar which is generally an improvement for Dijkstra for finding the shortest path between two tiles. \astar was rejected since it provide much improvement since the paths to \emph{every} tile in range is needed. Since the paths was cached the difference would negavaitble and hence was not worth the time implementing and testing it.
+
+
+\subsubsection{AI Behaviour}
 \begin{itemize}
-	\item Has a set number of attributes inuldes weapons, images
-	\item behaviour for the ai.  
+	\item Overall behaviour
+	\item Targets e.g lowest hp
+\end{itemize}
+
+\subsubsection{Game Mechanics}
+\begin{itemize}
+	\item Turn comp 
+	\item battles system
 \end{itemize}
 
 \subsubsection{Conditions}
 \label{ssub:events}
 
-\begin{itemize}
-	\item win conditions.
-\end{itemize}
+A map has win condition which can be specified by the user.  The provides two default implementation, defeat all enemy units and defeat a specific unit.  The user can of course provide their own conditions which can be basically anything e.g. move to a specific tile. 
 
-\subsubsection{Algorithms}
-\label{ssub:Algorithms}
-
-\begin{itemize}
-	\item Unit movement
-	\item path finding
-	\item AI behaviour
-\end{itemize}
-
+% TODO add losing conditions to future work
 
 \subsubsection{Dialog}
 \label{ssub:dialog}
@@ -171,7 +194,7 @@ The reason for this limitation is to keep the save format small and easy to load
 
 The other limitation is that there only one save file. This not as big limitation as it seems since the the save file is stored in users home directory, meaning each user would have their own save.
 
-\subsubsection{Inter-compatibility}
+\subsection{Inter-compatibility}
 \label{ssub:intercompatibility}
 As discussed previously the maps use xml as their data format, one the advantages of this was that it required very little changes to the data format to have incompatibility with Oleksandr Stasyk's  Terrain Generator's output format.  The Terrain generator allows uses various algorithms to produce senabient looking map. Users can use these as a starting point, to make it for them to design their maps.
 
