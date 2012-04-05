@@ -13,14 +13,14 @@ import engine.unit.IMutableUnit;
  */
 public class Player {
 
-	protected ArrayList<IMutableUnit> units = new ArrayList<IMutableUnit>();
+	private ArrayList<IMutableUnit> units = new ArrayList<IMutableUnit>();
 	
 	public Player(){
 		
 	}
 
 	public void addUnit(IMutableUnit u){
-		units.add(u);
+		getUnits().add(u);
 	}
 
 	public ArrayList<IMutableUnit> getUnits() {
@@ -28,7 +28,11 @@ public class Player {
 	}
 
 	public boolean addUnits(Collection<? extends IMutableUnit> us) {
-		return units.addAll(us);
+		return getUnits().addAll(us);
+	}
+
+	protected void setUnits(ArrayList<IMutableUnit> units) {
+		this.units = units;
 	}
 	
 }

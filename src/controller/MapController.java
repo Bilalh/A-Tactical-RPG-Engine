@@ -7,6 +7,7 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 
+import notifications.map.LoadNotification;
 import notifications.map.MapFinishedNotification;
 import notifications.map.SaveNotification;
 
@@ -148,6 +149,11 @@ public class MapController extends Controller {
 	public void save() {
 		setChanged();
 		notifyObservers(new SaveNotification());
+	}
+
+	public void load() {
+		setChanged();
+		notifyObservers(new LoadNotification());
 	}
 	
 }

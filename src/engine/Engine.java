@@ -62,4 +62,9 @@ public class Engine {
 		return player;
 	}
 	
+	public void setPlayerUnits(Units uu){
+		player.getUnits().clear();
+		player.addUnits(uu.values());
+	}
+	
 }

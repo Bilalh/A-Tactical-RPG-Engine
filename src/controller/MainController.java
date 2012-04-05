@@ -129,5 +129,22 @@ public class MainController extends Controller implements Observer {
 		}
 		
 	}
+
+	public void load() {
+		File saveDir = new File(System.getProperty("user.home"), ".tactical");
+		if (!saveDir.exists()) return;
+		
+		File fOrdering = new File(saveDir, "progress.xml");
+		File fUnits    = new File(saveDir, "units.xml");
+		if (!fOrdering.exists() || !fUnits.exists()) return;
+		
+		allMaps = Config.loadPreference(fOrdering);
+		Units uu = Config.loadPreference(fUnits);
+		ordering.clear();
+		for (OrderedMap m : allMaps.sortedValues()) {
+			ordering.addLast(m);
+		}
+		mapFinished(true);
+	}
 	
 }

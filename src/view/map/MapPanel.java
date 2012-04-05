@@ -80,9 +80,9 @@ public class MapPanel extends JPanel implements Runnable {
 				int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 				
 				if ((mask == Event.META_MASK && e.isMetaDown())  || (mask == Event.CTRL_MASK && e.isControlDown())) {
-					if (e.getKeyCode() == KeyEvent.VK_D) Gui.toggleConsole();
-					if (e.getKeyCode() == KeyEvent.VK_S) mapController.save();
-
+					if      (e.getKeyCode() == KeyEvent.VK_S) mapController.save();
+					else if (e.getKeyCode() == KeyEvent.VK_L) mapController.load();
+					
 					return;
 				} else if (e.isShiftDown()) {
 					if (e.getKeyCode() == KeyEvent.VK_OPEN_BRACKET)
