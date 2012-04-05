@@ -28,6 +28,8 @@ public class SavedTile {
 	protected String leftWall;
 	protected String rightWall;
 	
+	protected boolean impassable;
+	
 	// to give default values
 	private Object readResolve() {
 		if (orientation == null)  orientation = Orientation.TO_EAST;
@@ -37,6 +39,11 @@ public class SavedTile {
 
 	public SavedTile(String type, int startingHeight, int endHeight, int x, int y, Orientation orientation,
 			String leftWallRef, String rightWallRef) {
+		this(type, startingHeight, endHeight, x, y, orientation, leftWallRef, rightWallRef, false);
+	}
+
+	public SavedTile(String type, int startingHeight, int endHeight, int x, int y, Orientation orientation,
+			String leftWallRef, String rightWallRef, boolean impassable) {
 		this.x = x;
 		this.y = y;
 		
@@ -48,7 +55,6 @@ public class SavedTile {
 		
 		this.leftWall  = leftWallRef;
 		this.rightWall = rightWallRef;
-		
 	}
 	
 	/** @category Generated */
@@ -122,8 +128,12 @@ public class SavedTile {
 
 	@Override
 	public String toString() {
-		return String.format("SavedTile [type=%s, height=%s, startingHeight=%s, x=%s, y=%s, orientation=%s, leftWall=%s, rightWall=%s]",
-				type, height, startingHeight, x, y, orientation, leftWall, rightWall);
+		return String.format("SavedTile [type=%s, height=%s, startingHeight=%s, x=%s, y=%s, orientation=%s, impassable=%s, leftWall=%s, rightWall=%s]",
+				type, height, startingHeight, x, y, orientation, impassable, leftWall, rightWall);
+	}
+
+	public boolean isImpassable() {
+		return impassable;
 	}
 
 

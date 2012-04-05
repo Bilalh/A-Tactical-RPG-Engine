@@ -953,7 +953,7 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 						i, j, 
 						field[i][j].getOrientation(),
 						field[i][j].getLeftWallName(),
-						field[i][j].getRightWallName());
+						field[i][j].getRightWallName(), false);
 			}
 		}
 

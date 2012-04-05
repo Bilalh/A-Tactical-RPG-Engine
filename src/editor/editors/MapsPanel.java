@@ -392,7 +392,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 							tiles[k].getX(), tiles[k].getY(),
 							Orientation.TO_EAST,
 							textureName,
-							textureName2);
+							textureName2, false);
 				}
 			}
 		} else {
@@ -406,7 +406,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 							i, j,
 							Orientation.TO_EAST,
 							textureName,
-							textureName2);
+							textureName2, false);
 				}
 			}
 		}

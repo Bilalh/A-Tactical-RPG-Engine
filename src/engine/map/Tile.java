@@ -25,8 +25,10 @@ public class Tile {
 	protected String leftWall;
 	protected String rightWall;
 	
+	protected boolean impassable;
+	
 	private Tile(int startHeight, int endHeight, String type, Orientation orientation, 
-			String leftWall, String rightWall) {
+			String leftWall, String rightWall, boolean impassable) {
 		this.orientation = orientation;
 		this.startHeight = startHeight;
 		this.endHeight   = endHeight;
@@ -34,21 +36,21 @@ public class Tile {
 		this.leftWall    = leftWall;
 		this.type        = type;
 		this.cost        = endHeight;
+		this.impassable  = impassable;
 	}
-
 
 	public Tile(SavedTile t) {
 		this(t.getStartingHeight(), t.getEndHeight(), t.getType(), t.getOrientation(), 
-				t.getLeftWallName(), t.getRightWallName());
+				t.getLeftWallName(), t.getRightWallName(), t.isImpassable());
 	}
 	
 	public Tile(Tile t){
 		this(t.getStartingHeight(), t.getEndHeight(), t.getType(), t.getOrientation(), 
-				t.getLeftWallName(), t.getRightWallName());
+				t.getLeftWallName(), t.getRightWallName(), t.isImpassable());
 	}
 	
 	public Tile(int startHeight, int endHeight, String type, Orientation orientation) {
-		this(startHeight, endHeight, type, orientation, null, null);
+		this(startHeight, endHeight, type, orientation, null, null, false);
 	}
 
 	/** @category Generated */
@@ -88,8 +90,8 @@ public class Tile {
 
 	@Override
 	public String toString() {
-		return String.format("Tile [current=%s, startHeight=%s, endHeight=%s, cost=%s, type=%s]",
-				current, startHeight, endHeight, cost, type);
+		return String.format("Tile [current=%s, startHeight=%s, endHeight=%s, cost=%s, type=%s, orientation=%s, impassable=%s]", current,
+				startHeight, endHeight, cost, type, orientation, impassable);
 	}
 
 	/** @category Generated */
@@ -110,6 +112,11 @@ public class Tile {
 	/** @category Generated */
 	public void setRightWall(String rightWall) {
 		this.rightWall = rightWall;
+	}
+
+
+	public boolean isImpassable() {
+		return impassable;
 	}
 
 }

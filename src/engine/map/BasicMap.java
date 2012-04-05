@@ -43,8 +43,9 @@ public class BasicMap extends Observable {
 
 		for (SavedTile t : smap.getTiles()) {
 			field[t.getX()][t.getY()] = new Tile(t);
+			assert t.isImpassable() == field[t.getX()][t.getY()].isImpassable();
 		}
-
+		
 		mapSettings = smap.getMapSettings();
 		data        = smap.getMapData();
 

@@ -72,8 +72,7 @@ public class PathFinder implements IMovementCostProvider {
 				IMutableMapUnit u = map.getTile(i, j).getCurrentUnit();
 				if (u != null && u != unit) continue;
 				
-				// TODO allow flying?
-				if (map.getTile(i, j).getOrientation() == Orientation.EMPTY){
+				if (map.getTile(i, j).getOrientation() == Orientation.EMPTY || map.getTile(i, j).isImpassable()){
 					continue;
 				}
 				
@@ -136,6 +135,9 @@ public class PathFinder implements IMovementCostProvider {
 	
 	@Override
 	public int getMovementCost(int x, int y, int newX, int newY) {
+		if (map.getTile(newX, newY).isImpassable()){
+			return Integer.MAX_VALUE-1;
+		}
 		return unit.getCost(map.getTile(x, y), map.getTile(newX, newY));
 	}
 

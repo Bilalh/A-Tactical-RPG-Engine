@@ -971,13 +971,6 @@ public class GuiMap implements Observer, IMapRendererParent {
 			case KeyEvent.VK_O:
 				toggleTileOutlines();
 				break;
-				
-			case KeyEvent.VK_T:{
-				MapEvents me = Config.loadPreference("maps/fft2-events.xml");
-				DialogParts parts = me.getStartDialog();
-				displayDialog(parts);
-				break;				
-			}
 			case KeyEvent.VK_I:
 				Logf.info(log, "way %s selected %s", mapRenderer.getRotation(), selectedTile);
 				break;
