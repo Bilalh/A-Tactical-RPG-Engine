@@ -120,7 +120,9 @@ The other major responsibly of the map is to send notifications to the view.
 
 \subsubsection{Units}
 \label{ssub:units}
+A \texttt{unit} has set of attributes whose values can be specified by the user. A unit is the abstract replaction and is storage.  A \texttt{MapUnit} extends the units sets of attributes with extra information such the location and the current hit points.
 
+A unit has a  specified weapon (as discussed in section \ref{sub:weapons___skills}).  A weapon has a \emph{attack range} which specified how the unit attacks.  As a example consider a spear which attacks all units in a specified direction and a bow which attack a single faraway target. A unit with same attributes would  play very differently with either of examples since a spear can be only used in melee combat, whereas a bow can only be used from a distances.
 
 \begin{itemize}
 	\item Has a set number of attributes inuldes weapons, images
@@ -133,6 +135,16 @@ The other major responsibly of the map is to send notifications to the view.
 \begin{itemize}
 	\item win conditions.
 \end{itemize}
+
+\subsubsection{Algorithms}
+\label{ssub:Algorithms}
+
+\begin{itemize}
+	\item Unit movement
+	\item path finding
+	\item AI behaviour
+\end{itemize}
+
 
 \subsubsection{Dialog}
 \label{ssub:dialog}
@@ -149,22 +161,21 @@ One of the major features is that is that the engine handles line wrapping and p
 
 Optionally a speaker can be specified for the dialog, this can be used to have a conversation between characters on a map, to make the dialog more intertavage. 
 
-The editor as discussed in section \ref{ssub:dialog_editing} supports editing of the dialog. It has the notable features of allowing the user to visually reorder parts of the dialog. It also supports for  importing and exporting the dialog as a text file.  This allows the user to write the script of the game inderpendetry in whatever application they like. 
+The editor as discussed in section \ref{ssub:dialog_editing} supports editing of the dialog. It has the notable features of allowing the user to visually reorder parts of the dialog. It also supports for  importing and exporting the dialog as a text file.  This allows the user to write the script of the game inderpendetry in whatever application they prefer. 
 
 
-\subsubsection{Algorithms}
-\label{ssub:Algorithms}
+\subsection{Saving and Loading}
+The engine supports Saving and Loading at any point during the game. The only possible downside  for the user is that when the the saved data is loaded, game continues from the beginning of the map which was lasted played. 
 
-\begin{itemize}
-	\item Unit movement
-	\item path finding
-	\item AI behaviour
-\end{itemize}
+The reason for this limitation is to keep the save format small and easy to load. sUsing this methods means the only details that need to be saved are the maps left to be played and units attributes (which can change since units can `level up'). 
+
+The other limitation is that there only one save file. This not as big limitation as it seems since the the save file is stored in users home directory, meaning each user would have their own save.
 
 \subsubsection{Inter-compatibility}
 \label{ssub:intercompatibility}
-As discussed previously the maps use xml as their data format, one the advantages of this was that it required very little changes to the data format to have incompatibility with Oleksandr Stasyk's  Terrain Generator's output format.  The Terrain generator allows uses various algorithms to produce senabient looking map. Users can use these as a starting  point, to make it for them to design their maps.
+As discussed previously the maps use xml as their data format, one the advantages of this was that it required very little changes to the data format to have incompatibility with Oleksandr Stasyk's  Terrain Generator's output format.  The Terrain generator allows uses various algorithms to produce senabient looking map. Users can use these as a starting point, to make it for them to design their maps.
 
+The terrain generator is called by the editor on behalf on the user with appropriate settings saving the user from having to configure the many options  available in the terrain generator.
 
 \subsection{Gui Development and Testing}
 
