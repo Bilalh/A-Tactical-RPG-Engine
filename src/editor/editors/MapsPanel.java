@@ -318,7 +318,7 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		SpriteSheetData images = editor.getUnitImages().iterator().next();
 		_u.setImageData(images.getAnimationPath(), images);
 		AiUnit u = new AiUnit(_u);
-		u.setOrdering(new LowestHp());
+		u.setBehaviour(new LowestHp());
 		ememies.put(u);
 
 		HashMap<UUID, Location> placement = new HashMap<UUID, Location>();
@@ -359,8 +359,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		if (random){
 			try {
+				// Sasha's terrain generator has the width and height the wrong way round.
 				String cmd = String.format("./bundle/terrain_generator -c bundle/config.yaml --width %d --height %d", 
-						width, height);
+						height,width );
 				Process p =  Runtime.getRuntime().exec(cmd);
 				int code = p.waitFor();
 				if (code != 0){

@@ -18,7 +18,7 @@ public class LowestStrength extends AbstractAIBehaviour {
 	public int compare(IMutableMapUnit o1, IMutableMapUnit o2) {
 		int r = o1.getStrength() - o2.getStrength();
 		if (r == 0) r = o1.getCurrentHp() - o2.getCurrentHp();
-		if (negated) r = -1;
+		if (negated) r = -r;
 		return r;
 	}
 

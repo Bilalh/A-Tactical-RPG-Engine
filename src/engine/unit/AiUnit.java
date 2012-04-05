@@ -12,24 +12,24 @@ import engine.map.ai.LowestHp;
 @XStreamAlias("aiUnit")
 public class AiUnit extends Unit {
 
-	private AbstractAIBehaviour ordering;
+	private AbstractAIBehaviour behaviour;
 
 	public AiUnit() {
 		super();
-		this.ordering = new LowestHp();
+		this.behaviour = new LowestHp();
 	}
 
 	public AiUnit(IMutableUnit u) {
 		super(u);
 	}
 
-	public AbstractAIBehaviour getOrdering() {
-		if (ordering == null) ordering  = new LowestHp();
-		return ordering;
+	public AbstractAIBehaviour getBehaviour() {
+		if (behaviour == null) behaviour  = new LowestHp();
+		return behaviour;
 	}
 
-	public void setOrdering(AbstractAIBehaviour ordering) {
-		this.ordering = ordering;
+	public void setBehaviour(AbstractAIBehaviour behaviour) {
+		this.behaviour = behaviour;
 	}
 
 }

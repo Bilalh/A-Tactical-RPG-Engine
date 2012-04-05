@@ -13,21 +13,18 @@ import engine.unit.IMutableUnit;
  * @author Bilal Hussain
  */
 public class AIMapUnit extends MapUnit<AiUnit> {
-	
+
 	public AIMapUnit(AiUnit unit, ILocation l, MapPlayer ai) {
 		super(unit, l, ai);
 	}
 
 	@Override
-	public boolean isAI(){
+	public boolean isAI() {
 		return true;
 	}
 
-	/** @category Generated */
-	public AbstractAIBehaviour getOrdering() {
-		return unit.getOrdering();
+	public AbstractAIBehaviour getBehaviour() {
+		return unit.getBehaviour();
 	}
-	
-	
-	
+
 }

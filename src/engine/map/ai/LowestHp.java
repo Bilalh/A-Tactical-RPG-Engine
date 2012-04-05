@@ -24,7 +24,7 @@ public class LowestHp extends AbstractAIBehaviour {
 	public int compare(IMutableMapUnit o1, IMutableMapUnit o2) {
 		int r = o1.getCurrentHp() - o2.getCurrentHp();
 		if (r == 0) r = o2.getMaxHp() - o1.getMaxHp();
-		if (negated) r = -1;
+		if (negated) r = -r;
 		return r;
 	}
 

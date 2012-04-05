@@ -36,7 +36,7 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 	@Override
 	protected IMutableUnit createUnit(IMutableUnit old) {
 		AiUnit a =  new AiUnit(old);
-		a.setOrdering(new LowestHp());
+		a.setBehaviour(new LowestHp());
 		return a;
 	}
 
@@ -47,8 +47,8 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 		for (int i = 0; i < infoBehaviour.getModel().getSize(); i++) {
 			AbstractAIBehaviour ordering = (AbstractAIBehaviour) infoBehaviour.getModel().getElementAt(i);
 			assert ordering != null;
-			assert u.getOrdering() != null : u;
-			if (ordering.getClass().equals(u.getOrdering().getClass()) && ordering.isNegated() == u.getOrdering().isNegated()){
+			assert u.getBehaviour() != null : u;
+			if (ordering.getClass().equals(u.getBehaviour().getClass()) && ordering.isNegated() == u.getBehaviour().isNegated()){
 				infoBehaviour.setSelectedIndex(i);
 				break;
 			}
@@ -57,7 +57,7 @@ public class AiUnitPanel extends UnitsPanel<AiUnit> {
 	
 	
 	protected void changeOrdering(AbstractAIBehaviour ordering) {
-		currentUnit.setOrdering(ordering);
+		currentUnit.setBehaviour(ordering);
 	}
 
 	protected AbstractAIBehaviour[] getTargetOrderings() {
