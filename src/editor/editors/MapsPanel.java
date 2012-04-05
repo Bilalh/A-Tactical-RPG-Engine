@@ -359,7 +359,9 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		if (random){
 			try {
-				Process p =  Runtime.getRuntime().exec("./bundle/terrain_generator -c bundle/config.yaml");
+				String cmd = String.format("./bundle/terrain_generator -c bundle/config.yaml --width %d --height %d", 
+						width, height);
+				Process p =  Runtime.getRuntime().exec(cmd);
 				int code = p.waitFor();
 				if (code != 0){
 					// terrain_generator failed so we make the tiles outself
