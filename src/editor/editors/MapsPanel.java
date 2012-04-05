@@ -722,6 +722,14 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		File f = c.saveFile();
 		if (f == null) return;
 		FileWriter write = null;
+		
+		
+		String name = f.getName();
+		if (!name.endsWith(".txt") || !name.endsWith(".yaml")){
+			name = name + ".yaml";
+			f =new File(f.getParent(), name);
+		}
+		
 		try {
 			write  = new FileWriter(f);
 			write.write(yaml);

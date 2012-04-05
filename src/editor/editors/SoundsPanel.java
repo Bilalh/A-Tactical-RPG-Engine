@@ -2,6 +2,7 @@ package editor.editors;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.log4j.Logger;
 
@@ -18,6 +19,7 @@ public class SoundsPanel extends MusicPanel {
 
 	public SoundsPanel(Editor editor) {
 		super(editor);
+		chooser.setFileFilter(new FileNameExtensionFilter("Ogg and Wav Audio (*.ogg, *.wav)", "ogg", "wav"));
 	}
 
 	@Override

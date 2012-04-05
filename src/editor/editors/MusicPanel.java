@@ -69,7 +69,7 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 	public MusicPanel(Editor editor) {
 		super(editor);
 		chooser = new JFileChooser();
-		chooser.setFileFilter(new FileNameExtensionFilter("Ogg and Wav Audio (*.ogg, *.wav)", "ogg", "wav"));
+		chooser.setFileFilter(new FileNameExtensionFilter("Ogg Audio (*.ogg)", "ogg"));
 		chooser.setMultiSelectionEnabled(true);
 		cachedInfo = new HashMap<UUID, TrackInfo>();
 	}
