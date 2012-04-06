@@ -61,7 +61,7 @@ public class ProjectChooser {
 			recentFiles.add(f);
 		}
 		
-		frame = new JFrame("Project chooser");
+		frame = new JFrame("Project Chooser");
 		frame.setContentPane(createMainPane());
 		frame.setVisible(true);
 		frame.setMinimumSize(new Dimension(600, 375));

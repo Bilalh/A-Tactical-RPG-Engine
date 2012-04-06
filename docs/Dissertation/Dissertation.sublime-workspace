@@ -15,7 +15,18 @@
 			"file": "text/Implementation.tex",
 			"settings":
 			{
-				"buffer_size": 17661,
+				"buffer_size": 27146,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "",
+			"file": "text/Requirements.tex (./text/Objectives.tex",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		}
@@ -84,9 +95,9 @@
 	},
 	"file_history":
 	[
+		"/Users/bilalh/Uni/CS/SH/ws/CS4099-SH/docs/Dissertation/Project.tex",
 		"/Users/bilalh/Uni/CS/SH/ws/CS4099-SH/docs/Dissertation/text/Design.tex",
 		"/Users/bilalh/Uni/CS/SH/ws/CS4099-SH/docs/Dissertation/settings/Setting.tex",
-		"/Users/bilalh/Uni/CS/SH/ws/CS4099-SH/docs/Dissertation/Project.tex",
 		"/Users/bilalh/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
 		"/Users/bilalh/Uni/CS/SH/ws/CS4099-SH/docs/Dissertation/text/Ethical_Considerations.tex",
 		"/Users/bilalh/Uni/CS/SH/ws/CS4099-SH/docs/Dissertation/text/Evaluation.tex",
@@ -134,15 +145,15 @@
 					"file": "text/Implementation.tex",
 					"settings":
 					{
-						"buffer_size": 17661,
+						"buffer_size": 27146,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2372,
-								2372
+								4949,
+								4949
 							]
 						],
 						"settings":
@@ -202,7 +213,82 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 694.0,
+						"translation.y": 1411.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "text/Requirements.tex (./text/Objectives.tex",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 0.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"Python Django": "python"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -269,7 +355,7 @@
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 158.0,
 	"status_bar_visible": true
 }

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Project.tex</string>
+	<string>Survey.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -11,6 +11,8 @@
 			<true/>
 			<key>name</key>
 			<string>Dissertation</string>
+			<key>regexFileFilter</key>
+			<string>!(/\.(?!htaccess)[^/]*|\.(tmproj|sublime-project|sublime-workspace|o|out|pyc|class|aux|log|synctex.gz|fdb_latexmk|bbl|blg)|/Icon\r|/svn-commit(\.[2-9])?\.tmp)$</string>
 			<key>regexFolderFilter</key>
 			<string>!.*/(\.[^/]*|CVS|text/text|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
 			<key>sourceDirectory</key>
@@ -18,7 +20,7 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>196</integer>
+	<integer>247</integer>
 	<key>metaData</key>
 	<dict>
 		<key>Project.tex</key>
@@ -26,9 +28,23 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>27</integer>
 				<key>line</key>
-				<integer>22</integer>
+				<integer>17</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>Survey.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>30</integer>
+				<key>line</key>
+				<integer>5</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -40,14 +56,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>26</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>35</integer>
+				<integer>147</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>17</integer>
+			<integer>139</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>157</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>147</integer>
+			</dict>
 		</dict>
 		<key>text/Implementation.tex</key>
 		<dict>
@@ -56,12 +88,56 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>214</integer>
+				<integer>314</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>134</integer>
+			<key>firstVisibleLine</key>
+			<integer>314</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>142</integer>
+				<key>line</key>
+				<integer>401</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>314</integer>
+			</dict>
+		</dict>
+		<key>text/Introduction.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>9</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>101</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>205</integer>
+			<integer>0</integer>
+		</dict>
+		<key>text/Requirements.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>text/User_Manual.tex</key>
 		<dict>
@@ -81,12 +157,13 @@
 	<key>openDocuments</key>
 	<array>
 		<string>text/Implementation.tex</string>
+		<string>Survey.tex</string>
+		<string>text/Requirements.tex</string>
+		<string>text/Introduction.tex</string>
 		<string>text/Design.tex</string>
 		<string>Project.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
-	<false/>
-	<key>showFileHierarchyPanel</key>
 	<false/>
 	<key>treeState</key>
 	<dict>
@@ -110,13 +187,6 @@
 							<dict/>
 						</dict>
 					</dict>
-				</dict>
-				<key>text</key>
-				<dict>
-					<key>isExpanded</key>
-					<true/>
-					<key>subItems</key>
-					<dict/>
 				</dict>
 			</dict>
 		</dict>

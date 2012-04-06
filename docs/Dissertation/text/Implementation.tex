@@ -290,6 +290,8 @@ Since the map renderer is not dependant on Main GUI, it could be reused in many 
 \subsection{Map Rotation}
 The map renderer supports for different rotations which the user can choose from. This is implementation \emph{not} by actually rotating the map (since this would be expeance) but by changing the draw order. By default (0,0) is on the top left of the map. Rotation mealy changes the location of (0,0). This means that none of the tile have changed so all the cached calculations can be kept. 
 
+Rotating the map can be used by the user to see units that are hidden or obsteubed by tiles. 
+
 \clearpage
 \subsection{User Interface}
 \subsubsection{Controls}
@@ -309,11 +311,11 @@ The GUI supports of other features to improve the user experience these includin
 
 \begin{itemize}
 	\item Zoom in/out which lets the user see more detail. 
-	\item Changing the \texttt{pitch} of the map (increasing the pitch flatten the map which allows the user to easily see obsteubed units).
-	\item A log which can be used which actions have taken place. Useful to find out what the enemy has done if the user miss it the first time.
+	\item Changing the \texttt{pitch} of the map (increasing the pitch flattens the map which allows the user to easily see obsteubed units).
+	\item A \texttt{log} which can be used to see which actions have taken place. Useful to find out what the enemy has done if the user miss it the first time.
 	\item The key mapping is displayed to user on startup.
 	\item The GUI automatically scroll to enemy unit's location if they are out of range when it is there turn.
-	\item The unit information shows the attributes include the current hit points. The menu are displayed in different colour for opposing units to easily discadiish them. 
+	\item The unit information shows the unit's attributes include the current hit points. They are are displayed in different colour for opposing units to easily discadiish them. 
 \end{itemize}
 
 
@@ -323,11 +325,59 @@ The GUI supports of other features to improve the user experience these includin
 \subsubsection{Overview}
 \label{ssub:overview}
 
-\subsubsection{Map Editor}
-\label{ssub:map_editor}
+The editor allows the user to customise nearly all aspects of the engine.  Notable features include visual map making as was exporting the created game as a completely self contained application with \emph{no} external depeniceis apart from a recent version of Java\footnote{specify Java 6+}. 
+
+The editor uses a tabbed interface, the benefit of is that it shows the users whats alivable in the editor. Each tab has share the same overall structure, for two reason, namely to keep the all aspect of the editor constince hence making it easer it to use. The second reason is that, most of the code can be reused for each tab saving devement time. 
+
+In each tab the of current resources created is listed on the left as shown in figure \ref{fig:figures_editor_Units}. The user can click on any of the resources to customise them. At the bottom of the list are two button the left button (--) removes the selected resource whereas the right button (+) add new resource. Since it is likely the user would create simler resources (e.g  weapon of the same type differing only in Strength) any new created resource takes on the charaactrics of last selected item.
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\textwidth]{figures/editor/Units.png}
+	\caption{Unit Editor}
+	\label{fig:figures_editor_Units}
+\end{figure}
+
+
+To prevent error and increase useabitby,  \texttt{JSpinner} were used wherever numerualic input was needed. \texttt{JSpinner} allows a minimum and maximum range to be specified,  the component will then reject any input which is not in range.
+
+Each of tab can use the data from other tabs, as shown above where the weapons and skills are received. One of the advantages is the data is always consistit. This was made a lot simplier since the user can only edit one set of resources at a time.
+
+\clearpage
+\subsubsection{Weapons \& Skill}
+
+The editor support customising the weapons and skills as shown. 
+
+\def\editor{0.237}
+\begin{figure}[htbp]
+	\begin{center}
+	\subfigure[Weapons Panel]{
+		\includegraphics[scale=\editor]{figures/editor/Weapons.png}}
+	\subfigure[Skill Panel]{
+			\includegraphics[scale=\editor]{figures/editor/Skills.png}}
+	\end{center}
+	\label{fig:editor}
+\end{figure}
+
+The editor shows visually what the attack range looks like. This is updated whenever the user make any change to the resource.  This required very little extra code since the map renderer was general enough to be easily embedded. 
 
 \subsubsection{Unit Editor}
 \label{ssub:unit_editors}
+The unit allows the user to edit all that attributes of the units. These include the skills, weapon as well as the images unit as shown in figure \ref{fig:figures_editor_Units}. 
+
+
+\clearpage
+\subsubsection{Sprite Sheet Editor}
+Sprite sheet editor are used for many of the tabs including the Units's image, textures and tileset.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=3in]{figures/editor/tileset_edit.png}
+	\caption{A sprite sheet  editor for the tiles}
+	\label{fig:figures_editor_tileset_edit}
+\end{figure}
+
+
+
 
 \clearpage
 \subsubsection{Dialog Editing}
@@ -352,6 +402,15 @@ The editor also supports importing as well as exporting the dialog in format sho
 \end{lstlisting}
 This allows the dialog to be easily written in the user's preferred application.  This could be useful if separate person writes the dialog of the game since the person does not need a copy of the editor. The format is described in more detail in appendix \ref{ssub:dialog_data_format}  
 
+\subsubsection{Project Selection}
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=1.05\textwidth]{figures/editor/Project_Selection.png}
+	\caption{The Project Selection Window which is shown at startup}
+	\label{fig:figures_editor_Project_Selection}
+\end{figure}
+
+When the editor starts
 
 %TODO put bug when loading music stops
 \clearpage
@@ -362,4 +421,12 @@ The editor can export the game as a complete package, either as a Mac OS X appli
 
 A prominent feature of the editor is that the jar will work on any Java enabled platform, since the jar contains all required libraries for each platform. The OS X application can even be exported on other platforms.
 
-While most of the testing was done on OS X \footnote{Mac OS X 10.6 Snow leopard}, it also works well on Linux \footnote{Science  Linux x.y}. It even has limited compatibly with Windows \footnote{Tested on Windows 7 32 bit} (apart from some minor graphics issues).
+While most of the testing was done on OS X \footnote{Mac OS X 10.6 Snow leopard}, it also works well on Linux \footnote{Science  Linux x.y}. It  even has limited compatibly with Windows \footnote{Tested on Windows 7 32 bit} (apart from some minor graphics issues).
+
+\subsection{Ant Build File}
+\begin{itemize}
+	\item Builds the projects
+	\item Runs tests
+	\item Make dist versions
+	\item Links Jars
+\end{itemize}

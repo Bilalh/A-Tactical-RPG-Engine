@@ -962,7 +962,7 @@ public class GuiMap implements Observer, IMapRendererParent {
 				afterMapSettingsChange();
 				break;
 			case KeyEvent.VK_PERIOD:
-//				if (mapSettings.pitch >= 0.7) break;
+				if (mapSettings.pitch >= 0.7) break;
 				mapSettings.pitch += 0.1;
 //				MapSettings.pitch = Math.round(MapSettings.pitch * 10f) / 10f;
 				log.info(mapSettings.pitch);
