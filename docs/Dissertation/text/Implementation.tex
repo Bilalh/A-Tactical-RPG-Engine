@@ -23,7 +23,7 @@ Although the objectives only required a isometric  map view, the implementation 
 %The architecture could be easily extended to overworld maps, cut-scenes for example.
 
 
-The obsverable components (i.e the view, or the map controller) communicate using \texttt{notification} objects which encapsulates any relevant information. For example the \texttt{model} sends a \texttt{UnitMovedNotification} when the computer controlled opponent move one of their units. The notification includes a reference to the unit moved and the path it took to to get there. This information is used to display an animation of the unit moving to the user.
+The observable components (i.e. the view, or the map controller) communicate using \texttt{notification} objects which encapsulates any relevant information. For example the \texttt{model} sends a \texttt{UnitMovedNotification} when the computer controlled opponent move one of their units. The notification includes a reference to the unit moved and the path it took to to get there. This information is used to display an animation of the unit moving to the user.
 
 \clearpage
 \subsection{Data Format}
@@ -87,7 +87,7 @@ A sprite sheet is a collection of images combined together. The advantage of thi
 	\label{fig:figures_tileset}
 \end{figure}
 
-Sprite sheets make maps more reusable, since the tileset can be changed without any constiance\footnote{As long as the new tileset has the same number of image or the \texttt{tilemapping} has entires for missing images.}.  
+Sprite sheets make maps more reusable, since the tileset can be changed without any constiance\footnote{As long as the new tileset has the same number of image or the \texttt{tilemapping} has entries for missing images.}.  
 
 I created a sprite sheet editor to allow the user to easily edit the tilesets. Using sprite sheets allows abstracting over the file system, hence increasing the usability of system. The editor was reused for editing other images such as the character images and can even be used interpedently.
 %TODO real word?
@@ -213,23 +213,74 @@ As discussed previously the maps use xml as their data format, one the advantage
 
 The terrain generator is called by the editor on behalf on the user with appropriate settings saving the user from having to configure the many options available in the terrain generator (since the terrain generator is a command line application).
 
-\subsection{Gui Development and Testing}
+% \subsection{GUI Development and Testing}
 
-\subsubsection{Map Rendering}
+\subsection{Map Rendering}
 \label{ssub:map_rendering}
 
-\begin{itemize}
-	\item Isometric maths
-	\item how reusable it is
-	\item efficient 
+The GUI uses isometric viewpoint to display the map. 
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[height=3in]{figures/imp-map.png}
+	\caption{A isometric map which shows the features of the renderers including height, empty tiles, wall textures and unit placement}
+	\label{fig:figures_imp-map}
+\end{figure}
+
+The map is composed of isometric tiles which has  the following features:
+
+\begin{itemize}[topsep=0mm,noitemsep ]
+	\item  The height is \emph{exactly} have the tile's width.
+	\item  To create the tile. a square tile is rotated by 45$^{\circ}$ then height is halved.
 \end{itemize}
 
+One the major features of the map render is how the height is specified.  Instead of using a bunch of careful constured tiles to simulate height, each tile has a specified height which the renderer user to draw the tile with apprioide height. 
+
+\subsubsection{Drawing Algorithm}
+The algorithm for drawing the tile first the top of the tile is drawn, then the walls are drawn. It quite general since it supports tiles which can slant in any direction as shown in figure \ref{fig:mtile2} where the tile is slanting to the north as well as zooming. 
+
+\def\tileSize{3in}
+\begin{figure}[h!tbp]
+	\begin{center}
+	\subfigure[Tile with height 2]{
+		\label{fig:mtile1} \includegraphics[width=\tileSize]{figures/tile1.png}} 
+	\subfigure[Tile with start height 1 and end height of 2 with the walls in green and red]{
+		\label{fig:mtile2} \includegraphics[width=\tileSize]{figures/tile3.png}} 
+	\caption{The above figure shows the normal and slanted tiles, The red X is the start point for drawing}
+	\label{fig:mtile0}
+	\end{center}
+\end{figure}
+
+Mathaicmly the set of points used to draw tile are as follows:
+\begin{equation}
+\; \left[ \begin{array}{c} x \\ y \end{array} \right]=\left\{ \left[ \begin{array}{c} tx \\ ty-h2 \end{array} \right],\left[ \begin{array}{c} tx+\frac{hoz}{2} \\ ty-h2+\frac{vet}{2} \end{array} \right],\left[ \begin{array}{c} tx \\ ty-h1+vet \end{array} \right],\left[ \begin{array}{c} tx-\frac{hoz}{2} \\ ty-h1+\frac{vet}{2} \end{array} \right] \right\}
+\end{equation}
+
+\begin{equation}
+\; \left[ \begin{array}{c} x \\ y \end{array} \right]=\left\{ \left[ \begin{array}{c} tx \\ ty-h2 \end{array} \right],\left[ \begin{array}{c} tx+\frac{hoz}{2} \\ ty-h2+\frac{vet}{2} \end{array} \right],\left[ \begin{array}{c} tx \\ ty-h1+vet \end{array} \right],\left[ \begin{array}{c} tx-\frac{hoz}{2} \\ ty-h1+\frac{vet}{2} \end{array} \right],\right\}
+\end{equation}
+
+\begin{equation}
+\hspace{-2.5cm} \left[ \begin{array}{c} x \\ y \end{array} \right]=\left\{ \left[ \begin{array}{c} tx \\ ty-h1+vet \end{array} \right],\left[ \begin{array}{c} tx-\frac{hoz}{2} \\ ty-h1+\frac{vet}{2} \end{array} \right],\left[ \begin{array}{c} tx-\frac{hoz}{2} \\ ty+\frac{vet}{2} \end{array} \right],\left[ \begin{array}{c} tx \\ ty+vet \end{array} \right] \right\}
+\end{equation}
+
+\begin{align*}
+	tx,\; ty   &\;\; \textrm{are the start point (shows an red X in the above figure)}\\
+	vet,\; hoz &\;\; \textrm{is the height and width of the tile adjectn for  the zoom and pitch}\\
+	h1,\; h2   &\;\; \textrm{are difference in the start height and end height and via verse}
+\end{align*}
+
+where equation 1, is fortop of the tile,  equation 2 for the right wall and equation 3 for the right wall. 
+
+The equation converted to Java easily since the \texttt{Graphic} class has the methods  \texttt{drawPolygon} which draw a polygon using set of points convertly in the above form.
+
+\clearpage
 \subsection{User Interface}
 
 \begin{itemize}
 	\item unit animations
 	\item menus
-\end{itemize}
+\end{itemize}±
 
 
 \subsection{Editor Development and Testing}
@@ -273,7 +324,7 @@ This allows the dialog to be easily written in the user's preferred application.
 \subsubsection{Exporting}
 \label{ssub:exporting}
 
-The editor can export the game as a complete package, either as a Mac OS X application or as jar. These application don't require any external resources, apart from a recent version of java\footnote{specifically Java 1.6+}.
+The editor can export the game as a complete package, either as a Mac OS X application or as jar. These application don't require any external resources, apart from a recent version of Java\footnote{specifically Java 1.6+}.
 
 A prominent feature of the editor is that the jar will work on any Java enabled platform, since the jar contains all required libraries for each platform. The OS X application can even be exported on other platforms.
 

@@ -9,7 +9,7 @@ The Model, View, Controller (MVC) design paradigm was chosen to be used to struc
 %TODO
 
 \subsection{Engine}
-The main considerations  for the engine was to make it configureable as possible. To achieve this everything was designed in terms of interfaces, which allowed the particular implementation to be changed. The objects themselves were loaded from their serialised form on disk. 
+The main considerations  for the engine was to make it configurable as possible. To achieve this everything was designed in terms of interfaces, which allowed the particular implementation to be changed. The objects themselves were loaded from their serialised form on disk. 
 
 \subsubsection{Data Format}
 \label{ssub:data_format}
@@ -47,7 +47,13 @@ The second method has the advantage of allowing more dynamic unit ordering.  An 
 
 I chose to use the second method because it allows the user more customisability since they can choose how unit ordering works. The other reason is based on experience where I think it works better.
 
-\subsection{Gui}
+\subsection{Map Rendering}
+
+\subsubsection{Introduction}
+A isometric viewpoint is a way of display 3d objects in 2d while giving the impression that it 3d.  Two different variations are shown in figure \ref{fig:tilemap0}.  
+%TODO more
+
+The main benefit of an isometric map compared to a topdown view is that height can be easily displayed. 
 
 \subsubsection{Tilemap}
 \label{sub:tilemap}
@@ -105,6 +111,7 @@ I designed the actions a unit can take as a finite state machine as show in figu
 \label{sub:weapons___skills}
 
 
+
 As is common in TRPG, I included weapons as  well as skills in the design.  A Weapon has a certain strength, a specified range and may have unique effects.  As discussed in  section \ref{ssub:data_format},  the weapons and skills are completely configurable, but to enable the user to create common weapons, I designed the following weapons to include as standard in the engine.  
 
 \def\weapon{0.44}
@@ -117,7 +124,7 @@ As is common in TRPG, I included weapons as  well as skills in the design.  A We
 	\subfigure[Ranged Weapon]{
 		\label{fig:weapon3} \includegraphics[scale=\weapon]{figures/weapon-ranged.png}} 
 	\subfigure[Ranged Skill]{
-		\label{fig:weapon3} \includegraphics[scale=\weapon]{figures/skill.png}}		
+		\label{fig:weapon4} \includegraphics[scale=\weapon]{figures/skill.png}}		
 	\caption{The above figure shows the attack range of various weapons and skill }
 	\label{fig:weapons}
 	\end{center}
@@ -166,7 +173,7 @@ The editor support visual map editing as shown in figure \ref{fig:figures_editor
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[height=5in]{figures/editor/Map.png}
-	\caption{Visual Map editor}
+	\caption{Visual Map Editor}
 	\label{fig:figures_editor_Map}
 \end{figure}
 

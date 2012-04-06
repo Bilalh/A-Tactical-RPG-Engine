@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>text/Implementation.tex</string>
+	<string>Project.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,35 +21,33 @@
 	<integer>196</integer>
 	<key>metaData</key>
 	<dict>
+		<key>Project.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>22</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>text/Design.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>72</integer>
+				<integer>26</integer>
 				<key>line</key>
-				<integer>119</integer>
+				<integer>35</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>108</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>21</integer>
-				<key>line</key>
-				<integer>119</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>72</integer>
-				<key>line</key>
-				<integer>119</integer>
-			</dict>
+			<integer>17</integer>
 		</dict>
 		<key>text/Implementation.tex</key>
 		<dict>
@@ -58,12 +56,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>193</integer>
+				<integer>214</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>101</integer>
 			<key>firstVisibleLine</key>
-			<integer>179</integer>
+			<integer>205</integer>
 		</dict>
 		<key>text/User_Manual.tex</key>
 		<dict>
@@ -84,6 +82,7 @@
 	<array>
 		<string>text/Implementation.tex</string>
 		<string>text/Design.tex</string>
+		<string>Project.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -123,6 +122,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{607, 68}, {818, 810}}</string>
+	<string>{{620, 68}, {818, 810}}</string>
 </dict>
 </plist>
