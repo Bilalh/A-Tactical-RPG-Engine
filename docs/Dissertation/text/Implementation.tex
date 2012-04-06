@@ -270,7 +270,7 @@ Mathaicmly the set of points used to draw tile are as follows:
 	h1,\; h2   &\;\; \textrm{are difference in the start height and end height and via verse}
 \end{align*}
 
-where equation 1, is fortop of the tile,  equation 2 for the right wall and equation 3 for the right wall. 
+where equation 1, is for the top of the tile,  equation 2 for the right wall and equation 3 for the right wall. 
 
 The equation converted to Java easily since the \texttt{Graphic} class has the methods  \texttt{drawPolygon} which draw a polygon using set of points convertly in same form as the equations.
 %TODO
@@ -287,6 +287,9 @@ Each image has at minimum \emph{four} images associated it, for each directionn 
 \subsubsection{Reusability}
 Since the map renderer is not dependant on Main GUI, it could be reused in many different places in the editor. 
 
+\subsection{Map Rotation}
+The map renderer supports for different rotations which the user can choose from. This is implementation \emph{not} by actually rotating the map (since this would be expeance) but by changing the draw order. By default (0,0) is on the top left of the map. Rotation mealy changes the location of (0,0). This means that none of the tile have changed so all the cached calculations can be kept. 
+
 \clearpage
 \subsection{User Interface}
 \subsubsection{Controls}
@@ -300,15 +303,21 @@ The GUI uses a menu system to handle the units actions. The menu is quite genera
 
 % TODO FSM enum
 
-\subsection{Other Features}
+
+\subsubsection{Other Features}
 The GUI supports of other features to improve the user experience these including
 
 \begin{itemize}
 	\item Zoom in/out which lets the user see more detail. 
+	\item Changing the \texttt{pitch} of the map (increasing the pitch flatten the map which allows the user to easily see obsteubed units).
+	\item A log which can be used which actions have taken place. Useful to find out what the enemy has done if the user miss it the first time.
+	\item The key mapping is displayed to user on startup.
+	\item The GUI automatically scroll to enemy unit's location if they are out of range when it is there turn.
+	\item The unit information shows the attributes include the current hit points. The menu are displayed in different colour for opposing units to easily discadiish them. 
 \end{itemize}
 
 
-\subsection{Editor Development and Testing}
+\subsection{Editor Development}
 %TODO finish
 
 \subsubsection{Overview}
