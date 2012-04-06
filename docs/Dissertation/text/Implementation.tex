@@ -93,7 +93,7 @@ I created a sprite sheet editor to allow the user to easily edit the tilesets. U
 %TODO real word?
 
 \clearpage
-\subsection{Engine Development and Testing}
+\subsection{Engine Development}
 \label{sub:engine_development_and_testing}
 \subsubsection{Map}
 \label{ssub:maps}
@@ -237,7 +237,7 @@ The map is composed of isometric tiles which has  the following features:
 One the major features of the map render is how the height is specified.  Instead of using a bunch of careful constured tiles to simulate height, each tile has a specified height which the renderer user to draw the tile with apprioide height. 
 
 \subsubsection{Drawing Algorithm}
-The algorithm for drawing the tile first the top of the tile is drawn, then the walls are drawn. It quite general since it supports tiles which can slant in any direction as shown in figure \ref{fig:mtile2} where the tile is slanting to the north as well as zooming. 
+The algorithm for drawing the tile first the top of the tile is drawn, then the walls are drawn. It quite general since it supports tiles which can slant in any direction as shown in figure \ref{fig:mtile2} where the tile is slanting to the north as well as zooming\footnote{A simulate of the equations was made first as is in \texttt{IsomerticRendering.gcx}}. 
 
 \def\tileSize{3in}
 \begin{figure}[h!tbp]
@@ -257,7 +257,7 @@ Mathaicmly the set of points used to draw tile are as follows:
 \end{equation}
 
 \begin{equation}
-\; \left[ \begin{array}{c} x \\ y \end{array} \right]=\left\{ \left[ \begin{array}{c} tx \\ ty-h2 \end{array} \right],\left[ \begin{array}{c} tx+\frac{hoz}{2} \\ ty-h2+\frac{vet}{2} \end{array} \right],\left[ \begin{array}{c} tx \\ ty-h1+vet \end{array} \right],\left[ \begin{array}{c} tx-\frac{hoz}{2} \\ ty-h1+\frac{vet}{2} \end{array} \right],\right\}
+\; \left[ \begin{array}{c} x \\ y \end{array} \right]=\left\{ \left[ \begin{array}{c} tx \\ ty-h2 \end{array} \right],\left[ \begin{array}{c} tx+\frac{hoz}{2} \\ ty-h2+\frac{vet}{2} \end{array} \right],\left[ \begin{array}{c} tx \\ ty-h1+vet \end{array} \right],\left[ \begin{array}{c} tx-\frac{hoz}{2} \\ ty-h1+\frac{vet}{2} \end{array} \right]\right\}
 \end{equation}
 
 \begin{equation}
@@ -272,15 +272,40 @@ Mathaicmly the set of points used to draw tile are as follows:
 
 where equation 1, is fortop of the tile,  equation 2 for the right wall and equation 3 for the right wall. 
 
-The equation converted to Java easily since the \texttt{Graphic} class has the methods  \texttt{drawPolygon} which draw a polygon using set of points convertly in the above form.
+The equation converted to Java easily since the \texttt{Graphic} class has the methods  \texttt{drawPolygon} which draw a polygon using set of points convertly in same form as the equations.
+%TODO
+\subsubsection{Images and Texture Mapping}
+The top of tile can be texture mapped or be drawn directly from an image.  Texture mapping repeats a usually small image across the tile. This is the simple method for the user since they only have to provide a small texture image, but they loss control over when exectly the image is drawn.  Texture mapping is also required for slanted tiles since to many variations to provide image for,
+
+The user also has the option of use a image which is drawn directly. To do this the would have to provide their own isometric tile\footnote{There are script to help the user though}. This methods allows more control on whats drawn.  
+
+Walls like slanted tiles are always texture mapped since they to many variations to provide images for. 
+
+\subsubsection{Units}
+Each image has at minimum \emph{four} images associated it, for each directionn (east, west, north, south). These are used to show which way the unit is facing. The unit can also has a animation with each direction,to making unit movement more interactive. The unit can also optionally has a portaint which if alivable would be used for their dialog.
+
+\subsubsection{Reusability}
+Since the map renderer is not dependant on Main GUI, it could be reused in many different places in the editor. 
 
 \clearpage
 \subsection{User Interface}
+\subsubsection{Controls}
+The main control scheme for the GUI, but the user can perform nearly every action using the mouse. All the elements were designed to work equally well with the mouse and keyboard. This means for example that the tiles are clickable, (which result in tile being selected when clicked).  
+
+%TODO talking about unit clicking
+
+\subsubsection{Menus}
+
+The GUI uses a menu system to handle the units actions. The menu is quite general since it will resize to the longest item in the menu.  It also supports nested menus which are used when user chooses to use a skill. The menu is controllable using the keyboard using the arrows keys, the user can also click a item directory to select it.
+
+% TODO FSM enum
+
+\subsection{Other Features}
+The GUI supports of other features to improve the user experience these including
 
 \begin{itemize}
-	\item unit animations
-	\item menus
-\end{itemize}±
+	\item Zoom in/out which lets the user see more detail. 
+\end{itemize}
 
 
 \subsection{Editor Development and Testing}
