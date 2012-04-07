@@ -237,16 +237,16 @@ The map is composed of isometric tiles which has  the following features:
 One the major features of the map render is how the height is specified.  Instead of using a bunch of careful constured tiles to simulate height, each tile has a specified height which the renderer user to draw the tile with apprioide height. 
 
 \subsubsection{Drawing Algorithm}
-The algorithm for drawing the tile first the top of the tile is drawn, then the walls are drawn. It quite general since it supports tiles which can slant in any direction as shown in figure \ref{fig:mtile2} where the tile is slanting to the north as well as zooming\footnote{A simulate of the equations was made first as is in \texttt{IsomerticRendering.gcx}}. 
+The algorithm for drawing the tile first the top of the tile is drawn, then the walls are drawn. It quite general since it supports tiles which can slant in any direction as shown in figure \ref{fig:mtile2} where the tile is slanting to the north as well as zooming\footnote{A simulate of the equations was made first and is in \texttt{IsomerticRendering.gcx} (Mac Only).}. 
 
 \def\tileSize{3in}
 \begin{figure}[h!tbp]
 	\begin{center}
-	\subfigure[Tile with height 2]{
+	\subfigure[A Tile with  a height 2]{
 		\label{fig:mtile1} \includegraphics[width=\tileSize]{figures/tile1.png}} 
-	\subfigure[Tile with start height 1 and end height of 2 with the walls in green and red]{
+	\subfigure[A Tile with a start height 1 and an end height of 2 with the walls in green and red]{
 		\label{fig:mtile2} \includegraphics[width=\tileSize]{figures/tile3.png}} 
-	\caption{The above figure shows the normal and slanted tiles, The red X is the start point for drawing}
+	\caption{The above figure shows normal and slanted tiles, The red X is the start point for drawing}
 	\label{fig:mtile0}
 	\end{center}
 \end{figure}
@@ -377,14 +377,23 @@ Sprite sheet editor are used for many of the tabs including the Units's image, t
 \end{figure}
 
 
+\subsubsection{Music Editing}
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.75\textwidth]{figures/editor/Music.png}
+	\caption{The Music Editor}
+	\label{fig:figures_editor_Music}
+\end{figure}
+The music editor supports choosing which music are alviable to use in the game.  When a track is selected in the editor, the metadata (include the `artist' and `album') of the track is displayed.  As a further enhasmant, the track can be previewed this especially useful when used in combination with the  sound effect editor (which has exactly the same interface) to see what the combination of sounds and music sound like. 
 
+%TODO deferfed map
 
 \clearpage
 \subsubsection{Dialog Editing}
 \label{ssub:dialog_editing}
 
 \begin{figure}[htbp]
-	\centering
+	\centering1
 		\includegraphics[height=4in]{figures/editor/Maps-dialog.png}
 	\caption{The dialog editing panel}
 	\label{fig:figures_editor_Maps-dialog}
@@ -410,7 +419,7 @@ This allows the dialog to be easily written in the user's preferred application.
 	\label{fig:figures_editor_Project_Selection}
 \end{figure}
 
-When the editor starts
+When the editor starts It shows the above startup screen which allows the user to create a new project or open an existing project.  Since a user is likely to work on the same project for a signen period of time, the editor keeps tracks of recent projects. 
 
 %TODO put bug when loading music stops
 \clearpage
