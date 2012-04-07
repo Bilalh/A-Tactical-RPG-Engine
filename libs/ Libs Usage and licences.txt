@@ -1,0 +1,23 @@
+Libs/Classes
+------------
+* Junit (CPL)                         -- Testing.
+* Log4java (Apache)                   -- Logging.
+* Xstream with xpp3 (BSD)             -- Reading/Writing xml.
+* AlphanumComparator (LGPL 2.1+)      -- For Sorting correctly.                             
+                                                                           
+* OpenAL from Slick 2d (BSD)          -- For playing music (ogg/wav) and sounds. 
+    * liblwjgl                        
+    * natives (.dll, .so, .jnilib)    
+                                      
+* My fork of Inflector (Apache)       -- Makes plurals of a words, used in the editor
+  https://github.com/Bilalh/Inflector   
+                                      
+* miglayout (BSD)                     -- Swing layout manger used though out the Editor.
+* jaudiotagger (LGPL-2+)              -- Audio metadata reader.
+                                      
+* snakeyaml (Apache)                  -- Used by the editor for dialog import/export.
+
+* javarichclient_icon_tango_action_1.0.jar (public domain)  -- Icons from http://www.javarichclient.com/68-vector-based-java-icons/
+
+* Other icons from gimp (GPL 2+)
+* FloatablePanel (GPL 2+)        -- JPanel that can float above other element in the GUI based on FloatablePanel  
