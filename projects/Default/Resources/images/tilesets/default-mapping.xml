@@ -1,8 +1,57 @@
 <tilemapping spriteSheetLocation="images/tilesets/default.png">
   <entry>
+    <string>water</string>
+    <tileImageData>
+      <location>4</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
     <string>8-4</string>
     <tileImageData>
       <location>8-4</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>a.png</string>
+    <tileImageData>
+      <location>a.png</location>
+      <type>TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>sand</string>
+    <tileImageData>
+      <location>6</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>grass</string>
+    <tileImageData>
+      <location>7</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>c.png</string>
+    <tileImageData>
+      <location>c.png</location>
+      <type>TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>cliff</string>
+    <tileImageData>
+      <location>6</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>mask</string>
+    <tileImageData>
+      <location>mask</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
@@ -18,6 +67,13 @@
     <tileImageData>
       <location>2</location>
       <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>red</string>
+    <tileImageData>
+      <location>red</location>
+      <type>TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
@@ -49,7 +105,7 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>mask</string>
+    <string>snow</string>
     <tileImageData>
       <location>mask</location>
       <type>NON_TEXTURED</type>
@@ -62,33 +118,11 @@
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
-  
   <entry>
-    <string>grass</string>
+    <string>b.png</string>
     <tileImageData>
-      <location>7</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>water</string>
-    <tileImageData>
-      <location>4</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>snow</string>
-    <tileImageData>
-      <location>mask</location>
-      <type>NON_TEXTURED</type>
-    </tileImageData>
-  </entry>
-  <entry>
-    <string>sand</string>
-    <tileImageData>
-      <location>6</location>
-      <type>NON_TEXTURED</type>
+      <location>b.png</location>
+      <type>TEXTURED</type>
     </tileImageData>
   </entry>
 </tilemapping>
