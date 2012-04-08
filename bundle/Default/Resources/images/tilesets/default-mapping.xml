@@ -62,4 +62,32 @@
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
+  <entry>
+    <string>grass</string>
+    <tileImageData>
+      <location>7</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>water</string>
+    <tileImageData>
+      <location>4</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>snow</string>
+    <tileImageData>
+      <location>mask</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
+    <string>sand</string>
+    <tileImageData>
+      <location>6</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
 </tilemapping>

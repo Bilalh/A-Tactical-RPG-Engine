@@ -358,22 +358,22 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		SavedMap map;
 		
 		if (random){
-			try {
-				// Sasha's terrain generator has the width and height the wrong way round.
-				String cmd = String.format("./bundle/terrain_generator -c bundle/config.yaml --width %d --height %d", 
-						height,width );
-				Process p =  Runtime.getRuntime().exec(cmd);
-				int code = p.waitFor();
-				if (code != 0){
-					// terrain_generator failed so we make the tiles outself
-					log.info("terrain_generator failed code:" + code);
-					random =false;
-				}
-				
-			} catch (Exception e) {
-				random =false; 
-				e.printStackTrace();
-			}
+//			try {
+//				// Sasha's terrain generator has the width and height the wrong way round.
+//				String cmd = String.format("./bundle/terrain_generator -c bundle/config.yaml --width %d --height %d", 
+//						height,width );
+//				Process p =  Runtime.getRuntime().exec(cmd);
+//				int code = p.waitFor();
+//				if (code != 0){
+//					// terrain_generator failed so we make the tiles outself
+//					log.info("terrain_generator failed code:" + code);
+//					random =false;
+//				}
+//				
+//			} catch (Exception e) {
+//				random =false; 
+//				e.printStackTrace();
+//			}
 		}
 		
 		if (random){
@@ -388,8 +388,13 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 			
 			for (int i = 0, k = 0; i < width; i++) {
 				for (int j = 0; j < height; j++, k++) {
+					String name = tiles[k].getType();
+					if (! currentMapping.getTilemapping().containsKey(name)){
+						name = tileName;
+					}
+					
 					tiles[k] = new SavedTile(
-							tileName,
+							name,
 							tiles[k].getStartingHeight(),
 							tiles[k].getEndHeight(),
 							tiles[k].getX(), tiles[k].getY(),
