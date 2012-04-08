@@ -8,8 +8,8 @@ output_file : /tmp/terrain.xml
 # Dimentions
 ###########
 #Note if any of the below values are less than 256, rivers, settlements, and vegetation will not be generated
-height : 16 
-width  : 20
+height : 12
+width  : 16
 
 # scale, amount of detail per tile
 # 0 = tile is smaller than a character, one tile represents part of an object, a tree make take up multiple tiles
@@ -34,11 +34,11 @@ normalise_max : 10
 # Map attributes
 ################
 
-sea_level : 150
-sand_level : 160
-snow_level : 210
+sea_level : 2
+sand_level : 4
+snow_level : 8
 
-cliff_height_difference : 5
+cliff_height_difference : 3
 
 
 # Rivers
