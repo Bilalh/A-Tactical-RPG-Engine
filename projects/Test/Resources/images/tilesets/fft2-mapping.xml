@@ -42,6 +42,13 @@
     </tileImageData>
   </entry>
   <entry>
+    <string>cliff</string>
+    <tileImageData>
+      <location>6</location>
+      <type>NON_TEXTURED</type>
+    </tileImageData>
+  </entry>
+  <entry>
     <string>mask</string>
     <tileImageData>
       <location>mask</location>

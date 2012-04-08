@@ -358,22 +358,42 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		SavedMap map;
 		
 		if (random){
-//			try {
-//				// Sasha's terrain generator has the width and height the wrong way round.
-//				String cmd = String.format("./bundle/terrain_generator -c bundle/config.yaml --width %d --height %d", 
-//						height,width );
-//				Process p =  Runtime.getRuntime().exec(cmd);
-//				int code = p.waitFor();
-//				if (code != 0){
-//					// terrain_generator failed so we make the tiles outself
-//					log.info("terrain_generator failed code:" + code);
-//					random =false;
-//				}
-//				
-//			} catch (Exception e) {
-//				random =false; 
-//				e.printStackTrace();
-//			}
+			try {
+				// Sasha's terrain generator has the width and height the wrong way round.
+				String cmd = String.format("./bundle/terrain_generator -c bundle/config.yaml --width %d --height %d", 
+						height,width );
+				Process p =  Runtime.getRuntime().exec(cmd);
+				int code = p.waitFor();
+				if (code != 0){
+					// terrain_generator failed so we make the tiles outself
+					log.info("terrain_generator failed code:" + code);
+					random =false;
+				}else{
+					// Sasha's terrain generator somtimes produces invaild xml, so sed is used to fix it
+					p =  Runtime.getRuntime().exec("/usr/bin/sed -i.tmp s/<t<type>/<type>/g /tmp/terrain.xml");
+					code = p.waitFor();
+
+					BufferedReader bri = new BufferedReader
+							(new InputStreamReader(p.getInputStream()));
+					BufferedReader bre = new BufferedReader
+							(new InputStreamReader(p.getErrorStream()));
+					String line;
+					while ((line = bri.readLine()) != null) {
+						System.out.println(line);
+					}
+					bri.close();
+					while ((line = bre.readLine()) != null) {
+						System.out.println(line);
+					}
+					bre.close();
+					
+					System.out.println("seded");
+				}
+				
+			} catch (Exception e) {
+				random =false; 
+				e.printStackTrace();
+			}
 		}
 		
 		if (random){
@@ -393,10 +413,17 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 						name = tileName;
 					}
 					
+					// Sasha's terrain generator always puts (0,0) to height 0 
+					// which odd, so use (0,1) height
+					int h = tiles[k].getStartingHeight();
+					if (k ==0){
+						h = tiles[k+1].getStartingHeight();
+					}
+					
 					tiles[k] = new SavedTile(
 							name,
-							tiles[k].getStartingHeight(),
-							tiles[k].getEndHeight(),
+							h,
+							h ,
 							tiles[k].getX(), tiles[k].getY(),
 							Orientation.TO_EAST,
 							textureName,
