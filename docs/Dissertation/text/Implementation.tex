@@ -336,10 +336,11 @@ In each tab the of current resources created is listed on the left as shown in f
 	\label{fig:figures_editor_Units}
 \end{figure}
 
-
 To prevent error and increase usability,  \texttt{JSpinner} were used wherever numeric input was needed. \texttt{JSpinner} allows a minimum and maximum range to be specified,  the component will then reject any input which is not in range.
 
-Each of tab can use the data from other tabs, as shown above where the weapons and skills are received. One of the advantages is the data is always consistent. This was made a lot simpler since the user can only edit one set of resources at a time.
+Each of the tabs can only edit their data but can \emph{read} data from other tabs, as shown above where the weapons and skills are received. One of the advantages is the data is always consistent. This was made a lot simpler since the user can only edit one set of resources at a time.
+
+Since the tabs only expose their resources (instead of handle I/O as well),  their means that the tabs can be reused e.g. (Sprite, Tilesets and textures share nearly all their code).
 
 \clearpage
 \subsubsection{Weapons \& Skills}
@@ -373,20 +374,62 @@ Sprite sheet editor are used for many of the tabs including the Units's image, t
 	\label{fig:figures_editor_tileset_edit}
 \end{figure}
 
-\subsubsection{Music Editing}
+\subsubsection{Music Editor}
+\label{ssub:music_editor}
+
 \begin{figure}[htb]
 	\centering
 		\includegraphics[width=0.75\textwidth]{figures/editor/Music.png}
 	\caption{The Music Editor}
 	\label{fig:figures_editor_Music}
 \end{figure}
-The music editor supports choosing which music are alviable to use in the game.  When a track is selected in the editor, the metadata (include the `artist' and `album') of the track is displayed.  As a further enhancement, the track can be previewed this especially useful when used in combination with the  sound effect editor (which has exactly the same interface) to see what the combination of sounds and music sound like. 
+The music editor supports choosing which music are available to use in the game.  When a track is selected in the editor, the metadata (include the `artist' and `album') of the track is displayed.  As a further enhancement, the track can be previewed this especially useful when used in combination with the  sound effect editor (which has exactly the same interface) to see what the combination of sounds and music sound like. 
 
 \clearpage
 
-\subsubsection{Visual Map editing}
+\subsubsection{Map Editor}
+
 %TODO finish
 %TODO deferfed map
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=.9\textwidth]{figures/editor/maps.png}
+	\caption{The Map Editor}
+	\label{fig:figures_editor_maps}
+\end{figure}
+
+The map allows the user to customise all the aspects of a created map.  The editor is composed using a series of tabs so that the user does not get overwhelm with all the options available. More importantly it allowed reuse of the unit editor(section \ref{ssub:unit_editors}) for enemies units (with the addiction of extra fields to allow customisation of the enemy behaviour).
+
+Usually all the resources of an editor are loaded when the tab is selected and then cached.  While this did work for the maps, it caused, unacceptable startup time hence I found an alternative method. 
+
+\emph{Lazy Loading} only loads a resource when it is actually used instead of just be referenced. In the case of the map editor a map is only loaded if the user tries to \emph{edit} map. This significantly reduces loading time of the editor easily if the user has created a large number of maps.
+
+%ref Martin Fowler, Patterns of Enterprise Application Architecture, Addison-Wesley, 2003, pp.200-214. ISBN 0-321-12742-0.
+
+\paragraph{Music Tab\\}
+The music tab allows the user to select from any music they imported in the music editor(section \ref{ssub:music_editor}).
+
+\paragraph{Win Condition Tab}
+This tab allows the user to choose the condition the player has to satisfy to win the map. Although the engine supports artibry conditions, the editor provide the two most common conditions used in TRPG, namely default all enemy units, and default a specific unit, which allows them a reasonable customisabitbty. 
+
+\paragraph{Details Tab\\}
+The details tabs allows the user to change a maps name, as well the size of the tiles.  The size of the map can not be changed after creation to keep the implementation of the simple\footnote{Although the engine does support changing the map size.}. Another reason for allow the user to change the map size is that, the data such enemy unit placement may because invalid which goes against the goal of always keeping the data consistent.  
+
+For the same reasons the editor does not let the user changing the associated tileset or texture set after creating the map always although the engine does support it. Note that the user still add tiles to the tileset, so it is not a large restriction.
+
+The details tab also supports Dialog importing as well as exporting, which will be discussed in section \ref{ssub:dialog_editing}.
+
+
+\paragraph{Map Creation\\}
+When creating the map they specify the size of map as well which tileset to associate.  An interesting addition to the editor is as previous mentioned, can use Stasyk's terrain generator which can be used as a starting point for their creations as shown in figure \ref{fig:figures_editor_gen}.
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\textwidth]{figures/editor/gen.png}
+	\caption{The map editor show a map created by Stasyk's terrain generator.}
+	\label{fig:figures_editor_gen}
+\end{figure}
+
 
 \clearpage
 \subsubsection{Dialog Editing}
