@@ -373,21 +373,21 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 					p =  Runtime.getRuntime().exec("/usr/bin/sed -i.tmp s/<t<type>/<type>/g /tmp/terrain.xml");
 					code = p.waitFor();
 
-					BufferedReader bri = new BufferedReader
-							(new InputStreamReader(p.getInputStream()));
-					BufferedReader bre = new BufferedReader
-							(new InputStreamReader(p.getErrorStream()));
-					String line;
-					while ((line = bri.readLine()) != null) {
-						System.out.println(line);
-					}
-					bri.close();
-					while ((line = bre.readLine()) != null) {
-						System.out.println(line);
-					}
-					bre.close();
+					// for debuging
+//					BufferedReader bri = new BufferedReader
+//							(new InputStreamReader(p.getInputStream()));
+//					BufferedReader bre = new BufferedReader
+//							(new InputStreamReader(p.getErrorStream()));
+//					String line;
+//					while ((line = bri.readLine()) != null) {
+//						System.out.println(line);
+//					}
+//					bri.close();
+//					while ((line = bre.readLine()) != null) {
+//						System.out.println(line);
+//					}
+//					bre.close();
 					
-					System.out.println("seded");
 				}
 				
 			} catch (Exception e) {
