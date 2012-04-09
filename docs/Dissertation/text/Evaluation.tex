@@ -2,7 +2,30 @@
 %!TEX root = ../Project.tex
 \section{Evaluation and Critical Appraisal}
 
-% ref example report
+\subsection{Objectives}
+\label{sub:eobjectives}
+The objectives as listed in section \ref{sub:objectives}  are extavise, ranging from primary objectives that required a basic engine capable of creating a Tactical RPG to tertiary objectives which required a creation of a editor for the engine. 
+
+Since all the primary and secondly objectives were completed as well as nearly all the tertiary objectives I consider  the project a success, I will now discuss the objectives in details.
+
+\subsubsection{Scripting \& Custom Events}
+A tertiary requirements was to implement custom events though the use of scripting.  This would allow the user to specify events such as making the player win if some enemies unit has less then 50\% Hit Points. 
+
+To implement this I had planed to use the Java Scripting API\cite{javas}. The would allow embedding a dynamic scripting language.  The main benefit of this, is that do not have to be compiled which means it have the same hundles with class linking as my Java extension method.   The language chosen for embedding was Javascript  as it is build into the JDK, so the user does not have install anything extra and of all the scripting language Javascript  is more likely to have used before by the average user, these desctions are desction in more detail in section \ref{sec:Scripting}. 
+
+Some such as ref  advatage forgoing scripting completing. Pointing out that scripting is a lazy out of let user customiseablity since it can be quite for user to create events.  Using their advice of creating visual editors for creating events instead I allows the user to specify common events from the editor, with the option of link they own classes as a last reosct. 
+
+Algoth the scripting was not implementation due to time constraints, note that it was  tertiary objectives and all the example can be still be specified. In perticual win condcustion can be specified (section ref) and common winning condcustion can be selected from the editor.  The engine support shows dialog at abtaution point in the game which could be used to support the requirement ``Showing some part of the story when a player’s character reaches a specified tile''.
+
+The engine supports the user using their own classes though the extension mechanism in Appendix \ref{sub:data_format_extension_mechanism}, which allows a slightly more limited form of scripting but with the benefit of being type safe but with the drawback of being  more complex.
+% ref game progamming gems
+
+% morrowind 
+% wow 
+% never winter nights 
+% 
+
+% ref example reportt
 \subsection{Results of User Testing}
 In total six participants took part in the user testing, more people were interested but could not due to time constraints.  See Appendix \ref{sec:questionnaire} for the Questionnaire.
 
