@@ -5,15 +5,15 @@
 \subsection{Project Scope}
 \label{sub:project_scope}
 
-The aim of the project is to enable the user to create highly customisable Tactical RPG.  There are three main parts to the project the \emph{engine}, the \emph{GUI} and the \emph{editor}.
+The aim of the project is to enable the user to create a highly customisable Tactical RPG.  There are three main parts to the project: the \emph{engine}, the \emph{GUI} and the \emph{editor}.
 
-The engine will contains all the logic of the game including handling the game progression as well as the battle system. The GUI, will be an isometric view of the game (see Section~\ref{sub:tilemap}). 
+The engine will contain all the logic of the game including handling the game progression as well as the battle system. The GUI will be an isometric view of the game (see Section~\ref{sub:tilemap}). 
 
 The editor will allow the user to specify the input to the engine. This includes visual map making as well as specifying all the attributes of the units and weapons in addition to the winning conditions.  The editor will also allow the user to export the game as a standalone application.
 
 \subsection{Requirements Overview}
 \label{sub:overview}
-A complete listing of requirements is in section~\ref{objectives}. The main requirements are to create a engine allows a high degree of customisability, a isometric view and exporting the game as a standalone application.  
+A complete listing of requirements is in section~\ref{objectives}. The main requirements are to create an engine which allows a high degree of customisability, an isometric view and the ability to export the game as a standalone application.  
 
 \subsection{Overview Description}
 \subsubsection{Product Perspective}
@@ -23,12 +23,12 @@ A complete listing of requirements is in section~\ref{objectives}. The main requ
 \subsubsection{User characteristics}
 The system is for anyone that would like to create a TRPG.  They need not have any experience in creating TRPG before, or even played one before since the game can be created without \texttt{any} programming. 
 
-For more advance users, they of course further customise the created game using their own code. This allows the user to completely change most aspects of the game. This could be used for example to make unique abilities or battle systems.
+For more advanced users, they can further customise the created game using their own code. This allows the user to completely change most aspects of the game. This could be used for example to make unique abilities or battle systems.
 %TODO talk about java scripting       
 
 
 \subsubsection{Constraints, assumptions and dependencies}
-The system should be portable i.e it should work on most operating systems.  To achieve this I used Java  since it would work on any system that has the Java runtime environment installed on it. 
+The system should be portable i.e it should work on most operating systems.  To achieve this I chose to use Java  since it would work on any system that has the Java runtime environment installed on it. 
 
 \input{text/Objectives}
 
@@ -36,7 +36,7 @@ The system should be portable i.e it should work on most operating systems.  To 
 The system should allow the user to export the created game with no additional dependencies apart from the Java runtime environment. 
 
 \subsubsection{Security Requirements}
-Although their are no security requirements in the objectives, they could nevertheless  be considered in the future. Xml is used as the data format for the created games. This aids maintainability since xml is human readable and there many tools to manipulate the files. The disadvantage of this is that the end users of the created game can also access the data, hence could edit it or steal the resources of the game. A solution to this problem would be to encrypt the data files so they are not editable by the end users.    
+Although their are no security requirements in the objectives, they could nevertheless  be considered in the future. Xml is used as the data format for the created games. This aids maintainability since xml is human readable and there are many tools to manipulate the files. The disadvantage of this is that the end users of the created game can also access the data, hence they could edit it or steal the resources of the game. A solution to this problem would be to encrypt the data files so they are not editable by the end users.    
 
 \subsubsection{User Interface Requirements}
 The GUI should provide a isometric view of the game as shown in \ref{fig:TRPG}. The GUI should visually display to the user  which action the opponent performs. The GUI should give visual feedback for any actions the user makes.

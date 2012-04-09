@@ -4,18 +4,18 @@
 
 \subsection{Methodologies}
 \label{sub:methodologies}
-The Model, View, Controller (MVC) design paradigm was chosen to be used to structure the project. The MVC design patten has many benefits as discussed below.  
+The Model View Controller (MVC) design paradigm was chosen to be used to structure the project. The MVC design patten has many benefits, as discussed below.  
 
 %TODO
 
 \subsection{Engine}
-The main considerations  for the engine was to make it configurable as possible. To achieve this everything was designed in terms of interfaces, which allowed the particular implementation to be changed. The objects themselves were loaded from their serialised form on disk. 
+The main considerations  for the engine was to make it as configurable as possible. To achieve this everything was designed in terms of interfaces, which allowed the particular implementation to be changed. The objects themselves were loaded from their serialised form on disk. 
 
 \subsubsection{Data Format}
 \label{ssub:data_format}
 XMl was chosen as the data format for this project. The main reason is that it is human readable, this allowed me to create and test the data format before the editor was created.
 
-The data was designed to be extendable, as well as provide implementations of the various assets. An advance user can specify their own custom classes.
+The data was designed to be extendable, as well as provide implementations of the various assets. An advanced user can specify their own custom classes.
 
 \begin{lst:weapon}[caption=Example of Custom weapon, label=lst:weapon]
 <weapon class="custom.customWeapon" uuid="0f0dee33">
@@ -27,7 +27,7 @@ Listing \ref{lst:weapon} shows how a custom weapon can be used. The \texttt{clas
 
 \subsubsection{XML schema}
 
-XML schema is a way of validating a  xml document. A schema was produced for each serialised object\footnote{in the \texttt{schemas} directory}. 
+XML schema is a way of validating an  xml document. A schema was produced for each serialised object\footnote{in the \texttt{schemas} directory}. 
 The main use of this was for testing the hand written xml I used before the editor was created. It also helped ensure that the xml produced by the editor was correct.  
 
 \subsection{Game Progression}
@@ -38,19 +38,19 @@ The main use of this was for testing the hand written xml I used before the edit
 	\label{fig:figures_game}
 \end{figure}
 
-Figure \ref{fig:figures_game} shows the overview of how the created game progresses.  Each game has a number of maps where a battle takes place. After the map is loaded any relevant dialogue is displayed, along with winning conditions. The player's units are then placed on the map, and the battle starts\footnote{While the engine supports the user's to choose where their units are placed, the GUI does not due to time constraints. The editor does support specify the starting location for the player's units.}. If the player's loses the battle, a gameover screen is shown and the game ends. In contrast if the player wins he/she advances to the next map, if there is one.    
+Figure \ref{fig:figures_game} shows the overview of how the created game progresses.  Each game has a number of maps where a battles takes place. After the map is loaded, any relevant dialogue is displayed, along with the winning conditions. The player's units are then placed on the map, and the battle starts\footnote{While the engine allows the user to choose where their units are placed, the GUI does not due to time constraints. The editor supports specifying the starting location for the player's units.}. If the player loses the battle, a gameover screen is shown and the game ends. In contrast if the player wins, he/she advances to the next map, if there is one.    
 
 \subsection{Game Mechanics}
-As apparent from the name of the project, a TRPG is turn based.  There were two main choices; the first is where the players take turns to move all the units, the other method is where the next unit to move is based on some stat such as the unit's agility. Both methods are widely used,  the first more often in games that focus on micro-management such as Civilization but there are exceptions to this such as Disgaea. 
+As apparent from the name of the project, a TRPG is turn-based.  There were two main choices for turns works; the first is where the players take turns to move all the units, the other method is where the next unit to move is based on some statistic such as the unit's agility. Both methods are widely used,  the first more often in games that focus on micro-management such as Civilization but there are exceptions to this such as Disgaea. 
 
-The second method has the advantage of allowing more dynamic unit ordering.  An example of how this is commonly used: A unit can get their turn quicker if they did not perform any action on the their last turn. It also has the advantage of making the game flow much quicker, since the player does not have to wait too long to move their next unit. 
+The second method has the advantage of allowing more dynamic unit ordering.  An example of how this is commonly used: A unit can get their turn quicker if they did not perform any action on their last turn. It also has the advantage of making the game flow much quicker, since the player does not have to wait too long to move their next unit. 
 
-I chose to use the second method because it allows the user more customisability since they can choose how unit ordering works. The other reason is based on experience where I think it works better.
+I chose to use the second method because it allows the user more customisability since they can choose how unit ordering works. The other reason is based on my own experience, where I think it works better.
 
 \subsection{Map Rendering}
 
 \subsubsection{Introduction}
-A isometric viewpoint is a way of display 3d objects in 2d while giving the impression that it 3d.  Two different variations are shown in figure \ref{fig:tilemap0}.  
+An isometric viewpoint is a way of display 3d objects in 2d while giving the impression that it s 3d.  Two different variations are shown in figure \ref{fig:tilemap0}.  
 %TODO more
 
 The main benefit of an isometric map compared to a topdown view is that height can be easily displayed. 
@@ -60,16 +60,16 @@ The main benefit of an isometric map compared to a topdown view is that height c
 
 There were two main choices for the isometric tilemap, a ``Diamond'' map or a  ``Staggered'' map \cite{isometric_game_programming}, examples of both are shown below in figure \ref{fig:tilemap0}. Prototypes of each map type were created and the following was found.  
 
-The ``Staggered'' was the first to be considered and the following advantages:
+The ``Staggered'' was the first to be considered and it had the following advantages:
 \begin{itemize}
-	\item The map fill up the screen with very little wasted space, so the user can more of what happing on the map. 
+	\item The map filled up the screen with very little wasted space, so the user can see more of what is happening on the map. 
 \end{itemize}
 
 The ``Diamond'' map was chosen for the following reasons:
 \begin{itemize}
-	\item ``Diamond'' map look more ascetically pleasing then ``Staggered'' maps because it has no ragged edges.
-	\item  If the map is large enough it will fill the whole screen negating ``Staggered'' map advantage.
-	\item  Simpler to think about, since a `Diamond' map is just a rectangular map rotated.
+	\item ``Diamond'' map look more aesthetically pleasing than ``Staggered'' maps because it has no ragged edges.
+	\item  If the map is large enough, it will fill the whole screen negating the ``Staggered'' map advantage.
+	\item  Simpler to think about, since a ``Diamond'' map is just a rectangular map rotated.
 \end{itemize}
 
 
@@ -91,9 +91,9 @@ The ``Diamond'' map was chosen for the following reasons:
 \label{ssub:unit}
 I designed the actions a unit can take as a finite state machine as show in figure \ref{fig:figures_unit}.  The main actions the unit can take are:
 \begin{itemize}
-	\item[\textbf{Move}]   This allow the unit to move to any tile in it movement range.
+	\item[\textbf{Move}]   This allows the unit to move to any tile in it's movement range.
 	\item[\textbf{Attack}] Attack any opponent in their weapons range.
-	\item[\textbf{Skill}]  Use one of the skills
+	\item[\textbf{Skill}]  Use one of their skills
 	\item[\textbf{Wait}]   Finish their turn  without taking any action.
 \end{itemize}
 
@@ -112,7 +112,7 @@ I designed the actions a unit can take as a finite state machine as show in figu
 
 
 
-As is common in TRPG, I included weapons as  well as skills in the design.  A Weapon has a certain strength, a specified range and may have unique effects.  As discussed in  section \ref{ssub:data_format},  the weapons and skills are completely configurable, but to enable the user to create common weapons, I designed the following weapons to include as standard in the engine.  
+As is common in TRPG, I included weapons as  well as skills in the design.  A Weapon has a certain strength, a specified range and it may have unique effects.  As discussed in  section \ref{ssub:data_format},  the weapons and skills are completely configurable, but to enable the user to create common weapons, I designed the following weapons to be included as standard in the engine.  
 
 \def\weapon{0.44}
 \begin{figure}[htbp]
@@ -132,18 +132,18 @@ As is common in TRPG, I included weapons as  well as skills in the design.  A We
 
 \paragraph{Melee Weapon} this is the simplest kind of weapon, where the unit can only attack adjacent enemies.
 
-\paragraph{Spear} A spear can attack  enemies in range, in a single direction. The unique feature is that it damages \texttt{all} enemies in that direction at the same time.
+\paragraph{Spear} A spear can attack  enemies in it's range, in a single direction. The unique feature is that it damages \texttt{all} enemies in that direction at the same time.
 
 \paragraph{Ranged Weapon} A ranged weapon attacks a single faraway target. It has the limitation of not been able to attack enemies which are too close (as shown in the diagram). 
 
-\paragraph{Ranged Skill} A skill can attack  enemies in range. The main difference from a weapon is that the skill has an \texttt{attack area}(shown in green) which are the units affected. Unlike most weapons, skills affect \emph{all} units in the \texttt{attack area}.
+\paragraph{Ranged Skill} A skill can attack  enemies in it's range. The main difference from a weapon is that the skill has an \texttt{attack area}(shown in green) which are the units affected. Unlike most weapons, skills affect \emph{all} units in the \texttt{attack area}.
 
 \clearpage
 \subsection{Editor}
-The editor was designed to be easy to use. I designed a tabbed interface which allow the user which parts to edit.  One of the main features of the editor, is the updating of related panels. For example, if the user creates a new weapon, it will automatically added to the list of available weapons. 
+The editor was designed to be easy to use. I designed a tabbed interface which allows the user to choose which parts to edit.  One of the main features of the editor is the updating of related panels. For example, if the user creates a new weapon, it will automatically be added to the list of available weapons. 
 The main components of the editor are shown below.
 
-\paragraph{Weapons \& Skills} the editor is designed to allow the user to visually how changing the stats affect the it. This includes showing the user the attack range of the weapon/skill.
+\paragraph{Weapons \& Skills} the editor is designed to allow the user to visually see how changing the stats affect it. This includes showing the user the attack range of the weapon/skill.
 
 \def\editor{0.23}
 \begin{figure}[htbp]
@@ -168,7 +168,7 @@ The main components of the editor are shown below.
 %TODO finish
 \clearpage
 \subsubsection{Visual Map Editing}
-The editor support visual map editing as shown in figure \ref{fig:figures_editor_Map}.  This allows the user to design their map without writing lots of xml. One of the notable features is that the user can specify the enemies locations, which give the user more freedom compare with older TRPG where the enemies always start on the same conner on every map.  
+The editor supports visual map editing as shown in figure \ref{fig:figures_editor_Map}.  This allows the user to design their map without writing lots of xml. One of the notable features is that the user can specify the enemy's locations, which gives the user more freedom, compared with older TRPG where the enemies always start on the same corner on every map.  
 
 \begin{figure}[htbp]
 	\centering
@@ -182,10 +182,10 @@ Each tile has many attributes associated with it, these include
 	\item The main image.
 	\item The left and right wall images.
 	\item A specified height.
-	\item An \emph{orientation}, which affects which way slanted tile are drawn.
+	\item An \emph{orientation}, which affects which way the slanted tiles are drawn.
 \end{itemize}
 
-The tools are based their equivalents in a painting program  and include a \texttt{pencil} for draw the currently selected tile image onto the selected tile.  Other tools include enemy unit placement using a icon of a pointing finger. 
+The tools are based on their equivalents in a painting program  and include a \texttt{pencil} for drawing the currently selected tile image onto the selected tile.  Other tools include enemy unit placement using an icon of a pointing finger. 
 %TODO finish
 
 
