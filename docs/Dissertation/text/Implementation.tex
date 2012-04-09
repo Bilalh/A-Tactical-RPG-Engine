@@ -13,7 +13,7 @@
 	\label{fig:overview_engine}
 \end{figure}
 
-The system is structures using MVC for the overall architecture as well as  using the Observer Patten as shown above.
+The system is structured using MVC for the overall architecture as well as  using the Observer Patten as shown above.
 %TODO explain  mvc and Observer Patten somewhere
 
 The \texttt{MainController} handles the overall logic, including the game progression. 
@@ -27,8 +27,8 @@ The observable components (i.e. the view, and the map controller) communicate us
 
 \clearpage
 \subsection{Data Format}
-The schema for the data format was only slightly changed for the reason stated in section \ref{ssub:intercompatibility}. To parse and serialisation the xml the \texttt{Xstream} Java library was used.
-
+The schema for the data format was only slightly changed for the reason stated in section \ref{ssub:intercompatibility}. To parse and serialise the xml the \texttt{Xstream} Java library was used.
+ 
 XStream is an open source library used to serialise Java objects to and from XML. One of the it major benefits is that it abstracts over the parsing and serialisation and allows the user to focus on what the data should be used for. 
 
 XStream achieves this though the use of Java annotations\footnote{A special form of syntactic metadata that can be added to source of a Java file, with the notable feature of being retained in the complied class files.}, as shown in the below example\footnote{Getter, Setters and trivial constructor omitted.}.
@@ -147,7 +147,7 @@ The path are then used to display \emph{animated} unit movement to the user.  Th
 \def\astar{A$^{\star}$ }
 
 Other algorithm such as \astar (which is generally an improvement for Dijkstra) was considered for finding the shortest path between two tiles. \astar was rejected since it does  provide much improvement since the paths to \emph{every} tile in range is needed. Since the paths were cached the difference would negavaitble and hence was not worth the time implementing and testing it.
-
+xz
 
 \subsubsection{AI Behaviour}
 Each has AI unit has a \emph{Behaviour} which specifies how the unit acts and which of the player's unit to target.  The engine provides a default implementations which try to get as close as possible to target while attacking any of the player's units that happen to be in range to be on the way.  The targets the engine provides by default include attacking the player's unit that has the lowest hp and attacking the unit with highest strength. Like other parts of the engine a user can user can provide their own behaviour to further customised by linking their classes.
@@ -383,7 +383,7 @@ Sprite sheet editor are used for many of the tabs including the Units's image, t
 	\caption{The Music Editor}
 	\label{fig:figures_editor_Music}
 \end{figure}
-The music editor supports choosing which music are available to use in the game.  When a track is selected in the editor, the metadata (include the `artist' and `album') of the track is displayed.  As a further enhancement, the track can be previewed this especially useful when used in combination with the  sound effect editor (which has exactly the same interface) to see what the combination of sounds and music sound like. 
+The music editor supports choosing which music are available to use in the game.  When a track is selected in the editor, the metadata (include the `artist' and `album') of the track is displayed.  As a further enhancement, the track can be previewed this especially useful when used in combination with the sound effect editor (which has exactly the same interface) to see what the combination of sounds and music sound like. 
 
 \clearpage
 
@@ -406,12 +406,6 @@ Usually all the resources of an editor are loaded when the tab is selected and t
 
 %ref Martin Fowler, Patterns of Enterprise Application Architecture, Addison-Wesley, 2003, pp.200-214. ISBN 0-321-12742-0.
 
-\paragraph{Music Tab\\}
-The music tab allows the user to select from any music they imported in the music editor(section \ref{ssub:music_editor}).
-
-\paragraph{Win Condition Tab}
-This tab allows the user to choose the condition the player has to satisfy to win the map. Although the engine supports artibry conditions, the editor provide the two most common conditions used in TRPG, namely default all enemy units, and default a specific unit, which allows them a reasonable customisabitbty. 
-
 \paragraph{Details Tab\\}
 The details tabs allows the user to change a maps name, as well the size of the tiles.  The size of the map can not be changed after creation to keep the implementation of the simple\footnote{Although the engine does support changing the map size.}. Another reason for allow the user to change the map size is that, the data such enemy unit placement may because invalid which goes against the goal of always keeping the data consistent.  
 
@@ -419,6 +413,11 @@ For the same reasons the editor does not let the user changing the associated ti
 
 The details tab also supports Dialog importing as well as exporting, which will be discussed in section \ref{ssub:dialog_editing}.
 
+\paragraph{Music Tab\\}
+The music tab allows the user to select from any music they imported in the music editor(section \ref{ssub:music_editor}).
+
+\paragraph{Win Condition Tab\\}
+This tab allows the user to choose the condition the player has to satisfy to win the map. Although the engine supports arbitrary conditions, the editor provide the two most common conditions used in TRPG, namely default all enemy units, and default a specific unit, which allows them  reasonable customisability.
 
 \paragraph{Map Creation\\}
 When creating the map they specify the size of map as well which tileset to associate.  An interesting addition to the editor is as previous mentioned, can use Stasyk's terrain generator which can be used as a starting point for their creations as shown in figure \ref{fig:figures_editor_gen}.
@@ -429,6 +428,25 @@ When creating the map they specify the size of map as well which tileset to asso
 	\caption{The map editor show a map created by Stasyk's terrain generator.}
 	\label{fig:figures_editor_gen}
 \end{figure}
+
+\subsubsection{Visual Map Creation}
+The visual map editor allows the user to design a map with writing any xml (the format the engine take as input).  The editor shows the available tiles in the associated tileset in bottom spilt.  The user can use the tools on in the tool palette on the left to place the tiles.  The tools include
+
+\begin{description}
+	\item[Pencil] Draws the selected tile in \texttt{Tiles} onto any tile that is click on the map.
+	\item[Brush]  Same as Pencil but sets the height and orientation as well (from the info panel).
+	\item[Paint]  Set the image of \emph{all} tiles in the selected area.
+	\item[Eyedropper]  Set the selected tile in \texttt{Tiles} to the image of the clicked tile.
+	\item[Area Tool]  Used to select a number of tiles on the map.
+	\item[Left Wall]  Set the texture of the left wall.
+	\item[Right Wall] Sets the texture of the right wall.
+	\item[Pointing Finger]  Places enemy units on the map.
+	\item[Pointer to Tile]  Set the player's start location.
+\end{description}
+
+The panel on the right displays data on the selected tile on the map. It also allows the user to edit the orientation and height of the tile.  As shown in figure \ref{fig:figures_editor_Map}  Tiles can be hidden. This allows more customisability, e.g. it could be used to make ``islands''  (a set of tiles with empty tiles around them),  and set of bridges between them. 
+
+The visual map editor support editing  of both textured and non-textured tiles. As discussed before non-textured tiles allow the user more control over whats drawn so they  apply more detail. The advantage of textured tiles is that slanted tiles can be used, which easily allow the creation of slopes and stairs for example.
 
 
 \clearpage
@@ -441,7 +459,7 @@ When creating the map they specify the size of map as well which tileset to asso
 	\caption{The dialog editing panel}
 	\label{fig:figures_editor_Maps-dialog}
 \end{figure}
-The editor supports the creation of dialog.  A dialog is sequential of parts. Each part has the text  associated with it as well optionally have a speaker.  The speaker can be selected from any unit that is already been placed on the map. This a vast improvement on the original design where the user types the name of the speaker since less change of making errors. \footnote{It would also cause runtime exceptions if there was no unit with that name.}.
+The editor supports the creation of dialog.  A dialog is sequential of parts. Each part has the text  associated with it as well optionally having a speaker.  The speaker can be selected from any unit that has already been placed on the map. This a vast improvement on the original design where the user types the name of the speaker since there no less change of entering invalid data.
 
 As mentioned before, the engine takes care of pagination as well line wrapping when displaying the dialog in the game. This frees the user from having to fit the text into a specified area. 
 
@@ -476,9 +494,30 @@ A prominent feature of the editor is that the jar will work on any Java enabled 
 While most of the testing was done on OS X \footnote{Mac OS X 10.6 Snow leopard}, it also works well on Linux \footnote{Science  Linux x.y}. It  even has limited compatibly with Windows \footnote{Tested on Windows 7 32 bit} (apart from some minor graphics issues).
 
 \subsection{Ant Build File}
+
+The task of creating the Editor as a self contained application with no external dependencies apart from obviously Java is non-trivial and error prone.  To automate this task an Ant build file was created, which has a added benefit of allowing the creation of distribution from the command line. 
+
+The main steps to create the self contain editor are:
 \begin{itemize}
-	\item Builds the projects
-	\item Runs tests
-	\item Make dist versions
-	\item Links Jars
+	\item Compiling the code.
+	\item Creating the the jar of the engine.
+	\item Creating the jar of the editor
+	\item Creating the directory structure for the editor Mac OS X application.
+	\begin{itemize}[topsep=0mm,noitemsep ]
+		\item This includes creating the plist\cite{plist} with the applications.
+		\item Setup the native libraries and the Java include path.
+		\item Adds the icons.
+		\item Linking the java wrapper so that icons appears in the Dock.
+	\end{itemize}
+	\item Create the cross platform Jar for Editor. 
+	\begin{itemize}[topsep=0mm,noitemsep ]
+		\item Combines the Jars into a single Jar.
+		\item Set up the native libraries path.
+		\item Set up the Java libraries path.
+	\end{itemize}
+	\item Create the cross platform Jar for exporting the game.
+	\item Create Mac OS X application for exporting the game.
+	\item Copy the resources for the starting project.
 \end{itemize}
+
+The ant build files takes care of all the above steps and can be invoked by doing \lstinline{ant dist}. The build files has many other features such as running all tests and creating a web page. These features are described are the top of the build file (\texttt{build.xml}).
