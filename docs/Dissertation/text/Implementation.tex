@@ -17,13 +17,13 @@ The system is structured using MVC for the overall architecture as well as  usin
 %TODO explain  mvc and Observer Patten somewhere
 
 The \texttt{MainController} handles the overall logic, including the game progression. 
-Although the objectives only required a isometric  map view, the implementation was designed to be more general  hence a \emph{separate} controller for each \texttt{stage} of the game is used. When the \texttt{stage} is finished  (e.g. when a map has been completed) the controller notifies the \texttt{MainController}, which decides what to do next.   
+Although the objectives only require a isometric  map view, the implementation was designed to be more general  hence a \emph{separate} controller for each \texttt{stage} of the game is used. When the \texttt{stage} is finished  (e.g. when a map has been completed) the controller notifies the \texttt{MainController}, which decides what to do next.   
 
 %TODO where to put this
 %The architecture could be easily extended to overworld maps, cut-scenes for example.
 
 
-The observable components (i.e. the view, and the map controller) communicate using \texttt{notification} objects which encapsulate any relevant information. For example the \texttt{model} sends a \texttt{UnitMovedNotification} when the computer controlled opponent move ones of their units. This notification includes a reference to the unit moved as well as the path it took to to get there. This information is used by the GUI to display an animation of the unit moving to the user.
+The observable components (i.e. the view, and the map controller) communicate using \texttt{notification} objects which encapsulate any relevant information. For example the \texttt{model} sends a \texttt{UnitMovedNotification} when the computer controlled opponent moves one of their units. This notification includes a reference to the unit moved as well as the path it took to get there. The information is used by the GUI to display an animation of the unit moving to the user.
 
 \clearpage
 \subsection{Data Format}
@@ -57,7 +57,7 @@ public class SavedTile {
 	}}
 \end{lstlisting}
 
-As shown above no extra logic apart from the annotations is need for serialisation.  Another benefit of XStream is that it allows setting default values. This allows the user to omit redundant tags, as shown in the xml where most of the tags have been omitted.
+As shown above no extra logic apart from the annotations is need for serialisation.  Another benefit of XStream is that it allows setting default values of the fields. This allows the user to omit redundant tags, as shown in the xml where most of the tags have been omitted.
 \begin{lst:tile}[caption=Serialised form of the above class. ]
 <tile x="0" y="0">
 	<type>grass</type>
@@ -69,11 +69,11 @@ As shown above no extra logic apart from the annotations is need for serialisati
 
 \subsubsection{Resources}
 
-All resources that loaded are \texttt{Identifiable}, that is they have a unique id.  There are two main advantage to using this scheme. The first is that it allows caching of resources which means that there's single instance for each resource (such as weapons and images). This is especially important for the images, to reduce the memory requirements as well as the load times.
+All resources that loaded are \texttt{Identifiable}, that is they have a unique id.  There are two main advantages to using this scheme. The first is that it allows caching of resources which means that their is a single instance for each resource (such as weapons and images). This is especially important for the images, to reduce the memory requirements as well as the load times.
 
-The other advantage is that it meant I could use the same framework for loading and saving all the resources, hence saving development time as well as reducing code duplication. 
+The other advantage is that I could use the same framework for loading and saving all the resources, hence saving development time as well as reducing code duplication. 
 
-A detail description of the structure and  required resource of a project is in appendix \ref{sec:project_structure___specification}.
+A detail description of the structure and  required resource of a project is in the appendix \ref{sec:project_structure___specification}.
 
 \subsubsection{Sprite Sheets}
 \label{ssub:sprite_sheets}
@@ -91,7 +91,6 @@ A sprite sheet is a collection of images combined together. The advantage of thi
 Sprite sheets make maps more reusable, since the tileset can be changed without any consequences\footnote{As long as the new tileset has the same number of image or the \texttt{tilemapping} has entries for missing images.}.  
 
 I created a sprite sheet editor to allow the user to easily edit the tilesets. Using sprite sheets allowed abstracting over the file system, hence increasing the usability of system. The editor was reused for editing other images such as the character images and can even be used independently.
-%TODO real word?
 
 \clearpage
 \subsection{Engine Development}
@@ -118,11 +117,11 @@ The other major responsibly of the map is to send notifications to the view.
 
 \subsubsection{Units}
 \label{ssub:units}
-A \texttt{unit} has set of attributes whose values can be specified by the user. A unit is the abstract representation and is storage.  A \texttt{MapUnit} extends the units sets of attributes with extra information such the location and the current hit points.
+A \texttt{Unit} has set of attributes whose values can be specified by the user. A unit is the abstract representation and is used for serialisation.  A \texttt{MapUnit} extends the unit's sets of attributes with extra information such the location and the current hit points.
 
-A unit has a  specified weapon (as discussed in section \ref{sub:weapons___skills}).  A weapon has a \emph{attack range} which specified how the unit attacks.  As a example consider a spear which attacks all units in a specified direction and a bow which attack a single faraway target. A unit with same attributes would play very differently with either of examples since a spear can be only used in melee combat, whereas a bow can only be used from a distance.
+A unit has a  specified weapon (as discussed in section \ref{sub:weapons___skills}).  A weapon has a \emph{attack range} which specified how the unit attacks.  As an example consider a spear which attacks all units in a specified direction and a bow which attack a single faraway target. A unit with same attributes would play very differently with either of examples since a spear can be only used in melee combat, whereas a bow can only be used from a distance.
 
-A unit has a set of skill (as descried in section \ref{sub:weapons___skills}). The main difference apart possibility of having \emph{multiple} skills is the concept of an \texttt{attack area}.  The \emph{attack area} is tile that are effect by the skill, which includes \emph{both} friendly and enemy units. A skill can either include the caster in the area or explicitly exclude the caster, which gives the user more flexibility.
+A unit has a set of skill (as descried in section \ref{sub:weapons___skills}). The main difference apart from the possibility of having \emph{multiple} skills is the concept of an \texttt{attack area}.  The \emph{attack area} is tile that are effect by the skill, which includes \emph{both} friendly and enemy units. A skill can either include the caster in the area or explicitly exclude the caster, which gives the user more flexibility.
 
 While default implementation of skills and weapons are provided, the advance user can create their user using the extension mechanism of the data format (see section \ref{sub:data_format_extension_mechanism}).
 
@@ -140,36 +139,35 @@ Units can ``level up'' which means the attributes  of the unit increase.  Levell
 
 \subsubsection{Movement and Path Finding}
 
-To find movement range movement range of unit Dijkstra's algorithm was used. Dijkstra's algorithm finds the shortest path from a tile to each other tile. This is of course expensive as the map is large so as a improvement I only searched \emph{locally}. Since a unit can movement at most \emph{n} squares in any direction (\emph{n} being the square the unit is allowed to move) there is no point check any tile which which is more then \emph{n} squares away.  Searching \emph{locally} means not finding the paths to any \texttt{tile} which is more then \texttt{n} squares are away.
+To find the movement range movement range of unit Dijkstra's algorithm was used. Dijkstra's algorithm finds the shortest path from a tile to each other tile. This is of course expensive as the map is large so as a improvement I only searched \emph{locally}. Since a unit can move at most \emph{n} squares in any direction (\emph{n} being the square the unit is allowed to move) there is no point checking any tile which is more then \emph{n} squares away.  Searching \emph{locally} means not finding the paths to any \texttt{tile} which is more then \texttt{n} squares are away.
 
 The path are then used to display \emph{animated} unit movement to the user.  This required keeping track of the \emph{direction} in the movement algorithm. 
 
 \def\astar{A$^{\star}$ }
 
-Other algorithm such as \astar (which is generally an improvement for Dijkstra) was considered for finding the shortest path between two tiles. \astar was rejected since it does  provide much improvement since the paths to \emph{every} tile in range is needed. Since the paths were cached the difference would negavaitble and hence was not worth the time implementing and testing it.
-xz
+Other algorithm such as \astar (which is generally an improvement for Dijkstra) was considered for finding the shortest path between two tiles. \astar was rejected since it does not provide much improvement since the paths to \emph{every} tile in range are needed. Since the paths were cached the difference would negligible and hence was not worth the time implementing and testing it.
 
 \subsubsection{AI Behaviour}
 Each has AI unit has a \emph{Behaviour} which specifies how the unit acts and which of the player's unit to target.  The engine provides a default implementations which try to get as close as possible to target while attacking any of the player's units that happen to be in range to be on the way.  The targets the engine provides by default include attacking the player's unit that has the lowest hp and attacking the unit with highest strength. Like other parts of the engine a user can user can provide their own behaviour to further customised by linking their classes.
 
 \subsubsection{Turn Ordering}
-The engine provides dynamic unit ordering.  This allows the ordering to change based on units attributes or actions.  The default implementation allows the unit with highest \texttt{speed} to move first.  To make the ordering more interesting it also takes account the unit's action when deciding which is the next unit to move. For example if the unit does not move (i.e. uses \texttt{wait}) they get their next turn quicker. As with other parts of the engine the user can uses their classes to further customise the unit ordering.
+The engine provides dynamic unit ordering.  This allows the ordering to change based on units attributes or actions.  The default implementation allows the unit with highest \texttt{speed} to move first.  To make the ordering more interesting it also takes account of the unit's action when deciding which is the next unit to move. For example if the unit does not move (i.e. uses \texttt{wait}) they get their next turn quicker. As with other parts of the engine the user can uses their classes to further customise the unit ordering.
 
 \subsubsection{Battle System}
 \label{ssub:battle_system}
 
-The battle system controls how units interact with each other.  It specify how damage is calculated as any affects results from an action. The engine provides a default implementation where 
+The battle system controls how units interact with each other.  It specifies how damage is calculated as any affects results from an action. The engine provides a default implementation where 
 \begin{itemize}
-	\item The damage taken by a weapon is calculated by adding the weapons power to unit's strength and subtracting the opponent defence. The lowest a weapon can do is zero, i.e. negative damage is not allowed.
+	\item The damage taken by a weapon is calculated by adding the weapons power to unit's strength and subtracting the opponent's defence. The lowest a weapon can do is zero, i.e. negative damage is not allowed.
 	\item The damage done by a skill is independent of the unit's attributes.
 \end{itemize}
 
-The damage done by a weapon is also affected by difference in height of the attack tile and target's tile. Attacking was a higher height gives a bonus whereas attacking was below reduces the attack.
+The damage done by a weapon is also affected by difference in height of the attack tile and target's tile. Attacking from a higher height gives a bonus whereas attacking from below reduces the attack.
 
 
 The battle system also defines how units ``level up''. The default implementation levels up a unit when they gain 100 experience points. The unit gain experience points by perform actions. Each action gives a different amount of experience point ranging from none from using \texttt{wait} to 60 (before any modifiers are applied).
 
-The amount of experienced gained is dependant on level on the attacker and the target. Attack a higher level unit gives a bonus whereas attacking a lower level unit reduces the amount of experienced points gained.
+The amount of experienced gained is dependant on level on the attacker and the target. Attacking a higher level unit gives a bonus whereas attacking a lower level unit reduces the amount of experienced points gained.
 
 \subsubsection{Conditions}
 \label{ssub:events}
@@ -197,11 +195,11 @@ The editor as discussed in section \ref{ssub:dialog_editing} supports editing of
 
 
 \subsection{Saving and Loading}
-The engine supports Saving and Loading at any point during the game. The only possible downside  for the user is that when the the saved data is loaded, game continues from the \emph{beginning} of the map which was lasted played. 
+The engine supports Saving and Loading at any point during the game. The only possible downside  for the user is that when the saved data is loaded, game continues from the \emph{beginning} of the map which was lasted played. 
 
 The reason for this limitation is to keep the save format small and easy to load. Using this methods means the only details that need to be saved are the maps left to be played and units attributes (which can change since units can ``level up''). 
 
-The other limitation is that there only one save file. This not as big limitation as it seems since the the save file is stored in users home directory, meaning each user would have their own save.
+The other limitation is that there is only one save file. This not as big limitation as since the  save file is stored in users home directory, meaning each user would have their own save.
 
 \subsection{Inter-compatibility}
 \label{ssub:intercompatibility}
@@ -234,7 +232,7 @@ The map is composed of isometric tiles which have the following features:
 One the major features of the map render is how the height is specified.  Instead of using a bunch of careful constructed tiles to simulate height, each tile has a specified height which the renderer uses to draw the tile with appropriate height. 
 
 \subsubsection{Drawing Algorithm}
-The algorithm for drawing tiles, first the top of the tile is drawn, then the walls are drawn. It quite general since it supports tiles which can slant in any direction as shown in figure \ref{fig:mtile2} where the tile is slanting to the north as well as zooming and arbitrary height \footnote{A simulate of the equations was made first and is in \texttt{IsomerticRendering.gcx} (Mac Only).}. 
+The algorithm for drawing tiles, first the top of the tile is drawn, then the walls are drawn. It is quite general since it supports tiles which can slant in any direction as shown in figure \ref{fig:mtile2} where the tile is slanting to the north as well as zooming and arbitrary height \footnote{A simulate of the equations was made first and is in \texttt{IsomerticRendering.gcx} (Mac Only).}. 
 
 \def\tileSize{3in}
 \begin{figure}[h!tbp]
@@ -273,20 +271,20 @@ The equation converted to Java easily since the \texttt{Graphic} class has the m
 
 %TODO
 \subsubsection{Images and Texture Mapping}
-The top of tile can be texture mapped or be drawn directly from an image.  Texture mapping repeats a usually small image across the tile. This is the simpler method for the user since they only have to provide a small texture image, but they loss control over where exactly the image is drawn.  Texture mapping is also required for slanted tiles since too many variations to provide image for,
+The top of tile can be texture mapped or be drawn directly from an image.  Texture mapping repeats a usually small image across the tile. This is the simpler method for the user since they only have to provide a small texture image, but they loose control over where exactly the image is drawn.  Texture mapping is also required for slanted tiles since too many variations to provide image for,
 
-The user also has the option of use a image which is drawn directly. To do this the would have to provide their own isometric tile\footnote{There are script to help the user though}. This methods allows more control on whats drawn.  
+The user also has the option of using an image which is drawn directly. To do this the would have to provide their own isometric tile\footnote{There are script to help the user though}. This method allows more control on what is drawn.  
 
 Walls like slanted tiles are always texture mapped since they to many variations to provide images for. 
 
 \subsubsection{Units}
-Each image has at minimum \emph{four} images associated it, for each direction (east, west, north, south). These are used to show which way the unit is facing. The unit can also has a animation with each direction,to making unit movement more interactive. The unit can also optionally has a portrait which if available would be used for their dialog.
+Each image has at minimum \emph{four} images associated with it, for each direction (east, west, north, south). These are used to show which way the unit is facing. The unit can also has an animation associated with each direction,to making unit movement more interactive.  Th unit can optionally have a portrait which if available would be used for their dialog
 
 \subsubsection{Reusability}
 Since the map renderer is not dependant on Main GUI, it could be reused in many different places in the editor. 
 
 \subsection{Map Rotation}
-The map renderer supports for different rotations which the user can choose from. This is implementation \emph{not} by actually rotating the map (since this would be Expensive) but by changing the draw order. By default (0,0) is on the top left of the map. Rotation mealy changes the location of (0,0). This means that none of the tile have changed so all the cached calculations can be kept. 
+The map renderer supports for different rotations which the user can choose from. This is implemented \emph{not} by actually rotating the map (since this would be Expensive) but by changing the draw order. By default (0,0) is on the top left of the map. Rotation mealy changes the location of (0,0). This means that none of the tile have changed so all the cached calculations can be kept. 
 
 Rotating the map can be used by the user to see units that are hidden or obstructed by tiles. 
 
@@ -299,7 +297,7 @@ The main control scheme for the GUI, but the user can perform nearly every actio
 
 \subsubsection{Menus}
 
-The GUI uses a menu system to handle the units actions. The menu is quite general since it will resize to the longest item in the menu.  It also supports nested menus which are used when user chooses to use a skill. The menu is controllable using the keyboard using the arrows keys, the user can also click a item directory to select it.
+The GUI uses a menu system to handle the unit's actions. The menu is quite general since it will resize to the longest item in the menu.  It also supports nested menus which are used when user chooses to use a skill. The menu is controllable using the keyboard using the arrows keys, the user can also click a item directory to select it.
 
 % TODO FSM enum
 
@@ -323,11 +321,11 @@ The GUI supports of other features to improve the user experience these includin
 \subsubsection{Overview}
 \label{ssub:overview}
 
-The editor allows the user to customise nearly all aspects of the engine.  Notable features include visual map making as was exporting the created game as a completely self contained application with \emph{no} external dependencies apart from a recent version of Java\footnote{specify Java 6+}. 
+The editor allows the user to customise nearly all aspects of the engine.  Notable features include visual map making as well as exporting the created game as a completely self contained application with \emph{no} external dependencies apart from a recent version of Java\footnote{specify Java 6+}. 
 
-The editor uses a tabbed interface, the benefit of is that it shows the users whats available in the editor. Each tab has share the same overall structure, for two reason, namely to keep the all aspect of the editor consistent hence making it easer it to use. The second reason is that, most of the code can be reused for each tab saving development time. 
+The editor uses a tabbed interface, the benefit is that it shows the users whats available in the editor. Each tab shares the same overall structure, for two reason, namely to keep the all aspect of the editor consistent hence making it easer it to use. The second reason is that, most of the code can be reused for each tab saving development time. 
 
-In each tab the of current resources created is listed on the left as shown in figure \ref{fig:figures_editor_Units}. The user can click on any of the resources to customise them. At the bottom of the list are two button the left button (--) removes the selected resource whereas the right button (+) add new resource. Since it is likely the user would create simpler resources (e.g  weapon of the same type differing only in Strength) any new created resource takes on the characteristics of last selected item.
+In each tab the of current resources created is listed on the left as shown in figure \ref{fig:figures_editor_Units}. The user can click on any of the resources to customise them. At the bottom of the list are two buttons the left button (--) removes the selected resource whereas the right button (+) adds new resource. Since it is likely the user would create simpler resources (e.g  weapon of the same type differing only in Strength) any new created resource takes on the characteristics of last selected item.
 
 \begin{figure}[htbp]
 	\centering
@@ -340,7 +338,7 @@ To prevent error and increase usability,  \texttt{JSpinner} were used wherever n
 
 Each of the tabs can only edit their data but can \emph{read} data from other tabs, as shown above where the weapons and skills are received. One of the advantages is the data is always consistent. This was made a lot simpler since the user can only edit one set of resources at a time.
 
-Since the tabs only expose their resources (instead of handle I/O as well),  their means that the tabs can be reused e.g. (Sprite, Tilesets and textures share nearly all their code).
+Since the tabs only expose their resources (instead of handle I/O as well),  this means that the tabs can be reused e.g. (Sprite, Tilesets and textures share nearly all their code).
 
 \clearpage
 \subsubsection{Weapons \& Skills}
@@ -358,7 +356,7 @@ The editor support customising the weapons and skills as shown.
 	\label{fig:editor}
 \end{figure}
 
-The editor shows visually what the attack range looks like. This is updated whenever the user make any change to the resource.  This required very little extra code since the map renderer was general enough to be easily embedded. 
+The editor shows visually what the attack range looks like. This is updated whenever the user makes any change to the resource.  This required very little extra code since the map renderer was general enough to be easily embedded. 
 
 \subsubsection{Unit Editor}
 \label{ssub:unit_editors}
@@ -366,7 +364,7 @@ The unit allows the user to edit all that attributes of the units. These include
 
 
 \subsubsection{Sprite Sheet Editor}
-Sprite sheet editor are used for many of the tabs including the Units's image, textures and tileset.
+Sprite sheet editor are used for many of the tabs including the units's image, textures and tileset.
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[width=0.75\textwidth]{figures/editor/tileset_edit.png}
@@ -398,18 +396,18 @@ The music editor supports choosing which music are available to use in the game.
 	\label{fig:figures_editor_maps}
 \end{figure}
 
-The map allows the user to customise all the aspects of a created map.  The editor is composed using a series of tabs so that the user does not get overwhelm with all the options available. More importantly it allowed reuse of the unit editor(section \ref{ssub:unit_editors}) for enemies units (with the addiction of extra fields to allow customisation of the enemy behaviour).
+The map allows the user to customise all the aspects of a created map.  The editor is composed using a series of tabs so that the user does not get overwhelm with all the options available. More importantly it allowed reuse of the unit editor(section \ref{ssub:unit_editors}) for enemies units (with the addition  of extra fields to allow customisation of the enemy behaviour).
 
 Usually all the resources of an editor are loaded when the tab is selected and then cached.  While this did work for the maps, it caused, unacceptable startup time hence I found an alternative method. 
 
-\emph{Lazy Loading} only loads a resource when it is actually used instead of just be referenced. In the case of the map editor a map is only loaded if the user tries to \emph{edit} map. This significantly reduces loading time of the editor easily if the user has created a large number of maps.
+\emph{Lazy Loading} only loads a resource when it is actually used instead of just been referenced. In the case of the map editor a map is only loaded if the user tries to \emph{edit} map. This significantly reduces loading time of the editor especially if the user has created a large number of maps.
 
 %ref Martin Fowler, Patterns of Enterprise Application Architecture, Addison-Wesley, 2003, pp.200-214. ISBN 0-321-12742-0.
 
 \paragraph{Details Tab\\}
-The details tabs allows the user to change a maps name, as well the size of the tiles.  The size of the map can not be changed after creation to keep the implementation of the simple\footnote{Although the engine does support changing the map size.}. Another reason for allow the user to change the map size is that, the data such enemy unit placement may because invalid which goes against the goal of always keeping the data consistent.  
+The details tabs allows the user to change a maps name, as well the size of the tiles.  The size of the map can not be changed after creation to keep the implementation of the simple\footnote{Although the engine does support changing the map size.}. Another reason for not allowing the user to change the map size is that, some of data such as the enemy unit placement may because invalid, which goes against the goal of always keeping the data consistent.  
 
-For the same reasons the editor does not let the user changing the associated tileset or texture set after creating the map always although the engine does support it. Note that the user still add tiles to the tileset, so it is not a large restriction.
+For the same reasons the editor does not let the user change the associated tileset or texture set after creating the map  although the engine does support it. Note that the user can still add tiles to the tileset, so it is not a large restriction.
 
 The details tab also supports Dialog importing as well as exporting, which will be discussed in section \ref{ssub:dialog_editing}.
 
@@ -420,7 +418,7 @@ The music tab allows the user to select from any music they imported in the musi
 This tab allows the user to choose the condition the player has to satisfy to win the map. Although the engine supports arbitrary conditions, the editor provide the two most common conditions used in TRPG, namely default all enemy units, and default a specific unit, which allows them  reasonable customisability.
 
 \paragraph{Map Creation\\}
-When creating the map they specify the size of map as well which tileset to associate.  An interesting addition to the editor is as previous mentioned, can use Stasyk's terrain generator which can be used as a starting point for their creations as shown in figure \ref{fig:figures_editor_gen}.
+When creating the map the user can specify the size of map and tileset to associate.  An interesting addition to the editor is as previously  mentioned, that is to can use Stasyk's terrain generator which can be used as a starting point for the user's creations as shown in figure \ref{fig:figures_editor_gen}.
 
 \begin{figure}[htbp]
 	\centering
@@ -446,7 +444,7 @@ The visual map editor allows the user to design a map with writing any xml (the 
 
 The panel on the right displays data on the selected tile on the map. It also allows the user to edit the orientation and height of the tile.  As shown in figure \ref{fig:figures_editor_Map}  Tiles can be hidden. This allows more customisability, e.g. it could be used to make ``islands''  (a set of tiles with empty tiles around them),  and set of bridges between them. 
 
-The visual map editor support editing  of both textured and non-textured tiles. As discussed before non-textured tiles allow the user more control over whats drawn so they  apply more detail. The advantage of textured tiles is that slanted tiles can be used, which easily allow the creation of slopes and stairs for example.
+The visual map editor support editing  of both textured and non-textured tiles. As discussed before non-textured tiles allow the user more control over what is drawn so they  apply more detail. The advantage of textured tiles is that slanted tiles can be used, which easily allow the creation of slopes and stairs for example.
 
 
 \clearpage
@@ -459,7 +457,7 @@ The visual map editor support editing  of both textured and non-textured tiles. 
 	\caption{The dialog editing panel}
 	\label{fig:figures_editor_Maps-dialog}
 \end{figure}
-The editor supports the creation of dialog.  A dialog is sequential of parts. Each part has the text  associated with it as well optionally having a speaker.  The speaker can be selected from any unit that has already been placed on the map. This a vast improvement on the original design where the user types the name of the speaker since there no less change of entering invalid data.
+The editor supports the creation of dialog.  A dialog is a sequence of parts. Each part has the text  associated with it as well optionally having a speaker.  The speaker can be selected from any unit that has already been placed on the map. This a vast improvement on the original design where the user types the name of the speaker since there no less chance of entering invalid data.
 
 As mentioned before, the engine takes care of pagination as well line wrapping when displaying the dialog in the game. This frees the user from having to fit the text into a specified area. 
 
@@ -470,7 +468,7 @@ The editor also supports importing as well as exporting the dialog in format sho
 - speaker2: Some more text
 - none:     This part has no speaker
 \end{lstlisting}
-This allows the dialog to be easily written in the user's preferred application.  This could be useful if separate person writes the dialog of the game since the person does not need a copy of the editor. The format is described in more detail in appendix \ref{ssub:dialog_data_format}  
+This allows the dialog to be easily written in the user's preferred application.  This could be useful if separate person writes the dialog of the game since the person does not need a copy of the editor. The format is described in more detail in the appendix \ref{ssub:dialog_data_format}  
 
 \subsubsection{Project Selection}
 \begin{figure}[htbp]
@@ -480,7 +478,7 @@ This allows the dialog to be easily written in the user's preferred application.
 	\label{fig:figures_editor_Project_Selection}
 \end{figure}
 
-When the editor starts It shows the above startup screen which allows the user to create a new project or open an existing project.  Since a user is likely to work on the same project for a significant period of time, the editor keeps tracks of recent projects. 
+When the editor starts It displays the above startup screen which allows the user to create a new project or open an existing project.  Since a user is likely to work on the same project for a significant period of time, the editor keeps tracks of recent projects. 
 
 %TODO put bug when loading music stops
 \clearpage
@@ -500,7 +498,7 @@ The task of creating the Editor as a self contained application with no external
 The main steps to create the self contain editor are:
 \begin{itemize}
 	\item Compiling the code.
-	\item Creating the the jar of the engine.
+	\item Creating the jar of the engine.
 	\item Creating the jar of the editor
 	\item Creating the directory structure for the editor Mac OS X application.
 	\begin{itemize}[topsep=0mm,noitemsep ]
