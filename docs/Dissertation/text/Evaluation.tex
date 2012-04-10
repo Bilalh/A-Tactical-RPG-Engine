@@ -30,8 +30,16 @@ Save and loading the game time were implemented as required, but with the restri
 Allowing the user to customising the AI behaviour, is a completed objective. In addition the engine provides default behaviour including the example of attack the player's unit with lowest HP. The engine also provides default actions such when moving to a faraway target, if the target is not reachable, most as close as possible and attack any player's unit that is in ranch. 
 
 \subsubsection{Tertiary Objectives}
+The main objectives of these requirements is to produce a editor that allowed customising most aspects of the engine as well as combat improvements and units animations, all them having being completed. 
 
-\subsubsection{Scripting \& Custom Events}
+Combat requirements improvements include \texttt{skills} that can affect multiple units, and weapons which can attack multiple units. Further enhancements to this system include complete customisable range (e.g could be used to attack all enemy units around the attack).
+
+The requirement for animated unit movement was completed. This further improved by taking account of the direction the unit is traveling in, which was done by have a  image for each of the four directions. 
+
+\paragraph{Editor\\}
+A editor that can customise nearly all aspects of the engine was created.  The most prominent features are the visual map editor (section ref), unit creation(section ref), dialog editing(section ref) and exporting as a self contained application.  The editor met all the  tertiary requirements.
+
+\paragraph{Scripting \& Custom Events\\}
 A tertiary requirements was to implement custom events though the use of scripting.  This would allow the user to specify events such as making the player win if some enemies unit has less then 50\% Hit Points. 
 
 To implement this I had planed to use the Java Scripting API\cite{javas}. The would allow embedding a dynamic scripting language.  The main benefit of this, is that the code does not have to be compiled which means it does have the same hurdles with class linking as my Extension Mechanism(Appendix \ref{sub:data_format_extension_mechanism}).   The language chosen for embedding was Javascript  as it is build into the JDK, so the user does not have install anything extra and of all the scripting language Javascript  is more likely to have been used before by the average user, these design are described in more detail in section \ref{sec:Scripting}. 
