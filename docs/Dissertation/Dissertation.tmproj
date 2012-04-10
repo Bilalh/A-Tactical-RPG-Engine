@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>text/Evaluation.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -15,6 +13,8 @@
 			<string>!(/\.(?!htaccess)[^/]*|\.(tmproj|sublime-project|sublime-workspace|o|out|pyc|class|aux|log|synctex.gz|fdb_latexmk|bbl|blg)|/Icon\r|/svn-commit(\.[2-9])?\.tmp)$</string>
 			<key>regexFolderFilter</key>
 			<string>!.*/(\.[^/]*|CVS|text/text|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>selected</key>
+			<true/>
 			<key>sourceDirectory</key>
 			<string></string>
 		</dict>
@@ -22,58 +22,9 @@
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>247</integer>
 	<key>metaData</key>
-	<dict>
-		<key>text/Conclusions.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>11</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>text/Evaluation.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>18</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>4</integer>
-		</dict>
-		<key>text/Objectives.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>10</integer>
-				<key>line</key>
-				<integer>161</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>125</integer>
-		</dict>
-	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>text/Evaluation.tex</string>
-		<string>text/Objectives.tex</string>
-		<string>text/Conclusions.tex</string>
-	</array>
+	<dict/>
 	<key>showFileHierarchyDrawer</key>
-	<false/>
+	<true/>
 	<key>treeState</key>
 	<dict>
 		<key>Dissertation</key>
@@ -93,6 +44,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{669, 68}, {754, 810}}</string>
+	<string>{{621, 68}, {754, 810}}</string>
 </dict>
 </plist>
