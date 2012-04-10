@@ -31,7 +31,7 @@
 			"file": "text/Implementation.tex",
 			"settings":
 			{
-				"buffer_size": 35297,
+				"buffer_size": 35712,
 				"line_ending": "Unix"
 			}
 		}
@@ -302,15 +302,15 @@
 					"file": "text/Implementation.tex",
 					"settings":
 					{
-						"buffer_size": 35297,
+						"buffer_size": 35712,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								33030,
-								33030
+								1721,
+								1721
 							]
 						],
 						"settings":
@@ -410,7 +410,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 169.0
+		"height": 157.0
 	},
 	"replace":
 	{
