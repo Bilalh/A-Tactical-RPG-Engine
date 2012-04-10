@@ -420,7 +420,7 @@ This tab allows the user to choose the condition the player has to satisfy to wi
 \paragraph{Map Creation\\}
 When creating the map the user can specify the size of map and tileset to associate.  An interesting addition to the editor is as previously  mentioned, that is to can use Stasyk's terrain generator which can be used as a starting point for the user's creations as shown in figure \ref{fig:figures_editor_gen}.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 		\includegraphics[width=\textwidth]{figures/editor/gen.png}
 	\caption{The map editor show a map created by Stasyk's terrain generator.}
@@ -428,7 +428,7 @@ When creating the map the user can specify the size of map and tileset to associ
 \end{figure}
 
 \subsubsection{Visual Map Creation}
-The visual map editor allows the user to design a map with writing any xml (the format the engine take as input).  The editor shows the available tiles in the associated tileset in bottom spilt.  The user can use the tools on in the tool palette on the left to place the tiles.  The tools include
+The visual map editor allows the user to design a map with writing any xml (the format the engine take as input).  The editor shows the available tiles in the associated tileset in bottom spilt.  The user can use the tools on in the tool palette on the left to place the tiles.  The tools include:
 
 \begin{description}
 	\item[Pencil] Draws the selected tile in \texttt{Tiles} onto any tile that is click on the map.
@@ -469,6 +469,8 @@ The editor also supports importing as well as exporting the dialog in format sho
 - none:     This part has no speaker
 \end{lstlisting}
 This allows the dialog to be easily written in the user's preferred application.  This could be useful if separate person writes the dialog of the game since the person does not need a copy of the editor. The format is described in more detail in the appendix \ref{ssub:dialog_data_format}  
+
+Although the dialog xml format could be edited by the determined user, this would require significantly more effect then the above format since the user would have to find the unique id  of each unit each they want use as a speaker. It would also require creating unique ids for dialog part which would be likely be error prone, hence the above format is used in import/export, mainly for the user's conveniences.
 
 \subsubsection{Project Selection}
 \begin{figure}[htbp]
