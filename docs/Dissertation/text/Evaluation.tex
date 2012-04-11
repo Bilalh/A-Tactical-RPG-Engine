@@ -47,11 +47,11 @@ A tertiary requirements was to implement custom events though the use of scripti
 
 To implement this I had planed to use the Java Scripting API\cite{javas}. The would allow embedding a dynamic scripting language.  The main benefit of this, is that the code does not have to be compiled which means it does have the same hurdles with class linking as my Extension Mechanism(Appendix \ref{sub:data_format_extension_mechanism}).   The language chosen for embedding was Javascript  as it is build into the JDK, so the user does not have install anything extra and of all the scripting language Javascript  is more likely to have been used before by the average user, these design are described in more detail in section \ref{sec:Scripting}. 
 
-Some people such as ref  advocate forgoing scripting completing. Pointing out that scripting is a lazy out of let user customisability since it can be quite for user to create events.  Using their advice of creating visual editors for creating events instead I allows the user to specify common events from the editor, with the option of link they own classes as a last resort. 
+Some people such as ref  advocate forgoing scripting completing. Pointing out that scripting is a lazy of let user customisability since it can be quite difficent for user to create events.  Using their advice of creating visual editors for creating events and customising units behaviour, I allowed the user to specify common events from the editor, with the option of linking they own classes as a last resort. 
 
-Although the scripting was not implementation due to time constraints, note that it was  tertiary objectives and all the example can be still be specified by editor. In particular win conditions can be specified (section ref) and common winning condition can even can be selected from the editor.  The engine support shows dialog at arbitrary point in the game which could be used to support the requirement ``Showing some part of the story when a player’s character reaches a specified tile''.
+Although the scripting was not implementation due to time constraints, note that it was  tertiary objectives and all the given example in the objective are supported by the engine. In particular win conditions can be specified (section ref) and common winning condition can even can be selected from the editor.  The engine support showing dialog at arbitrary point in the game which could be used to support the requirement ``Showing some part of the story when a player’s character reaches a specified tile''.
 
-The engine supports the user using their own classes though the extension mechanism in Appendix \ref{sub:data_format_extension_mechanism}, which allows a slightly more limited form of scripting but with the benefit of being type safe but with the drawback of being  more complex.
+The engine supports the user using their own classes though the extension mechanism in Appendix \ref{sub:data_format_extension_mechanism}, which allows a slightly more limited form of scripting but with the benefit of being type safe and with the drawback of being more complex.
 % ref game progamming gems
 
 % morrowind 
@@ -59,13 +59,32 @@ The engine supports the user using their own classes though the extension mechan
 % never winter nights 
 % 
 
+\subsection{Comparison to Similar Work}
+\subsubsection{engine}
+\label{ssub:engine}
+
+The capabiltys of the engine will compared and contrasted with the games discussed in the context survey(section \ref{Context_Survey}).  Like most of the games described before the engine supports a isometric view point which allows the user to create asctially pleasing map.  
+	
+In particular the turning ordering is very genral to extend that the user can completely replace it with their own code, all the described game ordering system could be implemented.  The default system resmables the system used in \texttt{Tactics Ogre}, as a example the supported features. 
+
+In nearly TRPG  include weapons and  skills(sometimes having other names such as `magic'). The engine fully supports this, and even has addition features such as arrible ranges (This is where the attack range of a weapon or skill can in any shape and size. The weapon type \texttt{around} which attacks all enemies in all that tiles around the attacker was created as an example of this.)
+
+Like pracialy all TRPG, the engine has a battle, with supports for weapons, skill and taking account of the terrain of the map.  The features the engine is \emph{uncertainty} that actions have a usually small change of missing, or have an unintended consteicne. This quite common feature, a example is attack missing or bow hitting a aliaed units that was in the way. At moment the engine all carries the users requested action, which is someways better since it more prepecite hence making it easier.  
+
+Although the engine supports units levelling up and having the attributes incresssabled, it does not support restricting  skills to specific level, that is a unit knows all its skills at beginning. In contrast most TRPG usually restricted a unit's skill to a select few at the beginning, the unit then gains new skills as it levels ups. This was not on of the objective of the project will be considered for future work.
+
+The main feature that is lacking from the engine is an overworld map. A overworld map has a series of user selectable location, where the battle take place each location, this common is nearly all TRPG (although dibliry omitted from the discussed ``Fire Emblem'' series). This not a objective of the project because it would time comzuisng to make the overworld maps. Nevertheless I tried to implemented this, the overworld maps are quite smiler to  Sasha genrated maps, by giving him the idea for place names (randomly genotated) at suutietaled, he could genrated overworld maps that I could use. Due to time constists this was not implementation, but will psocibly be done as future work. For example of what it would look like see future work (section ref)
+\subsubsection{Editor}
+\label{ssub:editor}
+
+
 % ref example reportt
 \subsection{Results of User Testing}
 \label{sub:results_of_user_testing}
 
 In total six participants took part in the user testing, more people were interested but could not due to time constraints.  See Appendix \ref{sec:questionnaire} for the Questionnaire.
 
-\subsection{Analysis of Responses}
+\subsection{Analysis of User Responses}
 The participants can be grouped into three groups, those who have played a TRPG before, those who have not and those who don't play games at all.
 \paragraph{Feedback from  all groups\\}
 Both groups thought the editor supported all the features they would like if they created a TRPG.  Most of the participants answered that they would like to use the editor again.  Interestingly, all users who were familiar with TRPG used the keyboard exclusively, this I attribute to participants being used to the input mechanism since most TRPG are on consoles\footnote{such as Playstation 2}. Those who had no experience playing TRPG unexpectedly used both the keyboard and mouse at the same time (generally selecting the units with the mouse then using the keyboard for performing any actions).
