@@ -2,18 +2,19 @@
 <project name="Tactical RPG Engine" default="dist" basedir=".">
 
 	<description>
-	Make all the required files for Distribution for all platforms. 
+	Makes all the required files for Distribution on supported all platforms. 
 	
 	This is done by making a jars of classes need by the engine and for the editor.
 	The build file can also make a application bundle for Mac OS X.
 	
-	The default project is also updated.
+	The default project can also be updated.
 		
-	It can also run all the junit tests and create a webpage of the results.
+	The build file can also run all the junit tests and create a webpage of the results.
 		
 	Main Commands:
 	
-	ant dist        -- Makes binaries of the editor for all platforms.
+	ant dist        -- Makes binaries of the editor for all platforms 
+	                   (updates the jars and default project as well).
 		
 	ant update      -- Builds then, create a jar of classes for the game and the engine and thens updates the mac bundles.
 	ant tests       -- Builds and then runs all tests and make a webpage of the results.
@@ -104,7 +105,7 @@
 		<chmod file="Binaries/Tactical Engine.app/Contents/Resources/Java/bundle/terrain_generator" perm="+x"/>
 	</target>
 	
-	<!-- Makes a Jar for the Game, only inculde the files needed to run the game -->
+	<!-- Makes a Jar for the Game, only includes the files needed to run the game -->
 	<target name="engineJar" depends="build">
 		<jar destfile="engine.jar" filesetmanifest="mergewithoutmain">
 			<manifest>
