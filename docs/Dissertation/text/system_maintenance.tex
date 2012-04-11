@@ -2,9 +2,9 @@
 %!TEX root = ../Project.tex
 \section{System Maintenance}
 
-Due to the use of xml as the data format, future modifications should be backward computability because as reasons discussed in \ref{sub:data_format}, namely the XStream library allows setting the default values of missing tags and attributes. This will allows the addition of extra features without breaking any of the user 
+Due to the use of xml as the data format, a future modification should be that it has backward compatibility because of the reasons discussed in \ref{sub:data_format}, namely the XStream library allows setting the default values of missing tags and attributes. This will allow the addition of extra features without breaking any of the user's data. 
 
 The data format extension mechanism(appendix \ref{sub:data_format_extension_mechanism}) allows for extensions such as a custom turn ordering, win conditions or unique weapons without changing the xml format.
 
-Xml schema provided would have to updated for any structural change to the xml, but the use of \emph{optional} tags and attributes could be used to allow older files to still be valid without any changes. 
+Xml schema provided would have to be updated for any structural change to the xml, but the use of \emph{optional} tags and attributes could be used to allow older files to still be valid without any changes. 
 

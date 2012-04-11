@@ -4,54 +4,54 @@
 
 \subsection{Objectives}
 \label{sub:eobjectives}
-The objectives as listed in section \ref{sub:objectives}  are extensive, ranging from primary objectives that required a basic engine capable of creating a Tactical RPG to tertiary objectives which required the creation of a editor which customisable most aspects of the  engine. 
+The objectives, as listed in section \ref{sub:objectives},  are extensive, ranging from primary objectives that required a basic engine capable of creating a Tactical RPG to tertiary objectives which required the creation of an editor which customised most aspects of the  engine. 
 
-Since all the primary and secondly objectives were completed as well as nearly all the tertiary objectives I consider  the project a success, I will now discuss the objectives in details.
+Since all the primary and secondly objectives were completed, as well as nearly all the tertiary objectives I consider  the project a success, I will now discuss the objectives in details.
 
 \subsubsection{Primary Objectives}
 
-The primary objectives focus on basic functionality of the engine, I have marked these objectives as completed. Notable improvements from the objectives include the engine handling the pagination and line wrapping of the dialog automatically which frees the user from fiddling with the dialog to make it fit on the screen. 
+The primary objectives focus on the basic functionality of the engine, I have marked these objectives as completed. Notable improvements from the objectives include the engine handling the pagination and line wrapping of the dialog automatically, which frees the user from fiddling with the dialog to make it fit on the screen. 
 % in an astecly pleseing wayN
 
-Combat between units was as primary requirement, which was completed with many addition features, which are discussed later.
+Combat between units was a primary requirement which was completed with many additional features, which are discussed later.
 
-The primary requirements were to make an isometric graphical representation of the game, this was very successful. The view had useful features such allows the game to played with either the mouse of the keyboard.
+The primary requirements were to make an isometric graphical representation of the game, this was very successful. The view had useful features such as it allows the game to played with either the mouse or the keyboard.
 
 \subsubsection{Secondary Objectives}
-The main goal of the secondary objectives is to allow the user more customisability this   Associating attributes such as height and movement cost to tiles was requirement that was completed. In addition the engine support \emph{empty} tiles which they are impassable and not displayed to the user. This allows the creation of more complex maps as shown in figure \ref{fig:figures_editor_Map}. Another enhancement is that \emph{slated} tile can be used, they are tile that has a different start and end height and could be used for making stairs or cliffs. 
+The main goal of the secondary objectives is to allow the user more customisability.  Associating attributes such as height and movement cost to the tiles was a requirement that was completed. In addition, the engine support \emph{empty} tiles which are impassable are not displayed to the user. This allows the creation of more complex maps as shown in figure \ref{fig:figures_editor_Map}. Another enhancement is that \emph{slated} tiles can be used, they are tiles that have a different start and end height and could be used for making stairs or cliffs. 
 
-The secondary objectives required a combat that support the use of weapons and non-adjacent targets for both the player and the AI opponent. Weapon in particular deserve  mention since they are completely configurable. The engine of course provide default implementations of common weapon such as ranged weapons and spears (which shows the weapons can have extra effects such as attacking multiple targets). 
+The secondary objectives required a combat system that supports the use of weapons and non-adjacent targets for both the player and the AI opponent. Weapons in particular deserve  mention since they are completely configurable. The engine, of course, provides default implementations of common weapons such as ranged weapons and spears (which shows the weapons can have extra effects such as attacking multiple targets). 
 
-The default implementation  of the battle (User can use their own battle system, but its slightly complex) takes many attributes such as the units level and difference in height between the attack and the target to determine the outcome of a battle. 
+The default implementation  of the battle (The user can use their own battle system, but it is more complex) takes many attributes such as the units' levels and difference in height between the attack and the target to determine the outcome of a battle. 
 
-I completed the objective of allowing music and sound effects, the format is used is Ogg Vorbis (Appendix \ref{sub:music}). In addition wave files can be used for sound effects, this was implemented since the format seems to commonly used for this purpose.
+I completed the objective of allowing music and sound effects, the format used is Ogg Vorbis (Appendix \ref{sub:music}). In addition, wave files can be used for sound effects, this was implemented since the format seems to be commonly used for this purpose.
 
-Save and loading the game time were implemented as required, but with the restriction that when a save file is loaded the player begin at the \emph{beginning} of the last played map.. 
+Saving and loading the game were implemented as required, but with the restriction that when a save file is loaded, the player begins at the \emph{beginning} of the last played map.
 
-Allowing the user to customising the AI behaviour, is a completed objective. In addition the engine provides default behaviour including the example of attack the player's unit with lowest HP. The engine also provides default actions such when moving to a faraway target, if the target is not reachable, most as close as possible and attack any player's unit that is in ranch. 
+Allowing the user to customise the AI behaviour is a completed objective. In addition, the engine provides default behaviours including the example of attacking the player's unit with the lowest HP. The engine also provides default actions such as while moving to a faraway target if the target is not reachable, move as close as possible and attack any opposing player's units that are in reach. 
 
 \subsubsection{Tertiary Objectives}
-The main objectives of these requirements is to produce a editor that allowed customising most aspects of the engine as well as combat improvements and units animations, all them having being completed. 
+The main objectives of these requirements was to produce an editor that allowed customising of most aspects of the engine as well as combat improvements and units animations, all of them having been completed. 
 
-Combat requirements improvements include \texttt{skills} that can affect multiple units, and weapons which can attack multiple units. Further enhancements to this system include complete customisable range (e.g could be used to attack all enemy units around the attack).
+Combat requirement improvements include \texttt{skills} that can affect multiple units, and weapons which can attack multiple units. Further enhancements to this system include complete customisable range (e.g could be used to attack all enemy units around the attack).
 
-The requirement for animated unit movement was completed. This further improved by taking account of the direction the unit is traveling in, which was done by have a  image for each of the four directions. 
+The requirement for animated unit movement was completed. This was further improved by taking account of the direction the unit is traveling in, which was done by having an  image for each of the four directions. 
 
 \paragraph{Editor\\}
-A editor that can customise nearly all aspects of the engine was created.  The most prominent features are the visual map editor (section ref), unit creation(section ref), dialog editing(section ref) and exporting as a self contained application.  The editor met all the  tertiary requirements also had addition improvement. These include a easy to edit dialog format for importing/exporting and inter-compatibility  with Stasyk’s Terrain Generator to give a user a start point for their map designs.
+An editor that can customise nearly all aspects of the engine was created.  The most prominent features are the visual map editor (section ref), unit creation(section ref), dialog editing(section ref) and exporting as a self contained application.  The editor met all the  tertiary requirements and it also had addition improvements. These include an easy to edit dialog format for importing/exporting and inter-compatibility  with Stasyk’s Terrain Generator to give a user a start point for their map designs.
 
-%TODO more?
+%TODO more? section refs
 
 \paragraph{Scripting \& Custom Events\\}
-A tertiary requirements was to implement custom events though the use of scripting.  This would allow the user to specify events such as making the player win if some enemies unit has less then 50\% Hit Points. 
+A tertiary requirement was to implement custom events through the use of scripting.  This would allow the user to specify events such as making the player win if some enemies unit has less then 50\% Hit Points. 
 
-To implement this I had planed to use the Java Scripting API\cite{javas}. The would allow embedding a dynamic scripting language.  The main benefit of this, is that the code does not have to be compiled which means it does have the same hurdles with class linking as my Extension Mechanism(Appendix \ref{sub:data_format_extension_mechanism}).   The language chosen for embedding was Javascript  as it is build into the JDK, so the user does not have install anything extra and of all the scripting language Javascript  is more likely to have been used before by the average user, these design are described in more detail in section \ref{sec:Scripting}. 
+To implement this I had planned to use the Java Scripting API\cite{javas}. The would allow embedding a dynamic scripting language.  The main benefit of this is that the code does not have to be compiled, which means it does not have the same hurdles with class linking as my Extension Mechanism(Appendix \ref{sub:data_format_extension_mechanism}).   The language chosen for embedding was Javascript  as it is built into the JDK, so the user does not have to install anything extra and of all the scripting languages, Javascript  is more likely to have been used before by the average user, these decisions are described in more detail in appendix \ref{sec:Scripting}. 
 
-Some people such as ref  advocate forgoing scripting completing. Pointing out that scripting is a lazy of let user customisability since it can be quite difficent for user to create events.  Using their advice of creating visual editors for creating events and customising units behaviour, I allowed the user to specify common events from the editor, with the option of linking they own classes as a last resort. 
+Some people such as ref  advocate forgoing scripting completing, pointing out that scripting is a lazy of letting users have customisability since it can be quite difficult for users to create events.  Using their advice of creating visual editors for creating events and customising unit behaviours, I allowed the user to specify common events from the editor, with the option of linking they own classes as a last resort. 
 
-Although the scripting was not implementation due to time constraints, note that it was  tertiary objectives and all the given example in the objective are supported by the engine. In particular win conditions can be specified (section ref) and common winning condition can even can be selected from the editor.  The engine support showing dialog at arbitrary point in the game which could be used to support the requirement ``Showing some part of the story when a player’s character reaches a specified tile''.
+Although the scripting was not implemented due to time constraints, note that it was a tertiary objective and all the given examples in the objective are supported by the engine. In particular, win conditions can be specified (section ref) and common winning conditions can even can be selected from the editor.  The engine supports showing dialog at arbitrary points in the game which could be used to support the requirement ``Showing some part of the story when a player’s character reaches a specified tile''.
 
-The engine supports the user using their own classes though the extension mechanism in Appendix \ref{sub:data_format_extension_mechanism}, which allows a slightly more limited form of scripting but with the benefit of being type safe and with the drawback of being more complex.
+The engine supports the user using their own classes through the extension mechanism in Appendix \ref{sub:data_format_extension_mechanism}, which allows a slightly more limited form of scripting but with the benefit of being type safe and with the drawback of being more complex.
 % ref game progamming gems
 
 % morrowind 
@@ -60,20 +60,20 @@ The engine supports the user using their own classes though the extension mechan
 % 
 
 \subsection{Comparison to Similar Work}
-\subsubsection{engine}
+\subsubsection{Engine}
 \label{ssub:engine}
 
-The capabiltys of the engine will compared and contrasted with the games discussed in the context survey(section \ref{Context_Survey}).  Like most of the games described before the engine supports a isometric view point which allows the user to create asctially pleasing map.  
+The capabilities of the engine will be compared and contrasted with the games discussed in the context survey(section \ref{Context_Survey}).  Like most of the games described before, the engine supports an isometric view point which allows the user to create aesthetically pleasing map.  
 	
-In particular the turning ordering is very genral to extend that the user can completely replace it with their own code, all the described game ordering system could be implemented.  The default system resmables the system used in \texttt{Tactics Ogre}, as a example the supported features. 
+In particular, the turning ordering is very general to the extent that the user can completely replace it with their own code, all the described game ordering systems could be implemented.  The default system resembles the ordering used in \texttt{Tactics Ogre}, as a example the supported features. 
 
-In nearly TRPG  include weapons and  skills(sometimes having other names such as `magic'). The engine fully supports this, and even has addition features such as arrible ranges (This is where the attack range of a weapon or skill can in any shape and size. The weapon type \texttt{around} which attacks all enemies in all that tiles around the attacker was created as an example of this.)
+Nearly all TRPGs  include weapons and  skills (sometimes having other names such as `magic'). The engine fully supports this, and even has additional features such as arbitrary ranges (This is where the attack range of a weapon or skill can be in any shape and size. The weapon type \texttt{around}, which attacks all enemies in all the tiles around the attacker, was created as an example of this.)
 
-Like pracialy all TRPG, the engine has a battle, with supports for weapons, skill and taking account of the terrain of the map.  The features the engine is \emph{uncertainty} that actions have a usually small change of missing, or have an unintended consteicne. This quite common feature, a example is attack missing or bow hitting a aliaed units that was in the way. At moment the engine all carries the users requested action, which is someways better since it more prepecite hence making it easier.  
+Like practically all TRPG, the engine has a battle system with support for weapons, skill and which takes account of the terrain of the map.  The main features the engine is missing is \emph{uncertainty} that actions have a small chance of missing, or have an unintended consequence. This quite common feature, an example is attack missing or bow hitting an allied unit that was in the way. At the moment the engine carries out all of the users requested actions without fail, which is in some ways better since it is more predictable, hence making it easier.  
 
-Although the engine supports units levelling up and having the attributes incresssabled, it does not support restricting  skills to specific level, that is a unit knows all its skills at beginning. In contrast most TRPG usually restricted a unit's skill to a select few at the beginning, the unit then gains new skills as it levels ups. This was not on of the objective of the project will be considered for future work.
+Although the engine supports units levelling up and having the attributes increased, it does not support restricting  skills to a specific level, that is a unit knows all of it's skills at the beginning. In contrast, most TRPG usually restrict a unit's skills to a select few at the beginning, the unit then gains new skills as it levels up. This was not an of the objective of the project, but will be considered for future work.
 
-The main feature that is lacking from the engine is an overworld map. A overworld map has a series of user selectable location, where the battle take place each location, this common is nearly all TRPG (although dibliry omitted from the discussed ``Fire Emblem'' series). This not a objective of the project because it would time comzuisng to make the overworld maps. Nevertheless I tried to implemented this, the overworld maps are quite smiler to  Sasha genrated maps, by giving him the idea for place names (randomly genotated) at suutietaled, he could genrated overworld maps that I could use. Due to time constists this was not implementation, but will psocibly be done as future work. For example of what it would look like see future work (section ref)
+The main feature that is lacking from the engine is an overworld map. An overworld map has a series of user selectable locations, where the battles take place in each location, this is common in nearly all TRPG (although is deliberately omitted from the discussed ``Fire Emblem'' series). This was not an objective of the project because it would time consuming to make the overworld maps. Nevertheless, I tried to implement this, the overworld maps are quite smiler to  Sasha generated maps, by giving him the idea for place names (randomly generated) at suitable locations.  He was able to generate overworld maps that I could use. Due to time constraints this was not implemented, but will probably be carried out as future work. For an example of what it would look like see (section ref)
 \subsubsection{Editor}
 \label{ssub:editor}
 
