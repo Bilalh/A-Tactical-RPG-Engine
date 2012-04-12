@@ -178,9 +178,6 @@ public class Editor {
 		tabs.addTab("Music",        (musicPanel      ));
 		tabs.addTab("Sound",        (soundPanel      ));
 		
-		// TODO 
-//		tabs.addTab("Project",      new JPanel());
-		
 		loadMaps();
 
 		tabs.addChangeListener(new ChangeListener() {

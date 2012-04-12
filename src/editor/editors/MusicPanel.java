@@ -131,7 +131,6 @@ public class MusicPanel extends AbstractResourcesPanel<MusicData, Musics> {
 
 	@Override
 	protected void addToList() {
-		// FIXME addToList method
 
 		int rst = chooser.showOpenDialog(this);
 		if (rst == JFileChooser.APPROVE_OPTION) {

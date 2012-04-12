@@ -113,7 +113,6 @@ public class MapsPanel extends AbstractResourcesPanel<DeferredMap, Maps> impleme
 		
 		assert currentConditions != null;
 		
-		//FIXME needed?
 		enemiesPanel.panelSelected(editor);
 		dialogStartPanel.panelSelected(editor);
 		dialogEndPanel.panelSelected(editor);

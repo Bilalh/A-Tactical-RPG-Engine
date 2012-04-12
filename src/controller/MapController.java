@@ -42,6 +42,7 @@ public class MapController extends Controller {
 		this.map = map;
 	}
 
+	/** Start the map **/
 	public void startMap() {
 		map.start();
 	}
@@ -146,11 +147,17 @@ public class MapController extends Controller {
 		return map.hasOutlines();
 	}
 
+	/**
+	 * Save the game's state
+	 */
 	public void save() {
 		setChanged();
 		notifyObservers(new SaveNotification());
 	}
 
+	/**
+	 * Loads the game's state
+	 */
 	public void load() {
 		setChanged();
 		notifyObservers(new LoadNotification());

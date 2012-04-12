@@ -350,7 +350,6 @@ public class MapEditor implements ActionListener, IEditorMapPanelListener {
 		
 		if (state == MapState.DRAW_INFO || state == MapState.DRAW){
 			infoHeight.setValue(tile.getEndHeight());
-			//FIXME ChangeLister
 			infoType.setText(tile.getSprite().getName());
 			infoOrientation.setSelectedItem(tile.getOrientation());
 			infoLocation.setText(String.format("(%s,%s)", tile.getX(), tile.getY()));	

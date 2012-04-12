@@ -134,7 +134,6 @@ public class UnitsPanel<E extends IMutableUnit>  extends JPanel implements IRefr
 		skillsListModel.clear();
 		assert currentUnit != null;
 		assert currentUnit.getSkills() != null : currentUnit;
-		// TODO n^2  but n is about 4
 		for (ISkill	s : currentUnit.getSkills()) {
 			skillsListModel.addElement(s);
 			allSkillsListModel.removeElement(s);

@@ -118,7 +118,6 @@ public class IsoTile {
 		this.leftWallName  = leftWallRef;
 		this.rightWallName = rightWallRef;
 		
-		//FIXME ?
 		invaildate(settings);
 		top = new Polygon(new int[] {
 				0,

@@ -151,7 +151,6 @@ public class MapConditionsPanel extends JPanel implements IRefreshable {
 		DEFEAT_SINGLE("Defeat a Specific Unit") {
 			@Override
 			IWinCondition newCondition(MapConditionsPanel cp) {
-				//FIXME finish
 				DefeatSpecificUnitCondition dsuc = new DefeatSpecificUnitCondition(null);
 				return dsuc;
 			}

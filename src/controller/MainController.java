@@ -22,7 +22,8 @@ import engine.map.Map;
 import engine.unit.IMutableUnit;
 
 /**
- * Handles the overall game flow
+ * Handles the overall game flow.
+ *
  * @author Bilal Hussain
  */
 public class MainController extends Controller implements Observer {
@@ -35,6 +36,9 @@ public class MainController extends Controller implements Observer {
 
 	MapOrdering allMaps;
 	
+	/**
+	 * Instantiates a new main controller.
+	 */
 	public MainController() {
 		this.engine = new Engine();
 		this.ordering = new ArrayDeque<OrderedMap>();
@@ -46,6 +50,9 @@ public class MainController extends Controller implements Observer {
 
 	}
 
+	/**
+	 * Returns the map controller for the next controller.
+	 */
 	public MapController nextMap() {
 		OrderedMap m = ordering.pollFirst();
 		if (m == null) {
@@ -55,6 +62,12 @@ public class MainController extends Controller implements Observer {
 		return startMap(m.getResouceLocation());
 	}
 
+	/**
+	 * Starts the map with the specifed name.
+	 *
+	 * @param name the name
+	 * @return the map controller
+	 */
 	public MapController startMap(String name) {
 		Map map = engine.startMap(name);
 		MapController mapController = new MapController(map);
@@ -65,6 +78,9 @@ public class MainController extends Controller implements Observer {
 	private int DEFAULT_FPS = 30;
 	private long period = (long) 1000.0 / DEFAULT_FPS;
 
+	/**
+	 * Shoyld be called when a map is finished.
+	 */
 	public void mapFinished(boolean won) {
 		log.info("mapFinished");
 		
@@ -100,6 +116,9 @@ public class MainController extends Controller implements Observer {
 		this.gui = gui;
 	}
 
+	/**
+	 * Save the game state.
+	 */
 	public void save() {
 		int index = ordering.peek().getIndex() - 1;
 		MapOrdering newOrdering = new MapOrdering();
@@ -130,6 +149,9 @@ public class MainController extends Controller implements Observer {
 		
 	}
 
+	/**
+	 * Load the game state
+	 */
 	public void load() {
 		File saveDir = new File(System.getProperty("user.home"), ".tactical");
 		if (!saveDir.exists()) return;

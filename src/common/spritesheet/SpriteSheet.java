@@ -9,51 +9,67 @@ import common.interfaces.ISpriteSheet;
 
 import util.Args;
 
-
 import config.XMLUtil;
 
 /**
- *  Spritesheet contains a number of smaller images, along with a xml file specify the postions
+ * Spritesheet contains a number of smaller images, along with a xml file specify the postions.
+ * 
  * @author Bilal Hussain
  */
 public class SpriteSheet implements ISpriteSheet {
 
 	protected BufferedImage sheet;
+
 	protected HashMap<String, BufferedImage> sprites;
 	
 	protected int width, height;
-	
-	public SpriteSheet(BufferedImage sheet, InputStream xmldef){
-		assert sheet    != null;
-		assert xmldef   != null;
+
+	/**
+	 * Instantiates a new sprite sheet.
+	 * 
+	 * @param sheet the sheet
+	 * @param xmldef the xml specify the how the sheet is arranged
+	 */
+	public SpriteSheet(BufferedImage sheet, InputStream xmldef) {
+		assert sheet != null;
+		assert xmldef != null;
 
 		this.sheet = sheet;
 		this.sprites = new HashMap<String, BufferedImage>();
-		
+
 		Sprites ss = XMLUtil.convertXml(xmldef);
 		load(ss.getSprites());
-		width  = ss.getWidth();
+		width = ss.getWidth();
 		height = ss.getHeight();
-		
-		assert width  > 0;
+
+		assert width > 0;
 		assert height > 0;
 	}
-	
-	protected void load(SpriteInfo[] arr){
-		assert arr   != null;
-		assert arr.length >0;
-		
+
+	/**
+	 * Load a sheets from a array of sprites
+	 */
+	protected void load(SpriteInfo[] arr) {
+		assert arr != null;
+		assert arr.length > 0;
+
 		for (SpriteInfo s : arr) {
 			assert s != null;
-			sprites.put(s.name, sheet.getSubimage(s.getX(),s.getY(),s.getWidth(),s.getHeight()));
+			sprites.put(s.name, sheet.getSubimage(s.getX(), s.getY(), s.getWidth(), s.getHeight()));
 		}
 	}
-	
-	public BufferedImage getSpriteImage(String ref){
+
+	/**
+	 * Gets the sprite image.
+	 * 
+	 * @param ref the ref
+	 * @return the sprite image
+	 */
+	public BufferedImage getSpriteImage(String ref) {
 		return sprites.get(ref);
 	}
 
-	public Map<String, BufferedImage> getSpritesMap(){
+	public Map<String, BufferedImage> getSpritesMap() {
 		return sprites;
 	}
 
@@ -62,11 +78,9 @@ public class SpriteSheet implements ISpriteSheet {
 		return sheet;
 	}
 
-
 	public int getWidth() {
 		return width;
 	}
-
 
 	public int getHeight() {
 		return height;

@@ -38,7 +38,6 @@ public class GuiUnit {
 	protected SpriteSheet spriteSheet;
 	protected SpriteSheetData images;
 	
-	//FIXME
 	public BufferedImage sprite;
 	protected BufferedImage weaponSprite;
 	

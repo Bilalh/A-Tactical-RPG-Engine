@@ -21,23 +21,19 @@ public class Sprites implements IPreference {
 	@XStreamAsAttribute
 	int height;
 
-
 	public Sprites(SpriteInfo[] sprites, int width, int height) {
 		this.sprites = sprites;
 		this.width = width;
 		this.height = height;
 	}
 
-
 	public SpriteInfo[] getSprites() {
 		return sprites;
 	}
 
-
 	public int getWidth() {
 		return width;
 	}
-
 
 	public int getHeight() {
 		return height;
