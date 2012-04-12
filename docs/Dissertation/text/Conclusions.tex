@@ -2,19 +2,35 @@
 %!TEX root = ../Project.tex
 \section{Conclusions}
 
+\subsection{Key Achievements}
+
+The key achievements of the project include, a cross-platform extendable engine, an isometric view of the game, an editor which allows the user to create a complex tactical RPG without any programming. The engine provides all the common elements in TRPGs, and according to the user questionnaire, it has nearly all the features the users wanted.  A notable feature of the engine is how extendable it is, since the user can even link their own code to further customise the engine. To support non-programmers, many default implementations of the various aspects (including weapons and skills) of the engine are provided. 
+
+The GUI provides a isometric view, which allows tiles to have height, for a more immersive environment. The GUI has many features to improve the user's experience, these include mouse and keyboard support, map rotation(to allow the user to see obstructed units), an action log(to see what happened in the game) and ability to load and save the game at any time.
+
+The editors most notable feature is that it allows the user to customise nearly all aspects of the engine without writing any code, making it easy to use for non-programmers.  The editor allows the user to visually design their creations,  with the aid of the many specialised editors contained in the editor. These include a map editor, as well as units and weapons editor.  The editor can also export the created game as self-contained application which can run without any external dependencies apart from Java.
+
+The system performed well in user testing, getting high marks from experienced TRPG players as well as people who have never play games.
+
+\subsection{Drawbacks}
+The main drawback as highlighted by user testing is the lack of documentation suitable for people who have never played a TRPG. In contrast to people who had, the these user initially felt overwhelmed by the the range of the option available in the editor.  A high level description of the what each part of the editor does how these interact would help these user significantly. 
+
+Custom events using user scripting was not implemented but note that all the example uses can be created using the engine, without any programming, which I consider a superior alternative. 
 
 \subsection{Future Work}
+
+The following is listing of future improvements that could be implemented. 
+
 \begin{itemize}
-\item Improvement to levelling up. 
-	Usually a unit does not have access to all of its skills at the beginning of the game, but it gains access to them when levelling up.  This would make the produced game  more balanced, since only skills appropriate to the unit stats could be used.
+\item Improvement to levelling up -- Usually a unit does not have access to all of its skills at the beginning of the game, but it gains access to them when levelling up.  This would make the produced game  more balanced, since only skills appropriate to the unit level could be used.
 
-\item Implementation of an overworld map with a battle occurring at each location. This would allow the user to choose which map to play.  A good use of this would be a branching storyline where the plot is changed depending on which maps the player plays.
+\item Implementation of an overworld map with a battle occurring at each location. This would allow the user to choose which map to play.  A good use of this would be a branching storyline where the plot is changed depending on which maps the player plays. By integrating Stasyk's overworld generator, this could be achieved relatively simply
  
-\item  Better AI
+\item  Allow the user to preview the created game without exporting it.  This would let the user to test their game without having to export the game, hence saving development time.  The engine partly supports this feature (which was used for debugging), adding this to the editor would be a significant improvement. In addition, allowing the user to simulate a battle (e.g. allow specifying the attributes of the units, such as their level)  would let the user quickly test any map in the game, which would be especially useful for long games.
 
-\item Scripted Events
+\item Utilise Stasyk's terrain generator, to provide generated maps in the game. This would enhance replayability and give the player more options. 
 
+\item Since the engine self has no dependencies on the \texttt{swing} or \texttt{AWT}
 
 \end{itemize}
 
-Allows the user to preview the created game with exporting it.  This allow the user to test their game without having exporting each hence saving development time.  This engine partly supports this features (which was used for debugging), adding this to editor would be a significant improvement. In addition to allows the user to simulate a battle (e.g allowing specifying the attributes of the units such as their level)  would allow the user to quickly test any map in the game, which would be especially useful for long games.
