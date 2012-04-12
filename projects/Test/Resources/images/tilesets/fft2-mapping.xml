@@ -98,16 +98,16 @@
     </tileImageData>
   </entry>
   <entry>
-    <string>4</string>
+    <string>snow</string>
     <tileImageData>
-      <location>4</location>
+      <location>mask</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>
   <entry>
-    <string>snow</string>
+    <string>4</string>
     <tileImageData>
-      <location>mask</location>
+      <location>4</location>
       <type>NON_TEXTURED</type>
     </tileImageData>
   </entry>

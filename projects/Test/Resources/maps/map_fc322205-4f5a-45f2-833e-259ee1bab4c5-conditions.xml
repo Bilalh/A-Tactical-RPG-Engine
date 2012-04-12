@@ -5,4 +5,5 @@
     <x>0</x>
     <y>0</y>
   </defaultStartLocation>
+  <turnComparator class="engine.map.DefaultTurnComparator"/>
 </mapConditions>
