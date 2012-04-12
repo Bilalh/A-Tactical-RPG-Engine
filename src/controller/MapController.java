@@ -117,27 +117,27 @@ public class MapController extends Controller {
 		notifyObservers(n);
 	}
 
-	/** @category Generated */
+
 	public MapSettings getMapSettings() {
 		return map.getMapSettings();
 	}
 
-	/** @category Generated */
+
 	public String getTexturesLocation() {
 		return map.getTexturesLocation();
 	}
 
-	/** @category Generated */
+
 	public void dialogFinished() {
 		map.dialogFinished();
 	}
 
-	/** @category Generated */
+
 	public MapMusic getMusic() {
 		return map.getMusic();
 	}
 
-	/** @category Generated */
+
 	public MapConditions getConditions() {
 		return map.getConditions();
 	}

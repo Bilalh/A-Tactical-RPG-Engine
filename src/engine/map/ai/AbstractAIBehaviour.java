@@ -31,27 +31,27 @@ public abstract class AbstractAIBehaviour implements Comparator<IMutableMapUnit>
 	@Override
 	public abstract String toString();
 
-	/** @category Generated */
+
 	public void setMap(Map map) {
 		this.map = map;
 	}
 
-	/** @category Generated */
+
 	public void setAi(AIPlayer ai) {
 		this.ai = ai;
 	}
 
-	/** @category Generated */
+
 	public void setPlayer(MapPlayer player) {
 		this.player = player;
 	}
 
-	/** @category Generated */
+
 	public boolean isNegated() {
 		return negated;
 	}
 
-	/** @category Generated */
+
 	public void setNegated(boolean negated) {
 		this.negated = negated;
 	}

@@ -33,7 +33,7 @@ public class AnimatedUnit extends GuiUnit {
 	// 100 millisecond frames
 	private long frameDuration = 100 *1000000; 
 	
-	/** @category Generated */
+
 	public AnimatedUnit(int gridX, int gridY, IUnit u) {
 		super(gridX, gridY,u);
 	}

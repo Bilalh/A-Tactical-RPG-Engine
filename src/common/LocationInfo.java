@@ -22,7 +22,7 @@ public class LocationInfo implements ILocation {
 		this(x, y, minDistance,previous,Direction.STILL);
 	}
 
-	/** @category Generated Constructor */
+
 	public LocationInfo(int x, int y, int minDistance, LocationInfo previous, Direction direction) {
 		this.x = x;
 		this.y = y;
@@ -41,44 +41,44 @@ public class LocationInfo implements ILocation {
 						x, y, minDistance == Integer.MAX_VALUE ? "∞" : minDistance, nextDirection);
 	}
 
-	/** @category Generated Setter */
+
 	public void setMinDistance(int minDistance) {
 		this.minDistance = minDistance;
 	}
 
-	/** @category Generated Setter */
+
 	public void setPrevious(LocationInfo previous) {
 		this.previous = previous;
 	}
 
-	/** @category Generated Getter */
+
 	@Override
 	public int getX() {
 		return x;
 	}
 
-	/** @category Generated Getter */
+
 	@Override
 	public int getY() {
 		return y;
 	}
 
-	/** @category Generated Getter */
+
 	public int getMinDistance() {
 		return minDistance;
 	}
 
-	/** @category Generated Getter */
+
 	public LocationInfo getPrevious() {
 		return previous;
 	}
 
-	/** @category Generated Getter */
+
 	public Direction getDirection() {
 		return nextDirection;
 	}
 
-	/** @category Generated Setter */
+
 	public void setNextDirection(Direction nextDirection) {
 		this.nextDirection = nextDirection;
 	}

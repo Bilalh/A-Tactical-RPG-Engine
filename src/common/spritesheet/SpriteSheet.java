@@ -62,12 +62,12 @@ public class SpriteSheet implements ISpriteSheet {
 		return sheet;
 	}
 
-	/** @category Generated */
+
 	public int getWidth() {
 		return width;
 	}
 
-	/** @category Generated */
+
 	public int getHeight() {
 		return height;
 	}

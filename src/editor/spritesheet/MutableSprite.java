@@ -61,7 +61,7 @@ public class MutableSprite extends SpriteInfo implements Comparable<MutableSprit
 		this.y = y;
 	}
 
-	/** @category Generated */
+
 	public void setName(String name) {
 		this.name = name;
 		notifyListeners(listeners, this);

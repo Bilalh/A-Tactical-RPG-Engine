@@ -58,12 +58,12 @@ public class DeferredAsset<E extends Identifiable & IPreference> implements Iden
 		return asset;
 	}
 
-	/** @category Generated */
+
 	public String getResouceLocation() {
 		return resouceLocation;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public UUID getUuid() {
 		return uuid;

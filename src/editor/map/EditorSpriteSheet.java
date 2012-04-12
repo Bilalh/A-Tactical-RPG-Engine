@@ -73,7 +73,7 @@ public class EditorSpriteSheet implements ISpriteSheet {
 		
 	}
 
-	/** @category Generated */
+
 	public SpriteSheet getSpriteSheet() {
 		return spriteSheet;
 	}

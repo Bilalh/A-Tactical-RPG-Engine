@@ -69,12 +69,12 @@ class DialogHandler extends MapActions {
 		}
 	}
 
-	/** @category Generated */
+
 	public GuiDialog getDialog() {
 		return dialog;
 	}
 
-	/** @category Generated */
+
 	public void setNextAction(ActionsEnum nextAction) {
 		this.nextAction = nextAction;
 	}

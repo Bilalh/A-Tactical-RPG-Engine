@@ -68,12 +68,12 @@ public class SkillMovement extends Movement {
 		this.skill = skill;
 	}
 
-	/** @category Generated */
+
 	public void setAttackRange(Collection<Location> attackRange) {
 		this.attackRange = new HashSet<Location>(attackRange);
 	}
 
-	/** @category Generated */
+
 	public Collection<Location> getSkillArea() {
 		return skillArea;
 	}

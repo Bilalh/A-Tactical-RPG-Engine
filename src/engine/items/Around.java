@@ -23,7 +23,7 @@ public class Around extends AbstractWeapon {
 		this.range = 1;
 	}
 
-	/** @category Generated */
+
 	public Around(int strength) {
 		this();
 		this.strength = strength;

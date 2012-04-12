@@ -15,7 +15,7 @@ public class UnitsChosenNotification implements IMapNotification {
 
 	private ArrayList<IMapUnit> units;
 
-	/** @category Generated */
+
 	public UnitsChosenNotification(ArrayList<IMapUnit> units) {
 		this.units = units;
 	}

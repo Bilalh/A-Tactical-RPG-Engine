@@ -64,38 +64,38 @@ public class MapData {
 		return new MapData(name, texturesLocation, texturesLocation, enemiesLocation, eventsLocation,musicLocation,conditionsLocation,b);
 	}
 	
-	/** @category Generated */
+
 	public String getTileMappingLocation() {
 		return tileMappingLocation;
 	}
 
-	/** @category Generated */
+
 	public String getTexturesLocation() {
 		return texturesLocation;
 	}
 
-	/** @category Generated */
+
 	public String getName() {
 		assert name != null;
 		return name;
 	}
 
-	/** @category Generated */
+
 	public String getEnemiesLocation() {
 		return enemiesLocation;
 	}
 
-	/** @category Generated */
+
 	public String getEventsLocation() {
 		return eventsLocation;
 	}
 
-	/** @category Generated */
+
 	public String getMusicLocation() {
 		return musicLocation;
 	}
 
-	/** @category Generated */
+
 	public String getConditionsLocation() {
 		return conditionsLocation;
 	}

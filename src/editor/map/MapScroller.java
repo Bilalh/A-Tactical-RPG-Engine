@@ -19,7 +19,7 @@ public class MapScroller extends MouseAdapter {
 	private EditorMapPanel editorMapPanel;
 	private IEditorMapPanelListener parent;
 
-	/** @category Generated */
+
 	public MapScroller(JViewport mapViewport, EditorMapPanel editorMapPanel, IEditorMapPanelListener parent) {
 		this.mapViewport = mapViewport;
 		this.editorMapPanel = editorMapPanel;

@@ -50,39 +50,39 @@ public class SavedMap implements Identifiable, IPreference {
 		return this;
 	}
 	
-	/** @category Generated */
+
 	public int getFieldWidth() {
 		return width;
 	}
 
-	/** @category Generated */
+
 	public int getFieldHeight() {
 		return height;
 	}
 
-	/** @category Generated */
+
 	public MapSettings getMapSettings() {
 		return mapSettings;
 	}
 
-	/** @category Generated */
+
 	public MapData getMapData() {
 		assert mapData != null;
 		return mapData;
 	}
 
-	/** @category Generated */
+
 	public SavedTile[] getTiles() {
 		return tiles;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public UUID getUuid() {
 		return uuid;
 	}
 
-	/** @category Generated */
+
 	public void setMapData(MapData mapData) {
 		this.mapData = mapData;
 	}

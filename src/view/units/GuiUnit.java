@@ -139,47 +139,47 @@ public class GuiUnit {
 		gridY = l.getY();
 	}
 
-	/** @category Generated */
+
 	public int getGridX() {
 		return gridX;
 	}
 
-	/** @category Generated */
+
 	public void setGridX(int gridX) {
 		this.gridX = gridX;
 	}
 
-	/** @category Generated */
+
 	public int getGridY() {
 		return gridY;
 	}
 
-	/** @category Generated */
+
 	public void setGridY(int gridY) {
 		this.gridY = gridY;
 	}
 	
-	/** @category Generated */
+
 	public int getWidth() {
 		return sprite.getWidth();
 	}
 
-	/** @category Generated */
+
 	public int getHeight() {
 		return sprite.getHeight();
 	}
 
-	/** @category Generated */
+
 	public IMapUnit getUnit() {
 		return unit;
 	}
 
-	/** @category Generated */
+
 	public void setMapUnit(IMapUnit unit) {
 		this.unit = unit;
 	}
 
-	/** @category Generated */
+
 	public Direction getDirection() {
 		return direction;
 	}
@@ -189,7 +189,7 @@ public class GuiUnit {
 		sprite = spriteSheet.getSpriteImage(direction.reference()+"0");
 	}
 
-	/** @category Generated */
+
 	public BufferedImage getWeaponSprite() {
 		return weaponSprite;
 	}

@@ -17,7 +17,7 @@ public class MapActions extends ActionsAdapter {
 		this.map = map;
 	}
 
-	/** @category Generated */
+
 	public boolean isMouseMoving() {
 		return mouseMoving;
 	}

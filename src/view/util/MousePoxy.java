@@ -47,12 +47,12 @@ public class MousePoxy implements MouseListener, MouseMotionListener {
 		ml.mouseReleased(e);
 	}
 
-	/** @category Generated Setter */
+
 	public void setMouseListener(MouseListener ml) {
 		this.ml = ml;
 	}
 
-	/** @category Generated Setter */
+
 	public void setMouseMotionListener(MouseMotionListener mml) {
 		this.mml = mml;
 	}

@@ -57,38 +57,38 @@ public class SavedTile {
 		this.rightWall = rightWallRef;
 	}
 	
-	/** @category Generated */
+
 	public String getType() {
 		return type;
 	}
 
-	/** @category Generated */
+
 	public int getEndHeight() {
 		return height;
 	}
 
-	/** @category Generated */
+
 	public int getStartingHeight() {
 		return startingHeight;
 	}
 	
-	/** @category Generated */
+
 	public int getX() {
 		return x;
 	}
 
-	/** @category Generated */
+
 	public int getY() {
 		return y;
 	}
 
-	/** @category Generated */
+
 	public Orientation getOrientation() {
 		return orientation;
 	}
 
 	@Override
-	/** @category Generated */
+
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -100,7 +100,7 @@ public class SavedTile {
 	}
 
 	@Override
-	/** @category Generated */
+
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null) return false;
@@ -116,12 +116,12 @@ public class SavedTile {
 	}
 
 
-	/** @category Generated */
+
 	public String getLeftWallName() {
 		return leftWall;
 	}
 
-	/** @category Generated */
+
 	public String getRightWallName() {
 		return rightWall;
 	}

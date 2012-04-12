@@ -15,7 +15,7 @@ public class OthersUnit extends AnimatedUnit  {
 
 	protected static SpriteSheet spriteSheet; 
 
-	/** @category Generated */
+
 	public OthersUnit(int gridX, int gridY, IUnit u) {
 		super(gridX, gridY, u);
 	}
@@ -26,7 +26,7 @@ public class OthersUnit extends AnimatedUnit  {
 		return spriteSheet;
 	}
 
-	/** @category Generated */
+
 	public static void setSpriteSheet(SpriteSheet spriteSheet) {
 		OthersUnit.spriteSheet = spriteSheet;
 	}

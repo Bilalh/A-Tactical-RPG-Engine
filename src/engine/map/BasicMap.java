@@ -112,43 +112,43 @@ public class BasicMap extends Observable {
 		return field[x][y];
 	}
 	
-	/** @category Generated */
+
 	public Tile[][] getField() {
 		return field;
 	}
 
 	
-	/** @category Generated */
+
 	public int getFieldWidth() {
 		return width;
 	}
 
-	/** @category Generated */
+
 	public int getFieldHeight() {
 		return height;
 	}
 
-	/** @category Generated */
+
 	public ITileMapping getTileMapping() {
 		return tileMapping;
 	}
 
-	/** @category Generated */
+
 	public MapSettings getMapSettings() {
 		return mapSettings;
 	}
 
-	/** @category Generated */
+
 	public MapData getData() {
 		return data;
 	}
 
-	/** @category Generated */
+
 	public MapMusic getMusic() {
 		return music;
 	}
 
-	/** @category Generated */
+
 	public MapConditions getConditions() {
 		return conditions;
 	}

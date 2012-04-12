@@ -23,27 +23,27 @@ public class SpriteInfo implements IPreference {
 	@XStreamAsAttribute
 	protected int height;
 
-	/** @category Generated */
+
 	public String getName() {
 		return name;
 	}
 
-	/** @category Generated */
+
 	public int getX() {
 		return x;
 	}
 
-	/** @category Generated */
+
 	public int getY() {
 		return y;
 	}
 
-	/** @category Generated */
+
 	public int getWidth() {
 		return width;
 	}
 
-	/** @category Generated */
+
 	public int getHeight() {
 		return height;
 	}

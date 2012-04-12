@@ -83,17 +83,17 @@ public class AbstractUnitObject {
 		return collection;
 	}
 
-	/** @category Generated */
+
 	public UUID getUuid() {
 		return uuid;
 	}
 
-	/** @category Generated */
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/** @category Generated */
+
 	public String getName() {
 		return name;
 	}

@@ -20,25 +20,25 @@ public class MutableTileMapping implements ITileMapping {
 	@XStreamImplicit
 	private HashMap<String, TileImageData> tilemapping;
 
-	/** @category Generated */
+
 	public MutableTileMapping(ITileMapping t) {
 		this.spriteSheetLocation = t.getSpriteSheetLocation();
 		this.tilemapping         = t.getTilemapping();
 	}
 
-	/** @category Generated */
+
 	@Override
 	public TileImageData getTileImageData(String type) {
 		return tilemapping.get(type);
 	}
 
-	/** @category Generated */
+
 	@Override
 	public String getSpriteSheetLocation() {
 		return spriteSheetLocation;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public HashMap<String, TileImageData> getTilemapping() {
 		return tilemapping;

@@ -40,31 +40,31 @@ public abstract class AbstractWeapon extends AbstractUnitObject  implements IWea
 		return strength;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getRange() {
 		return range;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setRange(int range) {
 		this.range = range;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setStrength(int strength) { 
 		this.strength = strength;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public String getImageRef() {
 		return imageRef;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setImageRef(String imageRef) {
 		this.imageRef = imageRef;

@@ -12,18 +12,18 @@ public class UnitAnimation {
 	final private String name;
 	final private int numberOfFrames;
 	
-	/** @category Generated */
+
 	public UnitAnimation(String name, int numberOfFrames) {
 		this.name = name;
 		this.numberOfFrames = numberOfFrames;
 	}
 
-	/** @category Generated */
+
 	public String getName() {
 		return name;
 	}
 
-	/** @category Generated */
+
 	public int getNumberOfFrames() {
 		return numberOfFrames;
 	}

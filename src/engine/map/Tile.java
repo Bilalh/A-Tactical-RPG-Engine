@@ -53,37 +53,37 @@ public class Tile {
 		this(startHeight, endHeight, type, orientation, null, null, false);
 	}
 
-	/** @category Generated */
+
 	public IMutableMapUnit getCurrentUnit() {
 		return current;
 	}
 
-	/** @category Generated */
+
 	public void setCurrentUnit(IMutableMapUnit current) {
 		this.current = current;
 	}
 
-	/** @category Generated */
+
 	public int getStartingHeight() {
 		return startHeight;
 	}
 
-	/** @category Generated */
+
 	public int getEndHeight() {
 		return endHeight;
 	}
 
-	/** @category Generated Getter */
+
 	public int getCost() {
 		return cost;
 	}
 
-	/** @category Generated Getter */
+
 	public String getType() {
 		return type;
 	}
 
-	/** @category Generated */
+
 	public Orientation getOrientation() {
 		return orientation;
 	}
@@ -94,22 +94,22 @@ public class Tile {
 				startHeight, endHeight, cost, type, orientation, impassable);
 	}
 
-	/** @category Generated */
+
 	public String getLeftWallName() {
 		return leftWall;
 	}
 
-	/** @category Generated */
+
 	public void setLeftWall(String leftWall) {
 		this.leftWall = leftWall;
 	}
 
-	/** @category Generated */
+
 	public String getRightWallName() {
 		return rightWall;
 	}
 
-	/** @category Generated */
+
 	public void setRightWall(String rightWall) {
 		this.rightWall = rightWall;
 	}

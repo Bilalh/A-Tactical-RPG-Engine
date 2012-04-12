@@ -432,13 +432,13 @@ public class Editor {
 		tabs.setEnabled(enabled);
 	}
 	
-	/** @category Generated */
+
 	public String getProjectPath() {
 		return projectPath;
 	}
 
 
-	/** @category Generated */
+
 	public void setVisible(boolean arg0) {
 		frame.setVisible(arg0);
 	}

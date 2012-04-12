@@ -73,7 +73,7 @@ public class MenuInput extends MapActions {
 		}
 	}
 
-	/** @category Generated */
+
 	public void setMenu(Menu menu) {
 		this.menu = menu;
 	}

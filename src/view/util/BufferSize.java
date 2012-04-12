@@ -11,7 +11,7 @@ public class BufferSize extends Dimension {
 	
 	public final int heightOffset;
 	
-	/** @category Generated */
+
 	public BufferSize(int heightOffset, int bufferWidth, int bufferHeight) {
 		this.heightOffset = heightOffset;
 		this.width  = bufferWidth;

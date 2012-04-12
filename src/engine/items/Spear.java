@@ -25,7 +25,7 @@ public class Spear extends AbstractWeapon {
 		this.range = 2;
 	}
 
-	/** @category Generated */
+
 	public Spear(int strength, int range) {
 		this();
 		this.strength = strength;

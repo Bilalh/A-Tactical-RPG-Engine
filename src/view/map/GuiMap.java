@@ -978,75 +978,75 @@ public class GuiMap implements Observer, IMapRendererParent {
 
 	}
 
-	/** @category Generated */
+
 	@Override
 	public boolean isMouseMoving() {
 		return currentAction.isMouseMoving();
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getDrawX() {
 		return drawX;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getDrawY() {
 		return drawY;
 	}
 
-	/** @category Generated */
+
 	ArrayList<AnimatedUnit> getPlayersUnits() {
 		return plunits;
 	}
 
-	/** @category Generated */
+
 	ArrayList<AnimatedUnit> getAIUnits() {
 		return aiUnits;
 	}
 
-	/** @category Generated */
+
 	GuiUnit getCurrentUnit() {
 		return currentUnit;
 	}
 
-	/** @category Generated */
+
 	MapController getMapController() {
 		return mapController;
 	}
 
-	/** @category Generated */
+
 	boolean isDrawn() {
 		return drawn;
 	}
 
-	/** @category Generated */
+
 	void setDrawn(boolean drawn) {
 		this.drawn = drawn;
 	}
 
-	/** @category Generated */
+
 	public UnitState getState() {
 		return state;
 	}
 
-	/** @category Generated */
+
 	public Menu getMenu() {
 		return menu;
 	}
 
-	/** @category Generated */
+
 	public int getFieldWidth() {
 		return fieldWidth;
 	}
 
-	/** @category Generated */
+
 	public int getFieldHeight() {
 		return fieldHeight;
 	}
 
-	/** @category Generated */
+
 	SkillMovement getSkillMovement() {
 		return skillMovement;
 	}

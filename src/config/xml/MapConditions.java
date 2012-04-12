@@ -46,48 +46,48 @@ public class MapConditions implements Identifiable, IPreference {
 		return this;
 	}
 	
-	/** @category Generated */
+
 	public IWinCondition getWinCondition() {
 		return winCondition;
 	}
 
-	/** @category Generated */
+
 	public void setWinCondition(IWinCondition winCondition) {
 		this.winCondition = winCondition;
 	}
 
-	/** @category Generated */
+
 	public ArrayList<Location> getVaildStartLocations() {
 		return vaildStartLocations;
 	}
 
-	/** @category Generated */
+
 	public void setVaildStartLocations(ArrayList<Location> vaildStartLocations) {
 		this.vaildStartLocations = vaildStartLocations;
 	}
 
-	/** @category Generated */
+
 	public Location getDefaultStartLocation() {
 		return defaultStartLocation;
 	}
 
-	/** @category Generated */
+
 	public void setDefaultStartLocation(Location defaultStartLocation) {
 		this.defaultStartLocation = defaultStartLocation;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public UUID getUuid() {
 		return uuid;
 	}
 
-	/** @category Generated */
+
 	public ITurnComparator getTurnComparator() {
 		return turnComparator;
 	}
 
-	/** @category Generated */
+
 	public void setTurnComparator(ITurnComparator turnComparator) {
 		this.turnComparator = turnComparator;
 	}

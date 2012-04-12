@@ -12,7 +12,7 @@ public class UnitTurnNotification implements IMapNotification {
 
 	private IMapUnit unit;
 
-	/** @category Generated */
+
 	public UnitTurnNotification(IMapUnit unit) {
 		this.unit = unit;
 	}

@@ -122,127 +122,127 @@ public class Unit implements IMutableUnit {
 		}
 	}
 	
-	/** @category Generated */
+
 	@Override
 	public ArrayList<ISkill> getSkills() {
 		return skills;
 	}
 	
-	/** @category Generated */
+
 	@Override
 	public String getName() {
 		return name;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getMaxHp() {
 		return maxHp;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setMaxHp(int maxHp) {
 		this.maxHp = maxHp;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getMove() {
 		return move;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setMove(int move) {
 		this.move = move;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getStrength() {
 		return strength;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setStrength(int strength) {
 		this.strength = strength;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getDefence() {
 		return defence;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setDefence(int defence) {
 		this.defence = defence;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getLevel() {
 		return level;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setLevel(int level) {
 		this.level = level;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getExp() {
 		return exp;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setExp(int exp) {
 		this.exp = exp;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public UUID getUuid() {
 		return uuid;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getSpeed() {
 		return speed;
 	}
 	
-	/** @category Generated */
+
 	@Override
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public SpriteSheetData getImageData() {
 		return imageData;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public IWeapon getWeapon() {
 		return weapon;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setWeapon(IWeapon weapon) {
 		this.weapon   = weapon;

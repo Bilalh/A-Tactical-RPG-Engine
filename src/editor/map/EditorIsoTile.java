@@ -39,7 +39,7 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		}
 	}
 	
-	/** @category Generated */
+
 	public EditorIsoTile(Orientation orientation, float startHeight, float endHeight,
 			int x, int y, MutableSprite sprite, ImageType type,MapSettings settings, String leftWallRef, String rightWallRef) {
 		super(orientation, startHeight, endHeight, x, y, sprite.getName(), type,settings, leftWallRef,rightWallRef);
@@ -112,24 +112,24 @@ public class EditorIsoTile extends IsoTile implements ISpriteChangedListener {
 		return true;
 	}
 
-	/** @category Generated */
+
 	public MutableSprite getLeftWallSprite() {
 		return leftWallSprite;
 	}
 
-	/** @category Generated */
+
 	public MutableSprite getRightWallSprite() {
 		return rightWallSprite;
 	}
 
 
-	/** @category Generated */
+
 	public void setStartingHeight(float startHeight) {
 		this.startHeight = startHeight;
 	}
 	
 
-	/** @category Generated */
+
 	public void setTileName(String tileName) {
 		this.tileName = tileName;
 	}

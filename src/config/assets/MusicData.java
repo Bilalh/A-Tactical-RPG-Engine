@@ -27,24 +27,24 @@ public class MusicData implements Identifiable {
 		uuid = UUID.randomUUID();
 	}
 	
-	/** @category Generated */
+
 	public MusicData(String location) {
 		this();
 		this.location = location;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public UUID getUuid() {
 		return uuid;
 	}
 
-	/** @category Generated */
+
 	public String getLocation() {
 		return location;
 	}
 
-	/** @category Generated */
+
 	public void setLocation(String location) {
 		this.location = location;
 	}

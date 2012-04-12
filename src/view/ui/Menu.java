@@ -110,13 +110,13 @@ public class Menu implements IMenu {
 		return selected;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public int getWidth() {
 		return width;
 	}
 	
-	/** @category Generated */
+
 	@Override
 	public void setWidth(int width) {
 		this.width = width;

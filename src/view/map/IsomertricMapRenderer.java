@@ -233,34 +233,34 @@ public class IsomertricMapRenderer implements IMapRenderer {
 		showNumbering = !showNumbering;
 	}
 	
-	/** @category Generated */
+
 	public boolean hasNumbering() {
 		return showNumbering;
 	}
 
 
-	/** @category Generated */
+
 	@Override
 	public BufferSize getMapDimensions() {
 		return new BufferSize(size.heightOffset, size.width, size.height);
 	}
 
-	/** @category Generated */
+
 	public Rotation getRotation() {
 		return rotation;
 	}
 	
-	/** @category Generated */
+
 	public void setRotation(Rotation rotation) {
 		this.rotation = rotation;
 	}
 
-	/** @category Generated */
+
 	public int getStartX() {
 		return startX;
 	}
 
-	/** @category Generated */
+
 	public int getStartY() {
 		return startY;
 	}

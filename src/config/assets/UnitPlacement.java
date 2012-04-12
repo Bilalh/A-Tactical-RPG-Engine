@@ -27,22 +27,22 @@ public class UnitPlacement implements IPreference {
 		return units.get(uuid);
 	}
 	
-	/** @category Generated */
+
 	public Units getUnits() {
 		return units;
 	}
 
-	/** @category Generated */
+
 	public HashMap<UUID, Location> getUnitPlacement() {
 		return placement;
 	}
 
-	/** @category Generated */
+
 	public void setUnits(Units units) {
 		this.units = units;
 	}
 
-	/** @category Generated */
+
 	public void setUnitPlacement(HashMap<UUID, Location> unitPlacement) {
 		this.placement = unitPlacement;
 	}

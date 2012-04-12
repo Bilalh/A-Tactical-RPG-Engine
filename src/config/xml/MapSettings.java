@@ -17,7 +17,7 @@ public class MapSettings {
 	public float pitch;
     public float zoom;
 
-	/** @category Generated */
+
 	private MapSettings(int tileDiagonal, int tileHeight, float pitch, float zoom) {
 		this.tileDiagonal = tileDiagonal;
 		this.tileHeight = tileHeight;

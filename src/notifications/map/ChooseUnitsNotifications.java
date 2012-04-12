@@ -23,7 +23,7 @@ public class ChooseUnitsNotifications implements IMapNotification {
 	private ArrayList<? extends IMapUnit> aiUnits = new ArrayList<IMapUnit>();
 
 	
-	/** @category Generated */
+
 	public ChooseUnitsNotifications(ArrayList<? extends IUnit> units, ArrayList<? extends IMapUnit> aiUnits) {
 		this.units = units;
 		this.aiUnits = aiUnits;
@@ -34,7 +34,7 @@ public class ChooseUnitsNotifications implements IMapNotification {
 		map.chooseUnits(units, aiUnits);
 	}
 
-	/** @category Generated */
+
 	@Override
 	public String toString() {
 		final int maxLen = 10;

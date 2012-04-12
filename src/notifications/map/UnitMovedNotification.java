@@ -17,7 +17,7 @@ public class UnitMovedNotification implements IMapNotification {
 	final private IMapUnit u;
 	final private Collection<LocationInfo> path;
 
-	/** @category Generated Constructor */
+
 	public UnitMovedNotification(IMapUnit u, Collection<LocationInfo> path) {
 		this.u = u;
 		this.path = path;

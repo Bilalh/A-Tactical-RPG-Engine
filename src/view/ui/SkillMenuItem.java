@@ -14,7 +14,7 @@ public class SkillMenuItem extends MenuItem {
 		this.skill = skill;
 	}
 
-	/** @category Generated */
+
 	public ISkill getSkill() {
 		return skill;
 	}

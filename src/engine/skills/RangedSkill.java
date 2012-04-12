@@ -49,22 +49,22 @@ public class RangedSkill extends AbstractSkill {
 		return results;
 	}
 	
-	/** @category Generated */
+
 	public int getRange() {
 		return range;
 	}
 
-	/** @category Generated */
+
 	public void setRange(int range) {
 		this.range = range;
 	}
 
-	/** @category Generated */
+
 	public int getArea() {
 		return area;
 	}
 
-	/** @category Generated */
+
 	public void setArea(int area) {
 		this.area = area;
 	}

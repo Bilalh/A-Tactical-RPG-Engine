@@ -38,38 +38,38 @@ public class DialogPart implements Identifiable, Comparable<DialogPart> {
 		else            unitId   = u.getUuid();
 	}
 	
-	/** @category Generated */
+
 	public String getText() {
 		return text;
 	}
 
-	/** @category Generated */
+
 	public UUID getUnitId() {
 		return unitId;
 	}
 
-	/** @category Generated */
+
 	public void setText(String text) {
 		this.text = text;
 	}
 
-	/** @category Generated */
+
 	public void setUnitId(UUID unitId) {
 		this.unitId = unitId;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public UUID getUuid() {
 		return uuid;
 	}
 
-	/** @category Generated */
+
 	public int getPartNo() {
 		return partNo;
 	}
 
-	/** @category Generated */
+
 	public void setPartNo(int partNo) {
 		this.partNo = partNo;
 	}

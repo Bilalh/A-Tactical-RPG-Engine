@@ -41,12 +41,12 @@ public class RangedWeapon extends AbstractWeapon {
 		return Math.max(innerRange,1) + "-" + range;
 	}
 
-	/** @category Generated */
+
 	public int getInnerRange() {
 		return innerRange;
 	}
 
-	/** @category Generated */
+
 	public void setInnerRange(int innerRange) {
 		this.innerRange = innerRange;
 	}

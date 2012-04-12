@@ -208,13 +208,13 @@ public abstract class AbstractMapUnit<E extends IMutableUnit> implements IMutabl
 		unit.setWeapon(weapon);
 	}
 
-	/** @category Generated */
+
 	@Override
 	public ArrayList<ISkill> getSkills() {
 		return unit.getSkills();
 	}
 
-	/** @category Generated */
+
 	@Override
 	public void setSkills(ArrayList<ISkill> skills) {
 		unit.setSkills(skills);

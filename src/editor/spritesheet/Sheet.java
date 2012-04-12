@@ -14,13 +14,13 @@ public class Sheet implements ISpriteSheet {
 		this.sprites = sprites;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public BufferedImage getSheetImage() {
 		return sheet;
 	}
 
-	/** @category Generated */
+
 	ArrayList<MutableSprite> getSprites() {
 		return sprites;
 	}

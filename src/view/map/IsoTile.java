@@ -453,68 +453,68 @@ public class IsoTile {
 		g.setColor(oldColor);
 	}
 
-	/** @category Generated */
+
 	public AnimatedUnit getUnit() {
 		return unit;
 	}
 
-	/** @category Generated */
+
 	public void setUnit(AnimatedUnit unit) {
 		this.unit = unit;
 	}
 
-	/** @category Generated */
+
 	public Orientation getOrientation() {
 		return orientation;
 	}
 
-	/** @category Generated */
+
 	public float getHeight() {
 		return height;
 	}
 
-	/** @category Generated */
+
 	public int getX(){
 		return fieldLocation.getX();
 	}
 	
-	/** @category Generated */
+
 	public int getY(){
 		return fieldLocation.getY();
 	}
 	
 	
-	/** @category Generated */
+
 	public Location getLocation() {
 		return fieldLocation;
 	}
 
-	/** @category Generated */
+
 	public float getStartHeight() {
 		return startHeight;
 	}
 
-	/** @category Generated */
+
 	public float getEndHeight() {
 		return endHeight;
 	}
 
-	/** @category Generated */
+
 	public TileState getState() {
 		return state;
 	}
 
-	/** @category Generated */
+
 	public void setState(TileState state) {
 		this.state = state;
 	}
 
-	/** @category Generated Getter */
+
 	public boolean isSelected() {
 		return selected;
 	}
 
-	/** @category Generated Setter */
+
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
@@ -529,12 +529,12 @@ public class IsoTile {
 		return s;
 	}
 
-	/** @category Generated */
+
 	public boolean isOutline() {
 		return outline;
 	}
 
-	/** @category Generated */
+
 	public void setOutline(boolean outline) {
 		this.outline = outline;
 	}
@@ -543,12 +543,12 @@ public class IsoTile {
 		this.outline = !this.outline;
 	}
 
-	/** @category Generated */
+
 	public ImageType getType() {
 		return type;
 	}
 
-	/** @category Generated */
+
 	public String getTileName() {
 		return tileName;
 	}

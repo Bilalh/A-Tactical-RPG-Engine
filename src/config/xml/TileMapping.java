@@ -32,19 +32,19 @@ public class TileMapping implements ITileMapping {
 		this(t.getSpriteSheetLocation(), t.getTilemapping());
 	}
 
-	/** @category Generated */
+
 	@Override
 	public TileImageData getTileImageData(String type) {
 		return tilemapping.get(type);
 	}
 
-	/** @category Generated */
+
 	@Override
 	public String getSpriteSheetLocation() {
 		return spriteSheetLocation;
 	}
 
-	/** @category Generated */
+
 	@Override
 	public HashMap<String, TileImageData> getTilemapping() {
 		return tilemapping;

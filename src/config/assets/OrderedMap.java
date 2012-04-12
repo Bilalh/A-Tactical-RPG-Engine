@@ -13,18 +13,18 @@ public class OrderedMap extends DeferredAsset<SavedMap> implements IPreference, 
 
 	protected int index;
 
-	/** @category Generated */
+
 	public OrderedMap(DeferredAsset<SavedMap> da, int index) {
 		super(da);
 		this.index = index;
 	}
 
-	/** @category Generated */
+
 	public int getIndex() {
 		return index;
 	}
 
-	/** @category Generated */
+
 	public void setIndex(int index) {
 		this.index = index;
 	}

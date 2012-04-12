@@ -14,12 +14,12 @@ public class MockMovementCostProvider implements IMovementCostProvider {
 		return   1 +  Math.abs(costs[x][y] - costs[newX][newY]);
 	}
 
-	/** @category Generated Getter */
+
 	public int[][] getCosts() {
 		return costs;
 	}
 
-	/** @category Generated Setter */
+
 	public void setCosts(int[][] costs) {
 		this.costs = costs;
 	}

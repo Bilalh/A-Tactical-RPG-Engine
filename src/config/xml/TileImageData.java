@@ -14,18 +14,18 @@ public class TileImageData {
 	final String location;
 	final ImageType type;
 
-	/** @category Generated Constructor */
+
 	public TileImageData(String location, ImageType type) {
 		this.location = location;
 		this.type = type;
 	}
 
-	/** @category Generated Getter */
+
 	public String getLocation() {
 		return location;
 	}
 
-	/** @category Generated Getter */
+
 	public ImageType getType() {
 		return type;
 	}

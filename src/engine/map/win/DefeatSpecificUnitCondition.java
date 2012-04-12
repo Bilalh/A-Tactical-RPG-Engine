@@ -17,7 +17,7 @@ public class DefeatSpecificUnitCondition implements IWinCondition {
 
 	private UUID unitId;
 	
-	/** @category Generated */
+
 	public DefeatSpecificUnitCondition(UUID unitId) {
 		this.unitId = unitId;
 	}
@@ -30,12 +30,12 @@ public class DefeatSpecificUnitCondition implements IWinCondition {
 		return true;
 	}
 
-	/** @category Generated */
+
 	public UUID getUnitId() {
 		return unitId;
 	}
 
-	/** @category Generated */
+
 	public void setUnitId(UUID unitId) {
 		this.unitId = unitId;
 	}
