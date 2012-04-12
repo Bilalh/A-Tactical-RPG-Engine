@@ -6,4 +6,5 @@
 \contentsline {lstlisting}{\numberline {6}Assets format}{56}{lstlisting.6}
 \contentsline {lstlisting}{\numberline {7}Required Assets}{56}{lstlisting.7}
 \contentsline {lstlisting}{\numberline {8}A example show the features of the dialog's data format}{58}{lstlisting.8}
-\contentsline {lstlisting}{\numberline {9}Conditional AI Event}{66}{lstlisting.9}
+\contentsline {lstlisting}{\numberline {9}Example of a custom weapon}{59}{lstlisting.9}
+\contentsline {lstlisting}{\numberline {10}Conditional AI Event}{67}{lstlisting.10}
