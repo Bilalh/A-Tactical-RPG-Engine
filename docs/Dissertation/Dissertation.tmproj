@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>text/Context_Survey.tex</string>
+	<string>text/Software_Engineering.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -20,7 +20,7 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>238</integer>
+	<integer>251</integer>
 	<key>metaData</key>
 	<dict>
 		<key>text/Context_Survey.tex</key>
@@ -28,65 +28,94 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>73</integer>
 				<key>line</key>
-				<integer>38</integer>
+				<integer>39</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>17</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>25</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>38</integer>
-			</dict>
+			<integer>19</integer>
 		</dict>
-		<key>text/Evaluation.tex</key>
+		<key>text/Ideas.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>457</integer>
+				<integer>23</integer>
 				<key>line</key>
-				<integer>40</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>33</integer>
+			<integer>0</integer>
 		</dict>
-		<key>text/Implementation.tex</key>
+		<key>text/Requirements.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>330</integer>
+				<integer>37</integer>
 				<key>line</key>
-				<integer>383</integer>
+				<integer>3</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>364</integer>
+			<integer>0</integer>
+		</dict>
+		<key>text/Software_Engineering.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>12</integer>
+				<key>line</key>
+				<integer>17</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>text/Testing.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>text/project_structure.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>61</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>43</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>text/Implementation.tex</string>
-		<string>text/Evaluation.tex</string>
+		<string>text/Software_Engineering.tex</string>
+		<string>text/Requirements.tex</string>
+		<string>text/project_structure.tex</string>
 		<string>text/Context_Survey.tex</string>
+		<string>text/Ideas.tex</string>
+		<string>text/Testing.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -116,6 +145,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{980, 129}, {861, 831}}</string>
+	<string>{{929, 176}, {861, 812}}</string>
 </dict>
 </plist>
