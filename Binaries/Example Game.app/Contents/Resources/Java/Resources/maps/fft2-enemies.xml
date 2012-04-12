@@ -1,0 +1,84 @@
+<unitPlacement>
+  <units>
+    <entry>
+      <uuid>6363fb76-c8c1-4894-9244-906035ccc1f9</uuid>
+      <aiUnit uuid="6363fb76-c8c1-4894-9244-906035ccc1f9">
+        <name>Advisor</name>
+        <maxHp>30</maxHp>
+        <move>4</move>
+        <strength>30</strength>
+        <defence>3</defence>
+        <speed>12</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/Nicholas-animations.xml</imageDataRef>
+        <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
+        <skillIds/>
+        <ordering class="engine.map.ai.LowestHp">
+          <negated>true</negated>
+        </ordering>
+      </aiUnit>
+    </entry>
+    <entry>
+      <uuid>78c008a9-f7ca-4f89-b3f1-876a633caf09</uuid>
+      <aiUnit uuid="78c008a9-f7ca-4f89-b3f1-876a633caf09">
+        <name>Advisor</name>
+        <maxHp>30</maxHp>
+        <move>4</move>
+        <strength>20</strength>
+        <defence>3</defence>
+        <speed>20</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/Nicholas-animations.xml</imageDataRef>
+        <wepaonId>0f0dee32-06de-4f25-ba3d-acb110afc52c</wepaonId>
+        <skillIds/>
+        <ordering class="engine.map.ai.LowestStrength">
+          <negated>false</negated>
+        </ordering>
+      </aiUnit>
+    </entry>
+    <entry>
+      <uuid>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</uuid>
+      <aiUnit uuid="d4ca9dde-a2f4-4f51-b90e-5ff99e09f814">
+        <name>Princess</name>
+        <maxHp>30</maxHp>
+        <move>4</move>
+        <strength>22</strength>
+        <defence>3</defence>
+        <speed>20</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
+        <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
+        <skillIds/>
+        <ordering class="engine.map.ai.LowestStrength">
+          <negated>false</negated>
+        </ordering>
+      </aiUnit>
+    </entry>
+  </units>
+  <placement>
+    <entry>
+      <uuid>6363fb76-c8c1-4894-9244-906035ccc1f9</uuid>
+      <location>
+        <x>7</x>
+        <y>12</y>
+      </location>
+    </entry>
+    <entry>
+      <uuid>78c008a9-f7ca-4f89-b3f1-876a633caf09</uuid>
+      <location>
+        <x>7</x>
+        <y>4</y>
+      </location>
+    </entry>
+    <entry>
+      <uuid>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</uuid>
+      <location>
+        <x>5</x>
+        <y>2</y>
+      </location>
+    </entry>
+  </placement>
+</unitPlacement>

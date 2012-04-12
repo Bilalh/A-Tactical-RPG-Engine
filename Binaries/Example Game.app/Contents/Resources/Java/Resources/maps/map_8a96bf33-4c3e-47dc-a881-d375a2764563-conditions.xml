@@ -1,0 +1,11 @@
+<mapConditions>
+  <uuid>53ace65b-f838-4248-a5f5-d2696461b03a</uuid>
+  <winCondition class="engine.map.win.DefeatSpecificUnitCondition">
+    <unitId>b0a5943a-6096-4579-8314-387afac4d4ce</unitId>
+  </winCondition>
+  <defaultStartLocation>
+    <x>0</x>
+    <y>0</y>
+  </defaultStartLocation>
+  <turnComparator class="engine.map.DefaultTurnComparator"/>
+</mapConditions>

@@ -1,0 +1,136 @@
+<unitPlacement>
+  <units>
+    <entry>
+      <uuid>4f3329d2-205a-4b09-b257-06c763fa46b9</uuid>
+      <aiUnit uuid="4f3329d2-205a-4b09-b257-06c763fa46b9">
+        <name>New Enemy 5</name>
+        <maxHp>20</maxHp>
+        <move>4</move>
+        <strength>30</strength>
+        <defence>30</defence>
+        <speed>15</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/Elena-animations.xml</imageDataRef>
+        <wepaonId>7316c24b-c13f-4275-af14-2ff5f4a30b0f</wepaonId>
+        <skillIds/>
+        <ordering class="engine.map.ai.LowestStrength">
+          <negated>false</negated>
+        </ordering>
+      </aiUnit>
+    </entry>
+    <entry>
+      <uuid>8072ced7-dbdc-4800-8633-87c7762d30ff</uuid>
+      <aiUnit uuid="8072ced7-dbdc-4800-8633-87c7762d30ff">
+        <name>New Enemy 2</name>
+        <maxHp>20</maxHp>
+        <move>4</move>
+        <strength>50</strength>
+        <defence>1</defence>
+        <speed>15</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/Boy-animations.xml</imageDataRef>
+        <wepaonId>0f0dee32-06de-4f25-ba3d-acb110afc52c</wepaonId>
+        <skillIds/>
+        <ordering class="engine.map.ai.LowestHp">
+          <negated>false</negated>
+        </ordering>
+      </aiUnit>
+    </entry>
+    <entry>
+      <uuid>7ddb8e61-f33d-4781-be46-caf5d6b59587</uuid>
+      <aiUnit uuid="7ddb8e61-f33d-4781-be46-caf5d6b59587">
+        <name>Unit 1</name>
+        <maxHp>20</maxHp>
+        <move>4</move>
+        <strength>40</strength>
+        <defence>10</defence>
+        <speed>15</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
+        <wepaonId>0f0dee32-06de-4f25-ba3d-acb110afc52c</wepaonId>
+        <skillIds/>
+        <ordering class="engine.map.ai.LowestHp">
+          <negated>false</negated>
+        </ordering>
+      </aiUnit>
+    </entry>
+    <entry>
+      <uuid>b37251cc-b71b-427c-9941-1dea587b8509</uuid>
+      <aiUnit uuid="b37251cc-b71b-427c-9941-1dea587b8509">
+        <name>New Enemy 3</name>
+        <maxHp>20</maxHp>
+        <move>4</move>
+        <strength>10</strength>
+        <defence>30</defence>
+        <speed>15</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
+        <wepaonId>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</wepaonId>
+        <skillIds/>
+        <ordering class="engine.map.ai.LowestHp">
+          <negated>false</negated>
+        </ordering>
+      </aiUnit>
+    </entry>
+    <entry>
+      <uuid>401ebd4e-8b91-4f2b-8970-1877ec55590f</uuid>
+      <aiUnit uuid="401ebd4e-8b91-4f2b-8970-1877ec55590f">
+        <name>New Enemy 4</name>
+        <maxHp>20</maxHp>
+        <move>4</move>
+        <strength>10</strength>
+        <defence>20</defence>
+        <speed>15</speed>
+        <level>1</level>
+        <exp>0</exp>
+        <imageDataRef>images/characters/princess-animations.xml</imageDataRef>
+        <wepaonId>64295f0f-ccc4-4c92-a61b-21ab691ac624</wepaonId>
+        <skillIds/>
+        <ordering class="engine.map.ai.LowestHp">
+          <negated>false</negated>
+        </ordering>
+      </aiUnit>
+    </entry>
+  </units>
+  <placement>
+    <entry>
+      <uuid>4f3329d2-205a-4b09-b257-06c763fa46b9</uuid>
+      <location>
+        <x>2</x>
+        <y>5</y>
+      </location>
+    </entry>
+    <entry>
+      <uuid>8072ced7-dbdc-4800-8633-87c7762d30ff</uuid>
+      <location>
+        <x>5</x>
+        <y>9</y>
+      </location>
+    </entry>
+    <entry>
+      <uuid>7ddb8e61-f33d-4781-be46-caf5d6b59587</uuid>
+      <location>
+        <x>3</x>
+        <y>12</y>
+      </location>
+    </entry>
+    <entry>
+      <uuid>b37251cc-b71b-427c-9941-1dea587b8509</uuid>
+      <location>
+        <x>8</x>
+        <y>4</y>
+      </location>
+    </entry>
+    <entry>
+      <uuid>401ebd4e-8b91-4f2b-8970-1877ec55590f</uuid>
+      <location>
+        <x>7</x>
+        <y>15</y>
+      </location>
+    </entry>
+  </placement>
+</unitPlacement>

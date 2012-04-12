@@ -1,0 +1,9 @@
+<mapMusic>
+  <backgroundId>af6f534a-ba3f-4d4a-b809-0882f8f95176</backgroundId>
+  <attackSound>36d718c4-c403-4be4-bae1-aaa580cd0910</attackSound>
+  <defeatUnitSound>c45ac276-7479-459c-a0a8-78980e4baa48</defeatUnitSound>
+  <loseUnitSound>efd0b5b4-6374-4540-8f88-530e374133a1</loseUnitSound>
+  <winMapSound>21e94a2d-9d19-47ec-b7c9-53e9c6724af0</winMapSound>
+  <loseMapSound>88ada54f-646b-4b12-863e-802b93a0377a</loseMapSound>
+  <levelUpSound>e361c4d6-62bf-4142-b57d-5c6fb61128b9</levelUpSound>
+</mapMusic>

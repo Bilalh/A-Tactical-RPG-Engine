@@ -1,0 +1,43 @@
+<units>
+  <entry>
+    <uuid>620482ab-3a91-49a8-b65d-e9507e2c5dbb</uuid>
+    <unit uuid="620482ab-3a91-49a8-b65d-e9507e2c5dbb">
+      <name>Elena</name>
+      <maxHp>70</maxHp>
+      <move>5</move>
+      <strength>15</strength>
+      <defence>10</defence>
+      <speed>20</speed>
+      <level>1</level>
+      <exp>0</exp>
+      <imageDataRef>images/characters/Elena-animations.xml</imageDataRef>
+      <wepaonId>64295f0f-ccc4-4c92-a61b-21ab691ac624</wepaonId>
+      <skillIds>
+        <uuid>6617a65e-6ef4-44b5-96b7-3e7184416eaf</uuid>
+        <uuid>5c606847-9847-403e-bd01-28cbe3d2d1ca</uuid>
+        <uuid>79485114-2559-4964-9cbd-f0841bd2e916</uuid>
+        <uuid>5ed5181c-4acf-46e6-89f4-6dba90421889</uuid>
+      </skillIds>
+    </unit>
+  </entry>
+  <entry>
+    <uuid>876ff026-d02d-4883-a76a-bf39ce94e7e2</uuid>
+    <unit uuid="876ff026-d02d-4883-a76a-bf39ce94e7e2">
+      <name>Boy</name>
+      <maxHp>60</maxHp>
+      <move>4</move>
+      <strength>30</strength>
+      <defence>10</defence>
+      <speed>60</speed>
+      <level>1</level>
+      <exp>0</exp>
+      <imageDataRef>images/characters/Boy-animations.xml</imageDataRef>
+      <wepaonId>0f0dee32-06de-4f25-ba3d-acb110afc52c</wepaonId>
+      <skillIds>
+        <uuid>79485114-2559-4964-9cbd-f0841bd2e916</uuid>
+        <uuid>5ed5181c-4acf-46e6-89f4-6dba90421889</uuid>
+        <uuid>5c606847-9847-403e-bd01-28cbe3d2d1ca</uuid>
+      </skillIds>
+    </unit>
+  </entry>
+</units>

@@ -1,0 +1,61 @@
+<mapEvents>
+  <startDialog>
+    <entry>
+      <uuid>1d2db735-a6ed-4926-ab07-c524b244b09c</uuid>
+      <dialogPart uuid="1d2db735-a6ed-4926-ab07-c524b244b09c">
+        <text>I never expected to meet a knight of Lodis! I will never forgive you for all that I lost 15 years ago. You burned down my town and killed my parents!!! Thankfully, I&apos;ve acquired the skills of a soldier.</text>
+        <unitId>6363fb76-c8c1-4894-9244-906035ccc1f9</unitId>
+        <partNo>0</partNo>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>4eef364a-6bb1-43d3-b983-342710712e2e</uuid>
+      <dialogPart uuid="4eef364a-6bb1-43d3-b983-342710712e2e">
+        <text>[Both sides fight valiantly, but the superiorly-trained knights of Alphonse clear the field. Cressida kneels as she sees the light at the end of the tunnel.]</text>
+        <unitId>d4ca9dde-a2f4-4f51-b90e-5ff99e09f814</unitId>
+        <partNo>4</partNo>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>4d3b0e6e-7474-4f06-adc0-5de645141714</uuid>
+      <dialogPart uuid="4d3b0e6e-7474-4f06-adc0-5de645141714">
+        <text>&apos;It&apos;s long forgotten for the victor, but we still endure the painful memories...Words can&apos;t describe it. Does everyone in Lodis think as you do? Knowing your ancestors&apos; merciless deeds, don&apos;t you feel any remorse? And to repeat the same mistakes again? The teachings of Lodis are said to be sacred, but in the end they are simply the rationalizations of the subjugator.&apos;</text>
+        <unitId>6363fb76-c8c1-4894-9244-906035ccc1f9</unitId>
+        <partNo>2</partNo>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>a91ee11a-d962-4948-ade4-c68a2b258930</uuid>
+      <dialogPart uuid="a91ee11a-d962-4948-ade4-c68a2b258930">
+        <text>&apos;I understand that it&apos;s hard for you, but that was a long time ago...&apos;</text>
+        <partNo>1</partNo>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>6afbc131-9a04-4ee4-bb25-806a405413d2</uuid>
+      <dialogPart uuid="6afbc131-9a04-4ee4-bb25-806a405413d2">
+        <text>Alphonse, fighting is not the only way. One strategy is to persuade enemies to join your troops. But, don&apos;t assume everyone will be persuaded. Foes with high HP usually won&apos;t listen. Furthermore, some of your characters may be morepersuasive than others.&apos;</text>
+        <unitId>78c008a9-f7ca-4f89-b3f1-876a633caf09</unitId>
+        <partNo>3</partNo>
+      </dialogPart>
+    </entry>
+  </startDialog>
+  <endDialog>
+    <entry>
+      <uuid>a390ce99-cc1f-4478-9d77-1959127ff8ef</uuid>
+      <dialogPart uuid="a390ce99-cc1f-4478-9d77-1959127ff8ef">
+        <text>&apos;Alphonse, I have something to tell you. I told you that I used to be in the White Fang Troops. Their size doesn&apos;t compare to the troops of Lodis, but they were the personal troops of the Lord of Rananculus.&apos;</text>
+        <unitId>78c008a9-f7ca-4f89-b3f1-876a633caf09</unitId>
+        <partNo>1</partNo>
+      </dialogPart>
+    </entry>
+    <entry>
+      <uuid>5fb0e5c4-7c5e-4602-946a-6286cd160a4a</uuid>
+      <dialogPart uuid="5fb0e5c4-7c5e-4602-946a-6286cd160a4a">
+        <text>&apos;Never forget...You can fool yourself with your rationalizations, but eventually you&apos;ll suffer the consequences. Oh...Mother...Father...&apos;</text>
+        <unitId>6363fb76-c8c1-4894-9244-906035ccc1f9</unitId>
+        <partNo>0</partNo>
+      </dialogPart>
+    </entry>
+  </endDialog>
+</mapEvents>

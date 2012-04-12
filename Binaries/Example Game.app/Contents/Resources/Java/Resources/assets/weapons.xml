@@ -1,0 +1,69 @@
+<weapons>
+  <entry>
+    <uuid>64295f0f-ccc4-4c92-a61b-21ab691ac624</uuid>
+    <engine.items.RangedWeapon uuid="64295f0f-ccc4-4c92-a61b-21ab691ac624">
+      <name>Cross Bow</name>
+      <strength>5</strength>
+      <range>5</range>
+      <imageRef>4-15</imageRef>
+      <innerRange>2</innerRange>
+    </engine.items.RangedWeapon>
+  </entry>
+  <entry>
+    <uuid>a06d735c-b074-429f-894f-f966adfd06e3</uuid>
+    <engine.items.RangedWeapon uuid="a06d735c-b074-429f-894f-f966adfd06e3">
+      <name>Testing</name>
+      <strength>50</strength>
+      <range>9</range>
+      <imageRef>4-11</imageRef>
+      <innerRange>1</innerRange>
+    </engine.items.RangedWeapon>
+  </entry>
+  <entry>
+    <uuid>0f0dee32-06de-4f25-ba3d-acb110afc52c</uuid>
+    <engine.items.Spear uuid="0f0dee32-06de-4f25-ba3d-acb110afc52c">
+      <name>Longicolnis</name>
+      <strength>5</strength>
+      <range>3</range>
+      <imageRef>3-15</imageRef>
+    </engine.items.Spear>
+  </entry>
+  <entry>
+    <uuid>3e07fa06-184b-41a1-9d2a-5ae87d97f01d</uuid>
+    <engine.items.Around uuid="3e07fa06-184b-41a1-9d2a-5ae87d97f01d">
+      <name>Ball</name>
+      <strength>4</strength>
+      <range>1</range>
+      <imageRef>10-1</imageRef>
+    </engine.items.Around>
+  </entry>
+  <entry>
+    <uuid>7316c24b-c13f-4275-af14-2ff5f4a30b0f</uuid>
+    <engine.items.RangedWeapon uuid="7316c24b-c13f-4275-af14-2ff5f4a30b0f">
+      <name>Ice Bow</name>
+      <strength>6</strength>
+      <range>3</range>
+      <imageRef>4-10</imageRef>
+      <innerRange>1</innerRange>
+    </engine.items.RangedWeapon>
+  </entry>
+  <entry>
+    <uuid>90fe5bab-9cd6-44fc-a3b3-8caa49d0d056</uuid>
+    <engine.items.RangedWeapon uuid="90fe5bab-9cd6-44fc-a3b3-8caa49d0d056">
+      <name>Wood Bow</name>
+      <strength>3</strength>
+      <range>3</range>
+      <imageRef>4-7</imageRef>
+      <innerRange>0</innerRange>
+    </engine.items.RangedWeapon>
+  </entry>
+  <entry>
+    <uuid>fd54889b-0031-40e2-8a21-b5f2f7d9bb39</uuid>
+    <engine.items.MeleeWeapon uuid="fd54889b-0031-40e2-8a21-b5f2f7d9bb39">
+      <name>Oracion</name>
+      <strength>4</strength>
+      <range>1</range>
+      <imageRef>0-12</imageRef>
+    </engine.items.MeleeWeapon>
+  </entry>
+</weapons>

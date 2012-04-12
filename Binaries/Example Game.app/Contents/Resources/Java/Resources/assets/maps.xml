@@ -1,0 +1,20 @@
+<maps>
+  <entry>
+    <uuid>feebbcd2-9492-468b-91d2-f31cca90f104</uuid>
+    <deferredMap uuid="feebbcd2-9492-468b-91d2-f31cca90f104">
+      <resouceLocation>maps/map_8a96bf33-4c3e-47dc-a881-d375a2764563.xml</resouceLocation>
+    </deferredMap>
+  </entry>
+  <entry>
+    <uuid>a54f2739-5db2-4261-be1b-75b81188276a</uuid>
+    <deferredMap uuid="a54f2739-5db2-4261-be1b-75b81188276a">
+      <resouceLocation>maps/fft2.xml</resouceLocation>
+    </deferredMap>
+  </entry>
+  <entry>
+    <uuid>91e6abf7-3e98-4afb-9185-caaf3e9dbb12</uuid>
+    <deferredMap uuid="91e6abf7-3e98-4afb-9185-caaf3e9dbb12">
+      <resouceLocation>maps/map_fc322205-4f5a-45f2-833e-259ee1bab4c5.xml</resouceLocation>
+    </deferredMap>
+  </entry>
+</maps>

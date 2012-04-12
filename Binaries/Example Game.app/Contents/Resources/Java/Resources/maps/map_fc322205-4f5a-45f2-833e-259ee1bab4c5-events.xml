@@ -1,0 +1,22 @@
+<mapEvents>
+  <startDialog>
+    <entry>
+      <uuid>518448c7-df98-4118-903a-9cbb5caa5a50</uuid>
+      <dialogPart uuid="518448c7-df98-4118-903a-9cbb5caa5a50">
+        <text>You can&apos;t win!</text>
+        <unitId>4f3329d2-205a-4b09-b257-06c763fa46b9</unitId>
+        <partNo>0</partNo>
+      </dialogPart>
+    </entry>
+  </startDialog>
+  <endDialog>
+    <entry>
+      <uuid>2c4bd1ef-9c44-4a27-8e20-4d092b89cb8e</uuid>
+      <dialogPart uuid="2c4bd1ef-9c44-4a27-8e20-4d092b89cb8e">
+        <text>Fine, you win.</text>
+        <unitId>4f3329d2-205a-4b09-b257-06c763fa46b9</unitId>
+        <partNo>0</partNo>
+      </dialogPart>
+    </entry>
+  </endDialog>
+</mapEvents>
