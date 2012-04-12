@@ -1,5 +1,9 @@
 package common.enums;
 
+/**
+ * The Orrientation to use for slanted tiles.
+ * @author Bilal Hussain
+ */
 public enum Orientation {
 	TO_SOUTH("South",1),
 	TO_NORTH("North",0),
@@ -21,6 +25,9 @@ public enum Orientation {
 		return description;
 	}
 	
+	/**
+	 * Returns the inverse of this orientation.
+	 */
 	public Orientation inverse(){
 		return values()[inverse];
 	}

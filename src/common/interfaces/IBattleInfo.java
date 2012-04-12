@@ -5,8 +5,8 @@ import java.util.Collection;
 import engine.map.BattleResult;
 
 /**
- * Peforms a battle between two units
- * 
+ * Peforms a battle between two units.
+ *
  * @author Bilal Hussain
  */
 public interface IBattleInfo {

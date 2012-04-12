@@ -5,33 +5,36 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 /**
- * @author bilalh
+ * A sprite holds a image.
+ * @author Bilal Hussain
  */
 public class Sprite {
 	
 	private BufferedImage image;
 
-	/** @category Generated */
+	/**
+	 * Instantiates a new sprite.
+	 * @param image the image to use for the sprite
+	 */
 	public Sprite(BufferedImage image) {
 		this.image = image;
 	}
-	
-	// Draws the sprite at the specifed location
+
+	/**
+	 * Draws a the sprite at the specifed location.
+	 */
 	public void draw(Graphics g,int x,int y) {
 		g.drawImage(image,x,y,null);
 	}
 	
-	/** @category Getter */
 	public int getWidth() {
 		return image.getWidth(null);
 	}
 	
-	/** @category Getter */
 	public int getHeight() {
 		return image.getHeight(null);
 	}
 
-	/** @category Generated */
 	public BufferedImage getImage() {
 		return image;
 	}

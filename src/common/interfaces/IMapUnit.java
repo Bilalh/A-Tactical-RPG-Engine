@@ -29,6 +29,9 @@ public interface IMapUnit extends IUnit {
 	 */
 	int getAttack();
 	
+	/**
+	 * Returns true if the unit will die upon receiving the specifed damage
+	 */
 	public boolean willDie(int damage);
 	
 }

@@ -2,17 +2,15 @@ package common.interfaces;
 
 
 /**
+ * Stores the the result of battle.
  * @author Bilal Hussain
  */
 public interface IBattleResult {
 
-	/** @category Generated */
 	IMapUnit getTarget();
 
-	/** @category Generated */
 	int getDamage();
 
-	/** @category Generated */
 	boolean isTargetDead();
 
 }

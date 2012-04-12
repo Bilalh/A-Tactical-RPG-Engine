@@ -20,8 +20,8 @@ import util.Args;
 import util.Logf;
 
 /**
- * Keeps track of loaded tiles, which only loaded once
- * 
+ * Keeps track of loaded tiles, which only loaded once.
+ *
  * @author bilalh
  */
 public class ResourceManager {
@@ -34,34 +34,65 @@ public class ResourceManager {
 	private static SpriteSheet currentTextureSheet = null;
 	
 	
+	
+	/**
+	 * Load a tile sheet from the resources.
+	 *
+	 * @param filepath the filepath
+	 */
 	public synchronized void loadTileSheetFromResources(String filepath){
 		assert filepath != null;
 		currentTileSheet = Config.loadSpriteSheet(filepath);
 		assert currentTextureSheet != currentTileSheet;
 	}
 	
+	/**
+	 * Loads a tile sheet.
+	 *
+	 * @param sheet the sheet
+	 */
 	public  synchronized void loadTileSheet(SpriteSheet sheet){
 		assert sheet != null;
 		currentTileSheet = sheet;
 		assert currentTextureSheet != currentTileSheet:  currentTextureSheet + "\n" + currentTileSheet;
 	}
 
+	/**
+	 * Loads a  item sheet from resources.
+	 *
+	 * @param filepath the filepath
+	 */
 	public synchronized void loadItemSheetFromResources(String filepath){
 		assert filepath != null;
 		currentItemSheet = Config.loadSpriteSheet(filepath);
 	}
 	
+	/**
+	 * Load an item sheet.
+	 *
+	 * @param sheet the sheet to load
+	 */
 	public  synchronized void loadItemSheet(SpriteSheet sheet){
 		assert sheet != null;
 		currentItemSheet = sheet;
 	}
 	
+	/**
+	 * Load a texture sheet from resources.
+	 *
+	 * @param filepath the filepath
+	 */
 	public synchronized void loadTextureSheetFromResources(String filepath){
 		if (filepath == null) return;
 		currentTextureSheet = Config.loadSpriteSheet(filepath);
 		assert currentTextureSheet != currentTileSheet;
 	}
 	
+	/**
+	 * Load a texture sheet.
+	 *
+	 * @param sheet the sheet
+	 */
 	public  synchronized void loadTextureSheet(SpriteSheet sheet){
 		assert sheet != null;
 		currentTextureSheet = sheet;
@@ -69,6 +100,12 @@ public class ResourceManager {
 	}
 	
 	
+	/**
+	 * Gets the tile with the specifed name.
+	 *
+	 * @param ref the  the name of the tile.
+	 * @return the tile
+	 */
 	public BufferedImage getTile(String ref){
 		assert currentTileSheet != null;
 		assert ref != null;
@@ -78,6 +115,12 @@ public class ResourceManager {
 		return result;
 	}
 
+	/**
+	 * Gets the item specifed by a name
+	 *
+	 * @param ref the name of the item
+	 * @return the item
+	 */
 	public BufferedImage getItem(String ref){
 		assert currentItemSheet != null;
 		assert ref != null;
@@ -88,6 +131,13 @@ public class ResourceManager {
 	}
 	
 	private Map<String, TexturePaint> texturedTiles = Collections.synchronizedMap(new HashMap<String, TexturePaint>());
+	
+	/**
+	 * Gets the textured tile.
+	 *
+	 * @param ref the ref
+	 * @return the textured tile
+	 */
 	public TexturePaint getTexturedTile(String ref){
 		assert ref != null;
 		assert currentTextureSheet != null;
@@ -107,8 +157,16 @@ public class ResourceManager {
 		return tTile;
 	}
 
-	// TODO Prehash?
 	private Map<String, BufferedImage> tilesResized = Collections.synchronizedMap(new HashMap<String, BufferedImage>());
+	
+	/**
+	 * Gets the tile, resizing if needed
+	 *
+	 * @param ref the tile name
+	 * @param width the required width
+	 * @param height the required height
+	 * @return the tile
+	 */
 	public BufferedImage getTile(String ref, int width, int height){
 		String path = ref + width+height;
 		if (tilesResized.containsKey(path)){
@@ -124,11 +182,25 @@ public class ResourceManager {
 		return image;
 	}
 	
+	/**
+	 * Gets a sprite from the classpath.
+	 *
+	 * @param path the path
+	 * @return the sprite
+	 */
 	public Sprite getSpriteFromClassPath(String path) {
 		return getSpriteFromClassPath(path, -1, -1);
 	}
 	
 	
+	/**
+	 * Gets the sprite from the classpath.
+	 *
+	 * @param path the path to load from
+	 * @param width the requied width
+	 * @param height the requied height
+	 * @return the sprite.
+	 */
 	public Sprite getSpriteFromClassPath(String path, int width, int height) {
 		assert path != null;
 		
@@ -191,21 +263,21 @@ public class ResourceManager {
 	private ResourceManager() {
 	}
 
+	/**
+	 * @return the resource manager
+	 */
 	public static ResourceManager instance() {
 		return singleton;
 	}
 
-	/** @category Generated */
 	public SpriteSheet getCurrentTileSheet() {
 		return currentTileSheet;
 	}
 	
-	/** @category Generated */
 	public SpriteSheet getCurrentTextureSheet() {
 		return currentTextureSheet;
 	}
 	
-	/** @category Generated */
 	public SpriteSheet getCurrentItemSheet() {
 		return currentItemSheet;
 	}

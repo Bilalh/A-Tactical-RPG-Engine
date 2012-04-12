@@ -6,6 +6,11 @@ package common.interfaces;
  */
 public interface INotification<E> {
 
+	/**
+	 * Process the notification.
+	 *
+	 * @param obj the object to handle the notification/
+	 */
 	void process(E obj);
 	
 }

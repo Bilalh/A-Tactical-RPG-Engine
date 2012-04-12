@@ -8,6 +8,8 @@ import engine.skills.RangedSkill;
 import engine.unit.SpriteSheetData;
 
 /**
+ * The Interface for a unit.
+ *
  * @author Bilal Hussain
  */
 public interface IUnit extends Identifiable {

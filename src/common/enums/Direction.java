@@ -13,9 +13,13 @@ public enum Direction {
 	
 	STILL (0,  0, "-",4);
 
+	/** The displacement in x for the direction*/
 	public final int x;
+	/** The displacement in y for the direction*/
 	public final int y;
+	/** The name to use for debug */
 	public final String shortName;
+	/** The inverse direction*/
 	private final int inverse;
 	
 	private Direction(int x, int y, String shortName, int inverse) {
@@ -25,10 +29,16 @@ public enum Direction {
 		this.inverse   = inverse;
 	}
 
+	/**
+	 * Returns the inverse of this direction
+	 */
 	public Direction inverse(){
 		return values()[inverse];
 	}
 	
+	/**
+	 * Returns a reference string, this string will never be changed so it can be used for image filenames for example.
+	 */
 	public String reference() {
 		return this.name().toLowerCase();
 	}
