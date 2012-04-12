@@ -1,0 +1,76 @@
+% Main Project
+\input{settings/Setting}
+\renewcommand{\setflag}{\newif \ifwhole \wholetrue}
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
+\begin{document}
+\include{settings/Title}
+\tableofcontents
+\listoffigures
+\DIFaddbegin \lstlistoflistings
+\DIFaddend 
+\include{text/Abstract-diff}
+
+\linespread{1.3}
+% \newgeometry{bottom=2.4cm, top=2.4cm}
+\newgeometry{bottom=1in, top=1in,left=1in,right=1in}
+
+\include{text/Introduction-diff}
+\include{text/Context_Survey-diff}
+\include{text/Requirements-diff}
+
+\include{text/Software_Engineering-diff}
+
+\include{text/Ethical_Considerations-diff}
+
+\include{text/Design-diff}
+\include{text/Implementation-diff}
+
+\include{text/Evaluation-diff}
+\include{text/Conclusions-diff}
+
+\appendix
+\sectionfont{
+}
+\input{text/Testing-diff}
+\input{text/User_Manual-diff}
+\input{text/system_maintenance-diff}
+\input{text/software_listing-diff}
+
+\sectionfont{
+	\sectionrule{0pt}{0pt}{-10pt}{0.8pt}
+}
+\include{text/project_structure-diff}
+\include{text/Questionnaire-diff}
+\include{text/Scripting-diff}
+\include{text/Ideas-diff}
+
+\clearpage
+\addcontentsline{toc}{section}{References}
+\bibliography{settings/Citations}
+\end{document}
