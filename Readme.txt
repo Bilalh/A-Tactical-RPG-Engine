@@ -47,3 +47,7 @@ IsomerticRendering.gcx
 ----------------------
 A simulation of the equations used to draw the tiles (Mac OS X).
 Since Java's graphics (0,0) is at the top left, set the y axis (by clicking on it) to 400 ... 200 to see tile correctly.
+
+UserTesting 
+-----------
+Contains all the data obtained from user testing.
