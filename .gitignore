@@ -1,6 +1,7 @@
 tests_output/
 output.png
 output.xml
+javadoc/
 #*
 *$
 *.BAK
