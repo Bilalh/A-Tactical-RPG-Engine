@@ -135,5 +135,3 @@ One other requirement is that the custom class must be in a package (e.g custom.
 \end{lstlisting}
 
 As shown above the full qualified classname is used in the above xml. This is used to dynamically load the class. The fields for the class can also be specified in the weapon's tag.  The class then has to be packaged inside a \texttt{jar} and put of the \texttt{classpath} when running the game. For the Mac OS X application it is simpler, requiring the user to place the jar in \lstinline{bundle/Tactical.app/Contents/Resources/Java} and add \texttt{:\$JAVAROOT/WeaponJarName.jar} to end of the \texttt{ClassPath} key in   \lstinline{bundle/Tactical.app/Contents/Info.plist}. This allows the Mac application to still work without any external dependencies.
-
-%TODO Data Format Extension Mechanism
