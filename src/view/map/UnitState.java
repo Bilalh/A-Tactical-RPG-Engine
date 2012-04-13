@@ -26,7 +26,7 @@ import view.units.AnimatedUnit;
  */
 enum UnitState {
 		
-	// FIXME See docs/Unit.pdf for a diagram
+	// See Other/Unit.pdf for a diagram
 	
 	WAITING {
 		@Override

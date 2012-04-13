@@ -218,7 +218,7 @@ The GUI uses isometric viewpoint to display the map.
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[height=3in]{figures/imp-map.png}
+		\includegraphics[height=2.8in]{figures/imp-map.png}
 	\caption{An isometric map which shows the features of the renderers including height, empty tiles, wall textures and unit placement}
 	\label{fig:figures_imp-map}
 \end{figure}
@@ -285,9 +285,7 @@ Each image has at minimum \emph{four} images associated with it, one for each di
 Since the map renderer is not dependant on the main GUI, it could be reused in many different places in the editor. 
 
 \subsection{Map Rotation}
-The map renderer supports four different rotations which the user can choose from. This is implemented \emph{not} by actually rotating the map (since this would be expensive) but by changing the draw order. By default (0,0) is on the top left of the map. Rotation merely changes the location of (0,0). This means that none of the tile have changed so all the cached calculations can be kept. 
-
-Rotating the map can be used by the user to see units that are hidden or obstructed by tiles. 
+The map renderer supports four different rotations which the user can choose from. This is implemented \emph{not} by actually rotating the map (since this would be expensive) but by changing the draw order. By default (0,0) is on the top left of the map. Rotation merely changes the location of (0,0). This means that none of the tile have changed so all the cached calculations can be kept.  Rotating the map can be used by the user to see units that are hidden or obstructed by tiles. 
 
 \clearpage
 \subsection{User Interface}
@@ -317,7 +315,6 @@ The GUI supports other features to improve the user experience these include:
 
 
 \subsection{Editor Development}
-%TODO finish
 
 \subsubsection{Overview}
 \label{ssub:overview}
@@ -335,11 +332,11 @@ In each tab the current resources created are listed on the left as shown in fig
 	\label{fig:figures_editor_Units}
 \end{figure}
 
-To prevent error and increase usability,  \texttt{JSpinner} was used whenever numeric input was needed. \texttt{JSpinner} also allows a minimum and maximum range to be specified,  the component will then reject any input which is not in range.
+To prevent errors and increase usability,  \texttt{JSpinner} was used whenever numeric input was needed. \texttt{JSpinner} also allows a minimum and maximum range to be specified,  the component will then reject any input which is not in range.
 
 Each of the tabs can only edit their own data but they can \emph{read} data from other tabs, as shown above where the weapons and skills are received. One of the advantages is the data is always consistent. This was made a lot simpler since the user can only edit one set of resources at a time.
 
-Since the tabs only expose their resources (instead of handle I/O as well),  this means that the tabs can be reused e.g. (Sprite, Tilesets and textures share nearly all their code).
+Since the tabs only expose their resources (instead of handling I/O as well),  this means that the tabs can be reused e.g. (Sprite, Tilesets and textures share nearly all their code).
 
 \clearpage
 \subsubsection{Weapons \& Skills}
@@ -388,8 +385,6 @@ The music editor supports choosing which music is available to use in the game. 
 
 \subsubsection{Map Editor}
 
-%TODO finish
-%TODO deferfed map
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[width=.9\textwidth]{figures/editor/maps.png}
@@ -401,9 +396,7 @@ The map allows the user to customise all of the aspects of a created map.  The e
 
 Usually all the resources of an editor are loaded when the tab is selected and then cached.  While this did work for the maps, it caused unacceptable startup time hence I found an alternative method. 
 
-\emph{Lazy Loading} only loads a resource when it is actually used instead of just been referenced. In the case of the map editor a map is only loaded if the user tries to \emph{edit} the map. This significantly reduces loading time of the editor, especially if the user has created a large number of maps.
-
-%ref Martin Fowler, Patterns of Enterprise Application Architecture, Addison-Wesley, 2003, pp.200-214. ISBN 0-321-12742-0.
+\emph{Lazy Loading} only loads a resource when it is actually used instead of just been referenced\cite{Fowler:2002:PEA:579257}. In the case of the map editor a map is only loaded if the user tries to \emph{edit} the map. This significantly reduces loading time of the editor, especially if the user has created a large number of maps.
 
 \paragraph{Details Tab\\}
 The details tabs allows the user to change a map's name, as well as the size of the tiles.  The size of the map cannot be changed after creation to keep the implementation of the simple\footnote{Although the engine does support changing the map size.}. Another reason for not allowing the user to change the map size is that some of data, such as the enemy unit placement, may become invalid, which goes against the goal of always keeping the data consistent.  
@@ -424,7 +417,7 @@ When creating the map, the user can specify the size of map and tileset to assoc
 \begin{figure}[htb]
 	\centering
 		\includegraphics[width=\textwidth]{figures/editor/gen.png}
-	\caption{The map editor show a map created by Stasyk's terrain generator.}
+	\caption{The map editor shows a map created by Stasyk's terrain generator.}
 	\label{fig:figures_editor_gen}
 \end{figure}
 
