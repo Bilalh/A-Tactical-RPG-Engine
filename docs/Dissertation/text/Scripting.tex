@@ -1,8 +1,7 @@
 %!TEX root = ../Project.tex
 \section{Scripting}
 \label{sec:Scripting}
-
-Scripting allows the user to customise aspects of the game. This includes customising the opponent's AI, custom winning conditions and user defined events. 
+This appendix details the design of events scripting. Scripting allows the user to customise aspects of the game. This includes customising the opponent's AI, custom winning conditions and user defined events. 
 
 \subsection{Language Choice}
 
@@ -113,8 +112,8 @@ The AI events \texttt{mapinfo} has addition methods including:
 
 % \clearpage
 The \texttt{commands} themselves can be conditional, as example 
-\begin{lstlisting}[caption=Conditional AI Event ]
-If opponent's leader's hp $< 20\%$ then
+\begin{lstlisting}[caption=Pseudocode Conditional AI Event ]
+If opponent's leader's hp $< 20\%$
 	heal(leader).
 else If player has a leader unit then
 	If player's leader's hp $< 20\%$  then

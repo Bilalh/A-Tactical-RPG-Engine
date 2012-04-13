@@ -33,12 +33,12 @@ Allowing the user to customise the AI behaviour is a completed objective. In add
 \subsubsection{Tertiary Objectives}
 The main objectives of these requirements was to produce an editor that allowed customising of most aspects of the engine as well as combat improvements and units animations, all of them having been completed. 
 
-Combat requirement improvements include \texttt{skills} that can affect multiple units, and weapons which can attack multiple units. Further enhancements to this system include complete customisable range (e.g could be used to attack all enemy units around the attack).
+Combat requirements improvements include \texttt{skills} that can affect multiple units, and weapons which can attack multiple units. Further enhancements to this system include complete customisable range (e.g could be used to attack all enemy units around the attack).
 
 The requirement for animated unit movement was completed. This was further improved by taking account of the direction the unit is traveling in, which was done by having an  image for each of the four directions. 
 
 \paragraph{Editor\\}
-An editor that can customise nearly all aspects of the engine was created.  The most prominent features are the visual map editor (section ref), unit creation(section ref), dialog editing(section ref) and exporting as a self contained application.  The editor met all the  tertiary requirements and it also had addition improvements. These include an easy to edit dialog format for importing/exporting and inter-compatibility  with Stasyk’s Terrain Generator to give a user a start point for their map designs.
+An editor that can customise nearly all aspects of the engine was created.  The most prominent features are the visual map editor (section \ref{ssub:visual_map_creation}), unit creation(section \ref{ssub:unit_editors}), dialog editing(section \ref{ssub:dialog_editing}) and exporting as a self contained application.  The editor met all the  tertiary requirements and it also had addition improvements. These include an easy to edit dialog format for importing/exporting and inter-compatibility  with Stasyk’s Terrain Generator to give a user a start point for their map designs.
 
 %TODO more? section refs
 
@@ -47,7 +47,7 @@ A tertiary requirement was to implement custom events through the use of scripti
 
 To implement this I had planned to use the Java Scripting API\cite{javas}. The would allow embedding a dynamic scripting language.  The main benefit of this is that the code does not have to be compiled, which means it does not have the same hurdles with class linking as my Extension Mechanism(Appendix \ref{sub:data_format_extension_mechanism}).   The language chosen for embedding was Javascript  as it is built into the JDK, so the user does not have to install anything extra and of all the scripting languages, Javascript  is more likely to have been used before by the average user, these decisions are described in more detail in appendix \ref{sec:Scripting}. 
 
-Some people such as ref  advocate forgoing scripting completing, pointing out that scripting is a lazy of letting users have customisability since it can be quite difficult for users to create events.  Using their advice of creating visual editors for creating events and customising unit behaviours, I allowed the user to specify common events from the editor, with the option of linking they own classes as a last resort. 
+Some people \cite[Section 10.6]{Rabin:2002:AGP:515547} advocate forgoing scripting completing, pointing out that scripting is a lazy of letting users have customisability since it can be quite difficult for users to create events.  Using their advice of creating visual editors for creating events and customising unit behaviours, I allowed the user to specify common events from the editor, with the option of linking they own classes as a last resort. 
 
 Although the scripting was not implemented due to time constraints, note that it was a tertiary objective and all the given examples in the objective are supported by the engine. In particular, win conditions can be specified (section ref) and common winning conditions can even can be selected from the editor.  The engine supports showing dialog at arbitrary points in the game which could be used to support the requirement ``Showing some part of the story when a player’s character reaches a specified tile''.
 
@@ -69,7 +69,7 @@ In particular, the turning ordering is very general to the extent that the user 
 
 Nearly all TRPGs  include weapons and  skills (sometimes having other names such as `magic'). The engine fully supports this, and even has additional features such as arbitrary ranges (This is where the attack range of a weapon or skill can be in any shape and size. The weapon type \texttt{around}, which attacks all enemies in all the tiles around the attacker, was created as an example of this.)
 
-Like practically all TRPG, the engine has a battle system with support for weapons, skill and which takes account of the terrain of the map.  The main features the engine is missing is \emph{uncertainty} that actions have a small chance of missing, or have an unintended consequence. This quite common feature, an example is attack missing or bow hitting an allied unit that was in the way. At the moment the engine carries out all of the users requested actions without fail, which is in some ways better since it is more predictable, hence making it easier.  
+Like practically all TRPG, the engine has a battle system with support for weapons, skill and which takes account of the terrain of the map.  The main features the engine is missing is \emph{uncertainty} that is actions have a small chance of missing, or have an unintended consequence. This a quite common feature, an example is an attack missing or a bow hitting an allied unit that was in the way. At the moment the engine carries out all of the users requested actions without fail, which is in some ways better since it is more predictable, hence making it easier.  
 
 Although the engine supports units levelling up and having the attributes increased, it does not support restricting  skills to a specific level, that is a unit knows all of it's skills at the beginning. In contrast, most TRPG usually restrict a unit's skills to a select few at the beginning, the unit then gains new skills as it levels up. This was not an of the objective of the project, but will be considered for future work.
 
@@ -91,7 +91,7 @@ One of the major features that is not present in SM is the ability to export a c
 In total six participants took part in the user testing, more people were interested but could not due to time constraints.  See Appendix \ref{sec:questionnaire} for the Questionnaire.
 
 \subsection{Analysis of User Responses}
-The participants can be grouped into three groups, those who have played a TRPG before, those who have not and those who don't play games at all.
+The participants can be grouped into two groups, those who have played a TRPG before, those who have not.
 \paragraph{Feedback from  all groups\\}
 Both groups thought the editor supported all the features they would like if they created a TRPG.  Most of the participants answered that they would like to use the editor again.  Interestingly, all users who were familiar with TRPG used the keyboard exclusively, this I attribute to participants being used to the input mechanism since most TRPG are on consoles\footnote{such as Playstation 2}. Those who had no experience playing TRPG unexpectedly used both the keyboard and mouse at the same time (generally selecting the units with the mouse then using the keyboard for performing any actions).
 
@@ -104,6 +104,14 @@ When playing the pre-created game, all of the participants were able to play, an
 In contrast, participants who never played a TRPG before felt overwhelmed with the available options, although they figured how to use it quite quickly.  They particularly liked how robust the editor was. The main features that were requested were  an overview of each feature in the editor and how they interacted.  The participants commented on the pleasing visual appearance of the editor.
 
 When playing the pre-created game, some of the participants were initially confused by the interface. All participant were able to finish the game even if they could not win.  The participant unexpectedly kept on using the enter key to perform actions on the unit even though the help panel stated otherwise. In response to this feedback, I added the enter key as an alias of the action key(default `x').
+
+\paragraph{Feedback on Playing  a Pre-created Game\\}
+The feedback from user's playing a pre-created game was very positive\footnote{Scores are for the questions in Appendix \ref{sub:playing_a_pre_created_game}}:
+\begin{enumerate}[topsep=2mm ]
+	\item The users on average gave a score of 3.83 out of 5 for `I found the game intuitive'.
+	\item Most users thought the game had a `appropriate level of difficulty' giving it on average 4.17 out of 5.
+	\item Most users `enjoyed playing the game' giving it on average 4.33 out 5.
+\end{enumerate}
 
 \subsubsection{System Usability}
 A System Usability Scale (SUS) was used \cite{SUS}. This works by giving each even numbered questions a score of (5 - \emph{value}) and odd numbered questions a score of (\emph{value}-1). Questions that contributed to a high score showed that the system is usable. 

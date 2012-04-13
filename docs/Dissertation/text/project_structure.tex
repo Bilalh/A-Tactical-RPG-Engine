@@ -3,7 +3,7 @@
 \section{Project Structure \& Specification}
 \label{sec:project_structure___specification}
 
-This appendix contains all the technical information of the `project' and the data format used.
+This appendix contains all the technical information of a `project' and the data format used.
 
 \begin{figure}[htbp]
 	\centering
@@ -12,7 +12,7 @@ This appendix contains all the technical information of the `project' and the da
 	\label{fig:figures_Files}
 \end{figure}
 
-A game's resources  are organised as shown above. One of the main restrictions, is that all external links have to be relative to the \texttt{resources} directory. All \texttt{xml} files \textbf{must} conform to the schemas in the \texttt{schemas} directory. 
+A game's resources  are organised as shown above. One of the main restrictions, is that all external links have to be \emph{relative} to the \texttt{resources} directory. All \texttt{xml} files \textbf{must} conform to the schemas in the \texttt{schemas} directory. 
 
 
 \subsection{Assets}
@@ -89,9 +89,9 @@ The main change is the addition of the \texttt{project.tacticalproject} file whi
 \subsubsection{Dialog Data Format}
 \label{ssub:dialog_data_format}
 
-The dialog format is actually YAML\cite{yaml}. This allows more formatting options as well the simple format discussed previously. The advantage of using YAML is that there are parsers available for java\cite{snake}. This saved development time since I did not have to build a parser. The main advantage of YAML is that there are very few characters that need to be escaped namely \textbf{:} if it appears at the start of the dialog's text or speaker's name. \textbf{\#} also has to be escaped since it is the comment character in \texttt{YAML}. Since these characters are fairly uncommon in dialog, it should not pose too much inconvenience to the user. In any case the use  of the form \texttt{- Speaker: |-}, then  writing the text on an intended line escapes all characters in the block, solving this problem.
+The dialog format is actually YAML\cite{yaml}. This allows more formatting options as well the simple format discussed previously. The advantage of using YAML is that there are parsers available for Java\cite{snake}. This saved development time since I did not have to build a parser. The main advantage of YAML is that there are very few characters that need to be escaped namely \textbf{:} if it appears at the start of the dialog's text or speaker's name. \textbf{\#} also has to be escaped since it is the comment character in \texttt{YAML}. Since these characters are fairly uncommon in dialog, it should not pose too much inconvenience to the user. In any case the use  of the form \texttt{- Speaker: |-}, then  writing the text on an intended line escapes all characters in the block, solving this problem.
 
-\begin{lstlisting}[caption=A example show the features of the dialog's data format]
+\begin{lstlisting}[caption=A example showing the features of the dialog's data format]
 - Speaker:   Some text.
 - none:      no speaker.
 - New Enemy 2: |-
@@ -103,7 +103,7 @@ The dialog format is actually YAML\cite{yaml}. This allows more formatting optio
 \end{lstlisting}
 Specifically the dialog must satisfy the following:
 \begin{itemize}
-	\item  At least one portion of text. A empty file is invalid
+	\item  At least one portion of text. A empty file is invalid.
 	\item  Each portion of text must have a speaker identified by their name or \texttt{none} for no speaker.
 	\item  No other elements are allowed.
 \end{itemize}
@@ -116,7 +116,7 @@ When the dialog is imported, if there is a unit with  the specified name, it is 
 
 The user can use their own code to further customise the engine. This section will describe the steps the user needs to take by using the \texttt{Around} weapon as example. This class was originally implemented using the extension mechanism before moving it to the engine. 
 
-To uses their own code the user first has implement the required interface e.g \texttt{IWeapon} for making a custom weapon.  For weapons (as well as skills) there are convenient classes namely (\texttt{AbstractWeapon} and \texttt{AbstractSkill}) which provides methods for bound checking and generating a diamond of the specified size around the specified tile. 
+To use their own code the user first has implement the required interface e.g \texttt{IWeapon} for making a custom weapon.  For weapons (as well as skills) there are convenient classes namely (\texttt{AbstractWeapon} and \texttt{AbstractSkill}) which provides methods for bound checking and generating a diamond of the specified size around a specified tile. 
 
 Using \texttt{AbstractWeapon} there only one required method to be implemented, namely \texttt{getAttackRange} which specify which tiles are reachable. For the \texttt{Around} weapon the attack range is the 8 tiles around the attacker. Users can also override the \texttt{getTargets} method to allow multiple targets, in \texttt{Around}'s case it attack \emph{any} unit(including allied units) on any of the 8 tiles.  The \texttt{boundcheck} method which removes any invalid locations from a \texttt{Collection} can be optionally used, to save the user from having to figure out if the tiles would valid\footnote{Especially important since there are a lot of edge cases such as empty tiles, immovable tiles and units occupying a tile.}
 

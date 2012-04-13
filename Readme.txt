@@ -17,7 +17,7 @@ build.xml
 This script can be used for compiling and creating binaries, see the comment at the top `build.xml` for more information.
 
 	ant build   # Complies all the source code 
-	ant dist	# Creates self contained binaries and places then in `Binaries`
+	ant dist    # Creates self contained binaries and places then in `Binaries`
 
 schemas
 --------
@@ -43,11 +43,12 @@ bin
 ---
 Compiled Java files.
 
-IsomerticRendering.gcx
-----------------------
+Other 
+-----
+
+###IsomerticRendering.gcx
 A simulation of the equations used to draw the tiles (Mac OS X).
 Since Java's graphics (0,0) is at the top left, set the y axis (by clicking on it) to 400 ... 200 to see tile correctly.
 
-UserTesting 
------------
+###UserTesting 
 Contains all the data obtained from user testing.
