@@ -136,8 +136,7 @@ While default implementation of skills and weapons are provided, the advance use
 
 Units can ``level up'' which means the attributes  of the unit increase.  Levelling up can also affect how quickly the unit can get their next turn. levelling up is defined in the battle system as discussed in section \ref{ssub:battle_system}.
 
-% \subsubsection{Algorithms}
-% \label{ssub:Algorithms}
+When a map has been won all of player's defeated unit's get revived, this is to ensure the next map is completable, and to make the game easier. 
 
 \subsubsection{Movement and Path Finding}
 
@@ -228,18 +227,18 @@ The map is composed of isometric tiles which have the following features:
 
 \begin{itemize}[topsep=0mm,noitemsep ]
 	\item  The height is \emph{exactly} half the tile's width.
-	\item  To create the tile, a square tile is rotated by 45$^{\circ}$ then the height is halved.
+	\item  To create the tile, a square tile is rotated by 45$^{\circ}$ then the height is halved\footnote{A script to do this for the user is provided see \lstinline!scripts/create_isometric_tiles/create_iso_tiles.sh! for details}.
 \end{itemize}
 
 One the major features of the map render is how the height is specified.  Instead of using a bunch of careful constructed tiles to simulate height, each tile has a specified height which the renderer uses to draw the tile with appropriate height. 
 
 \subsubsection{Drawing Algorithm}
-The algorithm for drawing tiles is firstly the top of the tile is drawn, then the walls are drawn. It is quite general since it supports tiles which can slant in any direction, as shown in figure \ref{fig:mtile2} where the tile is slanting to the north, as well as zooming and arbitrary height \footnote{A simulation of the equations was made first and is in \texttt{IsomerticRendering.gcx} (Mac Only).}. 
+The algorithm for drawing tiles is firstly the top of the tile is drawn, then the walls are drawn. It is quite general since it supports tiles which can slant in any direction, as shown in figure \ref{fig:mtile2} where the tile is slanting to the north, as well as zooming and arbitrary height \footnote{A simulation of the equations was made first and is in \texttt{other/IsomerticRendering.gcx} (Mac Only).}. 
 
 \def\tileSize{3in}
 \begin{figure}[h!tbp]
 	\begin{center}
-	\subfigure[A Tile with  a height 2]{
+	\subfigure[A Tile with a height(start and end) of 2]{
 		\label{fig:mtile1} \includegraphics[width=\tileSize]{figures/tile1.png}} 
 	\subfigure[A Tile with a start height 1 and an end height of 2 with the walls in green and red]{
 		\label{fig:mtile2} \includegraphics[width=\tileSize]{figures/tile3.png}} 
@@ -262,12 +261,12 @@ Mathematically the set of points used to draw tile are as follows:
 \end{equation}
 
 \begin{align*}
-	tx,\; ty   &\;\; \textrm{is the starting point (shows an red X in the above figure)}\\
+	tx,\; ty   &\;\; \textrm{is the starting point (shown as an red X in the above figure)}\\
 	vet,\; hoz &\;\; \textrm{is the height and width of the tile adjusted for  the zoom and pitch}\\
 	h1,\; h2   &\;\; \textrm{are the differences in the start height and end height and vice verse}
 \end{align*}
 
-where equation 1 is for the top of the tile, equation 2 for the right wall and equation 3 for the right wall. 
+where equation 1 is for the top of the tile, equation 2 for the left wall and equation 3 for the right wall. 
 
 The equation converted to Java easily since the \texttt{Graphic} class has the methods  \texttt{drawPolygon} which draw a polygon using set of points conveniently in the same form as the equations.
 
@@ -526,3 +525,4 @@ The main steps to create the self contained editor are:
 \end{itemize}
 
 The ant build file takes care of all the above steps and can be invoked by executing \lstinline{ant dist}. The build file has many other features such as running all tests and creating a web page. These features are described at the top of the build file (\texttt{build.xml}).
+
