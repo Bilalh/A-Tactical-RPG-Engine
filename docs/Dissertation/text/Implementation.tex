@@ -7,20 +7,18 @@
 
 \begin{figure}[htbp]
 	\centering
-		% TODO fix labels - perform
 		\includegraphics{figures/engine_exported.pdf}
 	\caption{Overview of the implementation.}
 	\label{fig:overview_engine}
 \end{figure}
 
 The system is structured using MVC for the overall architecture as well as  using the Observer Pattern, as shown above.
-%TODO explain  mvc and Observer Patten somewhere
+%TODO explain   Observer Patten somewhere
 
 The \texttt{MainController} handles the overall logic, including the game progression. 
 Although the objectives only require an isometric  map view, the implementation was designed to be more general,  hence a \emph{separate} controller for each \texttt{stage} of the game is used. When the \texttt{stage} is finished  (e.g. when a map has been completed) the controller notifies the \texttt{MainController}, which decides what to do next.   
 
-%TODO where to put this
-%The architecture could be easily extended to allow overworld maps, cut-scenes for example.
+The advantage of this architecture is that it is extendable hence, other \texttt{stages} such as an overworld map or a title screen could be easily added.
 
 
 The observable components (i.e. the view and the map controller) communicate using \texttt{notification} objects which encapsulate any relevant information. For example, the \texttt{model} sends a \texttt{UnitMovedNotification} when the computer controlled opponent moves one of their units. This notification includes a reference to the unit moved as well as the path it took to get there. The information is used by the GUI to display an animation of the unit moving to the user.
@@ -29,7 +27,7 @@ The observable components (i.e. the view and the map controller) communicate usi
 \subsection{Data Format}
 \label{sub:data_format}
 
-The schema for the data format was only slightly changed for the reason stated in section \ref{ssub:intercompatibility}. To parse and serialise the xml the \texttt{Xstream} Java library was used.
+The schema for the data format was only slightly changed for the reason stated in section \ref{ssub:intercompatibility}. To parse and serialise the xml the \texttt{Xstream} Java library was used\cite{xstream}.
  
 XStream is an open source library used to serialise Java objects to and from XML. One of it's major benefits is that it abstracts over the parsing and serialisation and allows the user to focus on what the data should be used for. 
 
@@ -66,8 +64,6 @@ As shown above, no extra logic apart from the annotations is needed for serialis
 	<height>1</height>
 </tile>
 \end{lst:tile}
-
-%TODO Ref
 
 \subsubsection{Resources}
 
@@ -115,7 +111,6 @@ The \texttt{Map} class handles the overall logic and game flow.   The main compo
 \end{itemize}
 
 The other major responsibly of the map is to send notifications to the view.  
-%TODO more
 
 \subsubsection{Units}
 \label{ssub:units}
@@ -137,6 +132,8 @@ While default implementation of skills and weapons are provided, the advance use
 Units can ``level up'' which means the attributes  of the unit increase.  Levelling up can also affect how quickly the unit can get their next turn. levelling up is defined in the battle system as discussed in section \ref{ssub:battle_system}.
 
 When a map has been won all of player's defeated unit's get revived, this is to ensure the next map is completable, and to make the game easier. 
+
+The state machine for the units as described in section \ref{ssub:unit} is implemented using Java \texttt{enums}\footnote{In the class \texttt{view.map.UnitState}}. Java enums differs from a traditional enum in that they can have methods (which are inherently static) and fields.  The advantage of using enums is that they are singleton\footnote{meaning that there is only a single instance of each enum}.  This simplifies the logic, since each enum can return another enum to signal a change of state.
 
 \subsubsection{Movement and Path Finding}
 
@@ -175,8 +172,6 @@ The amount of experience gained is dependent on the levels of the attacker and t
 
 A map has a win condition which can be specified by the user.  The engine provides two default implementations, defeat all enemy units and defeat a specific unit.  The user can, of course, provide their own conditions which can be basically anything e.g. move to a specific tile. 
 
-% TODO add losing conditions to future work
-
 \subsubsection{Dialog}
 \label{ssub:dialog}
 The engine supports displaying dialog to the user at the start and end of a battle. 
@@ -208,14 +203,10 @@ As discussed previously the maps use xml as their data format, one of the advant
 
 The terrain generator is called by the editor on behalf of the user with appropriate settings\footnote{In the form of a YAML configuration file \texttt{bundle/config.yaml}} saving the user from having to configure the many options available in the terrain generator (since the terrain generator is a command line application).
 
-% \subsection{GUI Development and Testing}
-
 \subsection{Map Rendering}
 \label{ssub:map_rendering}
 
 The GUI uses isometric viewpoint to display the map. 
-%TODO more
-
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[height=2.8in]{figures/imp-map.png}
@@ -287,18 +278,13 @@ Since the map renderer is not dependant on the main GUI, it could be reused in m
 \subsection{Map Rotation}
 The map renderer supports four different rotations which the user can choose from. This is implemented \emph{not} by actually rotating the map (since this would be expensive) but by changing the draw order. By default (0,0) is on the top left of the map. Rotation merely changes the location of (0,0). This means that none of the tile have changed so all the cached calculations can be kept.  Rotating the map can be used by the user to see units that are hidden or obstructed by tiles. 
 
-\clearpage
 \subsection{User Interface}
 \subsubsection{Controls}
-The main control scheme for the GUI is the keyboard, but the user can perform nearly every action using the mouse. All the elements were designed to work equally well with the mouse and keyboard. This means for example that the tiles are clickable, (which result in the tile being selected when clicked).  
-
-%TODO talking about unit clicking
+The main control scheme for the GUI is the keyboard, but the user can perform nearly every action using the mouse. All the elements were designed to work equally well with the mouse and keyboard. This means for example that the tiles and units are clickable, (which result in the tile/unit being selected when clicked).  
 
 \subsubsection{Menus}
 
 The GUI uses a menu system to handle the unit's actions. The menu is quite general since it will resize to the longest item in the menu.  It also supports nested menus which are used when the user chooses to use a skill. The menu is controllable using the keyboard arrows keys, but the user can also click an item directly to select it.
-
-% TODO FSM enum
 
 
 \subsubsection{Other Features}
@@ -338,7 +324,6 @@ Each of the tabs can only edit their own data but they can \emph{read} data from
 
 Since the tabs only expose their resources (instead of handling I/O as well),  this means that the tabs can be reused e.g. (Sprite, Tilesets and textures share nearly all their code).
 
-\clearpage
 \subsubsection{Weapons \& Skills}
 
 The editor supports customising of the weapons and skills as shown. 
@@ -351,7 +336,7 @@ The editor supports customising of the weapons and skills as shown.
 	\subfigure[Skill Panel]{
 			\includegraphics[scale=\editor]{figures/editor/Skills.png}}
 	\end{center}
-	\label{fig:editor}
+	\label{fig:editor2}
 \end{figure}
 
 The editor shows visually what the attack range looks like. This is updated whenever the user makes any change to the resource.  This required very little extra code since the map renderer was general enough to be easily embedded. 
@@ -380,8 +365,6 @@ A sprite sheet editor is used for many of the tabs including the unit's images, 
 	\label{fig:figures_editor_Music}
 \end{figure}
 The music editor supports choosing which music is available to use in the game.  When a track is selected in the editor, the metadata (include the `artist' and `album') of the track is displayed.  As a further enhancement, the track can be previewed, this is especially useful when used in combination with the sound effect editor (which has exactly the same interface) to see what the combination of sounds and music sound like. 
-
-\clearpage
 
 \subsubsection{Map Editor}
 
@@ -449,7 +432,7 @@ The visual map editor supports editing  of both textured and non-textured tiles.
 \label{ssub:dialog_editing}
 
 \begin{figure}[htbp]
-	\centering1
+	\centering
 		\includegraphics[height=4in]{figures/editor/Maps-dialog.png}
 	\caption{The dialog editing panel}
 	\label{fig:figures_editor_Maps-dialog}
@@ -480,7 +463,6 @@ Although the dialog xml format could be edited by the determined user, this woul
 When the editor starts, it displays the above startup screen which allows the user to create a new project or open an existing project.  Since a user is likely to work on the same project for a significant period of time, the editor keeps tracks of recent projects. 
 
 %TODO put bug when loading music stops
-\clearpage
 \subsubsection{Exporting}
 \label{ssub:exporting}
 

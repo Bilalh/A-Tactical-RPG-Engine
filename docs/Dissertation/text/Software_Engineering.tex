@@ -6,8 +6,7 @@
 \label{sub:methodologies_used}
 
 I chose to use an iterative spiral development model for the project. This allowed me to focus on specific parts of the system before moving on to the next component. 
-Prototypes were extensively used, especially in the GUI when choosing how to render the map. These also used when deciding the most appropriate layout for the editor. %TODO REF
-
+Prototypes were extensively used, especially in the GUI when choosing how to render the map. These also used when deciding the most appropriate layout for the editor.
 
 \subsubsection{Test Driven Development}
 Test-driven development (TDD) was utilised in the project\cite{murphytest}. This also helped with verification of requirements as tests assess whether the code matched the minimum requirements. The \texttt{JUnit} library\footnote{JUnit 4.8.2, see \url{www.junit.org/} for details } was used to write the unit tests.  
@@ -24,13 +23,11 @@ The main stages in TDD are:\cite{desai2008survey}
    \item Changes to the previously written code must pass all previously created tests.
    \item The code is refracted. 
 \end{enumerate}
-%TODO 
 
 The major benefits of TDD are that the system will be well tested.  An additional benefit is that  it  prevents new features from introducing bugs. Combined with version control, as discussed in the next section, it makes it very easy to find bugs since the unit tests can be used to find out \emph{when} the code stopped working as well as find out \emph{which} piece of code was the root cause.
 
 This method of development was perfectly suited to implementing the algorithms in the engine (such as unit movement) because the expected output was known beforehand.  Since all components of the model are programmed to an interface, it allows the use of mock objects (section \ref{sec:mockobjects}).   
 
-%To further ease testing of the algorithms I used mock object  
 
 However TDD has few drawbacks such as the difficulty of realising all possible test scenarios, which becomes apparent when testing the GUI and the editor. To test these aspects of the system, I played multiple created games from start to finish with the goal of finding any lingering bugs. In addition, I carried out user surveys as well as usability studies to find any unexpected defects in the user interface. (results in section \ref{sub:results_of_user_testing}) 
 
@@ -39,12 +36,11 @@ However TDD has few drawbacks such as the difficulty of realising all possible t
 Mock objects are used predominantly in very large software development projects to aid testing. The aim is to create mock objects which simulate only the essential behaviour of the object required for testing. 
 Mock objects abstract  the detailed functionality of the implementation away and  focus only on what is required for the test \cite{Freeman:2009:GOS:1655852}.
 
+Mock objects were used for testing the algorithms so that the tests can focus on the algorithms, since it bypasses specifying all the attributes which are not relevant to the test.  
+
 \subsection{Version Control}
 \label{sub:version_control}
-Version control keeps track of all changes to a project. It keeps the history of changes and  helps to detect when a bug was first introduced, hence the cause of the bug. In particular I chose to use \texttt{git}, which is a distributed version control system. It differs from traditional client server systems such as Subversion in that each user has a 
+Version control keeps track of all changes to a project. It keeps the history of changes and  helps to detect when a bug was first introduced, hence the cause of the bug. In particular I chose to use \texttt{git}, which is a distributed version control system\cite{Chacon:2009:PG:1618548}. It differs from traditional client server systems such as Subversion in that each user has a 
 complete copy of the repository. 
 
 Distributed version control system have the advantage of allowing changes to be committed locally, even without an internet connection.  This was particularly useful for this project since it allowed experimenting with various features before choosing the features to integrate into the system.
-  
-
-%TODO ref

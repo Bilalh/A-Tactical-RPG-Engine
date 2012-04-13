@@ -32,6 +32,10 @@ The following is a listing of future improvements that could be implemented.
 
 \item Since the engine itself has no dependencies on the \texttt{swing} or \texttt{AWT} graphics toolkit it could work on Android unchanged. A new GUI suitable for a touch screen would be needed because of the Android's lack of Java's windowing systems. Many parts of the current GUI, could be nevertheless reused, with minor changes, these including the map renderer, as well as the dialog system. 
 
+\item Currently the engine only allows specifying the \emph{winning} conditions. An improvement to this would be to allow the user to optionally specify \emph{losing} conditions. This would enhance the engine's capabilities and would allows specifying losing conditions such as `Leader is defeated' where `Leader' is one of the player's units.
+
+\item At moment if the user delete's a resource(such as a weapon) that is in use it gives no warning to the user, assigning the next resource to \emph{users} of the resource. An improvement would be to use reference counting\cite{gc}, which keeps track of how many times a resource is used.  This could be used to warn the user that the resource is in use.
+
 \end{itemize}
 
 \subsection{Final conclusion}
