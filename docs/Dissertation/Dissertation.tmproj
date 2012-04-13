@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>text/Ideas.tex</string>
+	<string>text/project_structure.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -33,20 +33,6 @@
 				<integer>10</integer>
 				<key>line</key>
 				<integer>18</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>text/Abstract.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>12</integer>
-				<key>line</key>
-				<integer>3</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -170,12 +156,12 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>60</integer>
 				<key>line</key>
-				<integer>137</integer>
+				<integer>138</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>92</integer>
 			<key>firstVisibleLine</key>
 			<integer>116</integer>
 		</dict>
@@ -186,7 +172,6 @@
 		<string>text/Requirements.tex</string>
 		<string>text/Ideas.tex</string>
 		<string>text/project_structure.tex</string>
-		<string>text/Abstract.tex</string>
 		<string>text/User_Manual.tex</string>
 		<string>text/Context_Survey.tex</string>
 		<string>text/Design.tex</string>
@@ -229,6 +214,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{659, 273}, {752, 806}}</string>
+	<string>{{659, 72}, {752, 806}}</string>
 </dict>
 </plist>
