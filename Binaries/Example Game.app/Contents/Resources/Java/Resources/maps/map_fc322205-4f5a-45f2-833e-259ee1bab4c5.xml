@@ -13,7 +13,7 @@
     <eventsLocation>maps/map_fc322205-4f5a-45f2-833e-259ee1bab4c5-events.xml</eventsLocation>
     <musicLocation>maps/map_fc322205-4f5a-45f2-833e-259ee1bab4c5-music.xml</musicLocation>
     <conditionsLocation>maps/map_fc322205-4f5a-45f2-833e-259ee1bab4c5-conditions.xml</conditionsLocation>
-    <outlines>false</outlines>
+    <outlines>true</outlines>
   </mapData>
   <tile x="0" y="0">
     <type>red</type>

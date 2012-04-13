@@ -201,7 +201,7 @@ The other limitation is that there is only one save file. This is not a big limi
 \label{ssub:intercompatibility}
 As discussed previously the maps use xml as their data format, one of the advantages of this is that it required very little change to the data format to have incompatibility with Oleksandr Stasyk's  Terrain Generator's output format.  The Terrain generator uses various algorithms to produce a sensible looking map. Users can use these maps as a starting point for their own creation, hence this lowers the time and effort to design a map.
 
-The terrain generator is called by the editor on behalf of the user with appropriate settings\footnote{In the form of a YAML configuration file \texttt{bundle/config.yaml}} saving the user from having to configure the many options available in the terrain generator (since the terrain generator is a command line application).
+The terrain generator is called by the editor on behalf of the user with appropriate settings\footnote{In the form of a YAML configuration file \texttt{bundle/config.yaml}} saving the user from having to configure the many options available in the terrain generator (since the terrain generator is a command line application). To save the user the inconvenience of installing the libraries required by the terrain generator, I embeded them in the application and statically linked to them.
 
 \subsection{Map Rendering}
 \label{ssub:map_rendering}
