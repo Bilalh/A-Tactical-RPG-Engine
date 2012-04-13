@@ -6,7 +6,14 @@
 \label{sub:methodologies}
 The Model View Controller (MVC) design paradigm was chosen to be used to structure the project. The MVC design patten has many benefits, as discussed below.  
 
-%TODO
+Firstly the MVC patten divides the engine into three logical components, namely the model the controller and the view.  
+
+The model is where the game state is stored, containing all the relevant data relating to the players in the game and the game itself.  The controller contains the code to handle  the manipulation of the model and data conversion.
+
+\subsubsection{Advantages of MVC for this project}
+\label{ssub:advantages_of_mvc_for_this_project}
+
+The domain separation that the MVC pattern gives is useful as it encourages loose coupling between the representation of the data and the data itself. This is useful for this project since it allowed the creation of new views, using the same model. This easily supports future developments such as a mobile version of the engine.
 
 \subsection{Engine}
 The main considerations  for the engine was to make it as configurable as possible. To achieve this everything was designed in terms of interfaces, which allowed the particular implementation to be changed. The objects themselves were loaded from their serialised form on disk. 
@@ -41,7 +48,7 @@ The main use of this was for testing the hand written xml I used before the edit
 Figure \ref{fig:figures_game} shows the overview of how the created game progresses.  Each game has a number of maps where a battles takes place. After the map is loaded, any relevant dialogue is displayed, along with the winning conditions. The player's units are then placed on the map, and the battle starts\footnote{While the engine allows the user to choose where their units are placed, the GUI does not due to time constraints. The editor supports specifying the starting location for the player's units.}. If the player loses the battle, a gameover screen is shown and the game ends. In contrast if the player wins, he/she advances to the next map, if there is one.    
 
 \subsection{Game Mechanics}
-As apparent from the name of the project, a TRPG is turn-based.  There were two main choices for turns works; the first is where the players take turns to move all the units, the other method is where the next unit to move is based on some statistic such as the unit's agility. Both methods are widely used,  the first more often in games that focus on micro-management such as Civilization but there are exceptions to this such as Disgaea. 
+As apparent from the name of the project, a TRPG is turn-based.  There were two main choices for turns works; the first is where the players take turns to move all the units, the other method is where the next unit to move is based on some statistic such as the unit's agility. Both methods are widely used,  the first more often in games that focus on micro-management such as \emph{Civilization} but there are exceptions to this such as \emph{Disgaea}. 
 
 The second method has the advantage of allowing more dynamic unit ordering.  An example of how this is commonly used: A unit can get their turn quicker if they did not perform any action on their last turn. It also has the advantage of making the game flow much quicker, since the player does not have to wait too long to move their next unit. 
 
@@ -73,7 +80,7 @@ The ``Diamond'' map was chosen for the following reasons:
 \end{itemize}
 
 
-\def\tilemapSize{5in}
+\def\tilemapSize{3in}
 \begin{figure}[htbp]
 	\begin{center}
 
